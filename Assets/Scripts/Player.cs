@@ -55,9 +55,7 @@ public class Player : MonoBehaviour
     }
     
     private void Update()
-    {
-        FindObjectOfType<GameManager>().CheeseScore(0);
-        
+    {   
         if (!GameManager.isActiveAnyPanel)
         {
             movement.x = Input.GetAxis("Horizontal");
