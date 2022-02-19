@@ -63,12 +63,15 @@ public class Item : ScriptableObject
     }
     public void PassiveEffect()
     {
+        Debug.Log("PassiveEffectFunc1");
         weapons = FindObjectOfType<Weapons>();        
 
         if (name == "Чилли перец")
         {   
+            Debug.Log("ChillyPepper");
             if(Time.time >= GetNextTime() || !timeSetted)
             {
+                Debug.Log("ChillyPepper2");
                 weapons.fireball.SpawnFireball();
                 SetNextTime();
             }
@@ -81,9 +84,7 @@ public class Item : ScriptableObject
     public void SetUses(bool PlusUses,int BonusUses)
     {
         if(PlusUses)
-        {
             usesInGame += BonusUses;    
-        }
         else
             usesInGame -= BonusUses;
     }

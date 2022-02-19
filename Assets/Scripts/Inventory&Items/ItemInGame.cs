@@ -20,7 +20,7 @@ public class ItemInGame : MonoBehaviour
 
     void Update()
     {
-        if(item.GetUses() <= 0)
+        if(!item.isPassiveItem & item.GetUses() <= 0)
             Destroy(gameObject);
     }
 }

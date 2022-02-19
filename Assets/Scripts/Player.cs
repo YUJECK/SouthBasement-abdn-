@@ -67,7 +67,10 @@ public class Player : MonoBehaviour
             if (Input.GetMouseButtonDown(1) & !isSprinting)
             {
                 if(weapons[activeWeapon] != null)
+                {
                     weapons[activeWeapon].PassiveEffect();
+                    Debug.Log("Fire");
+                }
             }
             
             //Написать рывок
