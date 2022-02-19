@@ -32,20 +32,13 @@ public class PointRotation : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.position = Player.position;
+        transform.position = Player.position;
         
         if(!GetComponent<RatAttack>().is_Attack)
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             lookDir = mousePos - rb.position;
             angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - stabilizator;
-            
-            // if(angle < -150f)ds
-            //     angle = UpCords;
-
-            // if(angle > 30f)
-            //     angle = DownCords;
-            
             rb.rotation = angle;
         }
         else
