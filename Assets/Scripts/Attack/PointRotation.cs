@@ -5,13 +5,11 @@ public class PointRotation : MonoBehaviour
     public Vector2 mousePos;
     public Vector2 lookDir;
     public Rigidbody2D rb;
-    public Transform Player;
+    public Rigidbody2D Player;
     public Camera cam;
     
     public float angle;
     public float stabilizator;
-    public float UpCords;
-    public float DownCords;
     public static PointRotation instance;
 
     private void Awake()
@@ -26,13 +24,12 @@ public class PointRotation : MonoBehaviour
     }
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     void FixedUpdate()
     {
-        transform.position = Player.position;
+        rb.position = Player.position;
         
         if(!GetComponent<RatAttack>().is_Attack)
         {
