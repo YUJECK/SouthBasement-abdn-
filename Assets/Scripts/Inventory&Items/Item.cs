@@ -14,7 +14,6 @@ public class Item : ScriptableObject
     public bool isPassiveItem;
     public float useRange;
     float nextTime = 0f;
-    bool timeSetted = false;
     public int ChanceOfDrop;
     
     //Другие переменные
@@ -69,7 +68,7 @@ public class Item : ScriptableObject
         if (name == "Чилли перец")
         {   
             Debug.Log("ChillyPepper");
-            if(Time.time >= GetNextTime() || !timeSetted)
+            if(Time.time >= GetNextTime())
             {
                 Debug.Log("ChillyPepper2");
                 weapons.fireball.SpawnFireball();
@@ -107,6 +106,5 @@ public class Item : ScriptableObject
     public void SetNextTime()
     {
         nextTime = Time.time + useRange;
-        timeSetted = true;
     }
 }

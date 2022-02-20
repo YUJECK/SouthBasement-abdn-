@@ -2,12 +2,23 @@ using UnityEngine;
 
 public class PointRotation : MonoBehaviour
 {
-    public Vector3 mousePos;
-    public Vector2 lookDir;
-    public Transform Player;
-    public Transform Cursor;
-    public float angle;
-    public float stabilizator;
+    [SerializeField]
+    private Vector3 mousePos;
+
+    [SerializeField]
+    private Vector2 lookDir;
+
+    [SerializeField]
+    private Transform Player;
+
+    [SerializeField]
+    private Transform Cursor;
+
+    [SerializeField]
+    private float angle;
+
+    [SerializeField]
+    private float stabilizator;
     public static PointRotation instance;
 
     private void Awake()
@@ -37,12 +48,6 @@ public class PointRotation : MonoBehaviour
 
     public void Flip()
     {
-        base.transform.Rotate(0f,180f,0f);
-
-    // if(stabilizator == -118f)
-    //     stabilizator = -59f;
-    
-    // else if(stabilizator == -59f) 
-    //     stabilizator = -118f;
+        transform.Rotate(0f,180f,0f);
     }
 }
