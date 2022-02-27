@@ -5,13 +5,10 @@ public class MelleRangeWeapon : ScriptableObject
 {
     //О предмете
     new public string name;
-    [TextArea(3,3)]
-    public string Dicription;
-    public int uses = 10;
-    private int usesInGame;
+    [TextArea(3,3)] public string Dicription;
     public int Cost;
-    public float useRange;
-    public float attackRange;
+    [Tooltip("Attack Range")] public float useRange;
+    [Tooltip("Speed of attack")] public float attackRate;
     public int damage;
     float nextTime = 0f;
     public int ChanceOfDrop;
@@ -21,21 +18,7 @@ public class MelleRangeWeapon : ScriptableObject
     public Sprite sprite;
     public Sprite WhiteSprite;
     public Sprite[] extraSprites;
-    public void ActiveUses()
-    {
-        usesInGame = uses;
-    }
-    public void SetUses(bool PlusUses,int BonusUses)
-    {
-        if(PlusUses)
-            usesInGame += BonusUses;    
-        else
-            usesInGame -= BonusUses;
-    }
-    public int GetUses()
-    {
-        return usesInGame;
-    }
+
     public float GetNextTime()
     {
         return nextTime;

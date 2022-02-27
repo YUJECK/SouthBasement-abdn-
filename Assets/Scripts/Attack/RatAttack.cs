@@ -11,6 +11,7 @@ public class RatAttack : MonoBehaviour
     public LayerMask EnemyLayers;
     public HealthEnemy enemyHealth;
     public List<MelleRangeWeapon> melleWeaponsList;
+
     public float sp_rotation;
     private float nextTime;
     public float AttackRange;
@@ -19,7 +20,7 @@ public class RatAttack : MonoBehaviour
     public bool is_Attack;
     private Vector3 posWhenAttack;
 
-    public 
+    public int melleWeaponUse = 0;
  
     void Update()
     {
@@ -37,6 +38,14 @@ public class RatAttack : MonoBehaviour
             if(Time.time >= nextTime)
             {Sp.enabled = false;
             is_Attack = false;}
+        }
+        if(melleWeaponsList.Count != 0 & Input.GetKeyDown(KeyCode.LeftShift))
+        {            
+            melleWeaponUse++;
+            if(melleWeaponUse == melleWeaponsList.Count)
+                melleWeaponUse = 0;
+            SetMelleWeapon(melleWeaponsList[melleWeaponUse]);
+
         }
     }
     void Attack()
@@ -66,7 +75,8 @@ public class RatAttack : MonoBehaviour
 
     public void SetMelleWeapon(MelleRangeWeapon weapon)
     {
-        AttackRange = weapon.attackRange;
+        AttackRange = weapon.attackRate;
+        attackRate = weapon.attackRate;
         damage = weapon.damage;
         weaponSprite.sprite = weapon.sprite;
     }

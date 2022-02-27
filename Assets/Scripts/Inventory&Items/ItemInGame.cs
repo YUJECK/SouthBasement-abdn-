@@ -25,10 +25,7 @@ public class ItemInGame : MonoBehaviour
             if (!item.isPassiveItem) { item.ActiveUses(); }
         }
         else if(weapon != null)
-        {
             sprite.sprite = weapon.sprite;
-            weapon.ActiveUses();
-        }
     }
 
     void Update()
@@ -36,11 +33,6 @@ public class ItemInGame : MonoBehaviour
         if(item != null)
         {
             if(!item.isPassiveItem & item.GetUses() <= 0)
-                Destroy(gameObject);
-        }
-        else if(weapon != null)
-        {
-            if(item.GetUses() <= 0)
                 Destroy(gameObject);
         }
     }
