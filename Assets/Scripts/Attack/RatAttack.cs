@@ -1,14 +1,16 @@
 using UnityEngine;
-
+using System.Collections;
+using System.Collections.Generic;
 public class RatAttack : MonoBehaviour
 {
     public SpriteRenderer Sp;
+    public SpriteRenderer weaponSprite;
     public Animator anim;
     public Animator animRange;
     public Transform AttackPoint;
     public LayerMask EnemyLayers;
     public HealthEnemy enemyHealth;
-    
+    public List<MelleRangeWeapon> melleWeaponsList;
     public float sp_rotation;
     private float nextTime;
     public float AttackRange;
@@ -16,6 +18,8 @@ public class RatAttack : MonoBehaviour
     public int damage = 2;
     public bool is_Attack;
     private Vector3 posWhenAttack;
+
+    public 
  
     void Update()
     {
@@ -58,5 +62,12 @@ public class RatAttack : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
+    }
+
+    public void SetMelleWeapon(MelleRangeWeapon weapon)
+    {
+        AttackRange = weapon.attackRange;
+        damage = weapon.damage;
+        weaponSprite.sprite = weapon.sprite;
     }
 }

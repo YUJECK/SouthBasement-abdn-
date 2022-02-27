@@ -3,21 +3,20 @@ using UnityEngine.UI;
 
 public class PickUp : MonoBehaviour
 {
-    [SerializeField]
-    private Item item;
+    [SerializeField] private Item item;
+    [SerializeField] private MelleRangeWeapon weapon;
     public Trader trader;
 
-    [SerializeField]
-    private GameObject objectItem;
+    [SerializeField] private GameObject objectItem;
     private ItemInGame itemInGame;
     
-    [SerializeField]
-    public Collider2D coll;
+    [SerializeField] public Collider2D coll;
 
     [SerializeField]
     public SpriteRenderer sprite;
     [SerializeField]
     private SlotManager slot;
+    private RatAttack melleWeaponsList;
     private PlayerInventory inventory;
     public bool isOnTrigger;
 
@@ -26,14 +25,21 @@ public class PickUp : MonoBehaviour
         slot = FindObjectOfType<SlotManager>();
         inventory = FindObjectOfType<PlayerInventory>();
         itemInGame = GetComponent<ItemInGame>();
-        item = GetComponent<ItemInGame>().item;
+        melleWeaponsList = FindObjectOfType<RatAttack>();
+        if(GetComponent<ItemInGame>().item != null)
+            item = GetComponent<ItemInGame>().item;
+        else if(GetComponent<ItemInGame>().weapon != null)
+            weapon = GetComponent<ItemInGame>().weapon;
     }
 
     void OnTriggerStay2D(Collider2D oter)
     {
         if (oter.tag == "Player")
         {
-            sprite.sprite = item.WhiteSprite;
+            if(item != null)
+                sprite.sprite = item.WhiteSprite;
+            else if(weapon != null)
+                sprite.sprite = weapon.WhiteSprite;
             isOnTrigger = true;
         }
     }
@@ -42,7 +48,10 @@ public class PickUp : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            sprite.sprite = item.sprite;
+            if(item != null)
+                sprite.sprite = item.sprite;
+            else if(weapon != null)
+                sprite.sprite = weapon.sprite;
             isOnTrigger = false;
         }
     }
@@ -53,43 +62,60 @@ public class PickUp : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (itemInGame.isForTrade)
+                if(item != null)
                 {
-                    if (FindObjectOfType<GameManager>().playerCheese >= itemInGame.item.Cost)
+                    if (itemInGame.isForTrade)
                     {
-                        FindObjectOfType<GameManager>().playerCheese -= itemInGame.item.Cost;
-                        PickUpItem();
+                        if (FindObjectOfType<GameManager>().playerCheese >= itemInGame.item.Cost)
+                        {
+                            FindObjectOfType<GameManager>().playerCheese -= itemInGame.item.Cost;
+                            PickUpItem(item);
+                        }
+                        else trader.DisplayFraseNotEnoughMoney();
                     }
-                    else trader.DisplayFraseNotEnoughMoney();
+                    else
+                        PickUpItem(item);
                 }
-                else
-                    PickUpItem();
+                else if(weapon != null)
+                {
+                    PickUpItem(null,weapon);
+                }
             }
         }
     }
 
-    void PickUpItem()
+    void PickUpItem(Item _item = null, MelleRangeWeapon _weapon = null)
     {
-        if (item.isPassiveItem)
+        if(item != null)
         {
-            inventory.AddItem(item);
-            // FindObjectOfType<GameManager>().items.Remove(objectItem.gameObject);
+            if (item.isPassiveItem)
+            {
+                inventory.AddItem(item);
+                // FindObjectOfType<GameManager>().items.Remove(objectItem.gameObject);
+                coll.enabled = false;
+                objectItem.SetActive(false);
+                return;
+            }
+            if (item.CanRise == true)
+            {
+                slot.AddItem(item, objectItem);
+                // FindObjectOfType<GameManager>().items.Remove(objectItem.gameObject);
+                coll.enabled = false;
+                objectItem.SetActive(false);
+            }
+            else
+            {
+                item.Action();
+                // FindObjectOfType<GameManager>().items.Remove(objectItem.gameObject);
+                coll.enabled = false;
+            }
+        }
+        else if(weapon != null)
+        {
+            melleWeaponsList.melleWeaponsList.Add(weapon);
+            melleWeaponsList.SetMelleWeapon(weapon);
             coll.enabled = false;
             objectItem.SetActive(false);
-            return;
-        }
-        if (item.CanRise == true)
-        {
-            slot.AddItem(item, objectItem);
-            // FindObjectOfType<GameManager>().items.Remove(objectItem.gameObject);
-            coll.enabled = false;
-            objectItem.SetActive(false);
-        }
-        else
-        {
-            item.Action();
-            // FindObjectOfType<GameManager>().items.Remove(objectItem.gameObject);
-            coll.enabled = false;
         }
     }
 }

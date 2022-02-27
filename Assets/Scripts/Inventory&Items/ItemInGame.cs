@@ -4,25 +4,44 @@ using UnityEngine.UI;
 public class ItemInGame : MonoBehaviour
 {
     public Item item;
-    private Item _item;
+    public MelleRangeWeapon weapon;
     public SpriteRenderer sprite;
     public bool isForTrade;
 
     void Start()
     {
-        ActiveItem();
-        _item = item;
+        if(item != null)
+            ActiveItem(item);
+            
+        if(weapon != null)
+            ActiveItem(null,weapon);
     }
 
-    public void ActiveItem()
+    public void ActiveItem(Item _item = null, MelleRangeWeapon _weapon = null)
     {
-        sprite.sprite = item.sprite;
-        if (!item.isPassiveItem) { item.ActiveUses(); }
+        if(item != null)
+        {
+            sprite.sprite = item.sprite;
+            if (!item.isPassiveItem) { item.ActiveUses(); }
+        }
+        else if(weapon != null)
+        {
+            sprite.sprite = weapon.sprite;
+            weapon.ActiveUses();
+        }
     }
 
     void Update()
     {
-        if(!item.isPassiveItem & item.GetUses() <= 0)
-            Destroy(gameObject);
+        if(item != null)
+        {
+            if(!item.isPassiveItem & item.GetUses() <= 0)
+                Destroy(gameObject);
+        }
+        else if(weapon != null)
+        {
+            if(item.GetUses() <= 0)
+                Destroy(gameObject);
+        }
     }
 }
