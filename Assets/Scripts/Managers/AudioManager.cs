@@ -6,9 +6,9 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    public Audio[] audios;
+    public Audio[] audios; // Все аудио в игре
 
-    public static AudioManager instance;
+    public static AudioManager instance; // Синглтон
 
     void Awake()
     {
@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        foreach(Audio audio in audios)
+        foreach(Audio audio in audios) // "Активация" всех аудио
         {
             audio.source = gameObject.AddComponent<AudioSource>();
             
@@ -30,9 +30,10 @@ public class AudioManager : MonoBehaviour
             audio.source.loop = audio.loop;
         }
     }
-
+ 
     private void OnLevelWasLoaded()
     {
+        //Останавливаем все аудио при переходе на след уровень
         foreach(Audio audio in audios)
         {
             if(audio.source.isPlaying)
@@ -40,7 +41,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayClip(string name)
+    public void PlayClip(string name) //Начинает пригрывать аудио
     {  
         Audio au = null;
 
@@ -59,7 +60,7 @@ public class AudioManager : MonoBehaviour
         if(!au.source.isPlaying)
             au.source.Play();
     }
-    public void StopClip(string name)
+    public void StopClip(string name) // Останавливет аудио
     {  
         Audio au = null;
         for(int i = 0; i < audios.Length; i++)
@@ -73,7 +74,7 @@ public class AudioManager : MonoBehaviour
         else
             Debug.LogWarning("Audio " + name + " isn't plaing");
     }
-    public void StopClipWithDelay(string name)
+    public void StopClipWithDelay(string name) // Останавливает аудио послетенно уменьшая звук
     {  
         Audio au = null;
 
@@ -89,7 +90,7 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Audio " + name + " isn't plaing");
     }
 
-    private IEnumerator stopWithDelay(Audio au)
+    private IEnumerator stopWithDelay(Audio au)//Корутина для метода выше
     {
         for(int i = 0; i < 50; i++)
         {

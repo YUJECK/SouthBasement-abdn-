@@ -8,7 +8,7 @@ public class RoomGenerationManager : MonoBehaviour
 
     public int RoomsCount = 15;
     public int ExitRoomIndex;
-    public int NPCsRoomsCount => Random.Range(1,FindObjectOfType<RoomsNPCList>().NPCs.Count) + 2;
+    public int NPCsRoomsCount;
     public int NowSpawnedSimpleRooms;
     public int NowSpawnedNPCsRooms;
     public int NowSpawnedRooms;
@@ -37,6 +37,7 @@ public class RoomGenerationManager : MonoBehaviour
 
         TraderIndex = Random.Range(1,NowSpawnedNPCsRooms);
         BoxIndex = Random.Range(1,NowSpawnedNPCsRooms); 
+        NPCsRoomsCount = Random.Range(1,FindObjectOfType<RoomsNPCList>().NPCs.Count) + 2;
         
         if(BoxIndex == TraderIndex)
         {

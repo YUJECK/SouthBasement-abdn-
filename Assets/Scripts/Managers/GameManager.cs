@@ -4,19 +4,19 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int LevelCounter = 1;
-    public List<GameObject> items;
+    public int LevelCounter = 1; // Счетчик уровней
+    public List<GameObject> items; // Лист предметов
 
     [Header("Сыр и все что с ним связано")]
 
-    public int playerCheese;
-    public GameObject CheesePrefab;
-    public Text CheeseText;
+    public int playerCheese; // Счетчик сыра игрока
+    public GameObject CheesePrefab; //Префаб сыра
+    public Text CheeseText; // Счетчик сыра(В UI)
 
     [Header("Диалоги")]
-    public static bool isActiveAnyPanel = false;
+    public static bool isActiveAnyPanel = false; // Есть ли активная панель выбора(При ней игрок ничено не может делать)
 
-    public static GameManager instance;
+    public static GameManager instance; // Синглтоп
 
     private void Awake()
     {
@@ -28,11 +28,11 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-    public void SpawnCheese(GameObject Enemy)
+    public void SpawnCheese(GameObject Enemy) // Справнит сыр
     {
         Instantiate(CheesePrefab, Enemy.transform.position, CheesePrefab.transform.rotation);
     }
-    public void CheeseScore(int NewCheese)
+    public void CheeseScore(int NewCheese) // Зачисляет сыр
     {
         playerCheese += NewCheese;
         CheeseText.text = playerCheese.ToString();

@@ -16,10 +16,8 @@ public class NPCsSpawner : MonoBehaviour
     {
         if(!isSpawned)
         {
-            Debug.Log("SpawnNPC ");
             if(Npc == null)
             {
-                Debug.Log("SpawnNPC Null"); 
                 NPCSpawned = Random.Range(0,list.NPCs.Count);
                 Instantiate(list.NPCs[NPCSpawned], transform.position, transform.rotation, transform);
                 list.NPCs.Remove(list.NPCs[NPCSpawned]);
@@ -27,7 +25,6 @@ public class NPCsSpawner : MonoBehaviour
             else if(Npc != null)
             {
                 Instantiate(Npc, transform.position, transform.rotation, transform);
-                Debug.Log("Spawn Npc not null");
             }
 
             list.SpawnedNPC++;

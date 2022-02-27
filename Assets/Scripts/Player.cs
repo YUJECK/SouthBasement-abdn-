@@ -5,30 +5,30 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [Header("Movement")]
-    public Vector2 movement;
-    public float speed = 5;
-    public float sprint = 0.35f;
+    private Vector2 movement;
+    public float speed = 5; // Скорость игрока
+    public float sprint = 0.35f; //Процент увеличения скорости при спринте
 
     [HideInInspector]   
-    public bool isSprinting;
-    private float boostSpeed;
-    private float normalSpeed;
+    public bool isSprinting; // Спринтит ли игрок
+    private float boostSpeed; // Новая скорость при спринте
+    private float normalSpeed; // Обычная скорость
     
     //Items
     [Header("")]
-    public Item[] weapons;
-    private int activeWeapon = 0;
+    public Item[] weapons; // Список озужия у игрока
+    private int activeWeapon = 0; // Какой предмет сейчас используется
     
     //Графика и компонеты
-    public Collider2D sprintColl;
-    public Collider2D normalColl;
+    public Collider2D sprintColl; //Коллайдер при спринте
+    public Collider2D normalColl; // кеоллайдер при ходьбе
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer Sp;
-    private bool flippedOnRight = false;
+    private bool flippedOnRight = false; // Повернут ли игрок направо
     private Rotation rotation;
 
-    public static Player instance;
+    public static Player instance; // Синглтон
 
     private void Awake()
     {
@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
+        //Перемещение игрока на стартовую позицию
         transform.position = GameObject.FindWithTag("StartPoint").GetComponent<Transform>().position;
     }
     

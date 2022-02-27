@@ -42,7 +42,7 @@ public class Health : MonoBehaviour
             health = maxHealth;
 
         if (health <= 0)
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene("RestartMenu");
     }
     public void SetBonusHealth(int NewMaxHealth, int NewHealth)
     {

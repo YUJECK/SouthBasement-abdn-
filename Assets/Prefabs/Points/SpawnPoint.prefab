@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3474566795053242589}
   - component: {fileID: 3014388500880365805}
   - component: {fileID: 7030292636424155216}
-  - component: {fileID: 5108581144605112250}
+  - component: {fileID: 6839825954353139997}
   m_Layer: 7
   m_Name: SpawnPoint
   m_TagString: Spawner
@@ -94,8 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   room: {fileID: 0}
-  rooms: {fileID: 0}
-  nowSpawnedRooms: {fileID: 0}
+  generationManager: {fileID: 0}
   walls: {fileID: 0}
   RoomInfoObj: {fileID: 0}
   openingDirection: 1
@@ -108,7 +107,7 @@ MonoBehaviour:
   isClose: 0
   isOpen: 1
   isAnyObjOnTrigger: 0
---- !u!114 &5108581144605112250
+--- !u!114 &6839825954353139997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
