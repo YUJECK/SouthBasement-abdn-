@@ -63,8 +63,16 @@ public class Box : MonoBehaviour
     {
         for (int i = 0; i < GameManager.items.Count; i++)
         {
-            if (GameManager.items[i].GetComponent<ItemInGame>().item.ChanceOfDrop >= chance)
+            if (GameManager.items[i].GetComponent<ItemInGame>().item != null)
+            {
+                if (GameManager.items[i].GetComponent<ItemInGame>().item.ChanceOfDrop >= chance)
                 ItemsInThisChance.Add(GameManager.items[i]);
+            }
+            else if (GameManager.items[i].GetComponent<ItemInGame>().weapon != null)
+            {
+                if (GameManager.items[i].GetComponent<ItemInGame>().weapon.ChanceOfDrop >= chance)
+                ItemsInThisChance.Add(GameManager.items[i]);
+            }
         }
     }
 }
