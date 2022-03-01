@@ -2418,37 +2418,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136247514}
   m_CullTransparentMesh: 1
---- !u!1 &1198704874
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1198704875}
-  m_Layer: 0
-  m_Name: GenerattionRooms
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1198704875
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198704874}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.325714, y: -2.039627, z: 60.190094}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1046525844}
-  m_Father: {fileID: 1305201062}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1206109829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,7 +2889,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 531380263}
-  - {fileID: 1198704875}
+  - {fileID: 1046525844}
   - {fileID: 1564828606}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -4043,15 +4012,15 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1198704875}
+    m_TransformParent: {fileID: 1305201062}
     m_Modifications:
     - target: {fileID: 379805399110125401, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: ParentObject
       value: 
-      objectReference: {fileID: 1198704874}
+      objectReference: {fileID: 0}
     - target: {fileID: 880582200221083204, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_Name
-      value: All
+      value: StartRoom
       objectReference: {fileID: 0}
     - target: {fileID: 2618383140096704932, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4059,19 +4028,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3357910533913364008, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3357910533913364008, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.756653
+      value: -0.43093872
       objectReference: {fileID: 0}
     - target: {fileID: 3357910533913364008, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5688782
+      value: -1.4707489
       objectReference: {fileID: 0}
     - target: {fileID: 3357910533913364008, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.096367
+      value: 49.093727
       objectReference: {fileID: 0}
     - target: {fileID: 3357910533913364008, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4101,14 +4070,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5686250684335604921, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6637435681941967967, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: ParentObject
       value: 
-      objectReference: {fileID: 1198704874}
+      objectReference: {fileID: 0}
     - target: {fileID: 7215907954270652841, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: ParentObject
       value: 
-      objectReference: {fileID: 1198704874}
+      objectReference: {fileID: 0}
     - target: {fileID: 7478244748697214481, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -4116,7 +4089,7 @@ PrefabInstance:
     - target: {fileID: 8256890635662183200, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: ParentObject
       value: 
-      objectReference: {fileID: 1198704874}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
 --- !u!1 &1954132437
@@ -4898,7 +4871,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2, y: 1}
     newSize: {x: 2, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5029,7 +5002,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2, y: 1}
     newSize: {x: 2, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     public Collider2D normalColl; // кеоллайдер при ходьбе
     private Rigidbody2D rb;
     private Animator anim;
-    private SpriteRenderer Sp;
+    private SpriteRenderer playerSpiteRend; // Спрайт игрока
     private bool flippedOnRight = false; // Повернут ли игрок направо
     private Rotation rotation;
 
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        Sp = GetComponent<SpriteRenderer>();
+        playerSpiteRend = GetComponent<SpriteRenderer>();
         GameManager.isActiveAnyPanel = false;
         normalSpeed = speed;
     }
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
             movement.x = Input.GetAxis("Horizontal");
             movement.y = Input.GetAxis("Vertical");
 
-            Animation();
+            AnimateRun();
 
             //Использование активного предмета
             if (Input.GetMouseButtonDown(1) & !isSprinting)
@@ -78,23 +78,9 @@ public class Player : MonoBehaviour
             
             //Спринт
             if((Input.GetKeyDown(KeyCode.LeftControl))&(movement.x != 0 || movement.y != 0))
-            {
-                boostSpeed = speed + speed*sprint;
-                normalSpeed = speed;
-                speed = boostSpeed;
-                anim.SetBool("Is_Sprint", true);
-                sprintColl.enabled = true;
-                normalColl.enabled = false;
-                isSprinting = true;
-            }
+                Sprint(true);
             if(Input.GetKeyUp(KeyCode.LeftControl))
-            {
-                speed = normalSpeed;
-                sprintColl.enabled = false;
-                normalColl.enabled = true;
-                anim.SetBool("Is_Sprint", false);
-                isSprinting = false;
-            }
+                Sprint(false);
         }
         else
             anim.SetBool("Is_Run", false);
@@ -108,7 +94,7 @@ public class Player : MonoBehaviour
             rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
 
             //Поворот спрайта игрока
-            if (movement.x > 0)
+            if (movement.x > 0) 
                 rotation = Rotation.Right;
             if (movement.x < 0)
                 rotation = Rotation.Left;
@@ -119,7 +105,7 @@ public class Player : MonoBehaviour
                 Flip();  
         }   
     }
-    private void Animation()
+    private void AnimateRun()
     {
         //Анимация игрока
         if(movement.x != 0 || movement.y != 0)
@@ -127,6 +113,28 @@ public class Player : MonoBehaviour
             
         else if(movement.x == 0 && movement.y == 0)
             anim.SetBool("Is_Run", false);
+    }
+
+    private void Sprint(bool _isSprinting)
+    {
+        if(_isSprinting)
+        {
+            boostSpeed = speed + speed*sprint;
+            normalSpeed = speed;
+            speed = boostSpeed;
+            anim.SetBool("Is_Sprint", true);
+            sprintColl.enabled = true;
+            normalColl.enabled = false;
+            isSprinting = true;
+        }
+        else
+        {
+            speed = normalSpeed;
+            sprintColl.enabled = false;
+            normalColl.enabled = true;
+            anim.SetBool("Is_Sprint", false);
+            isSprinting = false;
+        }
     }
     void Flip()
     {

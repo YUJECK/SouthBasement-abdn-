@@ -69,15 +69,27 @@ public class Trader : MonoBehaviour
     {
         if (item.GetComponent<PickUp>().isOnTrigger & !isTraderTalking)
         {
-            //Eto,Ono,Stoit,Sira 
-            manager.DisplayText("Это "+item.GetComponent<ItemInGame>().item.name
-            + ". " + "Он "+ item.GetComponent<ItemInGame>().item.Dicription+". "+"Стоит " 
-            + item.GetComponent<ItemInGame>().item.Cost.ToString() + " Сыра");
+            //Eto,On,Stoit,Sira 
+            if(item.GetComponent<ItemInGame>().item != null)
+            {
+                manager.DisplayText("Это "+item.GetComponent<ItemInGame>().item.name + ". " 
+                + item.GetComponent<ItemInGame>().item.Dicription+". "
+                +"Стоит " + item.GetComponent<ItemInGame>().item.Cost.ToString() + " Сыра");
+            }
+            else if(item.GetComponent<ItemInGame>().weapon != null)
+            {
+                manager.DisplayText("Это "+item.GetComponent<ItemInGame>().weapon.name
+                + ". " + "Он "+ item.GetComponent<ItemInGame>().weapon.Dicription+". "+"Стоит " 
+                + item.GetComponent<ItemInGame>().weapon.Cost.ToString() + " Сыра");
+            }
         }
     }
     private void ActivateItem(GameObject item, int itemIndex)
     {
-        item.GetComponent<ItemInGame>().item = itemsForTrade[itemIndex].GetComponent<ItemInGame>().item;
+        if(itemsForTrade[itemIndex].GetComponent<ItemInGame>().item != null)
+            item.GetComponent<ItemInGame>().item = itemsForTrade[itemIndex].GetComponent<ItemInGame>().item;
+        else if(itemsForTrade[itemIndex].GetComponent<ItemInGame>().weapon != null)
+            item.GetComponent<ItemInGame>().weapon = itemsForTrade[itemIndex].GetComponent<ItemInGame>().weapon;
         item.GetComponent<ItemInGame>().ActiveItem();
     }
 

@@ -7,7 +7,7 @@ public class MelleRangeWeapon : ScriptableObject
     new public string name;
     [TextArea(3,3)] public string Dicription;
     public int Cost;
-    [Tooltip("Attack Range")] public float useRange;
+    [Tooltip("Attack Range")] public float attackRange;
     [Tooltip("Speed of attack")] public float attackRate;
     public int damage;
     float nextTime = 0f;
@@ -25,6 +25,6 @@ public class MelleRangeWeapon : ScriptableObject
     }
     public void SetNextTime()
     {
-        nextTime = Time.time + useRange;
+        nextTime = Time.time + attackRange;
     }
 }

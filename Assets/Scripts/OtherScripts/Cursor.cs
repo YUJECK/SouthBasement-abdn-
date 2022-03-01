@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Cursor : MonoBehaviour
 {
-    Animator anim; 
-    Vector3 tmp;
+    private Animator anim; 
+    private Vector3 tmp;
     public static Cursor instance;
 
     private void Awake()
@@ -22,21 +22,21 @@ public class Cursor : MonoBehaviour
     {
         anim = GetComponent<Animator>();
     }
-    void Update()
+    void FixedUpdate()
     {
         tmp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         tmp.z = 0f;
         transform.position = tmp;
-
-        if(Input.GetMouseButtonDown(0))
-        {
-            anim.SetTrigger("OnClick");
-            Invoke("ResetTrigger", 0.2f);
-        }
     }
 
     void ResetTrigger()
     {
         anim.ResetTrigger("OnClick");
+    }
+
+    public void CursorClick()
+    {
+        anim.SetTrigger("OnClick");
+        Invoke("ResetTrigger", 0.2f);
     }
 }

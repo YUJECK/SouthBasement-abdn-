@@ -11,7 +11,7 @@ public class RatAttack : MonoBehaviour
     public LayerMask EnemyLayers;
     public HealthEnemy enemyHealth;
     public List<MelleRangeWeapon> melleWeaponsList;
-
+    private Cursor cursor;
     public float sp_rotation;
     private float nextTime;
     public float AttackRange;
@@ -19,8 +19,12 @@ public class RatAttack : MonoBehaviour
     public int damage = 2;
     public bool is_Attack;
     private Vector3 posWhenAttack;
-
     public int melleWeaponUse = 0;
+
+    private void Start()
+    {
+        cursor = FindObjectOfType<Cursor>();
+    }
  
     void Update()
     {
@@ -29,6 +33,7 @@ public class RatAttack : MonoBehaviour
             if (Input.GetMouseButtonDown(0) & !FindObjectOfType<Player>().isSprinting)
             {
                 Attack();
+                cursor.CursorClick();
                 sp_rotation = GetComponent<Rigidbody2D>().rotation;
                 nextTime = Time.time + 1f / attackRate;
             }
@@ -68,16 +73,16 @@ public class RatAttack : MonoBehaviour
             }
         }
     }
+    public void SetMelleWeapon(MelleRangeWeapon weapon)
+    {
+        AttackRange = weapon.attackRange;
+        attackRate = weapon.attackRate;
+        damage = weapon.damage;
+        weaponSprite.sprite = weapon.sprite;
+    }
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
 
-    public void SetMelleWeapon(MelleRangeWeapon weapon)
-    {
-        AttackRange = weapon.attackRate;
-        attackRate = weapon.attackRate;
-        damage = weapon.damage;
-        weaponSprite.sprite = weapon.sprite;
-    }
 }
