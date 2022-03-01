@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 public class RatAttack : MonoBehaviour
 {
@@ -79,6 +78,7 @@ public class RatAttack : MonoBehaviour
         attackRate = weapon.attackRate;
         damage = weapon.damage;
         weaponSprite.sprite = weapon.sprite;
+        AttackPoint.localScale = new Vector3(10*weapon.attackRange/2,10*weapon.attackRange/2,1);
     }
     void OnDrawGizmosSelected()
     {
