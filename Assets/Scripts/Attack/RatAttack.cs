@@ -60,6 +60,7 @@ public class RatAttack : MonoBehaviour
         Sp.enabled = true;
         is_Attack = true;
         posWhenAttack = transform.position;
+        
         foreach (Collider2D enemy in hitEnemies)
         {
             if(enemy.tag == "Enemy")

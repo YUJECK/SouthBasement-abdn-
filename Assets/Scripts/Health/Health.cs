@@ -8,13 +8,21 @@ public class Health : MonoBehaviour
     [Range(0, 6)]
     public int health;
     public int maxHealth;
-
+    public Animator healthBar;
+    private bool invisibleCadrs = false;
     public void TakeHit(int damage)
     {
-        health -= damage;
+        if(!invisibleCadrs)
+        {
+            health -= damage;
 
-        if (health <= 0)
-            SceneManager.LoadScene("RestartMenu");  
+            invisibleCadrs = true;
+            healthBar.SetBool("InvisibleCadrs",true);
+            StartCoroutine(InvisibleCadrs());
+
+            if (health <= 0)
+                SceneManager.LoadScene("RestartMenu");  
+        }
     }
 
     public void Heal(int bonusHealth)
@@ -52,5 +60,12 @@ public class Health : MonoBehaviour
 
         if(health > maxHealth)
             health = maxHealth;
+    }
+
+    public IEnumerator InvisibleCadrs()
+    {
+        yield return new WaitForSeconds(1f);
+        invisibleCadrs = false;
+        healthBar.SetBool("InvisibleCadrs",false);
     }
 }
