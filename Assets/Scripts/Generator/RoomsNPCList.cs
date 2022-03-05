@@ -5,6 +5,7 @@ public class RoomsNPCList : MonoBehaviour
 {
     public List<GameObject> NPCs; //Лист всех нпс которые могут заспавнится на уровне
     public GameObject Trader; //Префаб торговца
+    public bool IsTraderSpawning = true; // Будет ли спавниться торговец
     public int BoxesInLevel = 1; // Определяет сколько будет коробок в уровне(пока что не используется)
     public GameObject Box; //Префаб коробки
 
@@ -37,7 +38,7 @@ public class RoomsNPCList : MonoBehaviour
             NPCRooms[generationManager.BoxIndex-1].SpawnNPC(Box);
             NPCRooms.Remove(NPCRooms[generationManager.BoxIndex-1]);    
         }
-        if(NPCRooms[generationManager.TraderIndex-1] != null)
+        if(IsTraderSpawning & NPCRooms[generationManager.TraderIndex-1] != null)
         {
             NPCRooms[generationManager.TraderIndex-1].SpawnNPC(Trader);
             NPCRooms.Remove(NPCRooms[generationManager.TraderIndex-1]);
