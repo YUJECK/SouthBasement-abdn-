@@ -39,7 +39,7 @@ public class Trader : MonoBehaviour
         ActivateItem(item2, 1); 
         ActivateItem(item3, 2); 
     }
-
+    
     private void Update()
     {
         if (item1 != null)
@@ -79,7 +79,7 @@ public class Trader : MonoBehaviour
             else if(item.GetComponent<ItemInGame>().weapon != null)
             {
                 manager.DisplayText("Это "+item.GetComponent<ItemInGame>().weapon.name
-                + ". " + "Он "+ item.GetComponent<ItemInGame>().weapon.Dicription+". "+"Стоит " 
+                + ". " + item.GetComponent<ItemInGame>().weapon.Dicription+". "+"Стоит " 
                 + item.GetComponent<ItemInGame>().weapon.Cost.ToString() + " Сыра");
             }
         }

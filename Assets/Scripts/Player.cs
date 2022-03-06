@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [Header("Movement")]
+
+    public bool isStopped;
     private Vector2 movement;
     public float speed = 5; // Скорость игрока
     public float sprint = 0.35f; //Процент увеличения скорости при спринте
@@ -90,8 +92,11 @@ public class Player : MonoBehaviour
     {
         if (!GameManager.isActiveAnyPanel)
         {
-            //Движение игрока
-            rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
+            if(!isStopped)
+            {
+                //Движение игрока
+                rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
+            }
 
             //Поворот спрайта игрока
             if (movement.x > 0) 

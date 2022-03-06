@@ -1944,6 +1944,7 @@ MonoBehaviour:
   NPCs:
   - {fileID: 629769820662793742, guid: a212ae6d68362964295c86f12348053c, type: 3}
   Trader: {fileID: 779558788892042569, guid: d356348ab4524244b94c6838340ede98, type: 3}
+  IsTraderSpawning: 1
   BoxesInLevel: 1
   Box: {fileID: 8453918043298753914, guid: 5918fc490ef16294ca42a6709b27c8b8, type: 3}
   NPCRooms: []
@@ -2442,6 +2443,12 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 1
+  - name: RatHurt
+    clip: {fileID: 8300000, guid: f71a1a65e22ae07498e8e2edb21c9385, type: 3}
+    source: {fileID: 0}
+    volume: 0.77
+    pitch: 1
+    loop: 0
 --- !u!1 &1210814598
 GameObject:
   m_ObjectHideFlags: 0
@@ -4750,6 +4757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28bd6c33c2160664fb7a61c8cc688b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStopped: 0
   speed: 3.5
   sprint: 0.45
   isSprinting: 0

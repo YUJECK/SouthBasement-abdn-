@@ -62,14 +62,23 @@ public class PickUp : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if(item != null)
+                if (itemInGame.isForTrade)
                 {
-                    if (itemInGame.isForTrade)
+                    if(itemInGame.item != null)
                     {
                         if (FindObjectOfType<GameManager>().playerCheese >= itemInGame.item.Cost)
                         {
-                            FindObjectOfType<GameManager>().playerCheese -= itemInGame.item.Cost;
+                            FindObjectOfType<GameManager>().CheeseScore(itemInGame.item.Cost*-1);
                             PickUpItem(item);
+                        }
+                        else trader.DisplayFraseNotEnoughMoney();
+                    }
+                    else if(itemInGame.weapon != null)
+                    {
+                        if (FindObjectOfType<GameManager>().playerCheese >= itemInGame.weapon.Cost)
+                        {
+                            FindObjectOfType<GameManager>().CheeseScore(itemInGame.weapon.Cost*-1);
+                            PickUpItem(null,weapon);
                         }
                         else trader.DisplayFraseNotEnoughMoney();
                     }
@@ -77,9 +86,7 @@ public class PickUp : MonoBehaviour
                         PickUpItem(item);
                 }
                 else if(weapon != null)
-                {
                     PickUpItem(null,weapon);
-                }
             }
         }
     }

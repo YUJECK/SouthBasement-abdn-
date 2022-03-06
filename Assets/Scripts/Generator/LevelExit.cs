@@ -71,6 +71,6 @@ public class LevelExit : MonoBehaviour
         SceneManager.LoadScene(LevelNames[_levelCounter]);
         LevelCounterInt++;
         FindObjectOfType<GameManager>().LevelCounter = LevelCounterInt;
-        levelCounterText.text = LevelCounterInt.ToString();
+        levelCounterText.text = "1 - " + LevelCounterInt.ToString();
     }
 }
