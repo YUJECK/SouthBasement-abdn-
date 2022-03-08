@@ -28,9 +28,9 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-    public void SpawnCheese(GameObject Enemy) // Справнит сыр
+    public void SpawnCheese(GameObject CheesePos, int cheeseCount) // Справнит сыр
     {
-        Instantiate(CheesePrefab, Enemy.transform.position, CheesePrefab.transform.rotation);
+        Instantiate(CheesePrefab, CheesePos.transform.position, CheesePrefab.transform.rotation);
     }
     public void CheeseScore(int NewCheese) // Зачисляет сыр
     {

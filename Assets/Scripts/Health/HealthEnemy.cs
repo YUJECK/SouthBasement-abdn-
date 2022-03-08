@@ -7,6 +7,9 @@ public class HealthEnemy : MonoBehaviour
     public int health;
     public int maxHealth;
     GameManager cheese;
+
+    [SerializeField] int minCheese = 0;
+    [SerializeField] int maxCheese = 5;
     public GameObject enemy;
     public RoomCloser roomCloser;
 
@@ -27,38 +30,34 @@ public class HealthEnemy : MonoBehaviour
     public void Heal(int bonusHealth)
     {
         health += bonusHealth;
+
         if(health > maxHealth)
-        {
-            health = maxHealth;
-        }        
+            health = maxHealth;     
     }
     public void SetHealth(int NewMaxHealth, int NewHealth)
     {
         maxHealth = NewMaxHealth;
         health = NewHealth;
+        
         if(health > maxHealth)
-        {
             health = maxHealth;
-        }
     }
     public void TakeAwayHealth(int TakeAwayMaxHealth, int TakeAwayHealth)
     {
         maxHealth -= TakeAwayMaxHealth;
         health -= TakeAwayHealth;
+       
         if(health > maxHealth)
-        {
             health = maxHealth;
-        }
     }
     public void SetBonusHealth(int NewMaxHealth, int NewHealth)
     {
         Debug.Log("New Health");
         maxHealth += NewMaxHealth;
         health += NewHealth;
+        
         if(health > maxHealth)
-        {
             health = maxHealth;
-        }
     }
 
     private void OnDestroy()

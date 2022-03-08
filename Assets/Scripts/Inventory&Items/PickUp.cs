@@ -85,6 +85,8 @@ public class PickUp : MonoBehaviour
                     else
                         PickUpItem(item);
                 }
+                else if(item != null)
+                    PickUpItem(item);
                 else if(weapon != null)
                     PickUpItem(null,weapon);
             }
