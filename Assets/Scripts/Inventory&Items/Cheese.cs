@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Cheese : MonoBehaviour
 {
-    [SerializeField]
-    private int cheeseScore;
+    public int cheeseScore;
     void OnTriggerStay2D(Collider2D coll)
     {
         if (coll.tag == "Player")

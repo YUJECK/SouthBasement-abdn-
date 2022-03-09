@@ -31,7 +31,7 @@ public class CameraFollow : MonoBehaviour
         GetComponent<Camera>().orthographicSize = standartValaue;
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         if(AnotherTrigger == null)
             isAnotherTrigger = false;

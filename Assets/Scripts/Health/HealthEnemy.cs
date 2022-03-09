@@ -23,7 +23,9 @@ public class HealthEnemy : MonoBehaviour
 
         if (health <= 0)
         {
-            cheese.SpawnCheese(enemy);
+            int cheeseCount = Random.Range(minCheese,maxCheese);
+            Debug.Log("CheeseInEnemy" + cheeseCount);
+            cheese.SpawnCheese(enemy, cheeseCount);
             Destroy(gameObject);
         }         
     }
@@ -55,7 +57,7 @@ public class HealthEnemy : MonoBehaviour
         Debug.Log("New Health");
         maxHealth += NewMaxHealth;
         health += NewHealth;
-        
+
         if(health > maxHealth)
             health = maxHealth;
     }
