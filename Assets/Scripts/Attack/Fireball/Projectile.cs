@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireball : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
-    public GameObject FireballEffect;
+    public GameObject ProjectileEffect;
     public int damage;
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -13,7 +11,7 @@ public class Fireball : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
             collision.gameObject.GetComponent<HealthEnemy>().TakeHit(damage);
             
-        GameObject effect = Instantiate(FireballEffect, gameObject.transform.position, Quaternion.identity);
+        GameObject effect = Instantiate(ProjectileEffect, gameObject.transform.position, Quaternion.identity);
         Destroy(effect, 0.5f);
         Destroy(gameObject);
     }

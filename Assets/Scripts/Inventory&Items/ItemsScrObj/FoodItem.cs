@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Items/UsebleItem")]
-public class Item : ScriptableObject
+[CreateAssetMenu(fileName = "New Food", menuName = "Items/FoodItem")]
+public class FoodItem : ScriptableObject
 {
     //О предмете
     new public string name;
@@ -11,13 +11,9 @@ public class Item : ScriptableObject
     private int usesInGame;
     public int Cost;
     public bool CanRise;
-    public bool isPassiveItem;
-    public float useRange;
-    float nextTime = 0f;
     public int ChanceOfDrop;
     
     //Другие переменные
-    public Weapons weapons;
     public Sprite sprite;
     public Sprite WhiteSprite;
     public Sprite[] extraSprites;
@@ -40,7 +36,7 @@ public class Item : ScriptableObject
             if(FindObjectOfType<Health>().health != FindObjectOfType<Health>().maxHealth)
             {
                 FindObjectOfType<Health>().Heal(1);
-                FindObjectOfType<InventorySlot>().sprite.sprite = extraSprites[0];
+                // FindObjectOfType<InventorySlot>().sprite.sprite = extraSprites[0];
                 usesInGame--;
             }
         }
@@ -59,22 +55,6 @@ public class Item : ScriptableObject
             sprite = extraSprites[0];
             usesInGame--;
         }
-    }
-    public void PassiveEffect()
-    {
-        Debug.Log("PassiveEffectFunc1");
-        weapons = FindObjectOfType<Weapons>();        
-
-        if (name == "Чилли перец")
-        {   
-            Debug.Log("ChillyPepper");
-            if(Time.time >= GetNextTime())
-            {
-                Debug.Log("ChillyPepper2");
-                weapons.fireball.SpawnFireball();
-                SetNextTime();
-            }
-        }   
     }
     public void ActiveUses()
     {
@@ -95,16 +75,8 @@ public class Item : ScriptableObject
     {
         if(name == "Печенье")
         {
-           if(usesInGame == 1)
-                FindObjectOfType<InventorySlot>().sprite.sprite = extraSprites[0];
+        //    if(usesInGame == 1)
+        //         // FindObjectOfType<InventorySlot>().sprite.sprite = extraSprites[0];
         }
-    }
-    public float GetNextTime()
-    {
-        return nextTime;
-    }
-    public void SetNextTime()
-    {
-        nextTime = Time.time + useRange;
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New MelleWeapon", menuName = "Items/Weapons")]
+[CreateAssetMenu(fileName = "New MelleWeapon", menuName = "Items/MelleWeapons")]
 public class MelleRangeWeapon : ScriptableObject
 {
     //О предмете

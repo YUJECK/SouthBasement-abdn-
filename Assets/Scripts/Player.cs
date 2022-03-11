@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     
     //Items
     [Header("")]
-    public Item[] weapons; // Список озужия у игрока
+    public FoodItem[] weapons; // Список озужия у игрока
     private int activeWeapon = 0; // Какой предмет сейчас используется
     
     //Графика и компонеты
@@ -67,14 +67,14 @@ public class Player : MonoBehaviour
             AnimateRun();
 
             //Использование активного предмета
-            if (Input.GetMouseButtonDown(1) & !isSprinting)
-            {
-                if(weapons[activeWeapon] != null)
-                {
-                    weapons[activeWeapon].PassiveEffect();
-                    Debug.Log("Fire");
-                }
-            }
+            // if (Input.GetMouseButtonDown(1) & !isSprinting)
+            // {
+            //     if(weapons[activeWeapon] != null)
+            //     {
+            //         weapons[activeWeapon].PassiveEffect();
+            //         Debug.Log("Fire");
+            //     }
+            // }
             
             //Написать рывок
             
