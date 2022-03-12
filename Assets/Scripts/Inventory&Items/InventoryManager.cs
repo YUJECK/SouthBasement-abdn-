@@ -5,60 +5,95 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     public List<FoodSlots> foodItems; // Слоты для еды
-    public int ActiveFoodSlot; // Номер активного слота для игры
+    public int activeFoodSlot; // Номер активного слота для игры
+
+    [Header("")]
     public List<ActiveItemsSlots> activeItems; // Слоты для активок
-    public int ActiveAciveItemSlot; // Номер активного слота для игры
+    public int activeAciveItemSlot; // Номер активного слота для игры
+    
+    [Header("")]
     public List<PassiveItemsSlots> passiveItems; // Слоты для пассивок
-    public int ActivePassiveSlot; // Номер активного слота для игры
 
     public void AddFood(FoodItem newFood) // Добавление еды в инвентарь
     {
-        if(foodItems[ActiveFoodSlot].isEmpty)
+        if(foodItems[activeFoodSlot].isEmpty)
+            foodItems[activeFoodSlot].Add(newFood);
+        else
         {
-            foodItems[ActiveFoodSlot].Add(newFood);
-            foodItems[ActiveFoodSlot].isActiveSlot = true;
+            foodItems[activeFoodSlot].Drop();
+            foodItems[activeFoodSlot].Add(newFood);
         }
     }
-    public void AddActiveItem(FoodItem newActiveItem) // Добавление активки в инвентарь
+    public void AddActiveItem(ActiveItem newActiveItem) // Добавление активки в инвентарь
     {
-        if(foodItems[ActiveAciveItemSlot].isEmpty)
+        if(activeItems[activeAciveItemSlot].isEmpty)
+            activeItems[activeAciveItemSlot].Add(newActiveItem);
+        else
         {
-            foodItems[ActiveAciveItemSlot].Add(newActiveItem);
-            foodItems[ActiveAciveItemSlot].isActiveSlot = true;
-        }
-    }
-    public void AddPassiveItem(FoodItem newPassiveItem) // Добавление пассивки в инвентарь
-    {
-        if(foodItems[ActivePassiveSlot].isEmpty)
-        {
-            foodItems[ActivePassiveSlot].Add(newPassiveItem);
-            foodItems[ActivePassiveSlot].isActiveSlot = true;
+            activeItems[activeAciveItemSlot].Drop();
+            activeItems[activeAciveItemSlot].Add(newActiveItem);
         }
     }
 
-    public void RemoveFood(bool isDrop, int slotIndex) // Добавление еды в инвентарь
+    //Удаление из инвенторя
+
+    public void RemoveFood(bool isDrop, int slotIndex) // Удаление еды в инвентарь
     {
         if(!foodItems[slotIndex].isEmpty)
         {
-            foodItems[ActiveFoodSlot].Drop();
-            foodItems[ActiveFoodSlot].isActiveSlot = true;
+            foodItems[activeFoodSlot].Drop();
+            foodItems[activeFoodSlot].isActiveSlot = true;
         }
     }
-    public void RemoveActiveItem(FoodItem newActiveItem) // Добавление активки в инвентарь
+    public void RemoveActiveItem(ActiveItem newActiveItem) // Удаление активки в инвентарь
     {
-        if(foodItems[ActiveAciveItemSlot].isEmpty)
+        if(activeItems[activeAciveItemSlot].isEmpty)
         {
-            foodItems[ActiveAciveItemSlot].Add(newActiveItem);
-            foodItems[ActiveAciveItemSlot].isActiveSlot = true;
+            activeItems[activeAciveItemSlot].Add(newActiveItem);
+            activeItems[activeAciveItemSlot].isActiveSlot = true;
         }
     }
-    public void RemovePassiveItem(FoodItem newPassiveItem) // Добавление пассивки в инвентарь
+
+
+    void Update()
     {
-        if(foodItems[ActivePassiveSlot].isEmpty)
+        if(Input.GetKeyDown(KeyCode.Tab))
         {
-            foodItems[ActivePassiveSlot].Add(newPassiveItem);
-            foodItems[ActivePassiveSlot].isActiveSlot = true;
+            activeFoodSlot++;   
+            if(activeFoodSlot > foodItems.Count-1)
+                activeFoodSlot = 0;
+            ChangeSlot("FoodSlots",activeFoodSlot);
+        }
+    // if(Input.GetKeyDown)
+    }
+
+    private void ChangeSlot(string slotsName, int slotIndex) // FoodSlots - еда, ActiveItems - актвики
+    {
+        if(slotsName == "FoodSlots")
+        {
+            for(int i = 0; i < foodItems.Count; i++)
+            {
+                if(i != activeFoodSlot)
+                {
+                    if(foodItems[i].gameObject.active)
+                        foodItems[i].gameObject.SetActive(false);
+                }
+                else
+                    foodItems[i].gameObject.SetActive(true);
+            }
+        }
+        else if(slotsName == "ActiveItems")
+        {
+            for(int i = 0; i < activeItems.Count; i++)
+            {
+                if(i != activeAciveItemSlot)
+                {
+                    if(activeItems[i].gameObject.active)
+                        activeItems[i].gameObject.SetActive(false);
+                }
+                else
+                    activeItems[i].gameObject.SetActive(true);
+            }
         }
     }
-    
 }
