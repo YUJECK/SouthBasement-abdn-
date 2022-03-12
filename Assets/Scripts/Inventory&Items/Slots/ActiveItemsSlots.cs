@@ -10,11 +10,13 @@ public class ActiveItemsSlots : MonoBehaviour
     public bool isEmpty; // Пустой ли этот слот
     public bool isActiveSlot; // Используется ли этот слот сейчас
 
-    public void Add(ActiveItem newActiveItem) // Добавеление предмета
+    public void Add(ActiveItem newActiveItem, GameObject _objectOfItem) // Добавеление предмета
     {
         if(activeItem != null)
             Drop();
+
         activeItem = newActiveItem;
+        objectOfItem = _objectOfItem;
         slotIcon.sprite = newActiveItem.sprite;
     }
 

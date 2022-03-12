@@ -14,24 +14,24 @@ public class InventoryManager : MonoBehaviour
     [Header("")]
     public List<PassiveItemsSlots> passiveItems; // Слоты для пассивок
 
-    public void AddFood(FoodItem newFood) // Добавление еды в инвентарь
+    public void AddFood(FoodItem newFood, GameObject objectOfItem) // Добавление еды в инвентарь
     {
         if(foodItems[activeFoodSlot].isEmpty)
-            foodItems[activeFoodSlot].Add(newFood);
+            foodItems[activeFoodSlot].Add(newFood,objectOfItem);
         else
         {
             foodItems[activeFoodSlot].Drop();
-            foodItems[activeFoodSlot].Add(newFood);
+            foodItems[activeFoodSlot].Add(newFood,objectOfItem);
         }
     }
-    public void AddActiveItem(ActiveItem newActiveItem) // Добавление активки в инвентарь
+    public void AddActiveItem(ActiveItem newActiveItem, GameObject objectOfItem) // Добавление активки в инвентарь
     {
         if(activeItems[activeAciveItemSlot].isEmpty)
-            activeItems[activeAciveItemSlot].Add(newActiveItem);
+            activeItems[activeAciveItemSlot].Add(newActiveItem, objectOfItem);
         else
         {
             activeItems[activeAciveItemSlot].Drop();
-            activeItems[activeAciveItemSlot].Add(newActiveItem);
+            activeItems[activeAciveItemSlot].Add(newActiveItem, objectOfItem);
         }
     }
 
@@ -40,18 +40,12 @@ public class InventoryManager : MonoBehaviour
     public void RemoveFood(bool isDrop, int slotIndex) // Удаление еды в инвентарь
     {
         if(!foodItems[slotIndex].isEmpty)
-        {
             foodItems[activeFoodSlot].Drop();
-            foodItems[activeFoodSlot].isActiveSlot = true;
-        }
     }
-    public void RemoveActiveItem(ActiveItem newActiveItem) // Удаление активки в инвентарь
+    public void RemoveActiveItem(bool isDrop, int slotIndex) // Удаление активки в инвентарь
     {
-        if(activeItems[activeAciveItemSlot].isEmpty)
-        {
-            activeItems[activeAciveItemSlot].Add(newActiveItem);
-            activeItems[activeAciveItemSlot].isActiveSlot = true;
-        }
+        if(!activeItems[slotIndex].isEmpty)
+            activeItems[activeAciveItemSlot].Drop();
     }
 
 
@@ -67,6 +61,7 @@ public class InventoryManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftAlt)) 
         {
             activeAciveItemSlot++;   
+
             if(activeAciveItemSlot > activeItems.Count-1)
                 activeAciveItemSlot = 0;
             ChangeSlot("ActiveItems",activeAciveItemSlot);

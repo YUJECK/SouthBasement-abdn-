@@ -9,12 +9,13 @@ public class FoodSlots : MonoBehaviour
     public bool isEmpty; // Используется ли этот слот сейчас
     public bool isActiveSlot; // Используется ли этот слот сейчас
 
-    public void Add(FoodItem newFood) // Добавеление предмета
+    public void Add(FoodItem newFood, GameObject _objectOfItem) // Добавеление предмета
     {
         if(food != null)
             Drop();
             
         food = newFood;
+        objectOfItem = _objectOfItem;
         slotIcon.sprite = newFood.sprite;
     }
 
@@ -22,12 +23,13 @@ public class FoodSlots : MonoBehaviour
     {
         objectOfItem.SetActive(true);
         objectOfItem.transform.position = FindObjectOfType<Player>().GetComponent<Transform>().position;
-        food = null;
+        Remove();
     }
  
     public void Remove() // Удаление предмета из слота
     {
         food = null;
+        objectOfItem = null;
         slotIcon.sprite = GameManager.hollowSprite;
     }
 }
