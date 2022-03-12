@@ -64,7 +64,14 @@ public class InventoryManager : MonoBehaviour
                 activeFoodSlot = 0;
             ChangeSlot("FoodSlots",activeFoodSlot);
         }
-    // if(Input.GetKeyDown)
+        if(Input.GetKeyDown(KeyCode.LeftAlt)) 
+        {
+            activeAciveItemSlot++;   
+            if(activeAciveItemSlot > activeItems.Count-1)
+                activeAciveItemSlot = 0;
+            ChangeSlot("ActiveItems",activeAciveItemSlot);
+        }
+
     }
 
     private void ChangeSlot(string slotsName, int slotIndex) // FoodSlots - еда, ActiveItems - актвики

@@ -19,7 +19,7 @@ public class ActiveItem : ScriptableObject
     //Другие переменные
     public Weapons weapons;
     public Sprite sprite;
-    public Sprite WhiteSprite;
+    // public Sprite WhiteSprite;
     public Sprite[] extraSprites;
 
 

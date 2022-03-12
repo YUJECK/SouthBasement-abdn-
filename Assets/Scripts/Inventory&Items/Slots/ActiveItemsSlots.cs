@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActiveItemsSlots : MonoBehaviour
 {
     public ActiveItem activeItem;   // Предмет который лежит в этом слоте
+    [SerializeField] private Image slotIcon;   // Иконка предмета который лежит в этом слоте
     public GameObject objectOfItem;   // гейм обжект этого предмета
 
     public bool isEmpty; // Пустой ли этот слот
@@ -15,6 +15,7 @@ public class ActiveItemsSlots : MonoBehaviour
         if(activeItem != null)
             Drop();
         activeItem = newActiveItem;
+        slotIcon.sprite = newActiveItem.sprite;
     }
 
     public void Drop() // Выброс предмета в игре
@@ -27,5 +28,6 @@ public class ActiveItemsSlots : MonoBehaviour
     public void Remove() // Удаление предмета из слота
     {
         activeItem = null;
+        slotIcon.sprite = GameManager.hollowSprite;
     }
 }
