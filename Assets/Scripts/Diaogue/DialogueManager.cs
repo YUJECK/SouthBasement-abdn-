@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    private Dialogue dialogue;
+    private Dialogue dialogue; // Фразы 
     public DialogueTrigger Trigger;
     public InteractivePanel panel;
     public bool isStart = true;
@@ -25,6 +25,7 @@ public class DialogueManager : MonoBehaviour
         dialogue.DialogueCloud.enabled = true;
         NameText.text = dialogue.NPC_name;
         DialogueText.text = dialogue.sentences[0];
+
         if(dialogue.InteractivePanel != null)
             ActiveInteractivePanel();
         if(ExtraSentences >= 1)
@@ -43,10 +44,9 @@ public class DialogueManager : MonoBehaviour
     public void DialogueEnd()
     {
         Trigger.dialogue.DialogueCloud.enabled = false;
+        
         if(Trigger.dialogue.InteractivePanel != null)
-        {
             Trigger.dialogue.InteractivePanel.enabled = false;
-        }
         SentencesSays = 0;
         isStart = true;
     }

@@ -10,29 +10,25 @@ public class InventoryManager : MonoBehaviour
     [Header("")]
     public List<ActiveItemsSlots> activeItems; // Слоты для активок
     public int activeAciveItemSlot; // Номер активного слота для игры
+
+    [Header("")]
+    public List<MelleWeaponSlot> melleWeapons; // Слоты для оружия ближнего боя
+    public int melleRangeActiveSlot; // Номер активного слота для игры
     
     [Header("")]
     public List<PassiveItemsSlots> passiveItems; // Слоты для пассивок
 
     public void AddFood(FoodItem newFood, GameObject objectOfItem) // Добавление еды в инвентарь
     {
-        if(foodItems[activeFoodSlot].isEmpty)
-            foodItems[activeFoodSlot].Add(newFood,objectOfItem);
-        else
-        {
-            foodItems[activeFoodSlot].Drop();
-            foodItems[activeFoodSlot].Add(newFood,objectOfItem);
-        }
+        foodItems[activeFoodSlot].Add(newFood,objectOfItem);
     }
     public void AddActiveItem(ActiveItem newActiveItem, GameObject objectOfItem) // Добавление активки в инвентарь
     {
-        if(activeItems[activeAciveItemSlot].isEmpty)
-            activeItems[activeAciveItemSlot].Add(newActiveItem, objectOfItem);
-        else
-        {
-            activeItems[activeAciveItemSlot].Drop();
-            activeItems[activeAciveItemSlot].Add(newActiveItem, objectOfItem);
-        }
+        activeItems[activeAciveItemSlot].Add(newActiveItem, objectOfItem);
+    }
+    public void AddMelleWeapon(MelleRangeWeapon newMelleWeapon, GameObject objectOfItem) // Добавление активки в инвентарь
+    {
+        melleWeapons[melleRangeActiveSlot].Add(newMelleWeapon, objectOfItem);
     }
 
     //Удаление из инвенторя
@@ -47,18 +43,22 @@ public class InventoryManager : MonoBehaviour
         if(!activeItems[slotIndex].isEmpty)
             activeItems[activeAciveItemSlot].Drop();
     }
-
-
+    public void RemoveMelleWeapon(bool isDrop, int slotIndex) // Удаление активки в инвентарь
+    {
+        if(!melleWeapons[slotIndex].isEmpty)
+            melleWeapons[melleRangeActiveSlot].Drop();
+    }
+   
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab))
+        if(Input.GetKeyDown(KeyCode.Tab)) // Смена слота с едой
         {
             activeFoodSlot++;   
             if(activeFoodSlot > foodItems.Count-1)
                 activeFoodSlot = 0;
             ChangeSlot("FoodSlots",activeFoodSlot);
         }
-        if(Input.GetKeyDown(KeyCode.LeftAlt)) 
+        if(Input.GetKeyDown(KeyCode.LeftAlt)) // Смена слота с активкой
         {
             activeAciveItemSlot++;   
 
@@ -66,12 +66,19 @@ public class InventoryManager : MonoBehaviour
                 activeAciveItemSlot = 0;
             ChangeSlot("ActiveItems",activeAciveItemSlot);
         }
+        if(Input.GetKeyDown(KeyCode.LeftShift)) // Смена слота с оружием ближнего боя
+        {
+            melleRangeActiveSlot++;   
 
+            if(melleRangeActiveSlot > melleWeapons.Count-1)
+                melleRangeActiveSlot = 0;
+            ChangeSlot("MelleRange",melleRangeActiveSlot);
+        }
     }
 
-    private void ChangeSlot(string slotsName, int slotIndex) // FoodSlots - еда, ActiveItems - актвики
+    private void ChangeSlot(string slotsName, int slotIndex) // MelleRange - ближний бой, FoodSlots - еда, ActiveItems - актвики
     {
-        if(slotsName == "FoodSlots")
+        if(slotsName == "FoodSlots") // Смена слота с едой
         {
             for(int i = 0; i < foodItems.Count; i++)
             {
@@ -84,7 +91,7 @@ public class InventoryManager : MonoBehaviour
                     foodItems[i].gameObject.SetActive(true);
             }
         }
-        else if(slotsName == "ActiveItems")
+        else if(slotsName == "ActiveItems") // Смена слота с активкой
         {
             for(int i = 0; i < activeItems.Count; i++)
             {
@@ -95,6 +102,19 @@ public class InventoryManager : MonoBehaviour
                 }
                 else
                     activeItems[i].gameObject.SetActive(true);
+            }
+        }
+        else if(slotsName == "MelleRange") // Смена слота с оружием ближнего боя
+        {
+            for(int i = 0; i < melleWeapons.Count; i++)
+            {
+                if(i != melleRangeActiveSlot)
+                {
+                    if(melleWeapons[i].gameObject.active)
+                        activeItems[i].gameObject.SetActive(false);
+                }
+                else
+                    melleWeapons[i].gameObject.SetActive(true);
             }
         }
     }
