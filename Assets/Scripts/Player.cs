@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     [Header("Movement")]
 
+    //Мувмент крысы
     public bool isStopped;
     private Vector2 movement;
     public float speed = 5; // Скорость игрока
@@ -16,11 +17,6 @@ public class Player : MonoBehaviour
     private float boostSpeed; // Новая скорость при спринте
     private float normalSpeed; // Обычная скорость
     
-    //Items
-    [Header("")]
-    public FoodItem[] weapons; // Список озужия у игрока
-    private int activeWeapon = 0; // Какой предмет сейчас используется
-    
     //Графика и компонеты
     public Collider2D sprintColl; //Коллайдер при спринте
     public Collider2D normalColl; // кеоллайдер при ходьбе
@@ -30,6 +26,9 @@ public class Player : MonoBehaviour
     private bool flippedOnRight = false; // Повернут ли игрок направо
     private Rotation rotation;
 
+
+    //Ссылки на другие скрипты
+    private RatAttack ratAttack;
     public static Player instance; // Синглтон
 
     private void Awake()
@@ -41,16 +40,14 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-    }
-    private void Start()
-    {
+
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         playerSpiteRend = GetComponent<SpriteRenderer>();
         GameManager.isActiveAnyPanel = false;
         normalSpeed = speed;
+        ratAttack = FindObjectOfType<RatAttack>();
     }
-
     private void OnLevelWasLoaded(int level)
     {
         //Перемещение игрока на стартовую позицию
@@ -64,17 +61,12 @@ public class Player : MonoBehaviour
             movement.x = Input.GetAxis("Horizontal");
             movement.y = Input.GetAxis("Vertical");
 
-            AnimateRun();
-
-            //Использование активного предмета
-            // if (Input.GetMouseButtonDown(1) & !isSprinting)
-            // {
-            //     if(weapons[activeWeapon] != null)
-            //     {
-            //         weapons[activeWeapon].PassiveEffect();
-            //         Debug.Log("Fire");
-            //     }
-            // }
+            //Анимация игрока
+            if(movement.x != 0 || movement.y != 0)
+                anim.SetBool("Is_Run", true);
+                
+            else if(movement.x == 0 && movement.y == 0)
+                anim.SetBool("Is_Run", false);
             
             //Написать рывок
             
@@ -110,15 +102,6 @@ public class Player : MonoBehaviour
                 Flip();  
         }   
     }
-    private void AnimateRun()
-    {
-        //Анимация игрока
-        if(movement.x != 0 || movement.y != 0)
-            anim.SetBool("Is_Run", true);
-            
-        else if(movement.x == 0 && movement.y == 0)
-            anim.SetBool("Is_Run", false);
-    }
 
     private void Sprint(bool _isSprinting)
     {
@@ -131,6 +114,7 @@ public class Player : MonoBehaviour
             sprintColl.enabled = true;
             normalColl.enabled = false;
             isSprinting = true;
+            ratAttack.HideMelleweaponIcon(false);
         }
         else
         {
@@ -139,6 +123,7 @@ public class Player : MonoBehaviour
             normalColl.enabled = true;
             anim.SetBool("Is_Sprint", false);
             isSprinting = false;
+            ratAttack.HideMelleweaponIcon(true); 
         }
     }
     void Flip()
@@ -147,7 +132,7 @@ public class Player : MonoBehaviour
         transform.Rotate(0f,180f,0f);
         FindObjectOfType<PointRotation>().Flip();
     }
-
+    
     enum Rotation
     {
         Left,

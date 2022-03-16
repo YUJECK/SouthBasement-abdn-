@@ -9,7 +9,6 @@ public class RatAttack : MonoBehaviour
     public Transform AttackPoint;
     public LayerMask EnemyLayers;
     public HealthEnemy enemyHealth;
-    public List<MelleRangeWeapon> melleWeaponsList;
     private Cursor cursor;
     public float sp_rotation;
     private float nextTime;
@@ -18,7 +17,6 @@ public class RatAttack : MonoBehaviour
     public int damage = 2;
     public bool is_Attack;
     private Vector3 posWhenAttack;
-    public int melleWeaponUse = 0;
 
     private void Start()
     {
@@ -43,22 +41,14 @@ public class RatAttack : MonoBehaviour
             {Sp.enabled = false;
             is_Attack = false;}
         }
-        if(melleWeaponsList.Count != 0 & Input.GetKeyDown(KeyCode.LeftShift))
-        {            
-            melleWeaponUse++;
-            if(melleWeaponUse == melleWeaponsList.Count)
-                melleWeaponUse = 0;
-            SetMelleWeapon(melleWeaponsList[melleWeaponUse]);
-
-        }
     }
     void Attack()
     {
+        is_Attack = true;
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position,AttackRange,EnemyLayers);
         anim.SetTrigger("IsAttack");
         animRange.SetTrigger("isShow");
         Sp.enabled = true;
-        is_Attack = true;
         posWhenAttack = transform.position;
         
         foreach (Collider2D enemy in hitEnemies)
@@ -81,9 +71,13 @@ public class RatAttack : MonoBehaviour
         weaponSprite.sprite = weapon.sprite;
         AttackPoint.localScale = new Vector3(10*weapon.attackRange/2,10*weapon.attackRange/2,1);
     }
+
+    public void HideMelleweaponIcon(bool hiding) // Включние, выключение спрайта оружия
+    {   
+        weaponSprite.gameObject.SetActive(!hiding);
+    }
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
-
 }

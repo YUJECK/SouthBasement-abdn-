@@ -9,17 +9,26 @@ public class ActiveItemPickUp : MonoBehaviour
     private GameManager gameManager; 
     private Trader trader; 
 
+    public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
     private bool isOnTrigger = false; // Если стоит на триггере
     private bool isWhiteSprite = false; // Стоит ли уже спрайт с обводкой
-    [SerializeField]private bool isForTrade = false; // Продается ли этот предмет
+    [SerializeField] private bool isForTrade = false; // Продается ли этот предмет
 
 
     private void Awake()
     {
-        // Ставим спрайт предмета и ищем инвентарь
-        gameObject.GetComponent<SpriteRenderer>().sprite = activeItem.sprite;
-        inventory = FindObjectOfType<InventoryManager>();
-        gameManager = FindObjectOfType<GameManager>();
+        if(activeItem == null & canDestoring)
+            Destroy(gameObject);
+        else if(!canDestoring)// Если canDestroing == false, то просто спрайт прдмета будет становиться прозрачным
+            gameObject.GetComponent<SpriteRenderer>().sprite = GameManager.hollowSprite;          
+
+        if(activeItem != null)
+        {
+            // Ставим спрайт предмета и ищем инвентарь
+            gameObject.GetComponent<SpriteRenderer>().sprite = activeItem.sprite;
+            inventory = FindObjectOfType<InventoryManager>();
+            gameManager = FindObjectOfType<GameManager>();
+        }
     } 
 
     private void OnTriggerEnter2D(Collider2D coll) 

@@ -18,6 +18,14 @@ public class InventoryManager : MonoBehaviour
     [Header("")]
     public List<PassiveItemsSlots> passiveItems; // Слоты для пассивок
 
+
+    private RatAttack ratAttack;
+
+    private void Awake()
+    {
+        ratAttack = FindObjectOfType<RatAttack>();
+    }
+
     public void AddFood(FoodItem newFood, GameObject objectOfItem) // Добавление еды в инвентарь
     {
         foodItems[activeFoodSlot].Add(newFood,objectOfItem);
@@ -29,6 +37,7 @@ public class InventoryManager : MonoBehaviour
     public void AddMelleWeapon(MelleRangeWeapon newMelleWeapon, GameObject objectOfItem) // Добавление активки в инвентарь
     {
         melleWeapons[melleRangeActiveSlot].Add(newMelleWeapon, objectOfItem);
+        ratAttack.SetMelleWeapon(melleWeapons[melleRangeActiveSlot].melleWeapon); // Ставим оружие в активное
     }
 
     //Удаление из инвенторя
@@ -80,7 +89,7 @@ public class InventoryManager : MonoBehaviour
     {
         if(slotsName == "FoodSlots") // Смена слота с едой
         {
-            for(int i = 0; i < foodItems.Count; i++)
+            for(int i = 0; i < foodItems.Count; i++)// Ищем нужный слот и оключаем не активные
             {
                 if(i != activeFoodSlot)
                 {
@@ -93,7 +102,7 @@ public class InventoryManager : MonoBehaviour
         }
         else if(slotsName == "ActiveItems") // Смена слота с активкой
         {
-            for(int i = 0; i < activeItems.Count; i++)
+            for(int i = 0; i < activeItems.Count; i++)// Ищем нужный слот и оключаем не активные
             {
                 if(i != activeAciveItemSlot)
                 {
@@ -106,16 +115,19 @@ public class InventoryManager : MonoBehaviour
         }
         else if(slotsName == "MelleRange") // Смена слота с оружием ближнего боя
         {
-            for(int i = 0; i < melleWeapons.Count; i++)
+            for(int i = 0; i < melleWeapons.Count; i++) // Ищем нужный слот и оключаем не активные
             {
                 if(i != melleRangeActiveSlot)
                 {
                     if(melleWeapons[i].gameObject.active)
-                        activeItems[i].gameObject.SetActive(false);
+                        melleWeapons[i].gameObject.SetActive(false);
                 }
                 else
                     melleWeapons[i].gameObject.SetActive(true);
             }
+
+            if(!melleWeapons[melleRangeActiveSlot].isEmpty) // Ставим оружие в активное для игрока
+                ratAttack.SetMelleWeapon(melleWeapons[melleRangeActiveSlot].melleWeapon);
         }
     }
 }

@@ -7,6 +7,7 @@ public class FoodPickUp : MonoBehaviour
     private GameManager gameManager; 
     [SerializeField] private Trader trader; 
 
+    public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
     private bool isOnTrigger = false; // Если стоит на триггере
     private bool isWhiteSprite = false; // Стоит ли уже спрайт с обводкой
     [SerializeField] private bool isForTrade = false; // Продается ли этот предмет
@@ -14,10 +15,17 @@ public class FoodPickUp : MonoBehaviour
 
     private void Awake()
     {
-        // Ставим спрайт предмета и ищем инвентарь
-        gameObject.GetComponent<SpriteRenderer>().sprite = food.sprite;
-        inventory = FindObjectOfType<InventoryManager>();
-        gameManager = FindObjectOfType<GameManager>();
+        if(food == null & canDestoring)
+            Destroy(gameObject);
+        else if(!canDestoring)// Если canDestroing == false, то просто спрайт прдмета будет становиться прозрачным
+            gameObject.GetComponent<SpriteRenderer>().sprite = GameManager.hollowSprite;      
+        if(food != null)
+        {
+            // Ставим спрайт предмета и ищем инвентарь
+            gameObject.GetComponent<SpriteRenderer>().sprite = food.sprite;
+            inventory = FindObjectOfType<InventoryManager>();
+            gameManager = FindObjectOfType<GameManager>();
+        }
     } 
 
     private void OnTriggerEnter2D(Collider2D coll) 
@@ -72,6 +80,6 @@ public class FoodPickUp : MonoBehaviour
             gameObject.SetActive(false);
         }
         else // Если не хватает сыра
-            trader.StartCoroutine("NotEnoghtMoney");
+            trader.DisplayFrase("NotEnoghtMoney");
     }
 }
