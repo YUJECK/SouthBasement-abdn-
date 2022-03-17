@@ -709,6 +709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 95727231a0856e74a8a57f6a9202e905, type: 2}
   trader: {fileID: 0}
+  canDestoring: 1
   isForTrade: 0
 --- !u!61 &239021817
 BoxCollider2D:
@@ -1329,6 +1330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   melleWeapon: {fileID: 11400000, guid: 5dbdcd9c0a584df47b1a287e25b7b6ad, type: 2}
+  canDestoring: 1
   isForTrade: 0
 --- !u!61 &533765845
 BoxCollider2D:
@@ -2009,7 +2011,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747145777}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0111, y: -0.1747, z: -181.20238}
+  m_LocalPosition: {x: -0.075, y: -0.194, z: -181.20238}
   m_LocalScale: {x: 0.76923066, y: 0.7553111, z: 1}
   m_Children: []
   m_Father: {fileID: 2142119329}
@@ -4398,6 +4400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeItem: {fileID: 0}
+  canDestoring: 1
   isForTrade: 0
 --- !u!61 &1124817868
 BoxCollider2D:
@@ -6790,7 +6793,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976297853}
   m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
-  m_LocalPosition: {x: 198.6076, y: 195.11383, z: -1}
+  m_LocalPosition: {x: 198.6076, y: 189.36, z: -1}
   m_LocalScale: {x: 1.0097677, y: 0.9903318, z: 1}
   m_Children:
   - {fileID: 2014902016}
@@ -6840,13 +6843,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   enemyHealth: {fileID: 0}
-  melleWeaponsList: []
   sp_rotation: 0
   AttackRange: 0.2
   attackRate: 2
   damage: 2
   is_Attack: 0
-  melleWeaponUse: 0
 --- !u!114 &1976297857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7452,8 +7453,6 @@ MonoBehaviour:
   speed: 3.5
   sprint: 0.45
   isSprinting: 0
-  weapons:
-  - {fileID: 0}
   sprintColl: {fileID: 2142119330}
   normalColl: {fileID: 2142119327}
 --- !u!95 &2142119325

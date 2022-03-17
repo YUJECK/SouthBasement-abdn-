@@ -18,14 +18,12 @@ public class MelleWeaponSlot : MonoBehaviour
         objectOfItem = _objectOfItem;
         slotIcon.sprite = newMelleWeapon.sprite;
     }
-
     public void Drop() // Выброс предмета в игре
     {
         objectOfItem.SetActive(true);
         objectOfItem.transform.position = FindObjectOfType<Player>().GetComponent<Transform>().position;
         Remove();
     }
- 
     public void Remove() // Удаление предмета из слота
     {
         melleWeapon = null;

@@ -113,8 +113,8 @@ public class Player : MonoBehaviour
             anim.SetBool("Is_Sprint", true);
             sprintColl.enabled = true;
             normalColl.enabled = false;
+            ratAttack.HideMelleweaponIcon(true);
             isSprinting = true;
-            ratAttack.HideMelleweaponIcon(false);
         }
         else
         {
@@ -122,8 +122,8 @@ public class Player : MonoBehaviour
             sprintColl.enabled = false;
             normalColl.enabled = true;
             anim.SetBool("Is_Sprint", false);
+            ratAttack.HideMelleweaponIcon(false); 
             isSprinting = false;
-            ratAttack.HideMelleweaponIcon(true); 
         }
     }
     void Flip()

@@ -44,9 +44,10 @@ public class DialogueManager : MonoBehaviour
     public void DialogueEnd()
     {
         Trigger.dialogue.DialogueCloud.enabled = false;
-        
+
         if(Trigger.dialogue.InteractivePanel != null)
             Trigger.dialogue.InteractivePanel.enabled = false;
+            
         SentencesSays = 0;
         isStart = true;
     }
