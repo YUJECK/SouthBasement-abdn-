@@ -87,7 +87,7 @@ public class InventoryManager : MonoBehaviour
 
     private void ChangeSlot(string slotsName, int slotIndex) // MelleRange - ближний бой, FoodSlots - еда, ActiveItems - актвики
     {
-        if(slotsName == "FoodSlots") // Смена слота с едой
+        if(slotsName == "FoodSlots") // Смена слота с едой 
         {
             for(int i = 0; i < foodItems.Count; i++)// Ищем нужный слот и оключаем не активные
             {

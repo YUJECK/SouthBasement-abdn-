@@ -17,6 +17,7 @@ public class ActiveItemsSlots : MonoBehaviour
 
         activeItem = newActiveItem;
         objectOfItem = _objectOfItem;
+        isEmpty = false;
         slotIcon.sprite = newActiveItem.sprite;
     }
 
@@ -30,6 +31,7 @@ public class ActiveItemsSlots : MonoBehaviour
     public void Remove() // Удаление предмета из слота
     {
         activeItem = null;
+        isEmpty = true;
         slotIcon.sprite = GameManager.hollowSprite;
     }
 }

@@ -16,6 +16,7 @@ public class MelleWeaponSlot : MonoBehaviour
 
         melleWeapon = newMelleWeapon;
         objectOfItem = _objectOfItem;
+        isEmpty = false;
         slotIcon.sprite = newMelleWeapon.sprite;
     }
     public void Drop() // Выброс предмета в игре
@@ -28,6 +29,7 @@ public class MelleWeaponSlot : MonoBehaviour
     {
         melleWeapon = null;
         objectOfItem = null;
+        isEmpty = true;
         slotIcon.sprite = GameManager.hollowSprite;
     }
 }

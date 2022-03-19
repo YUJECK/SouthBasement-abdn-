@@ -17,11 +17,14 @@ public class FoodPickUp : MonoBehaviour
     {
         if(food == null & canDestoring)
             Destroy(gameObject);
+
         else if(!canDestoring)// Если canDestroing == false, то просто спрайт прдмета будет становиться прозрачным
             gameObject.GetComponent<SpriteRenderer>().sprite = GameManager.hollowSprite;      
+        
         if(food != null)
         {
             // Ставим спрайт предмета и ищем инвентарь
+            food.ActiveItem();
             gameObject.GetComponent<SpriteRenderer>().sprite = food.sprite;
             inventory = FindObjectOfType<InventoryManager>();
             gameManager = FindObjectOfType<GameManager>();

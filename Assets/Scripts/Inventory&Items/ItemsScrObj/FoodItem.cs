@@ -1,4 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "New Food", menuName = "Items/FoodItem")]
 public class FoodItem : ScriptableObject
@@ -8,6 +12,7 @@ public class FoodItem : ScriptableObject
     [TextArea(3,3)]
     public string Dicription;
     public int uses;
+    public UnityEvent itemAction;
     private int usesInGame;
     public int Cost;
     public bool CanRise;
@@ -18,47 +23,64 @@ public class FoodItem : ScriptableObject
     public Sprite WhiteSprite;
     public Sprite[] extraSprites;
 
-    public void Action()
+    //Ссылки на другие скрипты
+    private Health playerHealth;
+    [HideInInspector] public FoodSlots slot;
+    private Player plaeyrController;
+
+    public void ActiveItem() // Скрипт для активации предмета
     {
-        if(name == "Энергетик")
+        playerHealth = FindObjectOfType<Health>();
+        plaeyrController = FindObjectOfType<Player>();
+        
+        usesInGame = uses;
+    }
+
+    public void PowerDrink()
+    {
+        playerHealth.TakeAwayHealth(1,1);
+        plaeyrController.speed++;
+        usesInGame--;
+    }
+
+    public void Cookie()
+    {
+        if(playerHealth.health != playerHealth.maxHealth)
         {
-            FindObjectOfType<Health>().TakeAwayHealth(1,1);
-            FindObjectOfType<Player>().speed++;
-            usesInGame--;
-        }
-        if(name == "Стакан молока")
-        {
-            FindObjectOfType<Health>().SetBonusHealth(1,0);
-            usesInGame--;
-        }
-        if(name == "Печенье")
-        {
-            if(FindObjectOfType<Health>().health != FindObjectOfType<Health>().maxHealth)
-            {
-                FindObjectOfType<Health>().Heal(1);
-                // FindObjectOfType<InventorySlot>().sprite.sprite = extraSprites[0];
-                usesInGame--;
-            }
-        }
-        if(name == "Черника")
-        {
-            if(FindObjectOfType<Health>().health != FindObjectOfType<Health>().maxHealth)
-            {
-                FindObjectOfType<Health>().Heal(1);
-                usesInGame--;
-            }
-        }
-        if(name == "Сырные палочки")
-        {
-            FindObjectOfType<Health>().TakeAwayHealth(1,1);
-            FindObjectOfType<Health>().Heal(3);
-            sprite = extraSprites[0];
+            playerHealth.Heal(1);
+            SetSprite(extraSprites[0], null, slot.slotIcon);
             usesInGame--;
         }
     }
-    public void ActiveUses()
+    public void GlassOfMilk()
     {
-        usesInGame = uses;
+        playerHealth.SetBonusHealth(1,0);
+        usesInGame--;
+    }
+
+    public void Blueberry()
+    {
+        if(playerHealth.health != playerHealth.maxHealth)
+        {
+            playerHealth.Heal(1);
+            usesInGame--;
+        }
+    }
+
+    public void CheeseSnack()
+    {
+        playerHealth.TakeAwayHealth(1,1);
+        playerHealth.Heal(3);
+        usesInGame--;
+    }
+
+    public void SetSprite(Sprite newSprite, SpriteRenderer spriteRend = null, Image image = null)
+    {
+        if(spriteRend != null)
+            spriteRend.sprite = newSprite;
+
+        if(image != null)
+            image.sprite = newSprite;
     }
     public void SetUses(bool PlusUses,int BonusUses)
     {
@@ -70,13 +92,5 @@ public class FoodItem : ScriptableObject
     public int GetUses()
     {
         return usesInGame;
-    }
-    public void SetSprite()
-    {
-        if(name == "Печенье")
-        {
-        //    if(usesInGame == 1)
-        //         // FindObjectOfType<InventorySlot>().sprite.sprite = extraSprites[0];
-        }
     }
 }
