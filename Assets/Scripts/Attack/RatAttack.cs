@@ -25,7 +25,7 @@ public class RatAttack : MonoBehaviour
  
     void Update()
     {
-        if(Time.time >= nextTime)
+        if(Time.time >= nextTime) // Атакак крысы
         {
             if (Input.GetMouseButtonDown(0) & !FindObjectOfType<Player>().isSprinting)
             {
@@ -38,18 +38,20 @@ public class RatAttack : MonoBehaviour
         if(Sp.enabled)
         {
             if(Time.time >= nextTime)
-            {Sp.enabled = false;
-            is_Attack = false;}
+            {
+                Sp.enabled = false;
+                is_Attack = false;
+            }
         }
     }
     void Attack()
     {
         is_Attack = true;
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position,AttackRange,EnemyLayers);
-        anim.SetTrigger("IsAttack");
-        animRange.SetTrigger("isShow");
         Sp.enabled = true;
         posWhenAttack = transform.position;
+        anim.SetTrigger("IsAttack");
+        animRange.SetTrigger("isShow");
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position,AttackRange,EnemyLayers);
         
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -58,7 +60,7 @@ public class RatAttack : MonoBehaviour
                 if (!enemy.isTrigger)
                 {
                     enemy.GetComponent<HealthEnemy>().TakeHit(damage);
-                    Debug.Log("Health" + enemy.GetComponent<HealthEnemy>().health);
+                    Debug.Log("Enemy health: " + enemy.GetComponent<HealthEnemy>().health);
                 }
             }
         }

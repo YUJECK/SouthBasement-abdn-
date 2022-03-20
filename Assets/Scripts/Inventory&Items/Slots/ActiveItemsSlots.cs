@@ -32,6 +32,6 @@ public class ActiveItemsSlots : MonoBehaviour
     {
         activeItem = null;
         isEmpty = true;
-        slotIcon.sprite = GameManager.hollowSprite;
+        slotIcon.sprite = FindObjectOfType<GameManager>().hollowSprite;
     }
 }

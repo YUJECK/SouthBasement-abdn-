@@ -34,7 +34,7 @@ public class PointRotation : MonoBehaviour
     void FixedUpdate()
     {
         transform.position = Player.position;
-        
+
         if(!GetComponent<RatAttack>().is_Attack)
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -44,10 +44,5 @@ public class PointRotation : MonoBehaviour
         }
         else
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, GetComponent<RatAttack>().sp_rotation));
-    }
-
-    public void Flip()
-    {
-        transform.Rotate(0f,180f,0f);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    static public Sprite hollowSprite;
+    public Sprite hollowSprite;
     public int LevelCounter = 1; // Счетчик уровней
     public List<GameObject> items; // Лист предметов
 

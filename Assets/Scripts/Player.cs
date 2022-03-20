@@ -130,7 +130,6 @@ public class Player : MonoBehaviour
     {
         flippedOnRight = !flippedOnRight;  
         transform.Rotate(0f,180f,0f);
-        FindObjectOfType<PointRotation>().Flip();
     }
     
     enum Rotation

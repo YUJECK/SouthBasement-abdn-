@@ -30,6 +30,6 @@ public class MelleWeaponSlot : MonoBehaviour
         melleWeapon = null;
         objectOfItem = null;
         isEmpty = true;
-        slotIcon.sprite = GameManager.hollowSprite;
+        slotIcon.sprite = FindObjectOfType<GameManager>().hollowSprite;
     }
 }

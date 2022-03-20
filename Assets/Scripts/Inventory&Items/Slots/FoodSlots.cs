@@ -11,17 +11,18 @@ public class FoodSlots : MonoBehaviour
 
     private void Update()
     {
-        if(isActiveSlot & !isEmpty & Input.GetKeyDown(KeyCode.Space))
+        if(!isEmpty)
         {
             if(food.GetUses() <= 0)
             {
-                Debug.Log("Uses : " + food.GetUses());
                 Destroy(objectOfItem);
                 Remove();
             }    
-                
-            food.itemAction.Invoke();
-            Debug.Log("useItem");
+            if(isActiveSlot & !isEmpty & Input.GetKeyDown(KeyCode.Space))
+            {       
+                food.itemAction.Invoke();
+                Debug.Log("useItem");
+            }
         }
     }
 
@@ -34,6 +35,7 @@ public class FoodSlots : MonoBehaviour
         isEmpty = false;
         objectOfItem = _objectOfItem;
         slotIcon.sprite = newFood.sprite;
+        food.slot = gameObject.GetComponent<FoodSlots>();  
     }
     public void Drop() // Выброс предмета в игре
     {
@@ -43,9 +45,10 @@ public class FoodSlots : MonoBehaviour
     }
     public void Remove() // Удаление предмета из слота
     {
+        food.slot = null;  
         food = null;
         objectOfItem = null;
         isEmpty = true;
-        slotIcon.sprite = GameManager.hollowSprite;
+        slotIcon.sprite = FindObjectOfType<GameManager>().hollowSprite;
     }
 }

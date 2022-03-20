@@ -20,7 +20,7 @@ public class ActiveItemPickUp : MonoBehaviour
         if(activeItem == null & canDestoring)
             Destroy(gameObject);
         else if(!canDestoring)// Если canDestroing == false, то просто спрайт прдмета будет становиться прозрачным
-            gameObject.GetComponent<SpriteRenderer>().sprite = GameManager.hollowSprite;          
+            gameObject.GetComponent<SpriteRenderer>().sprite = FindObjectOfType<GameManager>().hollowSprite;          
 
         if(activeItem != null)
         {

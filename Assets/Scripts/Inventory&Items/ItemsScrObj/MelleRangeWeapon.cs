@@ -25,6 +25,6 @@ public class MelleRangeWeapon : ScriptableObject
     }
     public void SetNextTime()
     {
-        nextTime = Time.time + attackRange;
+        nextTime = Time.time + 1f / attackRate;
     }
 }

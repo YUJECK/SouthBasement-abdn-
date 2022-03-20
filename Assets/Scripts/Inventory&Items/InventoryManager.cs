@@ -94,10 +94,16 @@ public class InventoryManager : MonoBehaviour
                 if(i != activeFoodSlot)
                 {
                     if(foodItems[i].gameObject.active)
+                    {
                         foodItems[i].gameObject.SetActive(false);
+                         foodItems[i].isActiveSlot = false;
+                    }
                 }
                 else
+                {
                     foodItems[i].gameObject.SetActive(true);
+                    foodItems[i].isActiveSlot = true;
+                }
             }
         }
         else if(slotsName == "ActiveItems") // Смена слота с активкой
@@ -107,10 +113,16 @@ public class InventoryManager : MonoBehaviour
                 if(i != activeAciveItemSlot)
                 {
                     if(activeItems[i].gameObject.active)
+                    {
                         activeItems[i].gameObject.SetActive(false);
+                        activeItems[i].isActiveSlot = false;
+                    }
                 }
                 else
+                {
                     activeItems[i].gameObject.SetActive(true);
+                    activeItems[i].isActiveSlot = true;
+                }
             }
         }
         else if(slotsName == "MelleRange") // Смена слота с оружием ближнего боя
@@ -120,10 +132,16 @@ public class InventoryManager : MonoBehaviour
                 if(i != melleRangeActiveSlot)
                 {
                     if(melleWeapons[i].gameObject.active)
+                    {
                         melleWeapons[i].gameObject.SetActive(false);
+                        melleWeapons[i].isActiveSlot = false;
+                    }
                 }
                 else
+                {
                     melleWeapons[i].gameObject.SetActive(true);
+                    melleWeapons[i].isActiveSlot = true;
+                }
             }
 
             if(!melleWeapons[melleRangeActiveSlot].isEmpty) // Ставим оружие в активное для игрока
