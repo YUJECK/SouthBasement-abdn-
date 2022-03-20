@@ -14,7 +14,6 @@ public class MelleRangeWeapon : ScriptableObject
     public int ChanceOfDrop;
     
     //Другие переменные
-    public Weapons weapons;
     public Sprite sprite;
     public Sprite WhiteSprite;
     public Sprite[] extraSprites;

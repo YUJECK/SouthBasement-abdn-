@@ -5,10 +5,26 @@ public class ActiveItemsSlots : MonoBehaviour
 {
     public ActiveItem activeItem;   // Предмет который лежит в этом слоте
     [SerializeField] private Image slotIcon;   // Иконка предмета который лежит в этом слоте
+    [SerializeField] private Slider slider;   // Иконка предмета который лежит в этом слоте
     public GameObject objectOfItem;   // гейм обжект этого предмета
 
     public bool isEmpty; // Пустой ли этот слот
     public bool isActiveSlot; // Используется ли этот слот сейчас
+
+    private void Update()
+    {
+        if(!isEmpty & isActiveSlot)
+        {
+            if(Input.GetMouseButtonDown(1) & Time.time >= activeItem.GetNextTime())
+            {
+                activeItem.ItemAction.Invoke();
+                activeItem.SetNextTime();
+                slider.maxValue = activeItem.GetNextTime() - Time.time;
+            }
+            slider.value = activeItem.GetNextTime() - Time.time;
+        }
+        
+    }
 
     public void Add(ActiveItem newActiveItem, GameObject _objectOfItem) // Добавеление предмета
     {
