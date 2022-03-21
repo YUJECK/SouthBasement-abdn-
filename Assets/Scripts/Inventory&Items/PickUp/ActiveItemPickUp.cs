@@ -7,12 +7,12 @@ public class ActiveItemPickUp : MonoBehaviour
     public ActiveItem activeItem; // Предмет
     private InventoryManager inventory; 
     private GameManager gameManager; 
-    private Trader trader; 
+    public Trader trader; 
 
     public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
     private bool isOnTrigger = false; // Если стоит на триггере
     private bool isWhiteSprite = false; // Стоит ли уже спрайт с обводкой
-    [SerializeField] private bool isForTrade = false; // Продается ли этот предмет
+    public bool isForTrade = false; // Продается ли этот предмет
 
 
     private void Awake()
@@ -79,12 +79,12 @@ public class ActiveItemPickUp : MonoBehaviour
     {
         if(gameManager.playerCheese >= activeItem.Cost)
         {
-            gameManager.playerCheese -= activeItem.Cost;
+            gameManager.CheeseScore(-activeItem.Cost);
             isForTrade = false;
             inventory.AddActiveItem(activeItem, gameObject);
             gameObject.SetActive(false);
         }
         else // Если не хватает сыра
-            trader.StartCoroutine("NotEnoghtMoney");
+            trader.StartCoroutine("А что насчёт сыра?");
     }
 }

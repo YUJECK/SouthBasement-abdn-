@@ -51,7 +51,7 @@ public class FrogPredictor : MonoBehaviour
             //����� ��������� ����� ������������ ����� ��� ��������� ��������
             if (!(SaysSentences >= dialogueManager.Trigger.dialogue.extraSentences.Length))
             {
-                FindObjectOfType<GameManager>().playerCheese -= PredictCost;
+                FindObjectOfType<GameManager>().CheeseScore(-PredictCost);
                 panel.DisablePanel();
                 if (dialogueManager.Trigger.dialogue.extraSentences.Length - SaysSentences < 3)
                 {

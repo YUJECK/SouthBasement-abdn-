@@ -5,12 +5,12 @@ public class FoodPickUp : MonoBehaviour
     public FoodItem food; // Предмет
     private InventoryManager inventory; 
     private GameManager gameManager; 
-    [SerializeField] private Trader trader; 
+    public Trader trader; 
 
     public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
     private bool isOnTrigger = false; // Если стоит на триггере
     private bool isWhiteSprite = false; // Стоит ли уже спрайт с обводкой
-    [SerializeField] private bool isForTrade = false; // Продается ли этот предмет
+    public bool isForTrade = false; // Продается ли этот предмет
 
 
     private void Awake()
@@ -77,12 +77,12 @@ public class FoodPickUp : MonoBehaviour
     {
         if(gameManager.playerCheese >= food.Cost)
         {
-            gameManager.playerCheese -= food.Cost;
+            gameManager.CheeseScore(-food.Cost);
             isForTrade = false;
             inventory.AddFood(food, gameObject);
             gameObject.SetActive(false);
         }
         else // Если не хватает сыра
-            trader.DisplayFrase("NotEnoghtMoney");
+            trader.DisplayFrase("А что насчёт сыра?");
     }
 }

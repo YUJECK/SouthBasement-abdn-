@@ -7,12 +7,12 @@ public class MelleWeaponPickUp : MonoBehaviour
     public MelleRangeWeapon melleWeapon; // Предмет
     private InventoryManager inventory; 
     private GameManager gameManager; 
-    private Trader trader; 
+    public Trader trader; 
 
     public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
     private bool isOnTrigger = false; // Если стоит на триггере
     private bool isWhiteSprite = false; // Стоит ли уже спрайт с обводкой
-    [SerializeField] private bool isForTrade = false; // Продается ли этот предмет
+    public bool isForTrade = false; // Продается ли этот предмет
 
 
     private void Awake()
@@ -76,7 +76,7 @@ public class MelleWeaponPickUp : MonoBehaviour
     {
         if(gameManager.playerCheese >= melleWeapon.Cost)
         {
-            gameManager.playerCheese -= melleWeapon.Cost;
+            gameManager.CheeseScore(-melleWeapon.Cost);
             isForTrade = false;
             inventory.AddMelleWeapon(melleWeapon, gameObject);
             gameObject.SetActive(false);
