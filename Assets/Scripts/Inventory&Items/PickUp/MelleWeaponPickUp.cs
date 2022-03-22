@@ -82,6 +82,6 @@ public class MelleWeaponPickUp : MonoBehaviour
             gameObject.SetActive(false);
         }
         else // Если не хватает сыра
-            trader.StartCoroutine("NotEnoghtMoney");
+            trader.StartCoroutine("А что насчёт сыра?");
     }
 }

@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "New ActiveWeapon", menuName = "Items/ActiveItem")]
@@ -12,6 +14,8 @@ public class ActiveItem : ScriptableObject
     public int uses;
     public int Cost;
     public float useRate;
+    public float waitTimeIfHave;
+    [HideInInspector] public bool isItemCharged = false;
     public int ChanceOfDrop;
     
     //Внутренние поля
@@ -55,6 +59,6 @@ public class ActiveItem : ScriptableObject
         if(isDamaged == 0)
             playerHealth.TakeHit(1);
 
-        methods.SpawnFireball();
+        methods.SpawnFireball();    
     }
 }

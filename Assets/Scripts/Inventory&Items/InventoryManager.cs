@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class InventoryManager : MonoBehaviour
     [Header("")]
     public List<ActiveItemsSlots> activeItems; // Слоты для активок
     public int activeAciveItemSlot; // Номер активного слота для игры
+    public Slider activeItemChargeSlider; // Визуализация зарядки активки
 
     [Header("")]
     public List<MelleWeaponSlot> melleWeapons; // Слоты для оружия ближнего боя

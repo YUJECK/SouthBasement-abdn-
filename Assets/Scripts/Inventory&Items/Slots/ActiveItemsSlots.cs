@@ -11,16 +11,50 @@ public class ActiveItemsSlots : MonoBehaviour
     public bool isEmpty; // Пустой ли этот слот
     public bool isActiveSlot; // Используется ли этот слот сейчас
 
+    private InventoryManager inventoryManager;
+
+    //Использовние активки на зажатую клавишу
+    [SerializeField] private float waitTime = 0f;
+    [SerializeField] private float startTime;
+    [SerializeField] private bool waitTimeSetted;
+                    
+    private void Start()
+    {
+        inventoryManager = FindObjectOfType<InventoryManager>();
+    }
+
     private void Update()
     {
         if(!isEmpty & isActiveSlot)
         {
-            if(Input.GetMouseButtonDown(1) & Time.time >= activeItem.GetNextTime())
+            if(activeItem.waitTimeIfHave != 0)
             {
-                activeItem.ItemAction.Invoke();
-                activeItem.SetNextTime();
-                slider.maxValue = activeItem.GetNextTime() - Time.time;
+                if(!activeItem.isItemCharged)
+                {
+                    if(Input.GetMouseButton(1) & Time.time >= activeItem.GetNextTime())
+                    {
+                        SetNewWaitTime();
+                        waitTime = Time.time - startTime;
+                        inventoryManager.activeItemChargeSlider.value = waitTime;
+
+                        if(activeItem.waitTimeIfHave <= waitTime) // Если активка зарядилась
+                            activeItem.isItemCharged = true;
+                    }
+                    else //Сброс зарядки если кнопка была отпущена
+                        ResetWaitTime();
+                }
+
+                //Использование активки после того как она зарядилась
+                if(Input.GetMouseButtonUp(1) & activeItem.isItemCharged)
+                    UseActveItem();
             }
+            else // Если заряжать активку не надо
+            {
+                if(Input.GetMouseButtonDown(1) & Time.time >= activeItem.GetNextTime())
+                    UseActveItem();
+            }
+
+            // Визуализация перезарядки активки
             slider.value = activeItem.GetNextTime() - Time.time;
         }
         
@@ -46,8 +80,37 @@ public class ActiveItemsSlots : MonoBehaviour
     
     public void Remove() // Удаление предмета из слота
     {
+        ResetWaitTime();
         activeItem = null;
         isEmpty = true;
         slotIcon.sprite = FindObjectOfType<GameManager>().hollowSprite;
+    }
+
+    private void SetNewWaitTime() // 
+    {
+        if(!waitTimeSetted)
+        {
+            inventoryManager.activeItemChargeSlider.maxValue = activeItem.waitTimeIfHave;
+            waitTime = 0f;
+            startTime = Time.time;
+            waitTimeSetted = true;
+        }
+    }
+    private void ResetWaitTime() // Сброс всех показателей зарядки
+    {
+        waitTime = 0f;
+        startTime = 0f;
+        waitTimeSetted = false;
+        activeItem.isItemCharged = false;
+        inventoryManager.activeItemChargeSlider.value = 0f;
+    }
+
+
+    private void UseActveItem()
+    {
+        activeItem.ItemAction.Invoke();
+        activeItem.SetNextTime();
+        slider.maxValue = activeItem.GetNextTime() - Time.time;
+        ResetWaitTime();    
     }
 }
