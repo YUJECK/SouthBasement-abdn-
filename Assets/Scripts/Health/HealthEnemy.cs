@@ -48,7 +48,7 @@ public class HealthEnemy : MonoBehaviour
     private IEnumerator TakeHitVizualization()
     {
         gameObject.GetComponent<SpriteRenderer>().color= new Color(255,0,0,100);
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.6f);
         gameObject.GetComponent<SpriteRenderer>().color= new Color(100,100,100,100);
     }
     public void Heal(int bonusHealth)

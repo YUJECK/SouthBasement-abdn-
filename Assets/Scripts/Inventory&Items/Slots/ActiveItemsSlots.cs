@@ -12,6 +12,7 @@ public class ActiveItemsSlots : MonoBehaviour
     public bool isActiveSlot; // Используется ли этот слот сейчас
 
     private InventoryManager inventoryManager;
+    private Player playerController;
 
     //Использовние активки на зажатую клавишу
     [SerializeField] private float waitTime = 0f;
@@ -21,13 +22,14 @@ public class ActiveItemsSlots : MonoBehaviour
     private void Start()
     {
         inventoryManager = FindObjectOfType<InventoryManager>();
+        playerController = FindObjectOfType<Player>();
     }
 
     private void Update()
     {
         if(!isEmpty & isActiveSlot)
         {
-            if(activeItem.waitTimeIfHave != 0)
+            if(activeItem.waitTimeIfHave != 0 & !playerController.isSprinting)
             {
                 if(!activeItem.isItemCharged)
                 {
@@ -48,9 +50,12 @@ public class ActiveItemsSlots : MonoBehaviour
                 if(Input.GetMouseButtonUp(1) & activeItem.isItemCharged)
                     UseActveItem();
             }
+            else if(playerController.isSprinting)
+                ResetWaitTime();
+                
             else // Если заряжать активку не надо
             {
-                if(Input.GetMouseButtonDown(1) & Time.time >= activeItem.GetNextTime())
+                if(Input.GetMouseButtonDown(1) & Time.time >= activeItem.GetNextTime() & !playerController.isSprinting)
                     UseActveItem();
             }
 
