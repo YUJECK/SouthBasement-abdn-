@@ -13,7 +13,7 @@ public class BrokenFloor : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         audioManager = FindObjectOfType<AudioManager>();
-        playerHealth = FindObjectOfType<Health>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
     void OnTriggerEnter2D(Collider2D coll)
     {

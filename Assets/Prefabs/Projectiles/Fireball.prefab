@@ -124,7 +124,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.24}
+    oldSize: {x: 1.5, y: 1.5}
     newSize: {x: 0.24, y: 0.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -146,7 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProjectileEffect: {fileID: 647335666321298409, guid: cb5222de58e9dfa4f88dcd6083830a2c, type: 3}
-  damage: 4
+  damage: 0
+  effectName: Burn
+  effectTime: 500
 --- !u!95 &4245464868161039316
 Animator:
   serializedVersion: 3

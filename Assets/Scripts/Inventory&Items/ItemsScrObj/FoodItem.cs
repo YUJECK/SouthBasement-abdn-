@@ -30,7 +30,7 @@ public class FoodItem : ScriptableObject
 
     public void ActiveItem() // Скрипт для активации предмета
     {
-        playerHealth = FindObjectOfType<Health>();
+        playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();;
         plaeyrController = FindObjectOfType<Player>();
         
         usesInGame = uses;

@@ -37,7 +37,7 @@ public class ActiveItem : ScriptableObject
     {
         methods = FindObjectOfType<ActiveItemsMethods>();
         plaeyrController = FindObjectOfType<Player>();
-        playerHealth = FindObjectOfType<Health>();
+        playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
 
         nextTime = Time.time;
         usesInGame = uses;
