@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2200479531105832777}
   - component: {fileID: 2200479531105832778}
   - component: {fileID: 2200479531105832779}
+  - component: {fileID: -3943213221245170243}
   m_Layer: 0
   m_Name: Cheese snacks
   m_TagString: Untagged
@@ -123,6 +124,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 6f1df731aaafb794ca260c3b87517f04, type: 2}
+  itemInfo: {fileID: 0}
   trader: {fileID: 0}
   canDestoring: 1
   isForTrade: 0
+--- !u!114 &-3943213221245170243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200479531105832772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cdcc8306ee99e342931abd6b961a33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: 
+  discription: 
+  cost: 0
+  chanceOfDrop: 0
+  isOnTrigger: 0

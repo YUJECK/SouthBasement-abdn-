@@ -13,14 +13,12 @@ public class Trader : MonoBehaviour
     public Transform item1Transform;
     public Transform item2Transform;
     public Transform item3Transform;
+    public List<GameObject> itemsForTrade;
 
     [Header("Sentences")]
     public bool isTraderTalking = false;
     [TextArea(1,3)]
-    public string SentenceNotEnoghtMoney;
-    [TextArea(1, 3)]
-    public string FirstMeetingTraderSentence;
-    public List<GameObject> itemsForTrade;
+    public string SentenceNotEnoghtCheese;
     
     private void Start()
     {
@@ -42,9 +40,17 @@ public class Trader : MonoBehaviour
         Instantiate(item_3,item3Transform.position,Quaternion.identity,item3Transform);
     }
     
-    public void DisplayFrase(string frase)
+    private void Update()
     {
-        manager.DisplayText(frase);
+        if(!isTraderTalking)
+        {
+            if(item1Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
+                DisplayItemInfo(item1Transform.GetChild(0).gameObject);
+            if(item2Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
+                DisplayItemInfo(item2Transform.GetChild(0).gameObject);
+            if(item3Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
+                DisplayItemInfo(item3Transform.GetChild(0).gameObject);
+        }
     }
 
     private void SetItemForTrade(GameObject item)
@@ -53,27 +59,46 @@ public class Trader : MonoBehaviour
         {
             food.isForTrade = true;
             food.trader = GetComponent<Trader>();
+            item.GetComponent<Collider2D>().offset = new Vector2(0,-0.5f);
             return;
         }
         if(item.TryGetComponent(out ActiveItemPickUp activeItem))
         {
             activeItem.isForTrade = true;
             activeItem.trader = GetComponent<Trader>();
+            item.GetComponent<Collider2D>().offset = new Vector2(0,-0.5f);
             return;
         }
-        if(item.TryGetComponent(out FoodPickUp melleRange))
+        if(item.TryGetComponent(out MelleWeaponPickUp melleWeapon))
         {
-            melleRange.isForTrade = true;
-            melleRange.trader = GetComponent<Trader>();
+            melleWeapon.isForTrade = true;
+            melleWeapon.trader = GetComponent<Trader>();
+            item.GetComponent<Collider2D>().offset = new Vector2(0,-0.5f);
             return;
         }
     }
-
-    private IEnumerator NotEnoghtMoney()
+    
+    //Торговец что то говорит
+    public void DisplayFrase(string frase, float time)
+    {
+        StartCoroutine(displayFrase(frase,time));
+    }
+    
+    //Показывает информацию о педмете
+    public void DisplayItemInfo(GameObject item)
+    {
+        manager.DisplayText(
+        "Это " + item.GetComponent<ItemInfo>().itemName + " " +
+        item.GetComponent<ItemInfo>().discription + 
+        "Стоит " + item.GetComponent<ItemInfo>().cost + "сыра");
+    }
+    
+    //Корутина для того чтобы текст оставался на определенное время
+    private IEnumerator displayFrase(string frase, float time)
     {
         isTraderTalking = true;
-        DisplayFrase(SentenceNotEnoghtMoney);
-        yield return new WaitForSeconds(3f);
+        manager.DisplayText(frase);
+        yield return new WaitForSeconds(time);
         isTraderTalking = false;
     }
 }

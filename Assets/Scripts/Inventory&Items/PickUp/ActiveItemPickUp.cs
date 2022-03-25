@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActiveItemPickUp : MonoBehaviour
 {
     public ActiveItem activeItem; // Предмет
+    public ItemInfo itemInfo; 
     private InventoryManager inventory; 
     private GameManager gameManager; 
     public Trader trader; 
@@ -30,19 +31,32 @@ public class ActiveItemPickUp : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().sprite = activeItem.sprite;
             inventory = FindObjectOfType<InventoryManager>();
             gameManager = FindObjectOfType<GameManager>();
+            itemInfo = FindObjectOfType<ItemInfo>();
+            
+            //Записываем всю информацию о предмете в ItemInfo
+            itemInfo.itemName = activeItem.name;
+            itemInfo.discription = activeItem.Dicription;
+            itemInfo.cost = activeItem.Cost;
+            itemInfo.chanceOfDrop = activeItem.ChanceOfDrop;
         }
     } 
 
     private void OnTriggerEnter2D(Collider2D coll) 
     {
         if(coll.tag == "Player")
+        {
             isOnTrigger = true;
+            itemInfo.isOnTrigger = isOnTrigger;
+        }
     }
     
     private void OnTriggerExit2D(Collider2D coll)
     {
         if(coll.tag == "Player")
+        {
             isOnTrigger = false;
+            itemInfo.isOnTrigger = isOnTrigger;
+        }
     }
 
 
@@ -85,6 +99,6 @@ public class ActiveItemPickUp : MonoBehaviour
             gameObject.SetActive(false);
         }
         else // Если не хватает сыра
-            trader.StartCoroutine("А что насчёт сыра?");
+            trader.DisplayFrase(trader.SentenceNotEnoghtCheese, 5f);
     }
 }

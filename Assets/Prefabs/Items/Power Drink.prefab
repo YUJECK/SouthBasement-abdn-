@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5587965735850919622}
   - component: {fileID: 5587965735850919623}
   - component: {fileID: 5587965735850919616}
+  - component: {fileID: -1933461395459576823}
   m_Layer: 0
   m_Name: Power drink
   m_TagString: Untagged
@@ -97,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -123,6 +124,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: 418adf5a52e90994ca2253793dad6cdf, type: 2}
+  itemInfo: {fileID: 0}
   trader: {fileID: 0}
   canDestoring: 1
   isForTrade: 0
+--- !u!114 &-1933461395459576823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587965735850919617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cdcc8306ee99e342931abd6b961a33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: 
+  discription: 
+  cost: 0
+  chanceOfDrop: 0
+  isOnTrigger: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2200479531105832777}
   - component: {fileID: 2200479531105832778}
   - component: {fileID: 2200479531105832779}
+  - component: {fileID: -2607350255491996475}
   m_Layer: 0
   m_Name: Blueberry
   m_TagString: Untagged
@@ -97,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -123,6 +124,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 11400000, guid: cec84aae88707204c9ca05b17f894d64, type: 2}
+  itemInfo: {fileID: 0}
   trader: {fileID: 0}
   canDestoring: 1
-  isForTrade: 0
+  isForTrade: 1
+--- !u!114 &-2607350255491996475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200479531105832772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cdcc8306ee99e342931abd6b961a33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: "\u0421\u0442\u0430\u043A\u0430\u043D \u043C\u043E\u043B\u043E\u043A\u0430"
+  discription: "\u041E\u043D \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442
+    \u043E\u0434\u043D\u043E \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u0435"
+  cost: 30
+  chanceOfDrop: 50
+  isOnTrigger: 1

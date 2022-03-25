@@ -3,6 +3,7 @@ using UnityEngine;
 public class FoodPickUp : MonoBehaviour
 {
     public FoodItem food; // Предмет
+    public ItemInfo itemInfo;
     private InventoryManager inventory; 
     private GameManager gameManager; 
     public Trader trader; 
@@ -28,19 +29,32 @@ public class FoodPickUp : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().sprite = food.sprite;
             inventory = FindObjectOfType<InventoryManager>();
             gameManager = FindObjectOfType<GameManager>();
+            itemInfo = FindObjectOfType<ItemInfo>();
+
+            //Записываем всю информацию о предмете в ItemInfo
+            itemInfo.itemName = food.name;
+            itemInfo.discription = food.Dicription;
+            itemInfo.cost = food.Cost;
+            itemInfo.chanceOfDrop = food.ChanceOfDrop;
         }
     } 
 
     private void OnTriggerEnter2D(Collider2D coll) 
     {
         if(coll.tag == "Player")
+        {
             isOnTrigger = true;
+            itemInfo.isOnTrigger = isOnTrigger;
+        }
     }
     
     private void OnTriggerExit2D(Collider2D coll)
     {
         if(coll.tag == "Player")
+        {
             isOnTrigger = false;
+            itemInfo.isOnTrigger = isOnTrigger;
+        }
     }
 
 
@@ -83,6 +97,6 @@ public class FoodPickUp : MonoBehaviour
             gameObject.SetActive(false);
         }
         else // Если не хватает сыра
-            trader.DisplayFrase("А что насчёт сыра?");
+            trader.DisplayFrase(trader.SentenceNotEnoghtCheese, 5f);
     }
 }

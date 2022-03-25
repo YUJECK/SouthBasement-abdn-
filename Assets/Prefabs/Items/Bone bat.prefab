@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7029180158682000808}
   - component: {fileID: 7029180158682000811}
   - component: {fileID: 7029180158682000810}
+  - component: {fileID: 9058077479162888712}
   m_Layer: 0
   m_Name: Bone bat
   m_TagString: Untagged
@@ -97,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -123,5 +124,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   melleWeapon: {fileID: 11400000, guid: 5dbdcd9c0a584df47b1a287e25b7b6ad, type: 2}
+  itemInfo: {fileID: 0}
+  trader: {fileID: 0}
   canDestoring: 1
-  isForTrade: 0
+  isForTrade: 1
+--- !u!114 &9058077479162888712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7029180158682000813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cdcc8306ee99e342931abd6b961a33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: 
+  discription: 
+  cost: 0
+  chanceOfDrop: 0
+  isOnTrigger: 0

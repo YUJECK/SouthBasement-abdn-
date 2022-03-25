@@ -17,6 +17,8 @@ public class Box : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
+        chance = Random.Range(0,101);
+        Invoke("GetAllItemInChance",3f);
     }
 
     private void OnTriggerEnter2D(Collider2D coll)
@@ -33,21 +35,39 @@ public class Box : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) & isOnTrigger)
-            OpenBox();
+        if(!isEmpty)
+        {
+            if(Input.GetKeyDown(KeyCode.E) & isOnTrigger)
+                OpenBox();
+        }
     }
 
     private void OpenBox()
     {
-        GetAllItemInChance();
         anim.SetBool("isOpen", true);
     }
 
     private void GetAllItemInChance()
     {
-        foreach(GameObject item in gameManager.items)
+        foreach(GameObject newItem in gameManager.items)
         {
-            
+            if(newItem.GetComponent<ItemInfo>().chanceOfDrop >= chance)
+            {
+                ItemsInThisChance.Add(newItem);
+                gameManager.items.Remove(newItem);
+            }
         }
+    }
+
+    public void SpawnItem()
+    {
+        if(ItemsInThisChance.Count != 0)
+        {
+            item = Instantiate(ItemsInThisChance[Random.Range(0,ItemsInThisChance.Count)],spawnPoint.position,Quaternion.identity);
+            item.SetActive(true);
+            isEmpty = true;
+        }
+        else
+            gameManager.SpawnCheese(spawnPoint,Random.Range(5,10));
     }
 }
