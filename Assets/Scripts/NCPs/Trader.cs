@@ -17,8 +17,7 @@ public class Trader : MonoBehaviour
 
     [Header("Sentences")]
     public bool isTraderTalking = false;
-    [TextArea(1,3)]
-    public string SentenceNotEnoghtCheese;
+    [TextArea(1,3)] public string SentenceNotEnoghtCheese;
     
     private void Start()
     {
@@ -38,6 +37,9 @@ public class Trader : MonoBehaviour
         gameManager.items.Remove(item_3);
         SetItemForTrade(item_3);
         Instantiate(item_3,item3Transform.position,Quaternion.identity,item3Transform);
+
+        //Делаем чтобы по началу была такая фраза
+        manager.DisplayText("Заходи, товары по низким ценам!");
     }
     
     private void Update()
@@ -46,8 +48,10 @@ public class Trader : MonoBehaviour
         {
             if(item1Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
                 DisplayItemInfo(item1Transform.GetChild(0).gameObject);
+
             if(item2Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
                 DisplayItemInfo(item2Transform.GetChild(0).gameObject);
+
             if(item3Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
                 DisplayItemInfo(item3Transform.GetChild(0).gameObject);
         }
@@ -77,7 +81,7 @@ public class Trader : MonoBehaviour
             return;
         }
     }
-    
+
     //Торговец что то говорит
     public void DisplayFrase(string frase, float time)
     {

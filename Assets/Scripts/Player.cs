@@ -26,7 +26,6 @@ public class Player : MonoBehaviour
     private bool flippedOnRight = false; // Повернут ли игрок направо
     private Rotation rotation;
 
-
     //Ссылки на другие скрипты
     private RatAttack ratAttack;
     public static Player instance; // Синглтон

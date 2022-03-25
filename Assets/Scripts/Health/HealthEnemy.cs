@@ -91,9 +91,27 @@ public class HealthEnemy : MonoBehaviour
     }
 
     //Еффекты которые могут наложиться на врага
-    public void GetBurn(float effectTime) { effectsManager.Burn.AddListener(Burn); burnTime = effectTime; burnStartTime = Time.time;}
-    public void GetPoisoned(float effectTime) { effectsManager.Poisoned.AddListener(Poisoned); poisonedTime = effectTime; poisonedStartTime = Time.time;}
-    public void GetBleed(float effectTime) { effectsManager.Bleed.AddListener(Bleed); bleedTime = effectTime; bleedStartTime = Time.time;}
+    public void GetBurn(float effectTime) 
+    { 
+        effectsManager.Burn.AddListener(Burn); 
+        burnTime = effectTime; 
+        burnStartTime = Time.time;
+        effectIndicator.sprite = gameManager.BurnIndicator;
+    }
+    public void GetPoisoned(float effectTime) 
+    { 
+        effectsManager.Poisoned.AddListener(Poisoned); 
+        poisonedTime = effectTime; 
+        poisonedStartTime = Time.time;
+        effectIndicator.sprite = gameManager.PoisonedIndicator;    
+    }
+    public void GetBleed(float effectTime) 
+    {
+        effectsManager.Bleed.AddListener(Bleed);
+        bleedTime = effectTime; 
+        bleedStartTime = Time.time;
+        effectIndicator.sprite = gameManager.BleedIndicator;
+    }
 
     public void ResetBurn() {Debug.Log("reset"); effectsManager.Burn.RemoveListener(Burn); burnTime = 0f; burnStartTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
     public void ResetPoisoned() { effectsManager.Poisoned.RemoveListener(Poisoned); poisonedTime = 0f; poisonedStartTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
@@ -101,17 +119,14 @@ public class HealthEnemy : MonoBehaviour
 
     private void Burn()
     {
-        effectIndicator.sprite = gameManager.BurnIndicator;
         TakeHit(1);
     }
     private void Poisoned()
     {
-        effectIndicator.sprite = gameManager.PoisonedIndicator;
         TakeHit(1);
     }
     private void Bleed()
     {
-        effectIndicator.sprite = gameManager.BleedIndicator;
         TakeHit(1);
     }
 
