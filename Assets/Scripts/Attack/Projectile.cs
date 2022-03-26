@@ -3,7 +3,8 @@ using UnityEngine.Events;
 
 public class Projectile : MonoBehaviour
 {
-    public GameObject ProjectileEffect;
+    [SerializeField] private GameObject ProjectileEffect;
+    [SerializeField] private float projectileEffectDuration;
     public int damage;
     [SerializeField] private string effectName = "None";
     [SerializeField] private float effectTime = 0f;
@@ -30,7 +31,7 @@ public class Projectile : MonoBehaviour
         }
             
         GameObject effect = Instantiate(ProjectileEffect, gameObject.transform.position, Quaternion.identity);
-        Destroy(effect, 0.5f);
+        Destroy(effect, projectileEffectDuration);
         Destroy(gameObject);
     }
 }
