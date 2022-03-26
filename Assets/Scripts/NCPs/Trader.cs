@@ -23,20 +23,17 @@ public class Trader : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
 
-        GameObject item_1 = gameManager.items[Random.Range(0,gameManager.items.Count)];
+        GameObject item_1 = Instantiate(gameManager.items[Random.Range(0,gameManager.items.Count)],item1Transform.position,Quaternion.identity,item1Transform);
         gameManager.items.Remove(item_1);
         SetItemForTrade(item_1);
-        Instantiate(item_1,item1Transform.position,Quaternion.identity,item1Transform);
 
-        GameObject item_2 = gameManager.items[Random.Range(0,gameManager.items.Count)];
+        GameObject item_2 = Instantiate(gameManager.items[Random.Range(0,gameManager.items.Count)],item2Transform.position,Quaternion.identity,item2Transform);
         gameManager.items.Remove(item_2);
         SetItemForTrade(item_2);
-        Instantiate(item_2,item2Transform.position,Quaternion.identity,item2Transform);
 
-        GameObject item_3 = gameManager.items[Random.Range(0,gameManager.items.Count)];
+        GameObject item_3 = Instantiate(gameManager.items[Random.Range(0,gameManager.items.Count)],item3Transform.position,Quaternion.identity,item3Transform);
         gameManager.items.Remove(item_3);
         SetItemForTrade(item_3);
-        Instantiate(item_3,item3Transform.position,Quaternion.identity,item3Transform);
 
         //Делаем чтобы по началу была такая фраза
         manager.DisplayText("Заходи, товары по низким ценам!");
@@ -92,9 +89,9 @@ public class Trader : MonoBehaviour
     public void DisplayItemInfo(GameObject item)
     {
         manager.DisplayText(
-        "Это " + item.GetComponent<ItemInfo>().itemName + " " +
-        item.GetComponent<ItemInfo>().discription + 
-        "Стоит " + item.GetComponent<ItemInfo>().cost + "сыра");
+        "Это " + item.GetComponent<ItemInfo>().itemName + ". " +
+        item.GetComponent<ItemInfo>().discription + ". " + 
+        "Стоит " + item.GetComponent<ItemInfo>().cost + " сыра");
     }
     
     //Корутина для того чтобы текст оставался на определенное время

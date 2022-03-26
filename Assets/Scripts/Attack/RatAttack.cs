@@ -9,7 +9,7 @@ public class RatAttack : MonoBehaviour
     public Transform AttackPoint;
     public LayerMask EnemyLayers;
     public HealthEnemy enemyHealth;
-    private Cursor cursor;
+    private CursorController cursor;
     public float sp_rotation;
     private float nextTime;
     public float AttackRange;
@@ -20,7 +20,7 @@ public class RatAttack : MonoBehaviour
 
     private void Start()
     {
-        cursor = FindObjectOfType<Cursor>();
+        cursor = FindObjectOfType<CursorController>();
     }
  
     void Update()

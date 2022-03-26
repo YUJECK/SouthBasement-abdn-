@@ -10,6 +10,6 @@ public class PrefabRandomizer : MonoBehaviour
     {
         int prefabIndex = Random.Range(0,prefabs.Length);
 
-        Instantiate(prefabs[prefabIndex],gameObject.transform.position, Quaternion.identity); 
+        Instantiate(prefabs[prefabIndex], gameObject.transform.position, Quaternion.identity, transform); 
     }
 }
