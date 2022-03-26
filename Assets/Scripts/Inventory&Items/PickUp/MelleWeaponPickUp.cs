@@ -84,6 +84,8 @@ public class MelleWeaponPickUp : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
+        if(isForTrade & trader == null)
+            isForTrade = false;
     }
 
     private void Trade() // Продаем предмет

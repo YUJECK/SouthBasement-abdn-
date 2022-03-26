@@ -37,6 +37,8 @@ public class FoodPickUp : MonoBehaviour
             itemInfo.cost = food.Cost;
             itemInfo.chanceOfDrop = food.ChanceOfDrop;
         }
+        if(isForTrade & trader == null)
+            isForTrade = false;
     } 
 
     private void OnTriggerEnter2D(Collider2D coll) 

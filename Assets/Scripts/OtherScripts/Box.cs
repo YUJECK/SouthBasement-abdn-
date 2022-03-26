@@ -47,14 +47,14 @@ public class Box : MonoBehaviour
         anim.SetBool("isOpen", true);
     }
 
-    private void GetAllItemInChance()
+    private async void GetAllItemInChance()
     {
-        foreach(GameObject newItem in gameManager.items)
+        for(int i = 0; i < gameManager.items.Count; i++)
         {
-            if(newItem.GetComponent<ItemInfo>().chanceOfDrop >= chance)
+            if(gameManager.items[i].GetComponent<ItemInfo>().chanceOfDrop >= chance)
             {
-                ItemsInThisChance.Add(newItem);
-                gameManager.items.Remove(newItem);
+                ItemsInThisChance.Add(gameManager.items[i]);
+                gameManager.items.Remove(gameManager.items[i]);
             }
         }
     }

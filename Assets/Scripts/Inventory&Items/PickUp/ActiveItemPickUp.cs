@@ -39,6 +39,8 @@ public class ActiveItemPickUp : MonoBehaviour
             itemInfo.cost = activeItem.Cost;
             itemInfo.chanceOfDrop = activeItem.ChanceOfDrop;
         }
+        if(isForTrade & trader == null)
+            isForTrade = false;
     } 
 
     private void OnTriggerEnter2D(Collider2D coll) 
