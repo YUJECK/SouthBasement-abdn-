@@ -8,9 +8,6 @@ public class RatInBarrel : MonoBehaviour
     private Animator anim;
 
     [SerializeField]
-    private EButton e;
-
-    [SerializeField]
     private GameObject ChillyPepper;
 
     [SerializeField]
@@ -34,7 +31,7 @@ public class RatInBarrel : MonoBehaviour
 
     private void Update()
     {
-        if (isOnTrigger)
+        if (isOnTrigger&!isItemGave)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -43,9 +40,6 @@ public class RatInBarrel : MonoBehaviour
                 isShowing = true;
             }
         }
-
-        if (isShowRat)
-            e.Disable();
 
         //�������� ������� ��������
         if(Time.time >= showTime&isShowing)
