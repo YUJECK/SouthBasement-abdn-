@@ -22,17 +22,21 @@ public class Trader : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        int tmp;
 
-        GameObject item_1 = Instantiate(gameManager.items[Random.Range(0,gameManager.items.Count)],item1Transform.position,Quaternion.identity,item1Transform);
-        gameManager.items.Remove(item_1);
+        tmp = Random.Range(0,gameManager.items.Count);
+        GameObject item_1 = Instantiate(gameManager.items[tmp],item1Transform.position,Quaternion.identity,item1Transform);
+        gameManager.items.Remove(gameManager.items[tmp]);
         SetItemForTrade(item_1);
 
-        GameObject item_2 = Instantiate(gameManager.items[Random.Range(0,gameManager.items.Count)],item2Transform.position,Quaternion.identity,item2Transform);
-        gameManager.items.Remove(item_2);
+        tmp = Random.Range(0,gameManager.items.Count);
+        GameObject item_2 = Instantiate(gameManager.items[tmp],item2Transform.position,Quaternion.identity,item2Transform);
+        gameManager.items.Remove(gameManager.items[tmp]);
         SetItemForTrade(item_2);
 
-        GameObject item_3 = Instantiate(gameManager.items[Random.Range(0,gameManager.items.Count)],item3Transform.position,Quaternion.identity,item3Transform);
-        gameManager.items.Remove(item_3);
+        tmp = Random.Range(0,gameManager.items.Count);
+        GameObject item_3 = Instantiate(gameManager.items[tmp],item3Transform.position,Quaternion.identity,item3Transform);
+        gameManager.items.Remove(gameManager.items[tmp]);
         SetItemForTrade(item_3);
 
         //Делаем чтобы по началу была такая фраза

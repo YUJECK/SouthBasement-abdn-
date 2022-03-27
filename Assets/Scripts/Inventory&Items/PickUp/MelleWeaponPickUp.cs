@@ -9,6 +9,7 @@ public class MelleWeaponPickUp : MonoBehaviour
     private InventoryManager inventory; 
     private GameManager gameManager; 
     public Trader trader; 
+    private InputManager inputManager;
 
     public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
     private bool isOnTrigger = false; // Если стоит на триггере
@@ -26,16 +27,18 @@ public class MelleWeaponPickUp : MonoBehaviour
         {
             // Ставим спрайт предмета и ищем инвентарь
             gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.sprite;
-            inventory = FindObjectOfType<InventoryManager>();
-            gameManager = FindObjectOfType<GameManager>();
             itemInfo = FindObjectOfType<ItemInfo>();
 
             //Записываем всю информацию о предмете в ItemInfo
+            itemInfo.itemTipe = "MelleRangeWeapon";
             itemInfo.itemName = melleWeapon.name;
             itemInfo.discription = melleWeapon.Dicription;
             itemInfo.cost = melleWeapon.Cost;
             itemInfo.chanceOfDrop = melleWeapon.ChanceOfDrop;
         }
+        inventory = FindObjectOfType<InventoryManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        inputManager = FindObjectOfType<InputManager>();
     } 
 
     private void OnTriggerEnter2D(Collider2D coll) 
@@ -73,7 +76,7 @@ public class MelleWeaponPickUp : MonoBehaviour
 
 
         //Поднимание прдмета
-        if(isOnTrigger & Input.GetKeyDown(KeyCode.E))
+        if(isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
             if(isForTrade)
                 Trade();

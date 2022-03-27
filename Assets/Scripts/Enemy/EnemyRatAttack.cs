@@ -6,7 +6,7 @@ public class EnemyRatAttack : MonoBehaviour
 {
     private float nextTime;
     public float attackRate = 4f;
-    public bool isOnTrigger;
+    public bool isOnTrigger; // Задаётся через EnemyCheker
     public Animator anim;
     public int HitCount = 1;
     public Rigidbody2D player;
@@ -21,19 +21,17 @@ public class EnemyRatAttack : MonoBehaviour
         if(isOnTrigger)
         {
             if (Time.time >= nextTime)
-            {
                 anim.SetTrigger("isAttack");
-                nextTime = Time.time + 1f / attackRate;
-            }
-        }
-        if (Time.time >= nextTime)
-        {
-            anim.ResetTrigger("isAttack");
         }
     }
     public void HitRat()
     {
-        //Hit the player
-        player.GetComponent<Health>().TakeHit(HitCount);
+        if(isOnTrigger)
+        {
+            //Бьём врага
+            player.GetComponent<Health>().TakeHit(HitCount);
+            nextTime = Time.time + 1f / attackRate;
+        }
+        anim.ResetTrigger("isAttack");
     }
 }

@@ -22,10 +22,12 @@ public class InventoryManager : MonoBehaviour
 
 
     private RatAttack ratAttack;
+    private InputManager inputManager;
 
     private void Awake()
     {
         ratAttack = FindObjectOfType<RatAttack>();
+        inputManager = FindObjectOfType<InputManager>();
     }
 
     public void AddFood(FoodItem newFood, GameObject objectOfItem) // Добавление еды в инвентарь
@@ -62,14 +64,14 @@ public class InventoryManager : MonoBehaviour
    
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab)) // Смена слота с едой
+        if(Input.GetKeyDown(inputManager.FoodChangeButton)) // Смена слота с едой
         {
             activeFoodSlot++;   
             if(activeFoodSlot > foodItems.Count-1)
                 activeFoodSlot = 0;
             ChangeSlot("FoodSlots",activeFoodSlot);
         }
-        if(Input.GetKeyDown(KeyCode.LeftAlt)) // Смена слота с активкой
+        if(Input.GetKeyDown(inputManager.ActiveItemChangeButton)) // Смена слота с активкой
         {
             activeAciveItemSlot++;   
 
@@ -77,7 +79,7 @@ public class InventoryManager : MonoBehaviour
                 activeAciveItemSlot = 0;
             ChangeSlot("ActiveItems",activeAciveItemSlot);
         }
-        if(Input.GetKeyDown(KeyCode.LeftShift)) // Смена слота с оружием ближнего боя
+        if(Input.GetKeyDown(inputManager.MelleWeaponChangeButton)) // Смена слота с оружием ближнего боя
         {
             melleRangeActiveSlot++;   
 

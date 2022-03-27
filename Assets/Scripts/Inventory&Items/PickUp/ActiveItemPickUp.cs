@@ -8,6 +8,7 @@ public class ActiveItemPickUp : MonoBehaviour
     public ItemInfo itemInfo; 
     private InventoryManager inventory; 
     private GameManager gameManager; 
+    private InputManager inputManager;
     public Trader trader; 
 
     public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
@@ -29,11 +30,10 @@ public class ActiveItemPickUp : MonoBehaviour
             // Ставим спрайт предмета и ищем инвентарь
             activeItem.ActivateItem();
             gameObject.GetComponent<SpriteRenderer>().sprite = activeItem.sprite;
-            inventory = FindObjectOfType<InventoryManager>();
-            gameManager = FindObjectOfType<GameManager>();
             itemInfo = FindObjectOfType<ItemInfo>();
             
             //Записываем всю информацию о предмете в ItemInfo
+            itemInfo.itemTipe = "ActiveItem";
             itemInfo.itemName = activeItem.name;
             itemInfo.discription = activeItem.Dicription;
             itemInfo.cost = activeItem.Cost;
@@ -41,6 +41,10 @@ public class ActiveItemPickUp : MonoBehaviour
         }
         if(isForTrade & trader == null)
             isForTrade = false;
+        
+        inventory = FindObjectOfType<InventoryManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        inputManager = FindObjectOfType<InputManager>();
     } 
 
     private void OnTriggerEnter2D(Collider2D coll) 
@@ -78,7 +82,7 @@ public class ActiveItemPickUp : MonoBehaviour
 
 
         //Поднимание прдмета
-        if(isOnTrigger & Input.GetKeyDown(KeyCode.E))
+        if(isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
             if(isForTrade)
                 Trade();

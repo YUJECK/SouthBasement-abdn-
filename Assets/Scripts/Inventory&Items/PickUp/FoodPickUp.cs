@@ -7,7 +7,7 @@ public class FoodPickUp : MonoBehaviour
     private InventoryManager inventory; 
     private GameManager gameManager; 
     public Trader trader; 
-
+    public InputManager inputManager;
     public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
     private bool isOnTrigger = false; // Если стоит на триггере
     private bool isWhiteSprite = false; // Стоит ли уже спрайт с обводкой
@@ -27,11 +27,10 @@ public class FoodPickUp : MonoBehaviour
             // Ставим спрайт предмета и ищем инвентарь
             food.ActiveItem();
             gameObject.GetComponent<SpriteRenderer>().sprite = food.sprite;
-            inventory = FindObjectOfType<InventoryManager>();
-            gameManager = FindObjectOfType<GameManager>();
             itemInfo = FindObjectOfType<ItemInfo>();
 
             //Записываем всю информацию о предмете в ItemInfo
+            itemInfo.itemTipe = "Food";
             itemInfo.itemName = food.name;
             itemInfo.discription = food.Dicription;
             itemInfo.cost = food.Cost;
@@ -39,6 +38,10 @@ public class FoodPickUp : MonoBehaviour
         }
         if(isForTrade & trader == null)
             isForTrade = false;
+
+        inventory = FindObjectOfType<InventoryManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        inputManager = FindObjectOfType<InputManager>();
     } 
 
     private void OnTriggerEnter2D(Collider2D coll) 
@@ -76,7 +79,7 @@ public class FoodPickUp : MonoBehaviour
 
 
         //Поднимание прдмета
-        if(isOnTrigger & Input.GetKeyDown(KeyCode.E))
+        if(isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
             if(isForTrade)
                 Trade();

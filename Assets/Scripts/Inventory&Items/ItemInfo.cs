@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemInfo : MonoBehaviour
 {
     public string itemName;
+    public string itemTipe;
     public string discription;
     public int cost;
     public int chanceOfDrop;
