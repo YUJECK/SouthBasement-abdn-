@@ -59,6 +59,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void Restart()
     {
-        SceneManager.LoadScene("FirstLevelBasement");
+        SceneManager.LoadScene("RatHole");
+        Resume();
     }
 }
