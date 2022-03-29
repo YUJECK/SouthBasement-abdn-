@@ -12,12 +12,21 @@ public class RatConsole : MonoBehaviour
     }
     public static void DisplayText(string text)
     {
-        if (MessegesCount > 18)
+        if(ConsoleText != null)
         {
-            ConsoleText.text = "";
-            MessegesCount = 0;
+            if (MessegesCount > 18)
+            {
+                ConsoleText.text = "";
+                MessegesCount = 0;
+            }
+            ConsoleText.text += "\n" + "<Console> " + text;
+            MessegesCount++;
         }
-        ConsoleText.text += "\n" + "<Console> " + text;
-        MessegesCount++;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftAlt))
+            gameObject.SetActive(!gameObject.active);
     }
 }

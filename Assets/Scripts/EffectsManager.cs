@@ -13,7 +13,7 @@ public class EffectsManager : MonoBehaviour
     public UnityEvent Poisoned = new UnityEvent();
     private float nextTimePoisoned;
     
-    [SerializeField] private float bleedRate = 0.5f;
+    [SerializeField] private float bleedRate = 0.3f;
     public UnityEvent Bleed = new UnityEvent();
     private float nextTimeBleed;
 

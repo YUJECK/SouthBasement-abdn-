@@ -5,7 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("FirstLevelBasement");
+        SceneManager.LoadScene("RatHole");
     }
     public void QuitGame()
     {

@@ -8,14 +8,14 @@ public class Player : MonoBehaviour
 
     //Мувмент крысы
     public bool isStopped;
-    private Vector2 movement;
-    public float speed = 5; // Скорость игрока
+    [SerializeField]private Vector2 movement;
+    public float speed = 5f; // Скорость игрока
     public float sprint = 0.35f; //Процент увеличения скорости при спринте
 
     [HideInInspector]   
     public bool isSprinting; // Спринтит ли игрок
     private float boostSpeed; // Новая скорость при спринте
-    private float normalSpeed; // Обычная скорость
+    private float normalSpeed = 5f; // Обычная скорость
     
     //Графика и компонеты
     public Collider2D sprintColl; //Коллайдер при спринте
@@ -70,10 +70,10 @@ public class Player : MonoBehaviour
             //Написать рывок
             
             //Спринт
-            if((Input.GetKeyDown(KeyCode.LeftControl))&(movement.x != 0 || movement.y != 0))
-                Sprint(true);
-            if(Input.GetKeyUp(KeyCode.LeftControl))
-                Sprint(false);
+            if((!isSprinting & Input.GetKeyDown(KeyCode.LeftControl))&(movement.x != 0 || movement.y != 0))
+                Sprint();
+            if(isSprinting & Input.GetKeyUp(KeyCode.LeftControl))
+                Sprint();
         }
         else
             anim.SetBool("Is_Run", false);
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
             if(!isStopped)
             {
                 //Движение игрока
-                rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
+                rb.velocity = new Vector2(movement.x  * (speed*100) * Time.deltaTime, movement.y * (speed*100) * Time.deltaTime);
             }
 
             //Поворот спрайта игрока
@@ -102,9 +102,9 @@ public class Player : MonoBehaviour
         }   
     }
 
-    private void Sprint(bool _isSprinting)
+    private void Sprint()
     {
-        if(_isSprinting)
+        if(!isSprinting)
         {
             boostSpeed = speed + speed*sprint;
             normalSpeed = speed;

@@ -57,9 +57,4 @@ public class PauseMenu : MonoBehaviour
     {
         Application.Quit();
     }
-    public void Restart()
-    {
-        SceneManager.LoadScene("RatHole");
-        Resume();
-    }
 }
