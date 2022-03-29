@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fps : MonoBehaviour 
 {
-    public float fps;
+    public float fps    ;
     private void Update()
     {
         fps = 1.0f / Time.deltaTime;

@@ -106,4 +106,5 @@ public class Trader : MonoBehaviour
         yield return new WaitForSeconds(time);
         isTraderTalking = false;
     }
+
 }

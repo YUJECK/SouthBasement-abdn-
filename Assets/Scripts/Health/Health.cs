@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
             StartCoroutine(InvisibleCadrs());
 
             if (health <= 0)
-                SceneManager.LoadScene("RestartMenu");  
+                SceneManager.LoadScene("MainMenu");  
         }
     }
 
@@ -50,7 +50,7 @@ public class Health : MonoBehaviour
             health = maxHealth;
 
         if (health <= 0)
-            SceneManager.LoadScene("RestartMenu");
+            SceneManager.LoadScene("MainMenu");
     }
     public void SetBonusHealth(int NewMaxHealth, int NewHealth)
     {

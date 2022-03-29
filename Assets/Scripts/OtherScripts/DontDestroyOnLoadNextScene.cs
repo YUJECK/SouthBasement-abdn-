@@ -15,13 +15,10 @@ public class DontDestroyOnLoadNextScene : MonoBehaviour
         {
             Scene introIndx = SceneManager.GetSceneByBuildIndex(0);
             Scene mainMenuIndx = SceneManager.GetSceneByBuildIndex(1);
-            Scene restartMenuIndx = SceneManager.GetSceneByBuildIndex(2);
             
             if(introIndx.buildIndex == SceneManager.GetActiveScene().buildIndex)
                 Destroy(gameObject);
             if(mainMenuIndx.buildIndex == SceneManager.GetActiveScene().buildIndex)
-                Destroy(gameObject);
-            if(restartMenuIndx.buildIndex == SceneManager.GetActiveScene().buildIndex)
                 Destroy(gameObject);
         }
     }
