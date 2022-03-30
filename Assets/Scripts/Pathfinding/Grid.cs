@@ -25,28 +25,23 @@ public class Grid : MonoBehaviour
 
         grid = new int[gridWidth, gridHeight];
 
-    
-        for(int x = 0; x < gridWidth*nodeSize; x+=nodeSize)
+        for(int x = 0; x < gridWidth; x+=nodeSize)
         {
-            for(int y = 0; y < gridHeight*nodeSize; y+=nodeSize)
+            for(int y = 0; y < gridHeight; y+=nodeSize)
             {
-                Vector2 pointPos = camera.ScreenToWorldPoint(new Vector3(x,y,0));
-                Debug.Log(pointPos);
+                Vector2 pointPos = camera.ScreenToWorldPoint(new Vector3(x*10,y*10,0));
                 RaycastHit2D pointObj = Physics2D.Raycast(pointPos, Vector2.zero);
             
-                if(pointObj.collider == null)
-                    grid[x/nodeSize,y/nodeSize] = 0;
+                if(pointObj.collider != null)
+                    grid[x,y] = 1;
                 else
                 {
-                    if(pointObj.collider.isTrigger)
-                        grid[x/nodeSize,y/nodeSize] = 0;
-                    else
-                        grid[x/nodeSize,y/nodeSize] = 1;
+                    grid[x,y] = 0;
                 }
                 
                 if(grid[x,y] == 0)
                     Instantiate(emptyArea,new Vector3(pointPos.x,pointPos.y,0),Quaternion.identity,transform);
-                else
+                else if(grid[x,y] == 1)
                     Instantiate(_collider,new Vector3(pointPos.x,pointPos.y,0),Quaternion.identity,transform);
             }
         }
