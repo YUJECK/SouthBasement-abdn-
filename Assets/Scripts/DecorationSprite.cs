@@ -11,13 +11,13 @@ public class DecorationSprite : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        if(coll.tag == "Player" && changeLayer)
-            GetComponent<SpriteRenderer>().sortingOrder += layerPlus;
+        if(changeLayer && coll.GetComponent<SpriteRenderer>()!=null)
+            GetComponent<SpriteRenderer>().sortingOrder = coll.GetComponent<SpriteRenderer>().sortingOrder + layerPlus;
     }
     private void OnTriggerExit2D(Collider2D coll)
     {
-        if(coll.tag == "Player"&& changeLayer)
-            GetComponent<SpriteRenderer>().sortingOrder -= layerPlus;
+        if(changeLayer&& coll.GetComponent<SpriteRenderer>()!=null)
+            GetComponent<SpriteRenderer>().sortingOrder = coll.GetComponent<SpriteRenderer>().sortingOrder - layerPlus;
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
