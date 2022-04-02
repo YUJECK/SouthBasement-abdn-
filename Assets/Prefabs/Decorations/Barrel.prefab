@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3316224502059996076}
   - component: {fileID: 6683626088968616838}
   - component: {fileID: 5275367326556619503}
+  - component: {fileID: -5748301014635022283}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
@@ -140,7 +141,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00019836426, y: 0.40058136}
+  m_Offset: {x: 0.00019836426, y: 0.36734772}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -151,5 +152,26 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7447815, y: 0.19883728}
+  m_Size: {x: 0.7447815, y: 0.26530457}
   m_EdgeRadius: 0
+--- !u!50 &-5748301014635022283
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683626088968616837}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

@@ -6,8 +6,8 @@ public class DecorationSprite : MonoBehaviour
 {
     [SerializeField] private int layerPlus = 2;
     [SerializeField] private bool changeLayer;
-    [SerializeField] private Collider2D _collider;
-    [SerializeField] private bool changeCollider;
+/*     [SerializeField] private Collider2D _collider;
+    [SerializeField] private bool changeCollider; */
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
@@ -20,7 +20,7 @@ public class DecorationSprite : MonoBehaviour
             GetComponent<SpriteRenderer>().sortingOrder = coll.GetComponent<SpriteRenderer>().sortingOrder - layerPlus;
     }
 
-    private void OnCollisionEnter2D(Collision2D coll)
+/*     private void OnCollisionEnter2D(Collision2D coll)
     {
         if(changeCollider)
         {
@@ -29,5 +29,5 @@ public class DecorationSprite : MonoBehaviour
             else if(coll.gameObject.tag == "PlayerLegs")
                 _collider.enabled = true;
         }
-    }
+    } */
 }
