@@ -6,13 +6,13 @@ public class Grid : MonoBehaviour
 {
     [SerializeField] private GameObject _collider;
     [SerializeField] private GameObject emptyArea;
-    [SerializeField] private int[,] grid;
+    public int[,] grid;
     // 0 - нет коллайлера/это триггер
     // 1 - есть коллайлера
     
     // Выстоа и ширина сетки 
-    [SerializeField] private int gridWidth;  
-    [SerializeField] private int gridHeight;
+    public int gridWidth;  
+    public int gridHeight;
 
     [SerializeField] private int nodeSize;
 
