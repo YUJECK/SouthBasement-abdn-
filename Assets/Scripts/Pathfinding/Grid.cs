@@ -18,6 +18,11 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
+        Invoke("StartGrid", 3f);
+    }
+
+    private void StartGrid()
+    {
         Camera camera = Camera.main;
         
         gridWidth = (int)Mathf.Ceil(gridWidth/nodeSize);
@@ -29,11 +34,16 @@ public class Grid : MonoBehaviour
         {
             for(int y = 0; y < gridHeight; y+=nodeSize)
             {
-                Vector2 pointPos = camera.ScreenToWorldPoint(new Vector3(x*10,y*10,0));
+                Vector2 pointPos = camera.ScreenToWorldPoint(new Vector3(x*8,y*8,0));
                 RaycastHit2D pointObj = Physics2D.Raycast(pointPos, Vector2.zero);
             
                 if(pointObj.collider != null)
-                    grid[x,y] = 1;
+                {
+                    if(pointObj.collider.isTrigger)
+                        grid[x,y] = 0;
+                    else
+                        grid[x,y] = 1;
+                }
                 else
                 {
                     grid[x,y] = 0;

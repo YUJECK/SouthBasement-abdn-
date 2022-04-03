@@ -45,10 +45,14 @@ public class RoomsNPCList : MonoBehaviour
         }
         
         //Если нпс будет много то наверное лучше будет поменять на NPCRooms.Count
-        for(int i = 0; i < NPCs.Count; i++)
+        for(int i = 0; i < NPCRooms.Count; i++)
         {
             Debug.Log("Index i = " + i + "; NPCsRoomsCount = " + NPCRooms.Count);
-            if(NPCRooms[i] != null)
+
+            if(i > NPCs.Count)
+                break;
+
+            else if(NPCRooms[i] != null)
                 NPCRooms[i].SpawnNPC();
         }
     }

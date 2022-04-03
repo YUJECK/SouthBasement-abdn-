@@ -47,13 +47,13 @@ public class Trader : MonoBehaviour
     {
         if(!isTraderTalking)
         {
-            if(item1Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
+            if(item1Transform.GetChild(0) != null && item1Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
                 DisplayItemInfo(item1Transform.GetChild(0).gameObject);
 
-            if(item2Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
+            if(item1Transform.GetChild(0) != null && item2Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
                 DisplayItemInfo(item2Transform.GetChild(0).gameObject);
 
-            if(item3Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
+            if(item1Transform.GetChild(0) != null && item3Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
                 DisplayItemInfo(item3Transform.GetChild(0).gameObject);
         }
     }
@@ -65,6 +65,7 @@ public class Trader : MonoBehaviour
             food.isForTrade = true;
             food.trader = GetComponent<Trader>();
             item.GetComponent<Collider2D>().offset = new Vector2(0,-0.5f);
+            item.GetComponent<BoxCollider2D>().size = new Vector2(0.1f,0.3f);
             return;
         }
         if(item.TryGetComponent(out ActiveItemPickUp activeItem))
@@ -72,6 +73,7 @@ public class Trader : MonoBehaviour
             activeItem.isForTrade = true;
             activeItem.trader = GetComponent<Trader>();
             item.GetComponent<Collider2D>().offset = new Vector2(0,-0.5f);
+            item.GetComponent<BoxCollider2D>().size = new Vector2(0.1f,0.3f);
             return;
         }
         if(item.TryGetComponent(out MelleWeaponPickUp melleWeapon))
@@ -79,6 +81,7 @@ public class Trader : MonoBehaviour
             melleWeapon.isForTrade = true;
             melleWeapon.trader = GetComponent<Trader>();
             item.GetComponent<Collider2D>().offset = new Vector2(0,-0.5f);
+            item.GetComponent<BoxCollider2D>().size = new Vector2(0.1f,0.3f);
             return;
         }
     }
