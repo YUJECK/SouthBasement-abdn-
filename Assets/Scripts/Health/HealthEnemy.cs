@@ -11,6 +11,7 @@ public class HealthEnemy : MonoBehaviour
     private GameManager gameManager;
     private EffectsManager effectsManager;
     [SerializeField] private SpriteRenderer effectIndicator;
+    [SerializeField] private Color damageColor;
 
     [SerializeField] int minCheese = 0;
     [SerializeField] int maxCheese = 5;
@@ -47,9 +48,9 @@ public class HealthEnemy : MonoBehaviour
     }
     private IEnumerator TakeHitVizualization()
     {
-        gameObject.GetComponent<SpriteRenderer>().color= new Color(255,0,0,100);
+        gameObject.GetComponent<SpriteRenderer>().color = damageColor;
         yield return new WaitForSeconds(0.6f);
-        gameObject.GetComponent<SpriteRenderer>().color= new Color(100,100,100,100);
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(100,100,100,100);
     }
     public void Heal(int bonusHealth)
     {
