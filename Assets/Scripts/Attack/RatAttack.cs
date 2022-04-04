@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public class RatAttack : MonoBehaviour
 {
     public SpriteRenderer Sp;
+    public MelleRangeWeapon melleWeapon;
     public SpriteRenderer weaponSprite;
     public Animator anim;
     public Animator animRange;
@@ -59,6 +60,13 @@ public class RatAttack : MonoBehaviour
             {
                 if (!enemy.isTrigger)
                 {
+                    if(melleWeapon.effect == MelleRangeWeapon.Effect.Poisoned)
+                        enemy.GetComponent<HealthEnemy>().GetPoisoned(melleWeapon.effectTime);
+                    if(melleWeapon.effect == MelleRangeWeapon.Effect.Bleed)
+                        enemy.GetComponent<HealthEnemy>().GetBleed(melleWeapon.effectTime);
+                    if(melleWeapon.effect == MelleRangeWeapon.Effect.Burn)
+                        enemy.GetComponent<HealthEnemy>().GetBurn(melleWeapon.effectTime);
+                    
                     enemy.GetComponent<HealthEnemy>().TakeHit(damage);
                     Debug.Log("Enemy health: " + enemy.GetComponent<HealthEnemy>().health);
                 }
@@ -67,6 +75,7 @@ public class RatAttack : MonoBehaviour
     }
     public void SetMelleWeapon(MelleRangeWeapon weapon)
     {
+        melleWeapon = weapon;
         AttackRange = weapon.attackRange;
         attackRate = weapon.attackRate;
         damage = weapon.damage;

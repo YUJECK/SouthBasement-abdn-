@@ -128,7 +128,7 @@ public class HealthEnemy : MonoBehaviour
     }
     private void Bleed()
     {
-        TakeHit(1);
+        TakeHit(2);
     }
 
     private void Update()
