@@ -28,6 +28,9 @@ public class HealthEnemy : MonoBehaviour
     private float poisonedStartTime;
     private float bleedStartTime;
     
+    private Coroutine damageInd = null;
+
+
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -36,7 +39,11 @@ public class HealthEnemy : MonoBehaviour
     public void TakeHit(int damage)
     {
         health -= damage;
-        StartCoroutine(TakeHitVizualization());
+        
+        if(damageInd != null)
+            StopCoroutine(damageInd); 
+            
+        damageInd = StartCoroutine(TakeHitVizualization());
 
         if (health <= 0)
         {
