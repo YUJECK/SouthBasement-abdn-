@@ -31,7 +31,7 @@ public class RatAttack : MonoBehaviour
             if (Input.GetMouseButtonDown(0) & !FindObjectOfType<Player>().isSprinting)
             {
                 Attack();
-                cursor.CursorClick();
+                // cursor.CursorClick();
                 sp_rotation = GetComponent<Rigidbody2D>().rotation;
                 nextTime = Time.time + 1f / attackRate;
             }
@@ -60,13 +60,15 @@ public class RatAttack : MonoBehaviour
             {
                 if (!enemy.isTrigger)
                 {
-                    if(melleWeapon.effect == MelleRangeWeapon.Effect.Poisoned)
-                        enemy.GetComponent<HealthEnemy>().GetPoisoned(melleWeapon.effectTime);
-                    if(melleWeapon.effect == MelleRangeWeapon.Effect.Bleed)
-                        enemy.GetComponent<HealthEnemy>().GetBleed(melleWeapon.effectTime);
-                    if(melleWeapon.effect == MelleRangeWeapon.Effect.Burn)
-                        enemy.GetComponent<HealthEnemy>().GetBurn(melleWeapon.effectTime);
-                    
+                    if(melleWeapon != null)
+                    {
+                        if(melleWeapon.effect == MelleRangeWeapon.Effect.Poisoned)
+                            enemy.GetComponent<HealthEnemy>().GetPoisoned(melleWeapon.effectTime);
+                        if(melleWeapon.effect == MelleRangeWeapon.Effect.Bleed)
+                            enemy.GetComponent<HealthEnemy>().GetBleed(melleWeapon.effectTime);
+                        if(melleWeapon.effect == MelleRangeWeapon.Effect.Burn)
+                            enemy.GetComponent<HealthEnemy>().GetBurn(melleWeapon.effectTime);
+                    }
                     enemy.GetComponent<HealthEnemy>().TakeHit(damage);
                     Debug.Log("Enemy health: " + enemy.GetComponent<HealthEnemy>().health);
                 }
