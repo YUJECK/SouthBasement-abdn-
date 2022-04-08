@@ -738,6 +738,7 @@ GameObject:
   - component: {fileID: 192447258}
   - component: {fileID: 192447257}
   - component: {fileID: 192447261}
+  - component: {fileID: 192447262}
   m_Layer: 0
   m_Name: Fire/Attack Points
   m_TagString: Untagged
@@ -873,6 +874,19 @@ MonoBehaviour:
   attackRate: 1
   damage: 1
   is_Attack: 0
+--- !u!114 &192447262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192447256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6173fdda74b314da1456eaa55b75f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyingOnMenus: 1
 --- !u!1 &203290209
 GameObject:
   m_ObjectHideFlags: 0
