@@ -2,47 +2,29 @@ using UnityEngine;
 
 public class PointRotation : MonoBehaviour
 {
-    [SerializeField]
-    private Vector3 mousePos;
-
-    [SerializeField]
-    private Vector2 lookDir;
-
-    [SerializeField]
-    private Transform Player;
-
-    [SerializeField]
-    private Transform Cursor;
-
-    [SerializeField]
+    public bool stopRotating = false;
     private float angle;
-
-    [SerializeField]
-    private float stabilizator;
-    public static PointRotation instance;
-
-    private void Awake()
+    private Camera mainCamera;
+    private Vector2 mousePos;
+    [SerializeField] private Transform playerCenter;
+    [SerializeField] private Rigidbody2D rb;
+    
+    private void Start()
     {
-        if(instance == null)
-            instance = this;
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        mainCamera = Camera.main;
     }
-    void FixedUpdate()
-    {
-        transform.position = Player.position;
 
-        if(!GetComponent<RatAttack>().is_Attack)
-        {
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            lookDir = mousePos - transform.position;
-            angle = Mathf.Atan2(lookDir.y,lookDir.x) * Mathf.Rad2Deg - stabilizator;
-            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-        }
-        else
-            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, GetComponent<RatAttack>().sp_rotation));
+    private void Update()
+    {
+        transform.position = playerCenter.position;
+        if(!stopRotating) rb.rotation = CalculateAngle();
+    }
+
+    private float CalculateAngle()
+    {
+        mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = new Vector3(mousePos.x, mousePos.y, 0f) - playerCenter.position;
+        angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg - 90f;
+        return angle;
     }
 }

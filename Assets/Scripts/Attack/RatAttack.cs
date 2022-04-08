@@ -2,28 +2,28 @@ using UnityEngine;
 using System.Collections.Generic;
 public class RatAttack : MonoBehaviour
 {
-    public SpriteRenderer Sp;
     public MelleRangeWeapon melleWeapon;
+    public PointRotation pointRotation;
     public SpriteRenderer weaponSprite;
-    public Animator anim;
+    public Animator playerAnim;
     public Animator animRange;
     public Transform AttackPoint;
-    public LayerMask EnemyLayers;
-    public HealthEnemy enemyHealth;
-    private CursorController cursor;
-    public float sp_rotation;
     private float nextTime;
+
+    [Header("Attack settings")]
+    public LayerMask EnemyLayers;
     public float AttackRange;
     public float attackRate = 2f;
     public int damage = 2;
     public bool is_Attack;
     private Vector3 posWhenAttack;
 
+
     private void Start()
     {
-        cursor = FindObjectOfType<CursorController>();
+        pointRotation = FindObjectOfType<PointRotation>();
     }
- 
+
     void Update()
     {
         if(Time.time >= nextTime) // Атакак крысы
@@ -32,26 +32,21 @@ public class RatAttack : MonoBehaviour
             {
                 Attack();
                 // cursor.CursorClick();
-                sp_rotation = GetComponent<Rigidbody2D>().rotation;
                 nextTime = Time.time + 1f / attackRate;
             }
         }
-        if(Sp.enabled)
+        if(Time.time >= nextTime)
         {
-            if(Time.time >= nextTime)
-            {
-                Sp.enabled = false;
-                is_Attack = false;
-            }
+            is_Attack = false;  
+            pointRotation.stopRotating = false;
         }
     }
     void Attack()
     {
         is_Attack = true;
-        Sp.enabled = true;
-        posWhenAttack = transform.position;
-        anim.SetTrigger("IsAttack");
-        animRange.SetTrigger("isShow");
+        pointRotation.stopRotating = true;
+        playerAnim.SetTrigger("IsAttack");
+        animRange.SetTrigger("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position,AttackRange,EnemyLayers);
         
         foreach (Collider2D enemy in hitEnemies)
