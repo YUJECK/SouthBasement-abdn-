@@ -14,7 +14,7 @@ public class Grid : MonoBehaviour
     public int gridWidth;  
     public int gridHeight;
 
-    [SerializeField] private int nodeSize;
+    public int nodeSize;
 
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class Grid : MonoBehaviour
         {
             for(int y = 0; y < gridHeight; y+=nodeSize)
             {
-                Vector2 pointPos = camera.ScreenToWorldPoint(new Vector3(x*8,y*8,0));
+                Vector2 pointPos = new Vector3(x,y,0);
                 RaycastHit2D pointObj = Physics2D.Raycast(pointPos, Vector2.zero);
             
                 if(pointObj.collider != null)
@@ -55,6 +55,7 @@ public class Grid : MonoBehaviour
                     Instantiate(_collider,new Vector3(pointPos.x,pointPos.y,0),Quaternion.identity,transform);
             }
         }
+        Debug.Log("GridWasCreated");
     }
 }
 
