@@ -50,7 +50,7 @@ public class Grid : MonoBehaviour
                     {
                         if(obj.collider != null)
                         {   
-                            if(!obj.collider.isTrigger && obj.collider.tag == "Block"|| obj.collider.tag == "Decor")
+                            if(!obj.collider.isTrigger && (obj.collider.tag != "Enemy" || obj.collider.tag != "Player"))
                             {
                                 isWall = true;
                                 goto foreachExit;
