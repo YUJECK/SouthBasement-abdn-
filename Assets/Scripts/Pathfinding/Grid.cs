@@ -34,25 +34,42 @@ public class Grid : MonoBehaviour
         {
             for(int y = 0; y < gridHeight; y+=nodeSize)
             {
-                Vector2 pointPos = new Vector3(x,y,0);
-                RaycastHit2D pointObj = Physics2D.Raycast(pointPos, Vector2.zero);
-            
-                if(pointObj.collider != null)
+                List<Vector3> points = new List<Vector3>();
+                points.Add(new Vector3(nodeSize*0.2f, nodeSize*0.2f, 0f));
+                points.Add(new Vector3(nodeSize*0.2f, -nodeSize*0.2f, 0f));
+                points.Add(new Vector3(-nodeSize*0.2f, nodeSize*0.2f, 0f));
+                points.Add(new Vector3(-nodeSize*0.2f, -nodeSize*0.2f, 0f));
+
+                bool isWall = false;    
+
+                foreach(Vector3 point in points)
                 {
-                    if(pointObj.collider.isTrigger)
-                        grid[x,y] = 0;
-                    else
-                        grid[x,y] = 1;
+                    RaycastHit2D[] pointObjs = Physics2D.RaycastAll(new Vector3(x + point.x, y + point.y),Vector2.zero);
+
+                    foreach(RaycastHit2D obj in pointObjs)
+                    {
+                        if(obj.collider != null)
+                        {   
+                            if(!obj.collider.isTrigger && obj.collider.tag == "Block"|| obj.collider.tag == "Decor")
+                            {
+                                isWall = true;
+                                goto foreachExit;
+                            }   
+                        }
+                    }
                 }
-                else
+                foreachExit: // Для выхода из двух циклов
+
+                if(isWall)
                 {
+                    grid[x,y] = 1;
+                    // Instantiate(_collider,new Vector3(x,y,0), Quaternion.identity,transform);
+                }
+                else 
+                {
+                    // Instantiate(emptyArea,new Vector3(x, y, 0),Quaternion.identity,transform);
                     grid[x,y] = 0;
                 }
-                
-                if(grid[x,y] == 0)
-                    Instantiate(emptyArea,new Vector3(pointPos.x,pointPos.y,0),Quaternion.identity,transform);
-                else if(grid[x,y] == 1)
-                    Instantiate(_collider,new Vector3(pointPos.x,pointPos.y,0),Quaternion.identity,transform);
             }
         }
         Debug.Log("GridWasCreated");

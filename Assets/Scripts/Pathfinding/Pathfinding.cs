@@ -5,11 +5,11 @@ using UnityEngine;
 public class Pathfinding : MonoBehaviour
 {
     private bool[,] visitedPoints; // Массив посещенных точек 
-    [SerializeField]private Grid grid;
-    private Rigidbody2D rb;
+    private Grid grid;
 
     [SerializeField] private Transform target; // Объект для которого будем искать путь
     [SerializeField] private List<Vector2> path; // Путь к таргету
+    [SerializeField] float speed = 1f; // Скорость передвижения
     [SerializeField] float findRate = 10; // Частота поиска пути
     [SerializeField] float nextTime; // Время следующего поиска пути
 
@@ -24,7 +24,6 @@ public class Pathfinding : MonoBehaviour
     private void Start()
     {
         grid = FindObjectOfType<Grid>(); // Ищем сетку
-        rb = GetComponent<Rigidbody2D>(); // Берем RigidBody2D от объекта
     }
 
     private List<Vector2> FindPath(Vector2 startPos, Vector2 endPos) // Поиск пути
@@ -48,7 +47,7 @@ public class Pathfinding : MonoBehaviour
 
         while (queue.Count > 0)
         {
-            var curr = queue[0];
+            Point curr = queue[0];
 
             if (curr.x == (int)endPos.x && curr.y == (int)endPos.y)
             {
@@ -78,20 +77,20 @@ public class Pathfinding : MonoBehaviour
         Debug.LogError("Path wasnt found");
         return new List<Vector2>();
     }
-    private void CheckNext(int dX, int dY, Point point, ref List<Point> q) // Проверка след,, точки
+    private void CheckNext(int dX, int dY, Point point, ref List<Point> listOfPoints) // Проверка след,, точки
     {
-        var p = new Point();
+        Point p = new Point();
         p.x = point.x;
         p.y = point.y;
         p.path = new List<Vector2>(point.path);
         
         if (p.x + dX < grid.gridWidth && p.x + dX >= 0 && p.y + dY < grid.gridHeight && p.y + dY >= 0
-        && visitedPoints[p.x + dX, p.y + dY] == false && grid.grid[p.x + dX, p.y + dY] == 1)
+        && visitedPoints[p.x + dX, p.y + dY] == false && grid.grid[p.x + dX, p.y + dY] == 0)
         {
             p.x += dX;
             p.y += dY;
             p.path.Add(new Vector2(p.x, p.y));
-            q.Add(p);
+            listOfPoints.Add(p);
 
             visitedPoints[p.x, p.y] = true;
         }
@@ -103,24 +102,32 @@ public class Pathfinding : MonoBehaviour
         path = FindPath(
         new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
         new Vector2((int)(target.position.x / grid.nodeSize), (int)(target.position.y / grid.nodeSize)));
+    
+        SetNextTime(); // Ставим сразу время, а то больше путь искаться в апдейте не будет
     }
-    public void ResetTarget() { target = null; } // Срос таргета
+    public void ResetTarget() { target = null; path.Clear();} // Срос таргета
 
-    private void Update()
+    private void SetNextTime() { nextTime = Time.time + 1f / findRate; } // Ставим следующее время
+   
+   
+    private void FixedUpdate()
     {
         if(target != null)
         {
             if(Time.time >= nextTime & nextTime != 0)
             {
+                //Ищем новый путь
                 path = FindPath(
                 new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
                 new Vector2(target.position.x / grid.nodeSize, target.position.y / grid.nodeSize));
+
+                SetNextTime();
             }
                 
-
             if(path.Count != 0)
             {
-                rb.MovePosition(path[0]);   
+                transform.position = Vector2.MoveTowards(transform.position, path[0], speed*Time.deltaTime);   // Перемещаем объект в след точку
+                
                 if(transform.position == new Vector3(path[0].x,path[0].y, transform.position.z))
                     path.RemoveAt(0);        
             }
