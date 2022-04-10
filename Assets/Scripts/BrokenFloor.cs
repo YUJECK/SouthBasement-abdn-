@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BrokenFloor : MonoBehaviour
 {
-    [SerializeField] private string AudioName;
     private Player player;
     private AudioManager audioManager;
     private Health playerHealth;
@@ -20,7 +19,6 @@ public class BrokenFloor : MonoBehaviour
         if(coll.tag == "Player")
         {
             playerHealth.TakeHit(1);  
-            audioManager.PlayClip(AudioName);
             StartCoroutine(PlayerStuck());
         }
     }

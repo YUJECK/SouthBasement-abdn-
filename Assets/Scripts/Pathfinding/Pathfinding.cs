@@ -58,15 +58,22 @@ public class Pathfinding : MonoBehaviour
                 return curr.path;
             }
 
-            CheckPoint(1,0, curr, ref nextQueue);
-            CheckPoint(-1,0, curr, ref nextQueue);
-            CheckPoint(0,1, curr, ref nextQueue);
-            CheckPoint(0,-1, curr, ref nextQueue);
+            //   н
+            // н т н
+            //   н
+            CheckPoint(1,0, curr, ref nextQueue, endPos);
+            CheckPoint(-1,0, curr, ref nextQueue, endPos);
+            CheckPoint(0,1, curr, ref nextQueue, endPos);
+            CheckPoint(0,-1, curr, ref nextQueue, endPos);
             
-            CheckPoint(1,1, curr, ref nextQueue);
-            CheckPoint(-1,1, curr, ref nextQueue);
-            CheckPoint(1,-1, curr, ref nextQueue);
-            CheckPoint(-1,-1, curr, ref nextQueue);
+            //Проверка угловых клеток
+            // н н
+            //  т 
+            // н н
+            CheckPoint(1,1, curr, ref nextQueue, endPos);
+            CheckPoint(-1,1, curr, ref nextQueue, endPos);
+            CheckPoint(1,-1, curr, ref nextQueue, endPos);
+            CheckPoint(-1,-1, curr, ref nextQueue, endPos);
             
             queue.RemoveAt(0);
             
@@ -77,18 +84,31 @@ public class Pathfinding : MonoBehaviour
             }
         }
 
-        Debug.LogError("Path wasnt found");
+        Debug.LogError("Path wasnt found: " + startPos + " " + new Vector2((int)endPos.x, (int)endPos.y));
         return new List<Vector2>();
     }
-    private void CheckPoint(int dX, int dY, Point point, ref List<Point> listOfPoints) // Проверка след,, точки
+    private void CheckPoint(int dX, int dY, Point point, ref List<Point> listOfPoints, Vector2 end) // Проверка след,, точки
     {
         Point nextPoint = new Point();
         nextPoint.x = point.x;
         nextPoint.y = point.y;
         nextPoint.path = new List<Vector2>(point.path);
         
+        //Нормальная проверка
         if (nextPoint.x + dX < grid.gridWidth && nextPoint.x + dX >= 0 && nextPoint.y + dY < grid.gridHeight && nextPoint.y + dY >= 0
         && visitedPoints[nextPoint.x + dX, nextPoint.y + dY] == false && grid.grid[nextPoint.x + dX, nextPoint.y + dY] == 0)
+        {
+            nextPoint.x += dX;
+            nextPoint.y += dY;
+            nextPoint.path.Add(new Vector2(nextPoint.x, nextPoint.y));
+            listOfPoints.Add(nextPoint);
+
+            visitedPoints[nextPoint.x, nextPoint.y] = true;
+        }
+
+        //Если конечная точка коллайдер
+        else if(nextPoint.x + dX < grid.gridWidth && nextPoint.x + dX >= 0 && nextPoint.y + dY < grid.gridHeight && nextPoint.y + dY >= 0
+        && visitedPoints[nextPoint.x + dX, nextPoint.y + dY] == false && nextPoint.x + dX == (int)end.x && nextPoint.y + dY == (int)end.y)
         {
             nextPoint.x += dX;
             nextPoint.y += dY;
@@ -102,10 +122,13 @@ public class Pathfinding : MonoBehaviour
     public void SetTarget(Transform newTarget) // Поставить новый таргет
     {
         target = newTarget;
-        path = FindPath(
-        new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
-        new Vector2((int)(target.position.x / grid.nodeSize), (int)(target.position.y / grid.nodeSize)));
-    
+
+        if(path.Count == 0)
+        {
+            path = FindPath(
+            new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
+            new Vector2((int)(target.position.x / grid.nodeSize), (int)(target.position.y / grid.nodeSize)));
+        }
         SetNextTime(); // Ставим сразу время, а то больше путь искаться в апдейте не будет
     }
     public void ResetTarget() { target = null; path.Clear();} // Срос таргета
@@ -142,7 +165,7 @@ public class Pathfinding : MonoBehaviour
                     path.RemoveAt(0);        
             }
         }        
-        isRun = false;
+        else isRun = false;
     }
 
     private void OnTriggerStay2D(Collider2D coll)

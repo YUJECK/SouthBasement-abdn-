@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7949254289915420812}
   m_Layer: 6
   m_Name: Checker
-  m_TagString: Null
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,16 +70,16 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.51457727, y: 0.3460279}
+    - - {x: 0.40352553, y: 0.23239395}
       - {x: 0.23567677, y: 0.26247418}
       - {x: 0.12575448, y: 0.11784041}
       - {x: 0.048308283, y: 0.0029020011}
       - {x: 0.02553925, y: -0.055771634}
       - {x: 0.039303064, y: -0.25542212}
-      - {x: 0.09336026, y: -0.42642432}
-      - {x: 0.5352157, y: -0.4044984}
-      - {x: 0.886254, y: -0.350122}
-      - {x: 0.9615703, y: 0.02585426}
+      - {x: 0.13984749, y: -0.37993634}
+      - {x: 0.50938946, y: -0.37608916}
+      - {x: 0.6331583, y: -0.33720925}
+      - {x: 0.6774832, y: -0.033544987}
 --- !u!1 &5630845710053068690
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c1c42e4d5d07f4c9478587f9891327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRun: 0
   target: {fileID: 0}
   path: []
   speed: 3
@@ -188,6 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  pathManager: {fileID: 1776300603172290270}
+  anim: {fileID: 0}
 --- !u!212 &7112295092639880517
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -228,7 +231,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 121
-  m_Sprite: {fileID: 21300000, guid: 32c2fae17661da84d87fbaecc8ecd015, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e511b03857423f741a4b921fbeb30872, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -312,7 +315,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.1666666, y: 1.3333334}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 3, y: 3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -320,15 +323,20 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.31604084, y: -0.027174354}
-      - {x: -0.36281154, y: -0.10178064}
-      - {x: -0.40349016, y: -0.1462462}
-      - {x: -0.34897828, y: -0.21459219}
-      - {x: 0.36001337, y: -0.26597616}
-      - {x: 0.5083995, y: -0.2061927}
-      - {x: 0.5255262, y: 0.0006583985}
+    - - {x: -0.07147984, y: 0.15739979}
+      - {x: -0.098254204, y: -0.09716632}
+      - {x: -0.089712925, y: -0.3508152}
+      - {x: 0.11707285, y: -0.33456442}
+      - {x: 0.12006667, y: -0.30596742}
+      - {x: 0.12694585, y: -0.23080337}
+      - {x: 0.2435687, y: -0.08633284}
+      - {x: 0.38709527, y: 0.026806684}
+      - {x: 0.47274107, y: 0.040994424}
+      - {x: 0.44978908, y: 0.11784004}
       - {x: 0.38636222, y: 0.116602}
-      - {x: -0.012845993, y: 0.1269761}
+      - {x: 0.3558705, y: 0.14349534}
+      - {x: 0.21304232, y: 0.29936826}
+      - {x: -0.008231675, y: 0.28232676}
 --- !u!1 &8302321032984290554
 GameObject:
   m_ObjectHideFlags: 0

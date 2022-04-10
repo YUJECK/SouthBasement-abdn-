@@ -47,11 +47,11 @@ public class Box : MonoBehaviour
         anim.SetBool("isOpen", true);
     }
 
-    private async void GetAllItemInChance()
+    private void GetAllItemInChance()
     {
         for(int i = 0; i < gameManager.items.Count; i++)
         {
-            if(gameManager.items[i].GetComponent<ItemInfo>().chanceOfDrop >= chance)
+            if(gameManager.items[i].GetComponent<ItemInfo>().chanceOfDrop >= chance-10)
             {
                 ItemsInThisChance.Add(gameManager.items[i]);
                 gameManager.items.Remove(gameManager.items[i]);

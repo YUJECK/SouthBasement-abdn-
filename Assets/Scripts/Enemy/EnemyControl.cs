@@ -27,6 +27,7 @@ public class EnemyControl : MonoBehaviour
             Flip(); 
             flippedOnRight = false;
         }
+        
         if(pathManager.isRun)
             anim.SetBool("isRun", true);
         else

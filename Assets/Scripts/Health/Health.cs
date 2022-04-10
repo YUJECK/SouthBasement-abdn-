@@ -9,12 +9,22 @@ public class Health : MonoBehaviour
     public int health;
     public int maxHealth;
     public Animator healthBar;
+    public AudioManager audioManager;
     private bool invisibleCadrs = false;
+
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
+
     public void TakeHit(int damage)
     {
         if(!invisibleCadrs)
         {
             health -= damage;
+            audioManager.PlayClip("RatHurt");
 
             invisibleCadrs = true;
             healthBar.SetBool("InvisibleCadrs",true);
