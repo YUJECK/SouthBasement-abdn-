@@ -6,10 +6,13 @@ public class EnemyControl : MonoBehaviour
 {
     public Transform player;
     private bool flippedOnRight = true;
+    [SerializeField] private Pathfinding pathManager;
+    [SerializeField] private Animator anim;
 
     private void Start()
     {
         player = FindObjectOfType<Player>().GetComponent<Transform>();
+        anim = GetComponent<Animator>();
     }
     
     void FixedUpdate()
@@ -24,6 +27,10 @@ public class EnemyControl : MonoBehaviour
             Flip(); 
             flippedOnRight = false;
         }
+        if(pathManager.isRun)
+            anim.SetBool("isRun", true);
+        else
+            anim.SetBool("isRun",false);
     }
     private void Flip()
     {

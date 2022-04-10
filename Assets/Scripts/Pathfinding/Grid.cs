@@ -74,5 +74,43 @@ public class Grid : MonoBehaviour
         }
         Debug.Log("GridWasCreated");
     }
-}
 
+    public void ResetGrid(Vector2 start, Vector2 end)
+    {
+        for(int x = (int)start.x; x < end.x; x++)
+        {
+            for(int y = (int)start.y; y < end.y; y++)
+            {
+                List<Vector3> points = new List<Vector3>();
+                points.Add(new Vector3(nodeSize*0.3f, nodeSize*0.3f, 0f));
+                points.Add(new Vector3(nodeSize*0.3f, -nodeSize*0.3f, 0f));
+                points.Add(new Vector3(-nodeSize*0.3f, nodeSize*0.3f, 0f));
+                points.Add(new Vector3(-nodeSize*0.3f, -nodeSize*0.3f, 0f));
+
+                bool isWall = false;    
+
+                foreach(Vector3 point in points)
+                {
+                    RaycastHit2D[] pointObjs = Physics2D.RaycastAll(new Vector3(x + point.x, y + point.y),Vector2.zero);
+
+                    foreach(RaycastHit2D obj in pointObjs)
+                    {
+                        if(obj.collider != null)
+                        {   
+                            if(!obj.collider.isTrigger && obj.collider.tag != "Player")
+                            {
+                                isWall = true;
+                                goto foreachExit;
+                            }   
+                        }
+
+                        foreachExit: // Для выхода из двух циклов
+
+                        if(isWall) grid[x,y] = 1;
+                        else grid[x,y] = 0;
+                    }
+                }
+            }
+        }
+    }
+}

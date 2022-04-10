@@ -7,6 +7,9 @@ public class Pathfinding : MonoBehaviour
     private bool[,] visitedPoints; // Массив посещенных точек 
     private Grid grid;
 
+
+    public bool isRun;
+
     [SerializeField] private Transform target; // Объект для которого будем искать путь
     [SerializeField] private List<Vector2> path; // Путь к таргету
     [SerializeField] float speed = 1f; // Скорость передвижения
@@ -55,15 +58,15 @@ public class Pathfinding : MonoBehaviour
                 return curr.path;
             }
 
-            CheckNext(1,0, curr, ref nextQueue);
-            CheckNext(-1,0, curr, ref nextQueue);
-            CheckNext(0,1, curr, ref nextQueue);
-            CheckNext(0,-1, curr, ref nextQueue);
+            CheckPoint(1,0, curr, ref nextQueue);
+            CheckPoint(-1,0, curr, ref nextQueue);
+            CheckPoint(0,1, curr, ref nextQueue);
+            CheckPoint(0,-1, curr, ref nextQueue);
             
-            CheckNext(1,1, curr, ref nextQueue);
-            CheckNext(-1,1, curr, ref nextQueue);
-            CheckNext(1,-1, curr, ref nextQueue);
-            CheckNext(-1,-1, curr, ref nextQueue);
+            CheckPoint(1,1, curr, ref nextQueue);
+            CheckPoint(-1,1, curr, ref nextQueue);
+            CheckPoint(1,-1, curr, ref nextQueue);
+            CheckPoint(-1,-1, curr, ref nextQueue);
             
             queue.RemoveAt(0);
             
@@ -77,22 +80,22 @@ public class Pathfinding : MonoBehaviour
         Debug.LogError("Path wasnt found");
         return new List<Vector2>();
     }
-    private void CheckNext(int dX, int dY, Point point, ref List<Point> listOfPoints) // Проверка след,, точки
+    private void CheckPoint(int dX, int dY, Point point, ref List<Point> listOfPoints) // Проверка след,, точки
     {
-        Point p = new Point();
-        p.x = point.x;
-        p.y = point.y;
-        p.path = new List<Vector2>(point.path);
+        Point nextPoint = new Point();
+        nextPoint.x = point.x;
+        nextPoint.y = point.y;
+        nextPoint.path = new List<Vector2>(point.path);
         
-        if (p.x + dX < grid.gridWidth && p.x + dX >= 0 && p.y + dY < grid.gridHeight && p.y + dY >= 0
-        && visitedPoints[p.x + dX, p.y + dY] == false && grid.grid[p.x + dX, p.y + dY] == 0)
+        if (nextPoint.x + dX < grid.gridWidth && nextPoint.x + dX >= 0 && nextPoint.y + dY < grid.gridHeight && nextPoint.y + dY >= 0
+        && visitedPoints[nextPoint.x + dX, nextPoint.y + dY] == false && grid.grid[nextPoint.x + dX, nextPoint.y + dY] == 0)
         {
-            p.x += dX;
-            p.y += dY;
-            p.path.Add(new Vector2(p.x, p.y));
-            listOfPoints.Add(p);
+            nextPoint.x += dX;
+            nextPoint.y += dY;
+            nextPoint.path.Add(new Vector2(nextPoint.x, nextPoint.y));
+            listOfPoints.Add(nextPoint);
 
-            visitedPoints[p.x, p.y] = true;
+            visitedPoints[nextPoint.x, nextPoint.y] = true;
         }
     }
 
@@ -114,12 +117,18 @@ public class Pathfinding : MonoBehaviour
     {
         if(target != null)
         {
-            if(Time.time >= nextTime & nextTime != 0)
+            if((Time.time >= nextTime & nextTime != 0)||path.Count == 0)
             {
                 //Ищем новый путь
                 path = FindPath(
                 new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
                 new Vector2(target.position.x / grid.nodeSize, target.position.y / grid.nodeSize));
+                
+                // //Перероверяем сетку, чтобы определялись враги
+                // grid.ResetGrid(
+                // new Vector2(transform.position.x-10, transform.position.y-10),
+                // new Vector2(transform.position.x+10, transform.position.y) 
+                // );
 
                 SetNextTime();
             }
@@ -127,16 +136,18 @@ public class Pathfinding : MonoBehaviour
             if(path.Count != 0)
             {
                 transform.position = Vector2.MoveTowards(transform.position, path[0], speed*Time.deltaTime);   // Перемещаем объект в след точку
-                
+                isRun = true;
+
                 if(transform.position == new Vector3(path[0].x,path[0].y, transform.position.z))
                     path.RemoveAt(0);        
             }
         }        
+        isRun = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D coll)
+    private void OnTriggerStay2D(Collider2D coll)
     {
-        if(coll.tag == "Player")
+        if(coll.tag == "Player" && target == null)
             SetTarget(coll.transform);
     }
 
