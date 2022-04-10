@@ -10,7 +10,7 @@ public class DecorationSprite : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        if(changeLayer && coll.GetComponent<SpriteRenderer>()!=null)
+        if(coll.tag == "PLayer" && changeLayer && coll.GetComponent<SpriteRenderer>()!=null)
         {
             defoultLayer = GetComponent<SpriteRenderer>().sortingOrder;
             GetComponent<SpriteRenderer>().sortingOrder = coll.GetComponent<SpriteRenderer>().sortingOrder + layerPlus;
@@ -18,7 +18,7 @@ public class DecorationSprite : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D coll)
     {
-        if(changeLayer&& coll.GetComponent<SpriteRenderer>()!=null)
+        if(coll.tag == "Plaeyr" && changeLayer&& coll.GetComponent<SpriteRenderer>()!=null)
             GetComponent<SpriteRenderer>().sortingOrder = defoultLayer;
     }
 }

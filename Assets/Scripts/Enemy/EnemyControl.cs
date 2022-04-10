@@ -4,19 +4,30 @@ using UnityEngine;
 
 public class EnemyControl : MonoBehaviour
 {
-    public Transform player;
+    [Header("AttackSettings")]
+    private float nextTime;
+    public float attackRate = 4f;
+    public int damage = 1;
+    [HideInInspector] public Transform player;
     private bool flippedOnRight = true;
-    [SerializeField] private Pathfinding pathManager;
-    [SerializeField] private Animator anim;
+    private Pathfinding pathManager; 
+    public TriggerCheker attackTrigger;
+    private Animator anim;
 
     private void Start()
     {
         player = FindObjectOfType<Player>().GetComponent<Transform>();
         anim = GetComponent<Animator>();
+        pathManager = GetComponent<Pathfinding>();
     }
     
     void FixedUpdate()
     {   
+        if(attackTrigger.isOnTrigger)
+        {
+            if (Time.time >= nextTime)
+                anim.SetTrigger("isAttack");
+        }
         if(player.position.x > transform.position.x & !flippedOnRight)
         {
             Flip();
@@ -29,9 +40,20 @@ public class EnemyControl : MonoBehaviour
         }
         
         if(pathManager.isRun)
-            anim.SetBool("isRun", true);
+            anim.SetBool("IsRun", true);
         else
-            anim.SetBool("isRun",false);
+            anim.SetBool("IsRun",false);
+    }
+
+    public void Hit()
+    {
+        if(attackTrigger.isOnTrigger)
+        {
+            //Бьём врага
+            player.GetComponent<Health>().TakeHit(damage);
+            nextTime = Time.time + 1f / attackRate;
+        }
+        anim.ResetTrigger("isAttack");
     }
     private void Flip()
     {

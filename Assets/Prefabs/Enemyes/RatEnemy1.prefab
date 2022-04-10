@@ -41,10 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4451240930977391330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74b039cdb03d5434188e51adac81d07a, type: 3}
+  m_Script: {fileID: 11500000, guid: 037c1599568db9c4baf056d576de17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 6561087625829828716}
+  isOnTrigger: 0
 --- !u!60 &7949254289915420812
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -90,7 +90,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5630845710053068691}
   - component: {fileID: 1776300603172290270}
-  - component: {fileID: 6561087625829828716}
   - component: {fileID: 1209497417465223578}
   - component: {fileID: 5157359432002517473}
   - component: {fileID: 7112295092639880517}
@@ -137,25 +136,8 @@ MonoBehaviour:
   target: {fileID: 0}
   path: []
   speed: 3
-  findRate: 10
+  findRate: 5
   nextTime: 0
---- !u!114 &6561087625829828716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02038ef076b356042b4a0ab78ab423ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRate: 4
-  isOnTrigger: 0
-  anim: {fileID: 0}
-  HitCount: 1
-  player: {fileID: 0}
 --- !u!114 &1209497417465223578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,9 +170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9203d933f15efab4f9f80a9426dbded8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackRate: 4
+  damage: 1
   player: {fileID: 0}
-  pathManager: {fileID: 1776300603172290270}
-  anim: {fileID: 0}
+  attackTrigger: {fileID: 5636856872160811131}
 --- !u!212 &7112295092639880517
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -295,9 +278,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.014834519, y: -0.12520914}
+  m_Offset: {x: 0.014834519, y: -0.12520912}
   serializedVersion: 2
-  m_Radius: 5.539399
+  m_Radius: 9.173529
 --- !u!60 &3654696176951889183
 PolygonCollider2D:
   m_ObjectHideFlags: 0

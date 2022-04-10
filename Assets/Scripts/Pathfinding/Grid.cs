@@ -14,7 +14,7 @@ public class Grid : MonoBehaviour
     public int gridWidth;  
     public int gridHeight;
 
-    public int nodeSize;
+    public float nodeSize;
 
     private void Awake()
     {
@@ -30,15 +30,16 @@ public class Grid : MonoBehaviour
 
         grid = new int[gridWidth, gridHeight];
 
-        for(int x = 0; x < gridWidth; x+=nodeSize)
+        for(float x = 0; x < gridWidth; x+=nodeSize)
         {
-            for(int y = 0; y < gridHeight; y+=nodeSize)
+            for(float y = 0; y < gridHeight; y+=nodeSize)
             {
+                float a = 0.3f;
                 List<Vector3> points = new List<Vector3>();
-                points.Add(new Vector3(nodeSize*0.2f, nodeSize*0.2f, 0f));
-                points.Add(new Vector3(nodeSize*0.2f, -nodeSize*0.2f, 0f));
-                points.Add(new Vector3(-nodeSize*0.2f, nodeSize*0.2f, 0f));
-                points.Add(new Vector3(-nodeSize*0.2f, -nodeSize*0.2f, 0f));
+                points.Add(new Vector3(nodeSize*a, nodeSize*a, 0f));
+                points.Add(new Vector3(nodeSize*a, -nodeSize*a, 0f));
+                points.Add(new Vector3(-nodeSize*a, nodeSize*a, 0f));
+                points.Add(new Vector3(-nodeSize*a, -nodeSize*a, 0f));
 
                 bool isWall = false;    
 
@@ -50,7 +51,7 @@ public class Grid : MonoBehaviour
                     {
                         if(obj.collider != null)
                         {   
-                            if(!obj.collider.isTrigger && (obj.collider.tag != "Enemy" && obj.collider.tag != "Player"))
+                            if(!obj.collider.isTrigger && ((obj.collider.tag != "Enemy" && obj.collider.tag != "Player") || obj.transform.CompareTag("Decor")))
                             {
                                 isWall = true;
                                 goto foreachExit;
@@ -62,13 +63,13 @@ public class Grid : MonoBehaviour
 
                 if(isWall)
                 {
-                    grid[x,y] = 1;
+                    grid[(int)x, (int)y] = 1;
                     // Instantiate(_collider,new Vector3(x,y,0), Quaternion.identity,transform);
                 }
                 else 
                 {
                     // Instantiate(emptyArea,new Vector3(x, y, 0),Quaternion.identity,transform);
-                    grid[x,y] = 0;
+                    grid[(int)x, (int)y] = 0;
                 }
             }
         }

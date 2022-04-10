@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCheker : MonoBehaviour
+public class TriggerCheker : MonoBehaviour
 {
-    public EnemyRatAttack enemy;
+    public bool isOnTrigger;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
-            enemy.isOnTrigger = true;
+            isOnTrigger = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {   
         if(other.tag == "Player")
-            enemy.isOnTrigger = false;
+            isOnTrigger = false;
     }
 }
