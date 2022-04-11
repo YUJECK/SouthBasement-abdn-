@@ -152,4 +152,4 @@ public class InventoryManager : MonoBehaviour
                 ratAttack.SetMelleWeapon(melleWeapons[melleRangeActiveSlot].melleWeapon);
         }
     }
-}
+}   

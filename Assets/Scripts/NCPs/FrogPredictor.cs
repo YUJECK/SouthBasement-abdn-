@@ -10,7 +10,7 @@ public class FrogPredictor : MonoBehaviour
     private bool isEndOfExtraSentences = false;
     public int PredictCost;
     [TextArea(3, 10)]
-    public string No;
+    public string noAnswer;
     [TextArea(3, 10)]
     public string endOfExtraSentences;
 
@@ -23,10 +23,10 @@ public class FrogPredictor : MonoBehaviour
                 //���� ����� �� ������� ��� ������, �� ���� ������ ���-�� SayaYes
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    if (panel.YesActive)
+                    if (panel.answer)
                     {
                         if (!SaysYes)
-                            YesButton();
+                            SayPredict();
                         if (SaysYes & dialogueManager.ExtraSentences == 0)
                             isEndOfExtraSentences = true;
 
@@ -36,13 +36,12 @@ public class FrogPredictor : MonoBehaviour
                             panel.DisablePanel();
                         }
                     }
-                    if (panel.NoActive)
-                        NoButton();
+                    if (!panel.answer) No();
                 }
             }
         }
     }
-    public void YesButton()
+    public void SayPredict()
     {
         if (FindObjectOfType<GameManager>().playerCheese >= 3)
         {
@@ -69,9 +68,9 @@ public class FrogPredictor : MonoBehaviour
         else
             NotMuchCheese.SetActive(true);
     }
-    public void NoButton()
+    public void No()
     {
-        dialogueManager.DisplayText(No);
+        dialogueManager.DisplayText(noAnswer);
         NotMuchCheese.SetActive(false);
         panel.DisablePanel();
     }

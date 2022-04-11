@@ -1,57 +1,50 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InteractivePanel : MonoBehaviour
 {
+    [SerializeField]private Image VizualizatorSprite;
+    [SerializeField]private Sprite YesSprite;
+    [SerializeField]private Sprite NoSprite;
+    [SerializeField]private Canvas Cloud;
+
     public bool isActive;
-    public bool YesActive = false;
-    public bool NoActive = true;
-    public Image VizualizatorSprite;
-    public Sprite YesSprite;
-    public Sprite NoSprite;
-    public Canvas Cloud;
+    public bool answer;
+    [SerializeField]private UnityEvent yesAction;
+    [SerializeField]private UnityEvent noAction;
 
     private void Update()
     {
-        if (isActive)
+        if(isActive)
         {
-            //����� ������
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if(Input.GetKeyDown(KeyCode.Q)) // Смена ответа
+                ChangeAnswer();
+            
+            if(Input.GetKeyDown(KeyCode.R)) // Выбор ответа
             {
-                if (YesActive)
-                    NoActivation();
-                else if (NoActive)
-                    YesActivation();
+                if(answer)  yesAction.Invoke();
+                if(!answer) noAction.Invoke();
             }
-            //�����
-            if (Input.GetKeyDown(KeyCode.LeftAlt))
-                DisablePanel();
         }
-        else
-            Cloud.enabled = false;
     }
+    
 
-    public void NoActivation()
-    {
-        NoActive = true;
-        YesActive = false;
-        VizualizatorSprite.sprite = NoSprite;
-    }
-    public void YesActivation()
-    {
-        YesActive = true;
-        NoActive = false;
-        VizualizatorSprite.sprite = YesSprite;
-    }
-    public void ActivePanel()
+    public void ActivePanel() // Активировать панель
     {
         isActive = true;
-        GameManager.isActiveAnyPanel = true;
+        Cloud.enabled = true;
     }
     public void DisablePanel()
     {
-        isActive = false;
-        Cloud.enabled = false;
-        GameManager.isActiveAnyPanel = false;
+        isActive = true;
+        Cloud.enabled = true;
     }
+
+    private void ChangeAnswer() 
+    { 
+        answer = !answer; 
+        if(answer) VizualizatorSprite.sprite = YesSprite;
+        else VizualizatorSprite.sprite = NoSprite;
+    }  //Смена ответа
 }
