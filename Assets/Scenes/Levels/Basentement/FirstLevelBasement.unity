@@ -905,7 +905,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &203290215
 MonoBehaviour:
@@ -922,6 +922,8 @@ MonoBehaviour:
   isStopped: 0
   movement: {x: 0, y: 0}
   speed: 2.5
+  dashStartTime: 0.3
+  dashSpeed: 30
   sprint: 0.45
   isSprinting: 0
   sprintColl: {fileID: 203290211}

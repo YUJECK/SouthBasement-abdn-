@@ -20,7 +20,6 @@ public class InventoryManager : MonoBehaviour
     [Header("")]
     public List<PassiveItemsSlots> passiveItems; // Слоты для пассивок
 
-
     private RatAttack ratAttack;
     private InputManager inputManager;
 
@@ -79,11 +78,21 @@ public class InventoryManager : MonoBehaviour
                 activeAciveItemSlot = 0;
             ChangeSlot("ActiveItems",activeAciveItemSlot);
         }
-        if(Input.GetKeyDown(inputManager.MelleWeaponChangeButton)) // Смена слота с оружием ближнего боя
+
+        //Смена слотов миллишного оружия
+        if(inputManager.mouseWheel > 0.1f) // Откручивание вперед
         {
             melleRangeActiveSlot++;   
 
             if(melleRangeActiveSlot > melleWeapons.Count-1)
+                melleRangeActiveSlot = 0;
+            ChangeSlot("MelleRange",melleRangeActiveSlot);
+        }
+        if(inputManager.mouseWheel < -0.1f) // Откручивание назад
+        {
+            melleRangeActiveSlot--;   
+
+            if(melleRangeActiveSlot < 0)
                 melleRangeActiveSlot = 0;
             ChangeSlot("MelleRange",melleRangeActiveSlot);
         }

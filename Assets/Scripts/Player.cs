@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     public bool isStopped;
     [SerializeField]private Vector2 movement;
     public float speed = 5f; // Скорость игрока
+    private float dashTime = 0f; // Длина рывка
+    public float dashStartTime = 5f; // Скорость рывка
+    public float dashSpeed = 5f; // Скорость рывка
     public float sprint = 0.35f; //Процент увеличения скорости при спринте
 
     [HideInInspector]   
@@ -74,6 +77,11 @@ public class Player : MonoBehaviour
                 Sprint();
             if(isSprinting & Input.GetKeyUp(KeyCode.LeftControl))
                 Sprint();
+
+                
+            //Рывок
+            if(Input.GetMouseButtonDown(1) && !isSprinting && dashTime == 0f)
+                dashTime = dashStartTime;
         }
         else
             anim.SetBool("Is_Run", false);
@@ -88,6 +96,10 @@ public class Player : MonoBehaviour
                 //Движение игрока
                 rb.velocity = new Vector2(movement.x  * (speed*100) * Time.deltaTime, movement.y * (speed*100) * Time.deltaTime);
             }
+
+            //Рывок
+            if(dashTime > 0f) Dashing();
+            else dashTime = 0f;
 
             //Поворот спрайта игрока
             if (movement.x > 0) 
@@ -124,6 +136,13 @@ public class Player : MonoBehaviour
             ratAttack.HideMelleweaponIcon(false); 
             isSprinting = false;
         }
+    }
+
+    //Рывок
+    private void Dashing() 
+    { 
+        rb.velocity = movement * dashSpeed; 
+        dashTime -= 0.1f;
     }
     void Flip()
     {
