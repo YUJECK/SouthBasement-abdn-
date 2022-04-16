@@ -8,6 +8,7 @@ public class MelleRangeWeapon : ScriptableObject
     [TextArea(3,3)] public string Dicription;
     public Effect effect;
     public float effectTime;
+    public float stan = 0f;
     public int Cost;
     [Tooltip("Attack Range")] public float attackRange;
     [Tooltip("Speed of attack")] public float attackRate;

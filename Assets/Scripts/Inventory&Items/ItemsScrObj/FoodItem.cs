@@ -39,7 +39,7 @@ public class FoodItem : ScriptableObject
     public void PowerDrink()
     {
         playerHealth.TakeAwayHealth(1,1);
-        plaeyrController.speed++;
+        plaeyrController.BoostSpeed(0.5f);
         usesInGame--;
     }
 

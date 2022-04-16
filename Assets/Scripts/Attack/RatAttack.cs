@@ -19,9 +19,12 @@ public class RatAttack : MonoBehaviour
     private Vector3 posWhenAttack;
 
 
+    private Player player;
+
     private void Start()
     {
         pointRotation = FindObjectOfType<PointRotation>();
+        player = FindObjectOfType<Player>();
     }
 
     void Update()
@@ -31,10 +34,12 @@ public class RatAttack : MonoBehaviour
             if (Input.GetMouseButtonDown(0) & !FindObjectOfType<Player>().isSprinting)
             {
                 Attack();
+                player.isStopped = true;
                 // cursor.CursorClick();
                 nextTime = Time.time + 1f / attackRate;
             }
         }
+        if(Time.time >= nextTime - 0.6f + melleWeapon.stan) player.isStopped = false;
         if(Time.time >= nextTime)
         {
             is_Attack = false;  

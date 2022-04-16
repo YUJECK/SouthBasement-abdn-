@@ -9,11 +9,13 @@ public class Player : MonoBehaviour
     //Мувмент крысы
     public bool isStopped;
     [SerializeField]private Vector2 movement;
-    public float speed = 5f; // Скорость игрока
+    [SerializeField] private float speed = 5f; // Скорость игрока
     private float dashTime = 0f; // Длина рывка
-    public float dashStartTime = 5f; // Скорость рывка
-    public float dashSpeed = 5f; // Скорость рывка
-    public float sprint = 0.35f; //Процент увеличения скорости при спринте
+    [SerializeField] private float dashStartTime = 5f; // Скорость рывка
+    [SerializeField] private float dashRate = 3f; //Скорость перезарядки рывка
+    private float dashNextTime = 0f; //То когда сможет игрок сделать рывок
+    [SerializeField] private float dashSpeed = 5f; // Скорость рывка
+    [SerializeField] private float sprint = 0.35f; //Процент увеличения скорости при спринте
 
     [HideInInspector]   
     public bool isSprinting; // Спринтит ли игрок
@@ -80,7 +82,7 @@ public class Player : MonoBehaviour
 
                 
             //Рывок
-            if(Input.GetMouseButtonDown(1) && !isSprinting && dashTime == 0f)
+            if(Input.GetMouseButtonDown(1) && !isSprinting && dashTime == 0f && dashNextTime <= Time.time)
                 dashTime = dashStartTime;
         }
         else
@@ -96,6 +98,8 @@ public class Player : MonoBehaviour
                 //Движение игрока
                 rb.velocity = new Vector2(movement.x  * (speed*100) * Time.deltaTime, movement.y * (speed*100) * Time.deltaTime);
             }
+            else
+                rb.velocity = Vector2.zero;
 
             //Рывок
             if(dashTime > 0f) Dashing();
@@ -143,16 +147,15 @@ public class Player : MonoBehaviour
     { 
         rb.velocity = movement * dashSpeed; 
         dashTime -= 0.1f;
+        dashNextTime = Time.time + 1f/dashRate;
     }
+
+    public void BoostSpeed(float speedBoost) {speed = speed + speed * speedBoost;} // Ускорение игрока
     void Flip()
     {
         flippedOnRight = !flippedOnRight;  
         transform.Rotate(0f,180f,0f);
     }
     
-    enum Rotation
-    {
-        Left,
-        Right
-    }
+    enum Rotation { Left, Right }
 }   

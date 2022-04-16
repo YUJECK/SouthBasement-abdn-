@@ -7,8 +7,9 @@ public class Pathfinding : MonoBehaviour
     private bool[,] visitedPoints; // Массив посещенных точек 
     private Grid grid;
 
-
-    public bool isRun;
+    private Rigidbody2D rb; //Ссылка на Rigidbody2D объекта, нужно для обнулдения velocity из-за которого объект странно перемещается
+    public bool isRun; // Идет ли объект к цели
+    public bool resetVelocity; //Будут ли обнулятся velocity у Rigidbody2D
 
     [SerializeField] private Transform target; // Объект для которого будем искать путь
     [SerializeField] private List<Vector2> path; // Путь к таргету
@@ -27,6 +28,9 @@ public class Pathfinding : MonoBehaviour
     private void Start()
     {
         grid = FindObjectOfType<Grid>(); // Ищем сетку
+        
+        if(resetVelocity)
+            rb = GetComponent<Rigidbody2D>();
     }
 
     private List<Vector2> FindPath(Vector2 startPos, Vector2 endPos) // Поиск пути
@@ -133,11 +137,14 @@ public class Pathfinding : MonoBehaviour
     }
     public void ResetTarget() { target = null; path.Clear();} // Срос таргета
 
-    private void SetNextTime() { nextTime = Time.time + 1f / findRate; } // Ставим следующее время
+    private void SetNextTime() { nextTime = Time.time + findRate; } // Ставим следующее время
    
    
     private void FixedUpdate()
     {
+        if(resetVelocity) // Обнуление velocity
+            rb.velocity = new Vector2(0f, 0f);
+
         if(target != null)
         {
             if((Time.time >= nextTime & nextTime != 0)||path.Count == 0)

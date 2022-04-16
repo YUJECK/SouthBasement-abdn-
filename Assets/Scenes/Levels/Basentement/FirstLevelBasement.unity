@@ -922,8 +922,9 @@ MonoBehaviour:
   isStopped: 0
   movement: {x: 0, y: 0}
   speed: 2.5
-  dashStartTime: 0.3
-  dashSpeed: 30
+  dashStartTime: 0.4
+  dashRate: 3
+  dashSpeed: 20
   sprint: 0.45
   isSprinting: 0
   sprintColl: {fileID: 203290211}
@@ -4167,6 +4168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprint: 306
+  mouseWheel: 0
   PickUpButton: 101
   FoodChangeButton: 9
   ActiveItemChangeButton: 98
@@ -5781,7 +5783,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935036189}
   m_LocalRotation: {x: -0, y: -0, z: 0.60358423, w: 0.79729927}
-  m_LocalPosition: {x: -0.106, y: -0.09, z: 0}
+  m_LocalPosition: {x: -0.23, y: 0.134, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 203290218}
@@ -5803,7 +5805,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
