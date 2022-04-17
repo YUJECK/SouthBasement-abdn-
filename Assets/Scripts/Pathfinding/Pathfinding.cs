@@ -10,6 +10,7 @@ public class Pathfinding : MonoBehaviour
     private Rigidbody2D rb; //Ссылка на Rigidbody2D объекта, нужно для обнулдения velocity из-за которого объект странно перемещается
     public bool isRun; // Идет ли объект к цели
     public bool resetVelocity; //Будут ли обнулятся velocity у Rigidbody2D
+    public TriggerCheker triggerCheker; //Триггер для остановки
 
     [SerializeField] private Transform target; // Объект для которого будем искать путь
     [SerializeField] private List<Vector2> path; // Путь к таргету
@@ -145,34 +146,37 @@ public class Pathfinding : MonoBehaviour
         if(resetVelocity) // Обнуление velocity
             rb.velocity = new Vector2(0f, 0f);
 
-        if(target != null)
+        if(triggerCheker != null && !triggerCheker.isOnTrigger)
         {
-            if((Time.time >= nextTime & nextTime != 0)||path.Count == 0)
+            if(target != null)
             {
-                //Ищем новый путь
-                path = FindPath(
-                new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
-                new Vector2(target.position.x / grid.nodeSize, target.position.y / grid.nodeSize));
-                
-                // //Перероверяем сетку, чтобы определялись враги
-                // grid.ResetGrid(
-                // new Vector2(transform.position.x-10, transform.position.y-10),
-                // new Vector2(transform.position.x+10, transform.position.y) 
-                // );
+                if((Time.time >= nextTime & nextTime != 0) || path.Count == 0)
+                {
+                    //Ищем новый путь
+                    path = FindPath(
+                    new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
+                    new Vector2(target.position.x / grid.nodeSize, target.position.y / grid.nodeSize));
+                    
+                    // //Перероверяем сетку, чтобы определялись враги
+                    // grid.ResetGrid(
+                    // new Vector2(transform.position.x-10, transform.position.y-10),
+                    // new Vector2(transform.position.x+10, transform.position.y) 
+                    // );
 
-                SetNextTime();
-            }
-                
-            if(path.Count != 0)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, path[0], speed*Time.deltaTime);   // Перемещаем объект в след точку
-                isRun = true;
+                    SetNextTime();
+                }
+                    
+                if(path.Count != 0)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, path[0], speed*Time.deltaTime);   // Перемещаем объект в след точку
+                    isRun = true;
 
-                if(transform.position == new Vector3(path[0].x,path[0].y, transform.position.z))
-                    path.RemoveAt(0);        
-            }
-        }        
-        else isRun = false;
+                    if(transform.position == new Vector3(path[0].x,path[0].y, transform.position.z))
+                        path.RemoveAt(0);        
+                }
+            }        
+            else isRun = false;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D coll)

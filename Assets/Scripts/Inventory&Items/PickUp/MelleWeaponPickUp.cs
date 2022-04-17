@@ -87,7 +87,7 @@ public class MelleWeaponPickUp : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
-        if(isForTrade & trader == null)
+        if(isForTrade && trader == null)
             isForTrade = false;
     }
 

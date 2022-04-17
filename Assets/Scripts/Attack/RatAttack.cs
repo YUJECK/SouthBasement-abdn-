@@ -39,7 +39,7 @@ public class RatAttack : MonoBehaviour
                 nextTime = Time.time + 1f / attackRate;
             }
         }
-        if(Time.time >= nextTime - 0.6f + melleWeapon.stan) player.isStopped = false;
+        if(Time.time >= nextTime - 1f) player.isStopped = false;
         if(Time.time >= nextTime)
         {
             is_Attack = false;  
