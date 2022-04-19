@@ -8,8 +8,10 @@ public class Pathfinding : MonoBehaviour
     private Grid grid;
 
     private Rigidbody2D rb; //Ссылка на Rigidbody2D объекта, нужно для обнулдения velocity из-за которого объект странно перемещается
-    public bool isRun; // Идет ли объект к цели
-    public bool resetVelocity; //Будут ли обнулятся velocity у Rigidbody2D
+    [HideInInspector]public bool isNowGoingToTarget; // Идет ли объект к цели
+    [SerializeField] private bool resetVelocity; //Будут ли обнулятся velocity у Rigidbody2D
+    [SerializeField] private bool useTargetPoints; //Будет ли объект перемещатся к точкам
+    [SerializeField] private Transform[] targetPoints; // Список точек для перемещения
     public TriggerCheker triggerCheker; //Триггер для остановки
 
     [SerializeField] private Transform target; // Объект для которого будем искать путь
@@ -60,6 +62,7 @@ public class Pathfinding : MonoBehaviour
             if (curr.x == (int)endPos.x && curr.y == (int)endPos.y)
             {
                 Debug.Log("Path was found");
+                curr.path.Add(endPos);
                 return curr.path;
             }
 
@@ -136,8 +139,17 @@ public class Pathfinding : MonoBehaviour
         }
         SetNextTime(); // Ставим сразу время, а то больше путь искаться в апдейте не будет
     }
-    public void ResetTarget() { target = null; path.Clear();} // Срос таргета
-
+    
+    public void SetPointToTarget() // Поиск пути для точки
+    {
+        if(targetPoints.Length != 0)
+        {
+            int pointInd = Random.Range(0,targetPoints.Length); //Рандомим точку
+            target = targetPoints[pointInd];
+            SetNextTime();
+        }
+    }
+    public void ResetTarget() { target = null; path.Clear();} // Срос таргета 
     private void SetNextTime() { nextTime = Time.time + findRate; } // Ставим следующее время
    
    
@@ -148,6 +160,7 @@ public class Pathfinding : MonoBehaviour
 
         if(triggerCheker != null && !triggerCheker.isOnTrigger)
         {
+            //Если есть таргет
             if(target != null)
             {
                 if((Time.time >= nextTime & nextTime != 0) || path.Count == 0)
@@ -156,38 +169,39 @@ public class Pathfinding : MonoBehaviour
                     path = FindPath(
                     new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
                     new Vector2(target.position.x / grid.nodeSize, target.position.y / grid.nodeSize));
-                    
-                    // //Перероверяем сетку, чтобы определялись враги
-                    // grid.ResetGrid(
-                    // new Vector2(transform.position.x-10, transform.position.y-10),
-                    // new Vector2(transform.position.x+10, transform.position.y) 
-                    // );
 
                     SetNextTime();
                 }
                     
-                if(path.Count != 0)
+                if(path.Count != 0) //Если путь не равен нулю, то мы идем по нему
                 {
                     transform.position = Vector2.MoveTowards(transform.position, path[0], speed*Time.deltaTime);   // Перемещаем объект в след точку
-                    isRun = true;
+                    isNowGoingToTarget = true;
 
                     if(transform.position == new Vector3(path[0].x,path[0].y, transform.position.z))
                         path.RemoveAt(0);        
                 }
-            }        
-            else isRun = false;
+                if(useTargetPoints && path.Count == 0) ResetTarget();
+            }            
+            else if(useTargetPoints) SetPointToTarget();
+            else isNowGoingToTarget = false;
         }
     }
 
     private void OnTriggerStay2D(Collider2D coll)
     {
-        if(coll.tag == "Player" && target == null)
-            SetTarget(coll.transform);
+        if(coll.tag == "Player" && target == null) SetTarget(coll.transform);
     }
 
     private void OnTriggerExit2D(Collider2D coll)
     {
-        if(coll.tag == "Player")
-            ResetTarget();
+        if(coll.tag == "Player") 
+        {
+            ResetTarget(); //Убираем таргет
+            
+            if(useTargetPoints) //Идем к точке если таковые имеются 
+                SetPointToTarget(); 
+        }
+
     }
 }

@@ -15,6 +15,7 @@ public class RatAttack : MonoBehaviour
     public float AttackRange;
     public float attackRate = 2f;
     public int damage = 2;
+    public int damageBoost = 2;
     public bool is_Attack;
     private Vector3 posWhenAttack;
 
@@ -69,7 +70,7 @@ public class RatAttack : MonoBehaviour
                         if(melleWeapon.effect == MelleRangeWeapon.Effect.Burn)
                             enemy.GetComponent<HealthEnemy>().GetBurn(melleWeapon.effectTime);
                     }
-                    enemy.GetComponent<HealthEnemy>().TakeHit(damage);
+                    enemy.GetComponent<HealthEnemy>().TakeHit(damage+damageBoost);
                     Debug.Log("Enemy health: " + enemy.GetComponent<HealthEnemy>().health);
                 }
             }

@@ -133,8 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c1c42e4d5d07f4c9478587f9891327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRun: 0
+  isGoingToTarget: 0
   resetVelocity: 1
+  useTargetPoints: 1
+  targetPoints: []
   triggerCheker: {fileID: 5636856872160811131}
   target: {fileID: 0}
   path: []
@@ -283,7 +285,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.014834519, y: -0.12520912}
   serializedVersion: 2
-  m_Radius: 9.173529
+  m_Radius: 5.028895
 --- !u!60 &3654696176951889183
 PolygonCollider2D:
   m_ObjectHideFlags: 0

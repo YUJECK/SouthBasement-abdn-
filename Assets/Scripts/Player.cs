@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField]private Vector2 movement;
     [SerializeField] private float speed = 5f; // Скорость игрока
     private float dashTime = 0f; // Длина рывка
-    [SerializeField] private float dashStartTime = 5f; // Скорость рывка
+    public float dashDuration = 5f; // Скорость рывка
     [SerializeField] private float dashRate = 3f; //Скорость перезарядки рывка
     private float dashNextTime = 0f; //То когда сможет игрок сделать рывок
     [SerializeField] private float dashSpeed = 5f; // Скорость рывка
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
                 
             //Рывок
             if(Input.GetMouseButtonDown(1) && !isSprinting && dashTime == 0f && dashNextTime <= Time.time)
-                dashTime = dashStartTime;
+                dashTime = dashDuration;
         }
         else
             anim.SetBool("Is_Run", false);
