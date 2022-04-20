@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [Header("")]
     public int LevelCounter = 1; // Счетчик уровней
     public List<GameObject> items; // Лист предметов
+    public List<GameObject> traderItems; // Лист предметов которые продаются
 
     [Header("Сыр и все что с ним связано")]
 
@@ -38,6 +39,21 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
+
+    private void OnLevelWasLoaded()
+    {
+        if(traderItems.Count != 0) //Записываем все не проданные предметы обратно
+        {
+            int itemsCount = traderItems.Count;
+            for(int i = 0; i < itemsCount; i++)
+            {
+                items.Add(traderItems[i]);
+                traderItems.Remove(traderItems[i]);
+            }  
+        }    
+    }
+
+
     public void SpawnCheese(Transform CheesePos, int cheeseCount) // Справнит сыр
     {
         Debug.Log("CheeseCount " + cheeseCount);

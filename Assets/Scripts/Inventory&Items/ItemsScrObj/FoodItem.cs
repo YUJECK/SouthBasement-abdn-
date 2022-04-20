@@ -13,7 +13,7 @@ public class FoodItem : ScriptableObject
     public string Dicription;
     public int uses;
     public UnityEvent itemAction;
-    private int usesInGame;
+    [HideInInspector] public int usesInGame;
     public int Cost;
     public bool CanRise;
     public int ChanceOfDrop;

@@ -9,14 +9,17 @@ public class Pathfinding : MonoBehaviour
 
     private Rigidbody2D rb; //Ссылка на Rigidbody2D объекта, нужно для обнулдения velocity из-за которого объект странно перемещается
     [HideInInspector]public bool isNowGoingToTarget; // Идет ли объект к цели
+    private bool isPlayerTarget; // Идет ли объект к цели
     [SerializeField] private bool resetVelocity; //Будут ли обнулятся velocity у Rigidbody2D
     [SerializeField] private bool useTargetPoints; //Будет ли объект перемещатся к точкам
     [SerializeField] private Transform[] targetPoints; // Список точек для перемещения
     public TriggerCheker triggerCheker; //Триггер для остановки
 
-    [SerializeField] private Transform target; // Объект для которого будем искать путь
+    public Transform target; // Объект для которого будем искать путь
     [SerializeField] private List<Vector2> path; // Путь к таргету
-    [SerializeField] float speed = 1f; // Скорость передвижения
+    private float speed; //Скорость передвижения
+    [SerializeField] float runSpeed = 1f; // Скорость при беге
+    [SerializeField] float walkSpeed = 1f; // Скорость при ходьбе
     [SerializeField] float findRate = 10; // Частота поиска пути
     [SerializeField] float nextTime; // Время следующего поиска пути
 
@@ -126,7 +129,6 @@ public class Pathfinding : MonoBehaviour
             visitedPoints[nextPoint.x, nextPoint.y] = true;
         }
     }
-
     public void SetTarget(Transform newTarget) // Поставить новый таргет
     {
         target = newTarget;
@@ -146,10 +148,11 @@ public class Pathfinding : MonoBehaviour
         {
             int pointInd = Random.Range(0,targetPoints.Length); //Рандомим точку
             target = targetPoints[pointInd];
+            speed = walkSpeed; // Ставим скорость на скорость при ходьбе
             SetNextTime();
         }
     }
-    public void ResetTarget() { target = null; path.Clear();} // Срос таргета 
+    public void ResetTarget() { target = null; path.Clear(); isPlayerTarget = false;} // Срос таргета 
     private void SetNextTime() { nextTime = Time.time + findRate; } // Ставим следующее время
    
    
@@ -181,7 +184,7 @@ public class Pathfinding : MonoBehaviour
                     if(transform.position == new Vector3(path[0].x,path[0].y, transform.position.z))
                         path.RemoveAt(0);        
                 }
-                if(useTargetPoints && path.Count == 0) ResetTarget();
+                if(useTargetPoints && path.Count == 0 && !isPlayerTarget) ResetTarget();
             }            
             else if(useTargetPoints) SetPointToTarget();
             else isNowGoingToTarget = false;
@@ -190,7 +193,12 @@ public class Pathfinding : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D coll)
     {
-        if(coll.tag == "Player" && target == null) SetTarget(coll.transform);
+        if(coll.tag == "Player" && !isPlayerTarget) 
+        {
+            SetTarget(coll.transform);
+            if(useTargetPoints) speed = runSpeed; //Ставим скорость на сокрость при беге
+            isPlayerTarget = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D coll)

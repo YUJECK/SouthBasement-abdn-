@@ -18,7 +18,7 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
-        Invoke("StartGrid", 3f);
+        Invoke("StartGrid", 1f);
     }
 
     private void StartGrid()

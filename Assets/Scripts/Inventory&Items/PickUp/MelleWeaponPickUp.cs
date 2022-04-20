@@ -96,6 +96,7 @@ public class MelleWeaponPickUp : MonoBehaviour
         if(gameManager.playerCheese >= melleWeapon.Cost)
         {
             gameManager.CheeseScore(-melleWeapon.Cost);
+            gameManager.traderItems.Remove(gameObject);
             isForTrade = false;
             inventory.AddMelleWeapon(melleWeapon, gameObject);
             gameObject.SetActive(false);

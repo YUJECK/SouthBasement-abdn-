@@ -28,15 +28,18 @@ public class EnemyControl : MonoBehaviour
             if (Time.time >= nextTime)
                 anim.SetTrigger("isAttack");
         }
-        if(player.position.x > transform.position.x & !flippedOnRight)
+        if(pathManager.target!=null)
         {
-            Flip();
-            flippedOnRight = true;
-        }
-        if(player.position.x < transform.position.x & flippedOnRight)
-        {
-            Flip(); 
-            flippedOnRight = false;
+            if(pathManager.target.position.x > transform.position.x & !flippedOnRight)
+            {
+                Flip();
+                flippedOnRight = true;
+            }
+            if(pathManager.target.position.x < transform.position.x & flippedOnRight)
+            {
+                Flip(); 
+                flippedOnRight = false;
+            }
         }
         
         if(pathManager.isNowGoingToTarget)

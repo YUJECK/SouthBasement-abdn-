@@ -29,6 +29,8 @@ public class FoodPickUp : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().sprite = food.sprite;
             itemInfo = FindObjectOfType<ItemInfo>();
 
+            if(food.usesInGame == 0) food.usesInGame = food.uses; //Чтобы еду можно было повторно использовать
+            
             //Записываем всю информацию о предмете в ItemInfo
             itemInfo.itemTipe = "Food";
             itemInfo.itemName = food.name;
@@ -97,6 +99,7 @@ public class FoodPickUp : MonoBehaviour
         if(gameManager.playerCheese >= food.Cost)
         {
             gameManager.CheeseScore(-food.Cost);
+            gameManager.traderItems.Remove(gameObject);
             isForTrade = false;
             inventory.AddFood(food, gameObject);
             gameObject.SetActive(false);

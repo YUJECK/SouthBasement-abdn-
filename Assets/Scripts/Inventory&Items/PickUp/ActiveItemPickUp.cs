@@ -100,6 +100,7 @@ public class ActiveItemPickUp : MonoBehaviour
         if(gameManager.playerCheese >= activeItem.Cost)
         {
             gameManager.CheeseScore(-activeItem.Cost);
+            gameManager.traderItems.Remove(gameObject);
             isForTrade = false;
             inventory.AddActiveItem(activeItem, gameObject);
             gameObject.SetActive(false);

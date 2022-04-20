@@ -26,16 +26,19 @@ public class Trader : MonoBehaviour
 
         tmp = Random.Range(0,gameManager.items.Count);
         GameObject item_1 = Instantiate(gameManager.items[tmp],item1Transform.position,Quaternion.identity,item1Transform);
+        gameManager.traderItems.Add(gameManager.items[tmp]);
         gameManager.items.Remove(gameManager.items[tmp]);
         SetItemForTrade(item_1);
 
         tmp = Random.Range(0,gameManager.items.Count);
         GameObject item_2 = Instantiate(gameManager.items[tmp],item2Transform.position,Quaternion.identity,item2Transform);
+        gameManager.traderItems.Add(gameManager.items[tmp]);
         gameManager.items.Remove(gameManager.items[tmp]);
         SetItemForTrade(item_2);
 
         tmp = Random.Range(0,gameManager.items.Count);
         GameObject item_3 = Instantiate(gameManager.items[tmp],item3Transform.position,Quaternion.identity,item3Transform);
+        gameManager.traderItems.Add(gameManager.items[tmp]);
         gameManager.items.Remove(gameManager.items[tmp]);
         SetItemForTrade(item_3);
 
@@ -50,10 +53,10 @@ public class Trader : MonoBehaviour
             if(item1Transform.GetChild(0) != null && item1Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
                 DisplayItemInfo(item1Transform.GetChild(0).gameObject);
 
-            if(item1Transform.GetChild(0) != null && item2Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
+            if(item2Transform.GetChild(0) != null && item2Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
                 DisplayItemInfo(item2Transform.GetChild(0).gameObject);
 
-            if(item1Transform.GetChild(0) != null && item3Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
+            if(item3Transform.GetChild(0) != null && item3Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
                 DisplayItemInfo(item3Transform.GetChild(0).gameObject);
         }
     }
@@ -109,5 +112,4 @@ public class Trader : MonoBehaviour
         yield return new WaitForSeconds(time);
         isTraderTalking = false;
     }
-
 }
