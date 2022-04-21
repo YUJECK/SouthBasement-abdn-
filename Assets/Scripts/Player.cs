@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
     //Рывок
     private void Dashing() 
     { 
-        rb.velocity = movement * dashSpeed; 
+        rb.velocity = movement * (speed + dashSpeed); 
         dashTime -= 0.1f;
         dashNextTime = Time.time + 1f/dashRate;
     }

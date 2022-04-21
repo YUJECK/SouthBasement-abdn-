@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
+    public bool isGridCreated = false;
     [SerializeField] private GameObject _collider;
     [SerializeField] private GameObject emptyArea;
     public int[,] grid;
@@ -73,6 +74,8 @@ public class Grid : MonoBehaviour
                 }
             }
         }
+
+        isGridCreated = true;
         Debug.Log("GridWasCreated");
     }
 

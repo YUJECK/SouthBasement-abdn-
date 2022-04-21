@@ -41,61 +41,59 @@ public class Pathfinding : MonoBehaviour
 
     private List<Vector2> FindPath(Vector2 startPos, Vector2 endPos) // Поиск пути
     {
-        visitedPoints = new bool[grid.gridWidth,grid.gridHeight];
-        List<Point> queue = new List<Point>();
-        List<Point> nextQueue = new List<Point>();
-
-        Point start = new Point();
-        start.x = (int)startPos.x;
-        start.y = (int)startPos.y;
-        start.path = new List<Vector2>();
-        start.path.Add(new Vector2(startPos.x, startPos.y));
-
-        Debug.Log("Start pos - " + start.x + " " + start.y);
-        Debug.Log("End pos - " + endPos);
-
-        queue.Add(start);
-
-        visitedPoints[start.x, start.y] = true;
-
-        while (queue.Count > 0)
+        if(grid.isGridCreated)
         {
-            Point curr = queue[0];
+            visitedPoints = new bool[grid.gridWidth,grid.gridHeight];
+            List<Point> queue = new List<Point>();
+            List<Point> nextQueue = new List<Point>();
 
-            if (curr.x == (int)endPos.x && curr.y == (int)endPos.y)
-            {
-                Debug.Log("Path was found");
-                curr.path.Add(endPos);
-                return curr.path;
-            }
+            Point start = new Point();
+            start.x = (int)startPos.x;
+            start.y = (int)startPos.y;
+            start.path = new List<Vector2>();
+            start.path.Add(new Vector2(startPos.x, startPos.y));
 
-            //   н
-            // н т н
-            //   н
-            CheckPoint(1,0, curr, ref nextQueue, endPos);
-            CheckPoint(-1,0, curr, ref nextQueue, endPos);
-            CheckPoint(0,1, curr, ref nextQueue, endPos);
-            CheckPoint(0,-1, curr, ref nextQueue, endPos);
-            
-            //Проверка угловых клеток
-            // н н
-            //  т 
-            // н н
-            CheckPoint(1,1, curr, ref nextQueue, endPos);
-            CheckPoint(-1,1, curr, ref nextQueue, endPos);
-            CheckPoint(1,-1, curr, ref nextQueue, endPos);
-            CheckPoint(-1,-1, curr, ref nextQueue, endPos);
-            
-            queue.RemoveAt(0);
-            
-            if (queue.Count == 0)
+            Debug.Log("Start pos - " + start.x + " " + start.y);
+            Debug.Log("End pos - " + endPos);
+
+            queue.Add(start);
+
+            visitedPoints[start.x, start.y] = true;
+
+            while (queue.Count > 0)
             {
-                queue = new List<Point>(nextQueue);
-                nextQueue.Clear();
+                Point curr = queue[0];
+
+                if (curr.x == (int)endPos.x && curr.y == (int)endPos.y)
+                {
+                    Debug.Log("Path was found");
+                    curr.path.Add(endPos);
+                    return curr.path;
+                }
+
+                CheckPoint(1,0, curr, ref nextQueue, endPos);
+                CheckPoint(-1,0, curr, ref nextQueue, endPos);
+                CheckPoint(0,1, curr, ref nextQueue, endPos);
+                CheckPoint(0,-1, curr, ref nextQueue, endPos);
+                
+                //Проверка угловых клеток
+                CheckPoint(1,1, curr, ref nextQueue, endPos);
+                CheckPoint(-1,1, curr, ref nextQueue, endPos);
+                CheckPoint(1,-1, curr, ref nextQueue, endPos);
+                CheckPoint(-1,-1, curr, ref nextQueue, endPos);
+                
+                queue.RemoveAt(0);
+                
+                if (queue.Count == 0)
+                {
+                    queue = new List<Point>(nextQueue);
+                    nextQueue.Clear();
+                }
             }
+            Debug.LogError("Path wasnt found: " + startPos + " " + new Vector2((int)endPos.x, (int)endPos.y));
+            return new List<Vector2>();
         }
 
-        Debug.LogError("Path wasnt found: " + startPos + " " + new Vector2((int)endPos.x, (int)endPos.y));
         return new List<Vector2>();
     }
     private void CheckPoint(int dX, int dY, Point point, ref List<Point> listOfPoints, Vector2 end) // Проверка след,, точки

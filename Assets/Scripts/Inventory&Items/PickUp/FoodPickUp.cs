@@ -88,6 +88,8 @@ public class FoodPickUp : MonoBehaviour
 
             else // Поднимаем предмет
             {
+                if(food.usesInGame == 0)
+                    food.usesInGame = food.uses;
                 inventory.AddFood(food, gameObject);
                 gameObject.SetActive(false);
             }
@@ -101,6 +103,8 @@ public class FoodPickUp : MonoBehaviour
             gameManager.CheeseScore(-food.Cost);
             gameManager.traderItems.Remove(gameObject);
             isForTrade = false;
+                if(food.usesInGame == 0)
+                    food.usesInGame = food.uses;
             inventory.AddFood(food, gameObject);
             gameObject.SetActive(false);
         }
