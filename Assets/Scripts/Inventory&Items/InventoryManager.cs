@@ -80,7 +80,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         //Смена слотов миллишного оружия
-        if(inputManager.mouseWheel > 0.1f) // Откручивание вперед
+        if(Input.GetKeyDown(inputManager.MelleWeaponChangeButton)) // Смена оружия ближнего боя
         {
             melleRangeActiveSlot++;   
 
@@ -88,14 +88,14 @@ public class InventoryManager : MonoBehaviour
                 melleRangeActiveSlot = 0;
             ChangeSlot("MelleRange",melleRangeActiveSlot);
         }
-        if(inputManager.mouseWheel < -0.1f) // Откручивание назад
-        {
-            melleRangeActiveSlot--;   
+        // if(inputManager.mouseWheel < -0.1f) // Откручивание назад
+        // {
+        //     melleRangeActiveSlot--;   
 
-            if(melleRangeActiveSlot < 0)
-                melleRangeActiveSlot = 0;
-            ChangeSlot("MelleRange",melleRangeActiveSlot);
-        }
+        //     if(melleRangeActiveSlot < 0)
+        //         melleRangeActiveSlot = 0;
+        //     ChangeSlot("MelleRange",melleRangeActiveSlot);
+        // }
     }
 
     private void ChangeSlot(string slotsName, int slotIndex) // MelleRange - ближний бой, FoodSlots - еда, ActiveItems - актвики
