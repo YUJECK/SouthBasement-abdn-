@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Box : MonoBehaviour
 {
-    public Transform spawnPoint;
-    public GameObject item;
+    [SerializeField] private GameObject E;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private GameObject item;
     private GameManager gameManager;
     private Animator anim;
-    public bool isOnTrigger;
-    public int chance;
+    [SerializeField] private bool isOnTrigger;
+    private int chance;
     public bool isEmpty = false;
     public List<GameObject> ItemsInThisChance;
 
@@ -45,6 +46,7 @@ public class Box : MonoBehaviour
     private void OpenBox()
     {
         anim.SetBool("isOpen", true);
+        GetComponent<EButton>().Disable();
     }
 
     private void GetAllItemInChance()
