@@ -7,6 +7,7 @@ public class RoomGenerationManager : MonoBehaviour
     [Header("Генерация уровней")]
 
     public int RoomsCount = 15;
+    public int[] rooms;
     public int ExitRoomIndex;
     public int NPCsRoomsCount;
     public int NowSpawnedSimpleRooms;
@@ -35,11 +36,27 @@ public class RoomGenerationManager : MonoBehaviour
         Invoke("ActivateExitRoom",5f);
         Debug.Log(NPCsRoomsCount);
 
+        createRoomsList:
+        
+        rooms = new int[RoomsCount];
+        int npcCount = 0;
+        
+        for(int i = 0; i < RoomsCount; i++)
+        {
+            rooms[i] = Random.Range(0,2);
+            if(rooms[i] == 1)
+            {
+                npcCount++;   
+                if(npcCount > NPCsRoomsCount) rooms[i] = 0;
+            }
+        }
+        if(npcCount == 0) goto createRoomsList;
+
+        //Индексация торговца и коробки
         TraderIndex = Random.Range(1,NowSpawnedNPCsRooms);
         BoxIndex = Random.Range(1,NowSpawnedNPCsRooms); 
         NPCsRoomsCount = FindObjectOfType<RoomsNPCList>().NPCs.Count + 2;
-        
-        if(BoxIndex == TraderIndex)
+        if(BoxIndex == TraderIndex) //Если коробка с торговцем в одной комнате
         {
             int i = 0;
 

@@ -38,7 +38,7 @@ public class RoomsNPCList : MonoBehaviour
             NPCRooms[generationManager.BoxIndex-1].SpawnNPC(Box);
             NPCRooms.Remove(NPCRooms[generationManager.BoxIndex-1]);    
         }
-        if(IsTraderSpawning & NPCRooms[generationManager.TraderIndex-1] != null)
+        if(IsTraderSpawning && NPCRooms[generationManager.TraderIndex-1] != null)
         {
             NPCRooms[generationManager.TraderIndex-1].SpawnNPC(Trader);
             NPCRooms.Remove(NPCRooms[generationManager.TraderIndex-1]);

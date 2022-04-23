@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class RoomSpawner : MonoBehaviour
 {
     public GameObject room;
@@ -30,60 +30,28 @@ public class RoomSpawner : MonoBehaviour
 
     void Spawn()
     {
-        if (generationManager.NowSpawnedRooms <= generationManager.RoomsCount)
+        if (generationManager.NowSpawnedRooms < generationManager.RoomsCount)
         {
             //Если комната не закрыта и уже не заспавнена 
-            if (!isNextRoomSpawn & !isAnotherRoomSpawned & !isClose)
+            if (!isNextRoomSpawn && !isAnotherRoomSpawned & !isClose)
             {
-                int isNPCRoomWillBeSpawned = Random.Range(0,2);
 
-                if(isNPCRoomWillBeSpawned == 0 & generationManager.NowSpawnedNPCsRooms <= generationManager.NPCsRoomsCount)
+                if(generationManager.rooms[generationManager.NowSpawnedRooms] == 1)
                 {
-                    if (openingDirection == Directories.Down)
-                    {
-                        rand = Random.Range(0, generationManager.topNPC.Length);
-                        room = Instantiate(generationManager.topNPC[rand], transform.position, transform.rotation/* , ParentObject.transform */);
-                    }
-                    else if (openingDirection == Directories.Up)
-                    {
-                        rand = Random.Range(0, generationManager.downNPC.Length);
-                        room = Instantiate(generationManager.downNPC[rand], transform.position, transform.rotation/* , ParentObject.transform */);
-                    }
-                    else if (openingDirection == Directories.Left)
-                    {
-                        rand = Random.Range(0, generationManager.rightNPC.Length);
-                        room = Instantiate(generationManager.rightNPC[rand], transform.position, transform.rotation/* , ParentObject.transform */);
-                    }
-                    else if (openingDirection == Directories.Right)
-                    {
-                        rand = Random.Range(0, generationManager.leftNPC.Length);
-                        room = Instantiate(generationManager.leftNPC[rand], transform.position, transform.rotation/* , ParentObject.transform */);
-                    }
+                    if (openingDirection == Directories.Down) SpawnRoom(generationManager.topNPC);
+                    else if (openingDirection == Directories.Up) SpawnRoom(generationManager.downNPC);
+                    else if (openingDirection == Directories.Left) SpawnRoom(generationManager.rightNPC);
+                    else if (openingDirection == Directories.Right) SpawnRoom(generationManager.leftNPC);
                     
                     generationManager.NowSpawnedNPCsRooms++;
                 }
                 else
                 {
-                    if (openingDirection == Directories.Down)
-                    {
-                        rand = Random.Range(0, generationManager.top.Length);
-                        room = Instantiate(generationManager.top[rand], transform.position, transform.rotation/* , ParentObject.transform */);
-                    }
-                    else if (openingDirection == Directories.Up)
-                    {
-                        rand = Random.Range(0, generationManager.down.Length);
-                        room = Instantiate(generationManager.down[rand], transform.position, transform.rotation/* , ParentObject.transform */);
-                    }
-                    else if (openingDirection == Directories.Left)
-                    {
-                        rand = Random.Range(0, generationManager.right.Length);
-                        room = Instantiate(generationManager.right[rand], transform.position, transform.rotation/* , ParentObject.transform */);
-                    }
-                    else if (openingDirection == Directories.Right)
-                    {
-                        rand = Random.Range(0, generationManager.left.Length);
-                        room = Instantiate(generationManager.left[rand], transform.position, transform.rotation/* , ParentObject.transform */);
-                    }
+                    if (openingDirection == Directories.Down) SpawnRoom(generationManager.top);
+                    else if (openingDirection == Directories.Up) SpawnRoom(generationManager.down);
+                    else if (openingDirection == Directories.Left) SpawnRoom(generationManager.right);
+                    else if (openingDirection == Directories.Right) SpawnRoom(generationManager.left);
+                    
                     generationManager.NowSpawnedSimpleRooms++;
                 }
                 
@@ -92,9 +60,33 @@ public class RoomSpawner : MonoBehaviour
                 isConnectedRoomSpawned = true;
             }
         }
+        else Close();
         isFunctionStart = true;
     }
 
+    private void SpawnRoom(GameObject[] roomsList) //Спавн комнаты
+    {
+        rand = Random.Range(0, roomsList.Length);
+        room = Instantiate(roomsList[rand], transform.position, transform.rotation);
+    }
+    public void Close()
+    {
+        if(walls != null)
+        {
+            walls.Close();
+            isClose = true; 
+            isOpen = false;
+        }
+    }
+    public void Open()
+    {
+        if(walls != null)
+        {
+            walls.Open();
+            isClose = false;
+            isOpen = true;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D otherRoom)
     {
         if (otherRoom.tag == "Spawner")
@@ -135,43 +127,19 @@ public class RoomSpawner : MonoBehaviour
         if (otherRoom.tag != "Player")
         {
             isAnyObjOnTrigger = false;
-
-            if(walls != null)
-            {
-                walls.Close();
-                isClose = true;
-                isOpen = false;
-            }
+            Close();
         }
     }
 
     private void Update()
     {
-        if(isConnectedRoomSpawned && isClose)
-        {
-            if(walls!=null)
-            {
-                walls.Open();
-                isClose = false;
-                isOpen = true;
-            }
-        }
-        if (!isNextRoomSpawn & isFunctionStart & room == null & walls != null & !isConnectedRoomSpawned & !isClose)
+        if(isConnectedRoomSpawned && isClose) Open();
+        
+        if (!isNextRoomSpawn && isFunctionStart && room == null && !isConnectedRoomSpawned && !isClose)
         {
             if (!isAnyObjOnTrigger || isAnotherRoomSpawned)
-            {
-                walls.Close();
-                isClose = true;
-                isOpen = false;
-            }
+                Close();
         }
     }
-    public enum Directories
-    {
-        None,
-        Down,
-        Up,
-        Left,
-        Right
-    }
+    public enum Directories { None, Down, Up, Left, Right}
 }
