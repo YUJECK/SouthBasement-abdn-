@@ -28,7 +28,7 @@ public class RoomSpawner : MonoBehaviour
         Invoke("Spawn", 0.1f);
     }
 
-    void Spawn()
+    public void Spawn()
     {
         if (generationManager.NowSpawnedRooms < generationManager.RoomsCount)
         {

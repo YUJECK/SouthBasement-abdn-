@@ -6,6 +6,8 @@ public class RoomInfo : MonoBehaviour
     public RoomSpawner.Directories direction_2;
     public RoomSpawner.Directories direction_3;
     public RoomSpawner.Directories direction_4;
+
+    public RoomSpawner[] spawnPoints;
     public NPCsSpawner spawnerNPC;
     public RoomGenerationManager list;
 
@@ -34,7 +36,7 @@ public class RoomInfo : MonoBehaviour
         }
 
         if (collision.tag == "RoomInfo")
-            Destroy(collision.GetComponent<RoomInfo>().room);
+            Destroy(collision.gameObject);
     }
     public void ActivateExit()
     {

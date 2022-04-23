@@ -18,6 +18,7 @@ public class RoomGenerationManager : MonoBehaviour
 
     [Header("")] 
     public List<RoomInfo> roomsList;
+    public List<GameObject> test;
 
     [Header("Обычные комнаты")]
     public GameObject[] left;
@@ -69,6 +70,33 @@ public class RoomGenerationManager : MonoBehaviour
                     break;
             }
         }
+
+        StartCoroutine(roomsCountCheker());
+    }
+
+    private IEnumerator roomsCountCheker()
+    {
+        yield return new WaitForSeconds(2f);
+        if(NowSpawnedRooms == 4)
+            Regenerate();
+    }
+
+    private void Regenerate()
+    {
+        for(int i = 1; i < roomsList.Count; i++)
+        {
+            Transform tmp = roomsList[i].GetComponentInParent<Transform>();
+            GameObject room = tmp.gameObject;
+            test.Add(room);
+            roomsList.RemoveAt(i);
+        }   
+
+        NowSpawnedSimpleRooms = 0;
+        NowSpawnedNPCsRooms = 0;
+        NowSpawnedRooms = 0;
+        
+        // for(int i = 0; i < roomsList[0].spawnPoints.Length; i++)
+        //     roomsList[0].spawnPoints[i].Spawn();
     }
 
     void ActivateExitRoom()
