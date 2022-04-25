@@ -89,6 +89,18 @@ public class Trader : MonoBehaviour
         }
     }
 
+    public void Trade(GameObject item) // Продаем предмет
+    {
+        if(gameManager.playerCheese >= item.GetComponentInChildren<ItemInfo>().cost)
+        {
+            gameManager.CheeseScore(-item.GetComponentInChildren<ItemInfo>().cost);
+            gameManager.traderItems.Remove(item.GetComponentInChildren<Transform>().gameObject);
+            item.GetComponentInChildren<ItemInfo>().pickUp.Invoke();
+        }
+        else // Если не хватает сыра
+            DisplayFrase(SentenceNotEnoghtCheese, 5f);
+    }
+
     //Торговец что то говорит
     public void DisplayFrase(string frase, float time)
     {

@@ -79,29 +79,18 @@ public class MelleWeaponPickUp : MonoBehaviour
         if(isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
             if(isForTrade)
-                Trade();
+                trader.Trade(gameObject);
 
             else // Поднимаем предмет
-            {
-                inventory.AddMelleWeapon(melleWeapon, gameObject);
-                gameObject.SetActive(false);
-            }
+                PickUp(false);
         }
         if(isForTrade && trader == null)
             isForTrade = false;
     }
-
-    private void Trade() // Продаем предмет
+    public void PickUp(bool isForTrade)
     {
-        if(gameManager.playerCheese >= melleWeapon.Cost)
-        {
-            gameManager.CheeseScore(-melleWeapon.Cost);
-            gameManager.traderItems.Remove(gameObject);
-            isForTrade = false;
-            inventory.AddMelleWeapon(melleWeapon, gameObject);
-            gameObject.SetActive(false);
-        }
-        else // Если не хватает сыра
-            trader.DisplayFrase(trader.SentenceNotEnoghtCheese, 5f);
+        inventory.AddMelleWeapon(melleWeapon, gameObject);
+        gameObject.SetActive(false);
+        if(isForTrade) this.isForTrade = false;
     }
 }

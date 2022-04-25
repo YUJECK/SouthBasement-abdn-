@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine;
 
 public class ItemInfo : MonoBehaviour
@@ -10,4 +9,5 @@ public class ItemInfo : MonoBehaviour
     public int cost;
     public int chanceOfDrop;
     public bool isOnTrigger;
+    public UnityEvent pickUp;
 }

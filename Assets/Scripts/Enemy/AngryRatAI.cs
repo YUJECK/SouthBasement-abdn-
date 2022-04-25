@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyControl : MonoBehaviour
+public class AngryRatAI : MonoBehaviour
 {
     [Header("AttackSettings")]
     private float nextTime;
@@ -20,7 +20,15 @@ public class EnemyControl : MonoBehaviour
         anim = GetComponent<Animator>();
         pathManager = GetComponent<Pathfinding>();
     }
-    
+    private void OnTriggerStay2D(Collider2D coll)
+    {
+        if(coll.tag == "WeaponDecoration")
+        {
+            pathManager.SetTarget(coll.transform);
+
+        }
+    }
+
     void FixedUpdate()
     {   
         if(attackTrigger.isOnTrigger)
