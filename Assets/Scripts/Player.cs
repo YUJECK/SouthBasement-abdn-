@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
             {
                 dashTime = dashDuration;
                 movementOnDash = movement;
+                dashNextTime = Time.time + dashRate;
             }   
         }
         else
@@ -151,7 +152,6 @@ public class Player : MonoBehaviour
     { 
         rb.velocity = movementOnDash * (speed + dashSpeed); 
         dashTime -= 0.1f;
-        dashNextTime = Time.time + 1f/dashRate;
     }
 
     public void BoostSpeed(float speedBoost) {speed = speed + speed * speedBoost;} // Ускорение игрока

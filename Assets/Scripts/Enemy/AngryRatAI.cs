@@ -8,6 +8,8 @@ public class AngryRatAI : MonoBehaviour
     private float nextTime;
     public float attackRate = 4f;
     public int damage = 1;
+    public List<GameObject> decorationWeapons;
+    [SerializeField] private Transform firePoint; 
     [HideInInspector] public Transform player;
     private bool flippedOnRight = true;
     private Pathfinding pathManager; 
@@ -23,10 +25,7 @@ public class AngryRatAI : MonoBehaviour
     private void OnTriggerStay2D(Collider2D coll)
     {
         if(coll.tag == "WeaponDecoration")
-        {
             pathManager.SetTarget(coll.transform);
-
-        }
     }
 
     void FixedUpdate()
@@ -49,7 +48,8 @@ public class AngryRatAI : MonoBehaviour
                 flippedOnRight = false;
             }
         }
-        
+        if(decorationWeapons.Count != 0)
+            Shot(decorationWeapons[0]);
         if(pathManager.isNowGoingToTarget)
             anim.SetBool("IsRun", true);
         else
@@ -65,6 +65,19 @@ public class AngryRatAI : MonoBehaviour
             nextTime = Time.time + 1f / attackRate;
         }
         anim.ResetTrigger("isAttack");
+    }
+    private void Shot(GameObject projectile)
+    {
+        if(projectile!=null)
+        {
+            Vector3 direction = player.position - transform.position ;
+            float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg - 90f;
+            
+            GameObject Projectile = Instantiate(projectile, firePoint.position, Quaternion.identity);
+            Projectile.GetComponent<Rigidbody2D>().rotation = angle;
+            Projectile.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 100f, ForceMode2D.Force);
+            decorationWeapons.Remove(projectile);
+        }
     }
     private void Flip()
     {
