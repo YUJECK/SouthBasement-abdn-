@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class FoodSlots : MonoBehaviour
 {
     public FoodItem food;   // Предмет который лежит в этом слоте
-    public GameObject objectOfItem;    // Гейм обжект этого предмета
+    public GameObject objectOfItem;    // ГеймОбжект этого предмета
     public Image slotIcon;   // Иконка предмета который лежит в этом слоте
     public bool isEmpty; // Используется ли этот слот сейчас
     public bool isActiveSlot; // Используется ли этот слот сейчас
@@ -13,7 +13,7 @@ public class FoodSlots : MonoBehaviour
     {
         if(!isEmpty)
         {
-            if(food.GetUses() <= 0)
+            if(objectOfItem.GetComponent<ItemInfo>().GetUses() <= 0)
             {
                 Destroy(objectOfItem);
                 Remove();
@@ -21,7 +21,12 @@ public class FoodSlots : MonoBehaviour
             if(isActiveSlot & !isEmpty & Input.GetKeyDown(KeyCode.Space))
             {       
                 food.itemAction.Invoke();
-                Debug.Log("useItem");
+                objectOfItem.GetComponent<ItemInfo>().uses--;
+
+                if(objectOfItem != null)
+                    Debug.Log("Съеден: " + food.name + "\n" + 
+                    "Количество использований: " + objectOfItem.GetComponent<ItemInfo>().uses + "\n" +
+                    "Количество использований в скриптовом объекте: " + food.uses);
             }
         }
     }

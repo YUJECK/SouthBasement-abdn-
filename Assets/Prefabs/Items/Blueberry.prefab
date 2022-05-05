@@ -126,6 +126,7 @@ MonoBehaviour:
   food: {fileID: 11400000, guid: cec84aae88707204c9ca05b17f894d64, type: 2}
   itemInfo: {fileID: 0}
   trader: {fileID: 0}
+  inputManager: {fileID: 0}
   canDestoring: 1
   isForTrade: 1
 --- !u!114 &-2607350255491996475
@@ -141,8 +142,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: "\u0421\u0442\u0430\u043A\u0430\u043D \u043C\u043E\u043B\u043E\u043A\u0430"
+  itemTipe: 
   discription: "\u041E\u043D \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442
     \u043E\u0434\u043D\u043E \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u0435"
+  uses: 0
   cost: 30
   chanceOfDrop: 50
   isOnTrigger: 0
+  pickUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2200479531105832779}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

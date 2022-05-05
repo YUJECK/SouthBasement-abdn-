@@ -53,9 +53,6 @@ public class Pathfinding : MonoBehaviour
             start.path = new List<Vector2>();
             start.path.Add(new Vector2(startPos.x, startPos.y));
 
-            Debug.Log("Start pos - " + start.x + " " + start.y);
-            Debug.Log("End pos - " + endPos);
-
             queue.Add(start);
 
             visitedPoints[start.x, start.y] = true;
@@ -66,7 +63,6 @@ public class Pathfinding : MonoBehaviour
 
                 if (curr.x == (int)endPos.x && curr.y == (int)endPos.y)
                 {
-                    Debug.Log("Path was found");
                     curr.path.Add(endPos);
                     return curr.path;
                 }

@@ -53,11 +53,11 @@ public class Trader : MonoBehaviour
             if(item1Transform.GetChild(0) != null && item1Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
                 DisplayItemInfo(item1Transform.GetChild(0).gameObject);
 
-            if(item2Transform.GetChild(0) != null && item2Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
-                DisplayItemInfo(item2Transform.GetChild(0).gameObject);
+            if(item2Transform.GetChild(1) != null && item2Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
+                DisplayItemInfo(item2Transform.GetChild(1).gameObject);
 
-            if(item3Transform.GetChild(0) != null && item3Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
-                DisplayItemInfo(item3Transform.GetChild(0).gameObject);
+            if(item3Transform.GetChild(2) != null && item3Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
+                DisplayItemInfo(item3Transform.GetChild(2).gameObject);
         }
     }
 

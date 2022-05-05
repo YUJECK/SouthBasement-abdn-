@@ -13,7 +13,6 @@ public class FoodItem : ScriptableObject
     public string Dicription;
     public int uses;
     public UnityEvent itemAction;
-    [HideInInspector] public int usesInGame;
     public int Cost;
     public bool CanRise;
     public int ChanceOfDrop;
@@ -32,15 +31,12 @@ public class FoodItem : ScriptableObject
     {
         playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();;
         plaeyrController = FindObjectOfType<Player>();
-        
-        usesInGame = uses;
     }
 
     public void PowerDrink()
     {
         playerHealth.TakeAwayHealth(1,1);
         plaeyrController.BoostSpeed(0.5f);
-        usesInGame--;
     }
 
     public void Cookie()
@@ -49,29 +45,20 @@ public class FoodItem : ScriptableObject
         {
             playerHealth.Heal(1);
             SetSprite(extraSprites[0], null, slot.slotIcon);
-            usesInGame--;
         }
     }
-    public void GlassOfMilk()
-    {
-        playerHealth.SetBonusHealth(1,0);
-        usesInGame--;
-    }
+    public void GlassOfMilk(){playerHealth.SetBonusHealth(1,0);}
 
     public void Blueberry()
     {
         if(playerHealth.health != playerHealth.maxHealth)
-        {
             playerHealth.Heal(1);
-            usesInGame--;
-        }
     }
 
     public void CheeseSnack()
     {
         playerHealth.TakeAwayHealth(1,1);
         playerHealth.Heal(3);
-        usesInGame--;
     }
 
     public void SetSprite(Sprite newSprite, SpriteRenderer spriteRend = null, Image image = null)
@@ -81,16 +68,5 @@ public class FoodItem : ScriptableObject
 
         if(image != null)
             image.sprite = newSprite;
-    }
-    public void SetUses(bool PlusUses,int BonusUses)
-    {
-        if(PlusUses)
-            usesInGame += BonusUses;    
-        else
-            usesInGame -= BonusUses;
-    }
-    public int GetUses()
-    {
-        return usesInGame;
     }
 }

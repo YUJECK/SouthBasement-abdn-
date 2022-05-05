@@ -14,9 +14,9 @@ public class FoodPickUp : MonoBehaviour
     public bool isForTrade = false; // Продается ли этот предмет
 
 
-    private void Awake()
+    private void Awake() //"Создание" предмета
     {
-        if(food == null & canDestoring)
+        if(food == null & canDestoring)//Уничтожаем предмет если переменная предмета пустая
             Destroy(gameObject);
 
         else if(!canDestoring)// Если canDestroing == false, то просто спрайт прдмета будет становиться прозрачным
@@ -28,13 +28,12 @@ public class FoodPickUp : MonoBehaviour
             food.ActiveItem();
             gameObject.GetComponent<SpriteRenderer>().sprite = food.sprite;
             itemInfo = FindObjectOfType<ItemInfo>();
-
-            if(food.usesInGame == 0) food.usesInGame = food.uses; //Чтобы еду можно было повторно использовать
             
             //Записываем всю информацию о предмете в ItemInfo
             itemInfo.itemTipe = "Food";
             itemInfo.itemName = food.name;
-            itemInfo.discription = food.Dicription;
+            itemInfo.itemName = food.name;
+            itemInfo.uses = food.uses;
             itemInfo.cost = food.Cost;
             itemInfo.chanceOfDrop = food.ChanceOfDrop;
         }
@@ -46,6 +45,7 @@ public class FoodPickUp : MonoBehaviour
         inputManager = FindObjectOfType<InputManager>();
     } 
 
+    //Определение стоит ли игрок на прдемете или нет
     private void OnTriggerEnter2D(Collider2D coll) 
     {
         if(coll.tag == "Player")
@@ -79,36 +79,17 @@ public class FoodPickUp : MonoBehaviour
             isWhiteSprite = false;
         }
 
-
         //Поднимание прдмета
         if(isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
-            if(isForTrade)
-                Trade();
-
-            else // Поднимаем предмет
-            {
-                if(food.usesInGame == 0)
-                    food.usesInGame = food.uses;
-                inventory.AddFood(food, gameObject);
-                gameObject.SetActive(false);
-            }
+            // Поднимаем предмет
+            PickUp();
         }
     }
 
-    private void Trade() // Продаем предмет
+    public void PickUp() //Поднятие предмета
     {
-        if(gameManager.playerCheese >= food.Cost)
-        {
-            gameManager.CheeseScore(-food.Cost);
-            gameManager.traderItems.Remove(gameObject);
-            isForTrade = false;
-                if(food.usesInGame == 0)
-                    food.usesInGame = food.uses;
-            inventory.AddFood(food, gameObject);
-            gameObject.SetActive(false);
-        }
-        else // Если не хватает сыра
-            trader.DisplayFrase(trader.SentenceNotEnoghtCheese, 5f);
+        inventory.AddFood(food, gameObject);
+        gameObject.SetActive(false);
     }
 }
