@@ -14,8 +14,6 @@ public class MelleWeaponPickUp : MonoBehaviour
     public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
     private bool isOnTrigger = false; // Если стоит на триггере
     private bool isWhiteSprite = false; // Стоит ли уже спрайт с обводкой
-    public bool isForTrade = false; // Продается ли этот предмет
-
 
     private void Awake()
     {
@@ -30,7 +28,6 @@ public class MelleWeaponPickUp : MonoBehaviour
             itemInfo = FindObjectOfType<ItemInfo>();
 
             //Записываем всю информацию о предмете в ItemInfo
-            itemInfo.itemTipe = "MelleRangeWeapon";
             itemInfo.itemName = melleWeapon.name;
             itemInfo.discription = melleWeapon.Dicription;
             itemInfo.cost = melleWeapon.Cost;
@@ -78,19 +75,18 @@ public class MelleWeaponPickUp : MonoBehaviour
         //Поднимание прдмета
         if(isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
-            if(isForTrade)
+            if(itemInfo.isForTrade)
                 trader.Trade(gameObject);
 
             else // Поднимаем предмет
-                PickUp(false);
+                PickUp();
         }
-        if(isForTrade && trader == null)
-            isForTrade = false;
+        if(itemInfo.isForTrade && trader == null)
+            itemInfo.isForTrade = false;
     }
-    public void PickUp(bool isForTrade)
+    public void PickUp()
     {
         inventory.AddMelleWeapon(melleWeapon, gameObject);
         gameObject.SetActive(false);
-        if(isForTrade) this.isForTrade = false;
     }
 }

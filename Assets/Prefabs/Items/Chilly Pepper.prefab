@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3693619824881896649}
   - component: {fileID: 3928387776844752884}
   m_Layer: 0
-  m_Name: Chilly pepper
+  m_Name: Chilly Pepper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,8 +141,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: 
-  itemTipe: 
   discription: 
+  uses: 0
   cost: 0
   chanceOfDrop: 30
   isOnTrigger: 0
+  pickUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3693619824881896649}
+        m_TargetAssemblyTypeName: ActiveItemPickUp, Assembly-CSharp
+        m_MethodName: PickUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

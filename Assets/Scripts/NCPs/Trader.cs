@@ -10,10 +10,9 @@ public class Trader : MonoBehaviour
     
     [Header("ItemSlots")]
     public int boxesForItems = 3;
-    public Transform item1Transform;
-    public Transform item2Transform;
-    public Transform item3Transform;
-    public List<GameObject> itemsForTrade;
+    public Transform[] itemsTransform;
+    public GameObject[] items;
+    public List<int> itemsIndex;
 
     [Header("Sentences")]
     public bool isTraderTalking = false;
@@ -23,23 +22,27 @@ public class Trader : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         int tmp;
-
+        //Спавним предметы
         tmp = Random.Range(0,gameManager.items.Count);
-        GameObject item_1 = Instantiate(gameManager.items[tmp],item1Transform.position,Quaternion.identity,item1Transform);
+        GameObject item_1 = Instantiate(gameManager.items[tmp],itemsTransform[0].position,Quaternion.identity, itemsTransform[0]);
         gameManager.traderItems.Add(gameManager.items[tmp]);
+        itemsIndex.Add(gameManager.traderItems.Count-1);
         gameManager.items.Remove(gameManager.items[tmp]);
+        items[0] = item_1;
         SetItemForTrade(item_1);
 
         tmp = Random.Range(0,gameManager.items.Count);
-        GameObject item_2 = Instantiate(gameManager.items[tmp],item2Transform.position,Quaternion.identity,item2Transform);
+        GameObject item_2 = Instantiate(gameManager.items[tmp],itemsTransform[1].position,Quaternion.identity, itemsTransform[1]);
         gameManager.traderItems.Add(gameManager.items[tmp]);
         gameManager.items.Remove(gameManager.items[tmp]);
+        items[1] = item_2;
         SetItemForTrade(item_2);
 
         tmp = Random.Range(0,gameManager.items.Count);
-        GameObject item_3 = Instantiate(gameManager.items[tmp],item3Transform.position,Quaternion.identity,item3Transform);
+        GameObject item_3 = Instantiate(gameManager.items[tmp],itemsTransform[2].position,Quaternion.identity, itemsTransform[2]);
         gameManager.traderItems.Add(gameManager.items[tmp]);
         gameManager.items.Remove(gameManager.items[tmp]);
+        items[2] = item_3;
         SetItemForTrade(item_3);
 
         //Делаем чтобы по началу была такая фраза
@@ -48,16 +51,16 @@ public class Trader : MonoBehaviour
     
     private void Update()
     {
-        if(!isTraderTalking)
+        if(!isTraderTalking) //Выводим инфу предмета когда к нему подходит игрок
         {
-            if(item1Transform.GetChild(0) != null && item1Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
-                DisplayItemInfo(item1Transform.GetChild(0).gameObject);
+            if(items[0].GetComponent<ItemInfo>().isOnTrigger)
+                DisplayItemInfo(items[0]);
 
-            if(item2Transform.GetChild(1) != null && item2Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
-                DisplayItemInfo(item2Transform.GetChild(1).gameObject);
-
-            if(item3Transform.GetChild(2) != null && item3Transform.GetChild(0).GetComponent<ItemInfo>().isOnTrigger)
-                DisplayItemInfo(item3Transform.GetChild(2).gameObject);
+            if(items[1].GetComponent<ItemInfo>().isOnTrigger)
+                DisplayItemInfo(items[1]);
+                
+            if(items[2].GetComponent<ItemInfo>().isOnTrigger)
+                DisplayItemInfo(items[2]); 
         }
     }
 
@@ -65,7 +68,7 @@ public class Trader : MonoBehaviour
     {
         if(item.TryGetComponent(out FoodPickUp food))
         {
-            food.isForTrade = true;
+            item.GetComponent<ItemInfo>().isForTrade = true;
             food.trader = GetComponent<Trader>();
             item.GetComponent<Collider2D>().offset = new Vector2(0,-0.5f);
             item.GetComponent<BoxCollider2D>().size = new Vector2(0.1f,0.3f);
@@ -73,7 +76,7 @@ public class Trader : MonoBehaviour
         }
         if(item.TryGetComponent(out ActiveItemPickUp activeItem))
         {
-            activeItem.isForTrade = true;
+            item.GetComponent<ItemInfo>().isForTrade = true;
             activeItem.trader = GetComponent<Trader>();
             item.GetComponent<Collider2D>().offset = new Vector2(0,-0.5f);
             item.GetComponent<BoxCollider2D>().size = new Vector2(0.1f,0.3f);
@@ -81,7 +84,7 @@ public class Trader : MonoBehaviour
         }
         if(item.TryGetComponent(out MelleWeaponPickUp melleWeapon))
         {
-            melleWeapon.isForTrade = true;
+            item.GetComponent<ItemInfo>().isForTrade = true;
             melleWeapon.trader = GetComponent<Trader>();
             item.GetComponent<Collider2D>().offset = new Vector2(0,-0.5f);
             item.GetComponent<BoxCollider2D>().size = new Vector2(0.1f,0.3f);
@@ -101,11 +104,7 @@ public class Trader : MonoBehaviour
             DisplayFrase(SentenceNotEnoghtCheese, 5f);
     }
 
-    //Торговец что то говорит
-    public void DisplayFrase(string frase, float time)
-    {
-        StartCoroutine(displayFrase(frase,time));
-    }
+    public void DisplayFrase(string frase, float time){StartCoroutine(displayFrase(frase,time));} //Торговец что то говорит
     
     //Показывает информацию о педмете
     public void DisplayItemInfo(GameObject item)

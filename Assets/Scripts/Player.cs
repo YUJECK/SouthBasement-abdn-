@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
 
     //Ссылки на другие скрипты
     private RatAttack ratAttack;
+    private AudioManager audioManager;
     public static Player instance; // Синглтон
 
     private void Awake()
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
         GameManager.isActiveAnyPanel = false;
         normalSpeed = speed;
         ratAttack = FindObjectOfType<RatAttack>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
     private void OnLevelWasLoaded(int level)
     {
@@ -102,6 +104,7 @@ public class Player : MonoBehaviour
             {
                 //Движение игрока
                 rb.velocity = new Vector2(movement.x  * (speed*100) * Time.deltaTime, movement.y * (speed*100) * Time.deltaTime);
+                // audioManager.PlayClip("RatWalk");
             }
             else
                 rb.velocity = Vector2.zero;

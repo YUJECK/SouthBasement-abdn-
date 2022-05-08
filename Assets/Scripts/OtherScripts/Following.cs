@@ -7,8 +7,5 @@ public class Following : MonoBehaviour
     public Transform ownObject;
     public Transform target;
 
-    private void Update()
-    {
-        ownObject.position = target.position;
-    }
+    private void Update(){ownObject.position = new Vector3(target.position.x, target.position.y, 0f);}
 }

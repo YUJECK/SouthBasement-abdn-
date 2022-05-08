@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class ItemInfo : MonoBehaviour
 {
-    public string itemName;
-    public string itemTipe;
-    public string discription;
-    public int uses;
-    public int cost;
-    public int chanceOfDrop;
-    public bool isOnTrigger;
-    public UnityEvent pickUp;
+    public string itemName; //Имя
+    public string discription; //Описание
+    public int uses; //Количество использований  
+    public int cost; //Цена
+    public int chanceOfDrop; //Шанс дропа
+    public bool isOnTrigger; //Стоит ли игрок на предмете
+    public bool isForTrade = false; // Продается ли этот предмет
+    public UnityEvent pickUp; //Метод поднятия
 
     public int GetUses(){return uses;}
 }

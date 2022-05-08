@@ -637,7 +637,7 @@ Transform:
   - {fileID: 1246221442}
   - {fileID: 1737868243}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &192447260
 SpriteRenderer:
@@ -972,7 +972,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 12
   m_Sprite: {fileID: 7730794340272312790, guid: b9412839fe4b12b49b4e658c86a51c86, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1005,14 +1005,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203290209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 209.419, y: 193.505, z: -1}
+  m_LocalPosition: {x: 216.31, y: 194.88, z: -1}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 1935036190}
   - {fileID: 1983612208}
-  - {fileID: 888331935}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &267540320
 GameObject:
@@ -3098,13 +3097,14 @@ GameObject:
   m_Component:
   - component: {fileID: 888331935}
   - component: {fileID: 888331936}
+  - component: {fileID: 888331937}
   m_Layer: 3
   m_Name: RatInMinimap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &888331935
 Transform:
   m_ObjectHideFlags: 0
@@ -3113,11 +3113,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888331934}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 40, y: 40, z: 1}
+  m_LocalPosition: {x: 209.72, y: 193.59, z: 0}
+  m_LocalScale: {x: 60, y: 60, z: 1}
   m_Children: []
-  m_Father: {fileID: 203290218}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &888331936
 SpriteRenderer:
@@ -3170,6 +3170,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &888331937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888331934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c00fd062d58b8342b47f63312058301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownObject: {fileID: 888331935}
+  target: {fileID: 203290218}
 --- !u!1 &890802314
 GameObject:
   m_ObjectHideFlags: 0
@@ -3741,7 +3755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1061295645
 GameObject:
@@ -5165,7 +5179,7 @@ Transform:
   - {fileID: 118789642}
   - {fileID: 1371969408}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1537816010
 GameObject:
@@ -7326,13 +7340,19 @@ MonoBehaviour:
   - name: TestMusic
     clip: {fileID: 8300000, guid: 89b6e963887fab6478e5f898896dc7fe, type: 3}
     source: {fileID: 0}
-    volume: 0.426
+    volume: 0.2
     pitch: 1
     loop: 1
   - name: RatHurt
     clip: {fileID: 8300000, guid: f71a1a65e22ae07498e8e2edb21c9385, type: 3}
     source: {fileID: 0}
     volume: 0.56
+    pitch: 1
+    loop: 0
+  - name: RatWalk
+    clip: {fileID: 8300000, guid: d0605c2208dfeae428c748f4b279e2a7, type: 3}
+    source: {fileID: 0}
+    volume: 1
     pitch: 1
     loop: 0
 --- !u!1 &2133308122
@@ -7370,7 +7390,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -69.274994, y: -177.41}
+  m_AnchoredPosition: {x: -69.27496, y: -177.41}
   m_SizeDelta: {x: 61.45, y: 63.28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2133308124

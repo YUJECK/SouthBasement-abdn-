@@ -11,7 +11,6 @@ public class FoodPickUp : MonoBehaviour
     public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
     private bool isOnTrigger = false; // Если стоит на триггере
     private bool isWhiteSprite = false; // Стоит ли уже спрайт с обводкой
-    public bool isForTrade = false; // Продается ли этот предмет
 
 
     private void Awake() //"Создание" предмета
@@ -30,15 +29,14 @@ public class FoodPickUp : MonoBehaviour
             itemInfo = FindObjectOfType<ItemInfo>();
             
             //Записываем всю информацию о предмете в ItemInfo
-            itemInfo.itemTipe = "Food";
             itemInfo.itemName = food.name;
-            itemInfo.itemName = food.name;
+            itemInfo.discription = food.Dicription;
             itemInfo.uses = food.uses;
             itemInfo.cost = food.Cost;
             itemInfo.chanceOfDrop = food.ChanceOfDrop;
         }
-        if(isForTrade & trader == null)
-            isForTrade = false;
+        if(itemInfo.isForTrade & trader == null)
+            itemInfo.isForTrade = false;
 
         inventory = FindObjectOfType<InventoryManager>();
         gameManager = FindObjectOfType<GameManager>();
