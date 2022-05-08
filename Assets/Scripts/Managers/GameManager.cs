@@ -45,10 +45,11 @@ public class GameManager : MonoBehaviour
         if(traderItems.Count != 0) //Записываем все не проданные предметы обратно
         {
             int itemsCount = traderItems.Count;
+              
             for(int i = 0; i < itemsCount; i++)
             {
-                items.Add(traderItems[i]);
-                traderItems.Remove(traderItems[i]);
+                items.Add(traderItems[0]);
+                traderItems.Remove(traderItems[0]);
             }  
         }    
     }

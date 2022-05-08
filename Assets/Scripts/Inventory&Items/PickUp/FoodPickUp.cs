@@ -80,9 +80,11 @@ public class FoodPickUp : MonoBehaviour
         //Поднимание прдмета
         if(isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
-            // Поднимаем предмет
-            PickUp();
-        }
+            if(!itemInfo.isForTrade)
+                PickUp(); // Поднимаем предмет
+            
+            else trader.Trade(gameObject);
+        }  
     }
 
     public void PickUp() //Поднятие предмета

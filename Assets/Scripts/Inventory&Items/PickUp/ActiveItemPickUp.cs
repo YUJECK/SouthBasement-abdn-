@@ -80,9 +80,11 @@ public class ActiveItemPickUp : MonoBehaviour
         //Поднимание прдмета
         if(isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
-            inventory.AddActiveItem(activeItem, gameObject);
-            gameObject.SetActive(false);
-        }
+            if(!itemInfo.isForTrade)
+                PickUp(); // Поднимаем предмет
+            
+            else trader.Trade(gameObject);
+        }  
     }
     public void PickUp() //Поднятие предмета
     {

@@ -75,12 +75,12 @@ public class MelleWeaponPickUp : MonoBehaviour
         //Поднимание прдмета
         if(isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
-            if(itemInfo.isForTrade)
-                trader.Trade(gameObject);
+            if(!itemInfo.isForTrade)
+                PickUp(); // Поднимаем предмет
+            
+            else trader.Trade(gameObject);
+        }   
 
-            else // Поднимаем предмет
-                PickUp();
-        }
         if(itemInfo.isForTrade && trader == null)
             itemInfo.isForTrade = false;
     }
