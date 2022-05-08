@@ -8,7 +8,7 @@ public class LevelExit : MonoBehaviour
     private bool isOnTrigger;
     public string[] LevelNames;
     public bool isDrowf;
-    public TextMeshProUGUI DialogCloudtext;
+    public Text DialogCloudtext;
     
     [TextArea(3,3)]
     public string FirstBasementText;
@@ -30,13 +30,13 @@ public class LevelExit : MonoBehaviour
         if(isDrowf)
         {
             if(LevelCounterInt == 1)
-                DialogCloudtext.SetText(FirstBasementText);
+                DialogCloudtext.text = FirstBasementText;
             
             if(LevelCounterInt == 2)
-                DialogCloudtext.SetText(SecondBasementText);
+                DialogCloudtext.text = SecondBasementText;
             
             if(LevelCounterInt == 3)
-                DialogCloudtext.SetText(ThirdBasementText);
+                DialogCloudtext.text =  ThirdBasementText;
         }
     }
     void Start()
