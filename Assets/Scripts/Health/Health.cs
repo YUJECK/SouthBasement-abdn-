@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
-    [Range(0, 6)]
     public int health;
     public int maxHealth;
     public Animator healthBar;

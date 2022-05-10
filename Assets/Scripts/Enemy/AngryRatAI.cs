@@ -35,7 +35,8 @@ public class AngryRatAI : MonoBehaviour
             if (Time.time >= nextTime)
                 anim.SetTrigger("isAttack");
         }
-        if(pathManager.target!=null)
+
+        if(pathManager.target!=null)//Поворот врага к игроку
         {
             if(pathManager.target.position.x > transform.position.x & !flippedOnRight)
             {
@@ -48,8 +49,10 @@ public class AngryRatAI : MonoBehaviour
                 flippedOnRight = false;
             }
         }
+        
         if(decorationWeapons.Count != 0)
             Shot(decorationWeapons[0]);
+
         if(pathManager.isNowGoingToTarget)
             anim.SetBool("IsRun", true);
         else
@@ -79,8 +82,5 @@ public class AngryRatAI : MonoBehaviour
             decorationWeapons.Remove(projectile);
         }
     }
-    private void Flip()
-    {
-        transform.Rotate(0f,180f,0f);
-    }
+    private void Flip(){transform.Rotate(0f,180f,0f);}
 }

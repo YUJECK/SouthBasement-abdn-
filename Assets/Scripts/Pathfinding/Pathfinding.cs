@@ -28,6 +28,13 @@ public class Pathfinding : MonoBehaviour
         public int x;
         public int y;
         public List<Vector2> path;
+
+        public Point(Vector2 start)
+        {
+            x = (int)start.x;
+            y = (int)start.y;
+            path = new List<Vector2>();
+        }
     }
 
 
@@ -53,7 +60,7 @@ public class Pathfinding : MonoBehaviour
             start.path = new List<Vector2>();
             start.path.Add(new Vector2(startPos.x, startPos.y));
 
-            queue.Add(start);
+            queue.Add(new Point(startPos));
 
             visitedPoints[start.x, start.y] = true;
 
@@ -169,7 +176,7 @@ public class Pathfinding : MonoBehaviour
 
                     SetNextTime();
                 }
-                    
+
                 if(path.Count != 0) //Если путь не равен нулю, то мы идем по нему
                 {
                     transform.position = Vector2.MoveTowards(transform.position, path[0], speed*Time.deltaTime);   // Перемещаем объект в след точку
