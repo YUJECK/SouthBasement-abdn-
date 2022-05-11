@@ -22,7 +22,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 0.2f;    
+        Time.timeScale = 1f;    
     }
 
     private void Update()
