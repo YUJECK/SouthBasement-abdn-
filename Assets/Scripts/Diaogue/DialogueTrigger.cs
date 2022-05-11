@@ -42,6 +42,7 @@ public class DialogueTrigger : MonoBehaviour
                 if (Input.GetKeyUp(KeyCode.E))
                 {
                     TriggerDialogue();
+                    
                     if (DisableE)
                         e.Disable();
                 }
