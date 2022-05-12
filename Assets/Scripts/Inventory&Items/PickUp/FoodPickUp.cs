@@ -90,6 +90,7 @@ public class FoodPickUp : MonoBehaviour
     public void PickUp() //Поднятие предмета
     {
         inventory.AddFood(food, gameObject);
-        gameObject.SetActive(false);
+        gameObject.AddComponent<DontDestroyOnLoadNextScene>();
+        itemInfo.SetActive(false);
     }
 }

@@ -87,8 +87,11 @@ public class ActiveItemsSlots : MonoBehaviour
     {
         ResetWaitTime();
         activeItem = null;
+        Utility.RemoveComponent<DontDestroyOnLoadNextScene>(objectOfItem);
         isEmpty = true;
         slotIcon.sprite = FindObjectOfType<GameManager>().hollowSprite;
+        gameObject.GetComponent<DontDestroyOnLoadNextScene>().enabled = false;
+        gameObject.GetComponent<ItemInfo>().SetActive(true);//Этот метод отключает спрайт и триггер прелмета
     }
 
     private void SetNewWaitTime() // 

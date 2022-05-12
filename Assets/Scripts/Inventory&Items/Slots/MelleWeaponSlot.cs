@@ -31,5 +31,7 @@ public class MelleWeaponSlot : MonoBehaviour
         objectOfItem = null;
         isEmpty = true;
         slotIcon.sprite = FindObjectOfType<GameManager>().hollowSprite;
+        gameObject.GetComponent<DontDestroyOnLoadNextScene>().enabled = false;
+        gameObject.GetComponent<ItemInfo>().SetActive(true); //Этот метод отключает спрайт и триггер прелмета
     }
 }

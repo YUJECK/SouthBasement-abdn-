@@ -87,6 +87,7 @@ public class MelleWeaponPickUp : MonoBehaviour
     public void PickUp()
     {
         inventory.AddMelleWeapon(melleWeapon, gameObject);
-        gameObject.SetActive(false);
+        gameObject.AddComponent<DontDestroyOnLoadNextScene>();        
+        itemInfo.SetActive(false);
     }
 }

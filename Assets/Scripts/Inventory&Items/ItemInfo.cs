@@ -13,4 +13,9 @@ public class ItemInfo : MonoBehaviour
     public UnityEvent pickUp; //Метод поднятия
 
     public int GetUses(){return uses;}
+    public void SetActive(bool active)
+    {
+        GetComponent<SpriteRenderer>().enabled = active;
+        GetComponent<Collider2D>().enabled = active;
+    }
 }

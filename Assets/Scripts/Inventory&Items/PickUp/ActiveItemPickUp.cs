@@ -89,6 +89,7 @@ public class ActiveItemPickUp : MonoBehaviour
     public void PickUp() //Поднятие предмета
     {
         inventory.AddActiveItem(activeItem, gameObject);
-        gameObject.SetActive(false);
+        gameObject.AddComponent<DontDestroyOnLoadNextScene>();
+        itemInfo.SetActive(false);
     }
 }
