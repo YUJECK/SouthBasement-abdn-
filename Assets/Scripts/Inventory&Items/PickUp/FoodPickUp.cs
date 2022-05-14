@@ -26,7 +26,7 @@ public class FoodPickUp : MonoBehaviour
             // Ставим спрайт предмета и ищем инвентарь
             food.ActiveItem();
             gameObject.GetComponent<SpriteRenderer>().sprite = food.sprite;
-            itemInfo = FindObjectOfType<ItemInfo>();
+            itemInfo = GetComponent<ItemInfo>();
             
             //Записываем всю информацию о предмете в ItemInfo
             itemInfo.itemName = food.name;
@@ -90,7 +90,9 @@ public class FoodPickUp : MonoBehaviour
     public void PickUp() //Поднятие предмета
     {
         inventory.AddFood(food, gameObject);
-        gameObject.AddComponent<DontDestroyOnLoadNextScene>();
-        itemInfo.SetActive(false);
+        if(!TryGetComponent(typeof(DontDestroyOnLoadNextScene), out Component comp))
+            gameObject.AddComponent<DontDestroyOnLoadNextScene>();       
+        
+        itemInfo.SetActive(false);//Это НЕ ВЫКЛЮЧЕНИК ОБЪЕКТА
     }
 }

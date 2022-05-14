@@ -25,7 +25,7 @@ public class MelleWeaponPickUp : MonoBehaviour
         {
             // Ставим спрайт предмета и ищем инвентарь
             gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.sprite;
-            itemInfo = FindObjectOfType<ItemInfo>();
+            itemInfo = GetComponent<ItemInfo>();
 
             //Записываем всю информацию о предмете в ItemInfo
             itemInfo.itemName = melleWeapon.name;
@@ -87,7 +87,9 @@ public class MelleWeaponPickUp : MonoBehaviour
     public void PickUp()
     {
         inventory.AddMelleWeapon(melleWeapon, gameObject);
-        gameObject.AddComponent<DontDestroyOnLoadNextScene>();        
-        itemInfo.SetActive(false);
+        if(!TryGetComponent(typeof(DontDestroyOnLoadNextScene), out Component comp))
+            gameObject.AddComponent<DontDestroyOnLoadNextScene>();       
+        
+        itemInfo.SetActive(false);//Это НЕ ВЫКЛЮЧЕНИК ОБЪЕКТА
     }
 }

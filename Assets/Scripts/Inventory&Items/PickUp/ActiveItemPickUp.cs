@@ -28,7 +28,7 @@ public class ActiveItemPickUp : MonoBehaviour
             // Ставим спрайт предмета и ищем инвентарь
             activeItem.ActivateItem();
             gameObject.GetComponent<SpriteRenderer>().sprite = activeItem.sprite;
-            itemInfo = FindObjectOfType<ItemInfo>();
+            itemInfo = GetComponent<ItemInfo>();
             
             //Записываем всю информацию о предмете в ItemInfo
             itemInfo.itemName = activeItem.name;
@@ -89,7 +89,9 @@ public class ActiveItemPickUp : MonoBehaviour
     public void PickUp() //Поднятие предмета
     {
         inventory.AddActiveItem(activeItem, gameObject);
-        gameObject.AddComponent<DontDestroyOnLoadNextScene>();
-        itemInfo.SetActive(false);
+        if(!TryGetComponent(typeof(DontDestroyOnLoadNextScene), out Component comp))
+            gameObject.AddComponent<DontDestroyOnLoadNextScene>();       
+        
+        itemInfo.SetActive(false);//Это НЕ ВЫКЛЮЧЕНИК ОБЪЕКТА
     }
 }

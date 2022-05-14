@@ -21,17 +21,20 @@ public class MelleWeaponSlot : MonoBehaviour
     }
     public void Drop() // Выброс предмета в игре
     {
-        objectOfItem.SetActive(true);
-        objectOfItem.transform.position = FindObjectOfType<Player>().GetComponent<Transform>().position;
+        if(objectOfItem != null)
+        {
+            objectOfItem.SetActive(true);
+            objectOfItem.transform.position = FindObjectOfType<Player>().GetComponent<Transform>().position;
+        }
         Remove();
     }
     public void Remove() // Удаление предмета из слота
     {
         melleWeapon = null;
+        objectOfItem.GetComponent<DontDestroyOnLoadNextScene>().Disable();
+        objectOfItem.GetComponent<ItemInfo>().SetActive(true); //Этот метод отключает спрайт и триггер прелмета
         objectOfItem = null;
         isEmpty = true;
         slotIcon.sprite = FindObjectOfType<GameManager>().hollowSprite;
-        gameObject.GetComponent<DontDestroyOnLoadNextScene>().enabled = false;
-        gameObject.GetComponent<ItemInfo>().SetActive(true); //Этот метод отключает спрайт и триггер прелмета
     }
 }
