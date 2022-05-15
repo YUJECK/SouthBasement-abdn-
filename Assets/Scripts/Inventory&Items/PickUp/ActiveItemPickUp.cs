@@ -12,16 +12,14 @@ public class ActiveItemPickUp : MonoBehaviour
     public Trader trader; 
 
     public bool canDestoring = true; // Будет ли уничтожаться при старте если предмет пустой
-    private bool isOnTrigger = false; // Если стоит на триггере
     private bool isWhiteSprite = false; // Стоит ли уже спрайт с обводкой
 
     private void Awake()
     {
         if(activeItem == null & canDestoring)
             Destroy(gameObject);
-
         else if(!canDestoring)// Если canDestroing == false, то просто спрайт прдмета будет становиться прозрачным
-            gameObject.GetComponent<SpriteRenderer>().sprite = FindObjectOfType<GameManager>().hollowSprite;          
+            itemInfo.SetActive(false);
 
         if(activeItem != null)
         {
@@ -47,38 +45,26 @@ public class ActiveItemPickUp : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D coll) 
     {
         if(coll.tag == "Player")
-        {
-            isOnTrigger = true;
-            itemInfo.isOnTrigger = isOnTrigger;
-        }
+            itemInfo.isOnTrigger = true;
     }
     
     private void OnTriggerExit2D(Collider2D coll)
     {
         if(coll.tag == "Player")
-        {
-            isOnTrigger = false;
-            itemInfo.isOnTrigger = isOnTrigger;
-        }
+            itemInfo.isOnTrigger = false;
     }
 
 
     private void Update()
     {
         //Смена обычного спрайта на спрайт с обводкой и наоборот
-        if(isOnTrigger & !isWhiteSprite)
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = activeItem.WhiteSprite;
-            isWhiteSprite = true;
-        }
-        else if(!isOnTrigger & isWhiteSprite)
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = activeItem.sprite;
-            isWhiteSprite = false;
-        }
+        if(itemInfo.isOnTrigger & !isWhiteSprite)
+            SetSpriteToWhite(true);
+        else if(!itemInfo.isOnTrigger & isWhiteSprite)
+            SetSpriteToWhite(false);
         
         //Поднимание прдмета
-        if(isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
+        if(itemInfo.isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
             if(!itemInfo.isForTrade)
                 PickUp(); // Поднимаем предмет
@@ -93,5 +79,12 @@ public class ActiveItemPickUp : MonoBehaviour
             gameObject.AddComponent<DontDestroyOnLoadNextScene>();       
         
         itemInfo.SetActive(false);//Это НЕ ВЫКЛЮЧЕНИК ОБЪЕКТА
+    }
+    private void SetSpriteToWhite(bool white)
+    {
+        if(white) gameObject.GetComponent<SpriteRenderer>().sprite = activeItem.WhiteSprite;
+        if(!white) gameObject.GetComponent<SpriteRenderer>().sprite = activeItem.sprite;
+        
+        isWhiteSprite = white;
     }
 }

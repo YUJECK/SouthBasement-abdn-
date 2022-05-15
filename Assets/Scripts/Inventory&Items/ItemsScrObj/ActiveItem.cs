@@ -43,14 +43,8 @@ public class ActiveItem : ScriptableObject
         usesInGame = uses;
     }
 
-    public void SetNextTime()
-    {
-        nextTime = Time.time + 1f / useRate;
-    }
-    public float GetNextTime()
-    {
-        return nextTime;
-    }
+    public void SetNextTime(){nextTime = Time.time + 1f / useRate;}
+    public float GetNextTime(){return nextTime;}
 
     public void ChillyPepper()
     {

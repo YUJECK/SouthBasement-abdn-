@@ -25,7 +25,7 @@ public class ActiveItemsSlots : MonoBehaviour
         playerController = FindObjectOfType<Player>();
     }
 
-    private void Update()
+    private void Update() //Использование предмета
     {
         if(!isEmpty & isActiveSlot)
         {
@@ -48,7 +48,7 @@ public class ActiveItemsSlots : MonoBehaviour
 
                 //Использование активки после того как она зарядилась
                 if(Input.GetMouseButtonUp(1) & activeItem.isItemCharged)
-                    UseActveItem();
+                    UseActiveItem();
             }
             else if(playerController.isSprinting)
                 ResetWaitTime();
@@ -56,7 +56,7 @@ public class ActiveItemsSlots : MonoBehaviour
             else // Если заряжать активку не надо
             {
                 if(Input.GetMouseButtonDown(1) & Time.time >= activeItem.GetNextTime() & !playerController.isSprinting)
-                    UseActveItem();
+                    UseActiveItem();
             }
 
             // Визуализация перезарядки активки
@@ -117,7 +117,7 @@ public class ActiveItemsSlots : MonoBehaviour
     }
 
 
-    private void UseActveItem()
+    private void UseActiveItem()
     {
         activeItem.ItemAction.Invoke();
         activeItem.SetNextTime();
