@@ -19,7 +19,6 @@ public class RatAttack : MonoBehaviour
     public bool is_Attack;
     private Vector3 posWhenAttack;
 
-
     private Player player;
 
     private void Start()
@@ -81,7 +80,7 @@ public class RatAttack : MonoBehaviour
         attackRate = weapon.attackRate;
         damage = weapon.damage;
         weaponSprite.sprite = weapon.sprite;
-        AttackPoint.localScale = new Vector3(10*weapon.attackRange/2,10*weapon.attackRange/2,1);
+        AttackPoint.localScale = new Vector3(10*weapon.attackRange/2, 10*weapon.attackRange/2, 1);
     }
 
     public void HideMelleweaponIcon(bool hiding) // Включние, выключение спрайта оружия
