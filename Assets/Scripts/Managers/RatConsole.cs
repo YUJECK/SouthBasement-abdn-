@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Events;
+using RimuruDev.Mechanics.Character;
 
 public class RatConsole : MonoBehaviour 
 {
@@ -27,13 +28,13 @@ public class RatConsole : MonoBehaviour
 
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject box;
-    private Player player;
+    private RatCharacterData player;
     private RatAttack playerAttack;
 
     private void Start() 
     {
         ConsoleText = GetComponentInChildren<Text>(); 
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<RatCharacterData>();
         playerAttack = FindObjectOfType<RatAttack>();
     }
     private static void ClearConsole()
