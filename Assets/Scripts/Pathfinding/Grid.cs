@@ -5,7 +5,7 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     public bool isGridCreated = false;
-    [SerializeField] private GameObject _collider;
+    public GameObject _collider;
     [SerializeField] private GameObject emptyArea;
     public int[,] grid;
     // 0 - нет коллайлера/это триггер

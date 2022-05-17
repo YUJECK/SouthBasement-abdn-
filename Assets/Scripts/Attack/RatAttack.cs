@@ -81,6 +81,7 @@ public class RatAttack : MonoBehaviour
         damage = weapon.damage;
         weaponSprite.sprite = weapon.sprite;
         AttackPoint.localScale = new Vector3(10*weapon.attackRange/2, 10*weapon.attackRange/2, 1);
+        AttackPoint.position = new Vector3(AttackPoint.position.x, melleWeapon.lenght, 0f);
     }
 
     public void HideMelleweaponIcon(bool hiding) // Включние, выключение спрайта оружия

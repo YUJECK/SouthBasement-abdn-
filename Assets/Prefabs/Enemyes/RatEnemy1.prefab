@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &412228622645675106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2388756996674942149}
+  - component: {fileID: 5786294515894876683}
+  - component: {fileID: 1443962034012559945}
+  m_Layer: 6
+  m_Name: Checker(Pathfinding)
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2388756996674942149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412228622645675106}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5630845710053068691}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5786294515894876683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412228622645675106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037c1599568db9c4baf056d576de17c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnTrigger: 0
+--- !u!58 &1443962034012559945
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412228622645675106}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.09187158, y: -0.05703211}
+  serializedVersion: 2
+  m_Radius: 0.41581455
 --- !u!1 &1234454220354212189
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +89,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5630845710053068691}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4451240930977391330
 GameObject:
@@ -42,7 +103,7 @@ GameObject:
   - component: {fileID: 5636856872160811131}
   - component: {fileID: 8939207685274183944}
   m_Layer: 6
-  m_Name: Checker
+  m_Name: Checker(Attack)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,6 +188,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 147064737477837109}
+  - {fileID: 2388756996674942149}
   - {fileID: 315377023564708420}
   - {fileID: 524280277454215651}
   m_Father: {fileID: 0}
@@ -148,7 +210,7 @@ MonoBehaviour:
   resetVelocity: 1
   useTargetPoints: 1
   targetPoints: []
-  triggerCheker: {fileID: 5636856872160811131}
+  triggerCheker: {fileID: 5786294515894876683}
   target: {fileID: 0}
   path: []
   runSpeed: 3
@@ -370,7 +432,7 @@ Transform:
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 5630845710053068691}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3330916501560165472
 SpriteRenderer:

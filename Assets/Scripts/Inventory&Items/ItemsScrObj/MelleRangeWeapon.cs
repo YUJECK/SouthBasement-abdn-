@@ -11,6 +11,7 @@ public class MelleRangeWeapon : ScriptableObject
     public int Cost;
     [Tooltip("Attack Range")] public float attackRange;
     [Tooltip("Speed of attack")] public float attackRate;
+    public float lenght; //Длина атаки
     public int damage;
     float nextTime = 0f;
     public int ChanceOfDrop;
@@ -20,16 +21,6 @@ public class MelleRangeWeapon : ScriptableObject
     public Sprite spriteInInventory;
     public Sprite WhiteSprite;
     public Sprite[] extraSprites;
-
-    public float GetNextTime()
-    {
-        return nextTime;
-    }
-    public void SetNextTime()
-    {
-        nextTime = Time.time + 1f / attackRate;
-    }
-
 
     public enum Effect{
         None,

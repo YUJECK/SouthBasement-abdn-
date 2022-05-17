@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField]private Vector2 movement;
     [SerializeField] private float speed = 5f; // Скорость игрока
     private float dashTime = 0f; // Длина рывка
-    private Vector2 movementOnDash; // Напрвление рывка
+    [SerializeField] private Vector2 movementOnDash; // Напрвление рывка
     public float dashDuration = 5f; // Скорость рывка
     [SerializeField] private float dashRate = 3f; //Скорость перезарядки рывка
     private float dashNextTime = 0f; //То когда сможет игрок сделать рывок
@@ -88,7 +88,15 @@ public class Player : MonoBehaviour
             if(Input.GetMouseButtonDown(1) && !isSprinting && dashTime == 0f && dashNextTime <= Time.time)
             {
                 dashTime = dashDuration;
-                movementOnDash = movement;
+                
+                movementOnDash = Vector2.zero;
+
+                if(movement.x > 0) movementOnDash.x = 1f;
+                if(movement.x < 0) movementOnDash.x = -1f;
+                
+                if(movement.y > 0) movementOnDash.y = 1f;
+                if(movement.y < 0) movementOnDash.y = -1f;
+                
                 dashNextTime = Time.time + dashRate;
             }   
         }
@@ -105,13 +113,14 @@ public class Player : MonoBehaviour
                 //Движение игрока
                 rb.velocity = new Vector2(movement.x  * (speed*100) * Time.deltaTime, movement.y * (speed*100) * Time.deltaTime);
                 // audioManager.PlayClip("RatWalk");
+                
+                //Рывок
+                if(dashTime > 0f) Dashing();
+                else dashTime = 0f;
             }
             else
                 rb.velocity = Vector2.zero;
 
-            //Рывок
-            if(dashTime > 0f) Dashing();
-            else dashTime = 0f;
 
             //Поворот спрайта игрока
             if (movement.x > 0) 

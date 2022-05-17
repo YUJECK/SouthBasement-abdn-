@@ -23,6 +23,8 @@ public class Pathfinding : MonoBehaviour
     [SerializeField] float findRate = 10; // Частота поиска пути
     [SerializeField] float nextTime; // Время следующего поиска пути
 
+    private List<GameObject> pathVisualization = new List<GameObject>();
+
     public struct Point // Стуктура для точки
     {
         public int x;
@@ -59,6 +61,7 @@ public class Pathfinding : MonoBehaviour
             start.y = (int)startPos.y;
             start.path = new List<Vector2>();
             start.path.Add(new Vector2(startPos.x, startPos.y));
+            Debug.Log(startPos);
 
             queue.Add(new Point(startPos));
 
@@ -71,6 +74,18 @@ public class Pathfinding : MonoBehaviour
                 if (curr.x == (int)endPos.x && curr.y == (int)endPos.y)
                 {
                     curr.path.Add(endPos);
+                    
+                    //Визуалиция
+                    if(pathVisualization.Count!=0) //Чистка
+                        for(int i = 0; i < curr.path.Count;)
+                        {
+                            Destroy(pathVisualization[0]);
+                            pathVisualization.RemoveAt(0);
+                        }
+                    for(int i = 0; i < curr.path.Count; i++)
+                        pathVisualization.Add(Instantiate(grid._collider, curr.path[i], Quaternion.identity));
+                    //Визуализация
+
                     return curr.path;
                 }
 
@@ -102,8 +117,8 @@ public class Pathfinding : MonoBehaviour
     private void CheckPoint(int dX, int dY, Point point, ref List<Point> listOfPoints, Vector2 end) // Проверка след,, точки
     {
         Point nextPoint = new Point();
-        nextPoint.x = point.x;
-        nextPoint.y = point.y;
+        nextPoint.x = (int)point.x;
+        nextPoint.y = (int)point.y;
         nextPoint.path = new List<Vector2>(point.path);
         
         //Нормальная проверка
