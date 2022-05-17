@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
+using RimuruDev.Mechanics.Character;
 
 [CreateAssetMenu(fileName = "New Food", menuName = "Items/FoodItem")]
 public class FoodItem : ScriptableObject
@@ -25,18 +26,18 @@ public class FoodItem : ScriptableObject
     //Ссылки на другие скрипты
     private Health playerHealth;
     [HideInInspector] public FoodSlots slot;
-    private Player plaeyrController;
+    private RatCharacterData plaeyrController;
 
     public void ActiveItem() // Скрипт для активации предмета
     {
         playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();;
-        plaeyrController = FindObjectOfType<Player>();
+        plaeyrController = FindObjectOfType<RatCharacterData>();
     }
 
     public void PowerDrink()
     {
         playerHealth.TakeAwayHealth(1,1);
-        plaeyrController.BoostSpeed(0.5f);
+       RatCharacterController.instance.boostSpeed.BoostSpeed(0.5f);
     }
 
     public void Cookie()
