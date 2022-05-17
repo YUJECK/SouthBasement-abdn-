@@ -1,3 +1,4 @@
+using RimuruDev.Mechanics.Character;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +25,7 @@ public class MelleWeaponSlot : MonoBehaviour
         if(objectOfItem != null)
         {
             objectOfItem.SetActive(true);
-            objectOfItem.transform.position = FindObjectOfType<Player>().GetComponent<Transform>().position;
+            objectOfItem.transform.position = FindObjectOfType<RatCharacterData>().GetComponent<Transform>().position;
         }
         Remove();
     }
