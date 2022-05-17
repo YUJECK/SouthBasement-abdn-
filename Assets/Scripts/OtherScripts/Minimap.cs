@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Minimap : MonoBehaviour
 {
-    public Rigidbody2D Player;
+    public Rigidbody2D RatCharacterData;
     public Rigidbody2D Camera;
     void Start()
     {
@@ -12,6 +12,6 @@ public class Minimap : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Camera.position = Player.position;
+        Camera.position = RatCharacterData.position;
     }
 }
