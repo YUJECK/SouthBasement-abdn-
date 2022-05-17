@@ -741,11 +741,18 @@ GameObject:
   - component: {fileID: 203290217}
   - component: {fileID: 203290216}
   - component: {fileID: 203290210}
-  - component: {fileID: 203290215}
   - component: {fileID: 203290214}
   - component: {fileID: 203290213}
   - component: {fileID: 203290212}
   - component: {fileID: 203290211}
+  - component: {fileID: 203290225}
+  - component: {fileID: 203290224}
+  - component: {fileID: 203290223}
+  - component: {fileID: 203290222}
+  - component: {fileID: 203290221}
+  - component: {fileID: 203290220}
+  - component: {fileID: 203290219}
+  - component: {fileID: 203290215}
   m_Layer: 0
   m_Name: PlayerControlAndSprite
   m_TagString: Player
@@ -920,19 +927,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 203290209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28bd6c33c2160664fb7a61c8cc688b15, type: 3}
+  m_Script: {fileID: 11500000, guid: d1214b3ddf529fe43ad3e9b86aa8a398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStopped: 0
-  movement: {x: 0, y: 0}
-  speed: 2.5
-  dashDuration: 0.5
-  dashRate: 1
-  dashSpeed: 20
-  sprint: 0.45
-  isSprinting: 0
-  sprintColl: {fileID: 203290211}
-  normalColl: {fileID: 203290212}
+  characterData: {fileID: 0}
 --- !u!212 &203290216
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1013,6 +1011,126 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &203290219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203290209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5abd15349fca45344bc5263530fa243f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterData: {fileID: 0}
+  motionController: {fileID: 0}
+--- !u!114 &203290220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203290209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f440c0ee0d8c0842ba81b1a1da7ad9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterData: {fileID: 0}
+  motionController: {fileID: 0}
+--- !u!114 &203290221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203290209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd04efa6e46e3b4894d1e5d3593785b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterData: {fileID: 0}
+--- !u!114 &203290222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203290209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04beaf3b6d188d4fa2833e9c8ab00ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterData: {fileID: 0}
+  motionController: {fileID: 0}
+--- !u!114 &203290223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203290209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d040ff1216b24f246b8ce19531556c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterData: {fileID: 0}
+--- !u!114 &203290224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203290209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d075c69fd800e2b4796a7c4b9a36ae42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterData: {fileID: 0}
+  motionController: {fileID: 0}
+  animationController: {fileID: 0}
+  boostSpeed: {fileID: 0}
+  dashingController: {fileID: 0}
+  sprintController: {fileID: 0}
+  ratMovingTheNextLevel: {fileID: 0}
+--- !u!114 &203290225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203290209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb828c1a435a27b43bde2bf05ebb09d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ratCharacter: {fileID: 0}
+  ratRigidbody2D: {fileID: 0}
+  ratSprite: {fileID: 0}
+  anim: {fileID: 0}
+  sprintColl: {fileID: 0}
+  normalColl: {fileID: 0}
+  ratAttack: {fileID: 0}
+  audioManager: {fileID: 0}
+  speed: 5
+  isStopped: 0
+  isSprinting: 0
+  flippedOnRight: 0
+  sprint: 0.35
+  boostSpeed: 0
+  normalSpeed: 5
+  dashTime: 0
+  movementOnDash: {x: 0, y: 0}
+  dashDuration: 5
+  dashRate: 3
+  dashNextTime: 0
+  dashSpeed: 5
 --- !u!1 &267540320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1924,7 +2042,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standartValaue: 6
   Camera: {fileID: 413493283}
-  Player: {fileID: 203290214}
+  RatCharacter: {fileID: 0}
 --- !u!114 &413493281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3374,7 +3492,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 166.3, y: 48.1}
+  m_AnchoredPosition: {x: 166.29999, y: 48.100006}
   m_SizeDelta: {x: 150, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &961872305
