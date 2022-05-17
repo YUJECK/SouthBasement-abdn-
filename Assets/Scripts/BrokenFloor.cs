@@ -1,16 +1,19 @@
+using RimuruDev.Mechanics.Character;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using static RimuruDev.Helpers.Tag;
+
 public class BrokenFloor : MonoBehaviour
 {
-    private Player player;
+    private RatCharacterData player;
     private AudioManager audioManager;
     private Health playerHealth;
 
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<RatCharacterData>();
         audioManager = FindObjectOfType<AudioManager>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
