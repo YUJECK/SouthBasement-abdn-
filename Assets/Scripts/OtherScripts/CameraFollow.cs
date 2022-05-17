@@ -1,10 +1,12 @@
 using UnityEngine;
 
+using static RimuruDev.Helpers.Tag;
+
 public class CameraFollow : MonoBehaviour
 {
     public float standartValaue = 6f;
     public Rigidbody2D Camera;
-    public Rigidbody2D Player;
+    public Rigidbody2D RatCharacter;
     
     private Transform AnotherTrigger;
     private bool isAnotherTrigger;
@@ -13,7 +15,8 @@ public class CameraFollow : MonoBehaviour
 
     private void Awake()
     {
-        Player = Player.GetComponent<Rigidbody2D>();
+        //RatCharacter = RatCharacter.GetComponent<Rigidbody2D>();
+        RatCharacter = GameObject.FindGameObjectWithTag(Player).GetComponent<Rigidbody2D>();
         Camera = Camera.GetComponent<Rigidbody2D>();
     
         if(instance == null)
@@ -37,7 +40,7 @@ public class CameraFollow : MonoBehaviour
             isAnotherTrigger = false;
         
         if(!isAnotherTrigger)
-            Camera.position = Player.position;
+            Camera.position = RatCharacter.position;
 
         else if(AnotherTrigger != null)
             Camera.position = AnotherTrigger.position;
