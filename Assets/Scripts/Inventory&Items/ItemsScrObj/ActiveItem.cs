@@ -1,6 +1,5 @@
+using RimuruDev.Mechanics.Character;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "New ActiveWeapon", menuName = "Items/ActiveItem")]
@@ -8,7 +7,7 @@ public class ActiveItem : ScriptableObject
 {
     //О предмете
     new public string name;
-    [TextArea(3,3)]
+    [TextArea(3, 3)]
     public string Dicription;
     public UnityEvent ItemAction;
     public int uses;
@@ -17,7 +16,7 @@ public class ActiveItem : ScriptableObject
     public float waitTimeIfHave;
     [HideInInspector] public bool isItemCharged = false;
     public int ChanceOfDrop;
-    
+
     //Внутренние поля
     private int usesInGame;
     private float nextTime;
@@ -31,28 +30,28 @@ public class ActiveItem : ScriptableObject
     [HideInInspector] public ActiveItemsMethods methods;
     [HideInInspector] public ActiveItemsSlots slot;
     private Health playerHealth;
-    private Player plaeyrController;
+    private RatCharacterData plaeyrController;
 
     public void ActivateItem()
     {
         methods = FindObjectOfType<ActiveItemsMethods>();
-        plaeyrController = FindObjectOfType<Player>();
-        playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        plaeyrController = FindObjectOfType<RatCharacterData>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
 
         nextTime = Time.time;
         usesInGame = uses;
     }
 
-    public void SetNextTime(){nextTime = Time.time + 1f / useRate;}
-    public float GetNextTime(){return nextTime;}
+    public void SetNextTime() { nextTime = Time.time + 1f / useRate; }
+    public float GetNextTime() { return nextTime; }
 
     public void ChillyPepper()
     {
-        int isDamaged = Random.Range(0,2);
+        int isDamaged = Random.Range(0, 2);
 
-        if(isDamaged == 0)
+        if (isDamaged == 0)
             playerHealth.TakeHit(1);
 
-        methods.SpawnFireball();    
+        methods.SpawnFireball();
     }
 }
