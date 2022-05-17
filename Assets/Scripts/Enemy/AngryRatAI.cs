@@ -1,3 +1,4 @@
+using RimuruDev.Mechanics.Character;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class AngryRatAI : MonoBehaviour
 
     private void Start()
     {
-        player = FindObjectOfType<Player>().GetComponent<Transform>();
+        player = FindObjectOfType<RatCharacterData>().GetComponent<Transform>();
         anim = GetComponent<Animator>();
         pathManager = GetComponent<Pathfinding>();
     }
