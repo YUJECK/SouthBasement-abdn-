@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using RimuruDev.Mechanics.Character;
+
 public class RatAttack : MonoBehaviour
 {
     public MelleRangeWeapon melleWeapon;
@@ -19,19 +21,19 @@ public class RatAttack : MonoBehaviour
     public bool is_Attack;
     private Vector3 posWhenAttack;
 
-    private Player player;
+    private RatCharacterData player;
 
     private void Start()
     {
         pointRotation = FindObjectOfType<PointRotation>();
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<RatCharacterData>();
     }
 
     void Update()
     {
         if(Time.time >= nextTime) // Атакак крысы
         {
-            if (Input.GetMouseButtonDown(0) & !FindObjectOfType<Player>().isSprinting)
+            if (Input.GetMouseButtonDown(0) & !FindObjectOfType<RatCharacterData>().isSprinting)
             {
                 Attack();
                 // cursor.CursorClick();
