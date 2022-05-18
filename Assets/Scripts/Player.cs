@@ -24,8 +24,6 @@ public class Player : MonoBehaviour
     private float normalSpeed = 5f; // Обычная скорость
     
     //Графика и компонеты
-    public Collider2D sprintColl; //Коллайдер при спринте
-    public Collider2D normalColl; // кеоллайдер при ходьбе
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer playerSpiteRend; // Спрайт игрока
@@ -143,16 +141,12 @@ public class Player : MonoBehaviour
             normalSpeed = speed;
             speed = boostSpeed;
             anim.SetBool("Is_Sprint", true);
-            sprintColl.enabled = true;
-            normalColl.enabled = false;
             ratAttack.HideMelleweaponIcon(true);
             isSprinting = true;
         }
         else
         {
             speed = normalSpeed;
-            sprintColl.enabled = false;
-            normalColl.enabled = true;
             anim.SetBool("Is_Sprint", false);
             ratAttack.HideMelleweaponIcon(false); 
             isSprinting = false;

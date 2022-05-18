@@ -49,7 +49,7 @@ public class HealthEnemy : MonoBehaviour
         {
             int cheeseCount = Random.Range(minCheese,maxCheese);
             Debug.Log("CheeseInEnemy" + cheeseCount);
-            gameManager.SpawnCheese(enemy.transform, cheeseCount);
+            gameManager.SpawnCheese(enemy.transform.position, cheeseCount);
             Destroy(gameObject);
         }         
     }

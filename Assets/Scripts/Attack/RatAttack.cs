@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public class RatAttack : MonoBehaviour
 {
     public MelleRangeWeapon melleWeapon;
+    public MelleRangeWeapon defaultWeapon;
     public PointRotation pointRotation;
     public SpriteRenderer weaponSprite;
     public Animator playerAnim;
@@ -13,8 +14,8 @@ public class RatAttack : MonoBehaviour
     [Header("Attack settings")]
     public LayerMask EnemyLayers;
     public float AttackRange;
-    public float attackRate = 2f;
-    public int damage = 2;
+    private float attackRate = 2f;
+    private int damage = 2;
     public int damageBoost = 2;
     public bool is_Attack;
     private Vector3 posWhenAttack;
@@ -81,8 +82,9 @@ public class RatAttack : MonoBehaviour
         damage = weapon.damage;
         weaponSprite.sprite = weapon.sprite;
         AttackPoint.localScale = new Vector3(10*weapon.attackRange/2, 10*weapon.attackRange/2, 1);
-        AttackPoint.position = new Vector3(AttackPoint.position.x, melleWeapon.lenght, 0f);
+        AttackPoint.localPosition = new Vector3(AttackPoint.localPosition.x, melleWeapon.lenght, 0f);
     }
+    public void SetToDefault(){ SetMelleWeapon(defaultWeapon); }
 
     public void HideMelleweaponIcon(bool hiding) // Включние, выключение спрайта оружия
     {   

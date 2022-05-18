@@ -78,7 +78,6 @@ public class Grid : MonoBehaviour
         isGridCreated = true;
         Debug.Log("GridWasCreated");
     }
-
     public void ResetGrid(Vector2 start, Vector2 end)
     {
         for(int x = (int)start.x; x < end.x; x++)
@@ -116,5 +115,11 @@ public class Grid : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PathVisualization(bool active)
+    {
+        foreach(Pathfinding path in Resources.FindObjectsOfTypeAll(typeof(Pathfinding)) as Pathfinding[])
+        {path.isPathVisualization = active;}
     }
 }

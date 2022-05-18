@@ -576,9 +576,9 @@ GameObject:
   m_Component:
   - component: {fileID: 192447259}
   - component: {fileID: 192447260}
+  - component: {fileID: 192447261}
   - component: {fileID: 192447258}
   - component: {fileID: 192447257}
-  - component: {fileID: 192447261}
   - component: {fileID: 192447262}
   m_Layer: 0
   m_Name: Fire/Attack Points
@@ -621,7 +621,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopRotating: 0
-  playerCenter: {fileID: 1983612208}
+  useMouse: 1
+  target: {fileID: 0}
+  playerTarget: 0
+  center: {fileID: 1983612208}
   rb: {fileID: 192447257}
 --- !u!4 &192447259
 Transform:
@@ -703,7 +706,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   melleWeapon: {fileID: 0}
-  pointRotation: {fileID: 0}
+  defaultWeapon: {fileID: 11400000, guid: 92035f96da7b9634b84664492bad8361, type: 2}
+  pointRotation: {fileID: 192447258}
   weaponSprite: {fileID: 1935036191}
   playerAnim: {fileID: 203290213}
   animRange: {fileID: 1246221444}
@@ -711,10 +715,7 @@ MonoBehaviour:
   EnemyLayers:
     serializedVersion: 2
     m_Bits: 64
-  AttackRange: 0.5
-  attackRate: 1
-  damage: 1
-  damageBoost: 2
+  damageBoost: 0
   is_Attack: 0
 --- !u!114 &192447262
 MonoBehaviour:
@@ -855,8 +856,6 @@ MonoBehaviour:
   dashSpeed: 13
   sprint: 0.45
   isSprinting: 0
-  sprintColl: {fileID: 0}
-  normalColl: {fileID: 0}
 --- !u!212 &203290216
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -929,7 +928,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203290209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 217.324, y: 198.056, z: -1}
+  m_LocalPosition: {x: 214.96, y: 188.04, z: -1}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 1935036190}
@@ -4346,6 +4345,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - commandName: ActivePath
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1254151301}
+          m_TargetAssemblyTypeName: RatConsole, Assembly-CSharp
+          m_MethodName: PathVisualization
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - commandName: DisablePath
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1254151301}
+          m_TargetAssemblyTypeName: RatConsole, Assembly-CSharp
+          m_MethodName: PathVisualization
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   enemy: {fileID: 5630845710053068690, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
   box: {fileID: 8453918043298753914, guid: 5918fc490ef16294ca42a6709b27c8b8, type: 3}
 --- !u!1 &1305201061
@@ -4475,36 +4506,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359866411}
   m_CullTransparentMesh: 1
---- !u!1 &1370385846
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1370385847}
-  m_Layer: 0
-  m_Name: DestroyOnLoad
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1370385847
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1370385846}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 224.7574, y: 199.69276, z: -15.505397}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1371969407
 GameObject:
   m_ObjectHideFlags: 0
@@ -5270,6 +5271,7 @@ Transform:
   - {fileID: 2094211217}
   - {fileID: 29296746}
   - {fileID: 72694996}
+  - {fileID: 1900461291}
   m_Father: {fileID: 1305201062}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6188,6 +6190,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897350307}
   m_CullTransparentMesh: 1
+--- !u!1 &1900461290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1900461291}
+  - component: {fileID: 1900461292}
+  m_Layer: 0
+  m_Name: Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1900461291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900461290}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1564828606}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1900461292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900461290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10867c444e2af624fa674107e4e0adc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playMusicOnStart: 1
+  playOnTrigger: 0
+  AudioNames:
+  - BasementTheme1
+  - BasementTheme2
 --- !u!1 &1931154862
 GameObject:
   m_ObjectHideFlags: 0
@@ -6624,7 +6674,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1983612207}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.032, y: -0.168, z: -181.20238}
+  m_LocalPosition: {x: -0.032, y: -0.168, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 203290218}
@@ -7160,6 +7210,18 @@ MonoBehaviour:
     loop: 0
   - name: NPCMusic1
     clip: {fileID: 8300000, guid: 2409e1451e7f5c94db3324bd1300e2f4, type: 3}
+    source: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - name: BasementTheme1
+    clip: {fileID: 8300000, guid: aa1649437a0168b43a05945635657074, type: 3}
+    source: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - name: BasementTheme2
+    clip: {fileID: 8300000, guid: a51e475cb04a9434cb548bd999267015, type: 3}
     source: {fileID: 0}
     volume: 0.5
     pitch: 1

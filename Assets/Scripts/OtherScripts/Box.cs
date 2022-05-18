@@ -70,6 +70,6 @@ public class Box : MonoBehaviour
             isEmpty = true;
         }
         else
-            gameManager.SpawnCheese(spawnPoint,Random.Range(5,10));
+            gameManager.SpawnCheese(spawnPoint.position, Random.Range(5,10));
     }
 }

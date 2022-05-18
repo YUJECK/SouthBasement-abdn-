@@ -53,9 +53,10 @@ public class RatConsole : MonoBehaviour
     }
 
     public int GetFps() { return (int)(1.0f / Time.deltaTime); } //Fps
-    public void OnePunch() { playerAttack.damage = 1000; } //Сделать игрока очень сильным
+    public void OnePunch() { playerAttack.damageBoost = 1000; } //Сделать игрока очень сильным
     public void SpawnEnemy() { Instantiate(enemy, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн врага
     public void SpawnBox() { Instantiate(box, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн коробки
+    public void PathVisualization(bool active) { FindObjectOfType<Grid>().PathVisualization(active); } //Визуалищ=зация путя врагов
 
 
     private void Update()

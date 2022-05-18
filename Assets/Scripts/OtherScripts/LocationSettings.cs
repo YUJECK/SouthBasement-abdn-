@@ -11,11 +11,11 @@ public class LocationSettings : MonoBehaviour
     private bool playOnTrigger;
 
     [SerializeField]
-    private string AudioName;
-    void Awake()
+    private string[] AudioNames;
+    void Start()
     {
         if(playMusicOnStart)
-            FindObjectOfType<AudioManager>().PlayClip(AudioName);
+            FindObjectOfType<AudioManager>().PlayClip(AudioNames[Random.Range(0, AudioNames.Length)]);
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
@@ -23,7 +23,7 @@ public class LocationSettings : MonoBehaviour
         {
             if(coll.tag == "Player")
             {
-               FindObjectOfType<AudioManager>().PlayClip(AudioName);
+               FindObjectOfType<AudioManager>().PlayClip(AudioNames[Random.Range(0, AudioNames.Length)]);
             }
         }
     }

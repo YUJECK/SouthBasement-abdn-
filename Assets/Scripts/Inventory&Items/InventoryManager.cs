@@ -159,6 +159,7 @@ public class InventoryManager : MonoBehaviour
 
             if(!melleWeapons[melleRangeActiveSlot].isEmpty) // Ставим оружие в активное для игрока
                 ratAttack.SetMelleWeapon(melleWeapons[melleRangeActiveSlot].melleWeapon);
+            else ratAttack.SetToDefault(); //Если слот пустой, то меняем на стд атаку крысы
         }
     }
 }   

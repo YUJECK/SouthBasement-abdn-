@@ -24,6 +24,7 @@ public class Pathfinding : MonoBehaviour
     [SerializeField] float nextTime; // Время следующего поиска пути
 
     private List<GameObject> pathVisualization = new List<GameObject>();
+    public bool isPathVisualization;
 
     public struct Point // Стуктура для точки
     {
@@ -61,7 +62,7 @@ public class Pathfinding : MonoBehaviour
             start.y = (int)startPos.y;
             start.path = new List<Vector2>();
             start.path.Add(new Vector2(startPos.x, startPos.y));
-            Debug.Log(startPos);
+            // Debug.Log(startPos);
 
             queue.Add(new Point(startPos));
 
@@ -82,8 +83,11 @@ public class Pathfinding : MonoBehaviour
                             Destroy(pathVisualization[0]);
                             pathVisualization.RemoveAt(0);
                         }
-                    for(int i = 0; i < curr.path.Count; i++)
-                        pathVisualization.Add(Instantiate(grid._collider, curr.path[i], Quaternion.identity));
+                    if(isPathVisualization)
+                    {
+                        for(int i = 0; i < curr.path.Count; i++)
+                            pathVisualization.Add(Instantiate(grid._collider, curr.path[i], Quaternion.identity));
+                    }
                     //Визуализация
 
                     return curr.path;

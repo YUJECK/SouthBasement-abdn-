@@ -10,6 +10,7 @@ public class AngryRatAI : MonoBehaviour
     public int damage = 1;
     public List<GameObject> decorationWeapons;
     [SerializeField] private Transform firePoint; 
+    [SerializeField] private Rigidbody2D pointRotation; 
     [HideInInspector] public Transform player;
     private bool flippedOnRight = true;
     private Pathfinding pathManager; 
@@ -71,16 +72,19 @@ public class AngryRatAI : MonoBehaviour
     }
     private void Shot(GameObject projectile)
     {
-        if(projectile!=null)
-        {
-            Vector3 direction = player.position - transform.position ;
-            float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg - 90f;
-            
-            GameObject Projectile = Instantiate(projectile, firePoint.position, Quaternion.identity);
-            Projectile.GetComponent<Rigidbody2D>().rotation = angle;
-            Projectile.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 100f, ForceMode2D.Force);
+        if(projectile != null)
+        {  
+            projectile.transform.position = firePoint.position;
+            pointRotation.rotation = CalculateAngle();
+            projectile.GetComponent<Rigidbody2D>().AddForce(Vector2.up, ForceMode2D.Impulse);
             decorationWeapons.Remove(projectile);
         }
+    }
+    private float CalculateAngle()
+    {
+        Vector2 direction = player.position - pointRotation.transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        return angle;
     }
     private void Flip(){transform.Rotate(0f,180f,0f);}
 }
