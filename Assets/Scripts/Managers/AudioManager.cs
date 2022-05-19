@@ -32,13 +32,12 @@ public class AudioManager : MonoBehaviour
         }
         
         //"Активация" главной темы         
-        Audio mainSource = null;
-        mainSource.source = gameObject.AddComponent<AudioSource>();
+        mainAudio.source = gameObject.AddComponent<AudioSource>();
         
-        mainSource.source.clip = mainAudio.clip;
-        mainSource.source.volume = mainAudio.volume;
-        mainSource.source.pitch = mainAudio.pitch;
-        mainSource.source.loop = mainAudio.loop;
+        mainAudio.source.clip = mainAudio.clip;
+        mainAudio.source.volume = mainAudio.volume;
+        mainAudio.source.pitch = mainAudio.pitch;
+        mainAudio.source.loop = mainAudio.loop;
     }
  
     private void OnLevelWasLoaded()
@@ -50,7 +49,7 @@ public class AudioManager : MonoBehaviour
                 StopClipWithDelay(audio.name);
         }
     }
-    public void SetToMain(string name = null, Audio audio = null)
+    public void SetToMain(string name = null, Audio audio = null, float time = 0f)
     {
         if(mainAudio != null) StopClip(null, mainAudio);
         
@@ -58,17 +57,19 @@ public class AudioManager : MonoBehaviour
         {
             Audio au = Find(name);
             mainAudio = au;
-            PlayClip(name);
+            mainAudio.source = au.source;
+            PlayClip(name, null, time);
         }
         else
         {
             Audio au = Find(null, audio);
+            mainAudio.source = au.source;
             mainAudio = au;
-            PlayClip(null, audio);
+            PlayClip(null, audio, time);
         }
     }
 
-    public void PlayClip(string name = null, Audio audio = null) //Начинает пригрывать аудио
+    public void PlayClip(string name = null, Audio audio = null, float time = 0f) //Начинает пригрывать аудио
     {   
         Audio au = null;
         
@@ -117,14 +118,13 @@ public class AudioManager : MonoBehaviour
         Audio au = null;
 
         //Поиск
-        
-        if(audio == null)//По имени
-            for(int i = 0; i < audios.Length; i++)
-                if(audios[i].name == name) au = audios[i];
-        else //По аудио
-            for(int j = 0; j < nowPlaying.Count; j++)
-                if(nowPlaying[j].name == audio.name) au = nowPlaying[i];
-        
+        for(int i = 0; i < audios.Length; i++)
+        {
+            if(audio == null)
+                if(name == audios[i].name) {au = audios[i]; break;}
+            else if(audio != null)
+                if(audio.name == audios[i].name) {au = audios[i]; break;}
+        }
         //Возврат
         if(au != null) return au;
         else 
