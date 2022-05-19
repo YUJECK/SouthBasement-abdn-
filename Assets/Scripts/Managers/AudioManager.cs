@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using UnityEngine.Audio;
 
@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
 {
     public Audio[] audios; // Все аудио в игре
 
+    public List<Audio> nowPlaying; //Все аудио который играют 
+    public Audio mainAudio; //Главная тема играющая сейчас 
     public static AudioManager instance; // Синглтон
 
     void Awake()
@@ -40,65 +42,99 @@ public class AudioManager : MonoBehaviour
                 StopClipWithDelay(audio.name);
         }
     }
-
-    public void PlayClip(string name) //Начинает пригрывать аудио
-    {  
-        Audio au = null;
-
-        for(int i = 0; i < audios.Length; i++)
-        {
-            if(audios[i].name == name)
-                au = audios[i];
-        }
+    public void SetToMain(string name = null, Audio audio = null)
+    {
+        if(mainAudio!=null) mainAudio.source.Stop();
         
-        if(au == null)
+        if(audio == null)
         {
-            Debug.LogWarning("Audio " + name + " not fount");
-            return;
+            Audio au = Find(name);
+            mainAudio = au;
+            PlayClip(name);
         }
+        else
+        {
+            Audio au = Find(null, audio);
+            mainAudio = au;
+            PlayClip(null, audio);
+        }
+    }
+
+    public void PlayClip(string name = null, Audio audio = null) //Начинает пригрывать аудио
+    {   
+        Audio au = null;
+        
+        if(audio == null) au = Find(name);
+        else au = audio;
 
         if(!au.source.isPlaying)
+        {
             au.source.Play();
+            nowPlaying.Add(au);
+        }
     }
-    public void StopClip(string name) // Останавливет аудио
+    public void StopAll() //Выключить все играющие сейчас аудио
+    {
+        foreach(Audio au in nowPlaying)
+            au.source.Stop();
+    }
+    public void StopClip(string name = null, Audio audio = null) // Останавливет аудио
     {  
         Audio au = null;
-        for(int i = 0; i < audios.Length; i++)
-        {
-            if(audios[i].name == name)
-                au = audios[i];
-        }
+        
+        if(audio == null) au = Find(name);
+        else au = audio;
 
         if(au.source.isPlaying)
+        {
             au.source.Stop();
+            nowPlaying.Remove(au);
+        }
         else
             Debug.LogWarning("Audio " + name + " isn't plaing");
     }
     public void StopClipWithDelay(string name) // Останавливает аудио послетенно уменьшая звук
     {  
-        Audio au = null;
-
-        for(int i = 0; i < audios.Length; i++)
-        {
-            if(audios[i].name == name)
-                au = audios[i];
-        }
-
+        Audio au = Find(name);
+       
         if(au.source.isPlaying)
             StartCoroutine("stopWithDelay", au);
         else
             Debug.LogWarning("Audio " + name + " isn't plaing");
     }
 
+
+    private Audio Find(string name = null, Audio audio = null)
+    {
+        Audio au = null;
+
+        //Поиск
+        
+        if(audio == null)//По имени
+            for(int i = 0; i < audios.Length; i++)
+                if(audios[i].name == name) au = audios[i];
+        else //По аудио
+            for(int j = 0; j < nowPlaying.Count; j++)
+                if(nowPlaying[j].name == audio.name) au = nowPlaying[i];
+        
+        //Возврат
+        if(au != null) return au;
+        else 
+        {
+            Debug.LogWarning("Audio " + name + " not fount");
+            return new Audio();
+        }
+    }
     private IEnumerator stopWithDelay(Audio au)//Корутина для метода выше
     {
-        for(int i = 0; i < 50; i++)
+        while(au.volume > 0)
         {
             yield return new WaitForSeconds(0.1f);
-            au.source.volume -= 0.03f;
+            au.source.volume -= 0.04f;
         }
         
         au.source.Stop();
+        nowPlaying.Remove(au);
         au.source.volume = au.volume;
     }
 }

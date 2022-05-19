@@ -26,6 +26,7 @@ public class RatAttack : MonoBehaviour
     {
         pointRotation = FindObjectOfType<PointRotation>();
         player = FindObjectOfType<Player>();
+        SetToDefault();
     }
 
     void Update()

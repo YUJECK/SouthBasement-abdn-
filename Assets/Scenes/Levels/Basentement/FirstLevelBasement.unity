@@ -715,6 +715,7 @@ MonoBehaviour:
   EnemyLayers:
     serializedVersion: 2
     m_Bits: 64
+  AttackRange: 0
   damageBoost: 0
   is_Attack: 0
 --- !u!114 &192447262
@@ -778,7 +779,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 203290209}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3c4a23bd0d2eb4846b41d801c9839875, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -6230,7 +6231,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1900461290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10867c444e2af624fa674107e4e0adc9, type: 3}
+  m_Script: {fileID: 11500000, guid: f85b952729164e74197d0608a6634efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playMusicOnStart: 1
@@ -7219,13 +7220,13 @@ MonoBehaviour:
     source: {fileID: 0}
     volume: 0.5
     pitch: 1
-    loop: 0
+    loop: 1
   - name: BasementTheme2
     clip: {fileID: 8300000, guid: a51e475cb04a9434cb548bd999267015, type: 3}
     source: {fileID: 0}
     volume: 0.5
     pitch: 1
-    loop: 0
+    loop: 1
 --- !u!1 &2133308122
 GameObject:
   m_ObjectHideFlags: 0
