@@ -15,6 +15,8 @@ public class MusicOnLevel : MonoBehaviour
     private AudioManager audioManager;
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
+
         if(playMusicOnStart)
             audioManager.SetToMain(AudioNames[Random.Range(0, AudioNames.Length)]);
     }

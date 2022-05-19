@@ -8,8 +8,8 @@ public class AudioManager : MonoBehaviour
 {
     public Audio[] audios; // Все аудио в игре
 
-    public List<Audio> nowPlaying; //Все аудио который играют 
-    public Audio mainAudio; //Главная тема играющая сейчас 
+    public List<Audio> nowPlaying = new List<Audio>(); //Все аудио который играют 
+    public Audio mainAudio = null; //Главная тема играющая сейчас 
     public static AudioManager instance; // Синглтон
 
     void Awake()
@@ -21,7 +21,6 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         foreach(Audio audio in audios) // "Активация" всех аудио
         {
             audio.source = gameObject.AddComponent<AudioSource>();
@@ -31,6 +30,15 @@ public class AudioManager : MonoBehaviour
             audio.source.pitch = audio.pitch;
             audio.source.loop = audio.loop;
         }
+        
+        //"Активация" главной темы         
+        Audio mainSource = null;
+        mainSource.source = gameObject.AddComponent<AudioSource>();
+        
+        mainSource.source.clip = mainAudio.clip;
+        mainSource.source.volume = mainAudio.volume;
+        mainSource.source.pitch = mainAudio.pitch;
+        mainSource.source.loop = mainAudio.loop;
     }
  
     private void OnLevelWasLoaded()
@@ -44,7 +52,7 @@ public class AudioManager : MonoBehaviour
     }
     public void SetToMain(string name = null, Audio audio = null)
     {
-        if(mainAudio!=null) mainAudio.source.Stop();
+        if(mainAudio != null) StopClip(null, mainAudio);
         
         if(audio == null)
         {

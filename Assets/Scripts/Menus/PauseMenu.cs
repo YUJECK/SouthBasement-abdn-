@@ -8,6 +8,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject menu;
     public bool isPause = false;
     public static PauseMenu instance;
+    private AudioManager audioManager;
+    private Audio lastAu = null; //Аудио которое играло до паузы
 
     private void Awake()
     {
@@ -20,10 +22,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        Time.timeScale = 1f;    
-    }
+    private void Start(){ Time.timeScale = 1f; }
 
     private void Update()
     {
@@ -41,13 +40,16 @@ public class PauseMenu : MonoBehaviour
         isPause = true;
         Time.timeScale = 0f;
         menu.SetActive(true);
+        lastAu = audioManager.mainAudio;
+        audioManager.SetToMain("PauseMenu");
     }
 
     public void Resume()
     {
         isPause = false;
-        menu.SetActive(false);
         Time.timeScale = 1f;
+        menu.SetActive(false);
+        audioManager.SetToMain(null, lastAu);
     }
     public void MainMenu()
     {
