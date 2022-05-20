@@ -13,13 +13,20 @@ public class MusicOnLevel : MonoBehaviour
     
     //Managers
     private AudioManager audioManager;
+   
+
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        Invoke("PlayOnStart", 1f);
+    }
 
+    private void PlayOnStart()
+    {
         if(playMusicOnStart)
             audioManager.SetToMain(AudioNames[Random.Range(0, AudioNames.Length)]);
     }
+
     void OnTriggerEnter2D(Collider2D coll)
     {
         if(playOnTrigger)

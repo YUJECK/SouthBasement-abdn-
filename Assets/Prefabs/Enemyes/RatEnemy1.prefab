@@ -236,7 +236,8 @@ MonoBehaviour:
   damageColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
   minCheese: 3
   maxCheese: 8
-  enemy: {fileID: 5630845710053068690}
+  destroySound: 
+  hitSound: 
   roomCloser: {fileID: 0}
 --- !u!114 &5157359432002517473
 MonoBehaviour:
@@ -327,7 +328,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: f93b0d2474b1a2e47bb9df85609119f4, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &5630845709475724668
 Animator:
@@ -373,7 +374,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 5630845710053068690}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3c4a23bd0d2eb4846b41d801c9839875, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

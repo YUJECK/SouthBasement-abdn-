@@ -10,12 +10,14 @@ public class HealthEnemy : MonoBehaviour
 
     private GameManager gameManager;
     private EffectsManager effectsManager;
+    private AudioManager audioManager;
     [SerializeField] private SpriteRenderer effectIndicator;
     [SerializeField] private Color damageColor;
 
     [SerializeField] int minCheese = 0;
     [SerializeField] int maxCheese = 5;
-    public GameObject enemy;
+    [SerializeField] private string destroySound; // Звук смерти
+    [SerializeField] private string hitSound; // Звук получения урона
     public RoomCloser roomCloser;
 
     //Время действия еффектов
@@ -35,10 +37,12 @@ public class HealthEnemy : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         effectsManager = FindObjectOfType<EffectsManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
     public void TakeHit(int damage)
     {
         health -= damage;
+        if(hitSound != "")audioManager.PlayClip(hitSound);
         
         if(damageInd != null)
             StopCoroutine(damageInd); 
@@ -49,7 +53,8 @@ public class HealthEnemy : MonoBehaviour
         {
             int cheeseCount = Random.Range(minCheese,maxCheese);
             Debug.Log("CheeseInEnemy" + cheeseCount);
-            gameManager.SpawnCheese(enemy.transform.position, cheeseCount);
+            if(maxCheese != 0) gameManager.SpawnCheese(transform.position, cheeseCount);
+            if(destroySound != "") audioManager.PlayClip(destroySound);
             Destroy(gameObject);
         }         
     }

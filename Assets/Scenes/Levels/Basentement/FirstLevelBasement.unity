@@ -3776,6 +3776,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3589188905855720495, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.8806286
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589188905855720495, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.090219
+      objectReference: {fileID: 0}
     - target: {fileID: 7917672920443122033, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_SortingOrder
       value: 13
@@ -6249,7 +6257,6 @@ MonoBehaviour:
   playOnTrigger: 0
   AudioNames:
   - BasementTheme1
-  - BasementTheme2
 --- !u!1 &1931154862
 GameObject:
   m_ObjectHideFlags: 0
@@ -7214,6 +7221,12 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 0
+  - name: BoardBroke
+    clip: {fileID: 8300000, guid: 658e8c91027e10643a172eb6c72e17a4, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 0.62
+    loop: 0
   - name: Bells
     clip: {fileID: 8300000, guid: 270334733ac3e384fba2c8828ba6bce1, type: 3}
     source: {fileID: 0}
@@ -7227,19 +7240,13 @@ MonoBehaviour:
     pitch: 1
     loop: 0
   - name: BasementTheme1
-    clip: {fileID: 8300000, guid: aa1649437a0168b43a05945635657074, type: 3}
+    clip: {fileID: 8300000, guid: c30dea423fe7740488cb7e4be330c4de, type: 3}
     source: {fileID: 0}
-    volume: 0.5
-    pitch: 1
-    loop: 1
-  - name: BasementTheme2
-    clip: {fileID: 8300000, guid: a51e475cb04a9434cb548bd999267015, type: 3}
-    source: {fileID: 0}
-    volume: 0.5
+    volume: 0.33
     pitch: 1
     loop: 1
   - name: PauseMenu
-    clip: {fileID: 8300000, guid: 363c9edcc60229047911c85b571d0810, type: 3}
+    clip: {fileID: 8300000, guid: aa1649437a0168b43a05945635657074, type: 3}
     source: {fileID: 0}
     volume: 0.5
     pitch: 1

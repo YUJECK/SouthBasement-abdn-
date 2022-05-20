@@ -40,9 +40,8 @@ public class Trader : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
 
         //Спавн предметов
-        SpawnItem(itemsTransform[0].position);
-        SpawnItem(itemsTransform[1].position);
-        SpawnItem(itemsTransform[2].position);
+        for(int i = 0; i < itemsTransform.Length; i++)
+            SpawnItem(itemsTransform[i].position);
 
         //Делаем чтобы по началу была такая фраза
         manager.DisplayText("Заходи, товары по низким ценам!");
@@ -52,14 +51,9 @@ public class Trader : MonoBehaviour
     {
         if(!isTraderTalking) //Выводим инфу предмета когда к нему подходит игрок
         {
-            if(!items[0].isSold && items[0].itemInfo.isOnTrigger)
-                DisplayItemInfo(items[0].itemInfo);
-
-            if(!items[0].isSold && items[1].itemInfo.isOnTrigger)
-                DisplayItemInfo(items[1].itemInfo);
-                
-            if(!items[0].isSold && items[2].itemInfo.isOnTrigger)
-                DisplayItemInfo(items[2].itemInfo); 
+            for(int i = 0; i < items.Count; i++)
+            if(!items[i].isSold && items[i].itemInfo.isOnTrigger)
+                DisplayItemInfo(items[i].itemInfo); 
         }
     }
 

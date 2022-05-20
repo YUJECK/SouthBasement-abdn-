@@ -48,8 +48,14 @@ public class AudioManager : MonoBehaviour
             if(audio.source.isPlaying)
                 StopClipWithDelay(audio.name);
         }
+        //Если есть какие то аудио который не играют, но остались в nowPlaying, то мы их убираем
+        for(int i = 0; i < nowPlaying.Count; i++)
+        {
+            if(!nowPlaying[i].source.isPlaying)    
+                nowPlaying.RemoveAt(i);
+        }
     }
-    public void SetToMain(string name = null, Audio audio = null, float time = 0f)
+    public void SetToMain(string name = null, Audio audio = null)
     {
         if(mainAudio != null) StopClip(null, mainAudio);
         
@@ -58,29 +64,31 @@ public class AudioManager : MonoBehaviour
             Audio au = Find(name);
             mainAudio = au;
             mainAudio.source = au.source;
-            PlayClip(name, null, time);
+            PlayClip(name, null);
         }
         else
         {
             Audio au = Find(null, audio);
             mainAudio.source = au.source;
             mainAudio = au;
-            PlayClip(null, audio, time);
+            PlayClip(null, audio);
         }
     }
 
-    public void PlayClip(string name = null, Audio audio = null, float time = 0f) //Начинает пригрывать аудио
+    public void PlayClip(string name = null, Audio audio = null) //Начинает пригрывать аудио
     {   
         Audio au = null;
         
         if(audio == null) au = Find(name);
         else au = audio;
-
-        if(!au.source.isPlaying)
+        if(au.source.isPlaying) Debug.Log(name);
+        
+        if(au != null && !au.source.isPlaying)
         {
             au.source.Play();
-            nowPlaying.Add(au);
+            if(au.loop) nowPlaying.Add(au);
         }
+        else if(au != null)Debug.LogWarning("Clip " + au.name + " is playing");
     }
     public void StopAll() //Выключить все играющие сейчас аудио
     {
@@ -94,21 +102,21 @@ public class AudioManager : MonoBehaviour
         if(audio == null) au = Find(name);
         else au = audio;
 
-        if(au.source.isPlaying)
+        if(au != null && au.source.isPlaying)
         {
             au.source.Stop();
             nowPlaying.Remove(au);
         }
-        else
+        else if(au != null)
             Debug.LogWarning("Audio " + name + " isn't plaing");
     }
     public void StopClipWithDelay(string name) // Останавливает аудио послетенно уменьшая звук
     {  
         Audio au = Find(name);
        
-        if(au.source.isPlaying)
+        if(au != null && au.source.isPlaying)
             StartCoroutine("stopWithDelay", au);
-        else
+        else if(au != null)
             Debug.LogWarning("Audio " + name + " isn't plaing");
     }
 
@@ -135,7 +143,7 @@ public class AudioManager : MonoBehaviour
     }
     private IEnumerator stopWithDelay(Audio au)//Корутина для метода выше
     {
-        while(au.volume > 0)
+        while(au.source.volume > 0)
         {
             yield return new WaitForSeconds(0.1f);
             au.source.volume -= 0.04f;

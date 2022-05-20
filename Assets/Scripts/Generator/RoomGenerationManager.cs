@@ -101,7 +101,7 @@ public class RoomGenerationManager : MonoBehaviour
 
     void ActivateExitRoom()
     {
-        ExitRoomIndex = Random.Range(1,NowSpawnedRooms-1);
+        ExitRoomIndex = NowSpawnedRooms-1;
         roomsList[ExitRoomIndex].ActivateExit();
     }
 }
