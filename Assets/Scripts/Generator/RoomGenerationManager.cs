@@ -76,8 +76,8 @@ public class RoomGenerationManager : MonoBehaviour
 
     private IEnumerator roomsCountCheker()
     {
-        yield return new WaitForSeconds(2f);
-        if(NowSpawnedRooms == 4)
+        yield return new WaitForSeconds(6f);
+        if(NowSpawnedRooms <= 6)
             Regenerate();
     }
 
@@ -85,9 +85,7 @@ public class RoomGenerationManager : MonoBehaviour
     {
         for(int i = 1; i < roomsList.Count; i++)
         {
-            Transform tmp = roomsList[i].GetComponentInParent<Transform>();
-            GameObject room = tmp.gameObject;
-            test.Add(room);
+            Destroy(roomsList[i].room);
             roomsList.RemoveAt(i);
         }   
 
@@ -95,13 +93,14 @@ public class RoomGenerationManager : MonoBehaviour
         NowSpawnedNPCsRooms = 0;
         NowSpawnedRooms = 0;
         
-        // for(int i = 0; i < roomsList[0].spawnPoints.Length; i++)
-        //     roomsList[0].spawnPoints[i].Spawn();
+        for(int i = 0; i < roomsList[0].spawnPoints.Length; i++)
+            roomsList[0].spawnPoints[i].Spawn();
+        Debug.Log("Regenerate");
     }
 
     void ActivateExitRoom()
     {
-        ExitRoomIndex = NowSpawnedRooms-1;
+        ExitRoomIndex = roomsList.Count-1;
         roomsList[ExitRoomIndex].ActivateExit();
     }
 }

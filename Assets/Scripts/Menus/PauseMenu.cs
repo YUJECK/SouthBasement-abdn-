@@ -49,7 +49,7 @@ public class PauseMenu : MonoBehaviour
         isPause = false;
         Time.timeScale = 1f;
         menu.SetActive(false);
-        audioManager.SetToMain(lastAu.name, null);
+        audioManager.SetToMain(lastAu.name);
     }
     public void MainMenu()
     {

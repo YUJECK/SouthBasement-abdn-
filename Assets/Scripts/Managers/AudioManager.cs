@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -55,32 +54,22 @@ public class AudioManager : MonoBehaviour
                 nowPlaying.RemoveAt(i);
         }
     }
-    public void SetToMain(string name = null, Audio audio = null)
+    public void SetToMain(string name = null)
     {
         if(mainAudio != null) StopClip(null, mainAudio);
-        
-        if(audio == null)
-        {
-            Audio au = Find(name);
-            mainAudio = au;
-            mainAudio.source = au.source;
-            PlayClip(name, null);
-        }
-        else
-        {
-            Audio au = Find(null, audio);
-            mainAudio.source = au.source;
-            mainAudio = au;
-            PlayClip(null, audio);
-        }
+
+        Audio au = Find(name);
+        mainAudio = au;
+        mainAudio.source = au.source;
+        PlayClip(name);
+
     }
 
-    public void PlayClip(string name = null, Audio audio = null) //Начинает пригрывать аудио
+    public void PlayClip(string name = null) //Начинает пригрывать аудио
     {   
         Audio au = null;
-        
-        if(audio == null) au = Find(name);
-        else au = audio;
+        au = Find(name);
+
         if(au.source.isPlaying) Debug.Log(name);
         
         if(au != null && !au.source.isPlaying)
