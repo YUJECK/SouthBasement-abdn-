@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 5630845709475724661}
   - component: {fileID: 5630845709475724668}
   - component: {fileID: 3604888521855480566}
-  - component: {fileID: 4258762682617324424}
+  - component: {fileID: 1658189367019712007}
   m_Layer: 6
   m_Name: RatEnemy1
   m_TagString: Enemy
@@ -365,8 +365,8 @@ CircleCollider2D:
   m_Offset: {x: 0.014834519, y: -0.12520912}
   serializedVersion: 2
   m_Radius: 5.028895
---- !u!61 &4258762682617324424
-BoxCollider2D:
+--- !u!70 &1658189367019712007
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -374,23 +374,13 @@ BoxCollider2D:
   m_GameObject: {fileID: 5630845710053068690}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3c4a23bd0d2eb4846b41d801c9839875, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.10407843, y: -0.018432468}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5192566, y: 0.58313364}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.07655017, y: -0.01940791}
+  m_Size: {x: 0.45013174, y: 0.5428543}
+  m_Direction: 0
 --- !u!1 &6068210405539366294
 GameObject:
   m_ObjectHideFlags: 0

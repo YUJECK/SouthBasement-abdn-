@@ -74,8 +74,6 @@ public class RatConsole : MonoBehaviour
         }
 
 
-
-        //Написать еще всякого
         if(Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             stopConsole = !stopConsole;
@@ -84,6 +82,7 @@ public class RatConsole : MonoBehaviour
             if(!inputInConsole)
             {
                 newText = ConsoleInput.text;
+                Time.timeScale = 1f;
                 foreach(Commands comm in commands)
                     comm.CheckCommand(newText);
             } 
@@ -93,6 +92,7 @@ public class RatConsole : MonoBehaviour
         {
             ConsoleInput.gameObject.SetActive(true);
             ConsoleInput.ActivateInputField();
+            Time.timeScale = 0.1f;
         }
         else ConsoleInput.gameObject.SetActive(false);
     }

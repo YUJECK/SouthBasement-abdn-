@@ -6,6 +6,7 @@ public class Grid : MonoBehaviour
 {
     public bool isGridCreated = false;
     public GameObject _collider;
+    public GameObject enemyPath;
     [SerializeField] private GameObject emptyArea;
     public int[,] grid;
     // 0 - нет коллайлера/это триггер
@@ -19,7 +20,7 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
-        Invoke("StartGrid", 5f);
+        // Invoke("StartGrid", 5f);
     }
 
     private void StartGrid()
@@ -35,7 +36,7 @@ public class Grid : MonoBehaviour
         {
             for(float y = 0; y < gridHeight; y+=nodeSize)
             {
-                float a = 0.3f;
+                float a = 0.4f;
                 List<Vector3> points = new List<Vector3>();
                 points.Add(new Vector3(nodeSize*a, nodeSize*a, 0f));
                 points.Add(new Vector3(nodeSize*a, -nodeSize*a, 0f));

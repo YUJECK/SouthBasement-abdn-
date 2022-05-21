@@ -78,6 +78,7 @@ public class RoomGenerationManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         if(NowSpawnedRooms <= RoomsCount-2)
             Regenerate();
+        else FindObjectOfType<Grid>().ResetGrid();
     }
 
     private void Regenerate()
@@ -97,6 +98,8 @@ public class RoomGenerationManager : MonoBehaviour
             roomsList[0].spawnPoints[i].ResetPoint();
             roomsList[0].spawnPoints[i].Spawn();
         }
+
+        FindObjectOfType<Grid>().ResetGrid();
         StartCoroutine(roomsCountCheker());
     }
 

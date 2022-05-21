@@ -44,7 +44,7 @@ public class AngryRatAI : MonoBehaviour
                 Flip();
                 flippedOnRight = true;
             }
-            if(pathManager.target.position.x < transform.position.x & flippedOnRight)
+            else if(pathManager.target.position.x < transform.position.x & flippedOnRight)
             {
                 Flip(); 
                 flippedOnRight = false;

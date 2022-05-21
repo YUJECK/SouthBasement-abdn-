@@ -76,7 +76,7 @@ public class Pathfinding : MonoBehaviour
                 {
                     curr.path.Add(endPos);
                     
-                    //Визуалиция
+                    //Визуалиция{
                     if(pathVisualization.Count!=0) //Чистка
                         for(int i = 0; i < curr.path.Count;)
                         {
@@ -86,9 +86,15 @@ public class Pathfinding : MonoBehaviour
                     if(isPathVisualization)
                     {
                         for(int i = 0; i < curr.path.Count; i++)
-                            pathVisualization.Add(Instantiate(grid._collider, curr.path[i], Quaternion.identity));
+                            pathVisualization.Add(Instantiate(grid.enemyPath, curr.path[i], Quaternion.identity));
                     }
-                    //Визуализация
+                    //}Визуализация
+
+
+                    for(int i = 0; i < curr.path.Count-1; i++)//Чтобы враги не сталкивались
+                    {
+                        // grid.grid[(int)(curr.path[i].x / grid.nodeSize), (int)(curr.path[i].y / grid.nodeSize)] = 1;
+                    }
 
                     return curr.path;
                 }
@@ -188,6 +194,9 @@ public class Pathfinding : MonoBehaviour
             {
                 if((Time.time >= nextTime & nextTime != 0) || path.Count == 0)
                 {
+                    //Убираем все единички что мы поставили и не успели убрать
+                    ResetGridChanges();
+                    
                     //Ищем новый путь
                     path = FindPath(
                     new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
@@ -201,8 +210,11 @@ public class Pathfinding : MonoBehaviour
                     transform.position = Vector2.MoveTowards(transform.position, path[0], speed*Time.deltaTime);   // Перемещаем объект в след точку
                     isNowGoingToTarget = true;
 
-                    if(transform.position == new Vector3(path[0].x,path[0].y, transform.position.z))
+                    if(transform.position == new Vector3(path[0].x, path[0].y, transform.position.z))
+                    {
+                        grid.grid[(int)(path[0].x / grid.nodeSize), (int)(path[0].y / grid.nodeSize)] = 0;
                         path.RemoveAt(0);        
+                    }   
                 }
                 if(useTargetPoints && path.Count == 0 && !isPlayerTarget) ResetTarget();
             }            
@@ -221,6 +233,14 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
+    public void ResetGridChanges()//Убирает все изменения в сетке
+    {
+        for(int i = 0; i < path.Count; i++)
+        {
+            grid.grid[(int)(path[i].x / grid.nodeSize), (int)(path[i].y / grid.nodeSize)] = 0;
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D coll)
     {
         if(coll.tag == "Player") 
@@ -230,6 +250,5 @@ public class Pathfinding : MonoBehaviour
             if(useTargetPoints) //Идем к точке если таковые имеются 
                 SetPointToTarget(); 
         }
-
     }
 }
