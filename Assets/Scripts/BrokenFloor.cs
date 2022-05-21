@@ -26,8 +26,8 @@ public class BrokenFloor : MonoBehaviour
     IEnumerator PlayerStuck()
     {
         yield return new WaitForSeconds(0.15f);
-        player.isStopped = true;
+        player.SetStop(true);
         yield return new WaitForSeconds(0.4f);
-        player.isStopped = false;
+        player.SetStop(false);
     }
 }

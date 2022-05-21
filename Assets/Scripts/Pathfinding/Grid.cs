@@ -19,7 +19,7 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
-        Invoke("StartGrid", 1f);
+        Invoke("StartGrid", 5f);
     }
 
     private void StartGrid()
@@ -63,56 +63,26 @@ public class Grid : MonoBehaviour
                 foreachExit: // Для выхода из двух циклов
 
                 if(isWall)
-                {
                     grid[(int)x, (int)y] = 1;
-                    // Instantiate(_collider,new Vector3(x,y,0), Quaternion.identity,transform);
-                }
                 else 
-                {
-                    // Instantiate(emptyArea,new Vector3(x, y, 0),Quaternion.identity,transform);
                     grid[(int)x, (int)y] = 0;
-                }
             }
         }
 
         isGridCreated = true;
         Debug.Log("GridWasCreated");
     }
-    public void ResetGrid(Vector2 start, Vector2 end)
-    {
-        for(int x = (int)start.x; x < end.x; x++)
+    public void ResetGrid(){StartGrid();}
+    public void ShowGrid()
+    {        
+        for(float x = 0; x < gridWidth; x+=nodeSize)
         {
-            for(int y = (int)start.y; y < end.y; y++)
+            for(float y = 0; y < gridHeight; y+=nodeSize)
             {
-                List<Vector3> points = new List<Vector3>();
-                points.Add(new Vector3(nodeSize*0.3f, nodeSize*0.3f, 0f));
-                points.Add(new Vector3(nodeSize*0.3f, -nodeSize*0.3f, 0f));
-                points.Add(new Vector3(-nodeSize*0.3f, nodeSize*0.3f, 0f));
-                points.Add(new Vector3(-nodeSize*0.3f, -nodeSize*0.3f, 0f));
-
-                bool isWall = false;    
-
-                foreach(Vector3 point in points)
-                {
-                    RaycastHit2D[] pointObjs = Physics2D.RaycastAll(new Vector3(x + point.x, y + point.y),Vector2.zero);
-
-                    foreach(RaycastHit2D obj in pointObjs)
-                    {
-                        if(obj.collider != null)
-                        {   
-                            if(!obj.collider.isTrigger && obj.collider.tag != "Player")
-                            {
-                                isWall = true;
-                                goto foreachExit;
-                            }   
-                        }
-
-                        foreachExit: // Для выхода из двух циклов
-
-                        if(isWall) grid[x,y] = 1;
-                        else grid[x,y] = 0;
-                    }
-                }
+                if(grid[(int)x, (int)y] == 1)
+                    Instantiate(_collider,new Vector3(x,y,0), Quaternion.identity,transform);
+                else 
+                    Instantiate(emptyArea,new Vector3(x, y, 0),Quaternion.identity,transform);
             }
         }
     }

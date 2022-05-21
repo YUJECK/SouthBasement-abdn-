@@ -69,6 +69,22 @@ public class RoomSpawner : MonoBehaviour
         rand = Random.Range(0, roomsList.Length);
         room = Instantiate(roomsList[rand], transform.position, transform.rotation);
     }
+
+    public void ResetPoint()
+    {
+        if(room != null) {Destroy(room); room = null;}
+        
+        Open();
+
+        isNextRoomSpawn = false;
+        isFunctionStart = false;
+        isChecked = false;
+        isAnotherRoomSpawned = false;   
+        isConnectedRoomSpawned = false; 
+        isAnyObjOnTrigger = false;
+        
+        Debug.Log("Point - " + gameObject.name + " was regenerate");
+    }
     public void Close()
     {
         if(walls != null)

@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     [Header("Movement")]
 
     //Мувмент крысы
-    public bool isStopped;
+    private bool isStopped = false;
     [SerializeField]private Vector2 movement;
     [SerializeField] private float speed = 5f; // Скорость игрока
     private float dashTime = 0f; // Длина рывка
@@ -161,6 +161,8 @@ public class Player : MonoBehaviour
     }
 
     public void BoostSpeed(float speedBoost) {speed = speed + speed * speedBoost;} // Ускорение игрока
+    
+    public void SetStop(bool active) { isStopped = active; }
     void Flip()
     {
         flippedOnRight = !flippedOnRight;  

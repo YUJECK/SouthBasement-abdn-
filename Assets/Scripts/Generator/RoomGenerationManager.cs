@@ -18,7 +18,6 @@ public class RoomGenerationManager : MonoBehaviour
 
     [Header("")] 
     public List<RoomInfo> roomsList;
-    public List<GameObject> test;
 
     [Header("Обычные комнаты")]
     public GameObject[] left;
@@ -34,8 +33,7 @@ public class RoomGenerationManager : MonoBehaviour
 
     void Awake()
     {
-        Invoke("ActivateExitRoom",5f);
-        Debug.Log(NPCsRoomsCount);
+        Invoke("ActivateExitRoom",4f);
 
         createRoomsList:
         
@@ -57,6 +55,7 @@ public class RoomGenerationManager : MonoBehaviour
         TraderIndex = Random.Range(1,NowSpawnedNPCsRooms);
         BoxIndex = Random.Range(1,NowSpawnedNPCsRooms); 
         NPCsRoomsCount = FindObjectOfType<RoomsNPCList>().NPCs.Count + 2;
+        
         if(BoxIndex == TraderIndex) //Если коробка с торговцем в одной комнате
         {
             int i = 0;
@@ -76,8 +75,8 @@ public class RoomGenerationManager : MonoBehaviour
 
     private IEnumerator roomsCountCheker()
     {
-        yield return new WaitForSeconds(6f);
-        if(NowSpawnedRooms <= 6)
+        yield return new WaitForSeconds(2f);
+        if(NowSpawnedRooms <= RoomsCount-2)
             Regenerate();
     }
 
@@ -85,8 +84,8 @@ public class RoomGenerationManager : MonoBehaviour
     {
         for(int i = 1; i < roomsList.Count; i++)
         {
-            Destroy(roomsList[i].room);
-            roomsList.RemoveAt(i);
+            Destroy(roomsList[1].room);
+            roomsList.RemoveAt(1);
         }   
 
         NowSpawnedSimpleRooms = 0;
@@ -94,8 +93,11 @@ public class RoomGenerationManager : MonoBehaviour
         NowSpawnedRooms = 0;
         
         for(int i = 0; i < roomsList[0].spawnPoints.Length; i++)
+        {
+            roomsList[0].spawnPoints[i].ResetPoint();
             roomsList[0].spawnPoints[i].Spawn();
-        Debug.Log("Regenerate");
+        }
+        StartCoroutine(roomsCountCheker());
     }
 
     void ActivateExitRoom()
