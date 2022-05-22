@@ -29,6 +29,7 @@ public class RatConsole : MonoBehaviour
     [SerializeField] private GameObject box;
     private Player player;
     private RatAttack playerAttack;
+    private InventoryManager inventory;
 
     public enum Mode{
         ConsoleMessege,
@@ -39,6 +40,7 @@ public class RatConsole : MonoBehaviour
     {
         ConsoleText = GetComponentInChildren<Text>(); 
         player = FindObjectOfType<Player>();
+        inventory = FindObjectOfType<InventoryManager>();
         playerAttack = FindObjectOfType<RatAttack>();
     }
     private void ClearConsole()
@@ -57,13 +59,22 @@ public class RatConsole : MonoBehaviour
         }
         else
         {
-            InfoText.text = "Time: " + Time.time + "\n" + 
+            InfoText.text = 
+            "----UnityInfo----: " + "\n" + 
+            "Time: " + Time.time + "\n" + 
+            "Fps: " + GetFps() +
+            "----PlayerInfo----: " + "\n" + 
             "Damage: " + playerAttack.damage + "\n" + 
             "Speed: " + player.speed + "\n" + 
-            "Speed: " + player.speed + "\n" + 
-            "Movement: \n" + player.movement + "\n" + 
+            "Movement: " + player.movement + "\n" + 
             "Position: " + player.gameObject.transform.position + "\n" +
-            "Fps: " + GetFps();
+            "----InventoryInfo----: " + "\n"+
+            "   --FoodSlot--" + "\n";
+            if(inventory.foodItems[inventory.activeFoodSlot].food != null)
+            {
+                InfoText.text += "Name: " + inventory.foodItems[inventory.activeFoodSlot].food.name +"\n"+
+                "Uses: " + inventory.foodItems[inventory.activeFoodSlot].objectOfItem.GetComponent<ItemInfo>().uses +"\n";
+            }
         }
     }
 

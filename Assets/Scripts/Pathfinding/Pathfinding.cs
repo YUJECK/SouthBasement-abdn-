@@ -23,7 +23,7 @@ public class Pathfinding : MonoBehaviour
     [SerializeField] float findRate = 10; // Частота поиска пути
     [SerializeField] float nextTime; // Время следующего поиска пути
 
-    private List<Vector2Int> gridChanges = new List<Vector2Int>();
+    public List<Vector2Int> gridChanges = new List<Vector2Int>();
     private List<PathVisualization> pathVisualization = new List<PathVisualization>();
     public bool isPathVisualization;
 
@@ -192,7 +192,7 @@ public class Pathfinding : MonoBehaviour
             SetNextTime();
         }
     }
-    public void ResetTarget() { target = null; path.Clear(); isPlayerTarget = false;} // Срос таргета 
+    public void ResetTarget() { target = null; path.Clear(); ResetGridChanges(); ;isPlayerTarget = false;} // Срос таргета 
     private void SetNextTime() { nextTime = Time.time + findRate; } // Ставим следующее время
    
    
@@ -226,8 +226,12 @@ public class Pathfinding : MonoBehaviour
 
                     if(transform.position == new Vector3(path[0].x, path[0].y, transform.position.z))
                     {
-                        grid.grid[(int)(path[0].x / grid.nodeSize), (int)(path[0].y / grid.nodeSize)] = 0;
                         path.RemoveAt(0);        
+                        
+                        if(gridChanges.Count != 0){
+                            grid.grid[gridChanges[0].x, gridChanges[0].y] = 0;
+                            gridChanges.RemoveAt(0);
+                        }
                     }   
                 }
                 if(useTargetPoints && path.Count == 0 && !isPlayerTarget) ResetTarget();

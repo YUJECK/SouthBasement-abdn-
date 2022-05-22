@@ -33,7 +33,7 @@ public class ActiveItemsSlots : MonoBehaviour
             {
                 if(!activeItem.isItemCharged)
                 {
-                    if(Input.GetMouseButton(1) & Time.time >= activeItem.GetNextTime())
+                    if(Input.GetKey(KeyCode.Space) & Time.time >= activeItem.GetNextTime())
                     {
                         SetNewWaitTime();
                         waitTime = Time.time - startTime;
@@ -47,7 +47,7 @@ public class ActiveItemsSlots : MonoBehaviour
                 }
 
                 //Использование активки после того как она зарядилась
-                if(Input.GetMouseButtonUp(1) & activeItem.isItemCharged)
+                if(Input.GetKeyUp(KeyCode.Space) & activeItem.isItemCharged)
                     UseActiveItem();
             }
             else if(playerController.isSprinting)

@@ -18,7 +18,7 @@ public class FoodSlots : MonoBehaviour
                 Destroy(objectOfItem);
                 Remove();
             }    
-            if(isActiveSlot & !isEmpty & Input.GetKeyDown(KeyCode.Space))
+            if(isActiveSlot & !isEmpty & Input.GetKeyDown(KeyCode.Q))
             {       
                 food.itemAction.Invoke();
                 objectOfItem.GetComponent<ItemInfo>().uses--;
