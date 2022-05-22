@@ -12,6 +12,7 @@ public class FoodItem : ScriptableObject
     [TextArea(3,3)]
     public string Dicription;
     public int uses;
+    public int usesInGame;
     public UnityEvent itemAction;
     public int Cost;
     public bool CanRise;
@@ -31,6 +32,7 @@ public class FoodItem : ScriptableObject
     {
         playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();;
         plaeyrController = FindObjectOfType<Player>();
+        usesInGame = 0;
     }
 
     public void PowerDrink()
@@ -45,6 +47,16 @@ public class FoodItem : ScriptableObject
         {
             playerHealth.Heal(1);
             SetSprite(extraSprites[0], null, slot.slotIcon);
+        }
+    }
+
+    public void CannedCockroach()
+    {
+        if(playerHealth.health != playerHealth.maxHealth)
+        {
+            playerHealth.Heal(1);
+            SetSprite(extraSprites[usesInGame], null, slot.slotIcon);
+            usesInGame++;
         }
     }
     public void GlassOfMilk(){playerHealth.SetBonusHealth(1,0);}
