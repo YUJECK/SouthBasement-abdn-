@@ -15,11 +15,11 @@ public class RatConsole : MonoBehaviour
                 action.Invoke();
         }
     };
-
-    public static Text ConsoleText;
     public InputField ConsoleInput;
+    public Text ConsoleText;
+    public Text InfoText;
     public Commands[] commands;
-    private bool showFps = false;
+    private bool showInfo = false;
     private bool stopConsole = false;
     private bool inputInConsole = false;
     private string newText;
@@ -30,25 +30,40 @@ public class RatConsole : MonoBehaviour
     private Player player;
     private RatAttack playerAttack;
 
+    public enum Mode{
+        ConsoleMessege,
+        Info
+    }
+
     private void Start() 
     {
         ConsoleText = GetComponentInChildren<Text>(); 
         player = FindObjectOfType<Player>();
         playerAttack = FindObjectOfType<RatAttack>();
     }
-    private static void ClearConsole()
+    private void ClearConsole()
     {
         ConsoleText.text = "";
         MessegesCount = 0;
     }
-    public static void DisplayText(string text)
+    public void DisplayText(string text, Mode mode)
     {
-        if(ConsoleText != null)
+        if(ConsoleText != null && mode == Mode.ConsoleMessege)
         {
             if (MessegesCount > 18) 
                 ClearConsole();
             ConsoleText.text += "\n" + "<Console> " + text;
             MessegesCount++;
+        }
+        else
+        {
+            InfoText.text = "Time: " + Time.time + "\n" + 
+            "Damage: " + playerAttack.damage + "\n" + 
+            "Speed: " + player.speed + "\n" + 
+            "Speed: " + player.speed + "\n" + 
+            "Movement: \n" + player.movement + "\n" + 
+            "Position: " + player.gameObject.transform.position + "\n" +
+            "Fps: " + GetFps();
         }
     }
 
@@ -69,8 +84,8 @@ public class RatConsole : MonoBehaviour
         if(!stopConsole)
         {
             //Fps
-            if(Input.GetKeyDown(KeyCode.F1)) showFps = !showFps;
-            if(showFps) DisplayText(GetFps().ToString() + " fps");
+            if(Input.GetKeyDown(KeyCode.F1)) showInfo = !showInfo;
+            if(showInfo) DisplayText(GetFps().ToString(), Mode.Info);
         }
 
 

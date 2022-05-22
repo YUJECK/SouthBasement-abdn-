@@ -36,8 +36,9 @@ public class Grid : MonoBehaviour
         {
             for(float y = 0; y < gridHeight; y+=nodeSize)
             {
-                float a = 0.4f;
+                float a = 0.7f;
                 List<Vector3> points = new List<Vector3>();
+                points.Add(new Vector3(0f, 0f, 0f));
                 points.Add(new Vector3(nodeSize*a, nodeSize*a, 0f));
                 points.Add(new Vector3(nodeSize*a, -nodeSize*a, 0f));
                 points.Add(new Vector3(-nodeSize*a, nodeSize*a, 0f));
@@ -47,7 +48,7 @@ public class Grid : MonoBehaviour
 
                 foreach(Vector3 point in points)
                 {
-                    RaycastHit2D[] pointObjs = Physics2D.RaycastAll(new Vector3(x + point.x, y + point.y),Vector2.zero);
+                    RaycastHit2D[] pointObjs = Physics2D.RaycastAll(new Vector3(x + point.x, y + point.y), Vector2.zero);
 
                     foreach(RaycastHit2D obj in pointObjs)
                     {

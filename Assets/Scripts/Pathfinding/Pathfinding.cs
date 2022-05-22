@@ -23,7 +23,8 @@ public class Pathfinding : MonoBehaviour
     [SerializeField] float findRate = 10; // Частота поиска пути
     [SerializeField] float nextTime; // Время следующего поиска пути
 
-    private List<GameObject> pathVisualization = new List<GameObject>();
+    private List<Vector2Int> gridChanges = new List<Vector2Int>();
+    private List<PathVisualization> pathVisualization = new List<PathVisualization>();
     public bool isPathVisualization;
 
     public struct Point // Стуктура для точки
@@ -39,7 +40,17 @@ public class Pathfinding : MonoBehaviour
             path = new List<Vector2>();
         }
     }
+    private struct PathVisualization
+    {
+        public GameObject path;
+        public GameObject blockedPath;
 
+        public PathVisualization(GameObject _path, GameObject _blockedPath)
+        {
+            path = _path;
+            blockedPath = _blockedPath;
+        }
+    };
 
     private void Start()
     {
@@ -77,23 +88,25 @@ public class Pathfinding : MonoBehaviour
                     curr.path.Add(endPos);
                     
                     //Визуалиция{
-                    if(pathVisualization.Count!=0) //Чистка
-                        for(int i = 0; i < curr.path.Count;)
-                        {
-                            Destroy(pathVisualization[0]);
-                            pathVisualization.RemoveAt(0);
-                        }
-                    if(isPathVisualization)
-                    {
-                        for(int i = 0; i < curr.path.Count; i++)
-                            pathVisualization.Add(Instantiate(grid.enemyPath, curr.path[i], Quaternion.identity));
-                    }
+                    // if(pathVisualization.Count!=0) //Чистка
+                    //     for(int i = 0; i < curr.path.Count;)
+                    //     {
+                    //         Destroy(pathVisualization[0].path);
+                    //         Destroy(pathVisualization[0].blockedPath);
+                    //         pathVisualization.RemoveAt(0);
+                    //     }
+                    // if(isPathVisualization)
+                    // {
+                    //     for(int i = 0; i < curr.path.Count; i++)
+                    //         pathVisualization.Add(new PathVisualization(Instantiate(grid.enemyPath, curr.path[i], Quaternion.identity), Instantiate(grid._collider, curr.path[i], Quaternion.identity)));
+                    // }
                     //}Визуализация
 
 
-                    for(int i = 0; i < curr.path.Count-1; i++)//Чтобы враги не сталкивались
+                    for(int i = 1; i < curr.path.Count-1; i++)//Чтобы враги не сталкивались
                     {
-                        // grid.grid[(int)(curr.path[i].x / grid.nodeSize), (int)(curr.path[i].y / grid.nodeSize)] = 1;
+                        grid.grid[(int)(curr.path[i].x / grid.nodeSize), (int)(curr.path[i].y / grid.nodeSize)] = 1;
+                        gridChanges.Add(new Vector2Int((int)(curr.path[i].x / grid.nodeSize), (int)(curr.path[i].y / grid.nodeSize)));
                     }
 
                     return curr.path;
@@ -119,6 +132,7 @@ public class Pathfinding : MonoBehaviour
                 }
             }
             Debug.LogError("Path wasnt found: " + startPos + " " + new Vector2((int)endPos.x, (int)endPos.y));
+            Debug.LogError("Start pos - : " + grid.grid[(int)(startPos.x/grid.nodeSize), (int)(startPos.y/grid.nodeSize)] + " End Pos - " + grid.grid[(int)(endPos.x/grid.nodeSize), (int)(endPos.y/grid.nodeSize)]);
             return new List<Vector2>();
         }
 
@@ -184,7 +198,7 @@ public class Pathfinding : MonoBehaviour
    
     private void FixedUpdate()
     {
-        if(resetVelocity) // Обнуление velocity
+        if(resetVelocity) // Обнуление velocity 
             rb.velocity = new Vector2(0f, 0f);
 
         if(triggerCheker != null && !triggerCheker.isOnTrigger)
@@ -235,10 +249,11 @@ public class Pathfinding : MonoBehaviour
 
     public void ResetGridChanges()//Убирает все изменения в сетке
     {
-        for(int i = 0; i < path.Count; i++)
+        for(int i = 0; i < gridChanges.Count; i++)
         {
-            grid.grid[(int)(path[i].x / grid.nodeSize), (int)(path[i].y / grid.nodeSize)] = 0;
+            grid.grid[gridChanges[i].x, gridChanges[i].y] = 0;
         }
+        gridChanges.Clear();
     }
 
     private void OnTriggerExit2D(Collider2D coll)

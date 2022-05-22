@@ -15,7 +15,7 @@ public class RatAttack : MonoBehaviour
     public LayerMask EnemyLayers;
     public float AttackRange;
     private float attackRate = 2f;
-    private int damage = 2;
+    public int damage = 2;
     public int damageBoost = 2;
     public bool is_Attack;
     private Vector3 posWhenAttack;

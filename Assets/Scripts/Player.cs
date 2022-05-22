@@ -8,8 +8,8 @@ public class Player : MonoBehaviour
 
     //Мувмент крысы
     private bool isStopped = false;
-    [SerializeField]private Vector2 movement;
-    [SerializeField] private float speed = 5f; // Скорость игрока
+    public Vector2 movement;
+    public float speed = 5f; // Скорость игрока
     private float dashTime = 0f; // Длина рывка
     [SerializeField] private Vector2 movementOnDash; // Напрвление рывка
     public float dashDuration = 5f; // Скорость рывка
