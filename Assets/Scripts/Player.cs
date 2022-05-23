@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
             if(!isStopped)
             {
                 //Движение игрока
-                rb.velocity = new Vector2(movement.x  * (speed*100) * Time.deltaTime, movement.y * (speed*100) * Time.deltaTime);
+                rb.velocity = new Vector2(movement.x, movement.y) * speed;
                 // audioManager.PlayClip("RatWalk");
                 
                 //Рывок
@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
     //Рывок
     private void Dashing() 
     { 
-        rb.velocity = movementOnDash * (speed + dashSpeed); 
+        rb.velocity = new Vector2(movement.x, movement.y) * (speed + dashSpeed); 
         dashTime -= 0.1f;
     }
 

@@ -1,15 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using System.Collections;
-using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "New Food", menuName = "Items/FoodItem")]
 public class FoodItem : ScriptableObject
 {
     //О предмете
     new public string name;
-    [TextArea(3,3)]
+    [TextArea(3,5)]
     public string Dicription;
     public int uses;
     public int usesInGame;
@@ -69,8 +67,16 @@ public class FoodItem : ScriptableObject
 
     public void CheeseSnack()
     {
-        playerHealth.TakeAwayHealth(1,1);
-        playerHealth.Heal(3);
+        if(playerHealth.health != playerHealth.maxHealth)
+        {
+            playerHealth.TakeAwayHealth(1,1);
+            playerHealth.Heal(3);
+        }
+    }    
+    public void BakedCockroach()
+    {
+        if(playerHealth.health != playerHealth.maxHealth)
+            playerHealth.Heal(4);
     }
 
     public void SetSprite(Sprite newSprite, SpriteRenderer spriteRend = null, Image image = null)
