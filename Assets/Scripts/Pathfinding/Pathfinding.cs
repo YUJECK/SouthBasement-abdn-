@@ -83,21 +83,22 @@ public class Pathfinding : MonoBehaviour
                 {
                     curr.path.Add(endPos);
                     
-                    //Визуалиция{
-                    // if(pathVisualization.Count!=0) //Чистка
-                    //     for(int i = 0; i < curr.path.Count;)
-                    //     {
-                    //         Destroy(pathVisualization[0].path);
-                    //         Destroy(pathVisualization[0].blockedPath);
-                    //         pathVisualization.RemoveAt(0);
-                    //     }
-                    // if(isPathVisualization)
-                    // {
-                    //     for(int i = 0; i < curr.path.Count; i++)
-                    //         pathVisualization.Add(new PathVisualization(Instantiate(grid.enemyPath, curr.path[i], Quaternion.identity), Instantiate(grid._collider, curr.path[i], Quaternion.identity)));
-                    // }
-                    //}Визуализация
-
+                    //{Визуалиция
+                    if(pathVisualization.Count!=0) //Чистка
+                        for(int i = 0; i < curr.path.Count;)
+                        {
+                            Destroy(pathVisualization[0].path);
+                            Destroy(pathVisualization[0].blockedPath);
+                            pathVisualization.RemoveAt(0);
+                        }
+                    if(isPathVisualization)
+                    {
+                        for(int i = 0; i < curr.path.Count; i++)
+                            pathVisualization.Add(new PathVisualization(Instantiate(grid.enemyPath, curr.path[i], Quaternion.identity), Instantiate(grid._collider, curr.path[i], Quaternion.identity)));
+                    }
+                    //Визуализация}
+                    
+                    BlockedPath(curr);
                     return curr.path;
                 }
 

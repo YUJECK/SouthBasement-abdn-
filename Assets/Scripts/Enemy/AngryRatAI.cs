@@ -8,15 +8,12 @@ public class AngryRatAI : MonoBehaviour
     private float nextAttackTime;
     public float attackRate = 4f;
     public int damage = 1;
-    public List<GameObject> decorationWeapons;
-    [SerializeField] private Transform firePoint; 
-    [SerializeField] private Rigidbody2D pointRotation; 
     [HideInInspector] public Transform player;
     private bool flippedOnRight = true;
     private Pathfinding pathManager; 
     public TriggerCheker attackTrigger;
     private Animator anim;
-    [SerializeField] float runSpeed = 1f; // Скорость при беге
+    [SerializeField] float runSpeed = 2f; // Скорость при беге
     [SerializeField] float walkSpeed = 1f; // Скорость при ходьбе
     [SerializeField] private Transform[] targetPoints; // Список точек для перемещения   
     private bool isPlayerTarget; // Идет ли объект к цели
@@ -28,17 +25,26 @@ public class AngryRatAI : MonoBehaviour
         pathManager = GetComponent<Pathfinding>();
     }
     private void OnTriggerStay2D(Collider2D coll)
-    {
-        if(coll.tag == "WeaponDecoration")
-            pathManager.SetTarget(coll.transform);
-        if(coll.tag == "Player") 
+    {   
+        if(coll.tag == "Player" && !isPlayerTarget) 
         {
             pathManager.SetTarget(coll.transform);
             pathManager.speed = runSpeed; //Ставим скорость на сокрость при беге
             isPlayerTarget = true;
         }
     }
-
+    private void OnTriggerExit2D(Collider2D coll)
+    {   
+        if(coll.tag == "Player" && isPlayerTarget) 
+        {
+            if(targetPoints.Length != 0)
+            {
+                pathManager.SetTarget(targetPoints[Random.Range(0, targetPoints.Length)]);
+                pathManager.speed = walkSpeed; //Ставим скорость на сокрость при беге
+                isPlayerTarget = false;
+            }
+        }
+    }
     void FixedUpdate()
     {   
         if(attackTrigger.isOnTrigger)
@@ -49,6 +55,7 @@ public class AngryRatAI : MonoBehaviour
 
         if(pathManager.target != null)//Поворот врага к игроку
         {
+            //Поворот врага
             if(pathManager.target.position.x > transform.position.x & !flippedOnRight)
             {
                 Flip();
@@ -60,10 +67,9 @@ public class AngryRatAI : MonoBehaviour
                 flippedOnRight = false;
             }
         }
+        if(pathManager.target == null && !isPlayerTarget) pathManager.SetTarget(targetPoints[Random.Range(0, targetPoints.Length)]);
         
-        if(decorationWeapons.Count != 0)
-            Shot(decorationWeapons[0]);
-
+        //Анимация 
         if(pathManager.isNowGoingToTarget)
             anim.SetBool("IsRun", true);
         else
@@ -79,22 +85,6 @@ public class AngryRatAI : MonoBehaviour
             nextAttackTime = Time.time + 1f / attackRate;
         }
         anim.ResetTrigger("isAttack");
-    }
-    private void Shot(GameObject projectile)
-    {
-        if(projectile != null)
-        {  
-            projectile.transform.position = firePoint.position;
-            pointRotation.rotation = CalculateAngle();
-            projectile.GetComponent<Rigidbody2D>().AddForce(Vector2.up, ForceMode2D.Impulse);
-            decorationWeapons.Remove(projectile);
-        }
-    }
-    private float CalculateAngle()
-    {
-        Vector2 direction = player.position - pointRotation.transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        return angle;
     }
     private void Flip(){transform.Rotate(0f,180f,0f);}
 }

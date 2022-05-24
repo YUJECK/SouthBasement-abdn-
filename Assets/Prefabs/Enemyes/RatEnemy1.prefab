@@ -208,13 +208,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isNowGoingToTarget: 0
   resetVelocity: 1
-  useTargetPoints: 1
-  targetPoints: []
   triggerCheker: {fileID: 5786294515894876683}
   target: {fileID: 0}
   path: []
-  runSpeed: 3
-  walkSpeed: 2
+  speed: 0
   findRate: 1.5
   nextTime: 0
   gridChanges: []
@@ -254,11 +251,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRate: 2
   damage: 1
-  decorationWeapons: []
-  firePoint: {fileID: 524280277454215651}
-  pointRotation: {fileID: 1873160417087854501}
   player: {fileID: 0}
   attackTrigger: {fileID: 5636856872160811131}
+  runSpeed: 3.3
+  walkSpeed: 2
+  targetPoints: []
 --- !u!212 &7112295092639880517
 SpriteRenderer:
   m_ObjectHideFlags: 0
