@@ -9,17 +9,12 @@ public class Pathfinding : MonoBehaviour
 
     private Rigidbody2D rb; //Ссылка на Rigidbody2D объекта, нужно для обнулдения velocity из-за которого объект странно перемещается
     [HideInInspector]public bool isNowGoingToTarget; // Идет ли объект к цели
-    private bool isPlayerTarget; // Идет ли объект к цели
     [SerializeField] private bool resetVelocity; //Будут ли обнулятся velocity у Rigidbody2D
-    [SerializeField] private bool useTargetPoints; //Будет ли объект перемещатся к точкам
-    [SerializeField] private Transform[] targetPoints; // Список точек для перемещения
     public TriggerCheker triggerCheker; //Триггер для остановки
 
     public Transform target; // Объект для которого будем искать путь
     [SerializeField] private List<Vector2> path; // Путь к таргету
-    private float speed; //Скорость передвижения
-    [SerializeField] float runSpeed = 1f; // Скорость при беге
-    [SerializeField] float walkSpeed = 1f; // Скорость при ходьбе
+    public float speed; //Скорость передвижения
     [SerializeField] float findRate = 10; // Частота поиска пути
     [SerializeField] float nextTime; // Время следующего поиска пути
 
@@ -40,7 +35,7 @@ public class Pathfinding : MonoBehaviour
             path = new List<Vector2>();
         }
     }
-    private struct PathVisualization
+    private struct PathVisualization //Стуркура хранящая визуализацию путя, и визуализацию блока,, пути
     {
         public GameObject path;
         public GameObject blockedPath;
@@ -60,6 +55,7 @@ public class Pathfinding : MonoBehaviour
             rb = GetComponent<Rigidbody2D>();
     }
 
+    //Методы для поиска пути
     private List<Vector2> FindPath(Vector2 startPos, Vector2 endPos) // Поиск пути
     {
         if(grid.isGridCreated)
@@ -101,13 +97,6 @@ public class Pathfinding : MonoBehaviour
                     //         pathVisualization.Add(new PathVisualization(Instantiate(grid.enemyPath, curr.path[i], Quaternion.identity), Instantiate(grid._collider, curr.path[i], Quaternion.identity)));
                     // }
                     //}Визуализация
-
-
-                    for(int i = 1; i < curr.path.Count-1; i++)//Чтобы враги не сталкивались
-                    {
-                        grid.grid[(int)(curr.path[i].x / grid.nodeSize), (int)(curr.path[i].y / grid.nodeSize)] = 1;
-                        gridChanges.Add(new Vector2Int((int)(curr.path[i].x / grid.nodeSize), (int)(curr.path[i].y / grid.nodeSize)));
-                    }
 
                     return curr.path;
                 }
@@ -169,6 +158,16 @@ public class Pathfinding : MonoBehaviour
             visitedPoints[nextPoint.x, nextPoint.y] = true;
         }
     }
+    private void BlockedPath(Point point)
+    {
+        for(int i = 1; i < point.path.Count-1; i++)//Чтобы враги не сталкивались
+        {
+            grid.grid[(int)(point.path[i].x / grid.nodeSize), (int)(point.path[i].y / grid.nodeSize)] = 1;
+            gridChanges.Add(new Vector2Int((int)(point.path[i].x / grid.nodeSize), (int)(point.path[i].y / grid.nodeSize)));
+        }
+    }
+    
+    //Публичные методы для упраления
     public void SetTarget(Transform newTarget) // Поставить новый таргет
     {
         target = newTarget;
@@ -181,20 +180,8 @@ public class Pathfinding : MonoBehaviour
         }
         SetNextTime(); // Ставим сразу время, а то больше путь искаться в апдейте не будет
     }
-    
-    public void SetPointToTarget() // Поиск пути для точки
-    {
-        if(targetPoints.Length != 0)
-        {
-            int pointInd = Random.Range(0,targetPoints.Length); //Рандомим точку
-            target = targetPoints[pointInd];
-            speed = walkSpeed; // Ставим скорость на скорость при ходьбе
-            SetNextTime();
-        }
-    }
-    public void ResetTarget() { target = null; path.Clear(); ResetGridChanges(); ;isPlayerTarget = false;} // Срос таргета 
+    public void ResetTarget() { target = null; path.Clear(); ResetGridChanges();} // Срос таргета 
     private void SetNextTime() { nextTime = Time.time + findRate; } // Ставим следующее время
-   
    
     private void FixedUpdate()
     {
@@ -234,20 +221,8 @@ public class Pathfinding : MonoBehaviour
                         }
                     }   
                 }
-                if(useTargetPoints && path.Count == 0 && !isPlayerTarget) ResetTarget();
             }            
-            else if(useTargetPoints) SetPointToTarget();
             else isNowGoingToTarget = false;
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D coll)
-    {
-        if(coll.tag == "Player" && !isPlayerTarget) 
-        {
-            SetTarget(coll.transform);
-            if(useTargetPoints) speed = runSpeed; //Ставим скорость на сокрость при беге
-            isPlayerTarget = true;
         }
     }
 
@@ -258,16 +233,5 @@ public class Pathfinding : MonoBehaviour
             grid.grid[gridChanges[i].x, gridChanges[i].y] = 0;
         }
         gridChanges.Clear();
-    }
-
-    private void OnTriggerExit2D(Collider2D coll)
-    {
-        if(coll.tag == "Player") 
-        {
-            ResetTarget(); //Убираем таргет
-            
-            if(useTargetPoints) //Идем к точке если таковые имеются 
-                SetPointToTarget(); 
-        }
     }
 }

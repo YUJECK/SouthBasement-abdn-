@@ -5,7 +5,7 @@ using UnityEngine;
 public class AngryRatAI : MonoBehaviour
 {
     [Header("AttackSettings")]
-    private float nextTime;
+    private float nextAttackTime;
     public float attackRate = 4f;
     public int damage = 1;
     public List<GameObject> decorationWeapons;
@@ -16,6 +16,10 @@ public class AngryRatAI : MonoBehaviour
     private Pathfinding pathManager; 
     public TriggerCheker attackTrigger;
     private Animator anim;
+    [SerializeField] float runSpeed = 1f; // Скорость при беге
+    [SerializeField] float walkSpeed = 1f; // Скорость при ходьбе
+    [SerializeField] private Transform[] targetPoints; // Список точек для перемещения   
+    private bool isPlayerTarget; // Идет ли объект к цели
 
     private void Start()
     {
@@ -27,17 +31,23 @@ public class AngryRatAI : MonoBehaviour
     {
         if(coll.tag == "WeaponDecoration")
             pathManager.SetTarget(coll.transform);
+        if(coll.tag == "Player") 
+        {
+            pathManager.SetTarget(coll.transform);
+            pathManager.speed = runSpeed; //Ставим скорость на сокрость при беге
+            isPlayerTarget = true;
+        }
     }
 
     void FixedUpdate()
     {   
         if(attackTrigger.isOnTrigger)
         {
-            if (Time.time >= nextTime)
+            if (Time.time >= nextAttackTime)
                 anim.SetTrigger("isAttack");
         }
 
-        if(pathManager.target!=null)//Поворот врага к игроку
+        if(pathManager.target != null)//Поворот врага к игроку
         {
             if(pathManager.target.position.x > transform.position.x & !flippedOnRight)
             {
@@ -66,7 +76,7 @@ public class AngryRatAI : MonoBehaviour
         {
             //Бьём врага
             player.GetComponent<Health>().TakeHit(damage);
-            nextTime = Time.time + 1f / attackRate;
+            nextAttackTime = Time.time + 1f / attackRate;
         }
         anim.ResetTrigger("isAttack");
     }
