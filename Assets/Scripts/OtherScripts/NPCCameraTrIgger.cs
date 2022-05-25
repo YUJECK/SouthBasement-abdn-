@@ -4,25 +4,21 @@ using UnityEngine;
 
 public class NPCCameraTrIgger : MonoBehaviour
 {
-    [SerializeField]
-    private bool PlayAudio;
-
-    [SerializeField]
-    private bool stopWithDelay;
-
-    [SerializeField]
-    private string audioName;
-
-    [SerializeField]
-    private bool isAntoherTrigger = false;
-
-    [SerializeField]
-    private Transform anotherTrigger;
-
-    [SerializeField]
-    private float MinValue = 3f;
+    [SerializeField] private bool PlayAudio;
+    [SerializeField] private string audioName;
+    [SerializeField] private bool isAntoherTrigger = false;
+    [SerializeField] private Transform anotherTrigger;
+    [SerializeField] private float MinValue = 3f;
     private Mode mode;
 
+    private AudioManager audioManager;
+    private CameraFollow cameraFollow;
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+        cameraFollow = FindObjectOfType<CameraFollow>();
+    }
     void OnLevelWasLoaded()
     {
         if(FindObjectOfType<CameraFollow>().Camera.GetComponent<Camera>().orthographicSize <= MinValue)
@@ -33,30 +29,27 @@ public class NPCCameraTrIgger : MonoBehaviour
         if(other.tag == "Player")
         {
             if(!isAntoherTrigger)
-                FindObjectOfType<CameraFollow>().SetTrigger(transform);
+                cameraFollow.SetTrigger(transform);
             else
-                FindObjectOfType<CameraFollow>().SetTrigger(anotherTrigger);
+                cameraFollow.SetTrigger(anotherTrigger);
 
             mode = Mode.Minimizing;
 
             if(PlayAudio)
-                FindObjectOfType<AudioManager>().PlayClip(audioName);
+                audioManager.SetToMain(audioName);
         }
     }
     private void OnTriggerExit2D(Collider2D other)
     {
         if(other.tag == "Player")
-        {                
-            FindObjectOfType<CameraFollow>().ResetTrigger();
+        {
+            cameraFollow.ResetTrigger();
             mode = Mode.Maximizing;
 
             if(PlayAudio)
             {
-                if(stopWithDelay)
-                    FindObjectOfType<AudioManager>().StopClipWithDelay(audioName);
-                
-                else
-                    FindObjectOfType<AudioManager>().StopClip(audioName);
+                audioManager.StopClipWithDelay(audioName);
+                audioManager.PlayClip(audioManager.lastMain.name);
             }
         }
     }

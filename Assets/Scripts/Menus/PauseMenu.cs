@@ -9,7 +9,6 @@ public class PauseMenu : MonoBehaviour
     public bool isPause = false;
     public static PauseMenu instance;
     private AudioManager audioManager;
-    public Audio lastAu = null; //Аудио которое играло до паузы
 
     private void Awake()
     {
@@ -39,8 +38,6 @@ public class PauseMenu : MonoBehaviour
         isPause = true;
         Time.timeScale = 0f;
         menu.SetActive(true);
-        lastAu = audioManager.mainAudio;
-        lastAu.source = audioManager.mainAudio.source;
         audioManager.SetToMain("PauseMenu");
     }
 
@@ -49,7 +46,7 @@ public class PauseMenu : MonoBehaviour
         isPause = false;
         Time.timeScale = 1f;
         menu.SetActive(false);
-        audioManager.SetToMain(lastAu.name);
+        audioManager.SetToMain(audioManager.lastMain.name);
     }
     public void MainMenu()
     {

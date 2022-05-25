@@ -177,6 +177,7 @@ public class AngryRatAI : MonoBehaviour
             {
                 SetTarget(coll.transform);
                 isTargetCanWalk = true;
+                speed = runSpeed;
             }
         }
     }

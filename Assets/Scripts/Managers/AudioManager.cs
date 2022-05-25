@@ -8,7 +8,19 @@ public class AudioManager : MonoBehaviour
     public Audio[] audios; // Все аудио в игре
 
     public List<Audio> nowPlaying = new List<Audio>(); //Все аудио который играют 
-    public Audio mainAudio = null; //Главная тема играющая сейчас 
+    private Audio _mainAudio = null; //Главная тема играющая сейчас 
+    public Audio mainAudio
+    {
+        get { return _mainAudio; }
+        private set { _mainAudio = value; }
+    }
+
+    private Audio _lastMain = null; //Главная тема игравшая раньше
+    public Audio lastMain
+    {
+        get { return _lastMain; }
+        private set { _lastMain = value; }
+    }
     public static AudioManager instance; // Синглтон
 
     void Awake()
@@ -31,12 +43,12 @@ public class AudioManager : MonoBehaviour
         }
         
         //"Активация" главной темы         
-        mainAudio.source = gameObject.AddComponent<AudioSource>();
+        _mainAudio.source = gameObject.AddComponent<AudioSource>();
         
-        mainAudio.source.clip = mainAudio.clip;
-        mainAudio.source.volume = mainAudio.volume;
-        mainAudio.source.pitch = mainAudio.pitch;
-        mainAudio.source.loop = mainAudio.loop;
+        _mainAudio.source.clip = _mainAudio.clip;
+        _mainAudio.source.volume = _mainAudio.volume;
+        _mainAudio.source.pitch = _mainAudio.pitch;
+        _mainAudio.source.loop = _mainAudio.loop;
     }
  
     private void OnLevelWasLoaded()
@@ -56,11 +68,12 @@ public class AudioManager : MonoBehaviour
     }
     public void SetToMain(string name = null)
     {
-        if(mainAudio != null) StopClip(null, mainAudio);
+        if(_mainAudio != null) StopClip(null, _mainAudio);
 
+        _lastMain = _mainAudio;
         Audio au = Find(name);
-        mainAudio = au;
-        mainAudio.source = au.source;
+        _mainAudio = au;
+        _mainAudio.source = au.source;
         PlayClip(name);
 
     }

@@ -58,7 +58,7 @@ public class RatAttack : MonoBehaviour
         {
             if(enemy.tag == "Enemy")
             {
-                if(enemy.isTrigger)
+                if(!enemy.isTrigger)
                 {
                     if(melleWeapon != null)
                     {
