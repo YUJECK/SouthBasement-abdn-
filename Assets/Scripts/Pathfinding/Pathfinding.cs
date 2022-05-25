@@ -4,24 +4,7 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
-    private bool[,] visitedPoints; // Массив посещенных точек 
-    private Grid grid;
-
-    private Rigidbody2D rb; //Ссылка на Rigidbody2D объекта, нужно для обнулдения velocity из-за которого объект странно перемещается
-    [HideInInspector]public bool isNowGoingToTarget; // Идет ли объект к цели
-    [SerializeField] private bool resetVelocity; //Будут ли обнулятся velocity у Rigidbody2D
-    public TriggerCheker triggerCheker; //Триггер для остановки
-
-    public Transform target; // Объект для которого будем искать путь
-    [SerializeField] private List<Vector2> path; // Путь к таргету
-    public float speed; //Скорость передвижения
-    [SerializeField] float findRate = 10; // Частота поиска пути
-    [SerializeField] float nextTime; // Время следующего поиска пути
-
-    public List<Vector2Int> gridChanges = new List<Vector2Int>();
-    private List<PathVisualization> pathVisualization = new List<PathVisualization>();
-    public bool isPathVisualization;
-
+    //Структуры
     public struct Point // Стуктура для точки
     {
         public int x;
@@ -47,16 +30,18 @@ public class Pathfinding : MonoBehaviour
         }
     };
 
-    private void Start()
-    {
-        grid = FindObjectOfType<Grid>(); // Ищем сетку
-        
-        if(resetVelocity)
-            rb = GetComponent<Rigidbody2D>();
-    }
+    [HideInInspector] public Grid grid;
+    private bool[,] visitedPoints; // Массив посещенных точек 
+
+    [SerializeField] private bool changeGrid = false; //Будет ли матрица изменяться в зависимости от пути
+    public bool isPathVisualization;
+    [SerializeField] public List<Vector2Int> gridChanges = new List<Vector2Int>();
+    private List<PathVisualization> pathVisualization = new List<PathVisualization>();
+
+    private void Start() { grid = FindObjectOfType<Grid>(); }
 
     //Методы для поиска пути
-    private List<Vector2> FindPath(Vector2 startPos, Vector2 endPos) // Поиск пути
+    public List<Vector2> FindPath(Vector2 startPos, Vector2 endPos) // Поиск пути
     {
         if(grid.isGridCreated)
         {
@@ -69,7 +54,6 @@ public class Pathfinding : MonoBehaviour
             start.y = (int)startPos.y;
             start.path = new List<Vector2>();
             start.path.Add(new Vector2(startPos.x, startPos.y));
-            // Debug.Log(startPos);
 
             queue.Add(new Point(startPos));
 
@@ -98,7 +82,7 @@ public class Pathfinding : MonoBehaviour
                     }
                     //Визуализация}
                     
-                    BlockedPath(curr);
+                    if(changeGrid) BlockedPath(curr);
                     return curr.path;
                 }
 
@@ -161,72 +145,12 @@ public class Pathfinding : MonoBehaviour
     }
     private void BlockedPath(Point point)
     {
-        for(int i = 1; i < point.path.Count-1; i++)//Чтобы враги не сталкивались
+        for(int i = 0; i < point.path.Count-1; i++)//Чтобы враги не сталкивались
         {
             grid.grid[(int)(point.path[i].x / grid.nodeSize), (int)(point.path[i].y / grid.nodeSize)] = 1;
             gridChanges.Add(new Vector2Int((int)(point.path[i].x / grid.nodeSize), (int)(point.path[i].y / grid.nodeSize)));
         }
     }
-    
-    //Публичные методы для упраления
-    public void SetTarget(Transform newTarget) // Поставить новый таргет
-    {
-        target = newTarget;
-
-        if(path.Count == 0)
-        {
-            path = FindPath(
-            new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
-            new Vector2((int)(target.position.x / grid.nodeSize), (int)(target.position.y / grid.nodeSize)));
-        }
-        SetNextTime(); // Ставим сразу время, а то больше путь искаться в апдейте не будет
-    }
-    public void ResetTarget() { target = null; path.Clear(); ResetGridChanges();} // Срос таргета 
-    private void SetNextTime() { nextTime = Time.time + findRate; } // Ставим следующее время
-   
-    private void FixedUpdate()
-    {
-        if(resetVelocity) // Обнуление velocity 
-            rb.velocity = new Vector2(0f, 0f);
-
-        if(triggerCheker != null && !triggerCheker.isOnTrigger)
-        {
-            //Если есть таргет
-            if(target != null)
-            {
-                if((Time.time >= nextTime & nextTime != 0) || path.Count == 0)
-                {
-                    //Убираем все единички что мы поставили и не успели убрать
-                    ResetGridChanges();
-                    
-                    //Ищем новый путь
-                    path = FindPath(
-                    new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
-                    new Vector2(target.position.x / grid.nodeSize, target.position.y / grid.nodeSize));
-
-                    SetNextTime();
-                }
-
-                if(path.Count != 0) //Если путь не равен нулю, то мы идем по нему
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, path[0], speed*Time.deltaTime);   // Перемещаем объект в след точку
-                    isNowGoingToTarget = true;
-
-                    if(transform.position == new Vector3(path[0].x, path[0].y, transform.position.z))
-                    {
-                        path.RemoveAt(0);        
-                        
-                        if(gridChanges.Count != 0){
-                            grid.grid[gridChanges[0].x, gridChanges[0].y] = 0;
-                            gridChanges.RemoveAt(0);
-                        }
-                    }   
-                }
-            }            
-            else isNowGoingToTarget = false;
-        }
-    }
-
     public void ResetGridChanges()//Убирает все изменения в сетке
     {
         for(int i = 0; i < gridChanges.Count; i++)

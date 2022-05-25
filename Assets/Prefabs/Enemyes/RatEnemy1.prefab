@@ -161,10 +161,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5630845710053068691}
-  - component: {fileID: 1776300603172290270}
-  - component: {fileID: 1209497417465223578}
-  - component: {fileID: 5157359432002517473}
   - component: {fileID: 7112295092639880517}
+  - component: {fileID: 5157359432002517473}
+  - component: {fileID: 1209497417465223578}
+  - component: {fileID: 1776300603172290270}
   - component: {fileID: 5630845709475724661}
   - component: {fileID: 5630845709475724668}
   - component: {fileID: 3604888521855480566}
@@ -194,68 +194,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1776300603172290270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46c1c42e4d5d07f4c9478587f9891327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isNowGoingToTarget: 0
-  resetVelocity: 1
-  triggerCheker: {fileID: 5786294515894876683}
-  target: {fileID: 0}
-  path: []
-  speed: 0
-  findRate: 1.5
-  nextTime: 0
-  gridChanges: []
-  isPathVisualization: 0
---- !u!114 &1209497417465223578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4937f07ba56b4043a5f2b00622de0af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 20
-  maxHealth: 20
-  effectIndicator: {fileID: 3330916501560165472}
-  damageColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
-  minCheese: 3
-  maxCheese: 8
-  destroySound: 
-  hitSound: 
-  roomCloser: {fileID: 0}
---- !u!114 &5157359432002517473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f975bdfffc214a84e8605b105297679e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRate: 2
-  damage: 1
-  player: {fileID: 0}
-  attackTrigger: {fileID: 5636856872160811131}
-  runSpeed: 3.3
-  walkSpeed: 2
-  targetPoints: []
 --- !u!212 &7112295092639880517
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -307,6 +245,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5157359432002517473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f975bdfffc214a84e8605b105297679e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  attackRate: 2
+  attackCheker: {fileID: 5636856872160811131}
+  target: {fileID: 0}
+  stopCheker: {fileID: 5786294515894876683}
+  walkSpeed: 2
+  runSpeed: 3.3
+  searchRate: 3
+  targetPoints: []
+  anim: {fileID: 0}
+--- !u!114 &1209497417465223578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4937f07ba56b4043a5f2b00622de0af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 20
+  maxHealth: 20
+  effectIndicator: {fileID: 3330916501560165472}
+  damageColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
+  minCheese: 3
+  maxCheese: 8
+  destroySound: 
+  hitSound: 
+  roomCloser: {fileID: 0}
+--- !u!114 &1776300603172290270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c1c42e4d5d07f4c9478587f9891327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  changeGrid: 1
+  isPathVisualization: 0
+  gridChanges: []
 --- !u!50 &5630845709475724661
 Rigidbody2D:
   serializedVersion: 4
@@ -376,8 +373,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05996895, y: -0.026559195}
-  m_Size: {x: 0.40847653, y: 0.49114227}
+  m_Offset: {x: 0.06037299, y: -0.04852867}
+  m_Size: {x: 0.35779256, y: 0.44720334}
   m_Direction: 0
 --- !u!1 &6068210405539366294
 GameObject:

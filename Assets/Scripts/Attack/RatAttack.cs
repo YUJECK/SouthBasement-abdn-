@@ -52,13 +52,13 @@ public class RatAttack : MonoBehaviour
         pointRotation.stopRotating = true;
         playerAnim.SetTrigger("IsAttack");
         animRange.SetTrigger("Attack");
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position,AttackRange,EnemyLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, EnemyLayers);
         
         foreach (Collider2D enemy in hitEnemies)
         {
             if(enemy.tag == "Enemy")
             {
-                if (!enemy.isTrigger)
+                if(enemy.isTrigger)
                 {
                     if(melleWeapon != null)
                     {
