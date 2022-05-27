@@ -43,6 +43,8 @@ public class RatConsole : MonoBehaviour
         inventory = FindObjectOfType<InventoryManager>();
         playerAttack = FindObjectOfType<RatAttack>();
     }
+    
+    //Всякое для конслои
     private void ClearConsole()
     {
         ConsoleText.text = "";
@@ -76,14 +78,25 @@ public class RatConsole : MonoBehaviour
                 "Uses: " + inventory.foodItems[inventory.activeFoodSlot].objectOfItem.GetComponent<ItemInfo>().uses +"\n";
             }
         }
+        InfoText.text += "   --MelleWeapon--" + "\n";
+        if(inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon != null)
+        {
+            InfoText.text += "Name: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.name +"\n"+
+            "Damage: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.damage +"\n"+
+            "AttackRate: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.attackRate +"\n"+
+            "AttackRange: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.attackRange+"\n";
+        }
     }
 
+    
+    //Методы для комманд в коммандной строки
     public int GetFps() { return (int)(1.0f / Time.deltaTime); } //Fps
     public void OnePunch() { playerAttack.damageBoost = 1000; } //Сделать игрока очень сильным
     public void SpawnEnemy() { Instantiate(enemy, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн врага
     public void SpawnBox() { Instantiate(box, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн коробки
     public void PathVisualization(bool active) { FindObjectOfType<Grid>().PathVisualization(active); } //Визуалищ=зация путя врагов
     public void ShowGrid(){FindObjectOfType<Grid>().ShowGrid();}
+    public void GetCheese(){FindObjectOfType<GameManager>().CheeseScore(100);}
 
     private void Update()
     {

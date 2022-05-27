@@ -66,9 +66,13 @@ public class AudioManager : MonoBehaviour
                 nowPlaying.RemoveAt(i);
         }
     }
-    public void SetToMain(string name = null)
+    public void SetToMain(string name = null, bool delay = false)
     {
-        if(_mainAudio != null) StopClip(null, _mainAudio);
+        if(_mainAudio != null)
+        {
+            if(!delay) StopClip(null, _mainAudio);
+            else StopClipWithDelay(name);
+        } 
 
         _lastMain = _mainAudio;
         Audio au = Find(name);
