@@ -5,12 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
+    private struct Effect{
+        public float startTime;
+        public float durationTime;
+
+    };
     public int health;
     public int maxHealth;
     public Animator healthBar;
-    public AudioManager audioManager;
+    private AudioManager audioManager;
+    private GameManager gameManager;
     private bool invisibleCadrs = false;
 
+    //Еффекты
+    public SpriteRenderer effectIndicator;
+    private EffectsManager effectsManager;
+    private Effect burn;
+    private Effect bleed;
+    private Effect poisoned;
+    private Effect regeneration;
 
     private void Start()
     {
@@ -33,7 +46,6 @@ public class Health : MonoBehaviour
                 SceneManager.LoadScene("MainMenu");  
         }
     }
-
     public void Heal(int bonusHealth)
     {
         health += bonusHealth;
@@ -41,7 +53,6 @@ public class Health : MonoBehaviour
         if(health > maxHealth)
             health = maxHealth;  
     }
-
     public void SetHealth(int NewMaxHealth, int NewHealth)
     {
         maxHealth = NewMaxHealth;
@@ -77,4 +88,15 @@ public class Health : MonoBehaviour
         invisibleCadrs = false;
         healthBar.SetBool("InvisibleCadrs",false);
     }
+
+    //Еффекты public void GetBurn(float effectTime) 
+    
+    public void ResetBurn() { effectsManager.Burn.listeners.RemoveListener(Burn); burn.durationTime = 0f; burn.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
+    public void ResetPoisoned() { effectsManager.Poisoned.listeners.RemoveListener(Poisoned); poisoned.durationTime = 0f; poisoned.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
+    public void ResetBleed() { effectsManager.Bleed.listeners.RemoveListener(Bleed); bleed.durationTime = 0f; bleed.startTime = 0f; effectIndicator.sprite = gameManager.hollowSprite;}
+
+    public void Burn(int hit){TakeHit(hit);}
+    public void Poisoned(int hit){TakeHit(hit);}
+    public void Bleed(int hit){TakeHit(hit);}
+    public void Regeneration(int regHealth){Heal(regHealth);}
 }

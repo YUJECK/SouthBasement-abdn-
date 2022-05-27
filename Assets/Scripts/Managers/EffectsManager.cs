@@ -5,35 +5,96 @@ using UnityEngine.Events;
 
 public class EffectsManager : MonoBehaviour 
 {
-    [SerializeField] private float burnRate = 0.5f;
-    public UnityEvent Burn = new UnityEvent();
-    private float nextTimeBurn;
+    [System.Serializable] public struct Effect{
+        public float rate;
+        public UnityEvent<int> listeners;
+        public float nextTime;
+    }
     
-    [SerializeField] private float poisonedRate = 0.5f;
-    public UnityEvent Poisoned = new UnityEvent();
-    private float nextTimePoisoned;
-    
-    [SerializeField] private float bleedRate = 0.3f;
-    public UnityEvent Bleed = new UnityEvent();
-    private float nextTimeBleed;
+    [Header("Список имеющихся еффектов")]
+    public Effect Burn;
+    public Effect Poisoned;
+    public Effect Bleed;
+    public Effect Regeneration;
+
+    //Ссылки на др скрипты
+    private GameManager gameManager;
 
 
     private void FixedUpdate()
     {
-        if(Time.time >= nextTimeBurn)
+        // if(Time.time >= nextTimeBurn)
+        // {
+        //     Burn.Invoke();
+        //     nextTimeBurn = Time.time + 1f / burnRate;
+        // }
+        // if(Time.time >= nextTimePoisoned)
+        // {
+        //     Poisoned.Invoke();
+        //     nextTimePoisoned = Time.time + 1f / poisonedRate;
+        // }
+        // if(Time.time >= nextTimeBleed)
+        // {
+        //     Bleed.Invoke();
+        //     nextTimeBleed = Time.time + 1f / bleedRate;
+        // }
+        // if(Time.time >= nextTimeRegeneration)
+        // {
+        //     Regeneration.Invoke();
+        //     nextTimeRegeneration = Time.time + 1f / regenerationRate;
+        // }
+    }
+
+    public void GetBleed(float durationTime, Health plHealth = null, HealthEnemy enHealth = null)
+    {
+        if(plHealth != null) 
         {
-            Burn.Invoke();
-            nextTimeBurn = Time.time + 1f / burnRate;
+            Bleed.listeners.AddListener(plHealth.Bleed);
+            plHealth.effectIndicator.sprite = gameManager.BleedIndicator;
         }
-        if(Time.time >= nextTimePoisoned)
+        if(enHealth != null) 
         {
-            Poisoned.Invoke();
-            nextTimePoisoned = Time.time + 1f / poisonedRate;
+            Bleed.listeners.AddListener(enHealth.Bleed);
+            enHealth.effectIndicator.sprite = gameManager.BleedIndicator;
         }
-        if(Time.time >= nextTimeBleed)
+    }
+    public void GetBurn(float durationTime, Health plHealth = null, HealthEnemy enHealth = null)
+    {
+        if(plHealth != null) 
         {
-            Bleed.Invoke();
-            nextTimeBleed = Time.time + 1f / bleedRate;
+            Burn.listeners.AddListener(plHealth.Burn);
+            plHealth.effectIndicator.sprite = gameManager.BurnIndicator;
+        }
+        if(enHealth != null) 
+        {
+            Burn.listeners.AddListener(enHealth.Burn);
+            enHealth.effectIndicator.sprite = gameManager.BurnIndicator;
+        }
+    }
+    public void GetPoisoned(float durationTime, Health plHealth = null, HealthEnemy enHealth = null)
+    {
+        if(plHealth != null) 
+        {
+            Poisoned.listeners.AddListener(plHealth.Poisoned);
+            plHealth.effectIndicator.sprite = gameManager.PoisonedIndicator;
+        }
+        if(enHealth != null) 
+        {
+            Poisoned.listeners.AddListener(enHealth.Poisoned);
+            enHealth.effectIndicator.sprite = gameManager.PoisonedIndicator;
+        }
+    }
+    public void GetRegenerate(float durationTime, Health plHealth = null, HealthEnemy enHealth = null)
+    {
+        if(plHealth != null) 
+        {
+            Regeneration.listeners.AddListener(plHealth.Regeneration);
+            plHealth.effectIndicator.sprite = gameManager.RegenerateIndicator;
+        }
+        if(enHealth != null) 
+        {
+            Regeneration.listeners.AddListener(enHealth.Regeneration);
+            enHealth.effectIndicator.sprite = gameManager.RegenerateIndicator;
         }
     }
 }

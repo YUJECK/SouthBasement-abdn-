@@ -11,7 +11,7 @@ public class HealthEnemy : MonoBehaviour
     private GameManager gameManager;
     private EffectsManager effectsManager;
     private AudioManager audioManager;
-    [SerializeField] private SpriteRenderer effectIndicator;
+    public SpriteRenderer effectIndicator;
     [SerializeField] private Color damageColor;
 
     [SerializeField] int minCheese = 0;
@@ -106,42 +106,34 @@ public class HealthEnemy : MonoBehaviour
     //Еффекты которые могут наложиться на врага
     public void GetBurn(float effectTime) 
     { 
-        effectsManager.Burn.AddListener(Burn); 
+        effectsManager.Burn.listeners.AddListener(Burn); 
         burnTime = effectTime; 
         burnStartTime = Time.time;
         effectIndicator.sprite = gameManager.BurnIndicator;
     }
     public void GetPoisoned(float effectTime) 
     { 
-        effectsManager.Poisoned.AddListener(Poisoned); 
+        effectsManager.Poisoned.listeners.AddListener(Poisoned); 
         poisonedTime = effectTime; 
         poisonedStartTime = Time.time;
         effectIndicator.sprite = gameManager.PoisonedIndicator;    
     }
     public void GetBleed(float effectTime) 
     {
-        effectsManager.Bleed.AddListener(Bleed);
+        effectsManager.Bleed.listeners.AddListener(Bleed);
         bleedTime = effectTime; 
         bleedStartTime = Time.time;
         effectIndicator.sprite = gameManager.BleedIndicator;
     }
 
-    public void ResetBurn() {Debug.Log("reset"); effectsManager.Burn.RemoveListener(Burn); burnTime = 0f; burnStartTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
-    public void ResetPoisoned() { effectsManager.Poisoned.RemoveListener(Poisoned); poisonedTime = 0f; poisonedStartTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
-    public void ResetBleed() { effectsManager.Bleed.RemoveListener(Bleed); bleedTime = 0f; bleedStartTime = 0f; effectIndicator.sprite = gameManager.hollowSprite;}
+    public void ResetBurn() {effectsManager.Burn.listeners.RemoveListener(Burn); burnTime = 0f; burnStartTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
+    public void ResetPoisoned() { effectsManager.Poisoned.listeners.RemoveListener(Poisoned); poisonedTime = 0f; poisonedStartTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
+    public void ResetBleed() { effectsManager.Bleed.listeners.RemoveListener(Bleed); bleedTime = 0f; bleedStartTime = 0f; effectIndicator.sprite = gameManager.hollowSprite;}
 
-    private void Burn()
-    {
-        TakeHit(1);
-    }
-    private void Poisoned()
-    {
-        TakeHit(1);
-    }
-    private void Bleed()
-    {
-        TakeHit(2);
-    }
+    public void Burn(int hit){TakeHit(hit);}
+    public void Poisoned(int hit){TakeHit(hit);}
+    public void Bleed(int hit){TakeHit(hit);}
+    public void Regeneration(int regHealth){Heal(regHealth);}
 
     private void Update()
     {

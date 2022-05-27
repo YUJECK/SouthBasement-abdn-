@@ -79,7 +79,6 @@ public class AudioManager : MonoBehaviour
         _mainAudio = au;
         _mainAudio.source = au.source;
         PlayClip(name);
-
     }
 
     public void PlayClip(string name = null) //Начинает пригрывать аудио
