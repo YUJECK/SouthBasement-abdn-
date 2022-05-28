@@ -39,7 +39,7 @@ public class Pathfinding : MonoBehaviour
     private List<PathVisualization> pathVisualization = new List<PathVisualization>();
 
     private void Start() { grid = FindObjectOfType<Grid>(); }
-
+    private void OnDestroy() { ResetGridChanges(); Debug.Log("Destroy"); }
     //Методы для поиска пути
     public List<Vector2> FindPath(Vector2 startPos, Vector2 endPos) // Поиск пути
     {

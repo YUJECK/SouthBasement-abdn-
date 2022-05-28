@@ -42,6 +42,7 @@ public class AngryRatAI : MonoBehaviour
     private float nextSearchTime = 0f; //След время поиска
     [SerializeField] private Transform[] targetPoints; //Точки для передвижения
     private List<Vector2> path = new List<Vector2>(); //Путь
+    private Vector2 lastPos = new Vector2();
 
     //Ссылки на другие классы
     private Health player; //Ссылка на ХП игрока
@@ -126,16 +127,23 @@ public class AngryRatAI : MonoBehaviour
             
             if(target != null) //Поврот 
             {
-                if (target.position.x > transform.position.x && isFlippedOnRight)
+                if (new Vector3(lastPos.x, lastPos.y, transform.position.z) == transform.position)
+                {
+                    lastPos = transform.position;
+                    return;
+                }
+
+                if (lastPos.x < transform.position.x && isFlippedOnRight)
                 {
                     Flip();
                     isFlippedOnRight = false;
                 }
-                if (target.position.x < transform.position.x && !isFlippedOnRight)
+                else if (lastPos.x > transform.position.x && !isFlippedOnRight)
                 {
                     Flip();
                     isFlippedOnRight = true;
                 }
+                lastPos = transform.position;
             }
         }
     }
