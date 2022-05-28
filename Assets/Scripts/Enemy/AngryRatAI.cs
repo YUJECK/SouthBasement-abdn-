@@ -16,6 +16,7 @@ public class AngryRatAI : MonoBehaviour
     private bool isFlippedOnRight; //Повернут ли враг напрво
     private bool isTargetCanWalk; //Подвижный ли таргет
     public TriggerCheker stopCheker;
+    public TriggerCheker triggerCheker; //Область в которой враг будет идти за игроком
     private float _speed; //Скорость передвижения вр крысы
     public float speed
     {
@@ -103,7 +104,7 @@ public class AngryRatAI : MonoBehaviour
     }
     private void Update() //Основная логика
     {
-        if (anim != null)//Анимация
+        if (anim != null)//Анимация и атака
         {
             if (attackCheker.isOnTrigger && Time.time >= nextAttackTime) anim.SetTrigger("IsAttack"); //Атака
             
@@ -127,23 +128,32 @@ public class AngryRatAI : MonoBehaviour
             
             if(target != null) //Поврот 
             {
-                if (new Vector3(lastPos.x, lastPos.y, transform.position.z) == transform.position)
+                if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position)
                 {
-                    lastPos = transform.position;
-                    return;
+                    if (lastPos.x < transform.position.x && isFlippedOnRight)
+                    {
+                        Flip();
+                        isFlippedOnRight = false;
+                    }
+                    else if (lastPos.x > transform.position.x && !isFlippedOnRight)
+                    {
+                        Flip();
+                        isFlippedOnRight = true;
+                    }
                 }
 
-                if (lastPos.x < transform.position.x && isFlippedOnRight)
-                {
-                    Flip();
-                    isFlippedOnRight = false;
-                }
-                else if (lastPos.x > transform.position.x && !isFlippedOnRight)
-                {
-                    Flip();
-                    isFlippedOnRight = true;
-                }
                 lastPos = transform.position;
+            }
+        }
+
+        //Проверка триггера
+        if (triggerCheker.isOnTrigger)
+        {
+            if (target != triggerCheker.obj)
+            {
+                SetTarget(triggerCheker.obj);
+                isTargetCanWalk = true;
+                speed = runSpeed;
             }
         }
     }
@@ -177,21 +187,12 @@ public class AngryRatAI : MonoBehaviour
     }
 
     //Проверка триггеров
-    private void OnTriggerStay2D(Collider2D coll)
-    {
-        if(coll.tag == "Player")
-        {
-            if(target != coll.transform)
-            {
-                SetTarget(coll.transform);
-                isTargetCanWalk = true;
-                speed = runSpeed;
-            }
-        }
-    }
     private void OnTriggerExit2D(Collider2D coll)
     {
-        if (coll.tag == "Player")
+        if (coll.tag == "Player" && !triggerCheker.isOnTrigger)
+        {
             ResetTarget();
+            Debug.Log("Reset");
+        }
     }
 }
