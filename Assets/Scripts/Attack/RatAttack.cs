@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+
 public class RatAttack : MonoBehaviour
 {
     public MelleRangeWeapon melleWeapon;
@@ -20,12 +21,15 @@ public class RatAttack : MonoBehaviour
     public bool is_Attack;
     private Vector3 posWhenAttack;
 
+    //Сслыки на другие скрипты
     private Player player;
+    private EffectsManager effectsManager;
 
     private void Start()
     {
         pointRotation = FindObjectOfType<PointRotation>();
         player = FindObjectOfType<Player>();
+        effectsManager = FindObjectOfType<EffectsManager>();
         SetToDefault();
     }
 
@@ -60,14 +64,15 @@ public class RatAttack : MonoBehaviour
             {
                 if(!enemy.isTrigger)
                 {
+                    HealthEnemy enemyHealth = enemy.GetComponent<HealthEnemy>();
                     if(melleWeapon != null)
                     {
-                        if(melleWeapon.effect == MelleRangeWeapon.Effect.Poisoned)
-                            enemy.GetComponent<HealthEnemy>().GetPoisoned(melleWeapon.effectTime);
-                        if(melleWeapon.effect == MelleRangeWeapon.Effect.Bleed)
-                            enemy.GetComponent<HealthEnemy>().GetBleed(melleWeapon.effectTime);
-                        if(melleWeapon.effect == MelleRangeWeapon.Effect.Burn)
-                            enemy.GetComponent<HealthEnemy>().GetBurn(melleWeapon.effectTime);
+                        if(melleWeapon.effect == EffectsList.Poisoned)
+                            effectsManager.GetPoisoned(melleWeapon.effectTime, null, enemyHealth);
+                        if(melleWeapon.effect == EffectsList.Bleed)
+                            effectsManager.GetBleed(melleWeapon.effectTime, null, enemyHealth);
+                        if(melleWeapon.effect == EffectsList.Burn)
+                            effectsManager.GetBurn(melleWeapon.effectTime, null, enemyHealth);
                     }
                     enemy.GetComponent<HealthEnemy>().TakeHit(damage+damageBoost);
                     Debug.Log("Enemy health: " + enemy.GetComponent<HealthEnemy>().health);

@@ -7,11 +7,6 @@ public class GameManager : MonoBehaviour
 {
     //Рахные спрайты к которым нужен быстрый доступ
     public Sprite hollowSprite;
-    
-    [Header("Индикаторы еффектов")]
-    public Sprite BurnIndicator;
-    public Sprite PoisonedIndicator;
-    public Sprite BleedIndicator;
 
     [Header("")]
     public int LevelCounter = 1; // Счетчик уровней

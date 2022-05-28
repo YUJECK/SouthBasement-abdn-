@@ -6,7 +6,7 @@ public class MelleRangeWeapon : ScriptableObject
     //О предмете
     new public string name;
     [TextArea(3,3)] public string Dicription;
-    public Effect effect;
+    public EffectsList effect;
     public float effectTime;
     public int Cost;
     [Tooltip("Attack Range")] public float attackRange;
@@ -21,11 +21,4 @@ public class MelleRangeWeapon : ScriptableObject
     public Sprite spriteInInventory;
     public Sprite WhiteSprite;
     public Sprite[] extraSprites;
-
-    public enum Effect{
-        None,
-        Poisoned,
-        Burn,
-        Bleed
-    }
 }

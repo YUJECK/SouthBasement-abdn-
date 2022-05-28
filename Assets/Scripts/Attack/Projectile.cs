@@ -6,8 +6,15 @@ public class Projectile : MonoBehaviour
     [SerializeField] private GameObject ProjectileEffect;
     [SerializeField] private float projectileEffectDuration;
     public int damage;
-    [SerializeField] private string effectName = "None";
+    [SerializeField] private EffectsList projectileEffect;
     [SerializeField] private float effectTime = 0f;
+
+    //Ссылки на другие скрипты
+    private EffectsManager effectsManager;
+    private void Start()
+    {
+        effectsManager = FindObjectOfType<EffectsManager>();
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -18,15 +25,15 @@ public class Projectile : MonoBehaviour
         {
             collision.gameObject.GetComponent<HealthEnemy>().TakeHit(damage);
             
-            if(effectName != "None")
+            if(projectileEffect != EffectsList.None)
             {
                 //Если есть еффект
-                if(effectName == "Burn")
-                    collision.gameObject.GetComponent<HealthEnemy>().GetBurn(effectTime);
-                if(effectName == "Poisoned")
-                    collision.gameObject.GetComponent<HealthEnemy>().GetPoisoned(effectTime);
-                if(effectName == "Bleed")
-                    collision.gameObject.GetComponent<HealthEnemy>().GetBleed(effectTime);
+                if(projectileEffect == EffectsList.Poisoned)
+                    effectsManager.GetBurn(effectTime, null, collision.gameObject.GetComponent<HealthEnemy>());
+                if(projectileEffect== EffectsList.Burn)
+                    effectsManager.GetBurn(effectTime, null, collision.gameObject.GetComponent<HealthEnemy>());
+                if(projectileEffect == EffectsList.Bleed)
+                    effectsManager.GetBurn(effectTime, null, collision.gameObject.GetComponent<HealthEnemy>());
             }
         }
             

@@ -64,9 +64,7 @@ public class Pathfinding : MonoBehaviour
                 Point curr = queue[0];
 
                 if (curr.x == (int)endPos.x && curr.y == (int)endPos.y)
-                {
-                    curr.path.Add(endPos);
-                    
+                {   
                     //{Визуалиция
                     if(pathVisualization.Count!=0) //Чистка
                         for(int i = 0; i < curr.path.Count;)
@@ -110,6 +108,7 @@ public class Pathfinding : MonoBehaviour
             return new List<Vector2>();
         }
 
+        Debug.Log(grid.isGridCreated);
         return new List<Vector2>();
     }
     private void CheckPoint(int dX, int dY, Point point, ref List<Point> listOfPoints, Vector2 end) // Проверка след,, точки

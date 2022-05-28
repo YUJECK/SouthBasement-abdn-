@@ -43,6 +43,10 @@ public class Grid : MonoBehaviour
                 points.Add(new Vector3(nodeSize*a, -nodeSize*a, 0f));
                 points.Add(new Vector3(-nodeSize*a, nodeSize*a, 0f));
                 points.Add(new Vector3(-nodeSize*a, -nodeSize*a, 0f));
+                points.Add(new Vector3(nodeSize/2, nodeSize/2, 0f));
+                points.Add(new Vector3(-nodeSize/2, nodeSize/2, 0f));
+                points.Add(new Vector3(nodeSize/2, -nodeSize/2, 0f));
+                points.Add(new Vector3(-nodeSize/2, -nodeSize/2, 0f));
 
                 bool isWall = false;    
 

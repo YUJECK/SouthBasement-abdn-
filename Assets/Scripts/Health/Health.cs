@@ -8,7 +8,6 @@ public class Health : MonoBehaviour
     private struct Effect{
         public float startTime;
         public float durationTime;
-
     };
     public int health;
     public int maxHealth;
@@ -95,8 +94,8 @@ public class Health : MonoBehaviour
     public void ResetPoisoned() { effectsManager.Poisoned.listeners.RemoveListener(Poisoned); poisoned.durationTime = 0f; poisoned.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
     public void ResetBleed() { effectsManager.Bleed.listeners.RemoveListener(Bleed); bleed.durationTime = 0f; bleed.startTime = 0f; effectIndicator.sprite = gameManager.hollowSprite;}
 
-    public void Burn(int hit){TakeHit(hit);}
-    public void Poisoned(int hit){TakeHit(hit);}
-    public void Bleed(int hit){TakeHit(hit);}
-    public void Regeneration(int regHealth){Heal(regHealth);}
+    public void Burn(){TakeHit(1);}
+    public void Poisoned(){TakeHit(1);}
+    public void Bleed(){TakeHit(2);}
+    public void Regeneration(){Heal(1);}
 }

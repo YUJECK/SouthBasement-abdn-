@@ -59,12 +59,12 @@ public class RatConsole : MonoBehaviour
             ConsoleText.text += "\n" + "<Console> " + text;
             MessegesCount++;
         }
-        else
+        else if(InfoText != null && mode == Mode.Info)
         {
             InfoText.text = 
             "----UnityInfo----: " + "\n" + 
             "Time: " + Time.time + "\n" + 
-            "Fps: " + GetFps() +
+            "Fps: " + GetFps() + "\n" +
             "----PlayerInfo----: " + "\n" + 
             "Damage: " + playerAttack.damage + "\n" + 
             "Speed: " + player.speed + "\n" + 
@@ -77,14 +77,14 @@ public class RatConsole : MonoBehaviour
                 InfoText.text += "Name: " + inventory.foodItems[inventory.activeFoodSlot].food.name +"\n"+
                 "Uses: " + inventory.foodItems[inventory.activeFoodSlot].objectOfItem.GetComponent<ItemInfo>().uses +"\n";
             }
-        }
-        InfoText.text += "   --MelleWeapon--" + "\n";
-        if(inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon != null)
-        {
-            InfoText.text += "Name: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.name +"\n"+
-            "Damage: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.damage +"\n"+
-            "AttackRate: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.attackRate +"\n"+
-            "AttackRange: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.attackRange+"\n";
+            InfoText.text += "   --MelleWeapon--" + "\n";
+            if(inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon != null)
+            {
+                InfoText.text += "Name: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.name +"\n"+
+                "Damage: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.damage +"\n"+
+                "AttackRate: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.attackRate +"\n"+
+                "AttackRange: " + inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon.attackRange+"\n";
+            }
         }
     }
 
@@ -97,12 +97,23 @@ public class RatConsole : MonoBehaviour
     public void PathVisualization(bool active) { FindObjectOfType<Grid>().PathVisualization(active); } //Визуалищ=зация путя врагов
     public void ShowGrid(){FindObjectOfType<Grid>().ShowGrid();}
     public void GetCheese(){FindObjectOfType<GameManager>().CheeseScore(100);}
+    public void GetHealth(){FindObjectOfType<Health>().SetHealth(100, 100);}
+    public void CommandsList()
+    {
+        for(int i = 0; i < commands.Length; i++)
+        {
+            DisplayText(commands[i].commandName, Mode.ConsoleMessege);
+        }
+    }
 
     private void Update()
     {
         //Включение/выключение консоли
         if(Input.GetKeyDown(KeyCode.LeftAlt))
+        {
             ConsoleText.gameObject.SetActive(!ConsoleText.gameObject.active);   
+            InfoText.gameObject.SetActive(!InfoText.gameObject.active);
+        }
         
 
         if(!stopConsole)

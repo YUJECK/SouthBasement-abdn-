@@ -304,7 +304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 194.01494, y: 45.760315}
+  m_AnchoredPosition: {x: 194.01494, y: 32}
   m_SizeDelta: {x: 332.54, y: 380.15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &43691351
@@ -463,7 +463,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 427.00015, y: 200.39009}
+  m_AnchoredPosition: {x: 445, y: 248}
   m_SizeDelta: {x: 557.43, y: 425.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &94268370
@@ -551,18 +551,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11413e04bbc69f74e910404cad37c9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  burnRate: 0.5
   Burn:
-    m_PersistentCalls:
-      m_Calls: []
-  poisonedRate: 0.8
+    rate: 4
+    indicator: {fileID: 1571786891402097675, guid: 74aa1fb06305a82438149119eb298362, type: 3}
+    listeners:
+      m_PersistentCalls:
+        m_Calls: []
+    nextTime: 0
   Poisoned:
-    m_PersistentCalls:
-      m_Calls: []
-  bleedRate: 0.2
+    rate: 2
+    indicator: {fileID: -8248184414856976584, guid: 74aa1fb06305a82438149119eb298362, type: 3}
+    listeners:
+      m_PersistentCalls:
+        m_Calls: []
+    nextTime: 0
   Bleed:
-    m_PersistentCalls:
-      m_Calls: []
+    rate: 5
+    indicator: {fileID: -3792339887870337536, guid: 74aa1fb06305a82438149119eb298362, type: 3}
+    listeners:
+      m_PersistentCalls:
+        m_Calls: []
+    nextTime: 0
+  Regeneration:
+    rate: 5
+    indicator: {fileID: -6140521989939545447, guid: 74aa1fb06305a82438149119eb298362, type: 3}
+    listeners:
+      m_PersistentCalls:
+        m_Calls: []
+    nextTime: 0
 --- !u!1 &180220245
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,7 +735,7 @@ Transform:
   - {fileID: 1246221442}
   - {fileID: 1737868243}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &192447260
 SpriteRenderer:
@@ -849,7 +865,7 @@ MonoBehaviour:
   health: 6
   maxHealth: 6
   healthBar: {fileID: 274904591}
-  audioManager: {fileID: 0}
+  effectIndicator: {fileID: 0}
 --- !u!61 &203290211
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1014,7 +1030,7 @@ Transform:
   - {fileID: 1935036190}
   - {fileID: 1983612208}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &267540320
 GameObject:
@@ -1681,8 +1697,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50.8, y: -18.3}
-  m_SizeDelta: {x: 180.06, y: 71.18}
+  m_AnchoredPosition: {x: 72.4, y: 4.7}
+  m_SizeDelta: {x: 211.73, y: 88.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &362033984
 MonoBehaviour:
@@ -1719,8 +1735,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 1b3a5f61380eca74ebc5d84c04498b04, type: 3}
-    m_FontSize: 40
+    m_Font: {fileID: 12800000, guid: bca6cf72ffe93c546a9909985820e29d, type: 3}
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1730,7 +1746,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0.4
   m_Text: 6/6
 --- !u!222 &362033986
 CanvasRenderer:
@@ -2018,7 +2034,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &440234596
 GameObject:
@@ -2318,7 +2334,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &531380262
 GameObject:
@@ -3272,6 +3288,63 @@ MonoBehaviour:
   - {fileID: 6605428282686194326, guid: 67375d3a82164404399be47da5f35668, type: 3}
   downNPC:
   - {fileID: 8324749934491235551, guid: 1c6e731b09d218d42a7f3c54ec8257fc, type: 3}
+--- !u!1001 &953615683
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 254508758315046569, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_Name
+      value: BoneSwordBleed
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 208.941
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 196.586
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128576566877578382, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bccd962be4c866640bed4d39c818fe05, type: 3}
 --- !u!1 &973119689
 GameObject:
   m_ObjectHideFlags: 0
@@ -3931,9 +4004,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hollowSprite: {fileID: 21300000, guid: 0b4968db33e2e7a48964f5dd5d38a1ae, type: 3}
-  BurnIndicator: {fileID: 1571786891402097675, guid: 74aa1fb06305a82438149119eb298362, type: 3}
-  PoisonedIndicator: {fileID: -8248184414856976584, guid: 74aa1fb06305a82438149119eb298362, type: 3}
-  BleedIndicator: {fileID: -3792339887870337536, guid: 74aa1fb06305a82438149119eb298362, type: 3}
   LevelCounter: 1
   items:
   - {fileID: 7029180158682000813, guid: cf1f784d306e9124e99a89bb63bc7674, type: 3}
@@ -4099,7 +4169,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7029180158682000809, guid: cf1f784d306e9124e99a89bb63bc7674, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7029180158682000809, guid: cf1f784d306e9124e99a89bb63bc7674, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4450,7 +4520,7 @@ Transform:
   - {fileID: 1564828606}
   - {fileID: 1069953172}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1359866411
 GameObject:
@@ -5178,6 +5248,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - commandName: GetHealth
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1502797998}
+          m_TargetAssemblyTypeName: RatConsole, Assembly-CSharp
+          m_MethodName: GetHealth
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - commandName: CommandList
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1502797998}
+          m_TargetAssemblyTypeName: RatConsole, Assembly-CSharp
+          m_MethodName: CommandsList
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   enemy: {fileID: 5630845710053068690, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
   box: {fileID: 8453918043298753914, guid: 5918fc490ef16294ca42a6709b27c8b8, type: 3}
 --- !u!114 &1502797999
@@ -5383,7 +5485,7 @@ Transform:
   - {fileID: 118789642}
   - {fileID: 1371969408}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1537816010
 GameObject:
@@ -6027,7 +6129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 129.70001, y: -221.2}
+  m_AnchoredPosition: {x: 129.70001, y: -221.20001}
   m_SizeDelta: {x: 188.15, y: 95.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1788870986
@@ -6195,7 +6297,7 @@ RectTransform:
   - {fileID: 274904590}
   - {fileID: 1061295646}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

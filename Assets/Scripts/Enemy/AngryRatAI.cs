@@ -61,7 +61,7 @@ public class AngryRatAI : MonoBehaviour
         }
         anim.ResetTrigger("IsAttack");
     }
-    private void SetNextAttackTime() { nextAttackTime = Time.time + attackRate; Debug.Log(nextAttackTime); }
+    private void SetNextAttackTime() { nextAttackTime = Time.time + attackRate; }
     
    
     //Методы поведения
