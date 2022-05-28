@@ -147,14 +147,11 @@ public class AngryRatAI : MonoBehaviour
         }
 
         //Проверка триггера
-        if (triggerCheker.isOnTrigger)
+        if (triggerCheker.isOnTrigger && target != triggerCheker.obj)
         {
-            if (target != triggerCheker.obj)
-            {
-                SetTarget(triggerCheker.obj);
-                isTargetCanWalk = true;
-                speed = runSpeed;
-            }
+            SetTarget(triggerCheker.obj);
+            isTargetCanWalk = true;
+            speed = runSpeed;
         }
     }
     private void FixedUpdate() //Физическая логика
