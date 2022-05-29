@@ -105,7 +105,7 @@ public class RatConsole : MonoBehaviour
             DisplayText(commands[i].commandName, Mode.ConsoleMessege);
         }
     }
-
+    public void DisableGrid() { FindObjectOfType<Grid>().DisableGrid(); }
     private void Update()
     {
         //Включение/выключение консоли

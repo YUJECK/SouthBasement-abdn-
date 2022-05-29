@@ -69,9 +69,13 @@ public class AngryRatAI : MonoBehaviour
     //Методы поведения
     public void SetTarget(Transform target)
     {
-        this.target = target;
-        FindPath(target);
-        SetNextSearchTime();
+        if(grid.isGridCreated)
+        {
+            this.target = target;
+            FindPath(target);
+            SetNextSearchTime();
+            Debug.Log("Target: " + target.name + " setted");
+        }
     }
     public void ResetTarget()
     {
@@ -82,6 +86,8 @@ public class AngryRatAI : MonoBehaviour
     private void SetNextSearchTime() { nextSearchTime = Time.time + searchRate; }
     private void FindPath(Transform target)
     {
+        if (path.Count != 0) path.Clear();
+
         path = pathManager.FindPath(
            new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
            new Vector2(target.position.x / grid.nodeSize, target.position.y / grid.nodeSize));
@@ -149,6 +155,7 @@ public class AngryRatAI : MonoBehaviour
         //Проверка триггера
         if (triggerCheker.isOnTrigger && target != triggerCheker.obj)
         {
+            Debug.Log("PlayerToTrigger");
             SetTarget(triggerCheker.obj);
             isTargetCanWalk = true;
             speed = runSpeed;

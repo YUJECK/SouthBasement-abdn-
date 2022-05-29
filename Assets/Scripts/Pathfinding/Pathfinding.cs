@@ -76,15 +76,15 @@ public class Pathfinding : MonoBehaviour
                 if (curr.x == (int)endPos.x && curr.y == (int)endPos.y)
                 {   
                     //{Визуалиция
-                    if(pathVisualization.Count!=0) //Чистка
-                        for(int i = 0; i < curr.path.Count;)
+                    if(pathVisualization.Count != 0) //Чистка
+                        for(int i = 0; i < curr.path.Count; i++)
                         {
                             Destroy(pathVisualization[0].path);
                             Destroy(pathVisualization[0].blockedPath);
                             pathVisualization.RemoveAt(0);
                         }
                     if(isPathVisualization)
-                    {
+                    {   
                         for(int i = 0; i < curr.path.Count; i++)
                             pathVisualization.Add(new PathVisualization(Instantiate(grid.enemyPath, curr.path[i], Quaternion.identity), Instantiate(grid._collider, curr.path[i], Quaternion.identity)));
                     }
@@ -154,6 +154,8 @@ public class Pathfinding : MonoBehaviour
     }
     private void BlockedPath(Point point)
     {
+        if (gridChanges.Count != 0) ResetGridChanges();
+
         for(int i = 0; i < point.path.Count-1; i++)//Чтобы враги не сталкивались
         {
             grid.grid[(int)(point.path[i].x / grid.nodeSize), (int)(point.path[i].y / grid.nodeSize)] = 1;

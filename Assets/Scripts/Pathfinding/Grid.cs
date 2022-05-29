@@ -8,6 +8,8 @@ public class Grid : MonoBehaviour
     public GameObject _collider;
     public GameObject enemyPath;
     [SerializeField] private GameObject emptyArea;
+    private List<GameObject> gridVizualization;
+
     public int[,] grid;
     // 0 - нет коллайлера/это триггер
     // 1 - есть коллайлера
@@ -86,10 +88,18 @@ public class Grid : MonoBehaviour
             for(float y = 0; y < gridHeight; y+=nodeSize)
             {
                 if(grid[(int)x, (int)y] == 1)
-                    Instantiate(_collider,new Vector3(x,y,0), Quaternion.identity,transform);
-                else 
-                    Instantiate(emptyArea,new Vector3(x, y, 0),Quaternion.identity,transform);
+                    gridVizualization.Add(Instantiate(_collider,new Vector3(x,y,0), Quaternion.identity,transform));
+                else
+                    gridVizualization.Add(Instantiate(emptyArea,new Vector3(x, y, 0),Quaternion.identity,transform));
             }
+        }
+    }
+    public void DisableGrid()
+    {
+        for(int i = 0; i < gridVizualization.Count; i++)
+        {
+            Destroy(gridVizualization[0]);
+            gridVizualization.RemoveAt(0);
         }
     }
 
