@@ -29,7 +29,7 @@ public class ActiveItemsSlots : MonoBehaviour
     {
         if(!isEmpty & isActiveSlot)
         {
-            if(activeItem.waitTimeIfHave != 0 & !playerController.isSprinting)
+            if(activeItem.chargeTime != 0 & !playerController.isSprinting)
             {
                 if(!activeItem.isItemCharged)
                 {
@@ -39,7 +39,7 @@ public class ActiveItemsSlots : MonoBehaviour
                         waitTime = Time.time - startTime;
                         inventoryManager.activeItemChargeSlider.value = waitTime;
 
-                        if(activeItem.waitTimeIfHave <= waitTime) // Если активка зарядилась
+                        if(activeItem.chargeTime <= waitTime) // Если активка зарядилась
                             activeItem.isItemCharged = true;
                     }
                     else //Сброс зарядки если кнопка была отпущена
@@ -101,7 +101,7 @@ public class ActiveItemsSlots : MonoBehaviour
     {
         if(!waitTimeSetted)
         {
-            inventoryManager.activeItemChargeSlider.maxValue = activeItem.waitTimeIfHave;
+            inventoryManager.activeItemChargeSlider.maxValue = activeItem.chargeTime;
             waitTime = 0f;
             startTime = Time.time;
             waitTimeSetted = true;
@@ -119,7 +119,7 @@ public class ActiveItemsSlots : MonoBehaviour
 
     private void UseActiveItem()
     {
-        activeItem.ItemAction.Invoke();
+        activeItem.itemAction.Invoke();
         activeItem.SetNextTime();
         slider.maxValue = activeItem.GetNextTime() - Time.time;
         ResetWaitTime();    

@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour
     public Audio[] audios; // Все аудио в игре
 
     public List<Audio> nowPlaying = new List<Audio>(); //Все аудио который играют 
-    private Audio _mainAudio = null; //Главная тема играющая сейчас 
+    private Audio _mainAudio = new Audio(); //Главная тема играющая сейчас 
     public Audio mainAudio
     {
         get { return _mainAudio; }
@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour
             audio.source.pitch = audio.pitch;
             audio.source.loop = audio.loop;
         }
-        
+
         //"Активация" главной темы         
         _mainAudio.source = gameObject.AddComponent<AudioSource>();
         

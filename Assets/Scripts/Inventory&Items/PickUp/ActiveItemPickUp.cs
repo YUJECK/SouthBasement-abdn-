@@ -30,9 +30,9 @@ public class ActiveItemPickUp : MonoBehaviour
             
             //Записываем всю информацию о предмете в ItemInfo
             itemInfo.itemName = activeItem.name;
-            itemInfo.discription = activeItem.Dicription;
-            itemInfo.cost = activeItem.Cost;
-            itemInfo.chanceOfDrop = activeItem.ChanceOfDrop;
+            itemInfo.discription = activeItem.dicription;
+            itemInfo.cost = activeItem.cost;
+            itemInfo.chanceOfDrop = activeItem.chanceOfDrop;
         }
         if(itemInfo.isForTrade & trader == null)
             itemInfo.isForTrade = false;

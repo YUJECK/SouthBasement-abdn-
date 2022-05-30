@@ -5,20 +5,21 @@ public class MelleRangeWeapon : ScriptableObject
 {
     //О предмете
     new public string name;
-    [TextArea(3,3)] public string Dicription;
+    [TextArea(3,3)] public string dicription;
     public EffectsList effect;
     public float effectTime;
-    public int Cost;
+    public int cost;
     [Tooltip("Attack Range")] public float attackRange;
     [Tooltip("Speed of attack")] public float attackRate;
     public float lenght; //Длина атаки
     public int damage;
     float nextTime = 0f;
-    public int ChanceOfDrop;
+    public int chanceOfDrop;
     
     //Другие переменные
     public Sprite sprite;
+    public Sprite spriteInGame;
     public Sprite spriteInInventory;
-    public Sprite WhiteSprite;
+    public Sprite whiteSprite;
     public Sprite[] extraSprites;
 }

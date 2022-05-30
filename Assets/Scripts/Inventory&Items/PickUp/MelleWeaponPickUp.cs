@@ -24,14 +24,14 @@ public class MelleWeaponPickUp : MonoBehaviour
         if(melleWeapon != null)
         {
             // Ставим спрайт предмета и ищем инвентарь
-            gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.sprite;
+            gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.spriteInGame;
             itemInfo = GetComponent<ItemInfo>();
 
             //Записываем всю информацию о предмете в ItemInfo
             itemInfo.itemName = melleWeapon.name;
-            itemInfo.discription = melleWeapon.Dicription;
-            itemInfo.cost = melleWeapon.Cost;
-            itemInfo.chanceOfDrop = melleWeapon.ChanceOfDrop;
+            itemInfo.discription = melleWeapon.dicription;
+            itemInfo.cost = melleWeapon.cost;
+            itemInfo.chanceOfDrop = melleWeapon.chanceOfDrop;
         }
         inventory = FindObjectOfType<InventoryManager>();
         gameManager = FindObjectOfType<GameManager>();
@@ -82,7 +82,7 @@ public class MelleWeaponPickUp : MonoBehaviour
     }
     private void SetSpriteToWhite(bool white)
     {
-        if(white) gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.WhiteSprite;
+        if(white) gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.whiteSprite;
         if(!white) gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.sprite;
         
         isWhiteSprite = white;

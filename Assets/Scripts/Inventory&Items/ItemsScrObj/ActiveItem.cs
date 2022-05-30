@@ -3,20 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
+public enum UseMode
+{
+    Charge,
+    UseImmedialty
+}
+
 [CreateAssetMenu(fileName = "New ActiveWeapon", menuName = "Items/ActiveItem")]
 public class ActiveItem : ScriptableObject
 {
+    public UseMode useMode;
     //О предмете
     new public string name;
-    [TextArea(3,3)]
-    public string Dicription;
-    public UnityEvent ItemAction;
-    public int uses;
-    public int Cost;
+    [TextArea(3,6)]
+    public string dicription;
+    public UnityEvent itemAction;
     public float useRate;
-    public float waitTimeIfHave;
+    public int uses;
+    public int chanceOfDrop;
+    public int cost;
+    public float chargeTime;
     [HideInInspector] public bool isItemCharged = false;
-    public int ChanceOfDrop;
     
     //Внутренние поля
     private int usesInGame;
@@ -39,6 +46,7 @@ public class ActiveItem : ScriptableObject
         plaeyrController = FindObjectOfType<Player>();
         playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
 
+        isItemCharged = false;
         nextTime = Time.time;
         usesInGame = uses;
     }
