@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ItemInfo : MonoBehaviour
 {
+    public ItemClass itemClass; //Тип предмта
     public string itemName; //Имя
     public string discription; //Описание
     public int uses; //Количество использований  

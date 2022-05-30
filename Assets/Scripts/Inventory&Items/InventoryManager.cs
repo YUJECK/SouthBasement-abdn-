@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum ItemClass
+{
+    Food,
+    MelleRangeWeapon,
+    ActiveItem,
+    PassiveItem
+}
 public class InventoryManager : MonoBehaviour
 {
     public List<FoodSlots> foodItems; // Слоты для еды

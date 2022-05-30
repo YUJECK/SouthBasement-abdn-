@@ -7,12 +7,12 @@ public class Trader : MonoBehaviour
     private GameManager gameManager;
     bool isOnTrigger;
     public DialogueManager manager;
+    public List<ItemClass> itemsClassesToTrade;
     
     [Header("ItemSlots")]
     public int boxesForItems = 3;
     public Transform[] itemsTransform;
     public List<Item> items;
-    public List<int> itemsIndex;
 
     [Header("Sentences")]
     public bool isTraderTalking = false;
@@ -59,19 +59,64 @@ public class Trader : MonoBehaviour
 
     private void SpawnItem(Vector3 pos)
     {
+        List<GameObject> allItems = new List<GameObject>();
+
+        //Собираем все предметы в один лист
+        
+        if(itemsClassesToTrade.Contains(ItemClass.Food))
+        {
+            for (int i = 0; i < gameManager.Food.Count; i++)
+                allItems.Add(gameManager.Food[0]);
+        }
+        if (itemsClassesToTrade.Contains(ItemClass.MelleRangeWeapon))
+        {
+            for (int i = 0; i < gameManager.MelleRange.Count; i++)
+                allItems.Add(gameManager.MelleRange[0]);
+        }
+        if (itemsClassesToTrade.Contains(ItemClass.ActiveItem))
+        {
+            for (int i = 0; i < gameManager.ActiveItems.Count; i++)
+                allItems.Add(gameManager.ActiveItems[0]);
+        }
+        if (itemsClassesToTrade.Contains(ItemClass.PassiveItem))
+        {
+            for (int i = 0; i < gameManager.PassiveItems.Count; i++)
+                allItems.Add(gameManager.PassiveItems[0]);
+        }
         int tmp; //Идекс предметов 
 
         //Спавн предмета
-        tmp = Random.Range(0,gameManager.items.Count);
-        GameObject item = Instantiate(gameManager.items[tmp], pos, Quaternion.identity, itemsTransform[0]);
+        tmp = Random.Range(0, allItems.Count);
+        GameObject item = Instantiate(allItems[tmp], pos, Quaternion.identity, itemsTransform[0]);
         
-        //Удаление их листа предметов и запись его в лист для торговли
-        gameManager.traderItems.Add(gameManager.items[tmp]);
-        gameManager.items.Remove(gameManager.items[tmp]);
+        //Запись его в лист для торговли
+        gameManager.traderItems.Add(allItems[tmp]);
         
         items.Add(new Item(item, item.GetComponent<ItemInfo>(), 
         gameManager.traderItems[gameManager.traderItems.Count-1]));
         SetItemForTrade(item);
+
+        //Удаление иp листа предметов
+        switch (items[items.Count-1].itemInfo.itemClass)
+        {
+            case ItemClass.Food:
+                for (int i = 0; i < gameManager.Food.Count; i++)
+                    if (gameManager.Food[i] == allItems[tmp]) gameManager.Food.RemoveAt(i);
+                break;
+            
+            case ItemClass.MelleRangeWeapon:
+                for (int i = 0; i < gameManager.MelleRange.Count; i++)
+                    if (gameManager.MelleRange[i] == allItems[tmp]) gameManager.MelleRange.RemoveAt(i);
+                break;
+            case ItemClass.ActiveItem:
+                for (int i = 0; i < gameManager.ActiveItems.Count; i++)
+                    if (gameManager.ActiveItems[i] == allItems[tmp]) gameManager.ActiveItems.RemoveAt(i);
+                break;
+            case ItemClass.PassiveItem:
+                for (int i = 0; i < gameManager.PassiveItems.Count; i++)
+                    if (gameManager.PassiveItems[i] == allItems[tmp]) gameManager.PassiveItems.RemoveAt(i);
+                break;
+        }
     }
 
     private void SetItemForTrade(GameObject item)

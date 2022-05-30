@@ -8,9 +8,12 @@ public class GameManager : MonoBehaviour
     //Рахные спрайты к которым нужен быстрый доступ
     public Sprite hollowSprite;
 
-    [Header("")]
     public int LevelCounter = 1; // Счетчик уровней
-    public List<GameObject> items; // Лист предметов
+    [Header("Предметы")]
+    public List<GameObject> MelleRange; // Лист оружия бл.,боя
+    public List<GameObject> Food; // Лист еды
+    public List<GameObject> ActiveItems; // Лист активок
+    public List<GameObject> PassiveItems; // Лист пассивок
     public List<GameObject> traderItems; // Лист предметов которые продаются
 
     [Header("Сыр и все что с ним связано")]
@@ -43,8 +46,25 @@ public class GameManager : MonoBehaviour
               
             for(int i = 0; i < itemsCount; i++)
             {
-                items.Add(traderItems[0]);
-                traderItems.Remove(traderItems[0]);
+                switch(traderItems[0].GetComponent<ItemInfo>().itemClass)
+                {
+                    case ItemClass.Food:
+                        Food.Add(traderItems[0]);
+                        traderItems.Remove(traderItems[0]);
+                        break;
+                    case ItemClass.MelleRangeWeapon:
+                        MelleRange.Add(traderItems[0]);
+                        traderItems.Remove(traderItems[0]);
+                        break;
+                    case ItemClass.ActiveItem:
+                        ActiveItems.Add(traderItems[0]);
+                        traderItems.Remove(traderItems[0]);
+                        break;
+                    case ItemClass.PassiveItem:
+                        PassiveItems.Add(traderItems[0]);
+                        traderItems.Remove(traderItems[0]);
+                        break;
+                }
             }  
         }    
     }
