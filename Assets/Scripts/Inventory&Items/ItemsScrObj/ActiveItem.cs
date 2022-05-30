@@ -59,7 +59,7 @@ public class ActiveItem : ScriptableObject
         int isDamaged = Random.Range(0,2);
 
         if(isDamaged == 0)
-            playerHealth.TakeHit(1);
+            playerHealth.TakeHit(10);
 
         methods.SpawnFireball();    
     }

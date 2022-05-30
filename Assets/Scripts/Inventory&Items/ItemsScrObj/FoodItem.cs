@@ -35,7 +35,7 @@ public class FoodItem : ScriptableObject
 
     public void PowerDrink()
     {
-        playerHealth.TakeAwayHealth(1,1);
+        playerHealth.TakeAwayHealth(10,10);
         plaeyrController.BoostSpeed(0.1f);
     }
 

@@ -20,7 +20,7 @@ public class RatCatchers : MonoBehaviour
         {
             if (collision.gameObject.tag == "Enemy")
             {
-                collision.gameObject.GetComponent<HealthEnemy>().TakeHit(12);
+                collision.gameObject.GetComponent<HealthEnemy>().TakeHit(120);
                 sprite.sprite = CloseSprite;
                 gameManager.SpawnCheese(transform.position + new Vector3(0.5f, -0.5f, 0f), Random.Range(2,6));
                 isClose = true;

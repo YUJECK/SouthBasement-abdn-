@@ -66,22 +66,22 @@ public class Trader : MonoBehaviour
         if(itemsClassesToTrade.Contains(ItemClass.Food))
         {
             for (int i = 0; i < gameManager.Food.Count; i++)
-                allItems.Add(gameManager.Food[0]);
+                allItems.Add(gameManager.Food[i]);
         }
         if (itemsClassesToTrade.Contains(ItemClass.MelleRangeWeapon))
         {
             for (int i = 0; i < gameManager.MelleRange.Count; i++)
-                allItems.Add(gameManager.MelleRange[0]);
+                allItems.Add(gameManager.MelleRange[i]);
         }
         if (itemsClassesToTrade.Contains(ItemClass.ActiveItem))
         {
             for (int i = 0; i < gameManager.ActiveItems.Count; i++)
-                allItems.Add(gameManager.ActiveItems[0]);
+                allItems.Add(gameManager.ActiveItems[i]);
         }
         if (itemsClassesToTrade.Contains(ItemClass.PassiveItem))
         {
             for (int i = 0; i < gameManager.PassiveItems.Count; i++)
-                allItems.Add(gameManager.PassiveItems[0]);
+                allItems.Add(gameManager.PassiveItems[i]);
         }
         int tmp; //Идекс предметов 
 
