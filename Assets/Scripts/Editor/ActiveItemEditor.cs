@@ -20,7 +20,6 @@ public class ActiveItemEditor : Editor
     private SerializedProperty chanceOfDrop;
     private SerializedProperty sprite;
     private SerializedProperty whiteSprite;
-    private SerializedProperty spriteInInventory;
     private SerializedProperty extraSprite;
 
     private void OnEnable()
@@ -38,8 +37,7 @@ public class ActiveItemEditor : Editor
             chanceOfDrop = serializedObject.FindProperty("chanceOfDrop");
             sprite = serializedObject.FindProperty("sprite");
             whiteSprite = serializedObject.FindProperty("WhiteSprite");
-            spriteInInventory = serializedObject.FindProperty("spriteInInventory");
-            extraSprite = serializedObject.FindProperty("extraSprite");
+            extraSprite = serializedObject.FindProperty("extraSprites");
         }
     }
 
@@ -61,7 +59,6 @@ public class ActiveItemEditor : Editor
                     EditorGUILayout.PropertyField(chanceOfDrop);
                     EditorGUILayout.PropertyField(sprite);
                     EditorGUILayout.PropertyField(whiteSprite);
-                    EditorGUILayout.PropertyField(spriteInInventory);
                     EditorGUILayout.PropertyField(extraSprite);
                 }
                 else
@@ -75,7 +72,6 @@ public class ActiveItemEditor : Editor
                     EditorGUILayout.PropertyField(chanceOfDrop);
                     EditorGUILayout.PropertyField(sprite);
                     EditorGUILayout.PropertyField(whiteSprite);
-                    EditorGUILayout.PropertyField(spriteInInventory);
                     EditorGUILayout.PropertyField(extraSprite);
                 }
             }

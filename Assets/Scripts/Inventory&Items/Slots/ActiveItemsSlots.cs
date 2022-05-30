@@ -29,7 +29,7 @@ public class ActiveItemsSlots : MonoBehaviour
     {
         if(!isEmpty & isActiveSlot)
         {
-            if(activeItem.chargeTime != 0 & !playerController.isSprinting)
+            if(activeItem.useMode == UseMode.Charge & !playerController.isSprinting)
             {
                 if(!activeItem.isItemCharged)
                 {

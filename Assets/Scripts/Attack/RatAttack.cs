@@ -41,7 +41,7 @@ public class RatAttack : MonoBehaviour
             {
                 Attack();
                 // cursor.CursorClick();
-                nextTime = Time.time + 1f / attackRate;
+                nextTime = Time.time + attackRate;
             }
         }
         if(Time.time >= nextTime)
@@ -74,7 +74,7 @@ public class RatAttack : MonoBehaviour
                         if(melleWeapon.effect == EffectsList.Burn)
                             effectsManager.GetBurn(melleWeapon.effectTime, null, enemyHealth);
                     }
-                    enemy.GetComponent<HealthEnemy>().TakeHit(damage+damageBoost);
+                    enemy.GetComponent<HealthEnemy>().TakeHit(damage+damageBoost, melleWeapon.stunTime);
                     Debug.Log("Enemy health: " + enemy.GetComponent<HealthEnemy>().health);
                 }
             }

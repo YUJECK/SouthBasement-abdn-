@@ -106,6 +106,8 @@ public class RatConsole : MonoBehaviour
         }
     }
     public void DisableGrid() { FindObjectOfType<Grid>().DisableGrid(); }
+    public void Ghost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = true; }
+    public void ResetGhost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = false; }
     private void Update()
     {
         //Включение/выключение консоли

@@ -13,6 +13,7 @@ public class MelleRangeWeapon : ScriptableObject
     [Tooltip("Speed of attack")] public float attackRate;
     public float lenght; //Длина атаки
     public int damage;
+    public float stunTime = 0f;
     float nextTime = 0f;
     public int chanceOfDrop;
     

@@ -13,13 +13,14 @@ public class HealthEnemy : MonoBehaviour
     public int maxHealth;
 
     private GameManager gameManager;
+    [SerializeField] private AngryRatAI angryRatAi;
     private EffectsManager effectsManager;
     private AudioManager audioManager;
     public SpriteRenderer effectIndicator;
     [SerializeField] private Color damageColor;
 
     [SerializeField] int minCheese = 0;
-    [SerializeField] int maxCheese = 5;
+    [SerializeField] int maxCheese = 4;
     [SerializeField] private string destroySound; // Звук смерти
     [SerializeField] private string hitSound; // Звук получения урона
     public RoomCloser roomCloser;
@@ -38,9 +39,11 @@ public class HealthEnemy : MonoBehaviour
         effectsManager = FindObjectOfType<EffectsManager>();
         audioManager = FindObjectOfType<AudioManager>();
     }
-    public void TakeHit(int damage)
+    public void TakeHit(int damage, float stunTime = 0f)
     {
         health -= damage;
+        if (stunTime != 0f) angryRatAi.Stun(stunTime);
+
         if(hitSound != "")audioManager.PlayClip(hitSound);
         
         if(damageInd != null)
@@ -95,7 +98,6 @@ public class HealthEnemy : MonoBehaviour
         if(health > maxHealth)
             health = maxHealth;
     }
-
     private void OnDestroy()
     {
         if (roomCloser != null)

@@ -2,25 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BoolMode
+{
+    Trigger,
+    OtherScript
+}
+
 public class TriggerCheker : MonoBehaviour
 {
-    public bool isOnTrigger;
+    public BoolMode mode = BoolMode.Trigger;
+
+    public bool trigger;
+
     public string targetTag = "Player";
     public Transform obj;
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == targetTag)
+        if(mode == BoolMode.Trigger && other.tag == targetTag)
         {
-            isOnTrigger = true;
+            trigger = true;
             obj = other.transform;
         }
     }
-
     private void OnTriggerExit2D(Collider2D other)
     {   
-        if(other.tag == targetTag)
+        if(mode == BoolMode.Trigger && other.tag == targetTag)
         {
-            isOnTrigger = false;
+            trigger = false;
             obj = null;
         }
     }

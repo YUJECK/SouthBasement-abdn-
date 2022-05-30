@@ -43,7 +43,7 @@ public class FoodItem : ScriptableObject
     {
         if(playerHealth.health != playerHealth.maxHealth)
         {
-            playerHealth.Heal(1);
+            playerHealth.Heal(10);
             SetSprite(extraSprites[0], null, slot.slotIcon);
         }
     }
@@ -52,31 +52,31 @@ public class FoodItem : ScriptableObject
     {
         if(playerHealth.health != playerHealth.maxHealth)
         {
-            playerHealth.Heal(1);
+            playerHealth.Heal(10);
             SetSprite(extraSprites[usesInGame], null, slot.slotIcon);
             usesInGame++;
         }
     }
-    public void GlassOfMilk(){playerHealth.SetBonusHealth(1,0);}
+    public void GlassOfMilk(){playerHealth.SetBonusHealth(10,0);}
 
     public void Blueberry()
     {
         if(playerHealth.health != playerHealth.maxHealth)
-            playerHealth.Heal(1);
+            playerHealth.Heal(10);
     }
 
     public void CheeseSnack()
     {
         if(playerHealth.health != playerHealth.maxHealth)
         {
-            playerHealth.TakeAwayHealth(1,1);
-            playerHealth.Heal(3);
+            playerHealth.TakeAwayHealth(10,10);
+            playerHealth.Heal(30);
         }
     }    
     public void BakedCockroach()
     {
         if(playerHealth.health != playerHealth.maxHealth)
-            playerHealth.Heal(4);
+            playerHealth.Heal(40);
     }
 
     public void SetSprite(Sprite newSprite, SpriteRenderer spriteRend = null, Image image = null)

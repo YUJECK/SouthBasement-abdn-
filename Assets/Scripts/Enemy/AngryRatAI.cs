@@ -12,6 +12,8 @@ public class AngryRatAI : MonoBehaviour
 
     [Header("Параметры поведения")]
     [SerializeField] private Transform target;
+    private float stunTime; //Время на которое враг оглушен
+    private float stunStartTime; //Время на которое враг оглушен
     private bool isNowGoing; //Идет ли враг 
     private bool isFlippedOnRight; //Повернут ли враг напрво
     private bool isTargetCanWalk; //Подвижный ли таргет
@@ -55,7 +57,7 @@ public class AngryRatAI : MonoBehaviour
     //Методы атаки
     public void Attack()
     {
-        if (attackCheker.isOnTrigger) //Если игрок находится в радиусе атаки
+        if (attackCheker.trigger) //Если игрок находится в радиусе атаки
         {
             //Бьём врага
             player.TakeHit(damage);
@@ -64,7 +66,7 @@ public class AngryRatAI : MonoBehaviour
         anim.ResetTrigger("IsAttack");
     }
     private void SetNextAttackTime() { nextAttackTime = Time.time + attackRate; }
-    
+    public void Stun(float stunTime) { this.stunTime = stunTime; stunStartTime = Time.time; anim.SetBool("isStunned", true); }
    
     //Методы поведения
     public void SetTarget(Transform target)
@@ -110,90 +112,97 @@ public class AngryRatAI : MonoBehaviour
     }
     private void Update() //Основная логика
     {
-        if (anim != null)//Анимация и атака
+        if (stunTime == 0f)
         {
-            if (attackCheker.isOnTrigger && Time.time >= nextAttackTime) anim.SetTrigger("IsAttack"); //Атака
-            
-            if (isNowGoing) anim.SetBool("IsRun", true); //Ходьба
-            else anim.SetBool("IsRun", false);
-        }
-        if(pathManager != null) //Поиск пути
-        {
-            if (isTargetCanWalk && target != null && (Time.time >= nextSearchTime || path.Count == 0))
+            if (anim != null)//Анимация и атака
             {
-                pathManager.ResetGridChanges();
-                FindPath(target);
-                SetNextSearchTime();
+                if (attackCheker.trigger && Time.time >= nextAttackTime) anim.SetTrigger("IsAttack"); //Атака
+
+                if (isNowGoing) anim.SetBool("IsRun", true); //Ходьба
+                else anim.SetBool("IsRun", false);
             }
-            //Если нет таргета, то мы ставим таргетом одну из точек
-            else if (target == null && targetPoints.Length != 0)
+            if (pathManager != null) //Поиск пути
             {
-                SetTarget(targetPoints[Random.Range(0, targetPoints.Length)]);
-                isTargetCanWalk = false;
-            }
-            
-            if(target != null) //Поврот 
-            {
-                if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position)
+                if (isTargetCanWalk && target != null && (Time.time >= nextSearchTime || path.Count == 0))
                 {
-                    if (lastPos.x < transform.position.x && isFlippedOnRight)
-                    {
-                        Flip();
-                        isFlippedOnRight = false;
-                    }
-                    else if (lastPos.x > transform.position.x && !isFlippedOnRight)
-                    {
-                        Flip();
-                        isFlippedOnRight = true;
-                    }
+                    pathManager.ResetGridChanges();
+                    FindPath(target);
+                    SetNextSearchTime();
+                }
+                //Если нет таргета, то мы ставим таргетом одну из точек
+                else if (target == null && targetPoints.Length != 0)
+                {
+                    SetTarget(targetPoints[Random.Range(0, targetPoints.Length)]);
+                    isTargetCanWalk = false;
                 }
 
-                lastPos = transform.position;
+                if (target != null) //Поврот 
+                {
+                    if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position)
+                    {
+                        if (lastPos.x < transform.position.x && isFlippedOnRight)
+                        {
+                            Flip();
+                            isFlippedOnRight = false;
+                        }
+                        else if (lastPos.x > transform.position.x && !isFlippedOnRight)
+                        {
+                            Flip();
+                            isFlippedOnRight = true;
+                        }
+                    }
+
+                    lastPos = transform.position;
+                }
+            }
+            //Проверка триггера
+            if (triggerCheker.trigger && target != triggerCheker.obj)
+            {
+                Debug.Log("PlayerToTrigger");
+                SetTarget(triggerCheker.obj);
+                isTargetCanWalk = true;
+                speed = runSpeed;
             }
         }
+        else if (Time.time - stunStartTime >= stunTime) { stunTime = 0f; anim.SetBool("isStunned", false); }  
 
-        //Проверка триггера
-        if (triggerCheker.isOnTrigger && target != triggerCheker.obj)
-        {
-            Debug.Log("PlayerToTrigger");
-            SetTarget(triggerCheker.obj);
-            isTargetCanWalk = true;
-            speed = runSpeed;
-        }
     }
     private void FixedUpdate() //Физическая логика
     {
         //Сброс velocity
         if (rb != null) rb.velocity = Vector2.zero;
 
-        //Движение 
-        if (path.Count != 0 && stopCheker != null && !stopCheker.isOnTrigger)
+        if(stunTime == 0f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, path[0], speed * Time.deltaTime);
-            isNowGoing = true;
-
-            if (transform.position == new Vector3(path[0].x, path[0].y, transform.position.z))
+            //Движение 
+            if (path.Count != 0 && stopCheker != null && !stopCheker.trigger)
             {
-                path.RemoveAt(0);
-                //Убираем коллайдер пути
-                if (pathManager.gridChanges.Count != 0)
+                transform.position = Vector2.MoveTowards(transform.position, path[0], speed * Time.deltaTime);
+                isNowGoing = true;
+
+                if (transform.position == new Vector3(path[0].x, path[0].y, transform.position.z))
                 {
-                    grid.grid[pathManager.gridChanges[0].x, pathManager.gridChanges[0].y] = 0;
-                    pathManager.gridChanges.RemoveAt(0);
+                    path.RemoveAt(0);
+                    //Убираем коллайдер пути
+                    if (pathManager.gridChanges.Count != 0)
+                    {
+                        grid.grid[pathManager.gridChanges[0].x, pathManager.gridChanges[0].y] = 0;
+                        pathManager.gridChanges.RemoveAt(0);
+                    }
                 }
             }
-        }
-        else
-        {
-            if(!isTargetCanWalk) ResetTarget();
-            isNowGoing = false;
+            else
+            {
+                if(!isTargetCanWalk) ResetTarget();
+                isNowGoing = false;
+            }
         }
     }
 
     //Проверка триггеров
     private void OnTriggerExit2D(Collider2D coll)
     {
-        if (coll.tag == "Player" && !triggerCheker.isOnTrigger)
+        if (coll.tag == "Player" && !triggerCheker.trigger)
         {
             ResetTarget();
             Debug.Log("Reset");
