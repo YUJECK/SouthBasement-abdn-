@@ -40,10 +40,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8453918043298753917}
   - component: {fileID: 8453918043298753918}
+  - component: {fileID: 8453918043298753916}
+  - component: {fileID: 8453918043298753913}
   - component: {fileID: 8453918043298753919}
   - component: {fileID: 8453918043298753912}
-  - component: {fileID: 8453918043298753913}
-  - component: {fileID: 8453918043298753916}
   - component: {fileID: 8453918043298753859}
   m_Layer: 0
   m_Name: Box
@@ -119,6 +119,40 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8453918043298753916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8453918043298753914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0f36b5f9147d64285ab1ac291ea7ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsClassesToTrade: 00000000010000000200000003000000
+  E: {fileID: 120303365497949461}
+  spawnPoint: {fileID: 8453918041988590889}
+  item: {fileID: 0}
+  isOnTrigger: 0
+  isEmpty: 0
+  ItemsInChance: []
+--- !u!114 &8453918043298753913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8453918043298753914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9364beec753c33469c46b16fc2b49c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  e: {fileID: 120303365497949461}
+  ShowE: 0
+  isActive: 1
 --- !u!61 &8453918043298753919
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -171,39 +205,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.298809, y: 1.3438034}
   m_EdgeRadius: 0
---- !u!114 &8453918043298753913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8453918043298753914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9364beec753c33469c46b16fc2b49c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  e: {fileID: 120303365497949461}
-  ShowE: 0
-  isActive: 1
---- !u!114 &8453918043298753916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8453918043298753914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd0f36b5f9147d64285ab1ac291ea7ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  E: {fileID: 120303365497949461}
-  spawnPoint: {fileID: 8453918041988590889}
-  item: {fileID: 0}
-  isOnTrigger: 0
-  isEmpty: 0
-  ItemsInThisChance: []
 --- !u!95 &8453918043298753859
 Animator:
   serializedVersion: 3
