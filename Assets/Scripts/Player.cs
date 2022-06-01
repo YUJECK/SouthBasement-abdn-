@@ -169,6 +169,7 @@ public class Player : MonoBehaviour
     {
         flippedOnRight = !flippedOnRight;  
         transform.Rotate(0f,180f,0f);
+        ratAttack.pointRotation.coefficient *= -1f;
     }
     
     enum Rotation { Left, Right }

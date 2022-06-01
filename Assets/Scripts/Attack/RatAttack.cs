@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections.Generic;
 
 public class RatAttack : MonoBehaviour
 {
     public MelleRangeWeapon melleWeapon;
     public MelleRangeWeapon defaultWeapon;
-    private PointRotation pointRotation;
+    [HideInInspector] public PointRotation pointRotation;
     public SpriteRenderer weaponSprite;
     private Animator animRange;
     public Transform AttackPoint;
@@ -34,23 +35,26 @@ public class RatAttack : MonoBehaviour
     }
     void Update()
     {
-        if(Time.time >= nextTime) // Атакак крысы
+        if(Time.time >= nextTime) // Атака крысы
         {
             if (Input.GetMouseButtonDown(0) & !FindObjectOfType<Player>().isSprinting)
             {
                 Attack();
+                Debug.Log("Attack");
                 // cursor.CursorClick();
                 SetNextTime();
             }
-            
+
             is_Attack = false;
             pointRotation.StopRotating(false);
+            pointRotation.offset = 0f;
         }
     }
     
     private void Attack()
     {
         is_Attack = true;
+        pointRotation.offset = Random.Range(40f, 90f);
         pointRotation.StopRotating(true);
         //Проигрываем анимации
         player.PlayAttackAnimation(melleWeapon.typeOfAttack);

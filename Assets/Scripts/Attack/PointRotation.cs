@@ -10,10 +10,13 @@ public class PointRotation : MonoBehaviour
     }
 
     public TargetType targetType;
+    public float offset = 0f;
+    public float coefficient = 1f;
     [SerializeField] private Transform target;
     private Camera mainCamera;
     private Vector2 mousePos;
     [SerializeField] private bool movePosToCenter;
+    [SerializeField] private bool useLocalPos;
     [SerializeField] private Transform center;
     [SerializeField] private Rigidbody2D rb;
     private bool stopRotating = false;
@@ -26,10 +29,12 @@ public class PointRotation : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(stopRotating);
-        if(center != null && movePosToCenter) transform.position = new Vector3(center.position.x, center.position.y, 0);
-        //if(!stopRotating) rb.rotation = CalculateAngle();
-        transform.localRotation = Quaternion.Euler(0f, CalculateAngle(), 0f);
+        if (center != null && movePosToCenter)
+        {
+            if(useLocalPos) transform.localPosition = new Vector3(center.localPosition.x, center.localPosition.y, 0);
+            else transform.position = new Vector3(center.position.x, center.position.y, 0);
+        } 
+        transform.localRotation = Quaternion.Euler(0f, 0f, coefficient * CalculateAngle());
     }
 
     private float CalculateAngle()
@@ -45,8 +50,7 @@ public class PointRotation : MonoBehaviour
             direction = target.position - center.position;
         
         float angle = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg - 90f;
-        Debug.Log(angle);
-        return angle;
+        return angle + offset;
     }
     public void StopRotating(bool active) { stopRotating = !active; }
 }
