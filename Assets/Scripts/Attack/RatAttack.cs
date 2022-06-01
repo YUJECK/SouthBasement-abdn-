@@ -5,10 +5,9 @@ public class RatAttack : MonoBehaviour
 {
     public MelleRangeWeapon melleWeapon;
     public MelleRangeWeapon defaultWeapon;
-    public PointRotation pointRotation;
+    private PointRotation pointRotation;
     public SpriteRenderer weaponSprite;
-    public Animator playerAnim;
-    public Animator animRange;
+    private Animator animRange;
     public Transform AttackPoint;
     private float nextTime;
 
@@ -18,7 +17,7 @@ public class RatAttack : MonoBehaviour
     private float attackRate = 2f;
     public int damage = 2;
     public int damageBoost = 2;
-    public bool is_Attack;
+    private bool is_Attack;
     private Vector3 posWhenAttack;
 
     //Сслыки на другие скрипты
@@ -28,11 +27,11 @@ public class RatAttack : MonoBehaviour
     private void Start()
     {
         pointRotation = FindObjectOfType<PointRotation>();
+        animRange = transform.GetChild(0).GetComponent<Animator>();
         player = FindObjectOfType<Player>();
         effectsManager = FindObjectOfType<EffectsManager>();
         SetToDefault();
     }
-
     void Update()
     {
         if(Time.time >= nextTime) // Атакак крысы
@@ -41,44 +40,50 @@ public class RatAttack : MonoBehaviour
             {
                 Attack();
                 // cursor.CursorClick();
-                nextTime = Time.time + attackRate;
+                SetNextTime();
             }
-        }
-        if(Time.time >= nextTime)
-        {
-            is_Attack = false;  
-            pointRotation.stopRotating = false;
+            
+            is_Attack = false;
+            pointRotation.StopRotating(false);
         }
     }
-    void Attack()
+    
+    private void Attack()
     {
         is_Attack = true;
-        pointRotation.stopRotating = true;
-        playerAnim.SetTrigger("IsAttack");
-        animRange.SetTrigger("Attack");
+        pointRotation.StopRotating(true);
+        //Проигрываем анимации
+        player.PlayAttackAnimation(melleWeapon.typeOfAttack);
+        PlayAttackRangeAnimation(melleWeapon.typeOfAttack);
+        
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, EnemyLayers);
         
         foreach (Collider2D enemy in hitEnemies)
         {
-            if(enemy.tag == "Enemy")
+            if(enemy.tag == "Enemy" && !enemy.isTrigger)
             {
-                if(!enemy.isTrigger)
+                HealthEnemy enemyHealth = enemy.GetComponent<HealthEnemy>();
+                    
+                //Накладываем еффект если есть
+                if(melleWeapon != null && melleWeapon.effect != EffectsList.None)
                 {
-                    HealthEnemy enemyHealth = enemy.GetComponent<HealthEnemy>();
-                    if(melleWeapon != null)
-                    {
-                        if(melleWeapon.effect == EffectsList.Poisoned)
-                            effectsManager.GetPoisoned(melleWeapon.effectTime, null, enemyHealth);
-                        if(melleWeapon.effect == EffectsList.Bleed)
-                            effectsManager.GetBleed(melleWeapon.effectTime, null, enemyHealth);
-                        if(melleWeapon.effect == EffectsList.Burn)
-                            effectsManager.GetBurn(melleWeapon.effectTime, null, enemyHealth);
-                    }
-                    enemy.GetComponent<HealthEnemy>().TakeHit(damage+damageBoost, melleWeapon.stunTime);
-                    Debug.Log("Enemy health: " + enemy.GetComponent<HealthEnemy>().health);
+                    if(melleWeapon.effect == EffectsList.Poisoned)
+                        effectsManager.GetPoisoned(melleWeapon.effectTime, null, enemyHealth);
+                    if(melleWeapon.effect == EffectsList.Bleed)
+                        effectsManager.GetBleed(melleWeapon.effectTime, null, enemyHealth);
+                    if(melleWeapon.effect == EffectsList.Burn)
+                        effectsManager.GetBurn(melleWeapon.effectTime, null, enemyHealth);
                 }
+                //Наносим урон
+                enemy.GetComponent<HealthEnemy>().TakeHit(damage+damageBoost, melleWeapon.stunTime);
             }
         }
+    }
+    private void PlayAttackRangeAnimation(TypeOfAttack type)
+    {
+        if (type == TypeOfAttack.Pinpoint) animRange.SetTrigger("AttackPinpoint");
+        if (type == TypeOfAttack.Wide) animRange.SetTrigger("AttackWide");
+        if (type == TypeOfAttack.Above) animRange.SetTrigger("AttackAbove");
     }
     public void SetMelleWeapon(MelleRangeWeapon weapon)
     {
@@ -91,12 +96,13 @@ public class RatAttack : MonoBehaviour
         AttackPoint.localPosition = new Vector3(AttackPoint.localPosition.x, melleWeapon.lenght, 0f);
     }
     public void SetToDefault(){ SetMelleWeapon(defaultWeapon); }
-
     public void HideMelleweaponIcon(bool hiding) // Включние, выключение спрайта оружия
     {   
         weaponSprite.gameObject.SetActive(!hiding);
     }
-    void OnDrawGizmosSelected()
+    public void SetNextTime() { nextTime = Time.time + attackRate; }
+    
+    void OnDrawGizmosSelected()//Отрисовка радиуса атаки
     {
         Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }

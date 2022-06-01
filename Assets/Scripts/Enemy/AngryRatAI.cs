@@ -97,7 +97,6 @@ public class AngryRatAI : MonoBehaviour
 
     //Другие методы
     private void Flip() { transform.Rotate(0f, 180f, 0f); }
-
     
     //Юнитивские методы
     private void Start()

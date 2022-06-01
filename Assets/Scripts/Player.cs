@@ -132,7 +132,13 @@ public class Player : MonoBehaviour
                 Flip();  
         }   
     }
-
+    
+    public void PlayAttackAnimation(TypeOfAttack type)
+    {
+        if (type == TypeOfAttack.Pinpoint) anim.SetTrigger("AttackPinpoint");
+        if (type == TypeOfAttack.Wide) anim.SetTrigger("AttackWide");
+        if (type == TypeOfAttack.Above) anim.SetTrigger("AttackAbove");
+    }
     private void Sprint()
     {
         if(!isSprinting)
@@ -152,16 +158,12 @@ public class Player : MonoBehaviour
             isSprinting = false;
         }
     }
-
-    //Рывок
     private void Dashing() 
     { 
         rb.velocity = new Vector2(movement.x, movement.y) * (speed + dashSpeed); 
         dashTime -= 0.1f;
     }
-
     public void BoostSpeed(float speedBoost) {speed = speed + speed * speedBoost;} // Ускорение игрока
-    
     public void SetStop(bool active) { isStopped = active; }
     void Flip()
     {
