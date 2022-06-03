@@ -27,12 +27,14 @@ public class Trader : MonoBehaviour
         public GameObject item; //Сам объект
         public ItemInfo itemInfo;//АйтемИнфо этого объекта
         public GameObject itemPrefab;//Оригинальный префаб предмета, нужен для ремува предмета из листа
+        public Text price;
 
-        public Item(GameObject item, ItemInfo itemInfo, GameObject itemPrefab)
+        public Item(GameObject item, ItemInfo itemInfo, GameObject itemPrefab, Text price)
         {
             this.item = item;
             this.itemInfo = itemInfo;
             this.itemPrefab = itemPrefab;
+            this.price = price;
             isSold = false;
         }
     };
@@ -95,7 +97,7 @@ public class Trader : MonoBehaviour
         gameManager.traderItems.Add(allItems[tmp]);
         
         items.Add(new Item(item, item.GetComponent<ItemInfo>(), 
-        gameManager.traderItems[gameManager.traderItems.Count-1]));
+        gameManager.traderItems[gameManager.traderItems.Count-1]), price);
         price.text = item.GetComponent<ItemInfo>().cost.ToString();
         SetItemForTrade(item);
 
@@ -168,6 +170,7 @@ public class Trader : MonoBehaviour
             item.itemInfo.pickUp.Invoke();
             item.isSold = true;
             item.itemInfo.isForTrade = false;
+
         }
         else // Если не хватает сыра
             DisplayFrase(SentenceNotEnoghtCheese, 5f);
