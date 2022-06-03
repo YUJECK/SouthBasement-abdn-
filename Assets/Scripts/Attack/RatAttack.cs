@@ -37,7 +37,7 @@ public class RatAttack : MonoBehaviour
     {
         if(Time.time >= nextTime) // Атака крысы
         {
-            if (Input.GetMouseButtonDown(0) & !FindObjectOfType<Player>().isSprinting)
+            if (!GameManager.isPlayerStopped & Input.GetMouseButtonDown(0) & !FindObjectOfType<Player>().isSprinting)
             {
                 Attack();
                 Debug.Log("Attack");

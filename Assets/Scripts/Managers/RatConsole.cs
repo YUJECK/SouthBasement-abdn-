@@ -91,23 +91,25 @@ public class RatConsole : MonoBehaviour
     
     //Методы для комманд в коммандной строки
     public int GetFps() { return (int)(1.0f / Time.deltaTime); } //Fps
-    public void OnePunch() { playerAttack.damageBoost = 1000; } //Сделать игрока очень сильным
+    public void OnePunch() { playerAttack.damageBoost = 1000; DisplayText("Damage boost - " + playerAttack.damageBoost.ToString(), Mode.ConsoleMessege); }//Сделать игрока очень сильным
     public void SpawnEnemy() { Instantiate(enemy, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн врага
     public void SpawnBox() { Instantiate(box, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн коробки
-    public void PathVisualization(bool active) { FindObjectOfType<Grid>().PathVisualization(active); } //Визуалищ=зация путя врагов
+    public void PathVisualization(bool active) { FindObjectOfType<Grid>().PathVisualization(active); DisplayText("Path - " + active, Mode.ConsoleMessege); } //Визуалищ=зация путя врагов
     public void ShowGrid(){FindObjectOfType<Grid>().ShowGrid();}
     public void GetCheese(){FindObjectOfType<GameManager>().CheeseScore(100);}
     public void GetHealth(){FindObjectOfType<Health>().SetHealth(100, 100);}
     public void CommandsList()
     {
+        DisplayText("", Mode.ConsoleMessege);
+        DisplayText("CommandList: ", Mode.ConsoleMessege);
         for(int i = 0; i < commands.Length; i++)
         {
             DisplayText(commands[i].commandName, Mode.ConsoleMessege);
         }
     }
     public void DisableGrid() { FindObjectOfType<Grid>().DisableGrid(); }
-    public void Ghost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = true; }
-    public void ResetGhost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = false; }
+    public void Ghost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = true; DisplayText("Ghost - true", Mode.ConsoleMessege); }
+    public void ResetGhost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = false; DisplayText("Ghost - false", Mode.ConsoleMessege); }
     private void Update()
     {
         //Включение/выключение консоли

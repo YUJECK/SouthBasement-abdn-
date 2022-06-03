@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    //Рахные спрайты к которым нужен быстрый доступ
+    //Разные булева переменные
+    public static bool isPlayerStopped;
+    
+    //Разные спрайты к которым нужен быстрый доступ
     public Sprite hollowSprite;
 
     public int LevelCounter = 1; // Счетчик уровней
@@ -21,9 +24,6 @@ public class GameManager : MonoBehaviour
     public int playerCheese; // Счетчик сыра игрока
     public GameObject CheesePrefab; //Префаб сыра
     public Text CheeseText; // Счетчик сыра(В UI)
-
-    [Header("Диалоги")]
-    public static bool isActiveAnyPanel = false; // Есть ли активная панель выбора(При ней игрок ничено не может делать)
 
     public static GameManager instance; // Синглтоп
 
@@ -68,8 +68,6 @@ public class GameManager : MonoBehaviour
             }  
         }    
     }
-
-
     public void SpawnCheese(Vector3 CheesePos, int cheeseCount) // Справнит сыр
     {
         Debug.Log("CheeseCount " + cheeseCount);

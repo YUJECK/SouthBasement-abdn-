@@ -70,14 +70,14 @@ public class InventoryManager : MonoBehaviour
    
     void Update()
     {
-        if(Input.GetKeyDown(inputManager.FoodChangeButton)) // Смена слота с едой
+        if(!GameManager.isPlayerStopped && Input.GetKeyDown(inputManager.FoodChangeButton)) // Смена слота с едой
         {
             activeFoodSlot++;   
             if(activeFoodSlot > foodItems.Count-1)
                 activeFoodSlot = 0;
             ChangeSlot("FoodSlots",activeFoodSlot);
         }
-        if(Input.GetKeyDown(inputManager.ActiveItemChangeButton)) // Смена слота с активкой
+        if(!GameManager.isPlayerStopped && Input.GetKeyDown(inputManager.ActiveItemChangeButton)) // Смена слота с активкой
         {
             activeAciveItemSlot++;   
 
@@ -87,7 +87,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         //Смена слотов миллишного оружия
-        if(Input.GetKeyDown(inputManager.MelleWeaponChangeButton)) // Смена оружия ближнего боя
+        if(!GameManager.isPlayerStopped && Input.GetKeyDown(inputManager.MelleWeaponChangeButton)) // Смена оружия ближнего боя
         {
             melleRangeActiveSlot++;   
 
@@ -95,14 +95,6 @@ public class InventoryManager : MonoBehaviour
                 melleRangeActiveSlot = 0;
             ChangeSlot("MelleRange",melleRangeActiveSlot);
         }
-        // if(inputManager.mouseWheel < -0.1f) // Откручивание назад
-        // {
-        //     melleRangeActiveSlot--;   
-
-        //     if(melleRangeActiveSlot < 0)
-        //         melleRangeActiveSlot = 0;
-        //     ChangeSlot("MelleRange",melleRangeActiveSlot);
-        // }
     }
 
     private void ChangeSlot(string slotsName, int slotIndex) // MelleRange - ближний бой, FoodSlots - еда, ActiveItems - актвики

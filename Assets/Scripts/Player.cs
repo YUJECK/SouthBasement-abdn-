@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
     [Header("Movement")]
 
     //Мувмент крысы
-    private bool isStopped = false;
     public Vector2 movement;
     public float speed = 5f; // Скорость игрока
     private float dashTime = 0f; // Длина рывка
@@ -48,7 +47,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         playerSpiteRend = GetComponent<SpriteRenderer>();
-        GameManager.isActiveAnyPanel = false;
         normalSpeed = speed;
         ratAttack = FindObjectOfType<RatAttack>();
         audioManager = FindObjectOfType<AudioManager>();
@@ -61,7 +59,7 @@ public class Player : MonoBehaviour
     
     private void Update()
     {   
-        if (!GameManager.isActiveAnyPanel)
+        if (!GameManager.isPlayerStopped)
         {
             movement.x = Input.GetAxis("Horizontal");
             movement.y = Input.GetAxis("Vertical");
@@ -104,21 +102,15 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!GameManager.isActiveAnyPanel)
+        if (!GameManager.isPlayerStopped)
         {
-            if(!isStopped)
-            {
-                //Движение игрока
-                rb.velocity = new Vector2(movement.x, movement.y) * speed;
-                // audioManager.PlayClip("RatWalk");
+            //Движение игрока
+            rb.velocity = new Vector2(movement.x, movement.y) * speed;
+            // audioManager.PlayClip("RatWalk");
                 
-                //Рывок
-                if(dashTime > 0f) Dashing();
-                else dashTime = 0f;
-            }
-            else
-                rb.velocity = Vector2.zero;
-
+            //Рывок
+            if(dashTime > 0f) Dashing();
+            else dashTime = 0f;
 
             //Поворот спрайта игрока
             if (movement.x > 0) 
@@ -130,7 +122,9 @@ public class Player : MonoBehaviour
                 Flip();
             if (rotation == Rotation.Left & flippedOnRight)
                 Flip();  
-        }   
+        }
+        else
+            rb.velocity = Vector2.zero;
     }
     
     public void PlayAttackAnimation(TypeOfAttack type)
@@ -164,7 +158,6 @@ public class Player : MonoBehaviour
         dashTime -= 0.1f;
     }
     public void BoostSpeed(float speedBoost) {speed = speed + speed * speedBoost;} // Ускорение игрока
-    public void SetStop(bool active) { isStopped = active; }
     void Flip()
     {
         flippedOnRight = !flippedOnRight;  
