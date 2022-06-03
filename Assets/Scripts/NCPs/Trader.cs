@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Trader : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Trader : MonoBehaviour
     [Header("ItemSlots")]
     public int boxesForItems = 3;
     public Transform[] itemsTransform;
+    public Text[] itemsPrice;
     public List<Item> items;
 
     [Header("Sentences")]
@@ -25,7 +27,7 @@ public class Trader : MonoBehaviour
         public GameObject item; //Сам объект
         public ItemInfo itemInfo;//АйтемИнфо этого объекта
         public GameObject itemPrefab;//Оригинальный префаб предмета, нужен для ремува предмета из листа
-    
+
         public Item(GameObject item, ItemInfo itemInfo, GameObject itemPrefab)
         {
             this.item = item;
@@ -41,7 +43,7 @@ public class Trader : MonoBehaviour
 
         //Спавн предметов
         for(int i = 0; i < itemsTransform.Length; i++)
-            SpawnItem(itemsTransform[i].position);
+            SpawnItem(itemsTransform[i].position, itemsPrice[i]);
 
         //Делаем чтобы по началу была такая фраза
         manager.DisplayText("Заходи, товары по низким ценам!");
@@ -57,7 +59,7 @@ public class Trader : MonoBehaviour
         }
     }
 
-    private void SpawnItem(Vector3 pos)
+    private void SpawnItem(Vector3 pos, Text price)
     {
         List<GameObject> allItems = new List<GameObject>();
 
@@ -94,6 +96,7 @@ public class Trader : MonoBehaviour
         
         items.Add(new Item(item, item.GetComponent<ItemInfo>(), 
         gameManager.traderItems[gameManager.traderItems.Count-1]));
+        price.text = item.GetComponent<ItemInfo>().cost.ToString();
         SetItemForTrade(item);
 
         //Удаление иp листа предметов
@@ -177,8 +180,7 @@ public class Trader : MonoBehaviour
     {
         manager.DisplayText(
         "Это " + itemInfo.itemName + ". " +
-        itemInfo.discription + ". " + 
-        "Стоит " + itemInfo.cost + " сыра");
+        itemInfo.discription + ".");
     }
     
     //Корутина для того чтобы текст оставался на определенное время
