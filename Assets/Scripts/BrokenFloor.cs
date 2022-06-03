@@ -18,7 +18,7 @@ public class BrokenFloor : MonoBehaviour
     {
         if(coll.tag == "Player")
         {
-            playerHealth.TakeHit(1);  
+            playerHealth.TakeHit(8);  
             StartCoroutine(PlayerStuck());
         }
     }

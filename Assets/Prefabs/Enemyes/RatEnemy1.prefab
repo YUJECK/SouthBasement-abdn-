@@ -310,7 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   changeGrid: 1
-  isPathVisualization: 1
+  isPathVisualization: 0
   gridChanges: []
 --- !u!50 &5630845709475724661
 Rigidbody2D:
@@ -413,12 +413,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80433a10ef25dd24697b243beb570018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopRotating: 0
-  useMouse: 0
+  targetType: 0
   target: {fileID: 0}
-  playerTarget: 1
+  offset: 0
+  coefficient: 1
+  movePosToCenter: 0
   center: {fileID: 7858971900175786074}
-  rb: {fileID: 1873160417087854501}
+  useLocalPos: 0
 --- !u!50 &1873160417087854501
 Rigidbody2D:
   serializedVersion: 4

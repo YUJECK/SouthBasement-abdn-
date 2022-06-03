@@ -56,7 +56,7 @@ public class ActiveItem : ScriptableObject
 
     public void ChillyPepper()
     {
-        int isDamaged = Random.Range(0,2);
+        int isDamaged = Random.Range(0,11);
 
         if(isDamaged == 0)
             playerHealth.TakeHit(10);

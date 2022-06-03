@@ -36,7 +36,7 @@ public class NPCCameraTrIgger : MonoBehaviour
             mode = Mode.Minimizing;
 
             if(PlayAudio)
-                audioManager.SetToMain(audioName, false);
+                audioManager.SetToMain(audioName);
         }
     }
     private void OnTriggerExit2D(Collider2D other)

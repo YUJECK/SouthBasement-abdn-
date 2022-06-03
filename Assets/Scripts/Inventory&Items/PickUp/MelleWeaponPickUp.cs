@@ -83,7 +83,7 @@ public class MelleWeaponPickUp : MonoBehaviour
     private void SetSpriteToWhite(bool white)
     {
         if(white) gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.whiteSprite;
-        if(!white) gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.sprite;
+        if(!white) gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.spriteInGame;
         
         isWhiteSprite = white;
     }

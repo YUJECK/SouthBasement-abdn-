@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
         private set { _mainAudio = value; }
     }
 
-    private Audio _lastMain = null; //Главная тема игравшая раньше
+    [SerializeField] private Audio _lastMain = null; //Главная тема игравшая раньше
     public Audio lastMain
     {
         get { return _lastMain; }
@@ -66,15 +66,11 @@ public class AudioManager : MonoBehaviour
                 nowPlaying.RemoveAt(i);
         }
     }
-    public void SetToMain(string name = null, bool delay = false)
+    public void SetToMain(string name = null, bool writeToLast = true)
     {
-        if(_mainAudio != null)
-        {
-            if(!delay) StopClip(null, _mainAudio);
-            else StopClipWithDelay(name);
-        } 
-
-        _lastMain = _mainAudio;
+        if(_mainAudio != null) StopClip(null, _mainAudio);
+        if(writeToLast) _lastMain = _mainAudio;
+        
         Audio au = Find(name);
         _mainAudio = au;
         _mainAudio.source = au.source;
