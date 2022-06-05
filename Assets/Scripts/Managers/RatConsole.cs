@@ -8,13 +8,16 @@ public class RatConsole : MonoBehaviour
     {
         public string commandName;
         public UnityEvent action;
+        public UnityEvent<string> actionWithParams;
 
-        public void CheckCommand(string comm)
+        public void CheckCommand(string comm, string param)
         {
-            if(commandName == comm)
-                action.Invoke();
+            if (commandName == comm)
+                if (action != null) action.Invoke();
+                else if (actionWithParams != null) actionWithParams.Invoke(param);
         }
     };
+    
     public InputField ConsoleInput;
     public Text ConsoleText;
     public Text InfoText;
@@ -22,13 +25,14 @@ public class RatConsole : MonoBehaviour
     private bool showInfo = false;
     private bool stopConsole = false;
     private bool inputInConsole = false;
-    private string newText;
+    [SerializeField] private string newText;
     static int MessegesCount = 0;
 
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject box;
     private Player player;
     private RatAttack playerAttack;
+    private GameManager gameManager;
     private InventoryManager inventory;
 
     public enum Mode{
@@ -50,13 +54,14 @@ public class RatConsole : MonoBehaviour
         ConsoleText.text = "";
         MessegesCount = 0;
     }
-    public void DisplayText(string text, Mode mode)
+    public void DisplayText(string text, Color color, Mode mode, string autor = "<Console>")
     {
         if(ConsoleText != null && mode == Mode.ConsoleMessege)
         {
             if (MessegesCount > 18) 
                 ClearConsole();
-            ConsoleText.text += "\n" + "<Console> " + text;
+            ConsoleText.color = color;
+            ConsoleText.text += "\n" + autor + " " + text;
             MessegesCount++;
         }
         else if(InfoText != null && mode == Mode.Info)
@@ -90,26 +95,75 @@ public class RatConsole : MonoBehaviour
 
     
     //Методы для комманд в коммандной строки
+    public void CommandsList()
+    {
+        DisplayText("", Color.white, Mode.ConsoleMessege);
+        DisplayText("CommandList: ", Color.white, Mode.ConsoleMessege);
+        for(int i = 0; i < commands.Length; i++)
+        {
+            DisplayText(commands[i].commandName, Color.white, Mode.ConsoleMessege);
+        }
+    }
     public int GetFps() { return (int)(1.0f / Time.deltaTime); } //Fps
-    public void OnePunch() { playerAttack.damageBoost = 1000; DisplayText("Damage boost - " + playerAttack.damageBoost.ToString(), Mode.ConsoleMessege); }//Сделать игрока очень сильным
+    public void OnePunch() { playerAttack.damageBoost = 1000; DisplayText("Damage boost - " + playerAttack.damageBoost.ToString(), Color.green,  Mode.ConsoleMessege); }//Сделать игрока очень сильным
     public void SpawnEnemy() { Instantiate(enemy, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн врага
     public void SpawnBox() { Instantiate(box, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн коробки
-    public void PathVisualization(bool active) { FindObjectOfType<Grid>().PathVisualization(active); DisplayText("Path - " + active, Mode.ConsoleMessege); } //Визуалищ=зация путя врагов
+    public void PathVisualization(bool active) { FindObjectOfType<Grid>().PathVisualization(active); DisplayText("Path - " + active, Color.green, Mode.ConsoleMessege); } //Визуалищ=зация путя врагов
     public void ShowGrid(){FindObjectOfType<Grid>().ShowGrid();}
     public void GetCheese(){FindObjectOfType<GameManager>().CheeseScore(100);}
     public void GetHealth(){FindObjectOfType<Health>().SetHealth(100, 100);}
-    public void CommandsList()
+    public void DisableGrid() { FindObjectOfType<Grid>().DisableGrid(); }
+    public void Ghost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = true; DisplayText("Ghost - true", Color.green, Mode.ConsoleMessege); }
+    public void ResetGhost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = false; DisplayText("Ghost - false", Color.green, Mode.ConsoleMessege); }
+    public void Give(string name)
     {
-        DisplayText("", Mode.ConsoleMessege);
-        DisplayText("CommandList: ", Mode.ConsoleMessege);
-        for(int i = 0; i < commands.Length; i++)
+        GameObject item = null;
+        ItemClass classOFItem = ItemClass.Food;
+        //Поиск предмета в разныъ листах
+        for (int i = 0; i < gameManager.Food.Count; i++)
         {
-            DisplayText(commands[i].commandName, Mode.ConsoleMessege);
+            if (name == gameManager.Food[i].GetComponent<ItemInfo>().itemName)
+            {
+                classOFItem = ItemClass.Food;
+                item = gameManager.Food[i];
+            }
+        }
+        for (int i = 0; i < gameManager.MelleRange.Count; i++)
+        {
+            if (name == gameManager.MelleRange[i].GetComponent<ItemInfo>().itemName)
+            {
+                classOFItem = ItemClass.MelleRangeWeapon;
+                item = gameManager.MelleRange[i];
+            }
+        }
+        for (int i = 0; i < gameManager.ActiveItems.Count; i++)
+        {
+            if (name == gameManager.ActiveItems[i].GetComponent<ItemInfo>().itemName)
+            {
+                classOFItem = ItemClass.ActiveItem;
+                item = gameManager.ActiveItems[i];
+            }
+        }
+        for (int i = 0; i < gameManager.PassiveItems.Count; i++)
+        {
+            if (name == gameManager.PassiveItems[i].GetComponent<ItemInfo>().itemName)
+            {
+                classOFItem = ItemClass.PassiveItem;
+                item = gameManager.PassiveItems[i];
+            }
+        }
+
+        if (item == null) DisplayText("Предмет не найден", Color.red, Mode.ConsoleMessege);
+        else
+        {
+            DisplayText("Предмет: " + item.GetComponent<ItemInfo>().itemName + " был выдан", Color.green, Mode.ConsoleMessege);
+            if(classOFItem == ItemClass.Food) inventory.AddFood(item.GetComponent<FoodPickUp>().food, item);
+            if(classOFItem == ItemClass.MelleRangeWeapon) inventory.AddMelleWeapon(item.GetComponent<MelleWeaponPickUp>().melleWeapon, item);
+            if(classOFItem == ItemClass.ActiveItem) inventory.AddActiveItem(item.GetComponent<ActiveItemPickUp>().activeItem, item);
+            //if(classOFItem == ItemClass.MelleRangeWeapon) inventory.AddFood(item.GetComponent<FoodPickUp>().food, item);
         }
     }
-    public void DisableGrid() { FindObjectOfType<Grid>().DisableGrid(); }
-    public void Ghost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = true; DisplayText("Ghost - true", Mode.ConsoleMessege); }
-    public void ResetGhost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = false; DisplayText("Ghost - false", Mode.ConsoleMessege); }
+    
     private void Update()
     {
         //Включение/выключение консоли
@@ -124,7 +178,7 @@ public class RatConsole : MonoBehaviour
         {
             //Fps
             if(Input.GetKeyDown(KeyCode.F1)) showInfo = !showInfo;
-            if(showInfo) DisplayText(GetFps().ToString(), Mode.Info);
+            if(showInfo) DisplayText("", Color.white, Mode.Info);
         }
 
 
@@ -133,13 +187,26 @@ public class RatConsole : MonoBehaviour
             stopConsole = !stopConsole;
             inputInConsole = !inputInConsole;
 
-            if(!inputInConsole)
+            if (!inputInConsole)
             {
                 newText = ConsoleInput.text;
+                string parameters = null;
                 Time.timeScale = 1f;
-                foreach(Commands comm in commands)
-                    comm.CheckCommand(newText);
-            } 
+
+                if (newText[0] == '/')
+                {
+                    foreach (Commands comm in commands)
+                        comm.CheckCommand(newText, parameters);
+                }
+                else DisplayText(newText, Color.white, Mode.ConsoleMessege, "<Player>");
+                
+                //Написать смайлики
+                //else if (newText[0] == ':')
+                //{
+                //    foreach (Commands sticker in stickers)
+                //        sticker.CheckCommand(newText);
+                //}
+            }
             else newText = "";
         }
         if(inputInConsole) 

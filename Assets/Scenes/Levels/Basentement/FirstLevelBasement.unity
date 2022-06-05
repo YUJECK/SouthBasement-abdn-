@@ -5098,7 +5098,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - commandName: SpawnBox
+  - commandName: /SpawnBox
     action:
       m_PersistentCalls:
         m_Calls:
@@ -5114,7 +5114,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - commandName: ActivePath
+  - commandName: /ActivePath
     action:
       m_PersistentCalls:
         m_Calls:
@@ -5130,7 +5130,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-  - commandName: DisablePath
+  - commandName: /DisablePath
     action:
       m_PersistentCalls:
         m_Calls:
@@ -5146,7 +5146,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - commandName: ShowGrid
+  - commandName: /ShowGrid
     action:
       m_PersistentCalls:
         m_Calls:
@@ -5162,7 +5162,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - commandName: GetCheese
+  - commandName: /GetCheese
     action:
       m_PersistentCalls:
         m_Calls:
@@ -5178,7 +5178,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - commandName: GetHealth
+  - commandName: /GetHealth
     action:
       m_PersistentCalls:
         m_Calls:
@@ -5194,7 +5194,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - commandName: CommandList
+  - commandName: /CommandList
     action:
       m_PersistentCalls:
         m_Calls:
@@ -5210,7 +5210,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - commandName: Ghost
+  - commandName: /Ghost
     action:
       m_PersistentCalls:
         m_Calls:
@@ -5226,7 +5226,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - commandName: ResetGhost
+  - commandName: /ResetGhost
     action:
       m_PersistentCalls:
         m_Calls:
@@ -5242,6 +5242,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  newText: 
   enemy: {fileID: 5630845710053068690, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
   box: {fileID: 8453918043298753914, guid: 5918fc490ef16294ca42a6709b27c8b8, type: 3}
 --- !u!114 &1502797999
@@ -7791,6 +7792,13 @@ MonoBehaviour:
     pitch: 1
     loop: 1
   nowPlaying: []
+  _lastMain:
+    name: 
+    clip: {fileID: 0}
+    source: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
 --- !u!1 &2133308122
 GameObject:
   m_ObjectHideFlags: 0

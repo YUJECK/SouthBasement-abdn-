@@ -20,7 +20,7 @@ public class Trader : MonoBehaviour
     public bool isTraderTalking = false;
     [TextArea(1,3)] public string SentenceNotEnoghtCheese;
     
-    [System.Serializable]public struct Item
+    [System.Serializable]public class Item
     {
         public bool isSold; //Продан ли этот предмет
 
@@ -29,12 +29,11 @@ public class Trader : MonoBehaviour
         public GameObject itemPrefab;//Оригинальный префаб предмета, нужен для ремува предмета из листа
         public Text price;
 
-        public Item(GameObject item, ItemInfo itemInfo, GameObject itemPrefab, Text price)
+        public Item(GameObject item, ItemInfo itemInfo, GameObject itemPrefab)
         {
             this.item = item;
             this.itemInfo = itemInfo;
             this.itemPrefab = itemPrefab;
-            this.price = price;
             isSold = false;
         }
     };
@@ -61,7 +60,7 @@ public class Trader : MonoBehaviour
         }
     }
 
-    private void SpawnItem(Vector3 pos, Text price)
+    private void SpawnItem(Vector3 pos, Text itemPriceText)
     {
         List<GameObject> allItems = new List<GameObject>();
 
@@ -97,8 +96,10 @@ public class Trader : MonoBehaviour
         gameManager.traderItems.Add(allItems[tmp]);
         
         items.Add(new Item(item, item.GetComponent<ItemInfo>(), 
-        gameManager.traderItems[gameManager.traderItems.Count-1]), price);
-        price.text = item.GetComponent<ItemInfo>().cost.ToString();
+        gameManager.traderItems[gameManager.traderItems.Count-1]));
+        items[items.Count-1].price = itemPriceText;
+
+        itemPriceText.text = item.GetComponent<ItemInfo>().cost.ToString();
         SetItemForTrade(item);
 
         //Удаление иp листа предметов
@@ -154,7 +155,7 @@ public class Trader : MonoBehaviour
 
     public void Trade(GameObject obj) // Продаем предмет
     {
-        Item item = new Item(); //Сам предмет
+        Item item = new Item(null, null, null); //Сам предмет
 
         foreach(Item _item in items)//Поиск этого предмета по объекту
         {
@@ -170,6 +171,7 @@ public class Trader : MonoBehaviour
             item.itemInfo.pickUp.Invoke();
             item.isSold = true;
             item.itemInfo.isForTrade = false;
+            item.price.gameObject.SetActive(false);
 
         }
         else // Если не хватает сыра
