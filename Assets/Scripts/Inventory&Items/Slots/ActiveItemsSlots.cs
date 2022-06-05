@@ -27,19 +27,20 @@ public class ActiveItemsSlots : MonoBehaviour
 
     private void Update() //Использование предмета
     {
-        if(!isEmpty & isActiveSlot)
+        if (!isEmpty & isActiveSlot & objectOfItem.GetComponent<ItemInfo>().uses > 0)
         {
-            if(activeItem.useMode == UseMode.Charge & !playerController.isSprinting)
+            //При зарядке
+            if (activeItem.useMode == UseMode.Charge & !playerController.isSprinting)
             {
-                if(!activeItem.isItemCharged)
+                if (!activeItem.isItemCharged)
                 {
-                    if(Input.GetKey(KeyCode.Space) & Time.time >= activeItem.GetNextTime())
+                    if (Input.GetKey(KeyCode.Space) & Time.time >= activeItem.GetNextTime())
                     {
                         SetNewWaitTime();
                         waitTime = Time.time - startTime;
                         inventoryManager.activeItemChargeSlider.value = waitTime;
 
-                        if(activeItem.chargeTime <= waitTime) // Если активка зарядилась
+                        if (activeItem.chargeTime <= waitTime) // Если активка зарядилась
                             activeItem.isItemCharged = true;
                     }
                     else //Сброс зарядки если кнопка была отпущена
@@ -47,22 +48,25 @@ public class ActiveItemsSlots : MonoBehaviour
                 }
 
                 //Использование активки после того как она зарядилась
-                if(Input.GetKeyUp(KeyCode.Space) & activeItem.isItemCharged)
+                if (Input.GetKeyUp(KeyCode.Space) & activeItem.isItemCharged)
                     UseActiveItem();
             }
-            else if(playerController.isSprinting)
+            else if (playerController.isSprinting)
                 ResetWaitTime();
-                
-            else // Если заряжать активку не надо
+
+            //При простом нажатии
+            else if(activeItem.useMode == UseMode.UseImmedialty)// Если заряжать активку не надо
             {
-                if(Input.GetMouseButtonDown(1) & Time.time >= activeItem.GetNextTime() & !playerController.isSprinting)
+                if (Input.GetKey(KeyCode.Space) & Time.time >= activeItem.GetNextTime() & !playerController.isSprinting)
                     UseActiveItem();
             }
 
             // Визуализация перезарядки активки
             slider.value = activeItem.GetNextTime() - Time.time;
         }
-        
+        //Выкидываем если 0 использований
+        else if(!isEmpty && objectOfItem.GetComponent<ItemInfo>().uses > 0)
+            Drop();
     }
 
     public void Add(ActiveItem newActiveItem, GameObject _objectOfItem) // Добавеление предмета
@@ -121,6 +125,8 @@ public class ActiveItemsSlots : MonoBehaviour
     {
         activeItem.itemAction.Invoke();
         activeItem.SetNextTime();
+        objectOfItem.GetComponent<ItemInfo>().uses--;
+        Debug.Log("Use active item");
         slider.maxValue = activeItem.GetNextTime() - Time.time;
         ResetWaitTime();    
     }

@@ -42,7 +42,7 @@ public class Health : MonoBehaviour
             StartCoroutine(InvisibleCadrs());
 
             if (health <= 0)
-                SceneManager.LoadScene("MainMenu");  
+                SceneManager.LoadScene("RestartMenu");  
         }
     }
     public void Heal(int bonusHealth)
@@ -69,7 +69,7 @@ public class Health : MonoBehaviour
             health = maxHealth;
 
         if (health <= 0)
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("RestartMenu");
     }
     public void SetBonusHealth(int NewMaxHealth, int NewHealth)
     {
@@ -85,7 +85,7 @@ public class Health : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         invisibleCadrs = false;
-        healthBar.SetBool("InvisibleCadrs",false);
+        healthBar.SetBool("InvisibleCadrs", false);
     }
 
     //Еффекты public void GetBurn(float effectTime) 

@@ -8,13 +8,11 @@ public class RatConsole : MonoBehaviour
     {
         public string commandName;
         public UnityEvent action;
-        public UnityEvent<string> actionWithParams;
 
-        public void CheckCommand(string comm, string param)
+        public void CheckCommand(string comm)
         {
             if (commandName == comm)
                 if (action != null) action.Invoke();
-                else if (actionWithParams != null) actionWithParams.Invoke(param);
         }
     };
     
@@ -45,6 +43,7 @@ public class RatConsole : MonoBehaviour
         ConsoleText = GetComponentInChildren<Text>(); 
         player = FindObjectOfType<Player>();
         inventory = FindObjectOfType<InventoryManager>();
+        gameManager = FindObjectOfType<GameManager>();
         playerAttack = FindObjectOfType<RatAttack>();
     }
     
@@ -171,15 +170,11 @@ public class RatConsole : MonoBehaviour
         {
             ConsoleText.gameObject.SetActive(!ConsoleText.gameObject.active);   
             InfoText.gameObject.SetActive(!InfoText.gameObject.active);
+            showInfo = !showInfo;
         }
-        
 
         if(!stopConsole)
-        {
-            //Fps
-            if(Input.GetKeyDown(KeyCode.F1)) showInfo = !showInfo;
             if(showInfo) DisplayText("", Color.white, Mode.Info);
-        }
 
 
         if(Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -190,22 +185,16 @@ public class RatConsole : MonoBehaviour
             if (!inputInConsole)
             {
                 newText = ConsoleInput.text;
-                string parameters = null;
                 Time.timeScale = 1f;
 
                 if (newText[0] == '/')
                 {
                     foreach (Commands comm in commands)
-                        comm.CheckCommand(newText, parameters);
+                        comm.CheckCommand(newText);
                 }
                 else DisplayText(newText, Color.white, Mode.ConsoleMessege, "<Player>");
                 
                 //Написать смайлики
-                //else if (newText[0] == ':')
-                //{
-                //    foreach (Commands sticker in stickers)
-                //        sticker.CheckCommand(newText);
-                //}
             }
             else newText = "";
         }

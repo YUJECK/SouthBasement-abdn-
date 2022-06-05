@@ -63,4 +63,7 @@ public class ActiveItem : ScriptableObject
 
         methods.SpawnFireball();    
     }
+    public void Mousetrap() {  methods.SpawnMousetrap();
+        FindObjectOfType<RatConsole>().DisplayText("Мышеловка", Color.white, RatConsole.Mode.ConsoleMessege, "<ActiveItem.cs>");
+    }
 }
