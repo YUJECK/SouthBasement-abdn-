@@ -60,6 +60,7 @@ public class Trader : MonoBehaviour
             Quaternion.identity, tradingExtraPlaces[i].placeTransform);
             itemsForExtraPlaces.RemoveAt(tmp);
             tradingExtraPlaces[i].itemPrice.text = item.GetComponent<ItemInfo>().cost.ToString();
+            items.Add(new Item(item, item.GetComponent<ItemInfo>(), itemsForExtraPlaces[tmp]));
             SetItemForTrade(item);
         }
         //Делаем чтобы по началу была такая фраза
@@ -70,7 +71,6 @@ public class Trader : MonoBehaviour
     {
         if(!isTraderTalking) //Выводим инфу предмета когда к нему подходит игрок
         {
-
             for(int i = 0; i < items.Count; i++)
             if(!items[i].isSold && items[i].itemInfo.isOnTrigger)
                 DisplayItemInfo(items[i].itemInfo);
@@ -195,12 +195,7 @@ public class Trader : MonoBehaviour
     public void DisplayFrase(string frase, float time){StartCoroutine(displayFrase(frase,time));} //Торговец что то говорит
     
     //Показывает информацию о педмете
-    public void DisplayItemInfo(ItemInfo itemInfo)
-    {
-        manager.DisplayText(
-        "Это " + itemInfo.itemName + ". " +
-        itemInfo.discription + ".");
-    }
+    public void DisplayItemInfo(ItemInfo itemInfo)  {  manager.DisplayText(itemInfo.discription + ".");}
     
     //Корутина для того чтобы текст оставался на определенное время
     private IEnumerator displayFrase(string frase, float time)
