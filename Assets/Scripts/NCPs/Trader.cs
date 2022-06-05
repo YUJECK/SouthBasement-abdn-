@@ -9,18 +9,20 @@ public class Trader : MonoBehaviour
     bool isOnTrigger;
     public DialogueManager manager;
     public List<ItemClass> itemsClassesToTrade;
-    
-    [Header("ItemSlots")]
-    public int boxesForItems = 3;
-    public Transform[] itemsTransform;
-    public Text[] itemsPrice;
     public List<Item> items;
+    
+    [Header("DefaultPlaces")]
+    public TradingPlace[] tradingPlaces;
+
+    [Header("ExtraPlaces")]
+    public TradingPlace[] tradingExtraPlaces;
+    public List<GameObject> itemsForExtraPlaces;
 
     [Header("Sentences")]
     public bool isTraderTalking = false;
     [TextArea(1,3)] public string SentenceNotEnoghtCheese;
     
-    [System.Serializable]public class Item
+    [System.Serializable] public class Item
     {
         public bool isSold; //Продан ли этот предмет
 
@@ -37,15 +39,29 @@ public class Trader : MonoBehaviour
             isSold = false;
         }
     };
+    [System.Serializable] public class TradingPlace
+    {
+        public Transform placeTransform;
+        public Text itemPrice;
+    }
     
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
 
         //Спавн предметов
-        for(int i = 0; i < itemsTransform.Length; i++)
-            SpawnItem(itemsTransform[i].position, itemsPrice[i]);
+        for(int i = 0; i < tradingPlaces.Length; i++)
+            SpawnItem(tradingPlaces[i]);
 
+        for (int i = 0; i < tradingExtraPlaces.Length; i++)
+        {
+            int tmp = Random.Range(0, itemsForExtraPlaces.Count);
+            GameObject item = Instantiate(itemsForExtraPlaces[tmp], tradingExtraPlaces[i].placeTransform.position, 
+            Quaternion.identity, tradingExtraPlaces[i].placeTransform);
+            itemsForExtraPlaces.RemoveAt(tmp);
+            tradingExtraPlaces[i].itemPrice.text = item.GetComponent<ItemInfo>().cost.ToString();
+            SetItemForTrade(item);
+        }
         //Делаем чтобы по началу была такая фраза
         manager.DisplayText("Заходи, товары по низким ценам!");
     }
@@ -54,13 +70,14 @@ public class Trader : MonoBehaviour
     {
         if(!isTraderTalking) //Выводим инфу предмета когда к нему подходит игрок
         {
+
             for(int i = 0; i < items.Count; i++)
             if(!items[i].isSold && items[i].itemInfo.isOnTrigger)
-                DisplayItemInfo(items[i].itemInfo); 
+                DisplayItemInfo(items[i].itemInfo);
         }
     }
 
-    private void SpawnItem(Vector3 pos, Text itemPriceText)
+    private void SpawnItem(TradingPlace place)
     {
         List<GameObject> allItems = new List<GameObject>();
 
@@ -90,16 +107,16 @@ public class Trader : MonoBehaviour
 
         //Спавн предмета
         tmp = Random.Range(0, allItems.Count);
-        GameObject item = Instantiate(allItems[tmp], pos, Quaternion.identity, itemsTransform[0]);
-        
+        GameObject item = Instantiate(allItems[tmp], place.placeTransform.position, Quaternion.identity, place.placeTransform);
+
         //Запись его в лист для торговли
         gameManager.traderItems.Add(allItems[tmp]);
         
         items.Add(new Item(item, item.GetComponent<ItemInfo>(), 
         gameManager.traderItems[gameManager.traderItems.Count-1]));
-        items[items.Count-1].price = itemPriceText;
+        items[items.Count-1].price = place.itemPrice;
 
-        itemPriceText.text = item.GetComponent<ItemInfo>().cost.ToString();
+        items[items.Count - 1].price.text = item.GetComponent<ItemInfo>().cost.ToString();
         SetItemForTrade(item);
 
         //Удаление иp листа предметов
@@ -124,7 +141,6 @@ public class Trader : MonoBehaviour
                 break;
         }
     }
-
     private void SetItemForTrade(GameObject item)
     {
         if(item.TryGetComponent(out FoodPickUp food))
@@ -152,7 +168,6 @@ public class Trader : MonoBehaviour
             return;
         }
     }
-
     public void Trade(GameObject obj) // Продаем предмет
     {
         Item item = new Item(null, null, null); //Сам предмет
@@ -177,7 +192,6 @@ public class Trader : MonoBehaviour
         else // Если не хватает сыра
             DisplayFrase(SentenceNotEnoghtCheese, 5f);
     }
-
     public void DisplayFrase(string frase, float time){StartCoroutine(displayFrase(frase,time));} //Торговец что то говорит
     
     //Показывает информацию о педмете

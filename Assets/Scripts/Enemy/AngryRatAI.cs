@@ -4,7 +4,8 @@ using UnityEngine;
 public class AngryRatAI : MonoBehaviour
 {
     [Header("Параметры атаки")]
-    public int damage = 1; //Дамаг 
+    public int minDamage = 1; //Дамаг 
+    public int maxDamage = 1; //Дамаг 
     [SerializeField] private float attackRate = 1f; //Частота атаки
     [SerializeField] private TriggerCheker attackCheker; 
     private float nextAttackTime = 0f; //След время атаки
@@ -60,7 +61,7 @@ public class AngryRatAI : MonoBehaviour
         if (attackCheker.trigger) //Если игрок находится в радиусе атаки
         {
             //Бьём врага
-            player.TakeHit(damage);
+            player.TakeHit(Random.Range(minDamage, minDamage+1));
             SetNextAttackTime();
         }
         anim.ResetTrigger("IsAttack");

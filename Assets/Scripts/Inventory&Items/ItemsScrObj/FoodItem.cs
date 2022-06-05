@@ -70,7 +70,7 @@ public class FoodItem : ScriptableObject
         if(playerHealth.health != playerHealth.maxHealth)
         {
             playerHealth.TakeAwayHealth(10,10);
-            playerHealth.Heal(30);
+            playerHealth.Heal(50);
         }
     }    
     public void BakedCockroach()

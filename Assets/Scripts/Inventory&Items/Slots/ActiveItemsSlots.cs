@@ -27,7 +27,7 @@ public class ActiveItemsSlots : MonoBehaviour
 
     private void Update() //Использование предмета
     {
-        if (!isEmpty & isActiveSlot & objectOfItem.GetComponent<ItemInfo>().uses > 0)
+        if (!isEmpty && isActiveSlot && objectOfItem.GetComponent<ItemInfo>().uses > 0)
         {
             //При зарядке
             if (activeItem.useMode == UseMode.Charge & !playerController.isSprinting)
