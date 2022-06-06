@@ -1,7 +1,6 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public enum UseMode
 {
@@ -51,7 +50,7 @@ public class ActiveItem : ScriptableObject
         usesInGame = uses;
     }
 
-    public void SetNextTime(){nextTime = Time.time + 1f / useRate;}
+    public void SetNextTime(){nextTime = Time.time + useRate;}
     public float GetNextTime(){return nextTime;}
 
     public void ChillyPepper()
@@ -65,5 +64,15 @@ public class ActiveItem : ScriptableObject
     }
     public void Mousetrap() {  methods.SpawnMousetrap();
         FindObjectOfType<RatConsole>().DisplayText("Мышеловка", Color.white, RatConsole.Mode.ConsoleMessege, "<ActiveItem.cs>");
+        SetSprite(extraSprites[0], slot.objectOfItem.GetComponent<SpriteRenderer>(), slot.slotIcon);
+        slot.itemInfo.active = false;
+    }
+    public void SetSprite(Sprite newSprite, SpriteRenderer spriteRend = null, Image image = null)
+    {
+        if (spriteRend != null)
+            spriteRend.sprite = newSprite;
+
+        if (image != null)
+            image.sprite = newSprite;
     }
 }

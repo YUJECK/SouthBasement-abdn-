@@ -4,9 +4,11 @@ using UnityEngine.UI;
 public class ActiveItemsSlots : MonoBehaviour
 {
     public ActiveItem activeItem;   // Предмет который лежит в этом слоте
-    [SerializeField] private Image slotIcon;   // Иконка предмета который лежит в этом слоте
+    public Image slotIcon;   // Иконка предмета который лежит в этом слоте
     [SerializeField] private Slider slider;   // Иконка предмета который лежит в этом слоте
+    [SerializeField] private Text usesText;   // Текст отоброжающий кол-во использований у предета
     public GameObject objectOfItem;   // гейм обжект этого предмета
+    [HideInInspector] public ItemInfo itemInfo;   // ItemInfo объекта
 
     public bool isEmpty; // Пустой ли этот слот
     public bool isActiveSlot; // Используется ли этот слот сейчас
@@ -29,6 +31,9 @@ public class ActiveItemsSlots : MonoBehaviour
     {
         if (!isEmpty && isActiveSlot && objectOfItem.GetComponent<ItemInfo>().uses > 0)
         {
+            // Визуализация перезарядки активки
+            slider.value = activeItem.GetNextTime() - Time.time;
+
             //При зарядке
             if (activeItem.useMode == UseMode.Charge & !playerController.isSprinting)
             {
@@ -60,9 +65,6 @@ public class ActiveItemsSlots : MonoBehaviour
                 if (Input.GetKey(KeyCode.Space) & Time.time >= activeItem.GetNextTime() & !playerController.isSprinting)
                     UseActiveItem();
             }
-
-            // Визуализация перезарядки активки
-            slider.value = activeItem.GetNextTime() - Time.time;
         }
         //Выкидываем если 0 использований
         else if(!isEmpty && objectOfItem.GetComponent<ItemInfo>().uses > 0)
@@ -75,8 +77,11 @@ public class ActiveItemsSlots : MonoBehaviour
             Drop();
 
         activeItem = newActiveItem;
+        activeItem.slot = GetComponent<ActiveItemsSlots>();
         objectOfItem = _objectOfItem;
+        itemInfo = objectOfItem.GetComponent<ItemInfo>();
         isEmpty = false;
+        usesText.text = itemInfo.uses.ToString();
         slotIcon.sprite = newActiveItem.sprite;
     }
 
@@ -125,8 +130,8 @@ public class ActiveItemsSlots : MonoBehaviour
     {
         activeItem.itemAction.Invoke();
         activeItem.SetNextTime();
-        objectOfItem.GetComponent<ItemInfo>().uses--;
-        Debug.Log("Use active item");
+        itemInfo.uses--;
+        usesText.text = itemInfo.uses.ToString();
         slider.maxValue = activeItem.GetNextTime() - Time.time;
         ResetWaitTime();    
     }

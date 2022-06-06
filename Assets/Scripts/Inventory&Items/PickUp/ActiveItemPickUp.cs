@@ -32,6 +32,7 @@ public class ActiveItemPickUp : MonoBehaviour
             itemInfo.itemName = activeItem.name;
             itemInfo.discription = activeItem.dicription;
             itemInfo.cost = activeItem.cost;
+            itemInfo.uses = activeItem.uses;
             itemInfo.chanceOfDrop = activeItem.chanceOfDrop;
         }
         if(itemInfo.isForTrade & trader == null)
@@ -66,10 +67,10 @@ public class ActiveItemPickUp : MonoBehaviour
         //Поднимание прдмета
         if(itemInfo.isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {
-            if(!itemInfo.isForTrade)
+            if(!itemInfo.isForTrade && itemInfo.active)
                 PickUp(); // Поднимаем предмет
             
-            else trader.Trade(gameObject);
+            else if(itemInfo.isForTrade) trader.Trade(gameObject);
         }  
     }
     public void PickUp() //Поднятие предмета

@@ -51,17 +51,12 @@ public class Trader : MonoBehaviour
 
         //Спавн предметов
         for(int i = 0; i < tradingPlaces.Length; i++)
-            SpawnItem(tradingPlaces[i]);
+            SpawnItemDefault(tradingPlaces[i]);
 
         for (int i = 0; i < tradingExtraPlaces.Length; i++)
         {
-            int tmp = Random.Range(0, itemsForExtraPlaces.Count);
-            GameObject item = Instantiate(itemsForExtraPlaces[tmp], tradingExtraPlaces[i].placeTransform.position, 
-            Quaternion.identity, tradingExtraPlaces[i].placeTransform);
-            itemsForExtraPlaces.RemoveAt(tmp);
-            tradingExtraPlaces[i].itemPrice.text = item.GetComponent<ItemInfo>().cost.ToString();
-            items.Add(new Item(item, item.GetComponent<ItemInfo>(), itemsForExtraPlaces[tmp]));
-            SetItemForTrade(item);
+            if (itemsForExtraPlaces.Count > 0) SpawnItem(tradingExtraPlaces[i], ref itemsForExtraPlaces, true);
+            else break;
         }
         //Делаем чтобы по началу была такая фраза
         manager.DisplayText("Заходи, товары по низким ценам!");
@@ -77,12 +72,12 @@ public class Trader : MonoBehaviour
         }
     }
 
-    private void SpawnItem(TradingPlace place)
+    private void SpawnItemDefault(TradingPlace place)
     {
-        List<GameObject> allItems = new List<GameObject>();
+        List<GameObject> allItems = new List<GameObject>(); //Лист всех предметов которыми мы может торговать
+        int tmp; //Идекс предметов 
 
         //Собираем все предметы в один лист
-        
         if(itemsClassesToTrade.Contains(ItemClass.Food))
         {
             for (int i = 0; i < gameManager.Food.Count; i++)
@@ -103,7 +98,6 @@ public class Trader : MonoBehaviour
             for (int i = 0; i < gameManager.PassiveItems.Count; i++)
                 allItems.Add(gameManager.PassiveItems[i]);
         }
-        int tmp; //Идекс предметов 
 
         //Спавн предмета
         tmp = Random.Range(0, allItems.Count);
@@ -140,6 +134,22 @@ public class Trader : MonoBehaviour
                     if (gameManager.PassiveItems[i] == allItems[tmp]) gameManager.PassiveItems.RemoveAt(i);
                 break;
         }
+    }
+    private void SpawnItem(TradingPlace place, ref List<GameObject> itemsList, bool remove)
+    {
+        //Рандомим индекс предмета
+        int tmp = Random.Range(0, itemsList.Count);
+        //Спавним этот предмет
+        GameObject item = Instantiate(itemsList[tmp], place.placeTransform.position,
+        Quaternion.identity, place.placeTransform);
+        //Убираем из листа с которого рандомили тот предмет
+        if(remove) itemsList.RemoveAt(tmp);
+        //Ставим цену 
+        place.itemPrice.text = item.GetComponent<ItemInfo>().cost.ToString();
+        //Добавляем в лист предметов у торговца
+        items.Add(new Item(item, item.GetComponent<ItemInfo>(), itemsList[tmp]));
+        //Делаем предмет торговым
+        SetItemForTrade(item);
     }
     private void SetItemForTrade(GameObject item)
     {
