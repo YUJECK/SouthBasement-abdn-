@@ -63,6 +63,7 @@ public class AngryRatAI : MonoBehaviour
             //Бьём врага
             player.TakeHit(Random.Range(minDamage, minDamage+1));
             SetNextAttackTime();
+            Debug.Log(gameObject.name + " attack");
         }
         anim.ResetTrigger("IsAttack");
     }

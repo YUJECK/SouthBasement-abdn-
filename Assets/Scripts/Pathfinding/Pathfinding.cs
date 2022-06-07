@@ -35,7 +35,7 @@ public class Pathfinding : MonoBehaviour
 
     [SerializeField] private bool changeGrid = false; //Будет ли матрица изменяться в зависимости от пути
     public bool isPathVisualization;
-    [SerializeField] public List<Vector2Int> gridChanges = new List<Vector2Int>();
+    [HideInInspector] public List<Vector2Int> gridChanges = new List<Vector2Int>();
     private List<PathVisualization> pathVisualization = new List<PathVisualization>();
 
     private void Start() { grid = FindObjectOfType<Grid>(); }

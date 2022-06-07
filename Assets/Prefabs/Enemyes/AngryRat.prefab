@@ -61,9 +61,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09187158, y: -0.05703211}
+  m_Offset: {x: 0.08022404, y: -0.05703211}
   serializedVersion: 2
-  m_Radius: 0.41581455
+  m_Radius: 0.5306279
 --- !u!1 &1234454220354212189
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 5630845709475724668}
   - component: {fileID: 1658189367019712007}
   m_Layer: 6
-  m_Name: AngryEnemy
+  m_Name: AngryRat
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,6 @@ MonoBehaviour:
   runSpeed: 3
   searchRate: 1
   targetPoints: []
-  anim: {fileID: 0}
 --- !u!114 &1209497417465223578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,21 +301,6 @@ MonoBehaviour:
   destroySound: 
   hitSound: 
   stun:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5157359432002517473}
-        m_TargetAssemblyTypeName: AngryRatAI, Assembly-CSharp
-        m_MethodName: Stun
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _stun:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5157359432002517473}
