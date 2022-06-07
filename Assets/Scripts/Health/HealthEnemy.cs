@@ -44,6 +44,7 @@ public class HealthEnemy : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         effectsManager = FindObjectOfType<EffectsManager>();
         audioManager = FindObjectOfType<AudioManager>();
+        
         if (roomCloser != null)
         { 
             roomCloser.EnemyCounterTunUp();

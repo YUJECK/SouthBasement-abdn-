@@ -68,9 +68,8 @@ public class GameManager : MonoBehaviour
             }  
         }    
     }
-    public void SpawnCheese(Vector3 CheesePos, int cheeseCount) // Справнит сыр
+    public void SpawnCheese(Vector3 CheesePos, int cheeseCount) // Спавнит сыр
     {
-        Debug.Log("CheeseCount " + cheeseCount);
         GameObject cheese = Instantiate(CheesePrefab, CheesePos, Quaternion.identity);
         cheese.GetComponent<Cheese>().cheeseScore = cheeseCount;
     }

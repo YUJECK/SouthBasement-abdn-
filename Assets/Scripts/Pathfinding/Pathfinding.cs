@@ -113,8 +113,8 @@ public class Pathfinding : MonoBehaviour
                     nextQueue.Clear();
                 }
             }
-            Debug.LogError("Path wasnt found: " + startPos + " " + new Vector2((int)endPos.x, (int)endPos.y));
-            Debug.LogError("Start pos - : " + grid.grid[(int)(startPos.x/grid.nodeSize), (int)(startPos.y/grid.nodeSize)] + " End Pos - " + grid.grid[(int)(endPos.x/grid.nodeSize), (int)(endPos.y/grid.nodeSize)]);
+            Debug.LogWarning("Path wasnt found: " + startPos + " " + new Vector2((int)endPos.x, (int)endPos.y));
+            Debug.LogWarning("Start pos - : " + grid.grid[(int)(startPos.x/grid.nodeSize), (int)(startPos.y/grid.nodeSize)] + " End Pos - " + grid.grid[(int)(endPos.x/grid.nodeSize), (int)(endPos.y/grid.nodeSize)]);
             return new List<Vector2>();
         }
 

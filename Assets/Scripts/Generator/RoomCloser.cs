@@ -13,9 +13,9 @@ public class RoomCloser : MonoBehaviour
     }
 
     public GameObject Doors;
-    private int enemyesCount;
+    [SerializeField] private int enemyesCount;
     
-    private void Start() { Doors.SetActive(false); }
+    private void Awake() { Doors.SetActive(false); if (enemyesCount > 0) enemyesCount = 0; }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,15 +25,15 @@ public class RoomCloser : MonoBehaviour
             _isWent = true;
         }
     }
-    private void Update()
-    {
-        if(enemyesCount <= 0)
+    
+    public void EnemyCounterTunDown() 
+    { 
+        enemyesCount--; 
+        if (enemyesCount <= 0)
         {
             Doors.SetActive(false);
             isCleaned = true;
         }
     }
-    
-    public void EnemyCounterTunDown() { enemyesCount--; }
     public void EnemyCounterTunUp() { enemyesCount++; }
 }
