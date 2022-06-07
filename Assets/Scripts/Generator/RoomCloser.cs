@@ -4,33 +4,36 @@ using UnityEngine;
 
 public class RoomCloser : MonoBehaviour
 {
-    public bool isWent = false;
-    public bool isCleaned = false;
-    public GameObject Doors;
-    public int enemyesCount;
-    
-    private void Start()
+    private bool isCleaned = false;
+    private bool _isWent;
+    public bool isWent
     {
-        Doors.SetActive(false);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Player")
-        {
-            if(!isCleaned)
-            {
-                isWent = true;
-                Doors.SetActive(true);
-            }
-        }
+        get { return _isWent; }
+        private set { _isWent = value; }
     }
 
+    public GameObject Doors;
+    private int enemyesCount;
+    
+    private void Start() { Doors.SetActive(false); }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Player" && !isCleaned)
+        {
+             Doors.SetActive(true);
+            _isWent = true;
+        }
+    }
     private void Update()
     {
-        if(enemyesCount == 0)
+        if(enemyesCount <= 0)
         {
             Doors.SetActive(false);
             isCleaned = true;
         }
     }
+    
+    public void EnemyCounterTunDown() { enemyesCount--; }
+    public void EnemyCounterTunUp() { enemyesCount++; }
 }

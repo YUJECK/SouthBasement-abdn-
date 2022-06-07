@@ -263,11 +263,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f975bdfffc214a84e8605b105297679e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDamage: 7
+  minDamage: 8
   maxDamage: 12
   attackRate: 1.2
   attackCheker: {fileID: 5636856872160811131}
   target: {fileID: 0}
+  stun:
+    startTime: 0
+    durationTime: 0
   stopCheker: {fileID: 5786294515894876683}
   triggerCheker: {fileID: 9033393056424197845}
   walkSpeed: 2
@@ -289,14 +292,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 200
   maxHealth: 200
-  angryRatAi: {fileID: 5157359432002517473}
+  onDestroy:
+    m_PersistentCalls:
+      m_Calls: []
   effectIndicator: {fileID: 3330916501560165472}
   damageColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
   minCheese: 0
   maxCheese: 8
   destroySound: 
   hitSound: 
+  stun:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5157359432002517473}
+        m_TargetAssemblyTypeName: AngryRatAI, Assembly-CSharp
+        m_MethodName: Stun
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _stun:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5157359432002517473}
+        m_TargetAssemblyTypeName: AngryRatAI, Assembly-CSharp
+        m_MethodName: Stun
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   roomCloser: {fileID: 0}
+  angryRatAi: {fileID: 5157359432002517473}
 --- !u!114 &1776300603172290270
 MonoBehaviour:
   m_ObjectHideFlags: 0

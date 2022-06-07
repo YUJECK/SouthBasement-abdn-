@@ -13,8 +13,7 @@ public class AngryRatAI : MonoBehaviour
 
     [Header("Параметры поведения")]
     [SerializeField] private Transform target;
-    private float stunTime; //Время на которое враг оглушен
-    private float stunStartTime; //Время на которое враг оглушен
+    public Effect stun;
     private bool isNowGoing; //Идет ли враг 
     private bool isFlippedOnRight; //Повернут ли враг напрво
     private bool isTargetCanWalk; //Подвижный ли таргет
@@ -67,7 +66,8 @@ public class AngryRatAI : MonoBehaviour
         anim.ResetTrigger("IsAttack");
     }
     private void SetNextAttackTime() { nextAttackTime = Time.time + attackRate; }
-    public void Stun(float stunTime) { this.stunTime = stunTime; stunStartTime = Time.time; anim.SetBool("isStunned", true); }
+    public void Stun(float stunTime)
+    {stun.durationTime = stunTime; stun.startTime = Time.time; anim.SetBool("isStunned", true); }
    
     //Методы поведения
     public void SetTarget(Transform target)
@@ -77,7 +77,7 @@ public class AngryRatAI : MonoBehaviour
             this.target = target;
             FindPath(target);
             SetNextSearchTime();
-            Debug.Log("Target: " + target.name + " setted");
+            //Debug.Log("Target: " + target.name + " setted");
         }
     }
     public void ResetTarget()
@@ -108,11 +108,12 @@ public class AngryRatAI : MonoBehaviour
         grid = FindObjectOfType<Grid>();
         pathManager = GetComponent<Pathfinding>();
         speed = walkSpeed;
+        GetComponent<HealthEnemy>().stun.AddListener(Stun);
         SetNextAttackTime();
     }
     private void Update() //Основная логика
     {
-        if (stunTime == 0f)
+        if (stun.durationTime == 0f)
         {
             if (anim != null)//Анимация и атака
             {
@@ -158,21 +159,19 @@ public class AngryRatAI : MonoBehaviour
             //Проверка триггера
             if (triggerCheker.trigger && target != triggerCheker.obj)
             {
-                Debug.Log("PlayerToTrigger");
                 SetTarget(triggerCheker.obj);
                 isTargetCanWalk = true;
                 speed = runSpeed;
             }
         }
-        else if (Time.time - stunStartTime >= stunTime) { stunTime = 0f; anim.SetBool("isStunned", false); }  
-
+        else if (Time.time - stun.startTime >= stun.durationTime) { Debug.Log("asd"); stun.durationTime = 0f; anim.SetBool("isStunned", false); }  
     }
     private void FixedUpdate() //Физическая логика
     {
         //Сброс velocity
         if (rb != null) rb.velocity = Vector2.zero;
 
-        if(stunTime == 0f)
+        if(stun.durationTime == 0f)
         {
             //Движение 
             if (path.Count != 0 && stopCheker != null && !stopCheker.trigger)

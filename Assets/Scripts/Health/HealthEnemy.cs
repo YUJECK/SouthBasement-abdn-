@@ -1,21 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+
+[System.Serializable] public struct Effect{
+    public float startTime;
+    public float durationTime;
+};
 public class HealthEnemy : MonoBehaviour
 {
-    private struct Effect{
-        public float startTime;
-        public float durationTime;
-    };
     //Показатели здоровья
     public int health;
     public int maxHealth;
 
-    private GameManager gameManager;
-    [SerializeField] private AngryRatAI angryRatAi;
-    private EffectsManager effectsManager;
-    private AudioManager audioManager;
+    public UnityEvent onDestroy = new UnityEvent();  //Методы которые вызовуться при уничтожении объекта
     public SpriteRenderer effectIndicator;
     [SerializeField] private Color damageColor;
 
@@ -23,14 +22,21 @@ public class HealthEnemy : MonoBehaviour
     [SerializeField] int maxCheese = 4;
     [SerializeField] private string destroySound; // Звук смерти
     [SerializeField] private string hitSound; // Звук получения урона
-    public RoomCloser roomCloser;
 
     //Время действия еффектов
     private Effect burn;
     private Effect bleed;
     private Effect poisoned;
+    [HideInInspector] public UnityEvent<float> stun = new UnityEvent<float>();
     private Effect regeneration;
     private Coroutine damageInd = null;
+
+    //Ссылки на другие скрипты
+    public RoomCloser roomCloser;
+    private GameManager gameManager;
+    [SerializeField] private AngryRatAI angryRatAi;
+    private EffectsManager effectsManager;
+    private AudioManager audioManager;
 
 
     private void Start()
@@ -38,16 +44,29 @@ public class HealthEnemy : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         effectsManager = FindObjectOfType<EffectsManager>();
         audioManager = FindObjectOfType<AudioManager>();
+        if (roomCloser != null) roomCloser.EnemyCounterTunUp();
     }
+    private void Update()
+    {
+        if (Time.time - burn.startTime > burn.durationTime) ResetBurn();
+        if (Time.time - bleed.startTime > bleed.durationTime) ResetBleed();
+        if (Time.time - poisoned.startTime > poisoned.durationTime) ResetPoisoned();
+        if (Time.time - regeneration.startTime > regeneration.durationTime) ResetRegeneration();
+    }
+    private void OnDestroy() { onDestroy.Invoke();  }
+    
+   
+    //Всякие манипуляции со здоровьем
     public void TakeHit(int damage, float stunTime = 0f)
     {
         health -= damage;
-        if (stunTime != 0f) angryRatAi.Stun(stunTime);
 
-        if(hitSound != "")audioManager.PlayClip(hitSound);
-        
-        if(damageInd != null)
-            StopCoroutine(damageInd); 
+        if (stunTime != 0f)
+        {
+            stun.Invoke(stunTime);
+        }
+        if (hitSound != "") audioManager.PlayClip(hitSound);
+        if (damageInd != null) StopCoroutine(damageInd); 
             
         damageInd = StartCoroutine(TakeHitVizualization());
 
@@ -98,19 +117,15 @@ public class HealthEnemy : MonoBehaviour
         if(health > maxHealth)
             health = maxHealth;
     }
-    private void OnDestroy()
-    {
-        if (roomCloser != null)
-            roomCloser.enemyesCount--;
-    }
 
     //Еффекты которые могут наложиться на врага    
     public void ResetBurn() { effectsManager.Burn.listeners.RemoveListener(Burn); burn.durationTime = 0f; burn.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
     public void ResetPoisoned() { effectsManager.Poisoned.listeners.RemoveListener(Poisoned); poisoned.durationTime = 0f; poisoned.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
     public void ResetBleed() { effectsManager.Bleed.listeners.RemoveListener(Bleed); bleed.durationTime = 0f; bleed.startTime = 0f; effectIndicator.sprite = gameManager.hollowSprite;}
+    public void ResetRegeneration() { effectsManager.Regeneration.listeners.RemoveListener(Regeneration); regeneration.durationTime = 0f; regeneration.startTime = 0f; effectIndicator.sprite = gameManager.hollowSprite; } 
 
-    public void Burn(){TakeHit(1);}
-    public void Poisoned(){TakeHit(1);}
-    public void Bleed(){TakeHit(2);}
-    public void Regeneration(){Heal(1);}
+    public void Burn() { TakeHit(1); }
+    public void Poisoned() { TakeHit(1); }
+    public void Bleed() { TakeHit(2); }
+    public void Regeneration() { Heal(1); }
 }
