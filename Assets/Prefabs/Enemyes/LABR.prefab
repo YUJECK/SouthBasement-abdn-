@@ -155,9 +155,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.30287552, y: 0}
+  m_Offset: {x: 0.19591682, y: 0}
   serializedVersion: 2
-  m_Radius: 0.59984905
+  m_Radius: 0.49289036
 --- !u!1 &5630845710053068690
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,10 +172,10 @@ GameObject:
   - component: {fileID: 1209497417465223578}
   - component: {fileID: 1776300603172290270}
   - component: {fileID: 5630845709475724661}
-  - component: {fileID: 5630845709475724668}
   - component: {fileID: 1658189367019712007}
+  - component: {fileID: 8900124603063756961}
   m_Layer: 6
-  m_Name: RatEnemy1
+  m_Name: LABR
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21139409978486505, guid: 3f8713e2b7e782048804ceb665352786, type: 3}
+  m_Sprite: {fileID: 269425307127116191, guid: 614912a183f3e4b4cbf5516299af2a83, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -263,8 +263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f975bdfffc214a84e8605b105297679e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDamage: 8
-  maxDamage: 12
+  minDamage: 4
+  maxDamage: 6
   attackRate: 1.2
   attackCheker: {fileID: 5636856872160811131}
   target: {fileID: 0}
@@ -273,8 +273,8 @@ MonoBehaviour:
     durationTime: 0
   stopCheker: {fileID: 5786294515894876683}
   triggerCheker: {fileID: 9033393056424197845}
-  walkSpeed: 2
-  runSpeed: 3
+  walkSpeed: 3
+  runSpeed: 4
   searchRate: 1
   targetPoints: []
   anim: {fileID: 0}
@@ -290,33 +290,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4937f07ba56b4043a5f2b00622de0af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
-  maxHealth: 200
+  health: 120
+  maxHealth: 120
   onDestroy:
     m_PersistentCalls:
       m_Calls: []
   effectIndicator: {fileID: 3330916501560165472}
   damageColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
   minCheese: 0
-  maxCheese: 8
+  maxCheese: 6
   destroySound: 
   hitSound: 
   stun:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5157359432002517473}
-        m_TargetAssemblyTypeName: AngryRatAI, Assembly-CSharp
-        m_MethodName: Stun
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _stun:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5157359432002517473}
@@ -370,25 +355,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!95 &5630845709475724668
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1cff6108835444844a72dcbad78782d4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!70 &1658189367019712007
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -402,9 +368,28 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.06037299, y: -0.04852867}
-  m_Size: {x: 0.35779256, y: 0.44720334}
+  m_Offset: {x: 0.046756744, y: 0.066075645}
+  m_Size: {x: 0.33056006, y: 0.47670493}
   m_Direction: 0
+--- !u!95 &8900124603063756961
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 29c982c8e1a10f749a9c179ff8c33caf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6068210405539366294
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,9 +524,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09187126, y: -0.05703227}
+  m_Offset: {x: 0.017575264, y: -0.05703227}
   serializedVersion: 2
-  m_Radius: 5.9960485
+  m_Radius: 3.1495092
 --- !u!1 &8302321032984290554
 GameObject:
   m_ObjectHideFlags: 0

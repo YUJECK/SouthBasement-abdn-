@@ -49,9 +49,10 @@ public class AngryRatAI : MonoBehaviour
 
     //Ссылки на другие классы
     private Health player; //Ссылка на ХП игрока
-    [SerializeField] private Animator anim; //Ссылка на аниматор объекта
+    private Animator anim; //Ссылка на аниматор объекта
     private Rigidbody2D rb; //Ссылка на Rigidbody2D объекта
     private Grid grid; //Ссылка на матрицу
+    private RoomCloser roomCloser; 
     private Pathfinding pathManager; //Ссылка на скрипт отвечающий за поиск пути
 
     //Методы атаки
@@ -108,6 +109,7 @@ public class AngryRatAI : MonoBehaviour
         grid = FindObjectOfType<Grid>();
         pathManager = GetComponent<Pathfinding>();
         speed = walkSpeed;
+        roomCloser = GetComponent<HealthEnemy>().roomCloser;
         GetComponent<HealthEnemy>().stun.AddListener(Stun);
         SetNextAttackTime();
     }
@@ -117,10 +119,10 @@ public class AngryRatAI : MonoBehaviour
         {
             if (anim != null)//Анимация и атака
             {
-                if (attackCheker.trigger && Time.time >= nextAttackTime) anim.SetTrigger("IsAttack"); //Атака
+                if (attackCheker.trigger && Time.time >= nextAttackTime) anim.SetTrigger("isAttack"); //Атака
 
-                if (isNowGoing) anim.SetBool("IsRun", true); //Ходьба
-                else anim.SetBool("IsRun", false);
+                if (isNowGoing) anim.SetBool("isRun", true); //Ходьба
+                else anim.SetBool("isRun", false);
             }
             if (pathManager != null) //Поиск пути
             {
@@ -157,14 +159,14 @@ public class AngryRatAI : MonoBehaviour
                 }
             }
             //Проверка триггера
-            if (triggerCheker.trigger && target != triggerCheker.obj)
+            if (triggerCheker.trigger && target != triggerCheker.obj && roomCloser.isWent)
             {
                 SetTarget(triggerCheker.obj);
                 isTargetCanWalk = true;
                 speed = runSpeed;
             }
         }
-        else if (Time.time - stun.startTime >= stun.durationTime) { Debug.Log("asd"); stun.durationTime = 0f; anim.SetBool("isStunned", false); }  
+        else if (Time.time - stun.startTime >= stun.durationTime) { stun.durationTime = 0f; anim.SetBool("isStunned", false); }  
     }
     private void FixedUpdate() //Физическая логика
     {
