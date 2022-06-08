@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum TargetType
 {
@@ -8,5 +9,5 @@ public enum TargetType
 public class EnemyTarget : MonoBehaviour
 {
     public int priority;
-    public bool TargetType;
+    public TargetType targetType;
 }

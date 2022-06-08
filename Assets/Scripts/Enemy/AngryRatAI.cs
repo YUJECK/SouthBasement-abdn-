@@ -7,7 +7,7 @@ public class AngryRatAI : MonoBehaviour
     public int minDamage = 1; //Дамаг 
     public int maxDamage = 1; //Дамаг 
     [SerializeField] private float attackRate = 1f; //Частота атаки
-    [SerializeField] private TriggerCheker attackCheker; 
+    [SerializeField] private TriggerCheker attackCheker;
     private float nextAttackTime = 0f; //След время атаки
 
 
@@ -17,14 +17,14 @@ public class AngryRatAI : MonoBehaviour
     private bool isNowGoing; //Идет ли враг 
     private bool freezeFlip;
     private bool isFlippedOnRight; //Повернут ли враг напрво
-    private bool isTargetCanWalk; //Подвижный ли таргет
+    private TargetType targetMoveType = TargetType.Static; //Подвижный ли таргет
     public TriggerCheker stopCheker;
     public TriggerCheker triggerCheker; //Область в которой враг будет идти за игроком
     private float _speed; //Скорость передвижения вр крысы
     public float speed
     {
         get { return _speed; }
-        set 
+        set
         {
             if (value <= 0f)
             {
@@ -38,7 +38,7 @@ public class AngryRatAI : MonoBehaviour
             }
             _speed = value;
         }
-    
+
     }
     [SerializeField] private float walkSpeed = 2f; //Скорость при ходьбе
     [SerializeField] private float runSpeed = 3.3f; //Скорость при беге
@@ -53,7 +53,7 @@ public class AngryRatAI : MonoBehaviour
     private Animator anim; //Ссылка на аниматор объекта
     private Rigidbody2D rb; //Ссылка на Rigidbody2D объекта
     private Grid grid; //Ссылка на матрицу
-    private RoomCloser roomCloser; 
+    private RoomCloser roomCloser;
     private Pathfinding pathManager; //Ссылка на скрипт отвечающий за поиск пути
 
     //Методы атаки
@@ -62,7 +62,7 @@ public class AngryRatAI : MonoBehaviour
         if (attackCheker.trigger) //Если игрок находится в радиусе атаки
         {
             //Бьём врага
-            player.TakeHit(Random.Range(minDamage, minDamage+1));
+            player.TakeHit(Random.Range(minDamage, minDamage + 1));
             SetNextAttackTime();
             Debug.Log(gameObject.name + " attack");
         }
@@ -70,12 +70,12 @@ public class AngryRatAI : MonoBehaviour
     }
     private void SetNextAttackTime() { nextAttackTime = Time.time + attackRate; }
     public void Stun(float stunTime)
-    {stun.durationTime = stunTime; stun.startTime = Time.time; anim.SetBool("isStunned", true); }
-   
+    { stun.durationTime = stunTime; stun.startTime = Time.time; anim.SetBool("isStunned", true); }
+
     //Методы поведения
     public void SetTarget(Transform target)
     {
-        if(grid.isGridCreated)
+        if (grid.isGridCreated)
         {
             this.target = target;
             FindPath(target);
@@ -101,7 +101,42 @@ public class AngryRatAI : MonoBehaviour
 
     //Другие методы
     private void Flip() { transform.Rotate(0f, 180f, 0f); }
-    
+    //Методы QuickSort-а
+    private List<EnemyTarget> QuickSort(List<EnemyTarget> targets, int minIndex, int maxIndex)
+    {
+        if (minIndex >= maxIndex) return targets;
+
+        int pivot = GetPivotInd(targets, 0, maxIndex);
+
+        QuickSort(targets, 0, pivot - 1);
+        QuickSort(targets, pivot + 1, targets.Count - 1);
+
+        return new List<EnemyTarget>();
+    }
+    private int GetPivotInd(List<EnemyTarget> targets, int minIndex, int maxIndex)
+    {
+        int pivot = minIndex - 1;
+
+        for (int i = minIndex; i < maxIndex; i++)
+        {
+            if (targets[i].priority > targets[maxIndex].priority)
+            {
+                pivot++;
+                Swap(ref targets, pivot, i);
+            }
+        }
+        pivot++;
+        Swap(ref targets, pivot, maxIndex);
+        return pivot;
+    }
+    private void Swap(ref List<EnemyTarget> targets, int firstInd, int secondInd)
+    {
+        EnemyTarget tmp;
+        tmp = targets[firstInd];
+        targets[firstInd] = targets[secondInd];
+        targets[secondInd] = tmp;
+    }
+
     //Юнитивские методы
     private void Start()
     {
@@ -119,26 +154,14 @@ public class AngryRatAI : MonoBehaviour
     {
         if (stun.durationTime == 0f)
         {
-            if (anim != null)//Анимация и атака
-            {
-                if (attackCheker.trigger && Time.time >= nextAttackTime) anim.SetTrigger("isAttack"); //Атака
-
-                if (isNowGoing) anim.SetBool("isRun", true); //Ходьба
-                else anim.SetBool("isRun", false);
-            }
+            //Выбор таргета
             if (pathManager != null) //Поиск пути
             {
-                if (isTargetCanWalk && target != null && (Time.time >= nextSearchTime || path.Count == 0))
+                if (targetMoveType == TargetType.Movable && target != null && (Time.time >= nextSearchTime || path.Count == 0))
                 {
                     pathManager.ResetGridChanges();
                     FindPath(target);
                     SetNextSearchTime();
-                }
-                //Если нет таргета, то мы ставим таргетом одну из точек
-                else if (target == null && targetPoints.Length != 0)
-                {
-                    SetTarget(targetPoints[Random.Range(0, targetPoints.Length)]);
-                    isTargetCanWalk = false;
                 }
 
                 if (target != null) //Поврот 
@@ -160,23 +183,22 @@ public class AngryRatAI : MonoBehaviour
                     lastPos = transform.position;
                 }
             }
-            
-            //Проверка триггера
-            if (triggerCheker.trigger && target != triggerCheker.obj && roomCloser.isWent)
+            if (anim != null)//Анимация и атака
             {
-                SetTarget(triggerCheker.obj);
-                isTargetCanWalk = true;
-                speed = runSpeed;
+                if (attackCheker.trigger && Time.time >= nextAttackTime) anim.SetTrigger("isAttack"); //Атака
+
+                if (isNowGoing) anim.SetBool("isRun", true); //Ходьба
+                else anim.SetBool("isRun", false);
             }
         }
-        else if (Time.time - stun.startTime >= stun.durationTime) { stun.durationTime = 0f; anim.SetBool("isStunned", false); }  
+        else if (Time.time - stun.startTime >= stun.durationTime) { stun.durationTime = 0f; anim.SetBool("isStunned", false); }
     }
     private void FixedUpdate() //Физическая логика
     {
         //Сброс velocity
         if (rb != null) rb.velocity = Vector2.zero;
 
-        if(stun.durationTime == 0f)
+        if (stun.durationTime == 0f)
         {
             //Движение 
             if (path.Count != 0 && stopCheker != null && !stopCheker.trigger)
@@ -195,17 +217,17 @@ public class AngryRatAI : MonoBehaviour
                     }
                 }
             }
-            else
+            else if (path.Count != 0)
             {
-                if(!isTargetCanWalk) ResetTarget();
+                //if (targetMoveType != TargetType.Movable) FindNewTarget();
                 isNowGoing = false;
             }
         }
     }
 
     //Проверка триггеров/колизий
-    private void OnCollisionStay2D(Collision2D collision){freezeFlip = true;}
-    private void OnCollisionExit2D(Collision2D collision){freezeFlip = false;}
+    private void OnCollisionStay2D(Collision2D collision) { freezeFlip = true; }
+    private void OnCollisionExit2D(Collision2D collision) { freezeFlip = false; }
     private void OnTriggerExit2D(Collider2D coll)
     {
         if (coll.tag == "Player" && !triggerCheker.trigger)
