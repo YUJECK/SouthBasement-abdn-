@@ -88,10 +88,10 @@ public class Player : MonoBehaviour
                 movementOnDash = Vector2.zero;
 
                 if(movement.x > 0) movementOnDash.x = 1f;
-                if(movement.x < 0) movementOnDash.x = -1f;
-                
-                if(movement.y > 0) movementOnDash.y = 1f;
-                if(movement.y < 0) movementOnDash.y = -1f;
+                else if(movement.x < 0) movementOnDash.x = -1f;
+
+                if (movement.y > 0) movementOnDash.y = 1f;
+                else if(movement.y < 0) movementOnDash.y = -1f;
                 
                 dashNextTime = Time.time + dashRate;
             }   
