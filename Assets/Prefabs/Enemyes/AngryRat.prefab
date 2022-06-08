@@ -44,10 +44,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037c1599568db9c4baf056d576de17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  changeMode: 0
+  triggerMode: 0
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  nowEnter: {fileID: 0}
+  nowExit: {fileID: 0}
   trigger: 0
   targetTag: Player
   obj: {fileID: 0}
+  other: []
 --- !u!58 &1443962034012559945
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -138,10 +148,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037c1599568db9c4baf056d576de17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  changeMode: 0
+  triggerMode: 0
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  nowEnter: {fileID: 0}
+  nowExit: {fileID: 0}
   trigger: 0
   targetTag: Player
   obj: {fileID: 0}
+  other: []
 --- !u!58 &8939207685274183944
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -276,7 +296,7 @@ MonoBehaviour:
   walkSpeed: 2
   runSpeed: 3
   searchRate: 1
-  targetPoints: []
+  targets: []
 --- !u!114 &1209497417465223578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,10 +526,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037c1599568db9c4baf056d576de17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  changeMode: 0
+  triggerMode: 1
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  nowEnter: {fileID: 0}
+  nowExit: {fileID: 0}
   trigger: 0
   targetTag: Player
   obj: {fileID: 0}
+  other: []
 --- !u!58 &2140101979524869538
 CircleCollider2D:
   m_ObjectHideFlags: 0

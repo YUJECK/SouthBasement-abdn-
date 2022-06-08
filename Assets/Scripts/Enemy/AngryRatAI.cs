@@ -75,7 +75,7 @@ public class AngryRatAI : MonoBehaviour
     //Методы поведения
     public void SetTarget(Transform target)
     {
-        if (grid.isGridCreated)
+        if (grid.isGridCreated && this.target != target)
         {
             this.target = target;
             FindPath(target);
@@ -101,69 +101,103 @@ public class AngryRatAI : MonoBehaviour
     private Transform FindNewTarget()
     {
         bool isSamePriority = true;
+        EnemyTarget target = null;
         int priority = targets[0].priority;
-        
+
         //Проверяем все таргеты по приоритету
         for (int i = 0; i < targets.Count; i++)
         {
             if (targets[i].priority == priority) continue;
-            else
+            else //Если приоритет не одинаковый
             {
                 isSamePriority = false;
-                return targets[targets.Count - 1].transform;
+                target = targets[targets.Count - 1];
+                break;
             }
         }
-        
         //Если у всех таргетов одинаковый приоритет
-        if(isSamePriority)
+        if (isSamePriority)
         {
             int rand = Random.Range(0, targets.Count);
-            return targets[rand].transform;
+            target = targets[rand];
         }
-        
+
+        if (target != null)
+        {
+            if (target.targetType == TargetType.Movable)
+                speed = runSpeed;
+            else speed = walkSpeed;
+        }
+        else FindObjectOfType<RatConsole>().DisplayText("Таргет не был найден", Color.red,
+            RatConsole.Mode.ConsoleMessege, "<AngryRatAI.cs, line 132>");
+      
         //Не думаю что сюда код вообще попадет
         return null;
+    }
+    public void OnAreaExit(GameObject obj) //Метод который будет вызываться при выходе за границу поля зрения врага
+    {
+        if(obj.TryGetComponent(typeof(EnemyTarget), out Component comp))
+        {
+            if(targets.Contains(obj.GetComponent<EnemyTarget>()))
+            {
+                if (target == obj.GetComponent<EnemyTarget>()) ResetTarget();
+                targets.Remove(obj.GetComponent<EnemyTarget>());
+            }
+        }
+    }
+    public void OnAreaEnter(GameObject obj) //Метод который будет вызываться при входе в поле зрения
+    {
+        if (obj.TryGetComponent(typeof(EnemyTarget), out Component comp))
+        {
+            EnemyTarget newTarget = obj.GetComponent<EnemyTarget>();
+            if (!targets.Contains(newTarget))
+            {
+                targets.Add(newTarget);
+                QuickSort(targets, 0, targets.Count-1);
+                SetTarget(FindNewTarget());
+            }
+        }
     }
 
     //Другие методы
     private void Flip() { transform.Rotate(0f, 180f, 0f); }
-        
+
         //Методы QuickSort-а
-    private List<EnemyTarget> QuickSort(List<EnemyTarget> targets, int minIndex, int maxIndex)
-    {
-        if (minIndex >= maxIndex) return targets;
-
-        int pivot = GetPivotInd(targets, 0, maxIndex);
-
-        QuickSort(targets, minIndex, pivot - 1);
-        QuickSort(targets, pivot + 1, maxIndex);
-
-        return new List<EnemyTarget>();
-    }
-    private int GetPivotInd(List<EnemyTarget> targets, int minIndex, int maxIndex)
-    {
-        int pivot = minIndex - 1;
-
-        for (int i = minIndex; i < maxIndex; i++)
+        private List<EnemyTarget> QuickSort(List<EnemyTarget> targets, int minIndex, int maxIndex)
         {
-            if (targets[i].priority < targets[maxIndex].priority)
-            {
-                pivot++;
-                Swap(ref targets, pivot, i);
-            }
-        }
+            if (minIndex >= maxIndex) return targets;
 
-        pivot++;
-        Swap(ref targets, pivot, maxIndex);
-        return pivot;
-    }
-    private void Swap(ref List<EnemyTarget> targets, int firstInd, int secondInd)
-    {
-        EnemyTarget tmp;
-        tmp = targets[firstInd];
-        targets[firstInd] = targets[secondInd];
-        targets[secondInd] = tmp;
-    }
+            int pivot = GetPivotInd(targets, minIndex, maxIndex);
+
+            QuickSort(targets, minIndex, pivot - 1);
+            QuickSort(targets, pivot + 1, maxIndex);
+
+            return new List<EnemyTarget>();
+        }
+        private int GetPivotInd(List<EnemyTarget> targets, int minIndex, int maxIndex)
+        {
+            int pivot = minIndex - 1;
+
+            for (int i = minIndex; i <= maxIndex; i++)
+            {
+                if (targets[i].priority < targets[maxIndex].priority)
+                {
+                    pivot++;
+                    Swap(ref targets, pivot, i);
+                }
+            }
+
+            pivot++;
+            Swap(ref targets, pivot, maxIndex);
+
+            return pivot;
+        }
+        private void Swap(ref List<EnemyTarget> targets, int firstInd, int secondInd)
+        {
+            EnemyTarget tmp = targets[firstInd];
+            targets[firstInd] = targets[secondInd];
+            targets[secondInd] = tmp;
+        }
 
     //Юнитивские методы
     private void Start()
@@ -176,16 +210,21 @@ public class AngryRatAI : MonoBehaviour
         speed = walkSpeed;
         roomCloser = GetComponent<HealthEnemy>().roomCloser;
         GetComponent<HealthEnemy>().stun.AddListener(Stun);
+        if(triggerCheker != null)
+        {
+            triggerCheker.onEnter.AddListener(OnAreaEnter);
+            triggerCheker.onExit.AddListener(OnAreaExit);
+        }
         SetNextAttackTime();
-        QuickSort(targets, 0, targets.Count - 1);
+        if (targets.Count != 0) QuickSort(targets, 0, targets.Count - 1);
     }
     private void Update() //Основная логика
     {
         if (stun.durationTime == 0f)
         {
             //Выбор таргета
-            if (target == null) SetTarget(FindNewTarget());
-            
+            if (target == null && targets.Count != 0) SetTarget(FindNewTarget());
+
             if (pathManager != null) //Поиск пути
             {
                 if (targetMoveType == TargetType.Movable && target != null && (Time.time >= nextSearchTime || path.Count == 0))
@@ -221,6 +260,15 @@ public class AngryRatAI : MonoBehaviour
                 if (isNowGoing) anim.SetBool("isRun", true); //Ходьба
                 else anim.SetBool("isRun", false);
             }
+            if (triggerCheker.trigger && triggerCheker.obj.TryGetComponent(typeof(EnemyTarget), out Component newTarget))
+            {
+                if (!targets.Contains(triggerCheker.obj.GetComponent<EnemyTarget>()))
+                {
+                    targets.Add(triggerCheker.obj.GetComponent<EnemyTarget>());
+                    QuickSort(targets, 0, targets.Count - 1);
+                    FindNewTarget();
+                }
+            }
         }
         else if (Time.time - stun.startTime >= stun.durationTime) { stun.durationTime = 0f; anim.SetBool("isStunned", false); }
     }
@@ -248,9 +296,9 @@ public class AngryRatAI : MonoBehaviour
                     }
                 }
             }
-            else if (path.Count != 0)
+            else if (path.Count == 0)
             {
-                if (targetMoveType != TargetType.Movable) FindNewTarget();
+                if (targetMoveType != TargetType.Movable) ResetTarget();
                 isNowGoing = false;
             }
         }
@@ -259,12 +307,4 @@ public class AngryRatAI : MonoBehaviour
     //Проверка триггеров/колизий
     private void OnCollisionStay2D(Collision2D collision) { freezeFlip = true; }
     private void OnCollisionExit2D(Collision2D collision) { freezeFlip = false; }
-    private void OnTriggerExit2D(Collider2D coll)
-    {
-        if (coll.tag == "Player" && !triggerCheker.trigger)
-        {
-            ResetTarget();
-            Debug.Log("Reset");
-        }
-    }
 }
