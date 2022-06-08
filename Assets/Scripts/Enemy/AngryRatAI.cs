@@ -15,6 +15,7 @@ public class AngryRatAI : MonoBehaviour
     [SerializeField] private Transform target;
     public Effect stun;
     private bool isNowGoing; //Идет ли враг 
+    private bool freezeFlip;
     private bool isFlippedOnRight; //Повернут ли враг напрво
     private bool isTargetCanWalk; //Подвижный ли таргет
     public TriggerCheker stopCheker;
@@ -142,7 +143,7 @@ public class AngryRatAI : MonoBehaviour
 
                 if (target != null) //Поврот 
                 {
-                    if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position)
+                    if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position && !freezeFlip)
                     {
                         if (lastPos.x < transform.position.x && isFlippedOnRight)
                         {
@@ -159,6 +160,7 @@ public class AngryRatAI : MonoBehaviour
                     lastPos = transform.position;
                 }
             }
+            
             //Проверка триггера
             if (triggerCheker.trigger && target != triggerCheker.obj && roomCloser.isWent)
             {
@@ -201,7 +203,9 @@ public class AngryRatAI : MonoBehaviour
         }
     }
 
-    //Проверка триггеров
+    //Проверка триггеров/колизий
+    private void OnCollisionStay2D(Collision2D collision){freezeFlip = true;}
+    private void OnCollisionExit2D(Collision2D collision){freezeFlip = false;}
     private void OnTriggerExit2D(Collider2D coll)
     {
         if (coll.tag == "Player" && !triggerCheker.trigger)

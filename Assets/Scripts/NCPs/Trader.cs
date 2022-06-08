@@ -137,17 +137,17 @@ public class Trader : MonoBehaviour
     }
     private void SpawnItem(TradingPlace place, ref List<GameObject> itemsList, bool remove)
     {
-        //Рандомим индекс предмета
         int tmp = Random.Range(0, itemsList.Count);
         //Спавним этот предмет
         GameObject item = Instantiate(itemsList[tmp], place.placeTransform.position,
         Quaternion.identity, place.placeTransform);
+        //Ставим цену
+        place.itemPrice.text = item.GetComponent<ItemInfo>().cost.ToString();
+        //Добавляем в лист предметов у торговца и записываем price в предмет
+        items.Add(new Item(item, item.GetComponent<ItemInfo>(), itemsList[tmp]));
+        items[items.Count - 1].price = place.itemPrice;
         //Убираем из листа с которого рандомили тот предмет
         if(remove) itemsList.RemoveAt(tmp);
-        //Ставим цену 
-        place.itemPrice.text = item.GetComponent<ItemInfo>().cost.ToString();
-        //Добавляем в лист предметов у торговца
-        items.Add(new Item(item, item.GetComponent<ItemInfo>(), itemsList[tmp]));
         //Делаем предмет торговым
         SetItemForTrade(item);
     }
@@ -189,7 +189,7 @@ public class Trader : MonoBehaviour
         }
 
         //Сам процесс продажи предмета
-        if(gameManager.playerCheese >= item.itemInfo.cost)
+        if(gameManager.playerCheese >= item.itemInfo.cost && item != null)
         {
             gameManager.CheeseScore(-item.itemInfo.cost);
             gameManager.traderItems.Remove(item.itemPrefab);
@@ -197,7 +197,6 @@ public class Trader : MonoBehaviour
             item.isSold = true;
             item.itemInfo.isForTrade = false;
             item.price.gameObject.SetActive(false);
-
         }
         else // Если не хватает сыра
             DisplayFrase(SentenceNotEnoghtCheese, 5f);

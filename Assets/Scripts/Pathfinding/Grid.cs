@@ -90,7 +90,7 @@ public class Grid : MonoBehaviour
                 if(grid[(int)x, (int)y] == 1)
                     gridVizualization.Add(Instantiate(_collider,new Vector3(x,y,0), Quaternion.identity,transform));
                 else
-                    gridVizualization.Add(Instantiate(emptyArea,new Vector3(x, y, 0),Quaternion.identity,transform));
+                    gridVizualization.Add(Instantiate(emptyArea, new Vector3(x, y, 0), Quaternion.identity, transform));
             }
         }
     }

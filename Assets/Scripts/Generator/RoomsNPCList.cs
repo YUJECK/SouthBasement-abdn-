@@ -16,20 +16,15 @@ public class RoomsNPCList : MonoBehaviour
     private void Awake()
     {
         generationManager = GetComponent<RoomGenerationManager>();
-        Invoke("StartSpawning", 6f);//Через 4 секунды начнут спавниться нпс
+        Invoke("StartSpawning", 6f); //Через 4 секунды начнут спавниться нпс
     }
-
     private void StartSpawning()
     {          
-        Debug.Log("Starting Spawning");
         //Находим и добавляем все комнаты для нпс в лист
         for(int i = 0; i < generationManager.NowSpawnedRooms; i++)
         {
             if(generationManager.roomsList[i].spawnerNPC != null)
-            {
                 NPCRooms.Add(generationManager.roomsList[i].spawnerNPC);
-                Debug.Log("RoomAdd");
-            }     
         }
 
         //Спавним коробку и торговца
@@ -44,16 +39,11 @@ public class RoomsNPCList : MonoBehaviour
             NPCRooms.Remove(NPCRooms[generationManager.TraderIndex-1]);
         }
         
-        //Если нпс будет много то наверное лучше будет поменять на NPCRooms.Count
+        //YUJECK: Если нпс будет много то наверное лучше будет поменять на NPCRooms.Count
         for(int i = 0; i < NPCRooms.Count; i++)
-        {
-            Debug.Log("Index i = " + i + "; NPCsRoomsCount = " + NPCRooms.Count);
-
-            if(i > NPCs.Count)
-                break;
-
-            else if(NPCRooms[i] != null)
-                NPCRooms[i].SpawnNPC();
+        { 
+            if(i >= NPCs.Count) break; //Делаем бряк если i вышло за количество НПС
+            else if(NPCRooms[i] != null) NPCRooms[i].SpawnNPC(); //Спавним НПС в той комнате
         }
     }
 }
