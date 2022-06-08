@@ -44,7 +44,7 @@ public class AngryRatAI : MonoBehaviour
     [SerializeField] private float runSpeed = 3.3f; //Скорость при беге
     [SerializeField] private float searchRate = 3f; //Частота поиска
     private float nextSearchTime = 0f; //След время поиска
-    [SerializeField] private Transform[] targetPoints; //Точки для передвижения
+    [SerializeField] private List<EnemyTarget> targets; //Точки для передвижения
     private List<Vector2> path = new List<Vector2>(); //Путь
     private Vector2 lastPos = new Vector2();
 
@@ -98,18 +98,45 @@ public class AngryRatAI : MonoBehaviour
            new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
            new Vector2(target.position.x / grid.nodeSize, target.position.y / grid.nodeSize));
     }
+    private Transform FindNewTarget()
+    {
+        bool isSamePriority = true;
+        int priority = targets[0].priority;
+        
+        //Проверяем все таргеты по приоритету
+        for (int i = 0; i < targets.Count; i++)
+        {
+            if (targets[i].priority == priority) continue;
+            else
+            {
+                isSamePriority = false;
+                return targets[targets.Count - 1].transform;
+            }
+        }
+        
+        //Если у всех таргетов одинаковый приоритет
+        if(isSamePriority)
+        {
+            int rand = Random.Range(0, targets.Count);
+            return targets[rand].transform;
+        }
+        
+        //Не думаю что сюда код вообще попадет
+        return null;
+    }
 
     //Другие методы
     private void Flip() { transform.Rotate(0f, 180f, 0f); }
-    //Методы QuickSort-а
+        
+        //Методы QuickSort-а
     private List<EnemyTarget> QuickSort(List<EnemyTarget> targets, int minIndex, int maxIndex)
     {
         if (minIndex >= maxIndex) return targets;
 
         int pivot = GetPivotInd(targets, 0, maxIndex);
 
-        QuickSort(targets, 0, pivot - 1);
-        QuickSort(targets, pivot + 1, targets.Count - 1);
+        QuickSort(targets, minIndex, pivot - 1);
+        QuickSort(targets, pivot + 1, maxIndex);
 
         return new List<EnemyTarget>();
     }
@@ -119,12 +146,13 @@ public class AngryRatAI : MonoBehaviour
 
         for (int i = minIndex; i < maxIndex; i++)
         {
-            if (targets[i].priority > targets[maxIndex].priority)
+            if (targets[i].priority < targets[maxIndex].priority)
             {
                 pivot++;
                 Swap(ref targets, pivot, i);
             }
         }
+
         pivot++;
         Swap(ref targets, pivot, maxIndex);
         return pivot;
@@ -149,12 +177,15 @@ public class AngryRatAI : MonoBehaviour
         roomCloser = GetComponent<HealthEnemy>().roomCloser;
         GetComponent<HealthEnemy>().stun.AddListener(Stun);
         SetNextAttackTime();
+        QuickSort(targets, 0, targets.Count - 1);
     }
     private void Update() //Основная логика
     {
         if (stun.durationTime == 0f)
         {
             //Выбор таргета
+            if (target == null) SetTarget(FindNewTarget());
+            
             if (pathManager != null) //Поиск пути
             {
                 if (targetMoveType == TargetType.Movable && target != null && (Time.time >= nextSearchTime || path.Count == 0))
@@ -219,7 +250,7 @@ public class AngryRatAI : MonoBehaviour
             }
             else if (path.Count != 0)
             {
-                //if (targetMoveType != TargetType.Movable) FindNewTarget();
+                if (targetMoveType != TargetType.Movable) FindNewTarget();
                 isNowGoing = false;
             }
         }
