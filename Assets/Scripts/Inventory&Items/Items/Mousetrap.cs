@@ -14,7 +14,7 @@ public class Mousetrap : MonoBehaviour
     {
         if (!isClose && collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<HealthEnemy>().TakeHit(120);
+            collision.gameObject.GetComponent<HealthEnemy>().TakeHit(80);
             sprite.sprite = CloseSprite;
             gameManager.SpawnCheese(transform.position + new Vector3(0.5f, -0.5f, 0f), Random.Range(4,8));
             GetComponent<Collider2D>().enabled = false;

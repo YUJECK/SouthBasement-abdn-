@@ -24,12 +24,12 @@ public class HealthEnemy : MonoBehaviour
     [SerializeField] private string hitSound; // Звук получения урона
 
     //Время действия еффектов
-    private Effect burn;
-    private Effect bleed;
-    private Effect poisoned;
+    public Effect burn;
+    public Effect bleed;
+    public Effect poisoned;
     [HideInInspector] public UnityEvent<float> stun = new UnityEvent<float>();
-    private Effect regeneration;
-    private Coroutine damageInd = null;
+    public Effect regeneration;
+    public Coroutine damageInd = null;
 
     //Ссылки на другие скрипты
     public RoomCloser roomCloser;
@@ -53,10 +53,10 @@ public class HealthEnemy : MonoBehaviour
     }
     private void Update()
     {
-        if (Time.time - burn.startTime > burn.durationTime) ResetBurn();
-        if (Time.time - bleed.startTime > bleed.durationTime) ResetBleed();
-        if (Time.time - poisoned.startTime > poisoned.durationTime) ResetPoisoned();
-        if (Time.time - regeneration.startTime > regeneration.durationTime) ResetRegeneration();
+        if (burn.durationTime!= 0 && Time.time - burn.startTime > burn.durationTime) ResetBurn();
+        if (bleed.durationTime != 0 && Time.time - bleed.startTime > bleed.durationTime) ResetBleed();
+        if (poisoned.durationTime != 0 && Time.time - poisoned.startTime > poisoned.durationTime) { ResetPoisoned(); Debug.Log("pr"); }
+        if (regeneration.durationTime != 0 && Time.time - regeneration.startTime > regeneration.durationTime) ResetRegeneration();
     }
     private void OnDestroy() { onDestroy.Invoke();  }
     
@@ -129,8 +129,8 @@ public class HealthEnemy : MonoBehaviour
     public void ResetBleed() { effectsManager.Bleed.listeners.RemoveListener(Bleed); bleed.durationTime = 0f; bleed.startTime = 0f; effectIndicator.sprite = gameManager.hollowSprite;}
     public void ResetRegeneration() { effectsManager.Regeneration.listeners.RemoveListener(Regeneration); regeneration.durationTime = 0f; regeneration.startTime = 0f; effectIndicator.sprite = gameManager.hollowSprite; } 
 
-    public void Burn() { TakeHit(1); }
-    public void Poisoned() { TakeHit(1); }
-    public void Bleed() { TakeHit(2); }
-    public void Regeneration() { Heal(1); }
+    public void Burn() { TakeHit(9); }
+    public void Poisoned() { TakeHit(5); }
+    public void Bleed() { TakeHit(14); }
+    public void Regeneration() { Heal(10); }
 }

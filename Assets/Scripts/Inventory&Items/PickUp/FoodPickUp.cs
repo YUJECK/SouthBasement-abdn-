@@ -32,6 +32,7 @@ public class FoodPickUp : MonoBehaviour
             itemInfo.uses = food.uses;
             itemInfo.cost = food.Cost;
             itemInfo.chanceOfDrop = food.ChanceOfDrop;
+            food.itemInfo = itemInfo;
         }
         if(itemInfo.isForTrade & trader == null)
             itemInfo.isForTrade = false;
@@ -57,29 +58,36 @@ public class FoodPickUp : MonoBehaviour
 
     private void Update()
     {
-        //Смена обычного спрайта на спрайт с обводкой и наоборот
-        if(itemInfo.isOnTrigger & !isWhiteSprite)
-            SetSpriteToWhite(true);
-        else if(!itemInfo.isOnTrigger & isWhiteSprite)
-            SetSpriteToWhite(false);
-
-        //Поднимание прдмета
-        if(itemInfo.isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
+        if(itemInfo.active)
         {
-            if(!itemInfo.isForTrade && itemInfo.active)
-                PickUp(); // Поднимаем предмет
+            //Смена обычного спрайта на спрайт с обводкой и наоборот
+            if(itemInfo.isOnTrigger & !isWhiteSprite)
+                SetSpriteToWhite(true);
+            else if(!itemInfo.isOnTrigger & isWhiteSprite)
+                SetSpriteToWhite(false);
+
+            //Поднимание прдмета
+            if(itemInfo.isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
+            {
+                if(!itemInfo.isForTrade)
+                    PickUp(); // Поднимаем предмет
             
-            else if(itemInfo.isForTrade) trader.Trade(gameObject);
-        }  
+                else if(itemInfo.isForTrade) trader.Trade(gameObject);
+            }  
+        }
     }
 
     public void PickUp() //Поднятие предмета
     {
-        inventory.AddFood(food, gameObject);
-        if(!TryGetComponent(typeof(DontDestroyOnLoadNextScene), out Component comp))
-            gameObject.AddComponent<DontDestroyOnLoadNextScene>();       
-        
-        itemInfo.SetActive(false);//Это НЕ ВЫКЛЮЧЕНИК ОБЪЕКТА
+        if (food.CanRise)
+        {
+            inventory.AddFood(food, gameObject);
+            if (!TryGetComponent(typeof(DontDestroyOnLoadNextScene), out Component comp))
+                gameObject.AddComponent<DontDestroyOnLoadNextScene>();
+
+            itemInfo.SetActive(false);//Это НЕ ВЫКЛЮЧЕНИК ОБЪЕКТА
+        }
+        else food.itemAction.Invoke();
     }
     private void SetSpriteToWhite(bool white)
     {

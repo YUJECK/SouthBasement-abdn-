@@ -24,6 +24,7 @@ public class FoodItem : ScriptableObject
     //Ссылки на другие скрипты
     private Health playerHealth;
     [HideInInspector] public FoodSlots slot;
+    [HideInInspector] public ItemInfo itemInfo;
     private Player plaeyrController;
 
     public void ActiveItem() // Скрипт для активации предмета
@@ -36,7 +37,7 @@ public class FoodItem : ScriptableObject
     public void PowerDrink()
     {
         playerHealth.TakeAwayHealth(10,10);
-        plaeyrController.BoostSpeed(0.1f);
+        plaeyrController.BoostSpeed(0.3f);
     }
 
     public void Cookie()
@@ -71,6 +72,8 @@ public class FoodItem : ScriptableObject
         {
             playerHealth.TakeAwayHealth(10,10);
             playerHealth.Heal(50);
+            SetSprite(extraSprites[0], itemInfo.GetComponent<SpriteRenderer>());
+            itemInfo.active = false;
         }
     }    
     public void BakedCockroach()

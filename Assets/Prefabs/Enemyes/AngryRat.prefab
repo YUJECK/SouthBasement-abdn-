@@ -300,6 +300,15 @@ MonoBehaviour:
   maxCheese: 8
   destroySound: 
   hitSound: 
+  burn:
+    startTime: 0
+    durationTime: 0
+  bleed:
+    startTime: 0
+    durationTime: 0
+  poisoned:
+    startTime: 0
+    durationTime: 0
   stun:
     m_PersistentCalls:
       m_Calls:
@@ -315,6 +324,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  regeneration:
+    startTime: 0
+    durationTime: 0
   roomCloser: {fileID: 0}
   angryRatAi: {fileID: 5157359432002517473}
 --- !u!114 &1776300603172290270
@@ -551,8 +563,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8302321032984290554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.114, y: 0.42, z: -1}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalPosition: {x: 0.059, y: 0.669, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5630845710053068691}
   m_RootOrder: 3

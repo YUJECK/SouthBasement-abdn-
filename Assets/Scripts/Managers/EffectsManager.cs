@@ -54,6 +54,8 @@ public class EffectsManager : MonoBehaviour
         }
         if(enHealth != null) 
         {
+            enHealth.bleed.durationTime = durationTime;
+            enHealth.bleed.startTime = Time.time;
             Bleed.listeners.AddListener(enHealth.Bleed);
             enHealth.effectIndicator.sprite = Bleed.indicator;
         }
@@ -67,6 +69,8 @@ public class EffectsManager : MonoBehaviour
         }
         if(enHealth != null) 
         {
+            enHealth.burn.durationTime = durationTime;
+            enHealth.burn.startTime = Time.time;
             Burn.listeners.AddListener(enHealth.Burn);
             enHealth.effectIndicator.sprite = Burn.indicator;
         }
@@ -78,8 +82,10 @@ public class EffectsManager : MonoBehaviour
             Poisoned.listeners.AddListener(plHealth.Poisoned);
             plHealth.effectIndicator.sprite = Poisoned.indicator;
         }
-        if(enHealth != null) 
+        if(enHealth != null)
         {
+            enHealth.poisoned.durationTime = durationTime;
+            enHealth.poisoned.startTime = Time.time;
             Poisoned.listeners.AddListener(enHealth.Poisoned);
             enHealth.effectIndicator.sprite = Poisoned.indicator;
         }
@@ -93,6 +99,8 @@ public class EffectsManager : MonoBehaviour
         }
         if(enHealth != null) 
         {
+            enHealth.regeneration.durationTime = durationTime;
+            enHealth.regeneration.startTime = Time.time;
             Regeneration.listeners.AddListener(enHealth.Regeneration);
             enHealth.effectIndicator.sprite = Regeneration.indicator;
         }

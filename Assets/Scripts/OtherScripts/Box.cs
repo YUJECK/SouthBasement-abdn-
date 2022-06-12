@@ -53,7 +53,6 @@ public class Box : MonoBehaviour
 
     private void GetAllItemInChance()
     {
-        Debug.Log(chance); 
         if (itemsClassesToTrade.Contains(ItemClass.Food))
         {
             for (int i = 0; i < gameManager.Food.Count; i++)
