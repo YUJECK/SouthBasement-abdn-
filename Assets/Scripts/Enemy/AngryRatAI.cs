@@ -13,11 +13,11 @@ public class AngryRatAI : MonoBehaviour
 
     [Header("Параметры поведения")]
     [SerializeField] private Transform target;
-    public Effect stun;
+    [HideInInspector] public Effect stun;
     private bool isNowGoing; //Идет ли враг 
     private bool freezeFlip;
     private bool isFlippedOnRight; //Повернут ли враг напрво
-    private TargetType targetMoveType = TargetType.Static; //Подвижный ли таргет
+    [SerializeField] private TargetType targetMoveType = TargetType.Static; //Подвижный ли таргет
     public TriggerCheker stopCheker;
     public TriggerCheker triggerCheker; //Область в которой враг будет идти за игроком
     private float _speed; //Скорость передвижения вр крысы
@@ -45,7 +45,7 @@ public class AngryRatAI : MonoBehaviour
     [SerializeField] private float searchRate = 3f; //Частота поиска
     private float nextSearchTime = 0f; //След время поиска
     [SerializeField] private List<EnemyTarget> targets; //Точки для передвижения
-    private List<Vector2> path = new List<Vector2>(); //Путь
+    [SerializeField] private List<Vector2> path = new List<Vector2>(); //Путь
     private Vector2 lastPos = new Vector2();
 
     //Ссылки на другие классы
@@ -73,12 +73,13 @@ public class AngryRatAI : MonoBehaviour
     { stun.durationTime = stunTime; stun.startTime = Time.time; anim.SetBool("isStunned", true); }
 
     //Методы поведения
-    public void SetTarget(Transform target)
+    public void SetTarget(EnemyTarget target)
     {
         if (grid.isGridCreated && this.target != target)
         {
-            this.target = target;
-            FindPath(target);
+            this.target = target.transform;
+            targetMoveType = target.targetType;
+            FindPath(target.transform);
             SetNextSearchTime();
             //Debug.Log("Target: " + target.name + " setted");
         }
@@ -98,14 +99,14 @@ public class AngryRatAI : MonoBehaviour
            new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
            new Vector2(target.position.x / grid.nodeSize, target.position.y / grid.nodeSize));
     }
-    private Transform FindNewTarget()
+    private EnemyTarget FindNewTarget()
     {
         bool isSamePriority = true;
         EnemyTarget target = null;
         int priority = targets[0].priority;
 
-        //Проверяем все таргеты по приоритету
         for (int i = 0; i < targets.Count; i++)
+        //Проверяем все таргеты по приоритету
         {
             if (targets[i].priority == priority) continue;
             else //Если приоритет не одинаковый
@@ -115,24 +116,25 @@ public class AngryRatAI : MonoBehaviour
                 break;
             }
         }
-        //Если у всех таргетов одинаковый приоритет
         if (isSamePriority)
+        //Если у всех таргетов одинаковый приоритет
         {
             int rand = Random.Range(0, targets.Count);
             target = targets[rand];
         }
 
-        if (target != null)
+        if (target != null) //Ставим скорость
         {
             if (target.targetType == TargetType.Movable)
                 speed = runSpeed;
             else speed = walkSpeed;
         }
+        //Выводим сообщение в консоль если ничего не нашли
         else FindObjectOfType<RatConsole>().DisplayText("Таргет не был найден", Color.red,
             RatConsole.Mode.ConsoleMessege, "<AngryRatAI.cs, line 132>");
       
         //Не думаю что сюда код вообще попадет
-        return null;
+        return target;
     }
     public void OnAreaExit(GameObject obj) //Метод который будет вызываться при выходе за границу поля зрения врага
     {
@@ -142,6 +144,7 @@ public class AngryRatAI : MonoBehaviour
             {
                 if (target == obj.GetComponent<EnemyTarget>()) ResetTarget();
                 targets.Remove(obj.GetComponent<EnemyTarget>());
+                Debug.Log("!Enter");
             }
         }
     }
@@ -155,6 +158,7 @@ public class AngryRatAI : MonoBehaviour
                 targets.Add(newTarget);
                 QuickSort(targets, 0, targets.Count-1);
                 SetTarget(FindNewTarget());
+                Debug.Log("!Exit");
             }
         }
     }
@@ -212,6 +216,7 @@ public class AngryRatAI : MonoBehaviour
         GetComponent<HealthEnemy>().stun.AddListener(Stun);
         if(triggerCheker != null)
         {
+            Debug.Log("Trigger Cheker isnt null)");
             triggerCheker.onEnter.AddListener(OnAreaEnter);
             triggerCheker.onExit.AddListener(OnAreaExit);
         }

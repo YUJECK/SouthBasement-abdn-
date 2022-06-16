@@ -283,9 +283,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f975bdfffc214a84e8605b105297679e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDamage: 8
-  maxDamage: 12
-  attackRate: 1.2
+  minDamage: 10
+  maxDamage: 14
+  attackRate: 1.8
   attackCheker: {fileID: 5636856872160811131}
   target: {fileID: 0}
   stun:
@@ -293,8 +293,8 @@ MonoBehaviour:
     durationTime: 0
   stopCheker: {fileID: 5786294515894876683}
   triggerCheker: {fileID: 9033393056424197845}
-  walkSpeed: 2
-  runSpeed: 3
+  walkSpeed: 1
+  runSpeed: 2
   searchRate: 1
   targets: []
 --- !u!114 &1209497417465223578
@@ -309,15 +309,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4937f07ba56b4043a5f2b00622de0af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
-  maxHealth: 200
+  health: 240
+  maxHealth: 240
   onDestroy:
     m_PersistentCalls:
       m_Calls: []
   effectIndicator: {fileID: 3330916501560165472}
   damageColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
-  minCheese: 0
-  maxCheese: 8
+  minCheese: 2
+  maxCheese: 10
   destroySound: 
   hitSound: 
   burn:

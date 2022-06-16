@@ -15,12 +15,17 @@ public class TriggerCheker : MonoBehaviour
     public string targetTag = "Player";
     public Transform obj = null;
     public List<Transform> other = new List<Transform>();
-    
+
+    private void Update()
+    {
+        if (changeMode == ChangeMode.Trigger && trigger && obj == null) trigger = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {   
-        trigger = true;
-        onEnter.Invoke(other.gameObject);
         nowEnter = other.gameObject;
+        onEnter.Invoke(other.gameObject);
+        trigger = true;
 
         if (changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.OnlyAsTag && other.CompareTag(targetTag))
             obj = other.transform;
@@ -38,6 +43,7 @@ public class TriggerCheker : MonoBehaviour
         else if (changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.All)
             this.other.Remove(other.transform);
     }
+    
     public enum TriggerMode
     {
         OnlyAsTag,
