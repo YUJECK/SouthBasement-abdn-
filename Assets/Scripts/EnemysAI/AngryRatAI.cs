@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TargetSelection))]
 public class AngryRatAI : MonoBehaviour
 {
     [Header("Параметры атаки")]
@@ -81,7 +82,6 @@ public class AngryRatAI : MonoBehaviour
             targetMoveType = target.targetType;
             FindPath(target.transform);
             SetNextSearchTime();
-            //Debug.Log("Target: " + target.name + " setted");
         }
     }
     public void ResetTarget()
@@ -216,7 +216,6 @@ public class AngryRatAI : MonoBehaviour
         GetComponent<HealthEnemy>().stun.AddListener(Stun);
         if(triggerCheker != null)
         {
-            Debug.Log("Trigger Cheker isnt null)");
             triggerCheker.onEnter.AddListener(OnAreaEnter);
             triggerCheker.onExit.AddListener(OnAreaExit);
         }
@@ -265,7 +264,7 @@ public class AngryRatAI : MonoBehaviour
                 if (isNowGoing) anim.SetBool("isRun", true); //Ходьба
                 else anim.SetBool("isRun", false);
             }
-            if (triggerCheker.trigger && triggerCheker.obj.TryGetComponent(typeof(EnemyTarget), out Component newTarget))
+            if (triggerCheker.obj != null && triggerCheker.trigger && triggerCheker.obj.TryGetComponent(typeof(EnemyTarget), out Component newTarget))
             {
                 if (!targets.Contains(triggerCheker.obj.GetComponent<EnemyTarget>()))
                 {
