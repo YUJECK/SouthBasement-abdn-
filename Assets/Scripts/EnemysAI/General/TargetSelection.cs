@@ -4,14 +4,15 @@ using UnityEngine.Events;
 
 public class TargetSelection : MonoBehaviour
 {
-    [SerializeField] private Transform target;
-    [SerializeField] private TargetType targetMoveType = TargetType.Static; //Подвижный ли таргет
     public TriggerCheker areaCheker; //Область в которой враг будет идти за игроком
-    [SerializeField] private List<EnemyTarget> targets; //Точки для передвижения
+    [SerializeField] private EnemyTarget target;
+    private TargetType targetMoveType = TargetType.Static; //Подвижный ли таргет
+    [SerializeField] private List<EnemyTarget> targets = new List<EnemyTarget>(); //Точки для передвижения
+    [SerializeField] private List<string> blackTagList = new List<string>();
 
     //Ивенты
-    public UnityEvent SetTarget = new UnityEvent();
-    public UnityEvent ResetTarget = new UnityEvent();
+    public UnityEvent<EnemyTarget> SetTarget = new UnityEvent<EnemyTarget>();
+    public UnityEvent<EnemyTarget> ResetTarget = new UnityEvent<EnemyTarget>();
 
     private EnemyTarget FindNewTarget()
     {
@@ -43,29 +44,30 @@ public class TargetSelection : MonoBehaviour
         //Не думаю что сюда код вообще попадет
         return target;
     }
-    public void OnAreaExit(GameObject obj) //Метод который будет вызываться при выходе за границу поля зрения врага
+    public void OnTriggerExit2D(Collider2D coll) //Метод который будет вызываться при выходе за границу поля зрения врага
     {
-        if (obj.TryGetComponent(typeof(EnemyTarget), out Component comp))
+        if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
         {
-            if (targets.Contains(obj.GetComponent<EnemyTarget>()))
+            if (targets.Contains(coll.GetComponent<EnemyTarget>()))
             {
                 //Если таргет который вышел за пределы поля зрения действующий таргет, то мы ресетаем
-                if (target == obj.GetComponent<EnemyTarget>()) ResetTarget.Invoke();
-                
-                targets.Remove(obj.GetComponent<EnemyTarget>());
+                if (target == coll.GetComponent<EnemyTarget>()) ResetTarget.Invoke(target);
+
+                targets.Remove(coll.GetComponent<EnemyTarget>());
             }
         }
     }
-    public void OnAreaEnter(GameObject obj) //Метод который будет вызываться при входе в поле зрения
+    public void OnTriggerEnter2D(Collider2D coll) //Метод который будет вызываться при входе в поле зрения
     {
-        if (obj.TryGetComponent(typeof(EnemyTarget), out Component comp))
+        if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
         {
-            EnemyTarget newTarget = obj.GetComponent<EnemyTarget>();
-            if (!targets.Contains(newTarget))
+            EnemyTarget newTarget = coll.GetComponent<EnemyTarget>();
+            if (!targets.Contains(newTarget) && !blackTagList.Contains(coll.tag))
             {
                 targets.Add(newTarget);
                 QuickSort(targets, 0, targets.Count - 1);
-                target = FindNewTarget().transform;
+                target = FindNewTarget();
+                SetTarget.Invoke(target);
             }
         }
     }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(TargetSelection))]
 public class AngryRatAI : MonoBehaviour
 {
     [Header("Параметры атаки")]
@@ -10,7 +9,6 @@ public class AngryRatAI : MonoBehaviour
     [SerializeField] private float attackRate = 1f; //Частота атаки
     [SerializeField] private TriggerCheker attackCheker;
     private float nextAttackTime = 0f; //След время атаки
-
 
     [Header("Параметры поведения")]
     [SerializeField] private Transform target;
@@ -21,7 +19,6 @@ public class AngryRatAI : MonoBehaviour
     [SerializeField] private TargetType targetMoveType = TargetType.Static; //Подвижный ли таргет
     public TriggerCheker stopCheker;
     public TriggerCheker triggerCheker; //Область в которой враг будет идти за игроком
-    private float _speed; //Скорость передвижения вр крысы
     public float speed
     {
         get { return _speed; }
@@ -39,8 +36,8 @@ public class AngryRatAI : MonoBehaviour
             }
             _speed = value;
         }
-
     }
+    private float _speed; //Скорость передвижения вр крысы
     [SerializeField] private float walkSpeed = 2f; //Скорость при ходьбе
     [SerializeField] private float runSpeed = 3.3f; //Скорость при беге
     [SerializeField] private float searchRate = 3f; //Частота поиска
