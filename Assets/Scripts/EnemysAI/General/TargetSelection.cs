@@ -4,7 +4,6 @@ using UnityEngine.Events;
 
 public class TargetSelection : MonoBehaviour
 {
-    public TriggerCheker areaCheker; //ќбласть в которой враг будет идти за игроком
     [SerializeField] private EnemyTarget target;
     private TargetType targetMoveType = TargetType.Static; //ѕодвижный ли таргет
     [SerializeField] private List<EnemyTarget> targets = new List<EnemyTarget>(); //“очки дл€ передвижени€
@@ -51,8 +50,12 @@ public class TargetSelection : MonoBehaviour
             if (targets.Contains(coll.GetComponent<EnemyTarget>()))
             {
                 //≈сли таргет который вышел за пределы пол€ зрени€ действующий таргет, то мы ресетаем
-                if (target == coll.GetComponent<EnemyTarget>()) ResetTarget.Invoke(target);
-
+                if (target == coll.GetComponent<EnemyTarget>()) 
+                {
+                    ResetTarget.Invoke(target);
+                    target = null;
+                }
+                
                 targets.Remove(coll.GetComponent<EnemyTarget>());
             }
         }

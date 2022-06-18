@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Pathfinding))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Move : MonoBehaviour
 {
     public float speed
@@ -24,31 +25,49 @@ public class Move : MonoBehaviour
     }
     public bool isStopped;
     public List<string> stopTags = new List<string>();
-    private List<Vector2> path = new List<Vector2>();
+    public List<Vector2> path = new List<Vector2>();
 
     //Переменные для поворота
     private bool flippedOnRight;
     private Vector2 lastPos;
 
     //Ссылки на другие скрипты
-    private TargetSelection targetSelection;
+    [SerializeField] private TargetSelection targetSelection;
     private Pathfinding pathfinding;
     private Grid grid;
     private Rigidbody2D rb;
 
-    private void FindPath(EnemyTarget target)
+    public void FindPath(EnemyTarget target)
     {
-        path = pathfinding.FindPath();
+        Debug.Log(target.name);
+        if (path.Count != 0) path.Clear();
+        path = pathfinding.FindPath(
+           new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
+           new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize));
+
+        Debug.Log(path.Count);
+    }
+    public void ResetPath()
+    {
+        path.Clear();
+        pathfinding.ResetGridChanges();
     }
     private void Flip() { transform.Rotate(0f, 180f, 0f); }
 
+    private void Start()
+    {
+        pathfinding = GetComponent<Pathfinding>();
+        rb = GetComponent<Rigidbody2D>();
+        grid = FindObjectOfType<Grid>();
+        targetSelection.SetTarget.AddListener(FindPath);
+    }
     private void FixedUpdate() //Физическая логика
     {
         //Сброс velocity
         if (rb != null) rb.velocity = Vector2.zero;
 
         //Поворот
-        if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position && !freezeFlip)
+        if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position && !isStopped)
         {
             if (lastPos.x < transform.position.x && flippedOnRight)
             {
@@ -67,6 +86,7 @@ public class Move : MonoBehaviour
         //Движение 
         if (path.Count != 0)
         {
+            Debug.Log("PathCount");
             transform.position = Vector2.MoveTowards(transform.position, path[0], speed * Time.deltaTime);
             isStopped = false;
 
