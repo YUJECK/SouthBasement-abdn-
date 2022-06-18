@@ -9,5 +9,5 @@ public enum TargetType
 public class EnemyTarget : MonoBehaviour
 {
     public int priority;
-    public TargetType targetType;
+    public TargetType targetMoveType;
 }

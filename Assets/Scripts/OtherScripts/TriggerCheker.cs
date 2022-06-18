@@ -24,24 +24,24 @@ public class TriggerCheker : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {   
         nowEnter = other.gameObject;
-        onEnter.Invoke(other.gameObject);
+        onEnter.Invoke(nowEnter);
         trigger = true;
 
         if (changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.OnlyAsTag && other.CompareTag(targetTag))
             obj = other.transform;
         else if (changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.All)
-            this.other.Add(other.transform); 
+            this.other.Add(nowEnter.transform); 
     }
     private void OnTriggerExit2D(Collider2D other)
     {
         nowExit = other.gameObject;
-        onExit.Invoke(other.gameObject);
+        onExit.Invoke(nowExit);
         trigger = false;
 
         if(changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.OnlyAsTag && other.CompareTag(targetTag))
             obj = null;
         else if (changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.All)
-            this.other.Remove(other.transform);
+            this.other.Remove(nowExit.transform);
     }
     
     public enum TriggerMode

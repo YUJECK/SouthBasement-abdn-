@@ -27,7 +27,6 @@ public class PointRotation : MonoBehaviour
         mainCamera = Camera.main;
         if(targetType == TargetType.Player) target = FindObjectOfType<Player>().transform;
     }
-
     private void Update()
     {
         if (center != null && movePosToCenter) //Движение за центром
@@ -41,6 +40,7 @@ public class PointRotation : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0f, 0f, coefficient * CalculateAngle());
     }
 
+    public void MultiplyCoefficent(float x) { coefficient *= x; }
     private float CalculateAngle() 
     {
         if(!stopRotating)

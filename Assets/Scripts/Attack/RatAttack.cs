@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.Events;
-using System.Collections.Generic;
 
+[RequireComponent(typeof(PointRotation))]
 public class RatAttack : MonoBehaviour
 {
     public MelleRangeWeapon melleWeapon;
@@ -9,12 +8,12 @@ public class RatAttack : MonoBehaviour
     [HideInInspector] public PointRotation pointRotation;
     public SpriteRenderer weaponSprite;
     private Animator animRange;
-    public Transform AttackPoint;
+    public Transform attackPoint;
     private float nextTime;
 
     [Header("Attack settings")]
-    public LayerMask EnemyLayers;
-    public float AttackRange;
+    public LayerMask enemyLayers;
+    public float attackRange;
     private float attackRate = 2f;
     public int damage = 2;
     public int damageBoost = 2;
@@ -27,7 +26,7 @@ public class RatAttack : MonoBehaviour
 
     private void Start()
     {
-        pointRotation = FindObjectOfType<PointRotation>();
+        pointRotation = GetComponent<PointRotation>();
         animRange = transform.GetChild(0).GetComponent<Animator>();
         player = FindObjectOfType<Player>();
         effectsManager = FindObjectOfType<EffectsManager>();
@@ -59,7 +58,7 @@ public class RatAttack : MonoBehaviour
         player.PlayAttackAnimation(melleWeapon.typeOfAttack);
         PlayAttackRangeAnimation(melleWeapon.typeOfAttack);
         
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, EnemyLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -91,12 +90,12 @@ public class RatAttack : MonoBehaviour
     public void SetMelleWeapon(MelleRangeWeapon weapon)
     {
         melleWeapon = weapon;
-        AttackRange = weapon.attackRange;
+        attackRange = weapon.attackRange;
         attackRate = weapon.attackRate;
         damage = weapon.damage;
         weaponSprite.sprite = weapon.sprite;
-        AttackPoint.localScale = new Vector3(10*weapon.attackRange/2, 10*weapon.attackRange/2, 1);
-        AttackPoint.localPosition = new Vector3(AttackPoint.localPosition.x, melleWeapon.lenght, 0f);
+        attackPoint.localScale = new Vector3(10*weapon.attackRange/2, 10*weapon.attackRange/2, 1);
+        attackPoint.localPosition = new Vector3(attackPoint.localPosition.x, melleWeapon.lenght, 0f);
     }
     public void SetToDefault(){ SetMelleWeapon(defaultWeapon); }
     public void HideMelleweaponIcon(bool hiding) // Включние, выключение спрайта оружия
@@ -107,6 +106,6 @@ public class RatAttack : MonoBehaviour
     
     void OnDrawGizmosSelected()//Отрисовка радиуса атаки
     {
-        Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

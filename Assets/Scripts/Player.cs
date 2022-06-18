@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
         flippedOnRight = !flippedOnRight;  
         transform.Rotate(0f,180f,0f);
         ratAttack.pointRotation.coefficient *= -1f;
-        ratAttack.AttackPoint.GetComponent<SpriteRenderer>().flipY = !ratAttack.AttackPoint.GetComponent<SpriteRenderer>().flipY;
+        ratAttack.attackPoint.GetComponent<SpriteRenderer>().flipY = !ratAttack.attackPoint.GetComponent<SpriteRenderer>().flipY;
     }
     
     enum Rotation { Left, Right }

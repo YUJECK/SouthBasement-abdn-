@@ -10,8 +10,9 @@ public class TargetSelection : MonoBehaviour
     [SerializeField] private List<string> blackTagList = new List<string>();
 
     //»венты
-    public UnityEvent<EnemyTarget> SetTarget = new UnityEvent<EnemyTarget>();
-    public UnityEvent<EnemyTarget> ResetTarget = new UnityEvent<EnemyTarget>();
+    public UnityEvent<EnemyTarget> onSetTarget = new UnityEvent<EnemyTarget>();
+    public UnityEvent<EnemyTarget> onResetTarget = new UnityEvent<EnemyTarget>();
+    public UnityEvent<EnemyTarget> onTargetChange = new UnityEvent<EnemyTarget>();
 
     private EnemyTarget FindNewTarget()
     {
@@ -52,7 +53,7 @@ public class TargetSelection : MonoBehaviour
                 //≈сли таргет который вышел за пределы пол€ зрени€ действующий таргет, то мы ресетаем
                 if (target == coll.GetComponent<EnemyTarget>()) 
                 {
-                    ResetTarget.Invoke(target);
+                    onResetTarget.Invoke(target);
                     target = null;
                 }
                 
@@ -69,8 +70,10 @@ public class TargetSelection : MonoBehaviour
             {
                 targets.Add(newTarget);
                 QuickSort(targets, 0, targets.Count - 1);
-                target = FindNewTarget();
-                SetTarget.Invoke(target);
+                EnemyTarget bestTarget = FindNewTarget();
+                if (target != bestTarget) onTargetChange.Invoke(bestTarget);
+                target = bestTarget;
+                onSetTarget.Invoke(target);
             }
         }
     }

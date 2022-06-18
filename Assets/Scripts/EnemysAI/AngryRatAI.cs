@@ -76,7 +76,7 @@ public class AngryRatAI : MonoBehaviour
         if (grid.isGridCreated && this.target != target)
         {
             this.target = target.transform;
-            targetMoveType = target.targetType;
+            targetMoveType = target.targetMoveType;
             FindPath(target.transform);
             SetNextSearchTime();
         }
@@ -122,7 +122,7 @@ public class AngryRatAI : MonoBehaviour
 
         if (target != null) //Ставим скорость
         {
-            if (target.targetType == TargetType.Movable)
+            if (target.targetMoveType == TargetType.Movable)
                 speed = runSpeed;
             else speed = walkSpeed;
         }
