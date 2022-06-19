@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RoomGenerationManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class RoomGenerationManager : MonoBehaviour
 
     [Header("")] 
     public List<RoomInfo> roomsList;
+    public UnityEvent onSpawned = new UnityEvent();
 
     [Header("Обычные комнаты")]
     public GameObject[] left;
@@ -33,7 +35,8 @@ public class RoomGenerationManager : MonoBehaviour
 
     void Awake()
     {
-        Invoke("ActivateExitRoom",4f);
+        onSpawned.AddListener(ActivateExitRoom);
+        onSpawned.AddListener(FindObjectOfType<Grid>().StartGrid);
 
         createRoomsList:
         
@@ -78,7 +81,7 @@ public class RoomGenerationManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         if(NowSpawnedRooms <= RoomsCount-2)
             Regenerate();
-        else FindObjectOfType<Grid>().ResetGrid();
+        else onSpawned.Invoke();
     }
 
     private void Regenerate()
@@ -98,8 +101,6 @@ public class RoomGenerationManager : MonoBehaviour
             roomsList[0].spawnPoints[i].ResetPoint();
             roomsList[0].spawnPoints[i].Spawn();
         }
-
-        FindObjectOfType<Grid>().ResetGrid();
         StartCoroutine(roomsCountCheker());
     }
 

@@ -16,7 +16,7 @@ public class RoomsNPCList : MonoBehaviour
     private void Awake()
     {
         generationManager = GetComponent<RoomGenerationManager>();
-        Invoke("StartSpawning", 6f); //Через 4 секунды начнут спавниться нпс
+        generationManager.onSpawned.AddListener(StartSpawning);
     }
     private void StartSpawning()
     {          

@@ -25,7 +25,7 @@ public class Grid : MonoBehaviour
         // Invoke("StartGrid", 5f);
     }
 
-    private void StartGrid()
+    public void StartGrid()
     {
         Camera camera = Camera.main;
         
@@ -80,7 +80,6 @@ public class Grid : MonoBehaviour
         isGridCreated = true;
         Debug.Log("GridWasCreated");
     }
-    public void ResetGrid(){StartGrid();}
     public void ShowGrid()
     {        
         for(float x = 0; x < gridWidth; x+=nodeSize)
