@@ -53,7 +53,7 @@ public class HealthEnemy : MonoBehaviour
     }
     private void Update()
     {
-        if (burn.durationTime!= 0 && Time.time - burn.startTime > burn.durationTime) ResetBurn();
+        if (burn.durationTime != 0 && Time.time - burn.startTime > burn.durationTime) ResetBurn();
         if (bleed.durationTime != 0 && Time.time - bleed.startTime > bleed.durationTime) ResetBleed();
         if (poisoned.durationTime != 0 && Time.time - poisoned.startTime > poisoned.durationTime) { ResetPoisoned(); Debug.Log("pr"); }
         if (regeneration.durationTime != 0 && Time.time - regeneration.startTime > regeneration.durationTime) ResetRegeneration();

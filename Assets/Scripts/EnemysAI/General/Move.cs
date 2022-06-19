@@ -6,9 +6,10 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Move : MonoBehaviour
 {
-    private float _speed = 3; // Скорость передвижения 
+    [Header("Параметры передвижения")]
+    [SerializeField] private float _speed = 3; // Скорость передвижения 
     [SerializeField] private float searchRate = 1f; // Частота репоиска 
-    [SerializeField] private float nextSearchTime = 0f; 
+    private float nextSearchTime = 0f; 
     public float speed
     {
         get { return _speed; }
@@ -27,9 +28,8 @@ public class Move : MonoBehaviour
             _speed = value;
         }
     }
-    public bool isNowWalk; //Идет ли сейчас 
-    public bool isStopped; //Остановлен ли
-    [SerializeField] private TriggerCheker stopCheker;
+    [HideInInspector] public bool isNowWalk; //Идет ли сейчас 
+    [HideInInspector] public bool isStopped; //Остановлен ли
     private List<Vector2> path = new List<Vector2>(); //Путь
     private EnemyTarget target; //Таргет
 
@@ -41,6 +41,8 @@ public class Move : MonoBehaviour
     private Vector2 lastPos;
 
     //Ссылки на другие скрипты
+    [Header("Другое")]
+    [SerializeField] private TriggerCheker stopCheker;
     [SerializeField] private TargetSelection targetSelection;
     private Pathfinding pathfinding;
     private Grid grid;

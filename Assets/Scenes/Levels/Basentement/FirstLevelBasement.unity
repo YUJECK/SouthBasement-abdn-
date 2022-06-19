@@ -225,7 +225,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1480189822}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &33608303
 CircleCollider2D:
@@ -1442,7 +1442,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1480189822}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &297559805
 MonoBehaviour:
@@ -3713,6 +3713,9 @@ MonoBehaviour:
   TraderIndex: 0
   BoxIndex: 0
   roomsList: []
+  onSpawned:
+    m_PersistentCalls:
+      m_Calls: []
   left:
   - {fileID: 8324749934491235551, guid: 67ea5f1861bee6147ac2dbe57d37897e, type: 3}
   - {fileID: 4144719029366047440, guid: b1c58844e7d2e06469d0bb2741ab57c9, type: 3}
@@ -4409,7 +4412,7 @@ Transform:
   m_Children:
   - {fileID: 1070247050}
   m_Father: {fileID: 1480189822}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1117370129
 MonoBehaviour:
@@ -4427,7 +4430,7 @@ MonoBehaviour:
   damage: 10
   attackRange: 0.7
   attackRate: 1
-  attackTimeOffset: 0.6
+  attackTimeOffset: 0.5
   onAttack:
     m_PersistentCalls:
       m_Calls: []
@@ -5736,11 +5739,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8f7d1eb7abf434eb3015745e311bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 3
   searchRate: 1
-  nextSearchTime: 0
   isNowWalk: 0
   isStopped: 0
-  stopCheker: {fileID: 297559805}
   onFlip:
     m_PersistentCalls:
       m_Calls:
@@ -5756,6 +5758,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  stopCheker: {fileID: 297559805}
   targetSelection: {fileID: 33608304}
 --- !u!114 &1480189820
 MonoBehaviour:
@@ -5835,9 +5838,9 @@ Transform:
   m_LocalPosition: {x: 211.89, y: 197.57, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
+  - {fileID: 1117370128}
   - {fileID: 33608302}
   - {fileID: 297559804}
-  - {fileID: 1117370128}
   - {fileID: 200262395}
   m_Father: {fileID: 0}
   m_RootOrder: 14
