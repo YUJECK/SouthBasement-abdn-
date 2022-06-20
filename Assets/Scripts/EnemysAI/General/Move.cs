@@ -7,7 +7,6 @@ using UnityEngine.Events;
 public class Move : MonoBehaviour
 {
     [Header("Параметры передвижения")]
-    //[SerializeField] private TriggerCheker areaCheker; //Триггер зоны видения
     [SerializeField] private float _speed = 3; // Скорость передвижения 
     [SerializeField] private float searchRate = 1f; // Частота репоиска 
     private float nextSearchTime = 0f; 
@@ -66,9 +65,9 @@ public class Move : MonoBehaviour
     }
     private void SetNextSearchTime() { nextSearchTime = Time.time + searchRate; }
 
-    //Метод поворота
-    private void Flip() { if (!isStopped) { transform.Rotate(0f, 180f, 0f); onFlip.Invoke(); } }
-
+    //Метод поворота    
+    private void FlipObject() { if (!isStopped) { transform.Rotate(0f, 180f, 0f); onFlip.Invoke(); } }
+    public void FlipOther(Transform _transform) { _transform.Rotate(180f, 0f, 0f); } 
     //Юнитивские методы
     private void Start()
     {
@@ -99,12 +98,12 @@ public class Move : MonoBehaviour
             {
                 if (lastPos.x < transform.position.x && flippedOnRight)
                 {
-                    Flip();
+                    FlipObject();
                     flippedOnRight = false;
                 }
                 else if (lastPos.x > transform.position.x && !flippedOnRight)
                 {
-                    Flip();
+                    FlipObject();
                     flippedOnRight = true;
                 }
             }

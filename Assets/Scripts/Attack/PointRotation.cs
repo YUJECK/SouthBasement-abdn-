@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class PointRotation : MonoBehaviour
 {
     public enum TargetType
@@ -63,5 +63,11 @@ public class PointRotation : MonoBehaviour
         }
         return angle;
     }
-    public void StopRotating(bool active) { stopRotating = active; }
+    public void StopRotating(bool active, float time) { StartCoroutine(_StopRotating(active, time)); }
+    private IEnumerator _StopRotating(bool active, float time)
+    {
+        stopRotating = active;
+        yield return new WaitForSeconds(time);
+        stopRotating = !active;
+    }
 }

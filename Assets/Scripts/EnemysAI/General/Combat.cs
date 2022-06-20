@@ -1,54 +1,74 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PointRotation))]
 public class Combat : MonoBehaviour
 {
-    [SerializeField] private Transform attackPoint;
+    [SerializeField] private Transform attackPoint; // Точка атаки
+    private PointRotation pointRotation; 
+
     [Header("Параметры атаки")]
-    [SerializeField] private int damage = 10;
-    [SerializeField] private float attackRange = 0.5f;
-    [SerializeField] private float attackRate = 3f;
-    [SerializeField] private float attackTimeOffset = 0.6f;
-    [SerializeField] private UnityEvent onAttack = new UnityEvent();
-    [SerializeField] private UnityEvent onBeforeAttack = new UnityEvent();
-    [SerializeField] private UnityEvent onEnterArea = new UnityEvent();
+    [SerializeField] private int minDamage = 10;
+    [SerializeField] private int maxDamage = 10;
+    [SerializeField] private float attackRange = 0.5f; // Радиус атаки
+    [SerializeField] private float attackRate = 3f; // Периодичность атаки
+    [SerializeField] private float attackTimeOffset = 0.6f; // Время когда сработает корутина
+    
+    [Header("События")]
+    [SerializeField] private UnityEvent onAttack = new UnityEvent(); // При атаке
+    [SerializeField] private UnityEvent onBeforeAttack = new UnityEvent(); // За attackTimeOffset до атаки
+    [SerializeField] private UnityEvent onEnterArea = new UnityEvent(); // Когда зашел в радиус активации атаки
+    
     [Header("Определение цели")]
-    [SerializeField] private LayerMask damageLayer;
-    [SerializeField] private string enterTag = "Player";
+    [SerializeField] private LayerMask damageLayer; // Дамажный слой
+    [SerializeField] private string enterTag = "Player"; // Тег на проверку у тригера
 
     private float nextTime = 0f;
     private bool onTrigger = false;
    
     //Методы атаки
+    private IEnumerator BeforeAttack(float waitTime)
+    {
+        onBeforeAttack.Invoke();
+        yield return new WaitForSeconds(waitTime);
+        Attack();
+    }
     private void Attack()
     {
+        //Определяем все объекты попавшие в радиус атаки
         Collider2D[] hitObj = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, damageLayer);
+        pointRotation.StopRotating(true, 0.8f);
         onAttack.Invoke();
 
+        //Проверяем каждый их них на наличие комнонента Health
         foreach (Collider2D obj in hitObj)
         {
             if(obj.TryGetComponent(typeof(Health), out Component comp))
-            {
-                obj.GetComponent<Health>().TakeHit(damage);
-                SetNextAttackTime(attackRate);
-            }
+                obj.GetComponent<Health>().TakeHit(Random.Range(minDamage, maxDamage+1));
         }
     }
     private void SetNextAttackTime(float value) { nextTime = Time.time + value; }
 
     //Юнитивские методы
+    private void Start()
+    {
+        pointRotation = GetComponent<PointRotation>();
+    }
     private void Update() 
     {
-        if (onTrigger && Time.time + attackTimeOffset == nextTime) { onBeforeAttack.Invoke(); } 
-        if (onTrigger && Time.time >= nextTime) Attack(); 
+        //Проверяем можем ли мы атаковать
+        if (onTrigger && Time.time >= nextTime - attackTimeOffset)
+        {
+            StartCoroutine(BeforeAttack(attackTimeOffset));
+            SetNextAttackTime(attackRate + attackTimeOffset);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == enterTag)
         {
             onTrigger = true;
-            SetNextAttackTime(attackTimeOffset);
             onEnterArea.Invoke();
         }
     }

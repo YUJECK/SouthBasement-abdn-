@@ -43,17 +43,14 @@ public class RatAttack : MonoBehaviour
                 SetNextTime();
             }
             if (Time.time >= nextTime)
-            {
                 is_Attack = false;
-                pointRotation.StopRotating(false);
-            }
         }
     }
     
     private void Attack()
     {
         is_Attack = true;
-        pointRotation.StopRotating(true);
+        pointRotation.StopRotating(true, 0.8f);
         //Проигрываем анимации
         player.PlayAttackAnimation(melleWeapon.typeOfAttack);
         PlayAttackRangeAnimation(melleWeapon.typeOfAttack);
