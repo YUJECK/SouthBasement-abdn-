@@ -78,7 +78,7 @@ public class Grid : MonoBehaviour
         }
 
         isGridCreated = true;
-        Debug.Log("GridWasCreated");
+        Debug.Log("Grid - active");
     }
     public void ShowGrid()
     {        

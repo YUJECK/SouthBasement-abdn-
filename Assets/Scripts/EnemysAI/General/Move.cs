@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class Move : MonoBehaviour
 {
     [Header("Параметры передвижения")]
+    //[SerializeField] private TriggerCheker areaCheker; //Триггер зоны видения
     [SerializeField] private float _speed = 3; // Скорость передвижения 
     [SerializeField] private float searchRate = 1f; // Частота репоиска 
     private float nextSearchTime = 0f; 
@@ -29,7 +30,7 @@ public class Move : MonoBehaviour
         }
     }
     [HideInInspector] public bool isNowWalk; //Идет ли сейчас 
-    [HideInInspector] public bool isStopped; //Остановлен ли
+    public bool isStopped = false; //Остановлен ли
     private List<Vector2> path = new List<Vector2>(); //Путь
     private EnemyTarget target; //Таргет
 
@@ -59,8 +60,7 @@ public class Move : MonoBehaviour
     }
     public void ResetTarget(EnemyTarget target = null)
     {
-        if(target != null && target == this.target)
-        target = null;
+        if (target != null && target == this.target) { this.target = null; } 
         path.Clear();
         pathfinding.ResetGridChanges();
     }
@@ -77,6 +77,8 @@ public class Move : MonoBehaviour
         grid = FindObjectOfType<Grid>();
         targetSelection.onTargetChange.AddListener(FindNewPath);
         targetSelection.onResetTarget.AddListener(ResetTarget);
+
+        isStopped = false;
     }
     private void FixedUpdate() //Физическая логика
     {

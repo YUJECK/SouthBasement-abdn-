@@ -118,7 +118,6 @@ public class Pathfinding : MonoBehaviour
             return new List<Vector2>();
         }
 
-        Debug.Log(grid.isGridCreated);
         return new List<Vector2>();
     }
     private void CheckPoint(int dX, int dY, Point point, ref List<Point> listOfPoints, Vector2 end) // Проверка след,, точки

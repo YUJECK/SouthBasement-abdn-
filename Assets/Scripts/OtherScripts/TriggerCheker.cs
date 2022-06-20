@@ -24,13 +24,18 @@ public class TriggerCheker : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {   
         nowEnter = other.gameObject;
-        onEnter.Invoke(nowEnter);
         trigger = true;
 
         if (changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.OnlyAsTag && other.CompareTag(targetTag))
+        {
+            onEnter.Invoke(nowEnter);
             obj = other.transform;
+        }
         else if (changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.All)
-            this.other.Add(nowEnter.transform); 
+        {
+            onEnter.Invoke(nowEnter);
+            this.other.Add(nowEnter.transform);
+        }
     }
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -38,10 +43,16 @@ public class TriggerCheker : MonoBehaviour
         onExit.Invoke(nowExit);
         trigger = false;
 
-        if(changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.OnlyAsTag && other.CompareTag(targetTag))
+        if (changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.OnlyAsTag && other.CompareTag(targetTag))
+        {
+            onExit.Invoke(nowExit);
             obj = null;
+        }
         else if (changeMode == ChangeMode.Trigger && triggerMode == TriggerMode.All)
+        {
+            onExit.Invoke(nowExit);
             this.other.Remove(nowExit.transform);
+        }
     }
     
     public enum TriggerMode

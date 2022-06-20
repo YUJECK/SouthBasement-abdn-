@@ -78,7 +78,6 @@ public class HealthEnemy : MonoBehaviour
         if (health <= 0)
         {
             int cheeseCount = Random.Range(minCheese,maxCheese);
-            Debug.Log("CheeseInEnemy" + cheeseCount);
             if(maxCheese != 0) gameManager.SpawnCheese(transform.position, cheeseCount);
             if(destroySound != "") audioManager.PlayClip(destroySound);
             Destroy(gameObject);
