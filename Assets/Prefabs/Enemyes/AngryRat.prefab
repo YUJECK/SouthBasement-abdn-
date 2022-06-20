@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744826149531914044}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.009, y: 1.046, z: 0}
+  m_LocalPosition: {x: 0.009, y: 1.111, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_Children: []
   m_Father: {fileID: 7370679699852093159}
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   onEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1160361261316572005}
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: SetStop
         m_Mode: 6
@@ -166,7 +166,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1160361261316572005}
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: SetStop
         m_Mode: 6
@@ -199,7 +199,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.031228304, y: 0}
   serializedVersion: 2
-  m_Radius: 0.71254706
+  m_Radius: 0.8790401
 --- !u!1 &3342140925434090965
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +271,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 6.607817
+  m_Radius: 9.403482
 --- !u!1 &4895378084597387988
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4895378084597387988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.425, y: 0.345, z: 0}
+  m_LocalPosition: {x: 0.4375, y: 0.385, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5630845710053068691}
@@ -343,7 +343,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 0b4968db33e2e7a48964f5dd5d38a1ae, type: 3}
   m_Color: {r: 0.6603774, g: 0, b: 0.07879491, a: 1}
   m_FlipX: 0
@@ -483,10 +483,10 @@ MonoBehaviour:
   stun:
     startTime: 0
     durationTime: 0
-  targetMoveType: 0
   walkSpeed: 2
   runSpeed: 3
   combat: {fileID: 3957418438233326896}
+  targetSelection: {fileID: 4066900711061194624}
 --- !u!114 &997358912328341320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,8 +653,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.06037299, y: -0.04852867}
-  m_Size: {x: 0.35779256, y: 0.44720334}
+  m_Offset: {x: -0.011880875, y: -0.06423664}
+  m_Size: {x: 0.37664223, y: 0.7110882}
   m_Direction: 0
 --- !u!1 &6114075096480147822
 GameObject:
@@ -706,7 +706,7 @@ MonoBehaviour:
   minDamage: 8
   maxDamage: 12
   attackRange: 0.4
-  attackRate: 1
+  attackRate: 1.5
   attackTimeOffset: 0.5
   onAttack:
     m_PersistentCalls:
@@ -792,7 +792,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.0403086
+  m_Radius: 1.2008195
 --- !u!1 &8302321032984290554
 GameObject:
   m_ObjectHideFlags: 0

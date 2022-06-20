@@ -29,7 +29,7 @@ public class Move : MonoBehaviour
         }
     }
     [HideInInspector] public bool isNowWalk; //Идет ли сейчас 
-    public bool isStopped = false; //Остановлен ли
+    [HideInInspector] public bool isStopped = false; //Остановлен ли
     private List<Vector2> path = new List<Vector2>(); //Путь
     private EnemyTarget target; //Таргет
 
