@@ -26,6 +26,7 @@ public class Combat : MonoBehaviour
 
     private float nextTime = 0f;
     private bool onTrigger = false;
+    [HideInInspector] public bool isStopped = false;
    
     //Методы атаки
     private IEnumerator BeforeAttack(float waitTime)
@@ -58,7 +59,7 @@ public class Combat : MonoBehaviour
     private void Update() 
     {
         //Проверяем можем ли мы атаковать
-        if (onTrigger && Time.time >= nextTime - attackTimeOffset)
+        if (!isStopped && onTrigger && Time.time >= nextTime - attackTimeOffset)
         {
             StartCoroutine(BeforeAttack(attackTimeOffset));
             SetNextAttackTime(attackRate + attackTimeOffset);
