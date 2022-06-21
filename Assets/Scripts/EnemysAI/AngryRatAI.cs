@@ -30,6 +30,7 @@ public class AngryRatAI : MonoBehaviour
         while(moving.speed != nextSpeed)
         {
             yield return new WaitForSeconds(0.25f);
+            Debug.Log("Changing Speed");
             moving.speed += n;
         }
     }
@@ -39,6 +40,7 @@ public class AngryRatAI : MonoBehaviour
         else if (this.target == null || this.target.targetMoveType != target.targetMoveType) ChangeSpeed(target.targetMoveType);
 
         this.target = target;
+        Debug.Log("Check target");
     }
     public void SetStun(float stunTime)
     {

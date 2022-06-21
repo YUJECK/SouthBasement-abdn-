@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 5630845709475724661}
   - component: {fileID: 1658189367019712007}
   - component: {fileID: 8900124603063756961}
+  - component: {fileID: 3964670963887834336}
   m_Layer: 6
   m_Name: LABR
   m_TagString: Enemy
@@ -278,27 +279,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f975bdfffc214a84e8605b105297679e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDamage: 4
-  maxDamage: 6
-  attackRate: 0.8
-  attackCheker: {fileID: 5636856872160811131}
-  target: {fileID: 0}
+  walkSpeed: 3
+  runSpeed: 4
   stun:
     startTime: 0
     durationTime: 0
-  targetMoveType: 0
-  stopCheker: {fileID: 5786294515894876683}
-  triggerCheker: {fileID: 9033393056424197845}
-  walkSpeed: 3
-  runSpeed: 4
-  searchRate: 1
-  targets: []
-  path: []
+  combat: {fileID: 0}
+  targetSelection: {fileID: 0}
 --- !u!114 &1209497417465223578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,7 +298,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4937f07ba56b4043a5f2b00622de0af, type: 3}
   m_Name: 
@@ -358,7 +350,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46c1c42e4d5d07f4c9478587f9891327, type: 3}
   m_Name: 
@@ -423,6 +415,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3964670963887834336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8f7d1eb7abf434eb3015745e311bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 3
+  searchRate: 1
+  isNowWalk: 0
+  isStopped: 0
+  onFlip:
+    m_PersistentCalls:
+      m_Calls: []
+  stopCheker: {fileID: 0}
+  targetSelection: {fileID: 0}
 --- !u!1 &6068210405539366294
 GameObject:
   m_ObjectHideFlags: 0
