@@ -25,26 +25,26 @@ public class AngryRatAI : MonoBehaviour
         if (moveType == TargetType.Static) nextSpeed = walkSpeed;
         else nextSpeed = runSpeed;
 
-        float n = (moving.speed - nextSpeed) / 20;
+        float k = (nextSpeed - moving.speed) / 20;
+        int n = (int)((nextSpeed - moving.speed) / k);
+        if (n < 0f) n *= -1;
 
-        while(moving.speed != nextSpeed)
+        for (int i = 0; i < n; i++)
         {
             yield return new WaitForSeconds(0.25f);
-            Debug.Log("Changing Speed");
-            moving.speed += n;
+            moving.speed += k;
         }
     }
     private void CheckTargetMoveType(EnemyTarget target) //Смена скорости
     {
         if (this.target == target) return;
-        else if (this.target == null || this.target.targetMoveType != target.targetMoveType) ChangeSpeed(target.targetMoveType);
+        else if (this.target == null || this.target.targetMoveType != target.targetMoveType) StartCoroutine(ChangeSpeed(target.targetMoveType));
 
         this.target = target;
-        Debug.Log("Check target");
     }
     public void SetStun(float stunTime)
     {
-        stun.durationTime = stunTime; 
+        stun.durationTime = stunTime;
         stun.startTime = Time.time;
         moving.isStopped = true;
         combat.isStopped = true;
@@ -65,10 +65,10 @@ public class AngryRatAI : MonoBehaviour
         anim = GetComponent<Animator>();
         moving = GetComponent<Move>();
         moving.speed = walkSpeed;
-        
+
         //События
         targetSelection.onTargetChange.AddListener(CheckTargetMoveType);
-        GetComponent<HealthEnemy>().stun.AddListener(SetStun); 
+        GetComponent<HealthEnemy>().stun.AddListener(SetStun);
     }
     private void Update() //Основная логика
     {
@@ -80,7 +80,7 @@ public class AngryRatAI : MonoBehaviour
                 if (moving.isNowWalk && !anim.GetBool("isRun")) anim.SetBool("isRun", true);
                 if ((!moving.isNowWalk || moving.isStopped) && anim.GetBool("isRun")) anim.SetBool("isRun", false);
             }
-        }  
+        }
         //Сброс оглушения
         if (stun.durationTime != 0f && Time.time - stun.startTime >= stun.durationTime) ResetStun();
     }

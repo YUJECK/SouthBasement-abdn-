@@ -269,9 +269,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.004436493, y: 0}
   serializedVersion: 2
-  m_Radius: 9.403482
+  m_Radius: 9.984343
 --- !u!1 &4895378084597387988
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,11 +480,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f975bdfffc214a84e8605b105297679e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkSpeed: 2
+  runSpeed: 3
   stun:
     startTime: 0
     durationTime: 0
-  walkSpeed: 2
-  runSpeed: 3
   combat: {fileID: 3957418438233326896}
   targetSelection: {fileID: 4066900711061194624}
 --- !u!114 &997358912328341320
@@ -515,6 +515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8f7d1eb7abf434eb3015745e311bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: 0
   _speed: 3
   searchRate: 1
   isNowWalk: 0
@@ -546,6 +547,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onArrive:
+    m_PersistentCalls:
+      m_Calls: []
   stopCheker: {fileID: 7877029375638524724}
   targetSelection: {fileID: 4066900711061194624}
 --- !u!114 &1209497417465223578

@@ -4,12 +4,14 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(Pathfinding))]
 [RequireComponent(typeof(Rigidbody2D))]
+
 public class Move : MonoBehaviour
 {
     [Header("Параметры передвижения")]
+    [SerializeField] private Movement movement = Movement.Wandering;
     [SerializeField] private float _speed = 3; // Скорость передвижения 
     [SerializeField] private float searchRate = 1f; // Частота репоиска 
-    private float nextSearchTime = 0f; 
+    private float nextSearchTime = 0f;
     public float speed
     {
         get { return _speed; }
@@ -35,6 +37,7 @@ public class Move : MonoBehaviour
 
     [Header("События")]
     public UnityEvent onFlip = new UnityEvent();
+    public UnityEvent onArrive = new UnityEvent();
 
     //Переменные для поворота
     private bool flippedOnRight;
@@ -52,14 +55,14 @@ public class Move : MonoBehaviour
     public void FindNewPath(EnemyTarget target)
     {
         if (path.Count != 0) ResetTarget();
-        this.target = target;   
+        this.target = target;
         path = pathfinding.FindPath(
            new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
            new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize));
     }
     public void ResetTarget(EnemyTarget target = null)
     {
-        if (target != null && target == this.target) { this.target = null; } 
+        if (target != null && target == this.target) { this.target = null; }
         path.Clear();
         pathfinding.ResetGridChanges();
     }
@@ -67,7 +70,8 @@ public class Move : MonoBehaviour
 
     //Метод поворота    
     private void FlipObject() { if (!isStopped) { transform.Rotate(0f, 180f, 0f); onFlip.Invoke(); } }
-    public void FlipOther(Transform _transform) { _transform.Rotate(180f, 0f, 0f); } 
+    public void FlipOther(Transform _transform) { _transform.Rotate(180f, 0f, 0f); }
+
     //Юнитивские методы
     private void Start()
     {
@@ -76,14 +80,14 @@ public class Move : MonoBehaviour
         grid = FindObjectOfType<Grid>();
         targetSelection.onTargetChange.AddListener(FindNewPath);
         targetSelection.onResetTarget.AddListener(ResetTarget);
-
+        if (movement == Movement.Wandering) onArrive.AddListener(targetSelection.RefindTarget);
         isStopped = false;
     }
     private void FixedUpdate() //Физическая логика
     {
         //Сброс velocity
         if (rb != null) rb.velocity = Vector2.zero;
-        if(!isStopped)
+        if (!isStopped && pathfinding.grid.isGridCreated)
         {
             //Динамичный поиск пути
             if (target != null && target.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
@@ -125,14 +129,23 @@ public class Move : MonoBehaviour
                     }
                 }
             }
-            else
+            else if(path.Count == 0)
             {
-                if (target!=null && target.targetMoveType == TargetType.Static)
+                if (target != null && target.targetMoveType == TargetType.Static)
+                {
                     ResetTarget();
-  
+                    onArrive.Invoke();
+                }
+
                 isNowWalk = false;
             }
         }
     }
-    public void SetStop(bool active) { isStopped = active; } 
+    public void SetStop(bool active) { isStopped = active; }
+}
+
+public enum Movement
+{
+    Wandering,
+    StaticPursuit
 }

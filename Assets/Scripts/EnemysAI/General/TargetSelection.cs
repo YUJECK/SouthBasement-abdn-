@@ -14,6 +14,7 @@ public class TargetSelection : MonoBehaviour
     public UnityEvent<EnemyTarget> onResetTarget = new UnityEvent<EnemyTarget>();
     public UnityEvent<EnemyTarget> onTargetChange = new UnityEvent<EnemyTarget>();
 
+    public void RefindTarget() { Debug.Log("Refind"); target = FindNewTarget(); }
     private EnemyTarget FindNewTarget()
     {
         bool isSamePriority = true;
@@ -37,11 +38,14 @@ public class TargetSelection : MonoBehaviour
             int rand = Random.Range(0, targets.Count);
             target = targets[rand];
         }
-        //¬ыводим сообщение в консоль если ничего не нашли
-        else FindObjectOfType<RatConsole>().DisplayText("“аргет не был найден", Color.red,
-            RatConsole.Mode.ConsoleMessege, "<AngryRatAI.cs, line 132>");
+        //¬ыводим сообщение в консоль если ничего не нашли, не думаю что сюда код вообще попадет
+        if (target == null) FindObjectOfType<RatConsole>().DisplayText("“аргет не был найден", Color.red,
+            RatConsole.Mode.ConsoleMessege, "<TargetSelection.cs, line 42>");
 
-        //Ќе думаю что сюда код вообще попадет
+        //¬ызов ивентов
+        if (target != null && this.target != target) onTargetChange.Invoke(target);
+        onSetTarget.Invoke(target);
+
         return target;
     }
     public void OnTriggerExit2D(Collider2D coll) //ћетод который будет вызыватьс€ при выходе за границу пол€ зрени€ врага
@@ -51,12 +55,13 @@ public class TargetSelection : MonoBehaviour
             if (targets.Contains(coll.GetComponent<EnemyTarget>()))
             {
                 //≈сли таргет который вышел за пределы пол€ зрени€ действующий таргет, то мы ресетаем
-                if (target == coll.GetComponent<EnemyTarget>()) 
+                if (target == coll.GetComponent<EnemyTarget>())
                 {
                     onResetTarget.Invoke(target);
                     target = null;
+                    if (targets.Count != 0) target = FindNewTarget();
                 }
-                
+
                 targets.Remove(coll.GetComponent<EnemyTarget>());
             }
         }
@@ -70,10 +75,7 @@ public class TargetSelection : MonoBehaviour
             {
                 targets.Add(newTarget);
                 QuickSort(targets, 0, targets.Count - 1);
-                EnemyTarget bestTarget = FindNewTarget();
-                if (target != bestTarget) onTargetChange.Invoke(bestTarget);
-                target = bestTarget;
-                onSetTarget.Invoke(target);
+                target = FindNewTarget();
             }
         }
     }

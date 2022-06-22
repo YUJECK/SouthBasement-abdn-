@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class Combat : MonoBehaviour
 {
     [SerializeField] private Transform attackPoint; // Точка атаки
-    private PointRotation pointRotation; 
+    private PointRotation pointRotation;
 
     [Header("Параметры атаки")]
     [SerializeField] private int minDamage = 10;
@@ -14,12 +14,12 @@ public class Combat : MonoBehaviour
     [SerializeField] private float attackRange = 0.5f; // Радиус атаки
     [SerializeField] private float attackRate = 3f; // Периодичность атаки
     [SerializeField] private float attackTimeOffset = 0.6f; // Время когда сработает корутина
-    
+
     [Header("События")]
     [SerializeField] private UnityEvent onAttack = new UnityEvent(); // При атаке
     [SerializeField] private UnityEvent onBeforeAttack = new UnityEvent(); // За attackTimeOffset до атаки
     [SerializeField] private UnityEvent onEnterArea = new UnityEvent(); // Когда зашел в радиус активации атаки
-    
+
     [Header("Определение цели")]
     [SerializeField] private LayerMask damageLayer; // Дамажный слой
     [SerializeField] private string enterTag = "Player"; // Тег на проверку у тригера
@@ -27,7 +27,7 @@ public class Combat : MonoBehaviour
     private float nextTime = 0f;
     private bool onTrigger = false;
     [HideInInspector] public bool isStopped = false;
-   
+
     //Методы атаки
     private IEnumerator BeforeAttack(float waitTime)
     {
@@ -45,8 +45,8 @@ public class Combat : MonoBehaviour
         //Проверяем каждый их них на наличие комнонента Health
         foreach (Collider2D obj in hitObj)
         {
-            if(obj.TryGetComponent(typeof(Health), out Component comp))
-                obj.GetComponent<Health>().TakeHit(Random.Range(minDamage, maxDamage+1));
+            if (obj.TryGetComponent(typeof(Health), out Component comp))
+                obj.GetComponent<Health>().TakeHit(Random.Range(minDamage, maxDamage + 1));
         }
     }
     private void SetNextAttackTime(float value) { nextTime = Time.time + value; }
@@ -56,7 +56,7 @@ public class Combat : MonoBehaviour
     {
         pointRotation = GetComponent<PointRotation>();
     }
-    private void Update() 
+    private void Update()
     {
         //Проверяем можем ли мы атаковать
         if (!isStopped && onTrigger && Time.time >= nextTime - attackTimeOffset)

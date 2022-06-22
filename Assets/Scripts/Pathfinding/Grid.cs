@@ -1,10 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    public bool isGridCreated = false;
+    public bool _isGridCreated = false;
+    public bool isGridCreated
+    {
+        get { return _isGridCreated; }
+        private set { _isGridCreated = value; }
+    }
     public GameObject _collider;
     public GameObject enemyPath;
     [SerializeField] private GameObject emptyArea;
@@ -13,66 +17,61 @@ public class Grid : MonoBehaviour
     public int[,] grid;
     // 0 - нет коллайлера/это триггер
     // 1 - есть коллайлера
-    
+
     // Выстоа и ширина сетки 
-    public int gridWidth;  
+    public int gridWidth;
     public int gridHeight;
 
     public float nodeSize;
 
-    private void Awake()
-    {
-        // Invoke("StartGrid", 5f);
-    }
-
     public void StartGrid()
     {
         Camera camera = Camera.main;
-        
-        gridWidth = (int)Mathf.Ceil(gridWidth/nodeSize);
-        gridHeight = (int)Mathf.Ceil(gridHeight/nodeSize);
+
+        gridWidth = (int)Mathf.Ceil(gridWidth / nodeSize);
+        gridHeight = (int)Mathf.Ceil(gridHeight / nodeSize);
 
         grid = new int[gridWidth, gridHeight];
 
-        for(float x = 0; x < gridWidth; x+=nodeSize)
+        for (float x = 0; x < gridWidth; x += nodeSize)
         {
-            for(float y = 0; y < gridHeight; y+=nodeSize)
+            for (float y = 0; y < gridHeight; y += nodeSize)
             {
                 float a = 0.8f;
                 List<Vector3> points = new List<Vector3>();
                 points.Add(new Vector3(0f, 0f, 0f));
-                points.Add(new Vector3(nodeSize*a, nodeSize*a, 0f));
-                points.Add(new Vector3(nodeSize*a, -nodeSize*a, 0f));
-                points.Add(new Vector3(-nodeSize*a, nodeSize*a, 0f));
-                points.Add(new Vector3(-nodeSize*a, -nodeSize*a, 0f));
-                points.Add(new Vector3(0, nodeSize*0.8f, 0f));
-                points.Add(new Vector3(0, -nodeSize*0.8f, 0f));
-                points.Add(new Vector3(nodeSize*0.8f, 0, 0f));
-                points.Add(new Vector3(-nodeSize*0.8f, 0, 0f));
+                points.Add(new Vector3(nodeSize * a, nodeSize * a, 0f));
+                points.Add(new Vector3(nodeSize * a, -nodeSize * a, 0f));
+                points.Add(new Vector3(-nodeSize * a, nodeSize * a, 0f));
+                points.Add(new Vector3(-nodeSize * a, -nodeSize * a, 0f));
+                points.Add(new Vector3(0, nodeSize * 0.8f, 0f));
+                points.Add(new Vector3(0, -nodeSize * 0.8f, 0f));
+                points.Add(new Vector3(nodeSize * 0.8f, 0, 0f));
+                points.Add(new Vector3(-nodeSize * 0.8f, 0, 0f));
 
-                bool isWall = false;    
+                bool isWall = false;
 
-                foreach(Vector3 point in points)
+                foreach (Vector3 point in points)
                 {
                     RaycastHit2D[] pointObjs = Physics2D.RaycastAll(new Vector3(x + point.x, y + point.y), Vector2.zero);
 
-                    foreach(RaycastHit2D obj in pointObjs)
+                    foreach (RaycastHit2D obj in pointObjs)
                     {
-                        if(obj.collider != null)
-                        {   
-                            if(!obj.collider.isTrigger && ((obj.collider.tag != "Enemy" && obj.collider.tag != "Player") || obj.transform.CompareTag("Decor")))
+                        if (obj.collider != null)
+                        {
+                            if (!obj.collider.isTrigger && ((obj.collider.tag != "Enemy" && obj.collider.tag != "Player") || obj.transform.CompareTag("Decor")))
                             {
                                 isWall = true;
                                 goto foreachExit;
-                            }   
+                            }
                         }
                     }
                 }
-                foreachExit: // Для выхода из двух циклов
+            foreachExit: // Для выхода из двух циклов
 
-                if(isWall)
+                if (isWall)
                     grid[(int)x, (int)y] = 1;
-                else 
+                else
                     grid[(int)x, (int)y] = 0;
             }
         }
@@ -81,13 +80,13 @@ public class Grid : MonoBehaviour
         Debug.Log("Grid - active");
     }
     public void ShowGrid()
-    {        
-        for(float x = 0; x < gridWidth; x+=nodeSize)
+    {
+        for (float x = 0; x < gridWidth; x += nodeSize)
         {
-            for(float y = 0; y < gridHeight; y+=nodeSize)
+            for (float y = 0; y < gridHeight; y += nodeSize)
             {
-                if(grid[(int)x, (int)y] == 1)
-                    gridVizualization.Add(Instantiate(_collider,new Vector3(x,y,0), Quaternion.identity,transform));
+                if (grid[(int)x, (int)y] == 1)
+                    gridVizualization.Add(Instantiate(_collider, new Vector3(x, y, 0), Quaternion.identity, transform));
                 else
                     gridVizualization.Add(Instantiate(emptyArea, new Vector3(x, y, 0), Quaternion.identity, transform));
             }
@@ -95,7 +94,7 @@ public class Grid : MonoBehaviour
     }
     public void DisableGrid()
     {
-        for(int i = 0; i < gridVizualization.Count; i++)
+        for (int i = 0; i < gridVizualization.Count; i++)
         {
             Destroy(gridVizualization[0]);
             gridVizualization.RemoveAt(0);
@@ -104,7 +103,7 @@ public class Grid : MonoBehaviour
 
     public void PathVisualization(bool active)
     {
-        foreach(Pathfinding path in Resources.FindObjectsOfTypeAll(typeof(Pathfinding)) as Pathfinding[])
-        {path.isPathVisualization = active;}
+        foreach (Pathfinding path in Resources.FindObjectsOfTypeAll(typeof(Pathfinding)) as Pathfinding[])
+        { path.isPathVisualization = active; }
     }
 }
