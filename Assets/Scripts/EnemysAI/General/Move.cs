@@ -69,7 +69,7 @@ public class Move : MonoBehaviour
     private void SetNextSearchTime() { nextSearchTime = Time.time + searchRate; }
 
     //Метод поворота    
-    private void FlipObject() { if (!isStopped) { transform.Rotate(0f, 180f, 0f); onFlip.Invoke(); } }
+    private void FlipThisObject() { if (!isStopped) { transform.Rotate(0f, 180f, 0f); onFlip.Invoke(); } }
     public void FlipOther(Transform _transform) { _transform.Rotate(180f, 0f, 0f); }
 
     //Юнитивские методы
@@ -102,12 +102,12 @@ public class Move : MonoBehaviour
             {
                 if (lastPos.x < transform.position.x && flippedOnRight)
                 {
-                    FlipObject();
+                    FlipThisObject();
                     flippedOnRight = false;
                 }
                 else if (lastPos.x > transform.position.x && !flippedOnRight)
                 {
-                    FlipObject();
+                    FlipThisObject();
                     flippedOnRight = true;
                 }
             }

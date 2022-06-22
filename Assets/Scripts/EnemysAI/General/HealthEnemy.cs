@@ -67,9 +67,7 @@ public class HealthEnemy : MonoBehaviour
         health -= damage;
 
         if (stunTime != 0f)
-        {
             stun.Invoke(stunTime);
-        }
         if (hitSound != "") audioManager.PlayClip(hitSound);
         if (damageInd != null) StopCoroutine(damageInd); 
             

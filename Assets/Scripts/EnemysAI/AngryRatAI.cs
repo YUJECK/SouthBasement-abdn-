@@ -42,10 +42,17 @@ public class AngryRatAI : MonoBehaviour
 
         this.target = target;
     }
-    public void SetStun(float stunTime)
+
+    //Оглушение
+    public IEnumerator Stun(float duration)
     {
-        stun.durationTime = stunTime;
-        stun.startTime = Time.time;
+        SetStun(duration);
+        yield return new WaitForSeconds(duration);
+        ResetStun();
+    }
+    public void GetStunned(float duration) { StartCoroutine(Stun(duration)); }
+    public void SetStun(float duration)
+    {
         moving.isStopped = true;
         combat.isStopped = true;
         if (anim.GetBool("isRun")) anim.SetBool("isRun", false);
@@ -68,7 +75,7 @@ public class AngryRatAI : MonoBehaviour
 
         //События
         targetSelection.onTargetChange.AddListener(CheckTargetMoveType);
-        GetComponent<HealthEnemy>().stun.AddListener(SetStun);
+        GetComponent<HealthEnemy>().stun.AddListener(GetStunned);
     }
     private void Update() //Основная логика
     {
