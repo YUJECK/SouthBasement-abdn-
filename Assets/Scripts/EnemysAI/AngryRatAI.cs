@@ -9,7 +9,7 @@ public class AngryRatAI : MonoBehaviour
     [Header("Параметры скорости")]
     [SerializeField] private float walkSpeed = 2f; //Скорость при ходьбе
     [SerializeField] private float runSpeed = 3.3f; //Скорость при беге
-    [HideInInspector] public Effect stun;
+    private bool isStopped = false;
     private EnemyTarget target; //Подвижный ли таргет
 
     //Ссылки на другие классы
@@ -46,25 +46,32 @@ public class AngryRatAI : MonoBehaviour
     //Оглушение
     public IEnumerator Stun(float duration)
     {
-        SetStun(duration);
+        SetStun();
         yield return new WaitForSeconds(duration);
         ResetStun();
     }
     public void GetStunned(float duration) { StartCoroutine(Stun(duration)); }
-    public void SetStun(float duration)
+    public void SetStun()
     {
-        moving.isStopped = true;
-        combat.isStopped = true;
+        Debug.Log("set");
+        moving.SetStop(true);
+        combat.SetStop(true);
+        isStopped = true;
         if (anim.GetBool("isRun")) anim.SetBool("isRun", false);
         anim.SetBool("isStunned", true);
     }
     public void ResetStun()
     {
-        moving.isStopped = false;
-        combat.isStopped = false;
-        stun.durationTime = 0f;
+        Debug.Log("reset");
+        moving.SetStop(false);
+        combat.SetStop(false);
+        isStopped = false;
         anim.SetBool("isStunned", false);
     }
+
+    //Типо сеттеры и геттеры
+    public void SetStop(bool active) { isStopped = active; }
+    public bool GetStop() { return isStopped; }
 
     //Юнитивские методы
     private void Start()
@@ -79,16 +86,14 @@ public class AngryRatAI : MonoBehaviour
     }
     private void Update() //Основная логика
     {
-        if (stun.durationTime == 0f)
+        if (!isStopped)
         {
             if (anim != null && moving != null)//Анимация и атака
             {
                 //Анимация бега
                 if (moving.isNowWalk && !anim.GetBool("isRun")) anim.SetBool("isRun", true);
-                if ((!moving.isNowWalk || moving.isStopped) && anim.GetBool("isRun")) anim.SetBool("isRun", false);
+                if ((!moving.isNowWalk || moving.GetStop()) && anim.GetBool("isRun")) anim.SetBool("isRun", false);
             }
         }
-        //Сброс оглушения
-        if (stun.durationTime != 0f && Time.time - stun.startTime >= stun.durationTime) ResetStun();
     }
 }

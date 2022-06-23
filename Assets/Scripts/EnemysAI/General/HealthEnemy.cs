@@ -27,7 +27,7 @@ public class HealthEnemy : MonoBehaviour
     public Effect burn;
     public Effect bleed;
     public Effect poisoned;
-    [HideInInspector] public UnityEvent<float> stun = new UnityEvent<float>();
+    /*[HideInInspector] */public UnityEvent<float> stun = new UnityEvent<float>();
     public Effect regeneration;
     public Coroutine damageInd = null;
 

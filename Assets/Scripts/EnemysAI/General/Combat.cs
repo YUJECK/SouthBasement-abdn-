@@ -26,7 +26,7 @@ public class Combat : MonoBehaviour
 
     private float nextTime = 0f;
     private bool onTrigger = false;
-    [HideInInspector] public bool isStopped = false;
+    private bool isStopped = false;
 
     //Методы атаки
     private IEnumerator BeforeAttack(float waitTime)
@@ -50,6 +50,10 @@ public class Combat : MonoBehaviour
         }
     }
     private void SetNextAttackTime(float value) { nextTime = Time.time + value; }
+
+    //Типо сеттеры и геттеры
+    public void SetStop(bool active) { isStopped = active; }
+    public bool GetStop() { return isStopped; }
 
     //Юнитивские методы
     private void Start()

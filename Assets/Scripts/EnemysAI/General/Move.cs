@@ -31,7 +31,7 @@ public class Move : MonoBehaviour
         }
     }
     [HideInInspector] public bool isNowWalk; //Идет ли сейчас 
-    [HideInInspector] public bool isStopped = false; //Остановлен ли
+    private bool isStopped = false; //Остановлен ли
     private List<Vector2> path = new List<Vector2>(); //Путь
     private EnemyTarget target; //Таргет
 
@@ -67,6 +67,10 @@ public class Move : MonoBehaviour
         pathfinding.ResetGridChanges();
     }
     private void SetNextSearchTime() { nextSearchTime = Time.time + searchRate; }
+
+    //Типо сеттеры и геттеры
+    public void SetStop(bool active) { isStopped = active; }
+    public bool GetStop() { return isStopped; }
 
     //Метод поворота    
     private void FlipThisObject() { if (!isStopped) { transform.Rotate(0f, 180f, 0f); onFlip.Invoke(); } }
@@ -129,7 +133,7 @@ public class Move : MonoBehaviour
                     }
                 }
             }
-            else if(path.Count == 0)
+            else if (path.Count == 0)
             {
                 if (target != null && target.targetMoveType == TargetType.Static)
                 {
@@ -141,7 +145,6 @@ public class Move : MonoBehaviour
             }
         }
     }
-    public void SetStop(bool active) { isStopped = active; }
 }
 
 public enum Movement

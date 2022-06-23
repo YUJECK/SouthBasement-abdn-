@@ -482,9 +482,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 2
   runSpeed: 3
-  stun:
-    startTime: 0
-    durationTime: 0
   combat: {fileID: 3957418438233326896}
   targetSelection: {fileID: 4066900711061194624}
 --- !u!114 &997358912328341320
@@ -586,19 +583,7 @@ MonoBehaviour:
     durationTime: 0
   stun:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5157359432002517473}
-        m_TargetAssemblyTypeName: AngryRatAI, Assembly-CSharp
-        m_MethodName: Stun
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   regeneration:
     startTime: 0
     durationTime: 0
