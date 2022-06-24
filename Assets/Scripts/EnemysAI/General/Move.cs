@@ -32,6 +32,7 @@ public class Move : MonoBehaviour
     }
     [HideInInspector] public bool isNowWalk; //Идет ли сейчас 
     private bool isStopped = false; //Остановлен ли
+    private bool blockStop = false;
     private List<Vector2> path = new List<Vector2>(); //Путь
     private EnemyTarget target; //Таргет
 
@@ -69,8 +70,10 @@ public class Move : MonoBehaviour
     private void SetNextSearchTime() { nextSearchTime = Time.time + searchRate; }
 
     //Типо сеттеры и геттеры
-    public void SetStop(bool active) { isStopped = active; }
+    public void SetStop(bool stopActive) { if (!blockStop) isStopped = stopActive; }
+    public void SetBlocking(bool blockActive) { blockStop = blockActive; }
     public bool GetStop() { return isStopped; }
+    public bool GetBlocking() { return blockStop; }
 
     //Метод поворота    
     private void FlipThisObject() { if (!isStopped) { transform.Rotate(0f, 180f, 0f); onFlip.Invoke(); } }

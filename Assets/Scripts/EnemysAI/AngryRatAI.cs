@@ -53,8 +53,8 @@ public class AngryRatAI : MonoBehaviour
     public void GetStunned(float duration) { StartCoroutine(Stun(duration)); }
     public void SetStun()
     {
-        Debug.Log("set");
         moving.SetStop(true);
+        moving.SetBlocking(true);
         combat.SetStop(true);
         isStopped = true;
         if (anim.GetBool("isRun")) anim.SetBool("isRun", false);
@@ -62,7 +62,7 @@ public class AngryRatAI : MonoBehaviour
     }
     public void ResetStun()
     {
-        Debug.Log("reset");
+        moving.SetBlocking(false);
         moving.SetStop(false);
         combat.SetStop(false);
         isStopped = false;
