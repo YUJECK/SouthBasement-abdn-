@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PointRotation))]
-public class RatAttack : MonoBehaviour
+public class PlayerAttack : MonoBehaviour
 {
     public MelleRangeWeapon melleWeapon;
     public MelleRangeWeapon defaultWeapon;

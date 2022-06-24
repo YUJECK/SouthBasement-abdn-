@@ -27,12 +27,12 @@ public class InventoryManager : MonoBehaviour
     [Header("")]
     public List<PassiveItemsSlots> passiveItems; // Слоты для пассивок
 
-    private RatAttack ratAttack;
+    private PlayerAttack ratAttack;
     private InputManager inputManager;
 
     private void Awake()
     {
-        ratAttack = FindObjectOfType<RatAttack>();
+        ratAttack = FindObjectOfType<PlayerAttack>();
         inputManager = FindObjectOfType<InputManager>();
     }
 

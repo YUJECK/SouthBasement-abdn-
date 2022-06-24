@@ -870,7 +870,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 192447256}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de249c6e70045d547b88994e26521555, type: 3}
+  m_Script: {fileID: 11500000, guid: fc3b2d0528eeef746a8b4bea8a68383f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   melleWeapon: {fileID: 0}
@@ -1000,9 +1000,9 @@ GameObject:
   - component: {fileID: 203290210}
   - component: {fileID: 203290212}
   - component: {fileID: 203290214}
-  - component: {fileID: 203290211}
   - component: {fileID: 203290213}
   - component: {fileID: 203290217}
+  - component: {fileID: 203290211}
   m_Layer: 0
   m_Name: PlayerControlAndSprite
   m_TagString: Player
@@ -1026,8 +1026,8 @@ MonoBehaviour:
   maxHealth: 2187
   healthBar: {fileID: 274904591}
   effectIndicator: {fileID: 0}
---- !u!70 &203290211
-CapsuleCollider2D:
+--- !u!61 &203290211
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1039,9 +1039,19 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.13994598, y: -0.19534302}
-  m_Size: {x: 0.77690125, y: 0.89938354}
-  m_Direction: 0
+  m_Offset: {x: -0.16112518, y: -0.43249512}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.5, y: 1.5}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.79615784, y: 0.3551941}
+  m_EdgeRadius: 0
 --- !u!114 &203290212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3410,6 +3420,14 @@ PrefabInstance:
     - target: {fileID: 1160361261316572005, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
       propertyPath: movement
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2965869361774044280, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.007
+      objectReference: {fileID: 0}
+    - target: {fileID: 3957418438233326896, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: attackRange
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5014645556661305969, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
       propertyPath: m_Color.a

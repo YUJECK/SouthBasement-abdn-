@@ -29,7 +29,7 @@ public class RatConsole : MonoBehaviour
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject box;
     private Player player;
-    private RatAttack playerAttack;
+    private PlayerAttack playerAttack;
     private GameManager gameManager;
     private InventoryManager inventory;
 
@@ -44,7 +44,7 @@ public class RatConsole : MonoBehaviour
         player = FindObjectOfType<Player>();
         inventory = FindObjectOfType<InventoryManager>();
         gameManager = FindObjectOfType<GameManager>();
-        playerAttack = FindObjectOfType<RatAttack>();
+        playerAttack = FindObjectOfType<PlayerAttack>();
     }
     
     //Всякое для конслои

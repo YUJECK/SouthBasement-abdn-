@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     private Rotation rotation;
 
     //Ссылки на другие скрипты
-    private RatAttack ratAttack;
+    private PlayerAttack ratAttack;
     private AudioManager audioManager;
     public static Player instance; // Синглтон
 
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         playerSpiteRend = GetComponent<SpriteRenderer>();
         normalSpeed = speed;
-        ratAttack = FindObjectOfType<RatAttack>();
+        ratAttack = FindObjectOfType<PlayerAttack>();
         audioManager = FindObjectOfType<AudioManager>();
     }
     private void OnLevelWasLoaded(int level)
