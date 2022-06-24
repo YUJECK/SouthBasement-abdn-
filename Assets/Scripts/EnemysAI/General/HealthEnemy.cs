@@ -27,7 +27,7 @@ public class HealthEnemy : MonoBehaviour
     public Effect burn;
     public Effect bleed;
     public Effect poisoned;
-    /*[HideInInspector] */public UnityEvent<float> stun = new UnityEvent<float>();
+    public UnityEvent<float> stun = new UnityEvent<float>();
     public Effect regeneration;
     public Coroutine damageInd = null;
 
@@ -51,13 +51,6 @@ public class HealthEnemy : MonoBehaviour
             onDestroy.AddListener(roomCloser.EnemyCounterTunDown);
         }
     }
-    private void Update()
-    {
-        if (burn.durationTime != 0 && Time.time - burn.startTime > burn.durationTime) ResetBurn();
-        if (bleed.durationTime != 0 && Time.time - bleed.startTime > bleed.durationTime) ResetBleed();
-        if (poisoned.durationTime != 0 && Time.time - poisoned.startTime > poisoned.durationTime) { ResetPoisoned(); Debug.Log("pr"); }
-        if (regeneration.durationTime != 0 && Time.time - regeneration.startTime > regeneration.durationTime) ResetRegeneration();
-    }
     private void OnDestroy() { onDestroy.Invoke();  }
     
    
@@ -65,14 +58,7 @@ public class HealthEnemy : MonoBehaviour
     public void TakeHit(int damage, float stunTime = 0f)
     {
         health -= damage;
-
-        if (stunTime != 0f)
-            stun.Invoke(stunTime);
         if (hitSound != "") audioManager.PlayClip(hitSound);
-        if (damageInd != null) StopCoroutine(damageInd); 
-            
-        damageInd = StartCoroutine(TakeHitVizualization());
-
         if (health <= 0)
         {
             int cheeseCount = Random.Range(minCheese,maxCheese);
@@ -80,6 +66,12 @@ public class HealthEnemy : MonoBehaviour
             if(destroySound != "") audioManager.PlayClip(destroySound);
             Destroy(gameObject);
         }         
+        
+        if (stunTime != 0f)
+            stun.Invoke(stunTime);
+        if (damageInd != null) StopCoroutine(damageInd); 
+            
+        damageInd = StartCoroutine(TakeHitVizualization());
     }
     private IEnumerator TakeHitVizualization()
     {

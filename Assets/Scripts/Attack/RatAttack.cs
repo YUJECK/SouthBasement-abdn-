@@ -38,9 +38,8 @@ public class RatAttack : MonoBehaviour
         {
             if (!GameManager.isPlayerStopped & Input.GetMouseButtonDown(0) & !FindObjectOfType<Player>().isSprinting)
             {
-                Attack();
-                // cursor.CursorClick();
                 SetNextTime();
+                Attack();
             }
             if (Time.time >= nextTime)
                 is_Attack = false;

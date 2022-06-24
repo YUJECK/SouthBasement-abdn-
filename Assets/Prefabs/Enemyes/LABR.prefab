@@ -101,7 +101,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   enterTag: Player
-  isStopped: 0
 --- !u!114 &8062725181418178375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,9 +444,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   runSpeed: 4
-  stun:
-    startTime: 0
-    durationTime: 0
   combat: {fileID: 967021909841136685}
   targetSelection: {fileID: 5786928341691185866}
 --- !u!114 &1209497417465223578
@@ -484,19 +480,7 @@ MonoBehaviour:
     durationTime: 0
   stun:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5157359432002517473}
-        m_TargetAssemblyTypeName: AngryRatAI, Assembly-CSharp
-        m_MethodName: Stun
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   regeneration:
     startTime: 0
     durationTime: 0
@@ -534,7 +518,6 @@ MonoBehaviour:
   _speed: 3
   searchRate: 1
   isNowWalk: 0
-  isStopped: 0
   onFlip:
     m_PersistentCalls:
       m_Calls:
