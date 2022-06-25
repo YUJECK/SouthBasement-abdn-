@@ -36,14 +36,14 @@ public class ActiveItem : ScriptableObject
     //Ссылки на другие скрипты
     [HideInInspector] public ActiveItemsMethods methods;
     [HideInInspector] public ActiveItemsSlots slot;
-    private Health playerHealth;
+    private PlayerHealth playerHealth;
     private PlayerController plaeyrController;
 
     public void ActivateItem()
     {
         methods = FindObjectOfType<ActiveItemsMethods>();
         plaeyrController = FindObjectOfType<PlayerController>();
-        playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
         isItemCharged = false;
         nextTime = Time.time;

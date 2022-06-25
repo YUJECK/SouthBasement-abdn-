@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class Health : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     private struct Effect{
         public float startTime;
@@ -16,6 +17,9 @@ public class Health : MonoBehaviour
     private GameManager gameManager;
     private bool invisibleCadrs = false;
 
+    //События
+    public UnityEvent<int, int> onHealthChange = new UnityEvent<int, int>();
+
     //Еффекты
     public SpriteRenderer effectIndicator;
     private EffectsManager effectsManager;
@@ -27,6 +31,7 @@ public class Health : MonoBehaviour
     private void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        onHealthChange.Invoke(health, maxHealth);
     }
 
 
@@ -41,6 +46,8 @@ public class Health : MonoBehaviour
             healthBar.SetBool("InvisibleCadrs",true);
             StartCoroutine(InvisibleCadrs());
 
+            onHealthChange.Invoke(health, maxHealth);
+
             if (health <= 0)
                 SceneManager.LoadScene("RestartMenu");  
         }
@@ -50,7 +57,8 @@ public class Health : MonoBehaviour
         health += bonusHealth;
 
         if(health > maxHealth)
-            health = maxHealth;  
+            health = maxHealth;
+        onHealthChange.Invoke(health, maxHealth);
     }
     public void SetHealth(int NewMaxHealth, int NewHealth)
     {
@@ -59,6 +67,7 @@ public class Health : MonoBehaviour
 
         if(health > maxHealth)
             health = maxHealth;
+        onHealthChange.Invoke(health, maxHealth);
     }
     public void TakeAwayHealth(int TakeAwayMaxHealth, int TakeAwayHealth)
     {
@@ -68,6 +77,7 @@ public class Health : MonoBehaviour
         if(health > maxHealth)
             health = maxHealth;
 
+        onHealthChange.Invoke(health, maxHealth);
         if (health <= 0)
             SceneManager.LoadScene("RestartMenu");
     }
@@ -79,6 +89,7 @@ public class Health : MonoBehaviour
 
         if(health > maxHealth)
             health = maxHealth;
+        onHealthChange.Invoke(health, maxHealth);
     }
 
     public IEnumerator InvisibleCadrs()

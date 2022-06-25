@@ -110,7 +110,7 @@ public class RatConsole : MonoBehaviour
     public void PathVisualization(bool active) { FindObjectOfType<Grid>().PathVisualization(active); DisplayText("Path - " + active, Color.green, Mode.ConsoleMessege); } //Визуалищ=зация путя врагов
     public void ShowGrid(){FindObjectOfType<Grid>().ShowGrid();}
     public void GetCheese(){FindObjectOfType<GameManager>().CheeseScore(100);}
-    public void GetHealth(){FindObjectOfType<Health>().SetHealth(100, 100);}
+    public void GetHealth(){FindObjectOfType<PlayerHealth>().SetHealth(100, 100);}
     public void DisableGrid() { FindObjectOfType<Grid>().DisableGrid(); }
     public void Ghost() { FindObjectOfType<PlayerController>().GetComponent<Collider2D>().isTrigger = true; DisplayText("Ghost - true", Color.green, Mode.ConsoleMessege); }
     public void ResetGhost() { FindObjectOfType<PlayerController>().GetComponent<Collider2D>().isTrigger = false; DisplayText("Ghost - false", Color.green, Mode.ConsoleMessege); }

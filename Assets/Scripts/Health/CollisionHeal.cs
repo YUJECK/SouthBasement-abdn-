@@ -11,7 +11,7 @@ public class CollisionHeal : MonoBehaviour
     {
         if (coll.gameObject.tag == collisionTag)
         {
-            Health health = coll.gameObject.GetComponent<Health>();
+            PlayerHealth health = coll.gameObject.GetComponent<PlayerHealth>();
             
             if(health.health != health.maxHealth)
             {

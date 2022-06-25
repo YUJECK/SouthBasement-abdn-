@@ -53,7 +53,6 @@ public class HealthEnemy : MonoBehaviour
     }
     private void OnDestroy() { onDestroy.Invoke();  }
     
-   
     //Всякие манипуляции со здоровьем
     public void TakeHit(int damage, float stunTime = 0f)
     {
@@ -113,6 +112,10 @@ public class HealthEnemy : MonoBehaviour
     }
 
     //Еффекты которые могут наложиться на врага    
+    private IEnumerator EffectActive(float duration)
+    {
+        yield return WaitForSeconds(duration);
+    }
     public void ResetBurn() { effectsManager.Burn.listeners.RemoveListener(Burn); burn.durationTime = 0f; burn.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
     public void ResetPoisoned() { effectsManager.Poisoned.listeners.RemoveListener(Poisoned); poisoned.durationTime = 0f; poisoned.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
     public void ResetBleed() { effectsManager.Bleed.listeners.RemoveListener(Bleed); bleed.durationTime = 0f; bleed.startTime = 0f; effectIndicator.sprite = gameManager.hollowSprite;}

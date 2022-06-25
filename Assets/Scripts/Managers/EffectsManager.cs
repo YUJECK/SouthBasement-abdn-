@@ -45,7 +45,7 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    public void GetBleed(float durationTime, Health plHealth = null, HealthEnemy enHealth = null)
+    public void GetBleed(float durationTime, PlayerHealth plHealth = null, HealthEnemy enHealth = null)
     {
         if(plHealth != null) 
         {
@@ -60,7 +60,7 @@ public class EffectsManager : MonoBehaviour
             enHealth.effectIndicator.sprite = Bleed.indicator;
         }
     }
-    public void GetBurn(float durationTime, Health plHealth = null, HealthEnemy enHealth = null)
+    public void GetBurn(float durationTime, PlayerHealth plHealth = null, HealthEnemy enHealth = null)
     {
         if(plHealth != null) 
         {
@@ -75,7 +75,7 @@ public class EffectsManager : MonoBehaviour
             enHealth.effectIndicator.sprite = Burn.indicator;
         }
     }
-    public void GetPoisoned(float durationTime, Health plHealth = null, HealthEnemy enHealth = null)
+    public void GetPoisoned(float durationTime, PlayerHealth plHealth = null, HealthEnemy enHealth = null)
     {
         if(plHealth != null) 
         {
@@ -90,7 +90,7 @@ public class EffectsManager : MonoBehaviour
             enHealth.effectIndicator.sprite = Poisoned.indicator;
         }
     }
-    public void GetRegenerate(float durationTime, Health plHealth = null, HealthEnemy enHealth = null)
+    public void GetRegenerate(float durationTime, PlayerHealth plHealth = null, HealthEnemy enHealth = null)
     {
         if(plHealth != null) 
         {

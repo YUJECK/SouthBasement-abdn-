@@ -22,14 +22,14 @@ public class FoodItem : ScriptableObject
     public Sprite[] extraSprites;
 
     //Ссылки на другие скрипты
-    private Health playerHealth;
+    private PlayerHealth playerHealth;
     [HideInInspector] public FoodSlots slot;
     [HideInInspector] public ItemInfo itemInfo;
     private PlayerController plaeyrController;
 
     public void ActiveItem() // Скрипт для активации предмета
     {
-        playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();;
+        playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();;
         plaeyrController = FindObjectOfType<PlayerController>();
         usesInGame = 0;
     }

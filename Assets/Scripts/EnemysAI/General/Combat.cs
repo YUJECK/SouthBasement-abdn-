@@ -45,8 +45,8 @@ public class Combat : MonoBehaviour
         //ѕровер€ем каждый их них на наличие комнонента Health
         foreach (Collider2D obj in hitObj)
         {
-            if (obj.TryGetComponent(typeof(Health), out Component comp))
-                obj.GetComponent<Health>().TakeHit(Random.Range(minDamage, maxDamage + 1));
+            if (obj.TryGetComponent(typeof(PlayerHealth), out Component comp))
+                obj.GetComponent<PlayerHealth>().TakeHit(Random.Range(minDamage, maxDamage + 1));
         }
     }
     private void SetNextAttackTime(float value) { nextTime = Time.time + value; }

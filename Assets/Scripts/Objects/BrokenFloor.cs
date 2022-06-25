@@ -6,13 +6,13 @@ public class BrokenFloor : MonoBehaviour
 {
     private PlayerController player;
     private AudioManager audioManager;
-    private Health playerHealth;
+    private PlayerHealth playerHealth;
 
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
         audioManager = FindObjectOfType<AudioManager>();
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
