@@ -28,7 +28,7 @@ public class RatConsole : MonoBehaviour
 
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject box;
-    private Player player;
+    private PlayerController player;
     private PlayerAttack playerAttack;
     private GameManager gameManager;
     private InventoryManager inventory;
@@ -41,7 +41,7 @@ public class RatConsole : MonoBehaviour
     private void Start() 
     {
         ConsoleText = GetComponentInChildren<Text>(); 
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<PlayerController>();
         inventory = FindObjectOfType<InventoryManager>();
         gameManager = FindObjectOfType<GameManager>();
         playerAttack = FindObjectOfType<PlayerAttack>();
@@ -112,8 +112,8 @@ public class RatConsole : MonoBehaviour
     public void GetCheese(){FindObjectOfType<GameManager>().CheeseScore(100);}
     public void GetHealth(){FindObjectOfType<Health>().SetHealth(100, 100);}
     public void DisableGrid() { FindObjectOfType<Grid>().DisableGrid(); }
-    public void Ghost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = true; DisplayText("Ghost - true", Color.green, Mode.ConsoleMessege); }
-    public void ResetGhost() { FindObjectOfType<Player>().GetComponent<Collider2D>().isTrigger = false; DisplayText("Ghost - false", Color.green, Mode.ConsoleMessege); }
+    public void Ghost() { FindObjectOfType<PlayerController>().GetComponent<Collider2D>().isTrigger = true; DisplayText("Ghost - true", Color.green, Mode.ConsoleMessege); }
+    public void ResetGhost() { FindObjectOfType<PlayerController>().GetComponent<Collider2D>().isTrigger = false; DisplayText("Ghost - false", Color.green, Mode.ConsoleMessege); }
     public void Give(string name)
     {
         GameObject item = null;

@@ -25,12 +25,12 @@ public class FoodItem : ScriptableObject
     private Health playerHealth;
     [HideInInspector] public FoodSlots slot;
     [HideInInspector] public ItemInfo itemInfo;
-    private Player plaeyrController;
+    private PlayerController plaeyrController;
 
     public void ActiveItem() // Скрипт для активации предмета
     {
         playerHealth =  GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();;
-        plaeyrController = FindObjectOfType<Player>();
+        plaeyrController = FindObjectOfType<PlayerController>();
         usesInGame = 0;
     }
 

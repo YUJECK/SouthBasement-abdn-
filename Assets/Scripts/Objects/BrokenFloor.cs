@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BrokenFloor : MonoBehaviour
 {
-    private Player player;
+    private PlayerController player;
     private AudioManager audioManager;
     private Health playerHealth;
 
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<PlayerController>();
         audioManager = FindObjectOfType<AudioManager>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }

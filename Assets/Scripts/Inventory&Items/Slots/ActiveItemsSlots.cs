@@ -14,7 +14,7 @@ public class ActiveItemsSlots : MonoBehaviour
     public bool isActiveSlot; // Используется ли этот слот сейчас
 
     private InventoryManager inventoryManager;
-    private Player playerController;
+    private PlayerController playerController;
 
     //Использовние активки на зажатую клавишу
     [SerializeField] private float waitTime = 0f;
@@ -24,7 +24,7 @@ public class ActiveItemsSlots : MonoBehaviour
     private void Start()
     {
         inventoryManager = FindObjectOfType<InventoryManager>();
-        playerController = FindObjectOfType<Player>();
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     private void Update() //Использование предмета
@@ -90,7 +90,7 @@ public class ActiveItemsSlots : MonoBehaviour
         if(objectOfItem != null)
         {
             objectOfItem.SetActive(true);
-            objectOfItem.transform.position = FindObjectOfType<Player>().GetComponent<Transform>().position;
+            objectOfItem.transform.position = FindObjectOfType<PlayerController>().GetComponent<Transform>().position;
         }
         Remove();
     }

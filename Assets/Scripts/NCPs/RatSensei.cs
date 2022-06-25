@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class RatSensei : MonoBehaviour
 {
-    private Player player;
+    private PlayerController player;
     private PlayerAttack playerAttack;
     public int agility;
     public int strength;
 
     private void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<PlayerController>();
         playerAttack = FindObjectOfType<PlayerAttack>();
     }
 

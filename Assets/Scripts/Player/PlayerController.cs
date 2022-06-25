@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
 
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     //Ссылки на другие скрипты
     private PlayerAttack ratAttack;
     private AudioManager audioManager;
-    public static Player instance; // Синглтон
+    public static PlayerController instance; // Синглтон
 
     private void Awake()
     {

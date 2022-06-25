@@ -21,14 +21,14 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 posWhenAttack;
 
     //Сслыки на другие скрипты
-    private Player player;
+    private PlayerController player;
     private EffectsManager effectsManager;
 
     private void Start()
     {
         pointRotation = GetComponent<PointRotation>();
         animRange = transform.GetChild(0).GetComponent<Animator>();
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<PlayerController>();
         effectsManager = FindObjectOfType<EffectsManager>();
         SetToDefault();
     }
@@ -36,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(Time.time >= nextTime) // Атака крысы
         {
-            if (!GameManager.isPlayerStopped & Input.GetMouseButtonDown(0) & !FindObjectOfType<Player>().isSprinting)
+            if (!GameManager.isPlayerStopped & Input.GetMouseButtonDown(0) & !FindObjectOfType<PlayerController>().isSprinting)
             {
                 SetNextTime();
                 Attack();
