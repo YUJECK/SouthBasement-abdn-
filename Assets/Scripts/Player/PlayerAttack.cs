@@ -65,12 +65,12 @@ public class PlayerAttack : MonoBehaviour
                 //Накладываем еффект если есть
                 if(melleWeapon != null && melleWeapon.effect != EffectsList.None)
                 {
-                    if(melleWeapon.effect == EffectsList.Poisoned)
-                        effectsManager.GetPoisoned(melleWeapon.effectTime, null, enemyHealth);
-                    if(melleWeapon.effect == EffectsList.Bleed)
-                        effectsManager.GetBleed(melleWeapon.effectTime, null, enemyHealth);
-                    if(melleWeapon.effect == EffectsList.Burn)
-                        effectsManager.GetBurn(melleWeapon.effectTime, null, enemyHealth);
+                    //if(melleWeapon.effect == EffectsList.Poisoned)
+                    //    effectsManager.GetPoisoned(melleWeapon.effectTime, null, enemyHealth);
+                    //if(melleWeapon.effect == EffectsList.Bleed)
+                    //    effectsManager.GetBleed(melleWeapon.effectTime, null, enemyHealth);
+                    //if(melleWeapon.effect == EffectsList.Burn)
+                    //    effectsManager.GetBurn(melleWeapon.effectTime, null, enemyHealth);
                 }
                 //Наносим урон
                 enemy.GetComponent<HealthEnemy>().TakeHit(damage+damageBoost, melleWeapon.stunTime);

@@ -1,10 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 
-[System.Serializable] public struct Effect{
+[System.Serializable]
+public struct Effect
+{
     public float startTime;
     public float durationTime;
 };
@@ -24,11 +25,7 @@ public class HealthEnemy : MonoBehaviour
     [SerializeField] private string hitSound; // Звук получения урона
 
     //Время действия еффектов
-    public Effect burn;
-    public Effect bleed;
-    public Effect poisoned;
     public UnityEvent<float> stun = new UnityEvent<float>();
-    public Effect regeneration;
     public Coroutine damageInd = null;
 
     //Ссылки на другие скрипты
@@ -44,15 +41,15 @@ public class HealthEnemy : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         effectsManager = FindObjectOfType<EffectsManager>();
         audioManager = FindObjectOfType<AudioManager>();
-        
+
         if (roomCloser != null)
-        { 
+        {
             roomCloser.EnemyCounterTunUp();
             onDestroy.AddListener(roomCloser.EnemyCounterTunDown);
         }
     }
-    private void OnDestroy() { onDestroy.Invoke();  }
-    
+    private void OnDestroy() { onDestroy.Invoke(); }
+
     //Всякие манипуляции со здоровьем
     public void TakeHit(int damage, float stunTime = 0f)
     {
@@ -60,45 +57,45 @@ public class HealthEnemy : MonoBehaviour
         if (hitSound != "") audioManager.PlayClip(hitSound);
         if (health <= 0)
         {
-            int cheeseCount = Random.Range(minCheese,maxCheese);
-            if(maxCheese != 0) gameManager.SpawnCheese(transform.position, cheeseCount);
-            if(destroySound != "") audioManager.PlayClip(destroySound);
+            int cheeseCount = Random.Range(minCheese, maxCheese);
+            if (maxCheese != 0) gameManager.SpawnCheese(transform.position, cheeseCount);
+            if (destroySound != "") audioManager.PlayClip(destroySound);
             Destroy(gameObject);
-        }         
-        
+        }
+
         if (stunTime != 0f)
             stun.Invoke(stunTime);
-        if (damageInd != null) StopCoroutine(damageInd); 
-            
+        if (damageInd != null) StopCoroutine(damageInd);
+
         damageInd = StartCoroutine(TakeHitVizualization());
     }
     private IEnumerator TakeHitVizualization()
     {
         gameObject.GetComponent<SpriteRenderer>().color = damageColor;
         yield return new WaitForSeconds(0.6f);
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(100,100,100,100);
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(100, 100, 100, 100);
     }
     public void Heal(int bonusHealth)
     {
         health += bonusHealth;
 
-        if(health > maxHealth)
-            health = maxHealth;     
+        if (health > maxHealth)
+            health = maxHealth;
     }
     public void SetHealth(int NewMaxHealth, int NewHealth)
     {
         maxHealth = NewMaxHealth;
         health = NewHealth;
-        
-        if(health > maxHealth)
+
+        if (health > maxHealth)
             health = maxHealth;
     }
     public void TakeAwayHealth(int TakeAwayMaxHealth, int TakeAwayHealth)
     {
         maxHealth -= TakeAwayMaxHealth;
         health -= TakeAwayHealth;
-       
-        if(health > maxHealth)
+
+        if (health > maxHealth)
             health = maxHealth;
     }
     public void SetBonusHealth(int NewMaxHealth, int NewHealth)
@@ -107,20 +104,11 @@ public class HealthEnemy : MonoBehaviour
         maxHealth += NewMaxHealth;
         health += NewHealth;
 
-        if(health > maxHealth)
+        if (health > maxHealth)
             health = maxHealth;
     }
 
-    //Еффекты которые могут наложиться на врага    
-    private IEnumerator EffectActive(float duration)
-    {
-        yield return WaitForSeconds(duration);
-    }
-    public void ResetBurn() { effectsManager.Burn.listeners.RemoveListener(Burn); burn.durationTime = 0f; burn.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
-    public void ResetPoisoned() { effectsManager.Poisoned.listeners.RemoveListener(Poisoned); poisoned.durationTime = 0f; poisoned.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
-    public void ResetBleed() { effectsManager.Bleed.listeners.RemoveListener(Bleed); bleed.durationTime = 0f; bleed.startTime = 0f; effectIndicator.sprite = gameManager.hollowSprite;}
-    public void ResetRegeneration() { effectsManager.Regeneration.listeners.RemoveListener(Regeneration); regeneration.durationTime = 0f; regeneration.startTime = 0f; effectIndicator.sprite = gameManager.hollowSprite; } 
-
+    //Еффекты которые могут наложиться на врага   
     public void Burn() { TakeHit(9); }
     public void Poisoned() { TakeHit(5); }
     public void Bleed() { TakeHit(14); }

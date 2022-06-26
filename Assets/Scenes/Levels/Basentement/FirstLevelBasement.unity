@@ -1025,6 +1025,9 @@ MonoBehaviour:
   health: 1912
   maxHealth: 2187
   healthBar: {fileID: 274904591}
+  onHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
   effectIndicator: {fileID: 0}
 --- !u!61 &203290211
 BoxCollider2D:
@@ -1369,8 +1372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7739a2ee2fb329f43bb5cb14ac27b624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 203290210}
   slider: {fileID: 274904593}
+  text: {fileID: 362033985}
 --- !u!114 &274904593
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -27,13 +27,13 @@ public class Projectile : MonoBehaviour
             
             if(projectileEffect != EffectsList.None)
             {
-                //Если есть еффект
-                if(projectileEffect == EffectsList.Poisoned)
-                    effectsManager.GetBurn(effectTime, null, collision.gameObject.GetComponent<HealthEnemy>());
-                if(projectileEffect== EffectsList.Burn)
-                    effectsManager.GetBurn(effectTime, null, collision.gameObject.GetComponent<HealthEnemy>());
-                if(projectileEffect == EffectsList.Bleed)
-                    effectsManager.GetBurn(effectTime, null, collision.gameObject.GetComponent<HealthEnemy>());
+                ////Если есть еффект
+                //if(projectileEffect == EffectsList.Poisoned)
+                //    effectsManager.GetBurn(effectTime, null, collision.gameObject.GetComponent<HealthEnemy>());
+                //if(projectileEffect== EffectsList.Burn)
+                //    effectsManager.GetBurn(effectTime, null, collision.gameObject.GetComponent<HealthEnemy>());
+                //if(projectileEffect == EffectsList.Bleed)
+                //    effectsManager.GetBurn(effectTime, null, collision.gameObject.GetComponent<HealthEnemy>());
             }
         }
             
