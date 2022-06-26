@@ -624,34 +624,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11413e04bbc69f74e910404cad37c9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Burn:
-    rate: 4
-    indicator: {fileID: 1571786891402097675, guid: 74aa1fb06305a82438149119eb298362, type: 3}
-    listeners:
-      m_PersistentCalls:
-        m_Calls: []
-    nextTime: 0
-  Poisoned:
-    rate: 2
-    indicator: {fileID: -8248184414856976584, guid: 74aa1fb06305a82438149119eb298362, type: 3}
-    listeners:
-      m_PersistentCalls:
-        m_Calls: []
-    nextTime: 0
-  Bleed:
-    rate: 5
-    indicator: {fileID: -3792339887870337536, guid: 74aa1fb06305a82438149119eb298362, type: 3}
-    listeners:
-      m_PersistentCalls:
-        m_Calls: []
-    nextTime: 0
-  Regeneration:
-    rate: 5
-    indicator: {fileID: -6140521989939545447, guid: 74aa1fb06305a82438149119eb298362, type: 3}
-    listeners:
-      m_PersistentCalls:
-        m_Calls: []
-    nextTime: 0
 --- !u!1 &180220245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,9 +1961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57dd3f15800671c40b4dc35512bc8cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player_Health: {fileID: 203290210}
-  health_text: {fileID: 362033985}
-  Text: 
 --- !u!114 &362033985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3421,6 +3390,78 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: damageColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: damageColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: damageColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: effectIndicator
+      value: 
+      objectReference: {fileID: 807128999}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: itemsDrop.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: effectsCanUse.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: effectsCanUse.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: effectsCanUse.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: effectsCanUse.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: effectsCanUse.Array.data[3]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: itemsDrop.Array.data[0].drop
+      value: 
+      objectReference: {fileID: 5630845710053068690, guid: d45f4255bd1e0194d8ee26b80ff449e1, type: 3}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: itemsDrop.Array.data[1].drop
+      value: 
+      objectReference: {fileID: 5630845710053068690, guid: d45f4255bd1e0194d8ee26b80ff449e1, type: 3}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: itemsDrop.Array.data[2].drop
+      value: 
+      objectReference: {fileID: 5630845710053068690, guid: d45f4255bd1e0194d8ee26b80ff449e1, type: 3}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: itemsDrop.Array.data[0].chance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: itemsDrop.Array.data[1].chance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+      propertyPath: itemsDrop.Array.data[2].chance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1160361261316572005, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
       propertyPath: movement
       value: 0
@@ -3501,8 +3542,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1209497417465223578, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+--- !u!212 &807128999 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3330916501560165472, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
+  m_PrefabInstance: {fileID: 797687480}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &845391385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4816,6 +4863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hollowSprite: {fileID: 21300000, guid: 0b4968db33e2e7a48964f5dd5d38a1ae, type: 3}
   LevelCounter: 1
+  luck: 0
   MelleRange:
   - {fileID: 7029180158682000813, guid: cf1f784d306e9124e99a89bb63bc7674, type: 3}
   - {fileID: 6428798276771261954, guid: e463f7ad352420b469de3dd5f80ab46e, type: 3}
@@ -5921,6 +5969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1480189822}
   - component: {fileID: 1480189821}
+  - component: {fileID: 1480189825}
   - component: {fileID: 1480189820}
   - component: {fileID: 1480189819}
   - component: {fileID: 1480189823}
@@ -6037,7 +6086,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c13cfa7fd4765094cab3baf0dd3da7d1, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6112,6 +6161,40 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.40586245, y: 0.3230593}
   m_EdgeRadius: 0
+--- !u!114 &1480189825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480189818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9727c2d35101849bf11baf0fc62792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
+  effectIndicator: {fileID: 0}
+  damageColor: {r: 0, g: 0, b: 0, a: 0}
+  destroySound: 
+  hitSound: 
+  effectsCanUse: 01000000020000000300000004000000
+  onDie:
+    m_PersistentCalls:
+      m_Calls: []
+  onHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
+  stun:
+    m_PersistentCalls:
+      m_Calls: []
+  minCheese: 2
+  maxCheese: 9
+  itemsDrop: []
+  roomCloser: {fileID: 0}
+  gameManager: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!1 &1501704414
 GameObject:
   m_ObjectHideFlags: 0

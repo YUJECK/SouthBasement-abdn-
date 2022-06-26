@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Move))]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(HealthEnemy))]
+[RequireComponent(typeof(EnemyHealth))]
 public class AngryRatAI : MonoBehaviour
 {
     [Header("Параметры скорости")]
@@ -82,7 +82,6 @@ public class AngryRatAI : MonoBehaviour
 
         //События
         targetSelection.onTargetChange.AddListener(CheckTargetMoveType);
-        GetComponent<HealthEnemy>().stun.AddListener(GetStunned);
     }
     private void Update() //Основная логика
     {

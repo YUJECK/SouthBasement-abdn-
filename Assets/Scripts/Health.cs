@@ -30,23 +30,6 @@ public abstract class Health : MonoBehaviour
     //Другое
     private Coroutine damageInd = null;
 
-    //Ссылки на другие классы
-    public RoomCloser roomCloser;
-    [HideInInspector] public GameManager gameManager;
-    [HideInInspector] public AudioManager audioManager;
-
-    private void Start()
-    {
-        gameManager = FindObjectOfType<GameManager>();
-        audioManager = FindObjectOfType<AudioManager>();
-        onDie.AddListener(DefaultOnDie);
-
-        if (roomCloser != null)
-        {
-            roomCloser.EnemyCounterTunUp();
-            onDie.AddListener(roomCloser.EnemyCounterTunDown);
-        }
-    }
     public void DefaultOnDie() => Destroy(gameObject);
 
     //Всякие манипуляции со здоровьем

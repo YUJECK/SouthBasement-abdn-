@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drop
+[System.Serializable]public class Drop
 {
     public GameObject drop;
     public int chance;
@@ -13,8 +13,21 @@ public class EnemyHealth : Health
     [SerializeField] private int maxCheese = 9;
     [SerializeField] private List<Drop> itemsDrop = new List<Drop>();
 
+    //Другое
+    public RoomCloser roomCloser;
+    [HideInInspector] public GameManager gameManager;
+    [HideInInspector] public AudioManager audioManager;
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
+        audioManager = FindObjectOfType<AudioManager>();
+        onDie.AddListener(DefaultOnDie);
+        if (roomCloser != null)
+        {
+            roomCloser.EnemyCounterTunUp();
+            onDie.AddListener(roomCloser.EnemyCounterTunDown);
+        }
+        onDie.AddListener(DropItem);
     }
 
     private void DropItem()
@@ -64,10 +77,11 @@ public class EnemyHealth : Health
         health -= damage;
         onHealthChange.Invoke(health, maxHealth);
 
-        if (health < 0)
+        if (health <= 0)
         {
             onDie.Invoke();
             int cheese = Random.Range(minCheese, maxCheese);
+            Debug.Log(cheese);
             gameManager.SpawnCheese(gameObject.transform.position, cheese);
         }
     }
