@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 5157359432002517473}
   - component: {fileID: 997358912328341320}
   - component: {fileID: 1160361261316572005}
-  - component: {fileID: 1209497417465223578}
+  - component: {fileID: 954463900787170469}
   - component: {fileID: 5630845709475724661}
   - component: {fileID: 5630845709475724668}
   - component: {fileID: 1658189367019712007}
@@ -548,7 +548,7 @@ MonoBehaviour:
       m_Calls: []
   stopCheker: {fileID: 7877029375638524724}
   targetSelection: {fileID: 4066900711061194624}
---- !u!114 &1209497417465223578
+--- !u!114 &954463900787170469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -557,37 +557,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 5630845710053068690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4937f07ba56b4043a5f2b00622de0af, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a9727c2d35101849bf11baf0fc62792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 160
   maxHealth: 160
-  onDestroy:
-    m_PersistentCalls:
-      m_Calls: []
   effectIndicator: {fileID: 3330916501560165472}
-  damageColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
-  minCheese: 0
-  maxCheese: 8
   destroySound: 
   hitSound: 
-  burn:
-    startTime: 0
-    durationTime: 0
-  bleed:
-    startTime: 0
-    durationTime: 0
-  poisoned:
-    startTime: 0
-    durationTime: 0
+  effectsCanUse: 01000000020000000300000004000000
+  onDie:
+    m_PersistentCalls:
+      m_Calls: []
+  onHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
   stun:
     m_PersistentCalls:
       m_Calls: []
-  regeneration:
-    startTime: 0
-    durationTime: 0
+  minCheese: 0
+  maxCheese: 10
+  itemsDrop: []
   roomCloser: {fileID: 0}
-  angryRatAi: {fileID: 5157359432002517473}
+  damageColor: {r: 0.9811321, g: 0.42114633, b: 0.42114633, a: 1}
+  gameManager: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!50 &5630845709475724661
 Rigidbody2D:
   serializedVersion: 4

@@ -81,6 +81,7 @@ public class AngryRatAI : MonoBehaviour
         moving.speed = walkSpeed;
 
         //События
+        GetComponent<EnemyHealth>().stun.AddListener(GetStunned);
         targetSelection.onTargetChange.AddListener(CheckTargetMoveType);
     }
     private void Update() //Основная логика
