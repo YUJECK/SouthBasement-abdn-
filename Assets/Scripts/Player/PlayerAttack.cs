@@ -73,7 +73,7 @@ public class PlayerAttack : MonoBehaviour
                     //    effectsManager.GetBurn(melleWeapon.effectTime, null, enemyHealth);
                 }
                 //Наносим урон
-                enemy.GetComponent<HealthEnemy>().TakeHit(damage+damageBoost, melleWeapon.stunTime);
+                enemy.GetComponent<EnemyHealth>().TakeHit(damage+damageBoost/*, melleWeapon.stunTime*/);
             }
         }
     }

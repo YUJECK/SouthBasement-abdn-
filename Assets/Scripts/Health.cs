@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Health : MonoBehaviour 
+public abstract class Health : MonoBehaviour
 {
     //Показатели здоровья
     [Header("Здоровье")]
     public int health;
-    public static int maxHealth;
+    public int maxHealth;
 
     public SpriteRenderer effectIndicator;
     [SerializeField] private Color damageColor;
@@ -17,9 +17,13 @@ public abstract class Health : MonoBehaviour
     [SerializeField] private string destroySound; // Звук смерти
     [SerializeField] private string hitSound; // Звук получения урона
 
+    [Header("Еффекты")]
+    public List<EffectsList> effectsCanUse;
+
     //События
     [Header("События")]
-    public UnityEvent onDestroy = new UnityEvent();  //Методы которые вызовуться при уничтожении объекта
+    public UnityEvent onDie = new UnityEvent();  //Методы которые вызовуться при уничтожении объекта
+    public UnityEvent<int, int> onHealthChange = new UnityEvent<int, int>();
     public UnityEvent<float> stun = new UnityEvent<float>();
     private UnityEvent effects = new UnityEvent();
 
@@ -28,21 +32,22 @@ public abstract class Health : MonoBehaviour
 
     //Ссылки на другие классы
     public RoomCloser roomCloser;
-    private GameManager gameManager;
-    private AudioManager audioManager;
+    [HideInInspector] public GameManager gameManager;
+    [HideInInspector] public AudioManager audioManager;
 
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         audioManager = FindObjectOfType<AudioManager>();
+        onDie.AddListener(DefaultOnDie);
 
         if (roomCloser != null)
         {
             roomCloser.EnemyCounterTunUp();
-            onDestroy.AddListener(roomCloser.EnemyCounterTunDown);
+            onDie.AddListener(roomCloser.EnemyCounterTunDown);
         }
     }
-    private void OnDestroy() { onDestroy.Invoke(); }
+    public void DefaultOnDie() => Destroy(gameObject);
 
     //Всякие манипуляции со здоровьем
     public abstract void TakeHit(int damage);
@@ -53,52 +58,41 @@ public abstract class Health : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = new Color(100, 100, 100, 100);
     }
     public abstract void Heal(int heal);
-    public void SetHealth(int NewMaxHealth, int NewHealth)
-    {
-        maxHealth = NewMaxHealth;
-        health = NewHealth;
-
-        if (health > maxHealth)
-            health = maxHealth;
-    }
-    public void TakeAwayHealth(int TakeAwayMaxHealth, int TakeAwayHealth)
-    {
-        maxHealth -= TakeAwayMaxHealth;
-        health -= TakeAwayHealth;
-
-        if (health > maxHealth)
-            health = maxHealth;
-    }
-    public void SetBonusHealth(int NewMaxHealth, int NewHealth)
-    {
-        Debug.Log("New Health");
-        maxHealth += NewMaxHealth;
-        health += NewHealth;
-
-        if (health > maxHealth)
-            health = maxHealth;
-    }
+    public abstract void SetHealth(int NewMaxHealth, int NewHealth);
+    public abstract void TakeAwayHealth(int TakeAwayMaxHealth, int TakeAwayHealth);
 
     //Еффекты которые могут наложиться на врага    
     private IEnumerator EffectActive(float duration, EffectsList effect)
     {
-        switch (effect)
+        if(effectsCanUse.Contains(effect))
         {
-            case EffectsList.Burn:
-                effects.AddListener(Burn);
-                break;
-            case EffectsList.Bleed:
-                effects.AddListener(Burn);
-                break;
-            case EffectsList.Poisoned:
-                effects.AddListener(Burn);
-                break;
-                effects.AddListener(Burn);
-                break;
+            UnityAction effectMethod = null;
+            switch (effect)
+            {
+                case EffectsList.Burn:
+                    effects.AddListener(Burn);
+                    effectMethod = Burn;
+                    break;
+                case EffectsList.Bleed:
+                    effects.AddListener(Bleed);
+                    effectMethod = Bleed;
+                    break;
+                case EffectsList.Poisoned:
+                    effects.AddListener(Poisoned);
+                    effectMethod = Poisoned;
+                    break;
+                case EffectsList.Regeneration:
+                    effects.AddListener(Regeneration);
+                    effectMethod = Regeneration;
+                    break;
+            }
+            yield return new WaitForSeconds(duration);
+            effects.RemoveListener(effectMethod);
         }
-        yield return new WaitForSeconds(duration);
     }
+    public void GetEffect(float duration, EffectsList effect) => StartCoroutine(EffectActive(duration, effect));
 
+    //Еффекты
     public void Burn() { TakeHit(9); }
     public void Poisoned() { TakeHit(5); }
     public void Bleed() { TakeHit(14); }

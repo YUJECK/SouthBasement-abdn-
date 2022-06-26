@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public Sprite hollowSprite;
 
     public int LevelCounter = 1; // Счетчик уровней
+
+    [Header("Показатели игрока")]
+    public int luck = 0;
+
     [Header("Предметы")]
     public List<GameObject> MelleRange; // Лист оружия бл.,боя
     public List<GameObject> Food; // Лист еды
@@ -20,7 +24,6 @@ public class GameManager : MonoBehaviour
     public List<GameObject> traderItems; // Лист предметов которые продаются
 
     [Header("Сыр и все что с ним связано")]
-
     public int playerCheese; // Счетчик сыра игрока
     public GameObject CheesePrefab; //Префаб сыра
     public Text CheeseText; // Счетчик сыра(В UI)

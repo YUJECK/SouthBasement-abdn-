@@ -1,12 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    private struct Effect{
+    private struct Effect
+    {
         public float startTime;
         public float durationTime;
     };
@@ -37,26 +37,26 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeHit(int damage)
     {
-        if(!invisibleCadrs)
+        if (!invisibleCadrs)
         {
             health -= damage;
             audioManager.PlayClip("RatHurt");
 
             invisibleCadrs = true;
-            healthBar.SetBool("InvisibleCadrs",true);
+            healthBar.SetBool("InvisibleCadrs", true);
             StartCoroutine(InvisibleCadrs());
 
             onHealthChange.Invoke(health, maxHealth);
 
             if (health <= 0)
-                SceneManager.LoadScene("RestartMenu");  
+                SceneManager.LoadScene("RestartMenu");
         }
     }
     public void Heal(int bonusHealth)
     {
         health += bonusHealth;
 
-        if(health > maxHealth)
+        if (health > maxHealth)
             health = maxHealth;
         onHealthChange.Invoke(health, maxHealth);
     }
@@ -65,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
         maxHealth = NewMaxHealth;
         health = NewHealth;
 
-        if(health > maxHealth)
+        if (health > maxHealth)
             health = maxHealth;
         onHealthChange.Invoke(health, maxHealth);
     }
@@ -74,7 +74,7 @@ public class PlayerHealth : MonoBehaviour
         maxHealth -= TakeAwayMaxHealth;
         health -= TakeAwayHealth;
 
-        if(health > maxHealth)
+        if (health > maxHealth)
             health = maxHealth;
 
         onHealthChange.Invoke(health, maxHealth);
@@ -87,7 +87,7 @@ public class PlayerHealth : MonoBehaviour
         maxHealth += NewMaxHealth;
         health += NewHealth;
 
-        if(health > maxHealth)
+        if (health > maxHealth)
             health = maxHealth;
         onHealthChange.Invoke(health, maxHealth);
     }
@@ -100,13 +100,13 @@ public class PlayerHealth : MonoBehaviour
     }
 
     //Еффекты public void GetBurn(float effectTime) 
-    
+
     //public void ResetBurn() { effectsManager.Burn.listeners.RemoveListener(Burn); burn.durationTime = 0f; burn.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
     //public void ResetPoisoned() { effectsManager.Poisoned.listeners.RemoveListener(Poisoned); poisoned.durationTime = 0f; poisoned.startTime = 0f;effectIndicator.sprite = gameManager.hollowSprite;}
     //public void ResetBleed() { effectsManager.Bleed.listeners.RemoveListener(Bleed); bleed.durationTime = 0f; bleed.startTime = 0f; effectIndicator.sprite = gameManager.hollowSprite;}
 
-    public void Burn(){TakeHit(1);}
-    public void Poisoned(){TakeHit(1);}
-    public void Bleed(){TakeHit(2);}
-    public void Regeneration(){Heal(1);}
+    public void Burn() { TakeHit(1); }
+    public void Poisoned() { TakeHit(1); }
+    public void Bleed() { TakeHit(2); }
+    public void Regeneration() { Heal(1); }
 }
