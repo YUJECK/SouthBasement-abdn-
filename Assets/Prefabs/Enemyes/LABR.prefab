@@ -135,7 +135,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.97129524
+  m_Radius: 1.0302274
 --- !u!1 &2103769226777337201
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
   onEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3964670963887834336}
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: SetStop
         m_Mode: 6
@@ -200,7 +200,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3964670963887834336}
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: SetStop
         m_Mode: 6
@@ -233,7 +233,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.02859974, y: 0}
   serializedVersion: 2
-  m_Radius: 0.6288471
+  m_Radius: 0.8223696
 --- !u!1 &4690329189877764945
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,9 +347,9 @@ GameObject:
   - component: {fileID: 5630845710053068691}
   - component: {fileID: 7112295092639880517}
   - component: {fileID: 5157359432002517473}
-  - component: {fileID: 1209497417465223578}
   - component: {fileID: 1776300603172290270}
   - component: {fileID: 3964670963887834336}
+  - component: {fileID: 954463900787170469}
   - component: {fileID: 5630845709475724661}
   - component: {fileID: 1658189367019712007}
   - component: {fileID: 8900124603063756961}
@@ -446,46 +446,6 @@ MonoBehaviour:
   runSpeed: 4
   combat: {fileID: 967021909841136685}
   targetSelection: {fileID: 5786928341691185866}
---- !u!114 &1209497417465223578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4937f07ba56b4043a5f2b00622de0af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 60
-  maxHealth: 60
-  onDestroy:
-    m_PersistentCalls:
-      m_Calls: []
-  effectIndicator: {fileID: 3330916501560165472}
-  damageColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
-  minCheese: 0
-  maxCheese: 6
-  destroySound: 
-  hitSound: 
-  burn:
-    startTime: 0
-    durationTime: 0
-  bleed:
-    startTime: 0
-    durationTime: 0
-  poisoned:
-    startTime: 0
-    durationTime: 0
-  stun:
-    m_PersistentCalls:
-      m_Calls: []
-  regeneration:
-    startTime: 0
-    durationTime: 0
-  roomCloser: {fileID: 0}
-  angryRatAi: {fileID: 5157359432002517473}
 --- !u!114 &1776300603172290270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,6 +510,40 @@ MonoBehaviour:
       m_Calls: []
   stopCheker: {fileID: 2327817435136662898}
   targetSelection: {fileID: 5786928341691185866}
+--- !u!114 &954463900787170469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9727c2d35101849bf11baf0fc62792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 65
+  maxHealth: 65
+  effectIndicator: {fileID: 3330916501560165472}
+  destroySound: 
+  hitSound: 
+  effectsCanUse: 01000000020000000300000004000000
+  onDie:
+    m_PersistentCalls:
+      m_Calls: []
+  onHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
+  stun:
+    m_PersistentCalls:
+      m_Calls: []
+  minCheese: 0
+  maxCheese: 7
+  itemsDrop: []
+  roomCloser: {fileID: 0}
+  damageColor: {r: 0.98039216, g: 0.41960785, b: 0.41960785, a: 1}
+  gameManager: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!50 &5630845709475724661
 Rigidbody2D:
   serializedVersion: 4
@@ -786,7 +780,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9120506223073923516}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.009, y: 0.766, z: 0}
+  m_LocalPosition: {x: 0.009, y: 0.845, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_Children: []
   m_Father: {fileID: 3287090945866824701}

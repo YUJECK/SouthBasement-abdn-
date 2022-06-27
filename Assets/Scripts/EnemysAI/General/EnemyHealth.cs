@@ -1,7 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]public class Drop
+[System.Serializable] public class Drop
 {
     public GameObject drop;
     public int chance;
@@ -14,7 +15,9 @@ public class EnemyHealth : Health
     [SerializeField] private List<Drop> itemsDrop = new List<Drop>();
 
     //Другое
+    [Header("Другое")]
     public RoomCloser roomCloser;
+    private Coroutine damageInd;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public AudioManager audioManager;
     private void Start()
@@ -33,18 +36,18 @@ public class EnemyHealth : Health
     private void DropItem()
     {
         List<Drop> itemsInChance = new List<Drop>();
-        if(itemsDrop.Count > 0)
+        if (itemsDrop.Count > 0)
         {
             int chance = Random.Range(0, 101);
             chance -= gameManager.luck;
 
-            foreach(Drop item in itemsDrop)
+            foreach (Drop item in itemsDrop)
             {
                 if (chance <= item.chance)
                     itemsInChance.Add(item);
             }
+            Instantiate(itemsInChance[Random.Range(0, itemsInChance.Count)].drop, transform.position, Quaternion.identity);
         }
-        Instantiate(itemsInChance[Random.Range(0, itemsInChance.Count)].drop, transform.position, Quaternion.identity);
     }
 
     public override void Heal(int heal)
@@ -52,6 +55,15 @@ public class EnemyHealth : Health
         health += heal;
         if (health >= maxHealth) health = maxHealth;
 
+        onHealthChange.Invoke(health, maxHealth);
+    }
+    public override void PlusNewHealth(int newMaxHealth, int newHealth)
+    {
+        maxHealth += newMaxHealth;
+        health += newHealth;
+
+        if (health > maxHealth)
+            health = maxHealth;
         onHealthChange.Invoke(health, maxHealth);
     }
     public override void SetHealth(int newMaxHealth, int newHealth)
@@ -72,9 +84,12 @@ public class EnemyHealth : Health
         if (health < 0) onDie.Invoke();
         onHealthChange.Invoke(health, maxHealth);
     }
-    public override void TakeHit(int damage)
+    public override void TakeHit(int damage, float stunDuration )
     {
         health -= damage;
+        if (damageInd != null) StopCoroutine(damageInd);
+        if (stunDuration > 0f) stun.Invoke(stunDuration);
+        damageInd = StartCoroutine(TakeHitVizualization());
         onHealthChange.Invoke(health, maxHealth);
 
         if (health <= 0)

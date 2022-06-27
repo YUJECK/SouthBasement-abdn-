@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[System.Serializable]
-public struct Effect
+[System.Serializable] public struct Effect
 {
     public float startTime;
     public float durationTime;
