@@ -37,17 +37,17 @@ public class Grid : MonoBehaviour
         {
             for (float y = 0; y < gridHeight; y += nodeSize)
             {
-                float a = 0.8f;
+                float a = 0.6f;
                 List<Vector3> points = new List<Vector3>();
                 points.Add(new Vector3(0f, 0f, 0f));
                 points.Add(new Vector3(nodeSize * a, nodeSize * a, 0f));
                 points.Add(new Vector3(nodeSize * a, -nodeSize * a, 0f));
                 points.Add(new Vector3(-nodeSize * a, nodeSize * a, 0f));
                 points.Add(new Vector3(-nodeSize * a, -nodeSize * a, 0f));
-                points.Add(new Vector3(0, nodeSize * 0.8f, 0f));
-                points.Add(new Vector3(0, -nodeSize * 0.8f, 0f));
-                points.Add(new Vector3(nodeSize * 0.8f, 0, 0f));
-                points.Add(new Vector3(-nodeSize * 0.8f, 0, 0f));
+                points.Add(new Vector3(0, nodeSize * a, 0f));
+                points.Add(new Vector3(0, -nodeSize * a, 0f));
+                points.Add(new Vector3(nodeSize * a, 0, 0f));
+                points.Add(new Vector3(-nodeSize * a, 0, 0f));
 
                 bool isWall = false;
 
@@ -79,6 +79,61 @@ public class Grid : MonoBehaviour
         isGridCreated = true;
         Debug.Log("Grid - active");
     }
+    public void OverwriteGrid(Vector2 start, Vector2 end)
+    {
+        Camera camera = Camera.main;
+
+        start.x = (int)Mathf.Ceil(start.x / nodeSize);
+        start.y = (int)Mathf.Ceil(start.y / nodeSize);
+        end.x = (int)Mathf.Ceil(end.x / nodeSize);
+        end.y = (int)Mathf.Ceil(end.y / nodeSize);
+
+        for (float x = start.x; x < end.x; x += nodeSize)
+        {
+            for (float y = start.y; y < end.y; y += nodeSize)
+            {
+                float a = 0.6f;
+                List<Vector3> points = new List<Vector3>();
+                points.Add(new Vector3(0f, 0f, 0f));
+                points.Add(new Vector3(nodeSize * a, nodeSize * a, 0f));
+                points.Add(new Vector3(nodeSize * a, -nodeSize * a, 0f));
+                points.Add(new Vector3(-nodeSize * a, nodeSize * a, 0f));
+                points.Add(new Vector3(-nodeSize * a, -nodeSize * a, 0f));
+                points.Add(new Vector3(0, nodeSize * a, 0f));
+                points.Add(new Vector3(0, -nodeSize * a, 0f));
+                points.Add(new Vector3(nodeSize * a, 0, 0f));
+                points.Add(new Vector3(-nodeSize * a, 0, 0f));
+
+                bool isWall = false;
+
+                foreach (Vector3 point in points)
+                {
+                    RaycastHit2D[] pointObjs = Physics2D.RaycastAll(new Vector3(x + point.x, y + point.y), Vector2.zero);
+
+                    foreach (RaycastHit2D obj in pointObjs)
+                    {
+                        if (obj.collider != null)
+                        {
+                            if (!obj.collider.isTrigger && ((obj.collider.tag != "Enemy" && obj.collider.tag != "Player") || obj.transform.CompareTag("Decor")))
+                            {
+                                isWall = true;
+                                goto foreachExit;
+                            }
+                        }
+                    }
+                }
+            foreachExit: // Для выхода из двух циклов
+
+                if (isWall)
+                    grid[(int)x, (int)y] = 1;
+                else
+                    grid[(int)x, (int)y] = 0;
+            }
+        }
+    }
+    public int GetGridPoint(int x, int y) { return grid[x, y]; }
+    public void EditGrid(int x, int y, int newPoint) { grid[x, y] = newPoint; }
+    
     public void ShowGrid()
     {
         for (float x = 0; x < gridWidth; x += nodeSize)

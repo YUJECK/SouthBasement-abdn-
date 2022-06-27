@@ -17,7 +17,6 @@ public class EnemyHealth : Health
     //Другое
     [Header("Другое")]
     public RoomCloser roomCloser;
-    [SerializeField] private Color damageColor;
     private Coroutine damageInd;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public AudioManager audioManager;
@@ -58,6 +57,15 @@ public class EnemyHealth : Health
 
         onHealthChange.Invoke(health, maxHealth);
     }
+    public override void PlusNewHealth(int newMaxHealth, int newHealth)
+    {
+        maxHealth += newMaxHealth;
+        health += newHealth;
+
+        if (health > maxHealth)
+            health = maxHealth;
+        onHealthChange.Invoke(health, maxHealth);
+    }
     public override void SetHealth(int newMaxHealth, int newHealth)
     {
         maxHealth = newMaxHealth;
@@ -91,11 +99,5 @@ public class EnemyHealth : Health
             Debug.Log(cheese);
             gameManager.SpawnCheese(gameObject.transform.position, cheese);
         }
-    }
-    private IEnumerator TakeHitVizualization()
-    {
-        gameObject.GetComponent<SpriteRenderer>().color = damageColor;
-        yield return new WaitForSeconds(0.6f);
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(100, 100, 100, 100);
     }
 }

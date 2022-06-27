@@ -10,6 +10,7 @@ public abstract class Health : MonoBehaviour
     public int health;
     public int maxHealth;
 
+    [SerializeField] private Color damageColor;
     public SpriteRenderer effectIndicator;
 
     [Header("Звуки")]
@@ -33,9 +34,18 @@ public abstract class Health : MonoBehaviour
 
     //Всякие манипуляции со здоровьем
     public abstract void TakeHit(int damage, float stunDuration = 0f);
+    public abstract void TakeAwayHealth(int takeAwayMaxHealth, int takeAwayHealth);
     public abstract void Heal(int heal);
-    public abstract void SetHealth(int NewMaxHealth, int NewHealth);
-    public abstract void TakeAwayHealth(int TakeAwayMaxHealth, int TakeAwayHealth);
+    public abstract void SetHealth(int newMaxHealth, int newHealth);
+    public abstract void PlusNewHealth(int newMaxHealth, int newHealth);
+
+    public IEnumerator TakeHitVizualization()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = damageColor;
+        yield return new WaitForSeconds(0.6f);
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(100, 100, 100, 100);
+    }
+
 
     //Еффекты которые могут наложиться на врага    
     private IEnumerator EffectActive(float duration, EffectsList effect)

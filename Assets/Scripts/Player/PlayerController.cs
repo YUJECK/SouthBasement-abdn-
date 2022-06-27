@@ -21,7 +21,10 @@ public class PlayerController : MonoBehaviour
     public bool isSprinting; // Спринтит ли игрок
     private float boostSpeed; // Новая скорость при спринте
     private float normalSpeed = 5f; // Обычная скорость
-    
+
+    private Vector2Int lastGridEdit;
+    private int lastPoint;
+
     //Графика и компонеты
     private Rigidbody2D rb;
     private Animator anim;
@@ -32,9 +35,10 @@ public class PlayerController : MonoBehaviour
     //Ссылки на другие скрипты
     private PlayerAttack ratAttack;
     private AudioManager audioManager;
+    private Grid grid;
     public static PlayerController instance; // Синглтон
 
-    private void Awake()
+    private void Start()
     {
         if(instance == null)
             instance = this;
@@ -49,6 +53,7 @@ public class PlayerController : MonoBehaviour
         playerSpiteRend = GetComponent<SpriteRenderer>();
         normalSpeed = speed;
         ratAttack = FindObjectOfType<PlayerAttack>();
+        grid = FindObjectOfType<Grid>();
         audioManager = FindObjectOfType<AudioManager>();
     }
     private void OnLevelWasLoaded(int level)
@@ -70,8 +75,11 @@ public class PlayerController : MonoBehaviour
                 
             else if(movement.x == 0 && movement.y == 0)
                 anim.SetBool("Is_Run", false);
-            
-            //Написать рывок
+
+            //Не делаенье точки где стоит игрок коллайдером
+            grid.EditGrid(lastGridEdit.x, lastGridEdit.y, lastPoint);
+            lastPoint = grid.GetGridPoint((int)(transform.position.x / grid.nodeSize), (int)(transform.position.y / grid.nodeSize));
+            if(lastPoint == 0) grid.EditGrid((int)(transform.position.x / grid.nodeSize), (int)(transform.position.y / grid.nodeSize), 0);
             
             //Спринт
             if((!isSprinting & Input.GetKeyDown(KeyCode.LeftControl))&(movement.x != 0 || movement.y != 0))
