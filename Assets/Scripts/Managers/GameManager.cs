@@ -1,13 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     //Разные булева переменные
     public static bool isPlayerStopped;
-    
+
     //Разные спрайты к которым нужен быстрый доступ
     public Sprite hollowSprite;
 
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
             instance = this;
         else
         {
@@ -40,16 +40,15 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-
     private void OnLevelWasLoaded()
     {
-        if(traderItems.Count != 0) //Записываем все не проданные предметы обратно
+        if (traderItems.Count != 0) //Записываем все не проданные предметы обратно
         {
             int itemsCount = traderItems.Count;
-              
-            for(int i = 0; i < itemsCount; i++)
+
+            for (int i = 0; i < itemsCount; i++)
             {
-                switch(traderItems[0].GetComponent<ItemInfo>().itemClass)
+                switch (traderItems[0].GetComponent<ItemInfo>().itemClass)
                 {
                     case ItemClass.Food:
                         Food.Add(traderItems[0]);
@@ -68,12 +67,13 @@ public class GameManager : MonoBehaviour
                         traderItems.Remove(traderItems[0]);
                         break;
                 }
-            }  
-        }    
+            }
+        }
     }
+
     public void SpawnCheese(Vector3 CheesePos, int cheeseCount) // Спавнит сыр
     {
-        if(cheeseCount != 0)
+        if (cheeseCount != 0)
         {
             GameObject cheese = Instantiate(CheesePrefab, CheesePos, Quaternion.identity);
             cheese.GetComponent<Cheese>().cheeseScore = cheeseCount;
@@ -83,5 +83,13 @@ public class GameManager : MonoBehaviour
     {
         playerCheese += NewCheese;
         CheeseText.text = playerCheese.ToString();
+    }
+    public IEnumerator ChangeTimeScale(float firstScale, float secondScale, float duration)
+    {
+        Time.timeScale = firstScale;
+        Debug.Log(Time.timeScale);
+        yield return new WaitForSeconds(duration);
+        Time.timeScale = secondScale;
+        Debug.Log(Time.timeScale);
     }
 }

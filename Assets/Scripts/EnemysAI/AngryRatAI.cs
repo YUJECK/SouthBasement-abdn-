@@ -46,24 +46,24 @@ public class AngryRatAI : MonoBehaviour
     //Оглушение
     public IEnumerator Stun(float duration)
     {
-        SetStun();
+        SetStun(true, true);
         yield return new WaitForSeconds(duration);
-        ResetStun();
+        ResetStun(true, true);
     }
     public void GetStunned(float duration) { StartCoroutine(Stun(duration)); }
-    public void SetStun()
+    public void SetStun(bool stopChange, bool blockChange)
     {
-        moving.SetStop(true);
-        moving.SetBlocking(true);
+        if(stopChange) moving.SetStop(true);
+        if(blockChange) moving.SetBlocking(true);
         combat.SetStop(true);
         isStopped = true;
         if (anim.GetBool("isRun")) anim.SetBool("isRun", false);
         anim.SetBool("isStunned", true);
     }
-    public void ResetStun()
+    public void ResetStun(bool stopChange, bool blockChange)
     {
-        moving.SetBlocking(false);
-        moving.SetStop(false);
+        if(blockChange) moving.SetBlocking(false);
+        if(stopChange) moving.SetStop(false);
         combat.SetStop(false);
         isStopped = false;
         anim.SetBool("isStunned", false);

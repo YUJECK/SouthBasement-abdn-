@@ -23,6 +23,7 @@ public class PlayerAttack : MonoBehaviour
 
     //Сслыки на другие скрипты
     private PlayerController player;
+    private GameManager gameManager;
     private EffectsManager effectsManager;
 
     private void Start()
@@ -30,6 +31,7 @@ public class PlayerAttack : MonoBehaviour
         pointRotation = GetComponent<PointRotation>();
         animRange = transform.GetChild(0).GetComponent<Animator>();
         player = FindObjectOfType<PlayerController>();
+        gameManager = FindObjectOfType<GameManager>();
         effectsManager = FindObjectOfType<EffectsManager>();
         SetToDefault();
     }
@@ -62,7 +64,8 @@ public class PlayerAttack : MonoBehaviour
             if(enemy.tag == "Enemy" && !enemy.isTrigger)
             {
                 HealthEnemy enemyHealth = enemy.GetComponent<HealthEnemy>();
-                StartCoroutine(ChangeTimeScale());
+                //StartCoroutine(gameManager.ChangeTimeScale(0.5f, 1f, 0.08f));
+                
                 //Накладываем еффект если есть
                 if (melleWeapon != null && melleWeapon.effect != EffectsList.None)
                 {
@@ -95,17 +98,6 @@ public class PlayerAttack : MonoBehaviour
         attackPoint.localPosition = new Vector3(attackPoint.localPosition.x, melleWeapon.lenght, 0f);
     }
     public void SetToDefault(){ SetMelleWeapon(defaultWeapon); }
-    public IEnumerator ChangeTimeScale()
-    {
-        Time.timeScale = 0.6f;
-        Debug.Log(Time.timeScale);
-        yield return new WaitForSeconds(0.25f);
-        Time.timeScale = 0.7f;
-        Debug.Log(Time.timeScale);
-        yield return new WaitForSeconds(0.1f);
-        Time.timeScale = 1f;
-        Debug.Log(Time.timeScale);
-    }
     public void HideMelleweaponIcon(bool hiding) // Включние, выключение спрайта оружия
     {   
         weaponSprite.gameObject.SetActive(!hiding);
