@@ -131,8 +131,12 @@ public class Grid : MonoBehaviour
             }
         }
     }
-    public int GetGridPoint(int x, int y) { return grid[x, y]; }
-    public void EditGrid(int x, int y, int newPoint) { grid[x, y] = newPoint; }
+    public int GetGridPoint(int x, int y) 
+    {
+        if (isGridCreated) return grid[x, y];
+        else return 2;
+    }
+    public void EditGrid(int x, int y, int newPoint) { if (isGridCreated) grid[x, y] = newPoint; }
     
     public void ShowGrid()
     {
