@@ -57,6 +57,7 @@ public class Move : MonoBehaviour
     {
         if (path.Count != 0) ResetTarget();
         this.target = target;
+
         path = pathfinding.FindPath(
            new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
            new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize));
@@ -94,6 +95,8 @@ public class Move : MonoBehaviour
     {
         //Сброс velocity
         if (rb != null) rb.velocity = Vector2.zero;
+        //Не делаенье точки где стоит игрок коллайдером
+
         if (!isStopped && pathfinding.grid.isGridCreated)
         {
             //Динамичный поиск пути
@@ -103,7 +106,6 @@ public class Move : MonoBehaviour
                 FindNewPath(target);
                 SetNextSearchTime();
             }
-
             //Поворот
             if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position && isNowWalk)
             {

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PointRotation))]
@@ -61,9 +62,9 @@ public class PlayerAttack : MonoBehaviour
             if(enemy.tag == "Enemy" && !enemy.isTrigger)
             {
                 HealthEnemy enemyHealth = enemy.GetComponent<HealthEnemy>();
-                    
+                StartCoroutine(ChangeTimeScale());
                 //Накладываем еффект если есть
-                if(melleWeapon != null && melleWeapon.effect != EffectsList.None)
+                if (melleWeapon != null && melleWeapon.effect != EffectsList.None)
                 {
                     //if(melleWeapon.effect == EffectsList.Poisoned)
                     //    effectsManager.GetPoisoned(melleWeapon.effectTime, null, enemyHealth);
@@ -94,6 +95,17 @@ public class PlayerAttack : MonoBehaviour
         attackPoint.localPosition = new Vector3(attackPoint.localPosition.x, melleWeapon.lenght, 0f);
     }
     public void SetToDefault(){ SetMelleWeapon(defaultWeapon); }
+    public IEnumerator ChangeTimeScale()
+    {
+        Time.timeScale = 0.6f;
+        Debug.Log(Time.timeScale);
+        yield return new WaitForSeconds(0.25f);
+        Time.timeScale = 0.7f;
+        Debug.Log(Time.timeScale);
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 1f;
+        Debug.Log(Time.timeScale);
+    }
     public void HideMelleweaponIcon(bool hiding) // Включние, выключение спрайта оружия
     {   
         weaponSprite.gameObject.SetActive(!hiding);
