@@ -36,6 +36,7 @@ public class Shooting : MonoBehaviour
     }
 
     [Header("Настройки")]
+    private Transform firePoint;
     public UsageParameters shootingController = UsageParameters.Independently;
     public Patterns patternsUsage = Patterns.UsePatterns;
 

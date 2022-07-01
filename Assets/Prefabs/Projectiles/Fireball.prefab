@@ -145,11 +145,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19f0b24c86307141b98c124f05d12fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectileEffect: {fileID: 647335666321298409, guid: cb5222de58e9dfa4f88dcd6083830a2c, type: 3}
-  projectileEffectDuration: 0.2
-  damage: 25
+  projectileType: 0
+  projectileTarget: 0
   projectileEffect: 1
-  effectTime: 12
+  damage: 20
+  timeToExplosion: 1
+  explosionRadius: 1.06
+  activeBombFromOtherScript: 0
+  onStartExplosion:
+    m_PersistentCalls:
+      m_Calls: []
+  onExplosion:
+    m_PersistentCalls:
+      m_Calls: []
+  projectileExplosionObject: {fileID: 647335666321298409, guid: cb5222de58e9dfa4f88dcd6083830a2c, type: 3}
+  projectileExplosionDuration: 0.2
+  effectDuration: 5
 --- !u!95 &4245464868161039316
 Animator:
   serializedVersion: 3
