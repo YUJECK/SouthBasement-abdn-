@@ -63,19 +63,11 @@ public class PlayerAttack : MonoBehaviour
         {
             if(enemy.tag == "Enemy" && !enemy.isTrigger)
             {
-                HealthEnemy enemyHealth = enemy.GetComponent<HealthEnemy>();
                 //StartCoroutine(gameManager.ChangeTimeScale(0.5f, 1f, 0.08f));
-                
+
                 //Накладываем еффект если есть
                 if (melleWeapon != null && melleWeapon.effect != EffectsList.None)
-                {
-                    //if(melleWeapon.effect == EffectsList.Poisoned)
-                    //    effectsManager.GetPoisoned(melleWeapon.effectTime, null, enemyHealth);
-                    //if(melleWeapon.effect == EffectsList.Bleed)
-                    //    effectsManager.GetBleed(melleWeapon.effectTime, null, enemyHealth);
-                    //if(melleWeapon.effect == EffectsList.Burn)
-                    //    effectsManager.GetBurn(melleWeapon.effectTime, null, enemyHealth);
-                }
+                    enemy.GetComponent<EnemyHealth>().GetEffect(melleWeapon.effectTime, melleWeapon.effectStrength, melleWeapon.effect);
                 //Наносим урон
                 enemy.GetComponent<EnemyHealth>().TakeHit(damage+damageBoost, melleWeapon.stunTime);
             }

@@ -14,11 +14,15 @@ public class MelleRangeWeapon : ScriptableObject
     new public string name;
     [TextArea(3,3)] public string dicription;
     public EffectsList effect;
+    [Header("Еффект")]
     public float effectTime;
+    public int effectStrength = 5;
+    public float effectRate = 5;
+    [Header("")]
     public int cost;
     public TypeOfAttack typeOfAttack;
-    [Tooltip("Attack Range")] public float attackRange;
-    [Tooltip("Speed of attack")] public float attackRate;
+    public float attackRange;
+    public float attackRate;
     public float lenght; //Длина атаки
     public int damage;
     public float stunTime = 0f;

@@ -21,7 +21,8 @@ public class Shooting : MonoBehaviour
     }
 
     //Классы
-    [System.Serializable] public class Bullet
+    [System.Serializable]
+    public class Bullet
     {
         public BulletsType bulletsType = BulletsType.Limited; //Ограниченное кол-во пуль или нет
         public GameObject projectile; //Сама пуля
@@ -29,7 +30,8 @@ public class Shooting : MonoBehaviour
         public float bulletChance = 100f; //Шанс выбора пули(при одной пули в листе не учитывается)
         public int bulletCount; //Колво пуль(При бесконечном кол-ве пуль не учитывается)
     }
-    [System.Serializable] public class Pattern
+    [System.Serializable]
+    public class Pattern
     {
         public float patternChance = 100f;
         public ShootingPattern pattern;
@@ -46,13 +48,32 @@ public class Shooting : MonoBehaviour
     private List<Bullet> bullets = new List<Bullet>();
     //C паттерами
     public List<Pattern> patternsList = new List<Pattern>();
+    public Pattern currentPattern;
+    
+    private Pattern FindNewPattern()
+    {
+        float chance = Random.Range(0f, 100.1f);
+        List<Pattern> patternsInChance = new List<Pattern>();
+        
+        foreach(Pattern pattern in patternsList)
+        {
+            if (pattern.patternChance <= chance)
+                patternsInChance.Add(pattern);
+        }
 
+        return patternsInChance[Random.Range(0, patternsInChance.Count)];
+    }
+    
     private void Start()
     {
-        
+        currentPattern = FindNewPattern();
     }
     private void Update()
     {
-        
+        if (patternsUsage == Patterns.UsePatterns && patternsList.Count != 0)
+        {
+            currentPattern = FindNewPattern();
+            currentPattern.pattern.StartPattern();
+        }
     }
 }

@@ -7,10 +7,11 @@ public class FirstPyrotechnicPattern : ShootingPattern
     [SerializeField] private GameObject petard;
     public override void StartPattern()
     {
-
+        onEnter.Invoke();
     }
 
     public override void StopPattern()
     {
+        onExit.Invoke();
     }
 }

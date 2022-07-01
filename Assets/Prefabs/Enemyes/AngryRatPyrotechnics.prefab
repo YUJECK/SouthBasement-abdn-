@@ -554,6 +554,22 @@ MonoBehaviour:
   destroySound: 
   hitSound: 
   effectsCanUse: 01000000020000000300000004000000
+  burn:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  poisoned:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  bleed:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  regeneration:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
   onDie:
     m_PersistentCalls:
       m_Calls: []
@@ -561,6 +577,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   stun:
+    m_PersistentCalls:
+      m_Calls: []
+  effects:
     m_PersistentCalls:
       m_Calls: []
   minCheese: 0
@@ -634,11 +653,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7370679699852093159}
-  - component: {fileID: 3957418438233326896}
+  - component: {fileID: 125804403466811792}
   - component: {fileID: 525621702351148791}
   - component: {fileID: 3240742846370692568}
   m_Layer: 0
-  m_Name: Attack
+  m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -659,7 +678,7 @@ Transform:
   m_Father: {fileID: 5630845710053068691}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3957418438233326896
+--- !u!114 &125804403466811792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -668,64 +687,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6114075096480147822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 979f496c671af8d4ca86e913ba31d397, type: 3}
+  m_Script: {fileID: 11500000, guid: 6799cf496d06bc843addc6eb8ff9ff0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPoint: {fileID: 2965869361774044280}
-  minDamage: 8
-  maxDamage: 12
-  attackRange: 0.4
-  attackRate: 1.5
-  attackTimeOffset: 0.5
-  onAttack:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5268314099377066237}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Attack
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5630845709475724668}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: isAttack
-          m_BoolArgument: 0
-        m_CallState: 2
-  onBeforeAttack:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7773283687415602256}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Run
-          m_BoolArgument: 0
-        m_CallState: 2
-  onEnterArea:
-    m_PersistentCalls:
-      m_Calls: []
-  damageLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  enterTag: Player
+  shootingController: 1
+  patternsUsage: 0
+  patternsList:
+  - patternChance: 0
+    pattern: {fileID: 0}
+  currentPattern:
+    patternChance: 100
+    pattern: {fileID: 0}
 --- !u!114 &525621702351148791
 MonoBehaviour:
   m_ObjectHideFlags: 0

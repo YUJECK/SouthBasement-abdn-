@@ -10,13 +10,6 @@ public class PlayerHealth : Health
     public Animator healthBar;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public AudioManager audioManager;
-    private void Start()
-    {
-        gameManager = FindObjectOfType<GameManager>();
-        audioManager = FindObjectOfType<AudioManager>();
-        onDie.AddListener(DefaultOnDie);
-        onHealthChange.Invoke(health, maxHealth);
-    }
     public override void Heal(int heal)
     {
         health += heal;
@@ -73,6 +66,16 @@ public class PlayerHealth : Health
             health = maxHealth;
         onHealthChange.Invoke(health, maxHealth);
     }
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        audioManager = FindObjectOfType<AudioManager>();
+        onDie.AddListener(DefaultOnDie);
+        onHealthChange.Invoke(health, maxHealth);
+    }
+    public void Update() { effects.Invoke(); }
+
     public IEnumerator InvisibleCadrs()
     {
         yield return new WaitForSeconds(1f);

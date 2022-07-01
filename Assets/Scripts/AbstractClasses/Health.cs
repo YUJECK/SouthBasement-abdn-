@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable] public class Effect
+{
+    public Effect(float rate, int strength)
+    {
+        effectRate = rate;
+        effectStrength = strength; 
+    }
+
+    public float effectRate;
+    public int effectStrength;
+    public float nextTime;
+};
 public abstract class Health : MonoBehaviour
 {
     //Показатели здоровья
@@ -19,13 +31,17 @@ public abstract class Health : MonoBehaviour
 
     [Header("Еффекты")]
     public List<EffectsList> effectsCanUse;
+    [HideInInspector] public Effect burn;
+    [HideInInspector] public Effect poisoned;
+    [HideInInspector] public Effect bleed;
+    [HideInInspector] public Effect regeneration;
 
     //События
     [Header("События")]
     public UnityEvent onDie = new UnityEvent();  //Методы которые вызовуться при уничтожении объекта
     public UnityEvent<int, int> onHealthChange = new UnityEvent<int, int>();
     public UnityEvent<float> stun = new UnityEvent<float>();
-    private UnityEvent effects = new UnityEvent();
+    public UnityEvent effects = new UnityEvent();
 
     //Другое
     private Coroutine damageInd = null;
@@ -48,7 +64,7 @@ public abstract class Health : MonoBehaviour
 
 
     //Еффекты которые могут наложиться на врага    
-    private IEnumerator EffectActive(float duration, EffectsList effect)
+    private IEnumerator EffectActive(float duration, Effect effectStat, EffectsList effect)
     {
         if(effectsCanUse.Contains(effect))
         {
@@ -56,18 +72,22 @@ public abstract class Health : MonoBehaviour
             switch (effect)
             {
                 case EffectsList.Burn:
+                    burn = effectStat;
                     effects.AddListener(Burn);
                     effectMethod = Burn;
                     break;
                 case EffectsList.Bleed:
+                    bleed = effectStat;
                     effects.AddListener(Bleed);
                     effectMethod = Bleed;
                     break;
                 case EffectsList.Poisoned:
+                    poisoned = effectStat;
                     effects.AddListener(Poisoned);
                     effectMethod = Poisoned;
                     break;
                 case EffectsList.Regeneration:
+                    regeneration = effectStat;
                     effects.AddListener(Regeneration);
                     effectMethod = Regeneration;
                     break;
@@ -76,11 +96,39 @@ public abstract class Health : MonoBehaviour
             effects.RemoveListener(effectMethod);
         }
     }
-    public void GetEffect(float duration, EffectsList effect) => StartCoroutine(EffectActive(duration, effect));
+    public void GetEffect(float duration, int strength, float rate, EffectsList effect) => StartCoroutine(EffectActive(duration, new Effect(rate, strength), effect));
 
     //Еффекты
-    public void Burn() { TakeHit(9); }
-    public void Poisoned() { TakeHit(5); }
-    public void Bleed() { TakeHit(14); }
-    public void Regeneration() { Heal(10); }
+    public void Burn() 
+    {
+        if(burn.nextTime <= Time.time)
+        {
+            burn.nextTime = Time.time + burn.effectRate;
+            TakeHit(burn.effectStrength); 
+        }
+    }
+    public void Poisoned()
+    {
+        if (burn.nextTime <= Time.time)
+        {
+            poisoned.nextTime = Time.time + poisoned.effectRate;
+            TakeHit(poisoned.effectStrength);
+        }
+    }
+    public void Bleed()
+    {
+        if (burn.nextTime <= Time.time)
+        {
+            bleed.nextTime = Time.time + bleed.effectRate;
+            TakeHit(bleed.effectStrength);
+        }
+    }
+    public void Regeneration()
+    {
+        if (burn.nextTime <= Time.time)
+        {
+            regeneration.nextTime = Time.time + regeneration.effectRate;
+            TakeHit(regeneration.effectStrength);
+        }
+    }
 }
