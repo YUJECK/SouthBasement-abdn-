@@ -23,6 +23,7 @@ public class EnemyHealth : Health
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        effectManager = FindObjectOfType<EffectsInfo>();
         audioManager = FindObjectOfType<AudioManager>();
         onDie.AddListener(DefaultOnDie);
         if (roomCloser != null)

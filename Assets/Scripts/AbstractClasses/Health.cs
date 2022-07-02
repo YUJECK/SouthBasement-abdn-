@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable] public class Effect
+[System.Serializable] public class EffectStats
 {
-    public Effect(float rate, int strength)
+    public EffectStats(float rate, int strength)
     {
         effectRate = rate;
         effectStrength = strength; 
@@ -13,7 +13,7 @@ using UnityEngine.Events;
 
     public float effectRate;
     public int effectStrength;
-    public float nextTime;
+    [HideInInspector] public float nextTime;
 };
 public abstract class Health : MonoBehaviour
 {
@@ -31,10 +31,10 @@ public abstract class Health : MonoBehaviour
 
     [Header("Еффекты")]
     public List<EffectsList> effectsCanUse;
-    [HideInInspector] public Effect burn;
-    [HideInInspector] public Effect poisoned;
-    [HideInInspector] public Effect bleed;
-    [HideInInspector] public Effect regeneration;
+    [HideInInspector] public EffectStats burn;
+    [HideInInspector] public EffectStats poisoned;
+    [HideInInspector] public EffectStats bleed;
+    [HideInInspector] public EffectStats regeneration;
 
     //События
     [Header("События")]
@@ -45,6 +45,7 @@ public abstract class Health : MonoBehaviour
 
     //Другое
     private Coroutine damageInd = null;
+    [HideInInspector] public EffectsInfo effectManager;
 
     public void DefaultOnDie() => Destroy(gameObject);
 
@@ -64,7 +65,7 @@ public abstract class Health : MonoBehaviour
 
 
     //Еффекты которые могут наложиться на врага    
-    private IEnumerator EffectActive(float duration, Effect effectStat, EffectsList effect)
+    private IEnumerator EffectActive(float duration, EffectStats effectStats, EffectsList effect)
     {
         if(effectsCanUse.Contains(effect))
         {
@@ -72,22 +73,26 @@ public abstract class Health : MonoBehaviour
             switch (effect)
             {
                 case EffectsList.Burn:
-                    burn = effectStat;
+                    effectIndicator.sprite = effectManager.burnIndicator;
+                    burn = effectStats;
                     effects.AddListener(Burn);
                     effectMethod = Burn;
                     break;
                 case EffectsList.Bleed:
-                    bleed = effectStat;
+                    effectIndicator.sprite = effectManager.bleedndicator;
+                    bleed = effectStats;
                     effects.AddListener(Bleed);
                     effectMethod = Bleed;
                     break;
                 case EffectsList.Poisoned:
-                    poisoned = effectStat;
+                    effectIndicator.sprite = effectManager.poisonedIndicator;
+                    poisoned = effectStats;
                     effects.AddListener(Poisoned);
                     effectMethod = Poisoned;
                     break;
                 case EffectsList.Regeneration:
-                    regeneration = effectStat;
+                    effectIndicator.sprite = effectManager.regenerationIndicator;
+                    regeneration = effectStats;
                     effects.AddListener(Regeneration);
                     effectMethod = Regeneration;
                     break;
@@ -96,7 +101,7 @@ public abstract class Health : MonoBehaviour
             effects.RemoveListener(effectMethod);
         }
     }
-    public void GetEffect(float duration, int strength, float rate, EffectsList effect) => StartCoroutine(EffectActive(duration, new Effect(rate, strength), effect));
+    public void GetEffect(float duration, EffectStats effectStats, EffectsList effect) => StartCoroutine(EffectActive(duration, effectStats, effect));
 
     //Еффекты
     public void Burn() 
@@ -109,15 +114,16 @@ public abstract class Health : MonoBehaviour
     }
     public void Poisoned()
     {
-        if (burn.nextTime <= Time.time)
+        if (Time.time >= poisoned.nextTime)
         {
+            Debug.Log("effect");
             poisoned.nextTime = Time.time + poisoned.effectRate;
             TakeHit(poisoned.effectStrength);
         }
     }
     public void Bleed()
     {
-        if (burn.nextTime <= Time.time)
+        if (Time.time >= bleed.nextTime)
         {
             bleed.nextTime = Time.time + bleed.effectRate;
             TakeHit(bleed.effectStrength);
@@ -125,7 +131,7 @@ public abstract class Health : MonoBehaviour
     }
     public void Regeneration()
     {
-        if (burn.nextTime <= Time.time)
+        if (Time.time >= regeneration.nextTime)
         {
             regeneration.nextTime = Time.time + regeneration.effectRate;
             TakeHit(regeneration.effectStrength);

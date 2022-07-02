@@ -24,6 +24,7 @@ public class ActiveItemPickUp : MonoBehaviour
         if(activeItem != null)
         {
             // Ставим спрайт предмета и ищем инвентарь
+            activeItem = Instantiate(activeItem);
             activeItem.ActivateItem();
             gameObject.GetComponent<SpriteRenderer>().sprite = activeItem.sprite;
             itemInfo = GetComponent<ItemInfo>();

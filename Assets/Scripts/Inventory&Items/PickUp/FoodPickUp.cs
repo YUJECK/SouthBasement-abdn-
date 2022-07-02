@@ -22,6 +22,7 @@ public class FoodPickUp : MonoBehaviour
         if(food != null)
         {
             // Ставим спрайт предмета и ищем инвентарь
+            food = Instantiate(food);
             food.ActiveItem();
             gameObject.GetComponent<SpriteRenderer>().sprite = food.sprite;
             itemInfo = GetComponent<ItemInfo>();

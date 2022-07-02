@@ -24,7 +24,6 @@ public class PlayerAttack : MonoBehaviour
     //Сслыки на другие скрипты
     private PlayerController player;
     private GameManager gameManager;
-    private EffectsManager effectsManager;
 
     private void Start()
     {
@@ -32,7 +31,6 @@ public class PlayerAttack : MonoBehaviour
         animRange = transform.GetChild(0).GetComponent<Animator>();
         player = FindObjectOfType<PlayerController>();
         gameManager = FindObjectOfType<GameManager>();
-        effectsManager = FindObjectOfType<EffectsManager>();
         SetToDefault();
     }
     void Update()
@@ -67,7 +65,7 @@ public class PlayerAttack : MonoBehaviour
 
                 //Накладываем еффект если есть
                 if (melleWeapon != null && melleWeapon.effect != EffectsList.None)
-                    enemy.GetComponent<EnemyHealth>().GetEffect(melleWeapon.effectTime, melleWeapon.effectStrength, melleWeapon.effect);
+                    enemy.GetComponent<EnemyHealth>().GetEffect(melleWeapon.effectTime, melleWeapon.effectStats, melleWeapon.effect);
                 //Наносим урон
                 enemy.GetComponent<EnemyHealth>().TakeHit(damage+damageBoost, melleWeapon.stunTime);
             }

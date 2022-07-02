@@ -19,6 +19,7 @@ public class ProjectileEditor : Editor
     private SerializedProperty damage;
     private SerializedProperty projectileExplosionObject;
     private SerializedProperty projectileExplosionDuration;
+    private SerializedProperty effectStats;
 
     private void OnEnable()
     {
@@ -36,6 +37,7 @@ public class ProjectileEditor : Editor
             damage = serializedObject.FindProperty("damage");
             projectileExplosionObject = serializedObject.FindProperty("projectileExplosionObject");
             projectileExplosionDuration = serializedObject.FindProperty("projectileExplosionDuration");
+            effectStats = serializedObject.FindProperty("effectStats");
         }
     }
 
@@ -62,6 +64,7 @@ public class ProjectileEditor : Editor
                 if(projectile.projectileEffect != EffectsList.None)
                 {
                     EditorGUILayout.PropertyField(effectDuration);
+                    EditorGUILayout.PropertyField(effectStats);
                 }
             }
         }

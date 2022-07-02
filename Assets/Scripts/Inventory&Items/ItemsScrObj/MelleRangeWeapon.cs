@@ -15,9 +15,8 @@ public class MelleRangeWeapon : ScriptableObject
     [TextArea(3,3)] public string dicription;
     public EffectsList effect;
     [Header("Еффект")]
+    public EffectStats effectStats;
     public float effectTime;
-    public int effectStrength = 5;
-    public float effectRate = 5;
     [Header("")]
     public int cost;
     public TypeOfAttack typeOfAttack;

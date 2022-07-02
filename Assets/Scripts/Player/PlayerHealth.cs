@@ -70,6 +70,7 @@ public class PlayerHealth : Health
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        effectManager = FindObjectOfType<EffectsInfo>();
         audioManager = FindObjectOfType<AudioManager>();
         onDie.AddListener(DefaultOnDie);
         onHealthChange.Invoke(health, maxHealth);

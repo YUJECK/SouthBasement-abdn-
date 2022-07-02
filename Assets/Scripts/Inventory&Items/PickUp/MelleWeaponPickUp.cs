@@ -24,6 +24,7 @@ public class MelleWeaponPickUp : MonoBehaviour
         if(melleWeapon != null)
         {
             // Ставим спрайт предмета и ищем инвентарь
+            melleWeapon = Instantiate(melleWeapon);
             gameObject.GetComponent<SpriteRenderer>().sprite = melleWeapon.spriteInGame;
             itemInfo = GetComponent<ItemInfo>();
 

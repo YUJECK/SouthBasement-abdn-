@@ -36,15 +36,16 @@ public class Projectile : MonoBehaviour
     [SerializeField] private GameObject projectileExplosionObject;
     [SerializeField] private float projectileExplosionDuration = 0.5f;
     [SerializeField] private float effectDuration = 0f;
+    [SerializeField] private EffectStats effectStats;
 
     //Ссылки на другие скрипты
-    private EffectsManager effectsManager;
-    private void Start() 
+    private EffectsInfo effectsManager;
+    private void Start()
     {
-        effectsManager = FindObjectOfType<EffectsManager>();
+        effectsManager = FindObjectOfType<EffectsInfo>();
         if (projectileType == ProjectileType.Bomb)
-        { 
-           if(!activeBombFromOtherScript) StartCoroutine(Bomb(timeToExplosion));
+        {
+            if (!activeBombFromOtherScript) StartCoroutine(Bomb(timeToExplosion));
             onExplosion.AddListener(Explosion);
         }
     }
@@ -65,7 +66,15 @@ public class Projectile : MonoBehaviour
         foreach (Collider2D obj in hitObj)
         {
             if (obj.TryGetComponent(typeof(Health), out Component comp))
-                obj.GetComponent<Health>().TakeHit(damage);
+            {
+                if (((obj.CompareTag("Enemy") && projectileTarget == ProjectileTarget.HitEnemy || projectileTarget == ProjectileTarget.HitBoth) ||
+                (obj.CompareTag("Player") && projectileTarget == ProjectileTarget.HitPlayer || projectileTarget == ProjectileTarget.HitBoth)))
+                {
+                    obj.GetComponent<Health>().TakeHit(damage);
+                    if (projectileEffect != EffectsList.None) //Если есть еффект
+                        obj.GetComponent<Health>().GetEffect(effectDuration, effectStats, projectileEffect);
+                }
+            }
         }
         GameObject effect = Instantiate(projectileExplosionObject, gameObject.transform.position, Quaternion.identity);
         Destroy(effect, projectileExplosionDuration);
@@ -80,17 +89,17 @@ public class Projectile : MonoBehaviour
     //Методы пули
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(projectileType == ProjectileType.Bullet)
+        if (projectileType == ProjectileType.Bullet)
         {
-            if (((collision.gameObject.tag == "Enemy" && projectileTarget == ProjectileTarget.HitEnemy || projectileTarget == ProjectileTarget.HitBoth) ||
-                (collision.gameObject.tag == "Player" && projectileTarget == ProjectileTarget.HitPlayer || projectileTarget == ProjectileTarget.HitBoth)))
+            if (((collision.gameObject.CompareTag("Enemy") && projectileTarget == ProjectileTarget.HitEnemy || projectileTarget == ProjectileTarget.HitBoth) ||
+                (collision.gameObject.CompareTag("Player") && projectileTarget == ProjectileTarget.HitPlayer || projectileTarget == ProjectileTarget.HitBoth)))
             {
                 collision.gameObject.GetComponent<Health>().TakeHit(damage);
-            
-                if(projectileEffect != EffectsList.None) //Если есть еффект
-                    collision.gameObject.GetComponent<Health>().GetEffect(effectDuration, projectileEffect);
+
+                if (projectileEffect != EffectsList.None) //Если есть еффект
+                    collision.gameObject.GetComponent<Health>().GetEffect(effectDuration, effectStats, projectileEffect);
             }
-            
+
             GameObject effect = Instantiate(projectileExplosionObject, gameObject.transform.position, Quaternion.identity);
             Destroy(effect, projectileExplosionDuration);
             Destroy(gameObject);
