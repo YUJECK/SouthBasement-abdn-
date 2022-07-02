@@ -98,7 +98,6 @@ public class EnemyHealth : Health
         {
             onDie.Invoke();
             int cheese = Random.Range(minCheese, maxCheese);
-            Debug.Log(cheese);
             gameManager.SpawnCheese(gameObject.transform.position, cheese);
         }
     }

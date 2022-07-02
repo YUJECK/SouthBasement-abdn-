@@ -7,12 +7,12 @@ public class CloseRoom : MonoBehaviour
     public GameObject CloseWalls;
     public void Close()
     {
-        if(CloseWalls != null & CloseWalls.active == false)
+        if(CloseWalls != null & CloseWalls.activeSelf == false)
            CloseWalls.gameObject.SetActive(true);
     }
     public void Open()
     {
-        if(CloseWalls != null & CloseWalls.active == true)
+        if(CloseWalls != null & CloseWalls.activeSelf == true)
             CloseWalls.gameObject.SetActive(false);
     }
 }

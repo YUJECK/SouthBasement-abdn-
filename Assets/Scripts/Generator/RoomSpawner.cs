@@ -83,7 +83,7 @@ public class RoomSpawner : MonoBehaviour
         isConnectedRoomSpawned = false; 
         isAnyObjOnTrigger = false;
         
-        Debug.Log("Point - " + gameObject.name + " was regenerate");
+        Debug.Log("[Info]: Point - " + gameObject.name + " was regenerate");
     }
     public void Close()
     {

@@ -8,7 +8,7 @@ public class EffectsInfo : MonoBehaviour
 {
     public Sprite burnIndicator;
     public Sprite bleedndicator;
-    public Sprite poisonedIndicator;
+    public Sprite poisonIndicator;
     public Sprite regenerationIndicator;
 }
     
@@ -17,6 +17,6 @@ public enum EffectsList
     None,
     Burn,
     Bleed,
-    Poisoned,
+    Poison,
     Regeneration
 }

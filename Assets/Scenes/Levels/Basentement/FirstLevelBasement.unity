@@ -594,7 +594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6428798276771262014, guid: e463f7ad352420b469de3dd5f80ab46e, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6428798276771262014, guid: e463f7ad352420b469de3dd5f80ab46e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   burnIndicator: {fileID: 1571786891402097675, guid: 74aa1fb06305a82438149119eb298362, type: 3}
   bleedndicator: {fileID: -3792339887870337536, guid: 74aa1fb06305a82438149119eb298362, type: 3}
-  poisonedIndicator: {fileID: -8248184414856976584, guid: 74aa1fb06305a82438149119eb298362, type: 3}
+  poisonIndicator: {fileID: 0}
   regenerationIndicator: {fileID: -6140521989939545447, guid: 74aa1fb06305a82438149119eb298362, type: 3}
 --- !u!1 &180220245
 GameObject:
@@ -1066,7 +1066,7 @@ MonoBehaviour:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
-  poisoned:
+  poison:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
@@ -3548,6 +3548,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3901597446588840993, guid: 5626af492cb398c489269f88f4bad4eb, type: 3}
+      propertyPath: explosionRadius
+      value: 6.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901597446588840993, guid: 5626af492cb398c489269f88f4bad4eb, type: 3}
+      propertyPath: timeToExplosion
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901597446588840993, guid: 5626af492cb398c489269f88f4bad4eb, type: 3}
+      propertyPath: projectileEffect
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901597446588840993, guid: 5626af492cb398c489269f88f4bad4eb, type: 3}
       propertyPath: projectileTarget
       value: 2
       objectReference: {fileID: 0}
@@ -3561,7 +3573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7451959332544452821, guid: 5626af492cb398c489269f88f4bad4eb, type: 3}
       propertyPath: m_Name
-      value: Fireball
+      value: FireballBomb
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5626af492cb398c489269f88f4bad4eb, type: 3}
@@ -4002,7 +4014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6060806963608494072, guid: 9ac2d14200c19294f952bc8bc98155b6, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6060806963608494072, guid: 9ac2d14200c19294f952bc8bc98155b6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5963,7 +5975,7 @@ MonoBehaviour:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
-  poisoned:
+  poison:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
@@ -7479,7 +7491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5630845710053068691, guid: 43cab1933f9709343ba8e0785febf587, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5630845710053068691, guid: 43cab1933f9709343ba8e0785febf587, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7881,7 +7893,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8043945095274718480, guid: a84bd5c476360b6409807a6daa22a0ba, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8043945095274718480, guid: a84bd5c476360b6409807a6daa22a0ba, type: 3}
       propertyPath: m_LocalPosition.x

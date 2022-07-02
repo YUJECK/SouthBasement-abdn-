@@ -77,7 +77,7 @@ public class Grid : MonoBehaviour
         }
 
         isGridCreated = true;
-        Debug.Log("Grid - active");
+        Debug.Log("[Info]: Grid created");
     }
     public void OverwriteGrid(Vector2 start, Vector2 end)
     {

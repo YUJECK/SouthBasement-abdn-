@@ -13,7 +13,7 @@ using UnityEngine.Events;
 
     public float effectRate;
     public int effectStrength;
-    [HideInInspector] public float nextTime;
+    /*[HideInInspector] */public float nextTime = 0f;
 };
 public abstract class Health : MonoBehaviour
 {
@@ -32,7 +32,7 @@ public abstract class Health : MonoBehaviour
     [Header("≈ффекты")]
     public List<EffectsList> effectsCanUse;
     [HideInInspector] public EffectStats burn;
-    [HideInInspector] public EffectStats poisoned;
+    /*[HideInInspector] */public EffectStats poison;
     [HideInInspector] public EffectStats bleed;
     [HideInInspector] public EffectStats regeneration;
 
@@ -63,7 +63,6 @@ public abstract class Health : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = new Color(100, 100, 100, 100);
     }
 
-
     //≈ффекты которые могут наложитьс€ на врага    
     private IEnumerator EffectActive(float duration, EffectStats effectStats, EffectsList effect)
     {
@@ -84,11 +83,12 @@ public abstract class Health : MonoBehaviour
                     effects.AddListener(Bleed);
                     effectMethod = Bleed;
                     break;
-                case EffectsList.Poisoned:
-                    effectIndicator.sprite = effectManager.poisonedIndicator;
-                    poisoned = effectStats;
-                    effects.AddListener(Poisoned);
-                    effectMethod = Poisoned;
+                case EffectsList.Poison:
+                    effectIndicator.sprite = effectManager.poisonIndicator;
+                    poison = effectStats;
+                    effects.AddListener(Poison);
+                    effectMethod = Poison;
+                    Debug.Log("[Info]: Poisoned active on - " + gameObject.name);
                     break;
                 case EffectsList.Regeneration:
                     effectIndicator.sprite = effectManager.regenerationIndicator;
@@ -112,14 +112,15 @@ public abstract class Health : MonoBehaviour
             TakeHit(burn.effectStrength); 
         }
     }
-    public void Poisoned()
+    public void Poison()
     {
-        if (Time.time >= poisoned.nextTime)
+        if (Time.time >= poison.nextTime)
         {
-            Debug.Log("effect");
-            poisoned.nextTime = Time.time + poisoned.effectRate;
-            TakeHit(poisoned.effectStrength);
+            Debug.Log("[Info]: Poison use on " + gameObject.name);
+            poison.nextTime = Time.time + poison.effectRate;
+            TakeHit(poison.effectStrength);
         }
+        Debug.Log("[Info]: Poison hasn't been use on " + gameObject.name);
     }
     public void Bleed()
     {

@@ -109,7 +109,7 @@ public class AudioManager : MonoBehaviour
             nowPlaying.Remove(au);
         }
         else if(au != null)
-            Debug.LogWarning("Audio " + name + " isn't plaing");
+            Debug.LogWarning("[ArtificialWarn]: Audio " + name + " isn't plaing");
     }
     public void StopClipWithDelay(string name) // Останавливает аудио послетенно уменьшая звук
     {  
