@@ -1066,7 +1066,7 @@ MonoBehaviour:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
-  poison:
+  _poison:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
@@ -1091,6 +1091,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   effectManager: {fileID: 0}
+  testOnChange:
+    m_PersistentCalls:
+      m_Calls: []
   healthBar: {fileID: 274904591}
   gameManager: {fileID: 0}
   audioManager: {fileID: 0}
@@ -5975,7 +5978,7 @@ MonoBehaviour:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
-  poison:
+  _poison:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
@@ -6000,6 +6003,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   effectManager: {fileID: 0}
+  testOnChange:
+    m_PersistentCalls:
+      m_Calls: []
   minCheese: 2
   maxCheese: 9
   itemsDrop: []
@@ -7485,6 +7491,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 954463900787170469, guid: 43cab1933f9709343ba8e0785febf587, type: 3}
+      propertyPath: effectsCanUse.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 954463900787170469, guid: 43cab1933f9709343ba8e0785febf587, type: 3}
+      propertyPath: effectsCanUse.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5630845710053068690, guid: 43cab1933f9709343ba8e0785febf587, type: 3}
       propertyPath: m_Name
       value: FatAngryRat

@@ -10,7 +10,6 @@ using UnityEngine.Events;
         effectRate = rate;
         effectStrength = strength; 
     }
-
     public float effectRate;
     public int effectStrength;
     /*[HideInInspector] */public float nextTime = 0f;
@@ -46,7 +45,6 @@ public abstract class Health : MonoBehaviour
     //Другое
     private Coroutine damageInd = null;
     [HideInInspector] public EffectsInfo effectManager;
-
     public void DefaultOnDie() => Destroy(gameObject);
 
     //Всякие манипуляции со здоровьем
@@ -88,7 +86,7 @@ public abstract class Health : MonoBehaviour
                     poison = effectStats;
                     effects.AddListener(Poison);
                     effectMethod = Poison;
-                    Debug.Log("[Info]: Poisoned active on - " + gameObject.name);
+                    Debug.Log("[Test]: Poisoned active on - " + gameObject.name);
                     break;
                 case EffectsList.Regeneration:
                     effectIndicator.sprite = effectManager.regenerationIndicator;
@@ -116,11 +114,11 @@ public abstract class Health : MonoBehaviour
     {
         if (Time.time >= poison.nextTime)
         {
-            Debug.Log("[Info]: Poison use on " + gameObject.name);
+            Debug.Log("[Test]: Poison use on " + gameObject.name);
             poison.nextTime = Time.time + poison.effectRate;
             TakeHit(poison.effectStrength);
         }
-        Debug.Log("[Info]: Poison hasn't been use on " + gameObject.name);
+        Debug.Log("[Test]: Poison hasn't been use on " + gameObject.name);
     }
     public void Bleed()
     {
