@@ -38,22 +38,23 @@ public class Shooting : MonoBehaviour
     }
 
     [Header("Настройки")]
-    [SerializeField] private Transform firePoint; //Точка спавна пуль
     public UsageParameters shootingController = UsageParameters.Independently; //Откуда будет осущетвляться стрельба(тут/в другом скрипте)
     public ForceMode2D forceMode = ForceMode2D.Impulse; //Форс мод при стельбе
     public Patterns patternsUsage = Patterns.UsePatterns; //Просто стрелять или использовать паттерны атак
 
     //Без паттернов
-    [Header("")]
+    [Header("Настройка обычной стрельбы")]
     [SerializeField] private float fireRate = 1f; //Скорость стрельбы
     [SerializeField] private List<Bullet> bullets = new List<Bullet>();
     
     //C паттерами
-    [Header("")]
+    [Header("Настройка паттернов")]
     public List<Pattern> patternsList = new List<Pattern>(); //Лист паттернов
     public float patternUseRate = 0.5f; //Частота использования паттернов
-    public Pattern currentPattern; //Паттерн который сейчас активен
+    [HideInInspector] public ShootingPattern currentPattern; //Паттерн который сейчас активен
 
+    [Header("Другое")]
+    [SerializeField] private Transform firePoint; //Точка спавна пуль
     //Ссылки на другие скрипты
     private PointRotation pointRotation;
 
@@ -74,11 +75,11 @@ public class Shooting : MonoBehaviour
     }
     private void SetNewPattern()
     {
-        if (currentPattern != null && currentPattern.pattern.isWork) currentPattern.pattern.StopPattern(this); 
-        currentPattern = FindNewPattern();
-        currentPattern.pattern = Instantiate(currentPattern.pattern);
-        currentPattern.pattern.onExit.AddListener(SetNewPattern);
-        UnityAction<Shooting> startMethod = currentPattern.pattern.StartPattern;
+        if (currentPattern != null && currentPattern.isWork) currentPattern.StopPattern(this); 
+        currentPattern = FindNewPattern().pattern;
+        currentPattern = Instantiate(currentPattern);
+        currentPattern.onExit.AddListener(SetNewPattern);
+        UnityAction<Shooting> startMethod = currentPattern.StartPattern;
         Utility.InvokeMethod<Shooting>(startMethod, this, patternUseRate);
     }
 
@@ -90,7 +91,7 @@ public class Shooting : MonoBehaviour
         Rigidbody2D rb = _projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * speed, forceMode);
     }
-    public void StopCurrentPattern() => currentPattern.pattern.StopPattern(this);
+    public void StopCurrentPattern() => currentPattern.StopPattern(this);
     
     //Юнитивские методы
     private void Start()
