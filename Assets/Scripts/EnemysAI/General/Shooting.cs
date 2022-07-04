@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PointRotation))]
 public class Shooting : MonoBehaviour
 {
     //Ёнамы
@@ -47,8 +48,13 @@ public class Shooting : MonoBehaviour
     private List<Bullet> bullets = new List<Bullet>();
     //C паттерами
     public List<Pattern> patternsList = new List<Pattern>();
+    public float patternWaitTime = 0.5f;
     public Pattern currentPattern;
-    
+
+    //—сылки на другие скрипты
+    private PointRotation pointRotation;
+
+    //ѕаттерны
     private Pattern FindNewPattern()
     {
         float chance = Random.Range(0f, 100f);
@@ -63,23 +69,29 @@ public class Shooting : MonoBehaviour
         if(patternsInChance.Count == 0) Debug.Log(chance);
         return patternsInChance[Random.Range(0, patternsInChance.Count)];
     }
-    public void Shoot(GameObject projectile)
-    {
-        GameObject _projectile = Instantiate(projectile, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = _projectile.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.up * 500, forceMode);
-    }
     private void SetNewPattern()
     {
         if (currentPattern != null && currentPattern.pattern.isWork) currentPattern.pattern.StopPattern(this); 
         currentPattern = FindNewPattern();
         currentPattern.pattern = Instantiate(currentPattern.pattern);
         currentPattern.pattern.onExit.AddListener(SetNewPattern);
-        currentPattern.pattern.StartPattern(this);
+        currentPattern.pattern.StartPattern(this, patternWaitTime);
     }
 
+    //ќсновные методы
+    public void Shoot(GameObject projectile, float offset, float speed)
+    {
+        pointRotation.offset = offset;
+        GameObject _projectile = Instantiate(projectile, firePoint.position, firePoint.rotation);
+        Rigidbody2D rb = _projectile.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint.up * speed, forceMode);
+    }
 
-    private void Start() => SetNewPattern();
+    private void Start()
+    {
+        SetNewPattern();
+        pointRotation = GetComponent<PointRotation>();
+    }
     private void Update()
     {
     }
