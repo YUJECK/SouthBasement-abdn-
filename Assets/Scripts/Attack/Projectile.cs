@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
 {
     //Энамы
@@ -21,6 +22,7 @@ public class Projectile : MonoBehaviour
     [Header("Настройки снаряда")]
     public ProjectileType projectileType;
     [SerializeField] private ProjectileTarget projectileTarget;
+    [SerializeField] private bool stopOnCollision;
     public EffectsList projectileEffect;
     [SerializeField] private int damage = 20;
     //Для бомбы
@@ -91,8 +93,8 @@ public class Projectile : MonoBehaviour
     {
         if (projectileType == ProjectileType.Bullet)
         {
-            if (((collision.gameObject.CompareTag("Enemy") && projectileTarget == ProjectileTarget.HitEnemy || projectileTarget == ProjectileTarget.HitBoth) ||
-                (collision.gameObject.CompareTag("Player") && projectileTarget == ProjectileTarget.HitPlayer || projectileTarget == ProjectileTarget.HitBoth)))
+            if (((collision.gameObject.CompareTag("Enemy") && projectileTarget == ProjectileTarget.HitEnemy || collision.gameObject.CompareTag("Enemy") && projectileTarget == ProjectileTarget.HitBoth) ||
+                (collision.gameObject.CompareTag("Player") && projectileTarget == ProjectileTarget.HitPlayer || collision.gameObject.CompareTag("Player") && projectileTarget == ProjectileTarget.HitBoth)))
             {
                 collision.gameObject.GetComponent<Health>().TakeHit(damage);
 
@@ -104,5 +106,6 @@ public class Projectile : MonoBehaviour
             Destroy(effect, projectileExplosionDuration);
             Destroy(gameObject);
         }
+        if (stopOnCollision) GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 }

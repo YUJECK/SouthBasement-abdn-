@@ -66,37 +66,54 @@ public abstract class Health : MonoBehaviour
     {
         if(effectsCanUse.Contains(effect))
         {
-            UnityAction effectMethod = null;
             switch (effect)
             {
                 case EffectsList.Burn:
+                    //Добавление еффекта
                     effectIndicator.sprite = effectManager.burnIndicator;
                     burn = effectStats;
                     effects.AddListener(Burn);
-                    effectMethod = Burn;
+
+                    //Сброс еффекта
+                    yield return new WaitForSeconds(duration);
+                    effects.RemoveListener(Burn);
+                    burn.nextTime = 0f;
                     break;
                 case EffectsList.Bleed:
+                    //Добавление еффекта
                     effectIndicator.sprite = effectManager.bleedndicator;
                     bleed = effectStats;
                     effects.AddListener(Bleed);
-                    effectMethod = Bleed;
+
+                    //Сброс еффекта
+                    yield return new WaitForSeconds(duration);
+                    effects.RemoveListener(Bleed);
+                    bleed.nextTime = 0f;
                     break;
                 case EffectsList.Poison:
+                    //Добавление еффекта
                     effectIndicator.sprite = effectManager.poisonIndicator;
                     poison = effectStats;
                     effects.AddListener(Poison);
-                    effectMethod = Poison;
+
+                    //Сброс еффекта
+                    yield return new WaitForSeconds(duration);
+                    effects.RemoveListener(Poison);
+                    poison.nextTime = 0f;
                     Debug.Log("[Test]: Poisoned active on - " + gameObject.name);
                     break;
                 case EffectsList.Regeneration:
+                    //Добавление еффекта
                     effectIndicator.sprite = effectManager.regenerationIndicator;
                     regeneration = effectStats;
                     effects.AddListener(Regeneration);
-                    effectMethod = Regeneration;
+                    
+                    //Сброс еффекта
+                    yield return new WaitForSeconds(duration);
+                    effects.RemoveListener(Regeneration);
+                    regeneration.nextTime = 0f;
                     break;
             }
-            yield return new WaitForSeconds(duration);
-            effects.RemoveListener(effectMethod);
         }
     }
     public void GetEffect(float duration, EffectStats effectStats, EffectsList effect) => StartCoroutine(EffectActive(duration, effectStats, effect));

@@ -518,18 +518,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1160361261316572005}
-        m_TargetAssemblyTypeName: Move, Assembly-CSharp
-        m_MethodName: FlipOther
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2965869361774044280}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   onArrive:
     m_PersistentCalls:
       m_Calls: []
@@ -558,7 +546,7 @@ MonoBehaviour:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
-  poisoned:
+  poison:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
@@ -582,6 +570,7 @@ MonoBehaviour:
   effects:
     m_PersistentCalls:
       m_Calls: []
+  effectManager: {fileID: 0}
   minCheese: 0
   maxCheese: 10
   itemsDrop: []
@@ -690,11 +679,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6799cf496d06bc843addc6eb8ff9ff0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firePoint: {fileID: 2965869361774044280}
   shootingController: 1
+  forceMode: 0
   patternsUsage: 0
   patternsList:
-  - patternChance: 0
-    pattern: {fileID: 0}
+  - patternChance: 100
+    pattern: {fileID: 11400000, guid: a92f4391dde855d46ba418c6fc4da5a0, type: 2}
   currentPattern:
     patternChance: 100
     pattern: {fileID: 0}

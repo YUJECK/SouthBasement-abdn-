@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 5821362059943221440}
   - component: {fileID: 4476178261350208958}
   - component: {fileID: 3901597446588840993}
-  - component: {fileID: 4245464868161039316}
   m_Layer: 0
-  m_Name: Fireball
+  m_Name: GreenPetard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 9
-  m_Sprite: {fileID: 21300000, guid: 85eb9f58925346b42ac6b812c27ce551, type: 3}
+  m_Sprite: {fileID: -1507819791567970473, guid: 67240a99ff24ea6439a9f62914941563, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.87058824}
   m_FlipX: 0
   m_FlipY: 0
@@ -120,18 +119,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000749588, y: 0.124806404}
+  m_Offset: {x: -0.0036685169, y: -0.014454842}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 1.5}
+    pivot: {x: 0.50408393, y: 0.3529676}
+    oldSize: {x: 0.75, y: 0.75}
     newSize: {x: 0.24, y: 0.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25313187, y: 0.41714287}
+  m_Size: {x: 0.11565155, y: 0.24921608}
   m_EdgeRadius: 0
 --- !u!114 &3901597446588840993
 MonoBehaviour:
@@ -145,12 +144,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19f0b24c86307141b98c124f05d12fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileType: 0
-  projectileTarget: 0
-  projectileEffect: 1
-  damage: 20
-  timeToExplosion: 1
-  explosionRadius: 1.06
+  projectileType: 1
+  projectileTarget: 2
+  stopOnCollision: 0
+  projectileEffect: 0
+  damage: 25
+  timeToExplosion: 0.7
+  explosionRadius: 1.62
   activeBombFromOtherScript: 0
   onStartExplosion:
     m_PersistentCalls:
@@ -158,25 +158,10 @@ MonoBehaviour:
   onExplosion:
     m_PersistentCalls:
       m_Calls: []
-  projectileExplosionObject: {fileID: 647335666321298409, guid: cb5222de58e9dfa4f88dcd6083830a2c, type: 3}
+  projectileExplosionObject: {fileID: 647335666321298409, guid: d3e8d3d4049799f4db2bc5ff030e4328, type: 3}
   projectileExplosionDuration: 0.2
   effectDuration: 5
---- !u!95 &4245464868161039316
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7451959332544452821}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 565453f270f704a4c96b972c014ffa0f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  effectStats:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0

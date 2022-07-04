@@ -25,7 +25,7 @@ public class PointRotation : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        if(targetType == TargetType.Player) target = FindObjectOfType<PlayerController>().transform;
+        if(targetType == TargetType.Player) target = FindObjectOfType<PlayerController>().playerCenter;
     }
     private void Update()
     {

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     //Мувмент крысы
     public Vector2 movement;
+    public Transform playerCenter;
     public float speed = 5f; // Скорость игрока
     private float dashTime = 0f; // Длина рывка
     [SerializeField] private Vector2 movementOnDash; // Напрвление рывка
@@ -38,16 +39,19 @@ public class PlayerController : MonoBehaviour
     private Grid grid;
     public static PlayerController instance; // Синглтон
 
-    private void Start()
+
+    private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
             instance = this;
         else
         {
             Destroy(gameObject);
             return;
         }
-
+    }
+    private void Start()
+    {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         playerSpiteRend = GetComponent<SpriteRenderer>();

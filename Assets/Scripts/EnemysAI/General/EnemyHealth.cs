@@ -100,5 +100,5 @@ public class EnemyHealth : Health
             int cheese = Random.Range(minCheese, maxCheese);
             gameManager.SpawnCheese(gameObject.transform.position, cheese);
         }
-    }s
+    }
 }
