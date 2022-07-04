@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PointRotation))]
 public class Shooting : MonoBehaviour
@@ -28,7 +29,7 @@ public class Shooting : MonoBehaviour
         public GameObject projectile; //Сама пуля
         public float bulletSpeed; //Скорость полета пули
         public float bulletChance = 100f; //Шанс выбора пули(при одной пули в листе не учитывается)
-        public int bulletCount; //Колво пуль(При бесконечном кол-ве пуль не учитывается)
+        public int bulletCount; //Кол-во пуль(При бесконечном кол-ве пуль не учитывается)
     }
     [System.Serializable] public class Pattern
     {
@@ -37,19 +38,21 @@ public class Shooting : MonoBehaviour
     }
 
     [Header("Настройки")]
-    [SerializeField] private Transform firePoint;
-    public UsageParameters shootingController = UsageParameters.Independently;
-    public ForceMode2D forceMode = ForceMode2D.Impulse;
-    public Patterns patternsUsage = Patterns.UsePatterns;
+    [SerializeField] private Transform firePoint; //Точка спавна пуль
+    public UsageParameters shootingController = UsageParameters.Independently; //Откуда будет осущетвляться стрельба(тут/в другом скрипте)
+    public ForceMode2D forceMode = ForceMode2D.Impulse; //Форс мод при стельбе
+    public Patterns patternsUsage = Patterns.UsePatterns; //Просто стрелять или использовать паттерны атак
 
-    [Header("")]
     //Без паттернов
-    private float fireRate = 1f;
-    private List<Bullet> bullets = new List<Bullet>();
+    [Header("")]
+    [SerializeField] private float fireRate = 1f; //Скорость стрельбы
+    [SerializeField] private List<Bullet> bullets = new List<Bullet>();
+    
     //C паттерами
-    public List<Pattern> patternsList = new List<Pattern>();
-    public float patternWaitTime = 0.5f;
-    public Pattern currentPattern;
+    [Header("")]
+    public List<Pattern> patternsList = new List<Pattern>(); //Лист паттернов
+    public float patternUseRate = 0.5f; //Частота использования паттернов
+    public Pattern currentPattern; //Паттерн который сейчас активен
 
     //Ссылки на другие скрипты
     private PointRotation pointRotation;
@@ -75,7 +78,8 @@ public class Shooting : MonoBehaviour
         currentPattern = FindNewPattern();
         currentPattern.pattern = Instantiate(currentPattern.pattern);
         currentPattern.pattern.onExit.AddListener(SetNewPattern);
-        currentPattern.pattern.StartPattern(this, patternWaitTime);
+        UnityAction<Shooting> startMethod = currentPattern.pattern.StartPattern;
+        Utility.InvokeMethod<Shooting>(startMethod, this, patternUseRate);
     }
 
     //Основные методы
@@ -86,7 +90,9 @@ public class Shooting : MonoBehaviour
         Rigidbody2D rb = _projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * speed, forceMode);
     }
-
+    public void StopCurrentPattern() => currentPattern.pattern.StopPattern(this);
+    
+    //Юнитивские методы
     private void Start()
     {
         SetNewPattern();
@@ -94,5 +100,9 @@ public class Shooting : MonoBehaviour
     }
     private void Update()
     {
+        if(patternsUsage == Patterns.DontUsePatterns)
+        {
+
+        }
     }
 }

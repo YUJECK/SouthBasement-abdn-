@@ -560,7 +560,19 @@ MonoBehaviour:
     nextTime: 0
   onDie:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 125804403466811792}
+        m_TargetAssemblyTypeName: Shooting, Assembly-CSharp
+        m_MethodName: StopCurrentPattern
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHealthChange:
     m_PersistentCalls:
       m_Calls: []
@@ -686,7 +698,7 @@ MonoBehaviour:
   patternsList:
   - patternChance: 100
     pattern: {fileID: 11400000, guid: a92f4391dde855d46ba418c6fc4da5a0, type: 2}
-  patternWaitTime: 0.5
+  patternUseRate: 0.5
   currentPattern:
     patternChance: 100
     pattern: {fileID: 0}
