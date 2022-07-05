@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+
 public class PointRotation : MonoBehaviour
 {
     public enum TargetType
@@ -9,14 +10,18 @@ public class PointRotation : MonoBehaviour
         Other
     }
 
+    [Header("Настройки")]
     public TargetType targetType;
     [SerializeField] private Transform target; 
-    public float offset = 0f; //Смещение
-    public float coefficient = 1f; //Коэффициент
-    [SerializeField] private bool movePosToCenter; //Будет ли объект перемещаться к центру
+    public bool movePosToCenter; //Будет ли объект перемещаться к центру
     [SerializeField] private Transform center; //Центр объекта, от которого будет определяться угол
     [SerializeField] private bool useLocalPos; //Будет ли использоваться локальная позиция или глобальная
+    
+    [Header("Переменные поворота")]
+    public float offset = 0f; //Смещение
+    public float coefficient = 1f; //Коэффициент
 
+    //Другое
     private bool stopRotating = false; //Остановка кручения
     private float angle; //Последний угол поворота который был вычислен
 

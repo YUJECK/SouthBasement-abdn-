@@ -827,11 +827,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 1
   target: {fileID: 0}
-  offset: 0
-  coefficient: 1
   movePosToCenter: 1
   center: {fileID: 1983612208}
   useLocalPos: 0
+  offset: 0
+  coefficient: 1
 --- !u!4 &192447259
 Transform:
   m_ObjectHideFlags: 0
@@ -3617,8 +3617,16 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 525621702351148791, guid: 2fd8b18929400ba479464781b1b2b0a1, type: 3}
+      propertyPath: targetType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 525621702351148791, guid: 2fd8b18929400ba479464781b1b2b0a1, type: 3}
       propertyPath: useLocalPos
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 525621702351148791, guid: 2fd8b18929400ba479464781b1b2b0a1, type: 3}
+      propertyPath: movePosToCenter
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2965869361774044280, guid: 2fd8b18929400ba479464781b1b2b0a1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4615,11 +4623,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   target: {fileID: 0}
-  offset: 0
-  coefficient: 1
   movePosToCenter: 1
   center: {fileID: 1117370128}
   useLocalPos: 1
+  offset: 0
+  coefficient: 1
 --- !u!58 &1117370131
 CircleCollider2D:
   m_ObjectHideFlags: 0
