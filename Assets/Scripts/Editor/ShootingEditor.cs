@@ -25,7 +25,7 @@ public class ShootingEditor : Editor
             firePoint = serializedObject.FindProperty("firePoint");
             forceMode = serializedObject.FindProperty("forceMode");
             fireRate = serializedObject.FindProperty("fireRate");
-            bullets = serializedObject.FindProperty("bullets");
+            bullets = serializedObject.FindProperty("bulletsList");
             patternsList = serializedObject.FindProperty("patternsList");
             patternUseRate = serializedObject.FindProperty("patternUseRate");
             patternUseRate = serializedObject.FindProperty("patternUseRate");
@@ -47,11 +47,11 @@ public class ShootingEditor : Editor
                 EditorGUILayout.PropertyField(patternsList);
                 EditorGUILayout.PropertyField(patternUseRate);
             }
-            else
+            else if (shooting.patternsUsage == Shooting.Patterns.DontUsePatterns)
             {
                 //Без паттернов
-                EditorGUILayout.PropertyField(fireRate);
                 EditorGUILayout.PropertyField(bullets);
+                EditorGUILayout.PropertyField(fireRate);
             }
             //Другое
             EditorGUILayout.PropertyField(firePoint);

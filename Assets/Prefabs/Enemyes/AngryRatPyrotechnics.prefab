@@ -203,7 +203,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.013061523, y: -0.10880923}
   serializedVersion: 2
-  m_Radius: 0.9155731
+  m_Radius: 2.4241157
 --- !u!1 &3342140925434090965
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,17 +691,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6799cf496d06bc843addc6eb8ff9ff0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 2965869361774044280}
   shootingController: 1
   forceMode: 0
   patternsUsage: 0
+  bulletsList: []
+  fireRate: 1
   patternsList:
   - patternChance: 100
     pattern: {fileID: 11400000, guid: a92f4391dde855d46ba418c6fc4da5a0, type: 2}
   patternUseRate: 0.5
-  currentPattern:
-    patternChance: 100
-    pattern: {fileID: 0}
+  currentPattern: {fileID: 0}
+  firePoint: {fileID: 2965869361774044280}
 --- !u!114 &525621702351148791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -716,11 +716,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   target: {fileID: 0}
-  offset: 0
-  coefficient: 1
   movePosToCenter: 1
   center: {fileID: 7370679699852093159}
   useLocalPos: 1
+  offset: 0
+  coefficient: 1
 --- !u!58 &3240742846370692568
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -44,8 +44,9 @@ public class Shooting : MonoBehaviour
 
     //Без паттернов
     [Header("Настройка обычной стрельбы")]
+    [SerializeField] private List<Bullet> bulletsList = new List<Bullet>();
     [SerializeField] private float fireRate = 1f; //Скорость стрельбы
-    [SerializeField] private List<Bullet> bullets = new List<Bullet>();
+    private float nextTime = 0f; //След время для стерльбы
     
     //C паттерами
     [Header("Настройка паттернов")]
@@ -83,10 +84,27 @@ public class Shooting : MonoBehaviour
         Utility.InvokeMethod<Shooting>(startMethod, this, patternUseRate);
     }
 
+    //Пули
+    private int FindBullet()
+    {
+        float chance = Random.Range(0f, 100f);
+        List<Bullet> bulletsInChance = new List<Bullet>();
+
+        foreach (Bullet bullet in bulletsList)
+        {
+            if (bullet.bulletChance >= chance)
+                bulletsInChance.Add(bullet);
+        }
+
+        if (bulletsInChance.Count == 0) Debug.Log(chance);
+        return Random.Range(0, bulletsList.Count);
+    }
+    
     //Основные методы
     public void Shoot(GameObject projectile, float offset, float speed)
     {
         pointRotation.offset = offset;
+        if (forceMode == ForceMode2D.Force) speed *= 30; 
         GameObject _projectile = Instantiate(projectile, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = _projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * speed, forceMode);
@@ -96,14 +114,26 @@ public class Shooting : MonoBehaviour
     //Юнитивские методы
     private void Start()
     {
-        SetNewPattern();
+        if(patternsUsage == Patterns.UsePatterns) SetNewPattern();
         pointRotation = GetComponent<PointRotation>();
     }
     private void Update()
     {
-        if(patternsUsage == Patterns.DontUsePatterns)
+        if(patternsUsage == Patterns.UsePatterns)
         {
-
+            if (!currentPattern.isWork) SetNewPattern();
+            if (currentPattern == null) SetNewPattern();
+        }
+        if(patternsUsage == Patterns.DontUsePatterns && Time.time >= nextTime)
+        {
+            int bulletInd = FindBullet();
+            Shoot(bulletsList[bulletInd].projectile, 0f, bulletsList[bulletInd].bulletSpeed);
+            if (bulletsList[bulletInd].bulletsType == BulletsType.Limited)
+            {
+                bulletsList[bulletInd].bulletCount--;
+                if (bulletsList[bulletInd].bulletCount <= 0) bulletsList.RemoveAt(bulletInd);
+            }
+            nextTime = Time.time + fireRate;
         }
     }
 }

@@ -12,7 +12,7 @@ using UnityEngine.Events;
     }
     public float effectRate;
     public int effectStrength;
-    /*[HideInInspector] */public float nextTime = 0f;
+    [HideInInspector] public float nextTime = 0f;
 };
 public abstract class Health : MonoBehaviour
 {

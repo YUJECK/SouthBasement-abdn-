@@ -15,9 +15,9 @@ public class TripleShot : ShootingPattern
     }
     public override void StopPattern(Shooting shooting)
     {
-        isWork = false;
         if (throwProjectile != null) PlayerController.instance.StopCoroutine(throwProjectile);
         onExit.Invoke();
+        isWork = false;
     }
 
     private IEnumerator ThrowProjectile(Shooting shooting)
@@ -27,7 +27,7 @@ public class TripleShot : ShootingPattern
             for (int i = 0; i < 3; i++)
             {
                 yield return new WaitForSeconds(0.2f);
-                shooting.Shoot(projectiles[Random.Range(0, projectiles.Length)], Random.Range(-30f, 30f), 5000f);
+                shooting.Shoot(projectiles[Random.Range(0, projectiles.Length)], Random.Range(-30f, 30f), 170);
             }
         }
         StopPattern(shooting);
