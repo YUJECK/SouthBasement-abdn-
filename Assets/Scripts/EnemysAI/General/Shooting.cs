@@ -47,7 +47,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private List<Bullet> bulletsList = new List<Bullet>();
     [SerializeField] private float fireRate = 1f; //Скорость стрельбы
     private float nextTime = 0f; //След время для стерльбы
-    
+
     //C паттерами
     [Header("Настройка паттернов")]
     public List<Pattern> patternsList = new List<Pattern>(); //Лист паттернов
@@ -64,19 +64,19 @@ public class Shooting : MonoBehaviour
     {
         float chance = Random.Range(0f, 100f);
         List<Pattern> patternsInChance = new List<Pattern>();
-        
-        foreach(Pattern pattern in patternsList)
+
+        foreach (Pattern pattern in patternsList)
         {
             if (pattern.patternChance >= chance)
                 patternsInChance.Add(pattern);
         }
 
-        if(patternsInChance.Count == 0) Debug.Log(chance);
+        if (patternsInChance.Count == 0) Debug.Log(chance);
         return patternsInChance[Random.Range(0, patternsInChance.Count)];
     }
     private void SetNewPattern()
     {
-        if (currentPattern != null && currentPattern.isWork) currentPattern.StopPattern(this); 
+        if (currentPattern != null && currentPattern.isWork) currentPattern.StopPattern(this);
         currentPattern = FindNewPattern().pattern;
         currentPattern = Instantiate(currentPattern);
         currentPattern.onExit.AddListener(SetNewPattern);
@@ -99,32 +99,29 @@ public class Shooting : MonoBehaviour
         if (bulletsInChance.Count == 0) Debug.Log(chance);
         return Random.Range(0, bulletsList.Count);
     }
-    
+
     //Основные методы
     public void Shoot(GameObject projectile, float offset, float speed)
     {
         pointRotation.offset = offset;
-        if (forceMode == ForceMode2D.Force) speed *= 30; 
+        if (forceMode == ForceMode2D.Force) speed *= 30;
         GameObject _projectile = Instantiate(projectile, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = _projectile.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * speed, forceMode);
     }
-    public void StopCurrentPattern() => currentPattern.StopPattern(this);
+    public void StopCurrentPattern() { if (currentPattern != null) currentPattern.StopPattern(this); }
     
     //Юнитивские методы
     private void Start()
     {
-        if(patternsUsage == Patterns.UsePatterns) SetNewPattern();
+        if(patternsUsage == Patterns.UsePatterns && shootingController == UsageParameters.Independently) SetNewPattern();
         pointRotation = GetComponent<PointRotation>();
     }
     private void Update()
     {
-        if(patternsUsage == Patterns.UsePatterns)
+        if(shootingController == UsageParameters.Independently)
         {
-            if (!currentPattern.isWork) SetNewPattern();
-            if (currentPattern == null) SetNewPattern();
-        }
-        if(patternsUsage == Patterns.DontUsePatterns && Time.time >= nextTime)
+            if(patternsUsage == Patterns.DontUsePatterns && Time.time >= nextTime)
         {
             int bulletInd = FindBullet();
             Shoot(bulletsList[bulletInd].projectile, 0f, bulletsList[bulletInd].bulletSpeed);
@@ -134,6 +131,7 @@ public class Shooting : MonoBehaviour
                 if (bulletsList[bulletInd].bulletCount <= 0) bulletsList.RemoveAt(bulletInd);
             }
             nextTime = Time.time + fireRate;
+        }
         }
     }
 }

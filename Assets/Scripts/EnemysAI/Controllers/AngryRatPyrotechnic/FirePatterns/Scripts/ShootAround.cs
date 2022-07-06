@@ -15,9 +15,9 @@ public class ShootAround : ShootingPattern
     }
     public override void StopPattern(Shooting shooting)
     {
+        isWork = false;
         if (throwProjectile != null) PlayerController.instance.StopCoroutine(throwProjectile);
         onExit.Invoke();
-        isWork = false;
     }
 
     private IEnumerator ThrowProjectile(Shooting shooting)
@@ -27,7 +27,7 @@ public class ShootAround : ShootingPattern
             for (int i = 0; i < 8; i++)
             {
                 yield return new WaitForSeconds(0.01f);
-                shooting.Shoot(projectiles[Random.Range(0, projectiles.Length)], 40f*i, 100);
+                shooting.Shoot(projectiles[Random.Range(0, projectiles.Length)], 40f*i, 10f);
             }
         }
         StopPattern(shooting);
