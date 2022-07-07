@@ -37,6 +37,10 @@ public class Pathfinding : MonoBehaviour
     [HideInInspector] public List<Vector2Int> gridChanges = new List<Vector2Int>();
     private List<PathVisualization> pathVisualization = new List<PathVisualization>();
 
+    private int failStrik = 0;
+    private float failWaitTime = 1.5f;
+    private float nextTime = 0;
+
     private void Awake() { grid = FindObjectOfType<Grid>(); }
     private void OnDestroy()
     {
@@ -52,7 +56,7 @@ public class Pathfinding : MonoBehaviour
     //Методы для поиска пути
     public List<Vector2> FindPath(Vector2 startPos, Vector2 endPos) // Поиск пути
     {
-        if (grid != null && grid.isGridCreated)
+        if (grid != null && grid.isGridCreated && Time.time >= nextTime)
         {
             visitedPoints = new bool[grid.gridWidth, grid.gridHeight];
             List<Point> queue = new List<Point>();
@@ -90,6 +94,7 @@ public class Pathfinding : MonoBehaviour
                     //Визуализация}
 
                     if (changeGrid) BlockedPath(curr);
+                    failStrik = 0;
                     return curr.path;
                 }
 
@@ -114,6 +119,8 @@ public class Pathfinding : MonoBehaviour
             }
             Debug.LogWarning("[ArtificialWarn]: Path wasn't found: " + startPos + " " + new Vector2((int)endPos.x, (int)endPos.y));
             //Debug.LogWarning("Start pos - : " + grid.grid[(int)(startPos.x / grid.nodeSize), (int)(startPos.y / grid.nodeSize)] + " End Pos - " + grid.grid[(int)(endPos.x / grid.nodeSize), (int)(endPos.y / grid.nodeSize)]);
+            failStrik++;
+            if (failStrik >= 2) nextTime = Time.time + failWaitTime;
             return new List<Vector2>();
         }
 
