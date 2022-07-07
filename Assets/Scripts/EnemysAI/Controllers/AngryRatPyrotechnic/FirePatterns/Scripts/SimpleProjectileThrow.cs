@@ -7,17 +7,17 @@ using UnityEngine.Events;
 public class SimpleProjectileThrow : ShootingPattern 
 {
     [SerializeField] private GameObject projectile;
-    private Coroutine throwProjectile;
+    private Coroutine projectileThrow;
     public override void StartPattern(Shooting shooting)
     {
         isWork = true;
         onEnter.Invoke();
-        throwProjectile = GameManager.instance.StartCoroutine(ThrowProjectile(shooting));
+        projectileThrow = GameManager.instance.StartCoroutine(ThrowProjectile(shooting));
     }
     public override void StopPattern(Shooting shooting)
     {
         isWork = false;
-        if (throwProjectile != null) PlayerController.instance.StopCoroutine(throwProjectile);
+        if (projectileThrow != null) GameManager.instance.StopCoroutine(projectileThrow);
         onExit.Invoke();
     }
 

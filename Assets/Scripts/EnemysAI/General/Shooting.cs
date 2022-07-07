@@ -103,11 +103,14 @@ public class Shooting : MonoBehaviour
     //Основные методы
     public void Shoot(GameObject projectile, float offset, float speed)
     {
-        pointRotation.offset = offset;
-        if (forceMode == ForceMode2D.Force) speed *= 30;
-        GameObject _projectile = Instantiate(projectile, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = _projectile.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.up * speed, forceMode);
+        if(projectile != null && firePoint != null)
+        {
+            pointRotation.offset = offset;
+            if (forceMode == ForceMode2D.Force) speed *= 30;
+            GameObject _projectile = Instantiate(projectile, firePoint.position, firePoint.rotation);
+            Rigidbody2D rb = _projectile.GetComponent<Rigidbody2D>();
+            rb.AddForce(firePoint.up * speed, forceMode);
+        }
     }
     public void StopCurrentPattern() { if (currentPattern != null) currentPattern.StopPattern(this); }
     

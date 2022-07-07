@@ -16,7 +16,7 @@ public class ShootAround : ShootingPattern
     public override void StopPattern(Shooting shooting)
     {
         isWork = false;
-        if (throwProjectile != null) PlayerController.instance.StopCoroutine(throwProjectile);
+        if (throwProjectile != null) GameManager.instance.StopCoroutine(throwProjectile);
         onExit.Invoke();
     }
 

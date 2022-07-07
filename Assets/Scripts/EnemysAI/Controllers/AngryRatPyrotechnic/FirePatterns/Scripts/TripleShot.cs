@@ -6,17 +6,17 @@ using UnityEngine;
 public class TripleShot : ShootingPattern
 {
     [SerializeField] private GameObject[] projectiles;
-    private Coroutine throwProjectile;
+    private Coroutine tripleShot;
     public override void StartPattern(Shooting shooting)
     {
         isWork = true;
         onEnter.Invoke();
-        throwProjectile = GameManager.instance.StartCoroutine(ThrowProjectile(shooting));
+        tripleShot = GameManager.instance.StartCoroutine(ThrowProjectile(shooting));
     }
     public override void StopPattern(Shooting shooting)
     {
         isWork = false;
-        if (throwProjectile != null) PlayerController.instance.StopCoroutine(throwProjectile);
+        if (tripleShot != null) GameManager.instance.StopCoroutine(tripleShot);
         onExit.Invoke();
     }
 

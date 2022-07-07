@@ -41,7 +41,7 @@ public class EnemyHealth : Health
         if (itemsDrop.Count > 0)
         {
             int chance = Random.Range(0, 101);
-            chance -= gameManager.luck;
+            chance -= PlayerStats.luck;
 
             foreach (Drop item in itemsDrop)
             {

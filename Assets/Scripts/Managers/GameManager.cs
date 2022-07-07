@@ -13,8 +13,10 @@ public class GameManager : MonoBehaviour
 
     public int LevelCounter = 1; // Счетчик уровней
 
-    [Header("Показатели игрока")]
-    public int luck = 0;
+    [Header("Другие менеджеры")]
+    PlayerStats playerStats;
+    SkinManager skinManager;
+    AudioManager audioManager;
 
     [Header("Предметы")]
     public List<GameObject> MelleRange; // Лист оружия бл.,боя
