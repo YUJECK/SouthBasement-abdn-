@@ -67,6 +67,8 @@ public class ActiveItem : ScriptableObject
         SetSprite(extraSprites[0], slot.objectOfItem.GetComponent<SpriteRenderer>(), slot.slotIcon);
         slot.itemInfo.active = false;
     }
+    public void Cracker() { methods.Cracker(); }
+    
     public void SetSprite(Sprite newSprite, SpriteRenderer spriteRend = null, Image image = null)
     {
         if (spriteRend != null)
