@@ -1083,6 +1083,7 @@ MonoBehaviour:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
+  destroyOnDie: 1
   destroyOffset: 0
   onDie:
     m_PersistentCalls:
@@ -1096,7 +1097,6 @@ MonoBehaviour:
   effects:
     m_PersistentCalls:
       m_Calls: []
-  effectManager: {fileID: 0}
   healthBar: {fileID: 274904591}
   gameManager: {fileID: 0}
   audioManager: {fileID: 0}
@@ -2758,11 +2758,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: bba47ea3d0724f1409d1fbc36e5a6eff, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &533182567
 Animator:
   serializedVersion: 3
@@ -2817,13 +2817,14 @@ MonoBehaviour:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
-  destroyOffset: 1
+  destroyOnDie: 1
+  destroyOffset: 0.3
   onDie:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 533182567}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
+        m_MethodName: SetTrigger
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2842,7 +2843,6 @@ MonoBehaviour:
   effects:
     m_PersistentCalls:
       m_Calls: []
-  effectManager: {fileID: 0}
   minCheese: 0
   maxCheese: 0
   itemsDrop: []
@@ -2912,7 +2912,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &533182571
 CapsuleCollider2D:
@@ -2927,8 +2927,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.09088236, y: 0}
-  m_Size: {x: 0.4468099, y: 0.7832295}
+  m_Offset: {x: -0.09088236, y: 0.079535395}
+  m_Size: {x: 0.4468099, y: 0.6241587}
   m_Direction: 0
 --- !u!1 &572707361
 GameObject:
@@ -6492,6 +6492,7 @@ MonoBehaviour:
     effectRate: 0
     effectStrength: 0
     nextTime: 0
+  destroyOnDie: 1
   destroyOffset: 0
   onDie:
     m_PersistentCalls:
@@ -6505,7 +6506,6 @@ MonoBehaviour:
   effects:
     m_PersistentCalls:
       m_Calls: []
-  effectManager: {fileID: 0}
   minCheese: 2
   maxCheese: 9
   itemsDrop: []
@@ -7250,215 +7250,6 @@ Transform:
   m_Father: {fileID: 1511004453}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1543783893
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1543783895}
-  - component: {fileID: 1543783894}
-  - component: {fileID: 1543783898}
-  - component: {fileID: 1543783897}
-  - component: {fileID: 1543783896}
-  - component: {fileID: 1543783899}
-  m_Layer: 6
-  m_Name: Balloon
-  m_TagString: Enemy
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &1543783894
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543783893}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 12
-  m_Sprite: {fileID: -2211941939034469368, guid: 47dbee0e68c21a14d9977332cc12251e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1543783895
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543783893}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 208.93, y: 200.49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1543783896
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543783893}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!95 &1543783897
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543783893}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f4f0eb2f48ced18449894ae02bb780e0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1543783898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543783893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a9727c2d35101849bf11baf0fc62792, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 20
-  maxHealth: 20
-  damageColor: {r: 1, g: 1, b: 1, a: 1}
-  effectIndicator: {fileID: 0}
-  destroySound: 
-  hitSound: 
-  effectsCanUse: 
-  burn:
-    effectRate: 0
-    effectStrength: 0
-    nextTime: 0
-  poison:
-    effectRate: 0
-    effectStrength: 0
-    nextTime: 0
-  bleed:
-    effectRate: 0
-    effectStrength: 0
-    nextTime: 0
-  regeneration:
-    effectRate: 0
-    effectStrength: 0
-    nextTime: 0
-  destroyOffset: 1
-  onDie:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1543783897}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Fly
-          m_BoolArgument: 0
-        m_CallState: 2
-  onHealthChange:
-    m_PersistentCalls:
-      m_Calls: []
-  stun:
-    m_PersistentCalls:
-      m_Calls: []
-  effects:
-    m_PersistentCalls:
-      m_Calls: []
-  effectManager: {fileID: 0}
-  minCheese: 0
-  maxCheese: 0
-  itemsDrop: []
-  roomCloser: {fileID: 0}
-  gameManager: {fileID: 0}
-  audioManager: {fileID: 0}
---- !u!70 &1543783899
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543783893}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.09088379, y: 0}
-  m_Size: {x: 0.45670044, y: 0.7630582}
-  m_Direction: 0
 --- !u!1 &1558978317
 GameObject:
   m_ObjectHideFlags: 0

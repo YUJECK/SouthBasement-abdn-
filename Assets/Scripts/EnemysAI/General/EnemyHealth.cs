@@ -25,7 +25,6 @@ public class EnemyHealth : Health
         gameManager = FindObjectOfType<GameManager>();
         effectManager = FindObjectOfType<EffectsInfo>();
         audioManager = FindObjectOfType<AudioManager>();
-        onDie.AddListener(DefaultOnDie);
         if (roomCloser != null)
         {
             roomCloser.EnemyCounterTunUp();
@@ -99,6 +98,7 @@ public class EnemyHealth : Health
             onDie.Invoke();
             int cheese = Random.Range(minCheese, maxCheese);
             gameManager.SpawnCheese(gameObject.transform.position, cheese);
+            if(destroyOnDie) Destroy(gameObject, destroyOffset);
         }
     }
 }

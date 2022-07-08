@@ -37,7 +37,10 @@ public class PlayerHealth : Health
 
         onHealthChange.Invoke(health, maxHealth);
         if (health <= 0)
+        {
+            Destroy(gameObject);
             SceneManager.LoadScene("RestartMenu");
+        }
     }
     public override void TakeHit(int damage, float stunDuration = 0)
     {
@@ -54,7 +57,10 @@ public class PlayerHealth : Health
             onHealthChange.Invoke(health, maxHealth);
 
             if (health <= 0)
+            {
+                Destroy(gameObject);
                 SceneManager.LoadScene("RestartMenu");
+            }
         }
     }
     public override void PlusNewHealth(int newMaxHealth, int newHealth)
@@ -72,7 +78,6 @@ public class PlayerHealth : Health
         gameManager = FindObjectOfType<GameManager>();
         effectManager = FindObjectOfType<EffectsInfo>();
         audioManager = FindObjectOfType<AudioManager>();
-        onDie.AddListener(DefaultOnDie);
         onHealthChange.Invoke(health, maxHealth);
     }
     public void Update() { effects.Invoke(); }

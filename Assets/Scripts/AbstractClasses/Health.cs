@@ -37,7 +37,8 @@ public abstract class Health : MonoBehaviour
 
     //События
     [Header("События")]
-    public float destroyOffset = 0f;
+    [SerializeField] protected bool destroyOnDie = true;
+    [SerializeField] protected float destroyOffset = 0f;
     public UnityEvent onDie = new UnityEvent();  //Методы которые вызовуться при уничтожении объекта
     public UnityEvent<int, int> onHealthChange = new UnityEvent<int, int>();
     public UnityEvent<float> stun = new UnityEvent<float>();
@@ -45,8 +46,7 @@ public abstract class Health : MonoBehaviour
 
     //Другое
     private Coroutine damageInd = null;
-    [HideInInspector] public EffectsInfo effectManager;
-    public void DefaultOnDie() => Destroy(gameObject, destroyOffset);
+    protected EffectsInfo effectManager;
 
     //Всякие манипуляции со здоровьем
     public abstract void TakeHit(int damage, float stunDuration = 0f);
