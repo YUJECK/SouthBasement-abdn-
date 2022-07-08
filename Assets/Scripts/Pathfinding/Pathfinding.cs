@@ -79,8 +79,8 @@ public class Pathfinding : MonoBehaviour
                 if (curr.x == (int)endPos.x && curr.y == (int)endPos.y)
                 {
                     //{Визуалиция
-                    if (pathVisualization.Count != 0) //Чистка
-                        for (int i = 0; i < curr.path.Count; i++)
+                    if (pathVisualization.Count > 0) //Чистка
+                        for (int i = 0; i < pathVisualization.Count; i++)
                         {
                             Destroy(pathVisualization[0].path);
                             Destroy(pathVisualization[0].blockedPath);

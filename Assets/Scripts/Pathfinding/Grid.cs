@@ -12,7 +12,7 @@ public class Grid : MonoBehaviour
     public GameObject _collider;
     public GameObject enemyPath;
     [SerializeField] private GameObject emptyArea;
-    private List<GameObject> gridVizualization;
+    private List<GameObject> gridVizualization = new List<GameObject>();
 
     public int[,] grid;
     // 0 - нет коллайлера/это триггер
@@ -37,7 +37,7 @@ public class Grid : MonoBehaviour
         {
             for (float y = 0; y < gridHeight; y += nodeSize)
             {
-                float a = 0.6f;
+                float a = 0.4f;
                 List<Vector3> points = new List<Vector3>();
                 points.Add(new Vector3(0f, 0f, 0f));
                 points.Add(new Vector3(nodeSize * a, nodeSize * a, 0f));
@@ -146,7 +146,7 @@ public class Grid : MonoBehaviour
             {
                 if (grid[(int)x, (int)y] == 1)
                     gridVizualization.Add(Instantiate(_collider, new Vector3(x, y, 0), Quaternion.identity, transform));
-                else
+                else if(grid[(int)x, (int)y] == 0)
                     gridVizualization.Add(Instantiate(emptyArea, new Vector3(x, y, 0), Quaternion.identity, transform));
             }
         }
