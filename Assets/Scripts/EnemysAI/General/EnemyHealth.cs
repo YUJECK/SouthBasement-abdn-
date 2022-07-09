@@ -82,7 +82,11 @@ public class EnemyHealth : Health
         maxHealth -= takeAwayMaxHealth;
 
         if (health >= maxHealth) health = maxHealth;
-        if (health < 0) onDie.Invoke();
+        if (health < 0) 
+        { 
+            audioManager.PlayClip(destroySound);
+            onDie.Invoke();
+        }
         onHealthChange.Invoke(health, maxHealth);
     }
     public override void TakeHit(int damage, float stunDuration )
@@ -97,6 +101,7 @@ public class EnemyHealth : Health
         {
             onDie.Invoke();
             int cheese = Random.Range(minCheese, maxCheese);
+            audioManager.PlayClip(destroySound);
             gameManager.SpawnCheese(gameObject.transform.position, cheese);
             if(destroyOnDie) Destroy(gameObject, destroyOffset);
         }

@@ -25,8 +25,8 @@ public abstract class Health : MonoBehaviour
     public SpriteRenderer effectIndicator;
 
     [Header("Звуки")]
-    [SerializeField] private string destroySound; // Звук смерти
-    [SerializeField] private string hitSound; // Звук получения урона
+    [SerializeField] protected string destroySound; // Звук смерти
+    [SerializeField] protected string hitSound; // Звук получения урона
 
     [Header("Еффекты")]
     public List<EffectsList> effectsCanUse;

@@ -6,6 +6,7 @@ public class ActiveItemsMethods : MonoBehaviour
 {
     [SerializeField] private Transform firePoint;
     [SerializeField] private PointRotation pointRotation;
+    private AudioManager audioManager;
 
     [Header("Чилли перец")]
     [SerializeField] private GameObject fireballPrefab;
@@ -19,6 +20,12 @@ public class ActiveItemsMethods : MonoBehaviour
     [SerializeField] private GameObject crackerEffect;
     [SerializeField] private int damage = 40;
 
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
+
     public void SpawnFireball()
     {
         GameObject fireball = Instantiate(fireballPrefab, firePoint.position, firePoint.rotation);
@@ -30,6 +37,7 @@ public class ActiveItemsMethods : MonoBehaviour
     {
         pointRotation.StopRotating(true, 0.2f);
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position, crackerRange);
+        audioManager.PlayClip("Petard");
         GameObject effect =  Instantiate(crackerEffect, firePoint.position, firePoint.rotation, firePoint);
         Destroy(effect, 0.26f);
 
