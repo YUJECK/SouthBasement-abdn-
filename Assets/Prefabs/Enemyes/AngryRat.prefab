@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   changeMode: 0
   triggerMode: 0
+  targetTag: Player
   onEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -184,10 +185,9 @@ MonoBehaviour:
   nowEnter: {fileID: 0}
   nowStay: {fileID: 0}
   nowExit: {fileID: 0}
+  triggerObject: {fileID: 0}
+  otherObjects: []
   trigger: 0
-  targetTag: Player
-  obj: {fileID: 0}
-  other: []
 --- !u!58 &8849817317102000647
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -571,6 +571,24 @@ MonoBehaviour:
   destroySound: 
   hitSound: 
   effectsCanUse: 01000000020000000300000004000000
+  burn:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  poison:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  bleed:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  regeneration:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  destroyOnDie: 1
+  destroyOffset: 0
   onDie:
     m_PersistentCalls:
       m_Calls: []
@@ -639,8 +657,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.011880875, y: -0.06423664}
-  m_Size: {x: 0.37664223, y: 0.7110882}
+  m_Offset: {x: 0.007123947, y: -0.15292454}
+  m_Size: {x: 0.5223446, y: 0.67941093}
   m_Direction: 0
 --- !u!1 &6114075096480147822
 GameObject:
@@ -757,11 +775,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   target: {fileID: 0}
-  offset: 0
-  coefficient: 1
   movePosToCenter: 1
   center: {fileID: 7370679699852093159}
   useLocalPos: 1
+  offset: 0
+  coefficient: 1
 --- !u!58 &3240742846370692568
 CircleCollider2D:
   m_ObjectHideFlags: 0

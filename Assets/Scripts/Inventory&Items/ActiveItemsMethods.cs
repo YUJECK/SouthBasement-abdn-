@@ -30,7 +30,7 @@ public class ActiveItemsMethods : MonoBehaviour
     {
         pointRotation.StopRotating(true, 0.2f);
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position, crackerRange);
-        GameObject effect =  Instantiate(crackerEffect, firePoint.position, Quaternion.identity, firePoint);
+        GameObject effect =  Instantiate(crackerEffect, firePoint.position, firePoint.rotation, firePoint);
         Destroy(effect, 0.26f);
 
         foreach (Collider2D enemy in hitEnemies)

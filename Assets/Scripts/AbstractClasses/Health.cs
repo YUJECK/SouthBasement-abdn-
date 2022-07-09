@@ -42,7 +42,7 @@ public abstract class Health : MonoBehaviour
     public UnityEvent onDie = new UnityEvent();  //Методы которые вызовуться при уничтожении объекта
     public UnityEvent<int, int> onHealthChange = new UnityEvent<int, int>();
     public UnityEvent<float> stun = new UnityEvent<float>();
-    public UnityEvent effects = new UnityEvent();
+    protected UnityEvent effects = new UnityEvent();
 
     //Другое
     private Coroutine damageInd = null;
