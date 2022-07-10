@@ -7,6 +7,7 @@ public class ItemInfo : MonoBehaviour
     public string itemName; //Имя
     public string discription; //Описание
     public int uses; //Количество использований  
+    [SerializeField] private bool destroyOnZeroUses = false; //Количество использований  
     public bool active = true; //Может ли предмет еще исользоваться 
     public int cost; //Цена
     public int chanceOfDrop; //Шанс дропа
@@ -19,5 +20,11 @@ public class ItemInfo : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().enabled = active;
         GetComponent<Collider2D>().enabled = active;
+    }
+
+    private void Update()
+    {
+        if (uses <= 0 && destroyOnZeroUses)
+            Destroy(gameObject);
     }
 }

@@ -35,11 +35,11 @@ public class ActiveItemsMethods : MonoBehaviour
     public void SpawnMousetrap() { GameObject fireball = Instantiate(mouseTrapPrefab, firePoint.position, Quaternion.identity);}
     public void Cracker()
     {
-        pointRotation.StopRotating(true, 0.2f);
+        pointRotation.StopRotating(true, 0.5f);
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position, crackerRange);
         audioManager.PlayClip("Petard");
-        GameObject effect =  Instantiate(crackerEffect, firePoint.position, firePoint.rotation, firePoint);
-        Destroy(effect, 0.26f);
+        GameObject effect =  Instantiate(crackerEffect, new Vector3(firePoint.position.x, firePoint.position.y, 0f), firePoint.rotation, firePoint);
+        Destroy(effect, 0.7f);
 
         foreach (Collider2D enemy in hitEnemies)
         {

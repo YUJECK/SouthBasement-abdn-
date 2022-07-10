@@ -48,7 +48,7 @@ public class FoodItem : ScriptableObject
             SetSprite(extraSprites[0], slot.objectOfItem.GetComponent<SpriteRenderer>(), slot.slotIcon);
         }
     }
-    public void Cake()
+    public void PeaceOfCake()
     {
         if (playerHealth.health != playerHealth.maxHealth)
             playerHealth.Heal(50);

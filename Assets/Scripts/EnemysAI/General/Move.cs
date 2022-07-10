@@ -46,7 +46,7 @@ public class Move : MonoBehaviour
 
     //—сылки на другие скрипты
     [Header("ƒругое")]
-    [SerializeField] private TriggerCheker stopCheker;
+    [SerializeField] private TriggerChecker stopCheker;
     [SerializeField] private TargetSelection targetSelection;
     private Pathfinding pathfinding;
     private Grid grid;

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
 
 [CanEditMultipleObjects]
@@ -24,7 +21,6 @@ public class PrefabRandomizerEditor : Editor
             layer = serializedObject.FindProperty("layer");
         }
     }
-
     public override void OnInspectorGUI()
     {
         serializedObject.Update();

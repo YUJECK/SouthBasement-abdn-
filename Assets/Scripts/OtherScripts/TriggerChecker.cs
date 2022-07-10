@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TriggerCheker : MonoBehaviour
+public class TriggerChecker : MonoBehaviour
 {
     [Header("Настройки")]
     [SerializeField] private ChangeMode changeMode = ChangeMode.Trigger;

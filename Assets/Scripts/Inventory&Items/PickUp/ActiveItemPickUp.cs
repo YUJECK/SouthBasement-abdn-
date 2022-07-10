@@ -64,7 +64,6 @@ public class ActiveItemPickUp : MonoBehaviour
             SetSpriteToWhite(true);
         else if(!itemInfo.isOnTrigger & isWhiteSprite)
             SetSpriteToWhite(false);
-        
         //Поднимание прдмета
         if(itemInfo.isOnTrigger & Input.GetKeyDown(inputManager.PickUpButton))
         {

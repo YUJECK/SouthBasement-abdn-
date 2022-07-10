@@ -67,7 +67,7 @@ public class ActiveItemsSlots : MonoBehaviour
             }
         }
         //Выкидываем если 0 использований
-        else if(!isEmpty && objectOfItem.GetComponent<ItemInfo>().uses > 0)
+        else if(!isEmpty && objectOfItem.GetComponent<ItemInfo>().uses <= 0)
             Drop();
     }
 

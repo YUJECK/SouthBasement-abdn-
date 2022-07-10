@@ -79,7 +79,7 @@ public class RatConsole : MonoBehaviour
             if(inventory.foodItems[inventory.activeFoodSlot].food != null)
             {
                 InfoText.text += "Name: " + inventory.foodItems[inventory.activeFoodSlot].food.name +"\n"+
-                "Uses: " + inventory.foodItems[inventory.activeFoodSlot].objectOfItem.GetComponent<ItemInfo>().uses +"\n";
+                "Uses: " + inventory.foodItems[inventory.activeFoodSlot].objectOfItem.GetComponent<ItemInfo>().GetUses() +"\n";
             }
             InfoText.text += "   --MelleWeapon--" + "\n";
             if(inventory.melleWeapons[inventory.melleRangeActiveSlot].melleWeapon != null)
