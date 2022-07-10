@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeItem: {fileID: 11400000, guid: e50c10718d0751a48905fa13f308b20b, type: 2}
-  itemInfo: {fileID: 0}
+  itemInfo: {fileID: 2899364163202081073}
   trader: {fileID: 0}
   canDestoring: 1
 --- !u!114 &2899364163202081073
@@ -125,7 +125,19 @@ MonoBehaviour:
   isForTrade: 0
   pickUp:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2899364163202081072}
+        m_TargetAssemblyTypeName: ActiveItemPickUp, Assembly-CSharp
+        m_MethodName: PickUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!61 &2899364163202081074
 BoxCollider2D:
   m_ObjectHideFlags: 0
