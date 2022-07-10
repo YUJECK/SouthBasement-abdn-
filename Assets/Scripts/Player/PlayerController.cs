@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     //Мувмент крысы
     public Vector2 movement;
+    public Skin hat;
     public Transform playerCenter;
     public float speed = 5f; // Скорость игрока
     private float dashTime = 0f; // Длина рывка
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour
         ratAttack = FindObjectOfType<PlayerAttack>();
         grid = FindObjectOfType<Grid>();
         audioManager = FindObjectOfType<AudioManager>();
+        FindObjectOfType<SkinManager>().PutHat(hat);
     }
     private void OnLevelWasLoaded(int level)
     {

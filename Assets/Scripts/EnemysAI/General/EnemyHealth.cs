@@ -84,7 +84,7 @@ public class EnemyHealth : Health
         if (health >= maxHealth) health = maxHealth;
         if (health < 0) 
         { 
-            audioManager.PlayClip(destroySound);
+            if(destroySound != "") audioManager.PlayClip(destroySound);
             onDie.Invoke();
         }
         onHealthChange.Invoke(health, maxHealth);
@@ -101,7 +101,7 @@ public class EnemyHealth : Health
         {
             onDie.Invoke();
             int cheese = Random.Range(minCheese, maxCheese);
-            audioManager.PlayClip(destroySound);
+            if (destroySound != "") audioManager.PlayClip(destroySound);
             gameManager.SpawnCheese(gameObject.transform.position, cheese);
             if(destroyOnDie) Destroy(gameObject, destroyOffset);
         }

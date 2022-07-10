@@ -289,11 +289,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   target: {fileID: 0}
-  offset: 0
-  coefficient: 1
   movePosToCenter: 1
   center: {fileID: 8377337671096473857}
   useLocalPos: 1
+  offset: 0
+  coefficient: 1
 --- !u!58 &2098482274735556773
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -582,9 +582,27 @@ MonoBehaviour:
   maxHealth: 180
   damageColor: {r: 0.9150943, g: 0.19424175, b: 0.19424175, a: 1}
   effectIndicator: {fileID: 1631212498337873737}
-  destroySound: 
-  hitSound: 
+  destroySound: RatHurt
+  hitSound: RatHurt
   effectsCanUse: 01000000020000000300000004000000
+  burn:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  poison:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  bleed:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  regeneration:
+    effectRate: 0
+    effectStrength: 0
+    nextTime: 0
+  destroyOnDie: 1
+  destroyOffset: 0
   onDie:
     m_PersistentCalls:
       m_Calls: []
