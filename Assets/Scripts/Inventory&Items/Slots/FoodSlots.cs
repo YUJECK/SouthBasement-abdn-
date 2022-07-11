@@ -12,18 +12,17 @@ public class FoodSlots : MonoBehaviour
     private void Update()
     {
         if(!isEmpty)
-        {
-            if(objectOfItem.GetComponent<ItemInfo>().GetUses() <= 0)
-            {
-                Destroy(objectOfItem);
-                Remove();
-            }    
+        {  
             if(isActiveSlot & !isEmpty & Input.GetKeyDown(KeyCode.Q))
             {       
                 food.itemAction.Invoke();
                 objectOfItem.GetComponent<ItemInfo>().uses--;
-
-                if(objectOfItem != null)
+                if (objectOfItem.GetComponent<ItemInfo>().GetUses() <= 0)
+                {
+                    Remove();
+                    Destroy(objectOfItem);
+                }
+                if (objectOfItem != null)
                     Debug.Log("Съеден: " + food.name + "\n" + 
                     "Количество использований: " + objectOfItem.GetComponent<ItemInfo>().uses + "\n" +
                     "Количество использований в скриптовом объекте: " + food.uses);

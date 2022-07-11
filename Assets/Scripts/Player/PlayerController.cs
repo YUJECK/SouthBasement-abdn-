@@ -82,15 +82,6 @@ public class PlayerController : MonoBehaviour
             else if(movement.x == 0 && movement.y == 0)
                 anim.SetBool("Is_Run", false);
 
-            //Не делаенье точки где стоит игрок коллайдером
-            if(grid.isGridCreated)
-            {
-                //Возвращаем прошлую клетку в исходное состояние
-                grid.EditGrid(lastGridEdit.x, lastGridEdit.y, lastPoint);
-                grid.EditGrid((int)(transform.position.x / grid.nodeSize), (int)(transform.position.y / grid.nodeSize), 0);
-                lastGridEdit = new Vector2Int((int)(transform.position.x / grid.nodeSize), (int)(transform.position.y / grid.nodeSize));
-                lastPoint = grid.GetGridPoint((int)(transform.position.x / grid.nodeSize), (int)(transform.position.y / grid.nodeSize));
-            }
             
             //Спринт
             if((!isSprinting & Input.GetKeyDown(KeyCode.LeftControl))&(movement.x != 0 || movement.y != 0))
@@ -117,7 +108,15 @@ public class PlayerController : MonoBehaviour
         }
         else
             anim.SetBool("Is_Run", false);
-
+        //Не делаенье точки где стоит игрок коллайдером
+        if(grid.isGridCreated && !GameManager.isPlayerStopped)
+        {
+            //Возвращаем прошлую клетку в исходное состояние
+            grid.EditGrid(lastGridEdit.x, lastGridEdit.y, lastPoint);
+            grid.EditGrid((int)(transform.position.x / grid.nodeSize), (int)(transform.position.y / grid.nodeSize), 0);
+            lastGridEdit = new Vector2Int((int)(transform.position.x / grid.nodeSize), (int)(transform.position.y / grid.nodeSize));
+            lastPoint = grid.GetGridPoint((int)(transform.position.x / grid.nodeSize), (int)(transform.position.y / grid.nodeSize));
+        }
     }
     private void FixedUpdate()
     {
