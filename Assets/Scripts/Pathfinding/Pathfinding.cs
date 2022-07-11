@@ -28,6 +28,19 @@ public class Pathfinding : MonoBehaviour
             blockedPath = _blockedPath;
         }
     };
+    private class CachePath
+    {
+        public Vector2Int startPos;
+        public Vector2Int endPos;
+        public List<Vector2> path;
+
+        public CachePath(Vector2Int start, Vector2Int end, List<Vector2> path)
+        {
+            startPos = start;
+            startPos = end;
+            this.path = path;
+        }
+    }
 
     [HideInInspector] public Grid grid;
     private bool[,] visitedPoints; // Массив посещенных точек 
@@ -36,6 +49,7 @@ public class Pathfinding : MonoBehaviour
     public bool isPathVisualization;
     [HideInInspector] public List<Vector2Int> gridChanges = new List<Vector2Int>();
     private List<PathVisualization> pathVisualization = new List<PathVisualization>();
+    private List<CachePath> cachePath = new List<CachePath>();
 
     private int failStrik = 0;
     private float failWaitTime = 1.5f;
@@ -54,10 +68,21 @@ public class Pathfinding : MonoBehaviour
             }
     }
     //Методы для поиска пути
-    public List<Vector2> FindPath(Vector2 startPos, Vector2 endPos) // Поиск пути
+    public List<Vector2> FindPath(Vector2 startPos, Vector2 endPos, bool cashing) // Поиск пути
     {
         if (grid != null && grid.isGridCreated && Time.time >= nextTime)
         {
+            if(cashing)
+            {
+                Vector2Int startInt = new Vector2Int((int)startPos.x, (int)startPos.y);
+                Vector2Int endInt = new Vector2Int((int)endPos.x, (int)endPos.y);
+                
+                foreach(CachePath cache in cachePath)
+                {
+                    if (startInt == cache.startPos && endInt == cache.endPos)
+                        return cache.path;
+                }
+            }
             visitedPoints = new bool[grid.gridWidth, grid.gridHeight];
             List<Point> queue = new List<Point>();
             List<Point> nextQueue = new List<Point>();
@@ -95,6 +120,7 @@ public class Pathfinding : MonoBehaviour
 
                     if (changeGrid) BlockedPath(curr);
                     failStrik = 0;
+                    if (cashing) cachePath.Add(new CachePath(new Vector2Int((int)startPos.x, (int)startPos.y), new Vector2Int((int)endPos.x, (int)endPos.y), curr.path));
                     return curr.path;
                 }
 

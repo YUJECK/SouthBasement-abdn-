@@ -60,7 +60,7 @@ public class Move : MonoBehaviour
 
         path = pathfinding.FindPath(
            new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
-           new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize));
+           new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize), true);
     }
     public void ResetTarget(EnemyTarget target = null)
     {

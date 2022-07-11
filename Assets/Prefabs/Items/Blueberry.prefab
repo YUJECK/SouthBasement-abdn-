@@ -141,10 +141,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cdcc8306ee99e342931abd6b961a33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemClass: 0
   itemName: "\u0421\u0442\u0430\u043A\u0430\u043D \u043C\u043E\u043B\u043E\u043A\u0430"
   discription: "\u041E\u043D \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442
     \u043E\u0434\u043D\u043E \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u0435"
-  uses: 0
+  uses: 1
+  destroyOnZeroUses: 1
+  active: 1
   cost: 30
   chanceOfDrop: 50
   isOnTrigger: 0
