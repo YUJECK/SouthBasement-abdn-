@@ -7,6 +7,8 @@ public class ItemGiver : MonoBehaviour
 {
     [Header("Настройки выдачи предмета")]
     [SerializeField] private GameObject item; //Сам предмет
+    public bool changeSpriteAfterGive = false;
+    [SerializeField] private Sprite spriteAfterGive;
     [SerializeField] private int giveCount = 1; //Сам предмет
     [SerializeField] ItemClass itemClass = ItemClass.Food; //Класс предмета
     [SerializeField] public bool giveRightAway = false; //Дать сразу в интентарь/Заспавнить в точке
@@ -38,7 +40,10 @@ public class ItemGiver : MonoBehaviour
             }
             giveCount--;
             if (giveCount <= 0)
-                spriteRenderer.sprite = defaultSprite;
+            {
+                if(changeSpriteAfterGive) spriteRenderer.sprite = spriteAfterGive;
+                else spriteRenderer.sprite = defaultSprite;
+            }
         }
     }
 

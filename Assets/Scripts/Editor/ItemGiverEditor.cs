@@ -7,6 +7,8 @@ public class ItemGiverEditor : Editor
     private ItemGiver itemGiver;
 
     private SerializedProperty item;
+    private SerializedProperty changeSpriteAfterGive;
+    private SerializedProperty spriteAfterGive;
     private SerializedProperty giveCount;
     private SerializedProperty itemClass;
     private SerializedProperty giveRightAway;
@@ -23,6 +25,8 @@ public class ItemGiverEditor : Editor
         itemGiver = target as ItemGiver;
         {
             item = serializedObject.FindProperty("item");
+            changeSpriteAfterGive = serializedObject.FindProperty("changeSpriteAfterGive");
+            spriteAfterGive = serializedObject.FindProperty("spriteAfterGive");
             giveCount = serializedObject.FindProperty("giveCount");
             itemClass = serializedObject.FindProperty("itemClass");
             giveRightAway = serializedObject.FindProperty("giveRightAway");
@@ -40,6 +44,9 @@ public class ItemGiverEditor : Editor
         serializedObject.Update();
         {
             EditorGUILayout.PropertyField(item);
+            EditorGUILayout.PropertyField(changeSpriteAfterGive);
+            if(itemGiver.changeSpriteAfterGive)
+                EditorGUILayout.PropertyField(spriteAfterGive);
             EditorGUILayout.PropertyField(giveCount);
             EditorGUILayout.PropertyField(itemClass);
             EditorGUILayout.PropertyField(giveRightAway);
