@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using EnemysAI;
 
 [CreateAssetMenu(fileName = "ProjectileThrow", menuName = "ShootingPatterns/ProjectileThrow")]
-public class SimpleProjectileThrow : ShootingPattern 
+public class SimpleProjectileThrow : ShootingPattern
 {
     [SerializeField] private GameObject projectile;
     private Coroutine projectileThrow;

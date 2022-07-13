@@ -82,7 +82,7 @@ public class AudioManager : MonoBehaviour
         Audio au = null;
         au = Find(name);
 
-        if(au.source.isPlaying) Debug.Log(name);
+        if (au.source.isPlaying) return;
         
         if(au != null && !au.source.isPlaying)
         {

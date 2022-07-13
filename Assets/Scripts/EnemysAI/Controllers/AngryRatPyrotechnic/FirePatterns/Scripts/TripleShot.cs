@@ -1,5 +1,5 @@
+using EnemysAI;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TripleShot", menuName = "ShootingPatterns/TripleShot")]

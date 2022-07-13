@@ -162,7 +162,7 @@ public class Grid : MonoBehaviour
 
     public void PathVisualization(bool active)
     {
-        foreach (Pathfinding path in Resources.FindObjectsOfTypeAll(typeof(Pathfinding)) as Pathfinding[])
+        foreach (Pathfinder path in Resources.FindObjectsOfTypeAll(typeof(Pathfinder)) as Pathfinder[])
         { path.isPathVisualization = active; }
     }
 }

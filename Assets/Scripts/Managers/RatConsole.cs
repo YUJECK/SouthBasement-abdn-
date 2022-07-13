@@ -103,7 +103,7 @@ public class RatConsole : MonoBehaviour
             DisplayText(commands[i].commandName, Color.white, Mode.ConsoleMessege);
         }
     }
-    public int GetFps() { return (int)(1.0f / Time.deltaTime); } //Fps
+    public int GetFps() { return (int)(1.0f / Time.unscaledDeltaTime); } //Fps
     public void OnePunch() { playerAttack.damageBoost = 1000; DisplayText("Damage boost - " + playerAttack.damageBoost.ToString(), Color.green,  Mode.ConsoleMessege); }//Сделать игрока очень сильным
     public void SpawnEnemy() { Instantiate(enemy, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн врага
     public void SpawnBox() { Instantiate(box, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн коробки
@@ -168,13 +168,13 @@ public class RatConsole : MonoBehaviour
         //Включение/выключение консоли
         if(Input.GetKeyDown(KeyCode.LeftAlt))
         {
-            ConsoleText.gameObject.SetActive(!ConsoleText.gameObject.active);   
-            InfoText.gameObject.SetActive(!InfoText.gameObject.active);
+            ConsoleText.gameObject.SetActive(!ConsoleText.gameObject.activeSelf);   
+            InfoText.gameObject.SetActive(!InfoText.gameObject.activeSelf);
             showInfo = !showInfo;
         }
 
         if(!stopConsole)
-            if(showInfo) DisplayText("", Color.white, Mode.Info);
+            /*if(showInfo)*/ DisplayText("", Color.white, Mode.Info);
 
 
         if(Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -187,7 +187,7 @@ public class RatConsole : MonoBehaviour
                 newText = ConsoleInput.text;
                 Time.timeScale = 1f;
 
-                if (newText[0] == '/')
+                if (newText.Length != 0&& newText[0] == '/')
                 {
                     foreach (Commands comm in commands)
                         comm.CheckCommand(newText);

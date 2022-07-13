@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable] public class Drop
+[System.Serializable]
+public class Drop
 {
     public GameObject drop;
     public int chance;
@@ -32,7 +32,7 @@ public class EnemyHealth : Health
         }
         onDie.AddListener(DropItem);
     }
-    public void Update() {if(effects.GetPersistentEventCount() != 0) effects.Invoke(); }
+    public void Update() { if (effects.GetPersistentEventCount() != 0) effects.Invoke(); }
 
     private void DropItem()
     {
@@ -82,14 +82,14 @@ public class EnemyHealth : Health
         maxHealth -= takeAwayMaxHealth;
 
         if (health >= maxHealth) health = maxHealth;
-        if (health < 0) 
-        { 
-            if(destroySound != "") audioManager.PlayClip(destroySound);
+        if (health < 0)
+        {
+            if (destroySound != "") audioManager.PlayClip(destroySound);
             onDie.Invoke();
         }
         onHealthChange.Invoke(health, maxHealth);
     }
-    public override void TakeHit(int damage, float stunDuration )
+    public override void TakeHit(int damage, float stunDuration)
     {
         health -= damage;
         if (damageInd != null) StopCoroutine(damageInd);
@@ -103,7 +103,7 @@ public class EnemyHealth : Health
             int cheese = Random.Range(minCheese, maxCheese);
             if (destroySound != "") audioManager.PlayClip(destroySound);
             gameManager.SpawnCheese(gameObject.transform.position, cheese);
-            if(destroyOnDie) Destroy(gameObject, destroyOffset);
+            if (destroyOnDie) Destroy(gameObject, destroyOffset);
         }
     }
 }

@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using EnemysAI;
 
 [CreateAssetMenu(fileName = "ShootAround", menuName = "ShootingPatterns/ShootAround")]
 public class ShootAround : ShootingPattern
@@ -22,12 +22,12 @@ public class ShootAround : ShootingPattern
 
     private IEnumerator ThrowProjectile(Shooting shooting)
     {
-        if(projectiles.Length !=0)
+        if (projectiles.Length != 0)
         {
             for (int i = 0; i < 8; i++)
             {
                 yield return new WaitForSeconds(0.01f);
-                shooting.Shoot(projectiles[Random.Range(0, projectiles.Length)], 40f*i, 10f);
+                shooting.Shoot(projectiles[Random.Range(0, projectiles.Length)], 40f * i, 10f);
             }
         }
         StopPattern(shooting);

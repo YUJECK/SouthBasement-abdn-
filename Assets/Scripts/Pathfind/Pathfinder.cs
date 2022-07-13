@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pathfinding : MonoBehaviour
+public class Pathfinder : MonoBehaviour
 {
     //Структуры
     public struct Point // Стуктура для точки

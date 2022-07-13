@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class AngryRatPyrotechnicAI : MonoBehaviour
+namespace EnemysAI
 {
-    private void Start()
+    public class AngryRatPyrotechnicAI : MonoBehaviour
     {
-        
+
+        private void Start()
+        {
+
+        }
     }
 }

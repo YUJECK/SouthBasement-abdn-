@@ -472,6 +472,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   runSpeed: 4
+  onSleep:
+    m_PersistentCalls:
+      m_Calls: []
+  onWakeUp:
+    m_PersistentCalls:
+      m_Calls: []
   combat: {fileID: 967021909841136685}
   targetSelection: {fileID: 5786928341691185866}
 --- !u!114 &1776300603172290270
@@ -534,6 +540,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   onArrive:
+    m_PersistentCalls:
+      m_Calls: []
+  onWakeUp:
+    m_PersistentCalls:
+      m_Calls: []
+  onSleep:
     m_PersistentCalls:
       m_Calls: []
   stopCheker: {fileID: 2327817435136662898}
@@ -695,7 +707,19 @@ MonoBehaviour:
   blackTagList: []
   onSetTarget:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5157359432002517473}
+        m_TargetAssemblyTypeName: AngryRatAI, Assembly-CSharp
+        m_MethodName: WakeUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onResetTarget:
     m_PersistentCalls:
       m_Calls: []
