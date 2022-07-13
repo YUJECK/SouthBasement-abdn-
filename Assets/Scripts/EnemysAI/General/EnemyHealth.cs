@@ -32,7 +32,7 @@ public class EnemyHealth : Health
         }
         onDie.AddListener(DropItem);
     }
-    public void Update() { effects.Invoke(); }
+    public void Update() {if(effects.GetPersistentEventCount() != 0) effects.Invoke(); }
 
     private void DropItem()
     {

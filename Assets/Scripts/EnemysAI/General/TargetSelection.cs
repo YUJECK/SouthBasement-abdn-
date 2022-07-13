@@ -14,7 +14,7 @@ public class TargetSelection : MonoBehaviour
     public UnityEvent<EnemyTarget> onResetTarget = new UnityEvent<EnemyTarget>();
     public UnityEvent<EnemyTarget> onTargetChange = new UnityEvent<EnemyTarget>();
 
-    public void RefindTarget() { /*Debug.Log("Refind");*/ target = FindNewTarget(); }
+    public void RefindTarget() { target = FindNewTarget(); }
     private EnemyTarget FindNewTarget()
     {
         bool isSamePriority = true;

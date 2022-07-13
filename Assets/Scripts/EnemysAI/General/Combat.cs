@@ -29,7 +29,7 @@ public class Combat : MonoBehaviour
     private bool isStopped = false;
 
     //Методы атаки
-    private IEnumerator BeforeAttack(float waitTime)
+    private IEnumerator StartAttack(float waitTime)
     {
         onBeforeAttack.Invoke();
         yield return new WaitForSeconds(waitTime);
@@ -65,7 +65,7 @@ public class Combat : MonoBehaviour
         //Проверяем можем ли мы атаковать
         if (!isStopped && onTrigger && Time.time >= nextTime - attackTimeOffset)
         {
-            StartCoroutine(BeforeAttack(attackTimeOffset));
+            StartCoroutine(StartAttack(attackTimeOffset));
             SetNextAttackTime(attackRate + attackTimeOffset);
         }
     }

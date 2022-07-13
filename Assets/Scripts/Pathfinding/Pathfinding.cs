@@ -125,6 +125,7 @@ public class Pathfinding : MonoBehaviour
                 }
 
                 CheckPoint(1, 0, curr, ref nextQueue, endPos);
+
                 CheckPoint(-1, 0, curr, ref nextQueue, endPos);
                 CheckPoint(0, 1, curr, ref nextQueue, endPos);
                 CheckPoint(0, -1, curr, ref nextQueue, endPos);
@@ -196,9 +197,7 @@ public class Pathfinding : MonoBehaviour
     public void ResetGridChanges()//Убирает все изменения в сетке
     {
         for (int i = 0; i < gridChanges.Count; i++)
-        {
             grid.grid[gridChanges[i].x, gridChanges[i].y] = 0;
-        }
         gridChanges.Clear();
     }
 }

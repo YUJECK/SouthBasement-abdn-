@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Move))]
 [RequireComponent(typeof(Animator))]
@@ -12,8 +13,13 @@ public class AngryRatAI : MonoBehaviour
     private bool isStopped = false;
     private EnemyTarget target; //Подвижный ли таргет
 
+    //Всякие приватные поля
+    private bool isSleep = true;
+
     //Ссылки на другие классы
-    [Header("Другие скрипты")]
+    [Header("Другое")]
+    [SerializeField] private UnityEvent onSleep = new UnityEvent(); 
+    [SerializeField] private UnityEvent onWakeUp = new UnityEvent(); 
     [SerializeField] private Combat combat;
     [SerializeField] private TargetSelection targetSelection;
     private Animator anim; //Ссылка на аниматор объекта
@@ -70,6 +76,22 @@ public class AngryRatAI : MonoBehaviour
     }
 
     //Типо сеттеры и геттеры
+    public void GoSleep()
+    {
+        if(!isSleep)
+        {
+            isSleep = true;
+            onSleep.Invoke();
+        }
+    }
+    public void WakeUp()
+    {
+        if(isSleep)
+        {
+            isSleep = false;
+            onWakeUp.Invoke();
+        }
+    }
     public void SetStop(bool active) { isStopped = active; }
     public bool GetStop() { return isStopped; }
 
@@ -83,10 +105,11 @@ public class AngryRatAI : MonoBehaviour
         //События
         GetComponent<EnemyHealth>().stun.AddListener(GetStunned);
         targetSelection.onTargetChange.AddListener(CheckTargetMoveType);
+        GoSleep();
     }
     private void Update() //Основная логика
     {
-        if (!isStopped)
+        if (!isSleep && !isStopped)
         {
             if (anim != null && moving != null)//Анимация и атака
             {

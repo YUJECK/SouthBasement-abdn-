@@ -31,6 +31,7 @@ public class Move : MonoBehaviour
         }
     }
     [HideInInspector] public bool isNowWalk; //Идет ли сейчас 
+    private bool isSleep = true; //"Спит" ли объект
     private bool isStopped = false; //Остановлен ли
     private bool blockStop = false;
     private List<Vector2> path = new List<Vector2>(); //Путь
@@ -39,6 +40,8 @@ public class Move : MonoBehaviour
     [Header("События")]
     public UnityEvent onFlip = new UnityEvent();
     public UnityEvent onArrive = new UnityEvent();
+    public UnityEvent onWakeUp = new UnityEvent();
+    public UnityEvent onSleep = new UnityEvent();
 
     //Переменные для поворота
     private bool flippedOnRight;
@@ -55,12 +58,19 @@ public class Move : MonoBehaviour
     //Методы поиска пути
     public void FindNewPath(EnemyTarget target)
     {
-        if (path.Count != 0) ResetTarget();
-        this.target = target;
+        if(!isSleep)
+        {
+            if (path.Count != 0) ResetTarget();
+            this.target = target;
 
-        path = pathfinding.FindPath(
-           new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
-           new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize), true);
+            bool cashinPath; //Будет ли "кэшироваться" путь
+            if (target.targetMoveType == TargetType.Static) cashinPath = true;
+            else cashinPath = false;
+
+            path = pathfinding.FindPath(
+               new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
+               new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize), cashinPath);
+        }
     }
     public void ResetTarget(EnemyTarget target = null)
     {
@@ -71,6 +81,22 @@ public class Move : MonoBehaviour
     private void SetNextSearchTime() { nextSearchTime = Time.time + searchRate; }
 
     //Типо сеттеры и геттеры
+    public void WakeUp()
+    {
+        if(isSleep)
+        {
+            onWakeUp.Invoke();
+            isSleep = false;
+        }
+    }
+    public void GoSleep()
+    {
+        if(!isSleep)
+        {
+            onSleep.Invoke();
+            isSleep = true;
+        }
+    }
     public void SetStop(bool stopActive) { if (!blockStop) isStopped = stopActive; }
     public void SetBlocking(bool blockActive) { blockStop = blockActive; }
     public bool GetStop() { return isStopped; }
@@ -97,7 +123,7 @@ public class Move : MonoBehaviour
         if (rb != null) rb.velocity = Vector2.zero;
         //Не делаенье точки где стоит игрок коллайдером
 
-        if (!isStopped && pathfinding.grid.isGridCreated)
+        if (!isSleep && !isStopped && pathfinding.grid.isGridCreated)
         {
             //Динамичный поиск пути
             if (target != null && target.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
