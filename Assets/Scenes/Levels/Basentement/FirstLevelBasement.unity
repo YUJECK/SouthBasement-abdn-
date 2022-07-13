@@ -341,14 +341,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5157359432002517473, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: onSleep.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5157359432002517473, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: onWakeUp.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5630845710053068690, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
       propertyPath: m_Name
       value: AngryRat
@@ -4974,6 +4966,7 @@ MonoBehaviour:
   attackRange: 0.7
   attackRate: 1
   attackTimeOffset: 0.5
+  controlCombatFromHere: 1
   onAttack:
     m_PersistentCalls:
       m_Calls:
@@ -6239,6 +6232,7 @@ MonoBehaviour:
   movement: 0
   _speed: 3
   searchRate: 1
+  controlMovementFromHere: 1
   isNowWalk: 0
   onFlip:
     m_PersistentCalls:

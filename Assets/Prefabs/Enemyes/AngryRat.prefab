@@ -513,6 +513,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3957418438233326896}
+        m_TargetAssemblyTypeName: EnemysAI.Combat, Assembly-CSharp
+        m_MethodName: SetStop
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onWakeUp:
     m_PersistentCalls:
       m_Calls:
@@ -520,6 +532,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: WakeUp
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3957418438233326896}
+        m_TargetAssemblyTypeName: EnemysAI.Combat, Assembly-CSharp
+        m_MethodName: SetStop
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -561,6 +585,7 @@ MonoBehaviour:
   movement: 0
   _speed: 3
   searchRate: 1
+  controlMovementFromHere: 1
   isNowWalk: 0
   onFlip:
     m_PersistentCalls:
@@ -760,6 +785,7 @@ MonoBehaviour:
   attackRange: 0.4
   attackRate: 1.5
   attackTimeOffset: 0.5
+  controlCombatFromHere: 1
   onAttack:
     m_PersistentCalls:
       m_Calls:

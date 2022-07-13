@@ -16,11 +16,12 @@ namespace EnemysAI
         [SerializeField] private float attackRange = 0.5f; // Радиус атаки
         [SerializeField] private float attackRate = 3f; // Периодичность атаки
         [SerializeField] private float attackTimeOffset = 0.6f; // Время когда сработает корутина
+        [SerializeField] private bool controlCombatFromHere = true; //Будет ли атака работать отсюда
 
         [Header("События")]
-        [SerializeField] private UnityEvent onAttack = new UnityEvent(); // При атаке
-        [SerializeField] private UnityEvent onBeforeAttack = new UnityEvent(); // За attackTimeOffset до атаки
-        [SerializeField] private UnityEvent onEnterArea = new UnityEvent(); // Когда зашел в радиус активации атаки
+        public UnityEvent onAttack = new UnityEvent(); // При атаке
+        public UnityEvent onBeforeAttack = new UnityEvent(); // За attackTimeOffset до атаки
+        public UnityEvent onEnterArea = new UnityEvent(); // Когда зашел в радиус активации атаки
 
         [Header("Определение цели")]
         [SerializeField] private LayerMask damageLayer; // Дамажный слой
@@ -30,6 +31,16 @@ namespace EnemysAI
         private bool onTrigger = false;
         private bool isStopped = false;
 
+        //Методы управления скриптом
+        public void Attack()
+        {
+            if (!isStopped && onTrigger && Time.time >= nextTime - attackTimeOffset)
+            {
+                StartCoroutine(StartAttack(attackTimeOffset));
+                SetNextAttackTime(attackRate + attackTimeOffset);
+            }
+        }
+
         //Методы атаки
         private IEnumerator StartAttack(float waitTime)
         {
@@ -37,7 +48,7 @@ namespace EnemysAI
             yield return new WaitForSeconds(waitTime);
             Attack();
         }
-        private void Attack()
+        private void Hit()
         {
             //Определяем все объекты попавшие в радиус атаки
             Collider2D[] hitObj = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, damageLayer);
@@ -58,17 +69,14 @@ namespace EnemysAI
         public bool GetStop() { return isStopped; }
 
         //Юнитивские методы
-        private void Start()
-        {
-            pointRotation = GetComponent<PointRotation>();
-        }
+        private void Start() => pointRotation = GetComponent<PointRotation>();
         private void Update()
         {
-            //Проверяем можем ли мы атаковать
-            if (!isStopped && onTrigger && Time.time >= nextTime - attackTimeOffset)
+            if (controlCombatFromHere)
             {
-                StartCoroutine(StartAttack(attackTimeOffset));
-                SetNextAttackTime(attackRate + attackTimeOffset);
+                //Проверяем можем ли мы атаковать
+                if (!isStopped && onTrigger && Time.time >= nextTime - attackTimeOffset)
+                    Attack();
             }
         }
         private void OnTriggerEnter2D(Collider2D collision)
@@ -88,6 +96,5 @@ namespace EnemysAI
         {
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
-
-}
+    }
 }

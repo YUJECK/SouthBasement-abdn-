@@ -11,6 +11,7 @@ namespace EnemysAI
         [SerializeField] private Movement movement = Movement.Wandering;
         [SerializeField] private float _speed = 3; // Скорость передвижения 
         [SerializeField] private float searchRate = 1f; // Частота репоиска 
+        [SerializeField] private bool controlMovementFromHere = true;
         private float nextSearchTime = 0f;
         public float speed
         {
@@ -32,8 +33,8 @@ namespace EnemysAI
         }
         [HideInInspector] public bool isNowWalk; //Идет ли сейчас 
         private bool isSleep = true; //"Спит" ли объект
-        private bool isStopped = false; //Остановлен ли
         private bool blockStop = false;
+        private bool isStopped = false; //Остановлен ли
         private List<Vector2> path = new List<Vector2>(); //Путь
         private EnemyTarget target; //Таргет
 
@@ -88,11 +89,12 @@ namespace EnemysAI
                     {
                         ResetTarget();
                         onArrive.Invoke();
+                        isNowWalk = false;
                     }
-
-                    isNowWalk = false;
                 }
             }
+
+            isNowWalk = false;
         }
         public void DynamicPathfind()
         {
@@ -189,10 +191,13 @@ namespace EnemysAI
         }
         private void FixedUpdate() //Физическая логика
         {
-            ResetVelocity();
-            DynamicPathfind();
-            Moving();
-            CheckRotation();
+            if(controlMovementFromHere)
+            {
+                ResetVelocity();
+                DynamicPathfind();
+                Moving();
+                CheckRotation();
+            }
         }
     }
 }
