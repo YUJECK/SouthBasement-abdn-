@@ -16,7 +16,17 @@ namespace EnemysAI
         public UnityEvent<EnemyTarget> onResetTarget = new UnityEvent<EnemyTarget>();
         public UnityEvent<EnemyTarget> onTargetChange = new UnityEvent<EnemyTarget>();
 
-        public void RefindTarget() { target = FindNewTarget(); }
+        //Методы взаимодействия
+        public void SetNewTarget() 
+        {
+            EnemyTarget newTarget = FindNewTarget();
+
+            //Вызов ивентов
+            if (newTarget != null && this.target != newTarget) onTargetChange.Invoke(newTarget);
+            onSetTarget.Invoke(newTarget);
+
+            target = newTarget;
+        }
         private EnemyTarget FindNewTarget()
         {
             bool isSamePriority = true;
@@ -44,42 +54,7 @@ namespace EnemysAI
             if (target == null) FindObjectOfType<RatConsole>().DisplayText("Таргет не был найден", Color.red,
                 RatConsole.Mode.ConsoleMessege, "<TargetSelection.cs, line 42>");
 
-            //Вызов ивентов
-            if (target != null && this.target != target) onTargetChange.Invoke(target);
-            onSetTarget.Invoke(target);
-
             return target;
-        }
-        public void OnTriggerExit2D(Collider2D coll) //Метод который будет вызываться при выходе за границу поля зрения врага
-        {
-            if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
-            {
-                if (targets.Contains(coll.GetComponent<EnemyTarget>()))
-                {
-                    //Если таргет который вышел за пределы поля зрения действующий таргет, то мы ресетаем
-                    if (target == coll.GetComponent<EnemyTarget>())
-                    {
-                        onResetTarget.Invoke(target);
-                        target = null;
-                        if (targets.Count != 0) target = FindNewTarget();
-                    }
-
-                    targets.Remove(coll.GetComponent<EnemyTarget>());
-                }
-            }
-        }
-        public void OnTriggerEnter2D(Collider2D coll) //Метод который будет вызываться при входе в поле зрения
-        {
-            if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
-            {
-                EnemyTarget newTarget = coll.GetComponent<EnemyTarget>();
-                if (!targets.Contains(newTarget) && !blackTagList.Contains(coll.tag))
-                {
-                    targets.Add(newTarget);
-                    QuickSort(targets, 0, targets.Count - 1);
-                    target = FindNewTarget();
-                }
-            }
         }
 
         //Методы QuickSort-а
@@ -117,6 +92,43 @@ namespace EnemysAI
             EnemyTarget tmp = targets[firstInd];
             targets[firstInd] = targets[secondInd];
             targets[secondInd] = tmp;
+        }
+        
+        //Обработка объектов которые зашли/вышли в/из триггера
+        public void OnTriggerEnter2D(Collider2D coll) //Метод который будет вызываться при входе в поле зрения
+        {
+            if (!blackTagList.Contains(coll.tag))
+            {
+                if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
+                {
+                    EnemyTarget newTarget = coll.GetComponent<EnemyTarget>();
+                    if(!targets.Contains(newTarget))
+                    {
+                        targets.Add(newTarget);
+                        QuickSort(targets, 0, targets.Count - 1);
+                        SetNewTarget();
+                    }
+                }
+            }
+        }
+        public void OnTriggerExit2D(Collider2D coll) //Метод который будет вызываться при выходе за границу поля зрения врага
+        {
+            if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
+            {
+                EnemyTarget exitTarget = coll.GetComponent<EnemyTarget>();
+                if (targets.Contains(exitTarget))
+                {
+                    //Если таргет который вышел за пределы поля зрения действующий таргет, то мы заново ищем таргет
+                    if (target == exitTarget)
+                    {
+                        onResetTarget.Invoke(target);
+                        target = null;
+                        if (targets.Count != 0) target = FindNewTarget();
+                    }
+
+                    targets.Remove(exitTarget);
+                }
+            }
         }
     }
 }

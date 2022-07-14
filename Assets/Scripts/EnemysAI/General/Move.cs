@@ -99,7 +99,7 @@ namespace EnemysAI
         public void DynamicPathfind()
         {
             //Динамичный поиск пути
-            if (target != null && target.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
+            if (isSleep && target != null && target.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
             {
                 ResetTarget();
                 FindNewPath(target);
@@ -108,23 +108,26 @@ namespace EnemysAI
         }
         public void CheckRotation()
         {
-            //Поворот
-            if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position && isNowWalk)
+            if(!isSleep)
             {
-                if (lastPos.x < transform.position.x && flippedOnRight)
+                //Поворот
+                if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position && isNowWalk)
                 {
-                    Debug.Log("[TestFlip]: 1");
-                    FlipThisObject();
-                    flippedOnRight = false;
+                    if (lastPos.x < transform.position.x && flippedOnRight)
+                    {
+                        Debug.Log("[TestFlip]: 1");
+                        FlipThisObject();
+                        flippedOnRight = false;
+                    }
+                    else if (lastPos.x > transform.position.x && !flippedOnRight)
+                    {
+                        Debug.Log("[TestFlip]: 2");
+                        FlipThisObject();
+                        flippedOnRight = true;
+                    }
                 }
-                else if (lastPos.x > transform.position.x && !flippedOnRight)
-                {
-                    Debug.Log("[TestFlip]: 2");
-                    FlipThisObject();
-                    flippedOnRight = true;
-                }
+                lastPos = transform.position;
             }
-            lastPos = transform.position;
         }
 
         //Методы поиска пути
@@ -186,18 +189,19 @@ namespace EnemysAI
             grid = FindObjectOfType<Grid>();
             targetSelection.onTargetChange.AddListener(FindNewPath);
             targetSelection.onResetTarget.AddListener(ResetTarget);
-            if (movement == Movement.Wandering) onArrive.AddListener(targetSelection.RefindTarget);
+            if (movement == Movement.Wandering) onArrive.AddListener(targetSelection.SetNewTarget);
             isStopped = false;
         }
         private void FixedUpdate() //Физическая логика
         {
-            if(controlMovementFromHere)
+            if(controlMovementFromHere && !isSleep)
             {
-                ResetVelocity();
                 DynamicPathfind();
                 Moving();
                 CheckRotation();
             }
+            else if(controlMovementFromHere)
+                ResetVelocity();
         }
     }
 }

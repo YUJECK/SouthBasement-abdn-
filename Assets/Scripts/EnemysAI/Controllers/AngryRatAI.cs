@@ -21,10 +21,12 @@ namespace EnemysAI
         [Header("Другое")]
         [SerializeField] private UnityEvent onSleep = new UnityEvent();
         [SerializeField] private UnityEvent onWakeUp = new UnityEvent();
+        private Animator anim; //Ссылка на аниматор объекта
+        [Header("Другие компоненты")]
         [SerializeField] private Combat combat;
         [SerializeField] private TargetSelection targetSelection;
-        private Animator anim; //Ссылка на аниматор объекта
         private Move moving;
+        private EnemyHealth health;
 
         private IEnumerator ChangeSpeed(TargetType moveType) //Плавный переход скорости
         {
@@ -83,6 +85,9 @@ namespace EnemysAI
             {
                 isSleep = true;
                 onSleep.Invoke();
+                moving.enabled = false;
+                combat.enabled = false;
+                health.enabled = false;
             }
         }
         public void WakeUp()
@@ -91,6 +96,9 @@ namespace EnemysAI
             {
                 isSleep = false;
                 onWakeUp.Invoke();
+                moving.enabled = true;
+                health.enabled = true;
+                combat.enabled = true;
             }
         }
         public void SetStop(bool active) { isStopped = active; }
@@ -101,8 +109,11 @@ namespace EnemysAI
         {
             anim = GetComponent<Animator>();
             moving = GetComponent<Move>();
+            health = GetComponent<EnemyHealth>();
             moving.speed = walkSpeed;
 
+            targetSelection.enabled = false;
+            moving.enabled = false;
             //События
             GetComponent<EnemyHealth>().stun.AddListener(GetStunned);
             onSleep.AddListener(moving.GoSleep);
