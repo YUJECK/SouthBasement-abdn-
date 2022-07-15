@@ -3,27 +3,21 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public float standartValaue = 6f;
-    public Rigidbody2D Camera;
-    public Rigidbody2D Player;
-    
-    private Transform AnotherTrigger;
-    private bool isAnotherTrigger;
-    
+    public Transform target;
+    private Transform player;
     public static CameraFollow instance;
 
     private void Awake()
     {
-        Player = Player.GetComponent<Rigidbody2D>();
-        Camera = Camera.GetComponent<Rigidbody2D>();
-    
         if(instance == null)
             instance = this;
-
         else
         {
             Destroy(gameObject);
             return;
         }
+        player = FindObjectOfType<PlayerController>().transform;
+        target = player;
     }
     
     private void OnLevelWasLoaded(int level)
@@ -33,24 +27,10 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        if(AnotherTrigger == null)
-            isAnotherTrigger = false;
-        
-        if(!isAnotherTrigger)
-            Camera.position = Player.position;
-
-        else if(AnotherTrigger != null)
-            Camera.position = AnotherTrigger.position;
+        if (new Vector3(transform.position.x, transform.position.y, 0f) != new Vector3(target.position.x, target.position.y, 0f))
+            transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
     }
 
-    public void SetTrigger(Transform newTrigger)
-    {
-        AnotherTrigger = newTrigger;
-        isAnotherTrigger = true;
-    }
-    public void ResetTrigger() 
-    {
-        AnotherTrigger = null;
-        isAnotherTrigger = false;
-    }
+    public void SetTarget(Transform newTarget) => target = newTarget;
+    public void ResetTarget() => target = player;
 }

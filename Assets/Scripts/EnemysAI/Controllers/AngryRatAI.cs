@@ -15,7 +15,7 @@ namespace EnemysAI
         private EnemyTarget target; //Подвижный ли таргет
 
         //Всякие приватные поля
-        private bool isSleep = true;
+        private bool isSleep = false;
 
         //Ссылки на другие классы
         [Header("Другое")]
@@ -86,8 +86,10 @@ namespace EnemysAI
                 isSleep = true;
                 onSleep.Invoke();
                 moving.enabled = false;
-                combat.enabled = false;
                 health.enabled = false;
+                for (int i = 0; i < transform.childCount; i++)
+                    transform.GetChild(i).gameObject.SetActive(false);
+                targetSelection.gameObject.SetActive(true);
             }
         }
         public void WakeUp()
@@ -98,7 +100,9 @@ namespace EnemysAI
                 onWakeUp.Invoke();
                 moving.enabled = true;
                 health.enabled = true;
-                combat.enabled = true;
+
+                for (int i = 0; i < transform.childCount; i++)
+                    transform.GetChild(i).gameObject.SetActive(true);
             }
         }
         public void SetStop(bool active) { isStopped = active; }
@@ -112,12 +116,8 @@ namespace EnemysAI
             health = GetComponent<EnemyHealth>();
             moving.speed = walkSpeed;
 
-            targetSelection.enabled = false;
-            moving.enabled = false;
             //События
             GetComponent<EnemyHealth>().stun.AddListener(GetStunned);
-            onSleep.AddListener(moving.GoSleep);
-            onWakeUp.AddListener(moving.WakeUp);
             targetSelection.onTargetChange.AddListener(CheckTargetMoveType);
             GoSleep();
         }

@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashSpeed = 5f; // Скорость рывка
     [SerializeField] private float sprint = 0.35f; //Процент увеличения скорости при спринте
 
-    [HideInInspector]   
+    [HideInInspector]
     public bool isSprinting; // Спринтит ли игрок
     private float boostSpeed; // Новая скорость при спринте
     private float normalSpeed = 5f; // Обычная скорость
@@ -67,49 +65,49 @@ public class PlayerController : MonoBehaviour
         //Перемещение игрока на стартовую позицию
         transform.position = GameObject.FindWithTag("StartPoint").GetComponent<Transform>().position;
     }
-    
+
     private void Update()
-    {   
+    {
         if (!GameManager.isPlayerStopped)
         {
             movement.x = Input.GetAxis("Horizontal");
             movement.y = Input.GetAxis("Vertical");
 
             //Анимация игрока
-            if(movement.x != 0 || movement.y != 0)
+            if (movement != Vector2.zero && !anim.GetBool("Is_Run"))
                 anim.SetBool("Is_Run", true);
-                
-            else if(movement.x == 0 && movement.y == 0)
+
+            else if (movement == Vector2.zero && anim.GetBool("Is_Run"))
                 anim.SetBool("Is_Run", false);
 
-            
+
             //Спринт
-            if((!isSprinting & Input.GetKeyDown(KeyCode.LeftControl))&(movement.x != 0 || movement.y != 0))
+            if ((!isSprinting & Input.GetKeyDown(KeyCode.LeftControl)) & (movement.x != 0 || movement.y != 0))
                 Sprint();
-            if(isSprinting & Input.GetKeyUp(KeyCode.LeftControl))
+            if (isSprinting & Input.GetKeyUp(KeyCode.LeftControl))
                 Sprint();
 
-                
+
             //Рывок
-            if(Input.GetMouseButtonDown(1) && !isSprinting && dashTime == 0f && dashNextTime <= Time.time)
+            if (Input.GetMouseButtonDown(1) && !isSprinting && dashTime == 0f && dashNextTime <= Time.time)
             {
                 dashTime = dashDuration;
-                
+
                 movementOnDash = Vector2.zero;
 
-                if(movement.x > 0) movementOnDash.x = 1f;
-                else if(movement.x < 0) movementOnDash.x = -1f;
+                if (movement.x > 0) movementOnDash.x = 1f;
+                else if (movement.x < 0) movementOnDash.x = -1f;
 
                 if (movement.y > 0) movementOnDash.y = 1f;
-                else if(movement.y < 0) movementOnDash.y = -1f;
-                
+                else if (movement.y < 0) movementOnDash.y = -1f;
+
                 dashNextTime = Time.time + dashRate;
-            }   
+            }
         }
         else
             anim.SetBool("Is_Run", false);
         //Не делаенье точки где стоит игрок коллайдером
-        if(grid.isGridCreated && !GameManager.isPlayerStopped)
+        if (grid.isGridCreated && !GameManager.isPlayerStopped && movement != Vector2.zero)
         {
             //Возвращаем прошлую клетку в исходное состояние
             grid.EditGrid(lastGridEdit.x, lastGridEdit.y, lastPoint);
@@ -125,13 +123,13 @@ public class PlayerController : MonoBehaviour
             //Движение игрока
             rb.velocity = new Vector2(movement.x, movement.y) * speed;
             // audioManager.PlayClip("RatWalk");
-                
+
             //Рывок
-            if(dashTime > 0f) Dashing();
+            if (dashTime > 0f) Dashing();
             else dashTime = 0f;
 
             //Поворот спрайта игрока
-            if (movement.x > 0) 
+            if (movement.x > 0)
                 rotation = Rotation.Right;
             if (movement.x < 0)
                 rotation = Rotation.Left;
@@ -139,12 +137,12 @@ public class PlayerController : MonoBehaviour
             if (rotation == Rotation.Right & !flippedOnRight)
                 Flip();
             if (rotation == Rotation.Left & flippedOnRight)
-                Flip();  
+                Flip();
         }
         else
             rb.velocity = Vector2.zero;
     }
-    
+
     public void PlayAttackAnimation(TypeOfAttack type)
     {
         if (type == TypeOfAttack.Pinpoint) anim.SetTrigger("AttackPinpoint");
@@ -153,9 +151,9 @@ public class PlayerController : MonoBehaviour
     }
     private void Sprint()
     {
-        if(!isSprinting)
+        if (!isSprinting)
         {
-            boostSpeed = speed + speed*sprint;
+            boostSpeed = speed + speed * sprint;
             normalSpeed = speed;
             speed = boostSpeed;
             anim.SetBool("Is_Sprint", true);
@@ -166,23 +164,23 @@ public class PlayerController : MonoBehaviour
         {
             speed = normalSpeed;
             anim.SetBool("Is_Sprint", false);
-            ratAttack.HideMelleweaponIcon(false); 
+            ratAttack.HideMelleweaponIcon(false);
             isSprinting = false;
         }
     }
-    private void Dashing() 
-    { 
-        rb.velocity = new Vector2(movement.x, movement.y) * (speed + dashSpeed); 
+    private void Dashing()
+    {
+        rb.velocity = new Vector2(movement.x, movement.y) * (speed + dashSpeed);
         dashTime -= 0.1f;
     }
-    public void BoostSpeed(float speedBoost) {speed = speed + speed * speedBoost;} // Ускорение игрока
+    public void BoostSpeed(float speedBoost) { speed = speed + speed * speedBoost; } // Ускорение игрока
     void Flip()
     {
-        flippedOnRight = !flippedOnRight;  
-        transform.Rotate(0f,180f,0f);
+        flippedOnRight = !flippedOnRight;
+        transform.Rotate(0f, 180f, 0f);
         ratAttack.pointRotation.coefficient *= -1f;
         ratAttack.attackPoint.GetComponent<SpriteRenderer>().flipY = !ratAttack.attackPoint.GetComponent<SpriteRenderer>().flipY;
     }
-    
+
     enum Rotation { Left, Right }
-}   
+}

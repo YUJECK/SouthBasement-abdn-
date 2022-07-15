@@ -12,16 +12,18 @@ public class NPCCameraTrIgger : MonoBehaviour
     private Mode mode;
 
     private AudioManager audioManager;
+    new private Camera camera;
     private CameraFollow cameraFollow;
 
     private void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        camera = Camera.main;
         cameraFollow = FindObjectOfType<CameraFollow>();
     }
     void OnLevelWasLoaded()
     {
-        if(FindObjectOfType<CameraFollow>().Camera.GetComponent<Camera>().orthographicSize <= MinValue)
+        if(camera.orthographicSize <= MinValue)
             mode = Mode.Maximizing;
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -29,9 +31,9 @@ public class NPCCameraTrIgger : MonoBehaviour
         if(other.tag == "Player")
         {
             if(!isAntoherTrigger)
-                cameraFollow.SetTrigger(transform);
+                cameraFollow.SetTarget(transform);
             else
-                cameraFollow.SetTrigger(anotherTrigger);
+                cameraFollow.SetTarget(anotherTrigger);
 
             mode = Mode.Minimizing;
 
@@ -43,7 +45,7 @@ public class NPCCameraTrIgger : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            cameraFollow.ResetTrigger();
+            cameraFollow.ResetTarget();
             mode = Mode.Maximizing;
 
             if(PlayAudio)
@@ -55,15 +57,15 @@ public class NPCCameraTrIgger : MonoBehaviour
     {
         if(mode == Mode.Maximizing)
         {
-            FindObjectOfType<CameraFollow>().Camera.GetComponent<Camera>().orthographicSize += 0.2f;
+            camera.orthographicSize += 0.2f;
 
-            if(FindObjectOfType<CameraFollow>().Camera.GetComponent<Camera>().orthographicSize > 6f)
+            if(camera.orthographicSize > 6f)
                 mode = Mode.None;
         }
         if(mode == Mode.Minimizing)
         {
-            FindObjectOfType<CameraFollow>().Camera.GetComponent<Camera>().orthographicSize -= 0.2f;  
-            if(FindObjectOfType<CameraFollow>().Camera.GetComponent<Camera>().orthographicSize < MinValue)
+            camera.orthographicSize -= 0.2f;  
+            if(camera.orthographicSize < MinValue)
                 mode = Mode.None;
         }
     }

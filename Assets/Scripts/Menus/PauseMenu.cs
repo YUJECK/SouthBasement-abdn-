@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +11,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
             instance = this;
         else
         {
@@ -21,12 +19,12 @@ public class PauseMenu : MonoBehaviour
             return;
         }
     }
-    private void Start(){ Time.timeScale = 1f; audioManager = FindObjectOfType<AudioManager>(); }
+    private void Start() { Time.timeScale = 1f; audioManager = FindObjectOfType<AudioManager>(); }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {   
-            if(isPause)
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPause)
                 Resume();
             else Pause();
         }

@@ -31,8 +31,7 @@ namespace EnemysAI
                 _speed = value;
             }
         }
-        [HideInInspector] public bool isNowWalk; //Идет ли сейчас 
-        private bool isSleep = true; //"Спит" ли объект
+        /*[HideInInspector] */public bool isNowWalk; //Идет ли сейчас 
         private bool blockStop = false;
         private bool isStopped = false; //Остановлен ли
         private List<Vector2> path = new List<Vector2>(); //Путь
@@ -52,7 +51,7 @@ namespace EnemysAI
         [Header("Другое")]
         [SerializeField] private TriggerChecker stopCheker;
         [SerializeField] private TargetSelection targetSelection;
-        private Pathfinder pathfinding;
+        private Pathfinder pathfinder;
         private Grid grid;
         private Rigidbody2D rb;
 
@@ -64,7 +63,7 @@ namespace EnemysAI
         }
         public void Moving()
         {
-            if (!isSleep && !isStopped && pathfinding.grid.isGridCreated)
+            if (!isStopped && pathfinder.grid.isGridCreated)
             {
                 //Движение 
                 if (path.Count != 0)
@@ -76,10 +75,10 @@ namespace EnemysAI
                     {
                         path.RemoveAt(0);
                         //Убираем коллайдер пути
-                        if (pathfinding.gridChanges.Count != 0)
+                        if (pathfinder.gridChanges.Count != 0)
                         {
-                            grid.grid[pathfinding.gridChanges[0].x, pathfinding.gridChanges[0].y] = 0;
-                            pathfinding.gridChanges.RemoveAt(0);
+                            grid.grid[pathfinder.gridChanges[0].x, pathfinder.gridChanges[0].y] = 0;
+                            pathfinder.gridChanges.RemoveAt(0);
                         }
                     }
                 }
@@ -94,12 +93,12 @@ namespace EnemysAI
                 }
             }
 
-            isNowWalk = false;
+            else isNowWalk = false;
         }
         public void DynamicPathfind()
         {
             //Динамичный поиск пути
-            if (isSleep && target != null && target.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
+            if (!isStopped && target != null && target.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
             {
                 ResetTarget();
                 FindNewPath(target);
@@ -108,70 +107,46 @@ namespace EnemysAI
         }
         public void CheckRotation()
         {
-            if(!isSleep)
+            //Поворот
+            if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position && isNowWalk)
             {
-                //Поворот
-                if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position && isNowWalk)
+                if (lastPos.x < transform.position.x && flippedOnRight)
                 {
-                    if (lastPos.x < transform.position.x && flippedOnRight)
-                    {
-                        Debug.Log("[TestFlip]: 1");
-                        FlipThisObject();
-                        flippedOnRight = false;
-                    }
-                    else if (lastPos.x > transform.position.x && !flippedOnRight)
-                    {
-                        Debug.Log("[TestFlip]: 2");
-                        FlipThisObject();
-                        flippedOnRight = true;
-                    }
+                    FlipThisObject();
+                    flippedOnRight = false;
                 }
-                lastPos = transform.position;
+                else if (lastPos.x > transform.position.x && !flippedOnRight)
+                {
+                    FlipThisObject();
+                    flippedOnRight = true;
+                }
             }
+            lastPos = transform.position;
         }
 
         //Методы поиска пути
         public void FindNewPath(EnemyTarget target)
         {
-            if (!isSleep)
-            {
-                if (path.Count != 0) ResetTarget();
-                this.target = target;
+            if (path.Count != 0) ResetTarget();
+            this.target = target;
 
-                bool cashinPath; //Будет ли "кэшироваться" путь
-                if (target.targetMoveType == TargetType.Static) cashinPath = true;
-                else cashinPath = false;
+            bool cashinPath; //Будет ли "кэшироваться" путь
+            if (target.targetMoveType == TargetType.Static) cashinPath = true;
+            else cashinPath = false;
 
-                path = pathfinding.FindPath(
-                   new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
-                   new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize), cashinPath);
-            }
+            path = pathfinder.FindPath(
+                new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
+                new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize), cashinPath);
         }
         public void ResetTarget(EnemyTarget target = null)
         {
             if (target != null && target == this.target) { this.target = null; }
             path.Clear();
-            pathfinding.ResetGridChanges();
+            pathfinder.ResetGridChanges();
         }
         private void SetNextSearchTime() { nextSearchTime = Time.time + searchRate; }
 
         //Типо сеттеры и геттеры
-        public void WakeUp()
-        {
-            if (isSleep)
-            {
-                onWakeUp.Invoke();
-                isSleep = false;
-            }
-        }
-        public void GoSleep()
-        {
-            if (!isSleep)
-            {
-                onSleep.Invoke();
-                isSleep = true;
-            }
-        }
         public void SetStop(bool stopActive) { if (!blockStop) isStopped = stopActive; }
         public void SetBlocking(bool blockActive) { blockStop = blockActive; }
         public bool GetStop() { return isStopped; }
@@ -184,7 +159,7 @@ namespace EnemysAI
         //Юнитивские методы
         private void Start()
         {
-            pathfinding = GetComponent<Pathfinder>();
+            pathfinder = GetComponent<Pathfinder>();
             rb = GetComponent<Rigidbody2D>();
             grid = FindObjectOfType<Grid>();
             targetSelection.onTargetChange.AddListener(FindNewPath);
@@ -194,14 +169,13 @@ namespace EnemysAI
         }
         private void FixedUpdate() //Физическая логика
         {
-            if(controlMovementFromHere && !isSleep)
+            if(controlMovementFromHere)
             {
                 DynamicPathfind();
                 Moving();
                 CheckRotation();
-            }
-            else if(controlMovementFromHere)
                 ResetVelocity();
+            }
         }
     }
 }

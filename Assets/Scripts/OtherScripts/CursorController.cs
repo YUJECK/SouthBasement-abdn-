@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CursorController : MonoBehaviour
@@ -12,7 +10,7 @@ public class CursorController : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
             instance = this;
         else
         {
@@ -21,14 +19,14 @@ public class CursorController : MonoBehaviour
         }
     }
 
-    void ResetTrigger()
+    void ResetToDefault()
     {
-        Cursor.SetCursor(textureDefault,hotspot,cursorMode);
+        Cursor.SetCursor(textureDefault, hotspot, cursorMode);
     }
 
     public void CursorClick()
     {
-        Cursor.SetCursor(textureOnClick,hotspot,cursorMode);
+        Cursor.SetCursor(textureOnClick, hotspot, cursorMode);
         Invoke("ResetTrigger", 0.2f);
     }
 }
