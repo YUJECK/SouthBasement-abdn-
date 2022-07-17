@@ -52,6 +52,7 @@ MonoBehaviour:
   attackRange: 0.42
   attackRate: 1.2
   attackTimeOffset: 0.5
+  controlCombatFromHere: 1
   onAttack:
     m_PersistentCalls:
       m_Calls:
@@ -387,7 +388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5630845710053068691
 Transform:
   m_ObjectHideFlags: 0
@@ -472,6 +473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   runSpeed: 4
+  spriteRenderer: {fileID: 0}
   onSleep:
     m_PersistentCalls:
       m_Calls: []
@@ -511,6 +513,7 @@ MonoBehaviour:
   movement: 0
   _speed: 3
   searchRate: 1
+  controlMovementFromHere: 1
   isNowWalk: 0
   onFlip:
     m_PersistentCalls:
@@ -702,8 +705,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55b1a9f5fb1813418db77aa44ffc637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  targets: []
   blackTagList: []
   onSetTarget:
     m_PersistentCalls:
@@ -720,10 +721,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onResetTarget:
+  onTargetChange:
     m_PersistentCalls:
       m_Calls: []
-  onTargetChange:
+  onResetTarget:
     m_PersistentCalls:
       m_Calls: []
 --- !u!58 &2468058609887622823

@@ -51,6 +51,7 @@ namespace EnemysAI
         [Header("Другое")]
         [SerializeField] private TriggerChecker stopCheker;
         [SerializeField] private TargetSelection targetSelection;
+        [SerializeField] private SpriteRenderer spriteRenderer;
         private Pathfinder pathfinder;
         private Grid grid;
         private Rigidbody2D rb;
@@ -93,17 +94,27 @@ namespace EnemysAI
                 }
             }
 
-            else isNowWalk = false;
+            else
+            {
+                isNowWalk = false;
+            }
         }
         public void DynamicPathfind()
         {
             //Динамичный поиск пути
             if (!isStopped && target != null && target.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
             {
+                spriteRenderer.color = Color.green;
                 ResetTarget();
                 FindNewPath(target);
                 SetNextSearchTime();
             }
+            else if(isStopped)
+                spriteRenderer.color = Color.red;
+            else if (target == null)
+                spriteRenderer.color = Color.yellow;
+            else if (target.targetMoveType != TargetType.Movable)
+                spriteRenderer.color = Color.blue;
         }
         public void CheckRotation()
         {
@@ -128,7 +139,7 @@ namespace EnemysAI
         public void FindNewPath(EnemyTarget target)
         {
             if (path.Count != 0) ResetTarget();
-            this.target = target;
+            if(this.target != target) this.target = target;
 
             bool cashinPath; //Будет ли "кэшироваться" путь
             if (target.targetMoveType == TargetType.Static) cashinPath = true;
@@ -157,7 +168,7 @@ namespace EnemysAI
         public void FlipOther(Transform _transform) { _transform.Rotate(180f, 0f, 0f); }
 
         //Юнитивские методы
-        private void Start()
+        private void Awake()
         {
             pathfinder = GetComponent<Pathfinder>();
             rb = GetComponent<Rigidbody2D>();
@@ -171,10 +182,10 @@ namespace EnemysAI
         {
             if(controlMovementFromHere)
             {
+                ResetVelocity();
                 DynamicPathfind();
                 Moving();
                 CheckRotation();
-                ResetVelocity();
             }
         }
     }

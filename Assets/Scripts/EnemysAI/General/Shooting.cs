@@ -119,7 +119,7 @@ namespace EnemysAI
         public void StopCurrentPattern() { if (currentPattern != null) currentPattern.StopPattern(this); }
 
         //Юнитивские методы
-        private void Start()
+        private void Awake()
         {
             if (patternsUsage == Patterns.UsePatterns && shootingController == UsageParameters.Independently) SetNewPattern();
             pointRotation = GetComponent<PointRotation>();

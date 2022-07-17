@@ -69,7 +69,7 @@ namespace EnemysAI
         public bool GetStop() { return isStopped; }
 
         //Юнитивские методы
-        private void Start() => pointRotation = GetComponent<PointRotation>();
+        private void Awake() => pointRotation = GetComponent<PointRotation>();
         private void Update()
         {
             if (controlCombatFromHere)

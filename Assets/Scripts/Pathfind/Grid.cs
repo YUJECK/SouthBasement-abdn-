@@ -92,7 +92,7 @@ public class Grid : MonoBehaviour
         {
             for (float y = start.y; y < end.y; y += nodeSize)
             {
-                float a = 0.6f;
+                float a = 0.7f;
                 List<Vector3> points = new List<Vector3>();
                 points.Add(new Vector3(0f, 0f, 0f));
                 points.Add(new Vector3(nodeSize * a, nodeSize * a, 0f));

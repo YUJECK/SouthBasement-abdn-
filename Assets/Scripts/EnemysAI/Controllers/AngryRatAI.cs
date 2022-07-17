@@ -21,7 +21,7 @@ namespace EnemysAI
         [Header("Другое")]
         [SerializeField] private UnityEvent onSleep = new UnityEvent();
         [SerializeField] private UnityEvent onWakeUp = new UnityEvent();
-        private Animator anim; //Ссылка на аниматор объекта
+        private Animator animator; //Ссылка на аниматор объекта
         [Header("Другие компоненты")]
         [SerializeField] private Combat combat;
         [SerializeField] private TargetSelection targetSelection;
@@ -44,20 +44,20 @@ namespace EnemysAI
                 moving.speed += k;
             }
         }
-        private void CheckTargetMoveType(EnemyTarget target) //Смена скорости
+        private void CheckTarget(EnemyTarget target)
         {
-            if (this.target == target) return;
-            else if (this.target == null || this.target.targetMoveType != target.targetMoveType) StartCoroutine(ChangeSpeed(target.targetMoveType));
-
-            this.target = target;
-        }
-        private void CheckTargetsCount(EnemyTarget target)
-        {
-            Debug.Log("[Test]: check " + targetSelection.targets.Count + " " + isSleep);
-            if(targetSelection.targets.Count == 0 && !isSleep)
+            if (targetSelection.targets.Count == 0 && !isSleep)
+            {
                 GoSleep();
+                this.target = null;
+            }
             if (targetSelection.targets.Count > 0 && isSleep)
+            {
                 WakeUp();
+                if (this.target == target) return;
+                else if (this.target == null || this.target.targetMoveType != target.targetMoveType) StartCoroutine(ChangeSpeed(target.targetMoveType));
+                this.target = target;
+            }
         }
 
         //Оглушение
@@ -74,8 +74,8 @@ namespace EnemysAI
             if (blockChange) moving.SetBlocking(true);
             combat.SetStop(true);
             isStopped = true;
-            if (anim.GetBool("isRun")) anim.SetBool("isRun", false);
-            anim.SetBool("isStunned", true);
+            if (animator.GetBool("isRun")) animator.SetBool("isRun", false);
+            animator.SetBool("isStunned", true);
         }
         public void ResetStun(bool stopChange, bool blockChange)
         {
@@ -83,7 +83,7 @@ namespace EnemysAI
             if (stopChange) moving.SetStop(false);
             combat.SetStop(false);
             isStopped = false;
-            anim.SetBool("isStunned", false);
+            animator.SetBool("isStunned", false);
         }
 
         //Типо сеттеры и геттеры
@@ -93,7 +93,7 @@ namespace EnemysAI
             {
                 isSleep = true;
                 onSleep.Invoke();
-                if (anim.GetBool("isRun")) anim.SetBool("isRun", false);
+                if (animator.GetBool("isRun")) animator.SetBool("isRun", false);
                 moving.enabled = false;
                 health.enabled = false;
                 for (int i = 0; i < transform.childCount; i++)
@@ -120,27 +120,26 @@ namespace EnemysAI
         //Юнитивские методы
         private void Start()
         {
-            anim = GetComponent<Animator>();
+            animator = GetComponent<Animator>();
             moving = GetComponent<Move>();
             health = GetComponent<EnemyHealth>();
             moving.speed = walkSpeed;
 
             //События
             GetComponent<EnemyHealth>().stun.AddListener(GetStunned);
-            targetSelection.onTargetChange.AddListener(CheckTargetMoveType);
-            targetSelection.onResetTarget.AddListener(CheckTargetsCount);
-            targetSelection.onSetTarget.AddListener(CheckTargetsCount);
+            targetSelection.onTargetChange.AddListener(CheckTarget);
+            targetSelection.onResetTarget.AddListener(CheckTarget);
             GoSleep();
         }
         private void Update() //Основная логика
         {
             if (!isSleep && !isStopped)
             {
-                if (anim != null && moving != null)//Анимация и атака
+                if (animator != null && moving != null)//Анимация и атака
                 {
                     //Анимация бега
-                    if (moving.isNowWalk && !anim.GetBool("isRun")) anim.SetBool("isRun", true);
-                    if ((!moving.isNowWalk || moving.GetStop()) && anim.GetBool("isRun")) anim.SetBool("isRun", false);
+                    if (moving.isNowWalk && !animator.GetBool("isRun")) animator.SetBool("isRun", true);
+                    if ((!moving.isNowWalk || moving.GetStop()) && animator.GetBool("isRun")) animator.SetBool("isRun", false);
                 }
             }
         }

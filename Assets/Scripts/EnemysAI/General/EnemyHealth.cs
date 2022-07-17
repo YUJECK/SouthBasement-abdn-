@@ -20,7 +20,7 @@ public class EnemyHealth : Health
     private Coroutine damageInd;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public AudioManager audioManager;
-    private void Start()
+    private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         effectManager = FindObjectOfType<EffectsInfo>();
