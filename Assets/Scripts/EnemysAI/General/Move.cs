@@ -84,11 +84,11 @@ namespace EnemysAI
                 }
                 else if (path.Count == 0)
                 {
+                    isNowWalk = false;
                     if (target != null && target.targetMoveType == TargetType.Static)
                     {
                         ResetTarget();
                         onArrive.Invoke();
-                        isNowWalk = false;
                     }
                 }
             }

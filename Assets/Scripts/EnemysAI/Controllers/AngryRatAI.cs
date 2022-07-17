@@ -51,6 +51,14 @@ namespace EnemysAI
 
             this.target = target;
         }
+        private void CheckTargetsCount(EnemyTarget target)
+        {
+            Debug.Log("[Test]: check " + targetSelection.targets.Count + " " + isSleep);
+            if(targetSelection.targets.Count == 0 && !isSleep)
+                GoSleep();
+            if (targetSelection.targets.Count > 0 && isSleep)
+                WakeUp();
+        }
 
         //Оглушение
         public IEnumerator Stun(float duration)
@@ -85,6 +93,7 @@ namespace EnemysAI
             {
                 isSleep = true;
                 onSleep.Invoke();
+                if (anim.GetBool("isRun")) anim.SetBool("isRun", false);
                 moving.enabled = false;
                 health.enabled = false;
                 for (int i = 0; i < transform.childCount; i++)
@@ -119,6 +128,8 @@ namespace EnemysAI
             //События
             GetComponent<EnemyHealth>().stun.AddListener(GetStunned);
             targetSelection.onTargetChange.AddListener(CheckTargetMoveType);
+            targetSelection.onResetTarget.AddListener(CheckTargetsCount);
+            targetSelection.onSetTarget.AddListener(CheckTargetsCount);
             GoSleep();
         }
         private void Update() //Основная логика
