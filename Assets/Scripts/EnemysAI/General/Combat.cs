@@ -46,7 +46,7 @@ namespace EnemysAI
         {
             onBeforeAttack.Invoke();
             yield return new WaitForSeconds(waitTime);
-            Attack();
+            Hit();
         }
         private void Hit()
         {
