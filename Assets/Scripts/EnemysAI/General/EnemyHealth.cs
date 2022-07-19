@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,19 +21,6 @@ public class EnemyHealth : Health
     private Coroutine damageInd;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public AudioManager audioManager;
-    private void Awake()
-    {
-        gameManager = FindObjectOfType<GameManager>();
-        effectManager = FindObjectOfType<EffectsInfo>();
-        audioManager = FindObjectOfType<AudioManager>();
-        if (roomCloser != null)
-        {
-            roomCloser.EnemyCounterTunUp();
-            onDie.AddListener(roomCloser.EnemyCounterTunDown);
-        }
-        onDie.AddListener(DropItem);
-    }
-    public void Update() { if (effects.GetPersistentEventCount() != 0) effects.Invoke(); }
 
     private void DropItem()
     {
@@ -51,6 +39,7 @@ public class EnemyHealth : Health
         }
     }
 
+    //Методы управления
     public override void Heal(int heal)
     {
         health += heal;
@@ -58,42 +47,12 @@ public class EnemyHealth : Health
 
         onHealthChange.Invoke(health, maxHealth);
     }
-    public override void PlusNewHealth(int newMaxHealth, int newHealth)
-    {
-        maxHealth += newMaxHealth;
-        health += newHealth;
-
-        if (health > maxHealth)
-            health = maxHealth;
-        onHealthChange.Invoke(health, maxHealth);
-    }
-    public override void SetHealth(int newMaxHealth, int newHealth)
-    {
-        maxHealth = newMaxHealth;
-        health = newMaxHealth;
-
-        if (health >= maxHealth) health = maxHealth;
-        if (health < 0) onDie.Invoke();
-        onHealthChange.Invoke(health, maxHealth);
-    }
-    public override void TakeAwayHealth(int takeAwayMaxHealth, int takeAwayHealth)
-    {
-        health -= takeAwayHealth;
-        maxHealth -= takeAwayMaxHealth;
-
-        if (health >= maxHealth) health = maxHealth;
-        if (health < 0)
-        {
-            if (destroySound != "") audioManager.PlayClip(destroySound);
-            onDie.Invoke();
-        }
-        onHealthChange.Invoke(health, maxHealth);
-    }
-    public override void TakeHit(int damage, float stunDuration)
+    public override void TakeHit(int damage, float stunDuration = 0f)
     {
         health -= damage;
         if (damageInd != null) StopCoroutine(damageInd);
-        if (stunDuration > 0f) stun.Invoke(stunDuration);
+        if (stunDuration > 0f)
+            stun.Invoke(stunDuration);
         damageInd = StartCoroutine(TakeHitVizualization());
         onHealthChange.Invoke(health, maxHealth);
 
@@ -106,4 +65,30 @@ public class EnemyHealth : Health
             if (destroyOnDie) Destroy(gameObject, destroyOffset);
         }
     }
+    public override void SetHealth(int newMaxHealth, int newHealth)
+    {
+        maxHealth = newMaxHealth;
+        if (health >= maxHealth) health = maxHealth;
+        
+        newHealth -= health;
+        if (newHealth < 0)
+            TakeHit(-newHealth);
+        else if (newHealth > 0)
+            Heal(newHealth);
+    }
+
+    //Юнитивские методы
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        effectManager = FindObjectOfType<EffectsInfo>();
+        audioManager = FindObjectOfType<AudioManager>();
+        if (roomCloser != null)
+        {
+            roomCloser.EnemyCounterTunUp();
+            onDie.AddListener(roomCloser.EnemyCounterTunDown);
+        }
+        onDie.AddListener(DropItem);
+    }
+    public void Update() { if (effects.GetPersistentEventCount() != 0) effects.Invoke(); }
 }

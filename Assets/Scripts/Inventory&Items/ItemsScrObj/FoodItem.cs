@@ -36,7 +36,7 @@ public class FoodItem : ScriptableObject
 
     public void PowerDrink()
     {
-        playerHealth.TakeAwayHealth(10, 10);
+        playerHealth.SetHealth(playerHealth.maxHealth - 10, playerHealth.health - 10);
         plaeyrController.BoostSpeed(0.22f);
     }
 
@@ -62,7 +62,7 @@ public class FoodItem : ScriptableObject
             usesInGame++;
         }
     }
-    public void GlassOfMilk() { playerHealth.PlusNewHealth(10, 0); }
+    public void GlassOfMilk() { playerHealth.SetHealth(playerHealth.maxHealth+10, 0); }
 
     public void Blueberry()
     {
@@ -74,7 +74,7 @@ public class FoodItem : ScriptableObject
     {
         if (playerHealth.health != playerHealth.maxHealth)
         {
-            playerHealth.TakeAwayHealth(10, 10);
+            playerHealth.SetHealth(playerHealth.maxHealth-10, playerHealth.health - 10);;
             playerHealth.Heal(50);
             SetSprite(extraSprites[0], itemInfo.GetComponent<SpriteRenderer>());
             itemInfo.active = false;

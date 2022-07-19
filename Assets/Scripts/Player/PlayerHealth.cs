@@ -10,6 +10,8 @@ public class PlayerHealth : Health
     public Animator healthBar;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public AudioManager audioManager;
+    
+    //Методы управления
     public override void Heal(int heal)
     {
         health += heal;
@@ -21,26 +23,13 @@ public class PlayerHealth : Health
     public override void SetHealth(int newMaxHealth, int newHealth)
     {
         maxHealth = newMaxHealth;
-        health = newHealth;
+        if (health >= maxHealth) health = maxHealth;
 
-        if (health > maxHealth)
-            health = maxHealth;
-        onHealthChange.Invoke(health, maxHealth);
-    }
-    public override void TakeAwayHealth(int takeAwayMaxHealth, int takeAwayHealth)
-    {
-        maxHealth -= takeAwayMaxHealth;
-        health -= takeAwayHealth;
-
-        if (health > maxHealth)
-            health = maxHealth;
-
-        onHealthChange.Invoke(health, maxHealth);
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-            SceneManager.LoadScene("RestartMenu");
-        }
+        newHealth -= health;
+        if (newHealth < 0)
+            TakeHit(-newHealth);
+        else if (newHealth > 0)
+            Heal(newHealth);
     }
     public override void TakeHit(int damage, float stunDuration = 0)
     {
@@ -63,24 +52,17 @@ public class PlayerHealth : Health
             }
         }
     }
-    public override void PlusNewHealth(int newMaxHealth, int newHealth)
-    {
-        maxHealth += newMaxHealth;
-        health += newHealth;
-
-        if (health > maxHealth)
-            health = maxHealth;
-        onHealthChange.Invoke(health, maxHealth);
-    }
-
+    
+    //Юнитивские методы
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         effectManager = FindObjectOfType<EffectsInfo>();
         audioManager = FindObjectOfType<AudioManager>();
         onHealthChange.Invoke(health, maxHealth);
+        GetEffect(10f, new EffectStats(3, 4), EffectsList.Poison);
     }
-    public void Update() { effects.Invoke(); }
+    public void Update() { if(effects.GetPersistentEventCount() != 0) effects.Invoke(); }
 
     public IEnumerator InvisibleCadrs()
     {

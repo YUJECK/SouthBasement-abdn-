@@ -31,7 +31,7 @@ public abstract class Health : MonoBehaviour
     [Header("Еффекты")]
     public List<EffectsList> effectsCanUse;
     [HideInInspector] public EffectStats burn;
-    /*[HideInInspector] */public EffectStats poison;
+    [HideInInspector] public EffectStats poison;
     [HideInInspector] public EffectStats bleed;
     [HideInInspector] public EffectStats regeneration;
 
@@ -50,10 +50,8 @@ public abstract class Health : MonoBehaviour
 
     //Всякие манипуляции со здоровьем
     public abstract void TakeHit(int damage, float stunDuration = 0f);
-    public abstract void TakeAwayHealth(int takeAwayMaxHealth, int takeAwayHealth);
     public abstract void Heal(int heal);
     public abstract void SetHealth(int newMaxHealth, int newHealth);
-    public abstract void PlusNewHealth(int newMaxHealth, int newHealth);
 
     public IEnumerator TakeHitVizualization()
     {
@@ -96,12 +94,12 @@ public abstract class Health : MonoBehaviour
                     effectIndicator.sprite = effectManager.poisonIndicator;
                     poison = effectStats;
                     effects.AddListener(Poison);
+                    Debug.Log("[Test]: Effects count " + effects.GetPersistentEventCount());
 
                     //Сброс еффекта
                     yield return new WaitForSeconds(duration);
                     effects.RemoveListener(Poison);
                     poison.nextTime = 0f;
-                    Debug.Log("[Test]: Poisoned active on - " + gameObject.name);
                     break;
                 case EffectsList.Regeneration:
                     //Добавление еффекта
