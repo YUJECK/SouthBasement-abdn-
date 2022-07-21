@@ -60,6 +60,7 @@ public class PlayerHealth : Health
         effectManager = FindObjectOfType<EffectsInfo>();
         audioManager = FindObjectOfType<AudioManager>();
         onHealthChange.Invoke(health, maxHealth);
+        GetEffect(20f, new EffectStats(5f, 2), EffectsList.Regeneration);
     }
     public void Update() { effects.Invoke(); }
 

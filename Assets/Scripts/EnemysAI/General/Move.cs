@@ -51,7 +51,6 @@ namespace EnemysAI
         [Header("Другое")]
         [SerializeField] private TriggerChecker stopCheker;
         [SerializeField] private TargetSelection targetSelection;
-        [SerializeField] private SpriteRenderer spriteRenderer;
         private Pathfinder pathfinder;
         private Grid grid;
         private Rigidbody2D rb;
@@ -104,17 +103,10 @@ namespace EnemysAI
             //Динамичный поиск пути
             if (!isStopped && target != null && target.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
             {
-                spriteRenderer.color = Color.green;
                 ResetTarget();
                 FindNewPath(target);
                 SetNextSearchTime();
             }
-            else if(isStopped)
-                spriteRenderer.color = Color.red;
-            else if (target == null)
-                spriteRenderer.color = Color.yellow;
-            else if (target.targetMoveType != TargetType.Movable)
-                spriteRenderer.color = Color.blue;
         }
         public void CheckRotation()
         {

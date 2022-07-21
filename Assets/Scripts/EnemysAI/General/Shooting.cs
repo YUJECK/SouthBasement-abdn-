@@ -60,7 +60,8 @@ namespace EnemysAI
 
         [Header("Другое")]
         [SerializeField] private Transform firePoint; //Точка спавна пуль
-                                                      //Ссылки на другие скрипты
+                                                      
+        //Ссылки на другие скрипты
         private PointRotation pointRotation;
 
         //Паттерны
@@ -119,7 +120,7 @@ namespace EnemysAI
         public void StopCurrentPattern() { if (currentPattern != null) currentPattern.StopPattern(this); }
 
         //Юнитивские методы
-        private void Awake()
+        private void Start()
         {
             if (patternsUsage == Patterns.UsePatterns && shootingController == UsageParameters.Independently) SetNewPattern();
             pointRotation = GetComponent<PointRotation>();

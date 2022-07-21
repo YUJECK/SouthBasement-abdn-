@@ -1,14 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 namespace EnemysAI
 {
-    public class AngryRatPyrotechnicAI : MonoBehaviour
+    public class AngryRatPyrotechnicAI : EnemyAI
     {
-
-        private void Start()
+        public override void GoSleep()
+        { 
+        }
+        public override void ResetStun(bool stopChange, bool blockChange)
         {
-
+            throw new System.NotImplementedException();
+        }
+        public override void SetStun(bool stopChange, bool blockChange)
+        {
+            throw new System.NotImplementedException();
+        }
+        public override void WakeUp()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
