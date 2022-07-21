@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable] public class EffectStats
+[System.Serializable]
+public class EffectStats
 {
     public EffectStats(float rate, int strength)
     {
         effectRate = rate;
-        effectStrength = strength; 
+        effectStrength = strength;
     }
     public float effectRate;
     public int effectStrength;
-    [HideInInspector] public float nextTime = 0f;
+    private float nextTime = 0f;
+    public void SetNextTime(float time) => nextTime += time;
+    public void ResetToZeroNextTime() => nextTime = 0f;
+    public float GetNextTime() { return nextTime; }
 };
 public abstract class Health : MonoBehaviour
 {
@@ -42,11 +46,12 @@ public abstract class Health : MonoBehaviour
     public UnityEvent onDie = new UnityEvent();  //Методы которые вызовуться при уничтожении объекта
     public UnityEvent<int, int> onHealthChange = new UnityEvent<int, int>();
     public UnityEvent<float> stun = new UnityEvent<float>();
-    protected UnityEvent effects = new UnityEvent();
+    public UnityEvent effects = new UnityEvent();
 
     //Другое
     private Coroutine damageInd = null;
     protected EffectsInfo effectManager;
+    protected GameManager gameManager;
 
     //Всякие манипуляции со здоровьем
     public abstract void TakeHit(int damage, float stunDuration = 0f);
@@ -76,7 +81,8 @@ public abstract class Health : MonoBehaviour
                     //Сброс еффекта
                     yield return new WaitForSeconds(duration);
                     effects.RemoveListener(Burn);
-                    burn.nextTime = 0f;
+                    burn.ResetToZeroNextTime();
+                    effectIndicator.sprite = gameManager.hollowSprite;
                     break;
                 case EffectsList.Bleed:
                     //Добавление еффекта
@@ -87,19 +93,20 @@ public abstract class Health : MonoBehaviour
                     //Сброс еффекта
                     yield return new WaitForSeconds(duration);
                     effects.RemoveListener(Bleed);
-                    bleed.nextTime = 0f;
+                    bleed.ResetToZeroNextTime();
+                    effectIndicator.sprite = gameManager.hollowSprite;
                     break;
                 case EffectsList.Poison:
                     //Добавление еффекта
                     effectIndicator.sprite = effectManager.poisonIndicator;
                     poison = effectStats;
                     effects.AddListener(Poison);
-                    Debug.Log("[Test]: Effects count " + effects.GetPersistentEventCount());
 
                     //Сброс еффекта
                     yield return new WaitForSeconds(duration);
                     effects.RemoveListener(Poison);
-                    poison.nextTime = 0f;
+                    poison.ResetToZeroNextTime();
+                    effectIndicator.sprite = gameManager.hollowSprite;
                     break;
                 case EffectsList.Regeneration:
                     //Добавление еффекта
@@ -110,7 +117,8 @@ public abstract class Health : MonoBehaviour
                     //Сброс еффекта
                     yield return new WaitForSeconds(duration);
                     effects.RemoveListener(Regeneration);
-                    regeneration.nextTime = 0f;
+                    regeneration.ResetToZeroNextTime();
+                    effectIndicator.sprite = gameManager.hollowSprite;
                     break;
             }
         }
@@ -120,35 +128,33 @@ public abstract class Health : MonoBehaviour
     //Еффекты
     public void Burn() 
     {
-        if(burn.nextTime <= Time.time)
+        if(Time.time >= burn.GetNextTime())
         {
-            burn.nextTime = Time.time + burn.effectRate;
+            burn.SetNextTime(burn.effectRate);
             TakeHit(burn.effectStrength); 
         }
     }
     public void Poison()
     {
-        if (Time.time >= poison.nextTime)
+        if (Time.time >= poison.GetNextTime())
         {
-            Debug.Log("[Test]: Poison use on " + gameObject.name);
-            poison.nextTime = Time.time + poison.effectRate;
+            poison.SetNextTime(poison.effectRate);
             TakeHit(poison.effectStrength);
         }
-        Debug.Log("[Test]: Poison hasn't been use on " + gameObject.name);
     }
     public void Bleed()
     {
-        if (Time.time >= bleed.nextTime)
+        if (Time.time >= bleed.GetNextTime())
         {
-            bleed.nextTime = Time.time + bleed.effectRate;
+            bleed.SetNextTime(bleed.effectRate);
             TakeHit(bleed.effectStrength);
         }
     }
     public void Regeneration()
     {
-        if (Time.time >= regeneration.nextTime)
+        if (Time.time >= regeneration.GetNextTime())
         {
-            regeneration.nextTime = Time.time + regeneration.effectRate;
+            regeneration.SetNextTime(regeneration.effectRate);
             TakeHit(regeneration.effectStrength);
         }
     }

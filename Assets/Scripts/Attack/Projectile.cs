@@ -75,7 +75,6 @@ public class Projectile : MonoBehaviour
                     obj.GetComponent<Health>().TakeHit(damage);
                     if (projectileEffect != EffectsList.None) //Если есть еффект
                         obj.GetComponent<Health>().GetEffect(effectDuration, effectStats, projectileEffect);
-                    Debug.Log("[ProjectileTest]: " + obj.name);
                 }
             }
         }
