@@ -118,7 +118,9 @@ public abstract class Health : MonoBehaviour
                     yield return new WaitForSeconds(duration);
                     effects.RemoveListener(Regeneration);
                     regeneration.ResetToZeroNextTime();
-                    effectIndicator.sprite = gameManager.hollowSprite;
+
+                    if (gameManager != null)
+                        effectIndicator.sprite = gameManager.hollowSprite;
                     break;
             }
         }

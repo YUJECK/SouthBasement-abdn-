@@ -8,7 +8,6 @@ public class PlayerHealth : Health
     [Header("Другое")]
     private bool invisibleCadrs = false;
     public Animator healthBar;
-    [HideInInspector] public GameManager gameManager;
     [HideInInspector] public AudioManager audioManager;
     
     //Методы управления

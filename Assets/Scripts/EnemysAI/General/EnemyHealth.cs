@@ -19,7 +19,6 @@ public class EnemyHealth : Health
     [Header("Другое")]
     public RoomCloser roomCloser;
     private Coroutine damageInd;
-    [HideInInspector] public GameManager gameManager;
     [HideInInspector] public AudioManager audioManager;
 
     private void DropItem()
