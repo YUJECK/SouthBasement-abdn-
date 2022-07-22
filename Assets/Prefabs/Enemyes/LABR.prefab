@@ -473,15 +473,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   runSpeed: 4
-  spriteRenderer: {fileID: 0}
   onSleep:
     m_PersistentCalls:
       m_Calls: []
   onWakeUp:
     m_PersistentCalls:
       m_Calls: []
-  combat: {fileID: 967021909841136685}
   targetSelection: {fileID: 5786928341691185866}
+  combat: {fileID: 967021909841136685}
 --- !u!114 &1776300603172290270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,7 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9727c2d35101849bf11baf0fc62792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 65
+  health: 60
   maxHealth: 65
   damageColor: {r: 0.98039216, g: 0.41960785, b: 0.41960785, a: 1}
   effectIndicator: {fileID: 3330916501560165472}
@@ -575,19 +574,15 @@ MonoBehaviour:
   burn:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   poison:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   bleed:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   regeneration:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   destroyOnDie: 1
   destroyOffset: 0
   onDie:
@@ -603,7 +598,6 @@ MonoBehaviour:
   maxCheese: 7
   itemsDrop: []
   roomCloser: {fileID: 0}
-  gameManager: {fileID: 0}
   audioManager: {fileID: 0}
 --- !u!50 &5630845709475724661
 Rigidbody2D:

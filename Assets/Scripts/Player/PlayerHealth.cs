@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(EffectHandler))]
 public class PlayerHealth : Health
 {
     [Header("Другое")]
@@ -59,10 +60,7 @@ public class PlayerHealth : Health
         effectManager = FindObjectOfType<EffectsInfo>();
         audioManager = FindObjectOfType<AudioManager>();
         onHealthChange.Invoke(health, maxHealth);
-        GetEffect(20f, new EffectStats(5f, 2), EffectsList.Regeneration);
     }
-    public void Update() { effects.Invoke(); }
-
     public IEnumerator InvisibleCadrs()
     {
         yield return new WaitForSeconds(1f);

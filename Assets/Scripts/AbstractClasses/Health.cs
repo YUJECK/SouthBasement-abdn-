@@ -25,28 +25,19 @@ public abstract class Health : MonoBehaviour
     public int health;
     public int maxHealth;
 
-    [SerializeField] private Color damageColor;
-    public SpriteRenderer effectIndicator;
-
-    [Header("Звуки")]
+    [Header("Визуальные еффекты")]
+    [SerializeField] private Color damageColor; //Цвет при получении урона
     [SerializeField] protected string destroySound; // Звук смерти
     [SerializeField] protected string hitSound; // Звук получения урона
-
-    [Header("Еффекты")]
-    public List<EffectsList> effectsCanUse;
-    [HideInInspector] public EffectStats burn;
-    [HideInInspector] public EffectStats poison;
-    [HideInInspector] public EffectStats bleed;
-    [HideInInspector] public EffectStats regeneration;
-
-    //События
+    
     [Header("События")]
+    //Настраевамые поля 
     [SerializeField] protected bool destroyOnDie = true;
     [SerializeField] protected float destroyOffset = 0f;
+    //События
+    public UnityEvent<float> stun = new UnityEvent<float>();
     public UnityEvent onDie = new UnityEvent();  //Методы которые вызовуться при уничтожении объекта
     public UnityEvent<int, int> onHealthChange = new UnityEvent<int, int>();
-    public UnityEvent<float> stun = new UnityEvent<float>();
-    protected UnityEvent effects = new UnityEvent();
 
     //Другое
     private Coroutine damageInd = null;
@@ -63,101 +54,5 @@ public abstract class Health : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = damageColor;
         yield return new WaitForSeconds(0.6f);
         gameObject.GetComponent<SpriteRenderer>().color = new Color(100, 100, 100, 100);
-    }
-
-    //Еффекты которые могут наложиться на врага    
-    private IEnumerator EffectActive(float duration, EffectStats effectStats, EffectsList effect)
-    {
-        if(effectsCanUse.Contains(effect))
-        {
-            switch (effect)
-            {
-                case EffectsList.Burn:
-                    //Добавление еффекта
-                    effectIndicator.sprite = effectManager.burnIndicator;
-                    burn = effectStats;
-                    effects.AddListener(Burn);
-
-                    //Сброс еффекта
-                    yield return new WaitForSeconds(duration);
-                    effects.RemoveListener(Burn);
-                    burn.ResetToZeroNextTime();
-                    effectIndicator.sprite = gameManager.hollowSprite;
-                    break;
-                case EffectsList.Bleed:
-                    //Добавление еффекта
-                    effectIndicator.sprite = effectManager.bleedndicator;
-                    bleed = effectStats;
-                    effects.AddListener(Bleed);
-
-                    //Сброс еффекта
-                    yield return new WaitForSeconds(duration);
-                    effects.RemoveListener(Bleed);
-                    bleed.ResetToZeroNextTime();
-                    effectIndicator.sprite = gameManager.hollowSprite;
-                    break;
-                case EffectsList.Poison:
-                    //Добавление еффекта
-                    effectIndicator.sprite = effectManager.poisonIndicator;
-                    poison = effectStats;
-                    effects.AddListener(Poison);
-
-                    //Сброс еффекта
-                    yield return new WaitForSeconds(duration);
-                    effects.RemoveListener(Poison);
-                    poison.ResetToZeroNextTime();
-                    effectIndicator.sprite = gameManager.hollowSprite;
-                    break;
-                case EffectsList.Regeneration:
-                    //Добавление еффекта
-                    effectIndicator.sprite = effectManager.regenerationIndicator;
-                    regeneration = effectStats;
-                    effects.AddListener(Regeneration);
-                    
-                    //Сброс еффекта
-                    yield return new WaitForSeconds(duration);
-                    effects.RemoveListener(Regeneration);
-                    regeneration.ResetToZeroNextTime();
-
-                    if (gameManager != null)
-                        effectIndicator.sprite = gameManager.hollowSprite;
-                    break;
-            }
-        }
-    }
-    public void GetEffect(float duration, EffectStats effectStats, EffectsList effect) => StartCoroutine(EffectActive(duration, effectStats, effect));
-
-    //Еффекты
-    public void Burn() 
-    {
-        if(Time.time >= burn.GetNextTime())
-        {
-            burn.SetNextTime(burn.effectRate);
-            TakeHit(burn.effectStrength); 
-        }
-    }
-    public void Poison()
-    {
-        if (Time.time >= poison.GetNextTime())
-        {
-            poison.SetNextTime(poison.effectRate);
-            TakeHit(poison.effectStrength);
-        }
-    }
-    public void Bleed()
-    {
-        if (Time.time >= bleed.GetNextTime())
-        {
-            bleed.SetNextTime(bleed.effectRate);
-            TakeHit(bleed.effectStrength);
-        }
-    }
-    public void Regeneration()
-    {
-        if (Time.time >= regeneration.GetNextTime())
-        {
-            regeneration.SetNextTime(regeneration.effectRate);
-            Heal(regeneration.effectStrength);
-        }
     }
 }

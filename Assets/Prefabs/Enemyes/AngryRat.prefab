@@ -573,8 +573,8 @@ MonoBehaviour:
   onWakeUp:
     m_PersistentCalls:
       m_Calls: []
-  combat: {fileID: 3957418438233326896}
   targetSelection: {fileID: 4066900711061194624}
+  combat: {fileID: 3957418438233326896}
 --- !u!114 &997358912328341320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,7 +646,6 @@ MonoBehaviour:
       m_Calls: []
   stopCheker: {fileID: 7877029375638524724}
   targetSelection: {fileID: 4066900711061194624}
-  spriteRenderer: {fileID: 7135941758095640781}
 --- !u!114 &954463900787170469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,8 +658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9727c2d35101849bf11baf0fc62792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 160
-  maxHealth: 160
+  health: 120
+  maxHealth: 130
   damageColor: {r: 0.9811321, g: 0.42114633, b: 0.42114633, a: 1}
   effectIndicator: {fileID: 3330916501560165472}
   destroySound: RatHurt
@@ -669,19 +668,15 @@ MonoBehaviour:
   burn:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   poison:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   bleed:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   regeneration:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   destroyOnDie: 1
   destroyOffset: 0
   onDie:
@@ -697,7 +692,6 @@ MonoBehaviour:
   maxCheese: 10
   itemsDrop: []
   roomCloser: {fileID: 0}
-  gameManager: {fileID: 0}
   audioManager: {fileID: 0}
 --- !u!50 &5630845709475724661
 Rigidbody2D:

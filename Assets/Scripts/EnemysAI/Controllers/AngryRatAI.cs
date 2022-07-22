@@ -70,7 +70,6 @@ namespace EnemysAI
             moving.speed = walkSpeed;
 
             //События
-            GetComponent<EnemyHealth>().stun.AddListener(GetStunned);
             targetSelection.onTargetChange.AddListener(CheckTarget);
             targetSelection.onResetTarget.AddListener(CheckTarget);
             GoSleep();

@@ -1,3 +1,4 @@
+using EnemysAI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -87,7 +88,7 @@ public class EnemyHealth : Health
             roomCloser.EnemyCounterTunUp();
             onDie.AddListener(roomCloser.EnemyCounterTunDown);
         }
+        stun.AddListener(GetComponent<EnemyAI>().GetStunned);
         onDie.AddListener(DropItem);
     }
-    public void Update() { effects.Invoke(); }
 }

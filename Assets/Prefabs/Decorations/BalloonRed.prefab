@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &197629433258238036
 Transform:
   m_ObjectHideFlags: 0
@@ -108,19 +108,15 @@ MonoBehaviour:
   burn:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   poison:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   bleed:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   regeneration:
     effectRate: 0
     effectStrength: 0
-    nextTime: 0
   destroyOnDie: 1
   destroyOffset: 0.4
   onDie:
@@ -148,7 +144,6 @@ MonoBehaviour:
   maxCheese: 0
   itemsDrop: []
   roomCloser: {fileID: 0}
-  gameManager: {fileID: 0}
   audioManager: {fileID: 0}
 --- !u!95 &197629433258238057
 Animator:
