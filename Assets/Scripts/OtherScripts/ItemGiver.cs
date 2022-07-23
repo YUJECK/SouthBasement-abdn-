@@ -19,10 +19,8 @@ public class ItemGiver : MonoBehaviour
     [SerializeField] private Sprite defaultSprite; //Обычный спрайт
     [SerializeField] private Sprite triggerSprite; //Спрайт при триггере
     [SerializeField] public bool checkFromTriggerChecker = false; //Проверять ли триггер через TriggerChecker
-    [SerializeField] private TriggerChecker triggerChecker; //Сам TriggerChecker
     
     //Другое 
-    private bool isOnTrigger = false;
     private SpriteRenderer spriteRenderer;
     private InventoryManager inventoryManager;
 
@@ -48,37 +46,24 @@ public class ItemGiver : MonoBehaviour
     }
 
     //Основная логика
-    private void Start() 
+    private void Start()
     {
         inventoryManager = FindObjectOfType<InventoryManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    private void Update()
-    {
-        if(giveCount > 0)
-        {
-            if(checkFromTriggerChecker && triggerChecker.trigger)
-                GiveItem();
-            else if (isOnTrigger && Input.GetKeyDown(KeyCode.E))
-                GiveItem();
-        }
-    }
 
     //Проверка триггеров
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (!checkFromTriggerChecker && giveCount > 0 && collision.CompareTag(triggerTag))
         {
-            isOnTrigger = true;
             spriteRenderer.sprite = triggerSprite;
+            if (Input.GetKeyDown(KeyCode.E)) GiveItem();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (!checkFromTriggerChecker && giveCount > 0 && collision.CompareTag(triggerTag))
-        {
-            isOnTrigger = false;
             spriteRenderer.sprite = defaultSprite;
-        }
     }
 }

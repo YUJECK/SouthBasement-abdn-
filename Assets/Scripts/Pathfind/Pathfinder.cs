@@ -4,7 +4,7 @@ using UnityEngine;
 public class Pathfinder : MonoBehaviour
 {
     //Структуры
-    public struct Point // Стуктура для точки
+    public class Point // Стуктура для точки
     {
         public int x;
         public int y;
@@ -17,7 +17,7 @@ public class Pathfinder : MonoBehaviour
             path = new List<Vector2>();
         }
     }
-    private struct PathVisualization //Стуркура хранящая визуализацию путя, и визуализацию блока,, пути
+    private class PathVisualization //Стуркура хранящая визуализацию путя, и визуализацию блока,, пути
     {
         public GameObject path;
         public GameObject blockedPath;
@@ -87,9 +87,7 @@ public class Pathfinder : MonoBehaviour
             List<Point> queue = new List<Point>();
             List<Point> nextQueue = new List<Point>();
 
-            Point start = new Point();
-            start.x = (int)startPos.x;
-            start.y = (int)startPos.y;
+            Point start = new Point(startPos);
             start.path = new List<Vector2>();
             start.path.Add(new Vector2(startPos.x, startPos.y));
 
@@ -155,9 +153,7 @@ public class Pathfinder : MonoBehaviour
     }
     private void CheckPoint(int dX, int dY, Point point, ref List<Point> listOfPoints, Vector2 end) // Проверка след,, точки
     {
-        Point nextPoint = new Point();
-        nextPoint.x = (int)point.x;
-        nextPoint.y = (int)point.y;
+        Point nextPoint = new Point(new Vector2(point.x, point.y));
         nextPoint.path = new List<Vector2>(point.path);
 
         //Нормальная проверка

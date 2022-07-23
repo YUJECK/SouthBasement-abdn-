@@ -3568,10 +3568,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c5a822fb7368947942ff39dbecd9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCs: []
+  NPCs:
+  - {fileID: 629769820662793742, guid: a212ae6d68362964295c86f12348053c, type: 3}
   Trader: {fileID: 779558788892042569, guid: d356348ab4524244b94c6838340ede98, type: 3}
-  IsTraderSpawning: 0
-  BoxesInLevel: 0
+  IsTraderSpawning: 1
+  BoxesInLevel: 1
   Box: {fileID: 8453918043298753914, guid: 5918fc490ef16294ca42a6709b27c8b8, type: 3}
   NPCRooms: []
   SpawnedNPC: 0
@@ -3590,7 +3591,7 @@ MonoBehaviour:
   RoomsCount: 12
   rooms: 
   ExitRoomIndex: 0
-  NPCsRoomsCount: 0
+  NPCsRoomsCount: 3
   NowSpawnedSimpleRooms: 0
   NowSpawnedNPCsRooms: 0
   NowSpawnedRooms: 0
@@ -4898,7 +4899,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprint: 306
-  mouseWheel: 0
   PickUpButton: 101
   FoodChangeButton: 9
   ActiveItemChangeButton: 98
@@ -6460,6 +6460,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679344264}
   m_CullTransparentMesh: 1
+--- !u!1 &1698164417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1698164419}
+  - component: {fileID: 1698164418}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1698164418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698164417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037c1599568db9c4baf056d576de17c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTags: []
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onStay:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerObject: {fileID: 0}
+  trigger: 0
+--- !u!4 &1698164419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698164417}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 218.30373, y: 196.41902, z: -307.03876}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1737868242
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class Intro : MonoBehaviour
 {
     public float waitTime = 10f;
 
-    private void Update()
+    private void Start()
     {
         StartCoroutine(CloseIntro());
     }

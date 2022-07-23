@@ -12,6 +12,7 @@ namespace EnemysAI
         private Animator animator; 
         [SerializeField] private Combat combat; 
         private EnemyHealth health;
+        private EffectHandler effectHandler;
 
         //Оглушение
         public override void SetStun(bool stopChange, bool blockChange)
