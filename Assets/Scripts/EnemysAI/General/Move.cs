@@ -31,11 +31,11 @@ namespace EnemysAI
                 _speed = value;
             }
         }
-        /*[HideInInspector] */public bool isNowWalk; //Идет ли сейчас 
+        [HideInInspector] public bool isNowWalk; //Идет ли сейчас 
         private bool blockStop = false;
         private bool isStopped = false; //Остановлен ли
         private List<Vector2> path = new List<Vector2>(); //Путь
-        private EnemyTarget target; //Таргет
+        private EnemyTarget moveTarget; //Таргет
 
         [Header("События")]
         public UnityEvent onFlip = new UnityEvent();
@@ -85,7 +85,7 @@ namespace EnemysAI
                 else if (path.Count == 0)
                 {
                     isNowWalk = false;
-                    if (target != null && target.targetMoveType == TargetType.Static)
+                    if (moveTarget != null && moveTarget.targetMoveType == TargetType.Static)
                     {
                         ResetTarget();
                         onArrive.Invoke();
@@ -101,10 +101,10 @@ namespace EnemysAI
         public void DynamicPathfind()
         {
             //Динамичный поиск пути
-            if (!isStopped && target != null && target.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
+            if (!isStopped && moveTarget != null && moveTarget.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
             {
                 ResetTarget();
-                FindNewPath(target);
+                FindNewPath(moveTarget);
                 SetNextSearchTime();
             }
         }
@@ -130,8 +130,9 @@ namespace EnemysAI
         //Методы поиска пути
         public void FindNewPath(EnemyTarget target)
         {
+            Debug.Log("Move: find new path");
             if (path.Count != 0) ResetTarget();
-            if(this.target != target) this.target = target;
+            if(this.moveTarget != target) this.moveTarget = target;
 
             bool cashinPath; //Будет ли "кэшироваться" путь
             if (target.targetMoveType == TargetType.Static) cashinPath = true;
@@ -143,7 +144,7 @@ namespace EnemysAI
         }
         public void ResetTarget(EnemyTarget target = null)
         {
-            if (target != null && target == this.target) { this.target = null; }
+            if (target != null && target == this.moveTarget) { this.moveTarget = null; }
             path.Clear();
             pathfinder.ResetGridChanges();
         }

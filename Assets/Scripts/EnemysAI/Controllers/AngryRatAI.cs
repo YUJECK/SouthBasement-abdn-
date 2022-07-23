@@ -42,6 +42,7 @@ namespace EnemysAI
                 onSleep.Invoke();
                 if (animator.GetBool("isRun")) animator.SetBool("isRun", false);
                 moving.enabled = false;
+                health.effectHandler.enabled = false;
                 health.enabled = false;
                 for (int i = 0; i < transform.childCount; i++)
                     transform.GetChild(i).gameObject.SetActive(false);
@@ -56,6 +57,7 @@ namespace EnemysAI
                 onWakeUp.Invoke();
                 moving.enabled = true;
                 health.enabled = true;
+                health.effectHandler.enabled = true;
 
                 for (int i = 0; i < transform.childCount; i++)
                     transform.GetChild(i).gameObject.SetActive(true);
@@ -71,7 +73,7 @@ namespace EnemysAI
             moving.speed = walkSpeed;
 
             //События
-            targetSelection.onTargetChange.AddListener(CheckTarget);
+            targetSelection.onSetTarget.AddListener(CheckTarget);
             targetSelection.onResetTarget.AddListener(CheckTarget);
             GoSleep();
         }

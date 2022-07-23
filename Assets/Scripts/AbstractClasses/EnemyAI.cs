@@ -40,19 +40,21 @@ namespace EnemysAI
                 moving.speed += k;
             }
         }
-        protected void CheckTarget(EnemyTarget target)
+        protected void CheckTarget(EnemyTarget newTarget)
         {
             if (targetSelection.targets.Count == 0 && !isSleep)
             {
                 GoSleep();
-                this.target = null;
+                target = null;
             }
             if (targetSelection.targets.Count > 0 && isSleep)
             {
+                if (target == newTarget) return;
+                else if (target == null || target.targetMoveType != newTarget.targetMoveType) StartCoroutine(ChangeSpeed(newTarget.targetMoveType));
+                
+                target = newTarget;
+                
                 WakeUp();
-                if (this.target == target) return;
-                else if (this.target == null || this.target.targetMoveType != target.targetMoveType) StartCoroutine(ChangeSpeed(target.targetMoveType));
-                this.target = target;
             }
         }
 

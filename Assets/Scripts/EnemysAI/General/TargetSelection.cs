@@ -6,6 +6,12 @@ namespace EnemysAI
 {
     public class TargetSelection : MonoBehaviour
     {
+        //Приватные поля
+        [SerializeField] private List<string> blackTagList = new List<string>(); //Список тегов которые не будут читаться 
+        private EnemyTarget _target; //Текущий таргет
+        private List<EnemyTarget> _targets = new List<EnemyTarget>(); //Список всех таргетов
+        
+        //Публичные поля
         public EnemyTarget target
         {
             get => _target;
@@ -17,12 +23,8 @@ namespace EnemysAI
             private set => _targets = value;
         }
 
-        private EnemyTarget _target; //Текущий таргет
-        private TargetType targetMoveType = TargetType.Static; //Подвижный ли таргет
-        private List<EnemyTarget> _targets = new List<EnemyTarget>(); //Список всех таргетов
-        [SerializeField] private List<string> blackTagList = new List<string>(); //Список тегов которые не будут читаться 
-
         //Ивенты
+        [Header("События")]
         public UnityEvent<EnemyTarget> onSetTarget = new UnityEvent<EnemyTarget>();
         public UnityEvent<EnemyTarget> onTargetChange = new UnityEvent<EnemyTarget>();
         public UnityEvent<EnemyTarget> onResetTarget = new UnityEvent<EnemyTarget>();
@@ -33,9 +35,8 @@ namespace EnemysAI
             EnemyTarget newTarget = FindNewTarget();
 
             //Вызов ивентов
-            if (newTarget != null && this._target != newTarget) onTargetChange.Invoke(newTarget);
+            if (newTarget != null && _target != newTarget) { onTargetChange.Invoke(newTarget); }
             onSetTarget.Invoke(newTarget);
-
             _target = newTarget;
         }
         private EnemyTarget FindNewTarget()
@@ -106,7 +107,7 @@ namespace EnemysAI
         }
         
         //Обработка объектов которые зашли/вышли в/из триггера
-        public void OnTriggerEnter2D(Collider2D coll) //Метод который будет вызываться при входе в поле зрения
+        public void OnTriggerEnter2D(Collider2D coll) //Вход в поле зрения
         {
             if (!blackTagList.Contains(coll.tag))
             {
@@ -122,13 +123,15 @@ namespace EnemysAI
                 }
             }
         }
-        public void OnTriggerExit2D(Collider2D coll) //Метод который будет вызываться при выходе за границу поля зрения врага
+        public void OnTriggerExit2D(Collider2D coll) //Выход из поля зрения
         {
             if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
             {
                 EnemyTarget exitTarget = coll.GetComponent<EnemyTarget>();
                 if (_targets.Contains(exitTarget))
                 {
+                    _targets.Remove(exitTarget);
+                    
                     //Если таргет который вышел за пределы поля зрения действующий таргет, то мы заново ищем таргет
                     if (_target == exitTarget)
                     {
@@ -136,7 +139,6 @@ namespace EnemysAI
                         if (_targets.Count != 0) _target = FindNewTarget();
                     }
 
-                    _targets.Remove(exitTarget);
                     onResetTarget.Invoke(exitTarget);
                 }
             }
