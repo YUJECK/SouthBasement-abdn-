@@ -9,6 +9,7 @@ public class Drop
     public GameObject drop;
     public int chance;
 }
+[RequireComponent(typeof(EffectHandler))]
 public class EnemyHealth : Health
 {
     [Header("Âûןאהאולûו ןנוהלועû")]
@@ -88,6 +89,9 @@ public class EnemyHealth : Health
             roomCloser.EnemyCounterTunUp();
             onDie.AddListener(roomCloser.EnemyCounterTunDown);
         }
+        effectHandler = GetComponent<EffectHandler>();
+        useEffects = true;
+        effectHandler.health = this;
         stun.AddListener(GetComponent<EnemyAI>().GetStunned);
         onDie.AddListener(DropItem);
     }

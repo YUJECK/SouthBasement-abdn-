@@ -6,26 +6,27 @@ public class DecorationHealth : Health
 {
     public override void Heal(int heal)
     {
+        health += heal;
+        if (health > maxHealth) health = maxHealth;
+        onHealthChange.Invoke(maxHealth, health);
     }
 
     public override void SetHealth(int newMaxHealth, int newHealth)
     {
-    
+        health = newHealth;
+        maxHealth = newMaxHealth;
+        if (health > maxHealth) health = maxHealth;
+        onHealthChange.Invoke(maxHealth, health);
     }
 
     public override void TakeHit(int damage, float stunDuration = 0)
     {
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        health -= damage;
+        if (health <= 0)
+        {
+            onHealthChange.Invoke(maxHealth, health);
+            onDie.Invoke();
+            Destroy(gameObject);
+        }
     }
 }

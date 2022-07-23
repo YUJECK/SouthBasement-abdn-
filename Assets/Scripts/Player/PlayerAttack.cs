@@ -61,13 +61,12 @@ public class PlayerAttack : MonoBehaviour
         {
             if(enemy.tag == "Enemy" && !enemy.isTrigger)
             {
-                //StartCoroutine(gameManager.ChangeTimeScale(0.5f, 1f, 0.08f));
-
+                Health enemyHealth = enemy.GetComponent<Health>();
                 //Накладываем еффект если есть
-                if (melleWeapon != null && melleWeapon.effect != EffectsList.None)
-                    enemy.GetComponent<EnemyHealth>().GetEffect(melleWeapon.effectTime, melleWeapon.effectStats, melleWeapon.effect);
+                if (melleWeapon != null && melleWeapon.effect != EffectsList.None && enemyHealth.useEffects)
+                    enemyHealth.effectHandler.GetEffect(melleWeapon.effectTime, melleWeapon.effectStats, melleWeapon.effect);
                 //Наносим урон
-                enemy.GetComponent<EnemyHealth>().TakeHit(damage+damageBoost, melleWeapon.stunTime);
+                enemyHealth.TakeHit(damage+damageBoost, melleWeapon.stunTime);
             }
         }
     }

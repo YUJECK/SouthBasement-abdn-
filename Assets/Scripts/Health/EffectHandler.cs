@@ -117,5 +117,11 @@ public class EffectHandler : MonoBehaviour
         }
     }
 
+    //Юнитивские методы
+    private void Start()
+    {
+        effectManager = FindObjectOfType<EffectsInfo>();
+        gameManager = FindObjectOfType<GameManager>();
+    }
     private void Update() { effects.Invoke(); }
 }

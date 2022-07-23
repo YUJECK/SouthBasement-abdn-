@@ -401,6 +401,7 @@ GameObject:
   - component: {fileID: 997358912328341320}
   - component: {fileID: 1160361261316572005}
   - component: {fileID: 954463900787170469}
+  - component: {fileID: 2371407094003424733}
   - component: {fileID: 5630845709475724661}
   - component: {fileID: 5630845709475724668}
   - component: {fileID: 1658189367019712007}
@@ -555,24 +556,13 @@ MonoBehaviour:
   health: 100
   maxHealth: 120
   damageColor: {r: 0.9811321, g: 0.42114633, b: 0.42114633, a: 1}
-  effectIndicator: {fileID: 3330916501560165472}
   destroySound: RatHurt
   hitSound: RatHurt
-  effectsCanUse: 01000000020000000300000004000000
-  burn:
-    effectRate: 0
-    effectStrength: 0
-  poison:
-    effectRate: 0
-    effectStrength: 0
-  bleed:
-    effectRate: 0
-    effectStrength: 0
-  regeneration:
-    effectRate: 0
-    effectStrength: 0
   destroyOnDie: 1
   destroyOffset: 0
+  stun:
+    m_PersistentCalls:
+      m_Calls: []
   onDie:
     m_PersistentCalls:
       m_Calls:
@@ -591,14 +581,31 @@ MonoBehaviour:
   onHealthChange:
     m_PersistentCalls:
       m_Calls: []
-  stun:
-    m_PersistentCalls:
-      m_Calls: []
+  useEffects: 0
+  effectHandler: {fileID: 0}
   minCheese: 0
   maxCheese: 10
   itemsDrop: []
   roomCloser: {fileID: 0}
   audioManager: {fileID: 0}
+--- !u!114 &2371407094003424733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8396d1031dd0c545b0d69da1ec72bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectsCanUse: 01000000020000000300000004000000
+  health: {fileID: 0}
+  effectIndicator: {fileID: 0}
+  effects:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &5630845709475724661
 Rigidbody2D:
   serializedVersion: 4

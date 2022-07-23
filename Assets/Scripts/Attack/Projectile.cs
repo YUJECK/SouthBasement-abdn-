@@ -72,9 +72,11 @@ public class Projectile : MonoBehaviour
                 if (((obj.CompareTag("Enemy") && projectileTarget == ProjectileTarget.HitEnemy || projectileTarget == ProjectileTarget.HitBoth) ||
                 (obj.CompareTag("Player") && projectileTarget == ProjectileTarget.HitPlayer || projectileTarget == ProjectileTarget.HitBoth)))
                 {
-                    obj.GetComponent<Health>().TakeHit(damage);
-                    if (projectileEffect != EffectsList.None) //Если есть еффект
-                        obj.GetComponent<Health>().GetEffect(effectDuration, effectStats, projectileEffect);
+                    Health hittedHealth = obj.gameObject.GetComponent<Health>();
+                    hittedHealth.TakeHit(damage);
+
+                    if (projectileEffect != EffectsList.None && hittedHealth.useEffects) //Если есть еффект
+                        hittedHealth.effectHandler.GetEffect(effectDuration, effectStats, projectileEffect);
                 }
             }
         }
@@ -96,10 +98,11 @@ public class Projectile : MonoBehaviour
             if (((collision.gameObject.CompareTag("Enemy") && projectileTarget == ProjectileTarget.HitEnemy || collision.gameObject.CompareTag("Enemy") && projectileTarget == ProjectileTarget.HitBoth) ||
                 (collision.gameObject.CompareTag("Player") && projectileTarget == ProjectileTarget.HitPlayer || collision.gameObject.CompareTag("Player") && projectileTarget == ProjectileTarget.HitBoth)))
             {
-                collision.gameObject.GetComponent<Health>().TakeHit(damage);
+                Health hittedHealth = collision.gameObject.GetComponent<Health>();
+                hittedHealth.TakeHit(damage);
 
-                if (projectileEffect != EffectsList.None) //Если есть еффект
-                    collision.gameObject.GetComponent<Health>().GetEffect(effectDuration, effectStats, projectileEffect);
+                if (projectileEffect != EffectsList.None && hittedHealth.useEffects) //Если есть еффект
+                    hittedHealth.effectHandler.GetEffect(effectDuration, effectStats, projectileEffect);
             }
 
             GameObject effect = Instantiate(projectileExplosionObject, gameObject.transform.position, Quaternion.identity);

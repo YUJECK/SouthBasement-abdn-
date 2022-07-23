@@ -60,6 +60,9 @@ public class PlayerHealth : Health
         effectManager = FindObjectOfType<EffectsInfo>();
         audioManager = FindObjectOfType<AudioManager>();
         onHealthChange.Invoke(health, maxHealth);
+        effectHandler = GetComponent<EffectHandler>();
+        useEffects = true;
+        effectHandler.health = this;
     }
     public IEnumerator InvisibleCadrs()
     {

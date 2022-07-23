@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,7 +13,7 @@ public class EffectStats
     public float effectRate;
     public int effectStrength;
     private float nextTime = 0f;
-    public void SetNextTime(float time) => nextTime += time;
+    public void SetNextTime(float rate) => nextTime = Time.time + rate;
     public void ResetToZeroNextTime() => nextTime = 0f;
     public float GetNextTime() { return nextTime; }
 };
@@ -29,7 +28,7 @@ public abstract class Health : MonoBehaviour
     [SerializeField] private Color damageColor; //Цвет при получении урона
     [SerializeField] protected string destroySound; // Звук смерти
     [SerializeField] protected string hitSound; // Звук получения урона
-    
+
     [Header("События")]
     //Настраевамые поля 
     [SerializeField] protected bool destroyOnDie = true;
@@ -40,6 +39,8 @@ public abstract class Health : MonoBehaviour
     public UnityEvent<int, int> onHealthChange = new UnityEvent<int, int>();
 
     //Другое
+    public bool useEffects = false;
+    public EffectHandler effectHandler;
     private Coroutine damageInd = null;
     protected EffectsInfo effectManager;
     protected GameManager gameManager;
