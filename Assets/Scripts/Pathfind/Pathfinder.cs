@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
-    //Структуры
+    //Классы
     public class Point // Стуктура для точки
     {
         public int x;
         public int y;
+        public int cost = 0;
         public List<Vector2> path;
 
         public Point(Vector2 start)
@@ -43,7 +44,6 @@ public class Pathfinder : MonoBehaviour
     }
 
     [HideInInspector] public Grid grid;
-    private bool[,] visitedPoints; // Массив посещенных точек 
 
     [SerializeField] private bool changeGrid = false; //Будет ли матрица изменяться в зависимости от пути
     public bool isPathVisualization;
@@ -51,135 +51,81 @@ public class Pathfinder : MonoBehaviour
     private List<PathVisualization> pathVisualization = new List<PathVisualization>();
     private List<CachePath> cachePath = new List<CachePath>();
 
+    private bool[,] visitedPoints;
     private int failStrik = 0;
     private float failWaitTime = 1.5f;
     private float nextTime = 0;
 
-    private void Awake() { grid = FindObjectOfType<Grid>(); }
-    private void OnDestroy()
-    {
-        ResetGridChanges();
-        if (pathVisualization.Count != 0) //Чистка
-            for (int i = 0; i < pathVisualization.Count;)
-            {
-                Destroy(pathVisualization[0].path);
-                Destroy(pathVisualization[0].blockedPath);
-                pathVisualization.RemoveAt(0);
-            }
-    }
     //Методы для поиска пути
     public List<Vector2> FindPath(Vector2 startPos, Vector2 endPos, bool cashing) // Поиск пути
     {
-        if (grid != null && grid.isGridCreated && Time.time >= nextTime)
+        visitedPoints = new bool[grid.gridWidth, grid.gridHeight]; // Массив посещенных точек 
+        List<Point> reachable = new List<Point>(); //Прилягающие точки
+
+        endPos = new Vector2((int)endPos.x, (int)endPos.y);
+        reachable.Add(new Point(startPos));
+
+        while (reachable.Count > 0)
         {
-            if(cashing)
+            //Выбираем след., точку
+            Point current = reachable[Random.Range(0, reachable.Count)];
+
+            if (new Vector2(current.x, current.y) == endPos)
+                return current.path;
+
+            reachable.Remove(current);
+            visitedPoints[current.x, current.y] = true;
+
+            if (current == null) Debug.LogError("Current point == null");
+            List<Point> newReachable = GetReachablePoints(current, endPos);
+
+            foreach (Point point in newReachable)
             {
-                Vector2Int startInt = new Vector2Int((int)startPos.x, (int)startPos.y);
-                Vector2Int endInt = new Vector2Int((int)endPos.x, (int)endPos.y);
-                
-                foreach(CachePath cache in cachePath)
+                if (!reachable.Contains(point))
                 {
-                    if (startInt == cache.startPos && endInt == cache.endPos)
-                        return cache.path;
+                    point.path.Add(new Vector2(current.x, current.y));
+                    reachable.Add(point);
                 }
             }
-            visitedPoints = new bool[grid.gridWidth, grid.gridHeight];
-            List<Point> queue = new List<Point>();
-            List<Point> nextQueue = new List<Point>();
-
-            Point start = new Point(startPos);
-            start.path = new List<Vector2>();
-            start.path.Add(new Vector2(startPos.x, startPos.y));
-
-            queue.Add(new Point(startPos));
-
-            visitedPoints[start.x, start.y] = true;
-
-            while (queue.Count > 0)
-            {
-                Point curr = queue[0];
-
-                if (curr.x == (int)endPos.x && curr.y == (int)endPos.y)
-                {
-                    //{Визуалиция
-                    if (pathVisualization.Count > 0) //Чистка
-                        for (int i = 0; i < pathVisualization.Count; i++)
-                        {
-                            Destroy(pathVisualization[0].path);
-                            Destroy(pathVisualization[0].blockedPath);
-                            pathVisualization.RemoveAt(0);
-                        }
-                    if (isPathVisualization)
-                    {
-                        for (int i = 0; i < curr.path.Count; i++)
-                            pathVisualization.Add(new PathVisualization(Instantiate(grid.enemyPath, curr.path[i], Quaternion.identity), Instantiate(grid._collider, curr.path[i], Quaternion.identity)));
-                    }
-                    //Визуализация}
-
-                    if (changeGrid) BlockedPath(curr);
-                    failStrik = 0;
-                    if (cashing) cachePath.Add(new CachePath(new Vector2Int((int)startPos.x, (int)startPos.y), new Vector2Int((int)endPos.x, (int)endPos.y), curr.path));
-                    return curr.path;
-                }
-
-                CheckPoint(1, 0, curr, ref nextQueue, endPos);
-
-                CheckPoint(-1, 0, curr, ref nextQueue, endPos);
-                CheckPoint(0, 1, curr, ref nextQueue, endPos);
-                CheckPoint(0, -1, curr, ref nextQueue, endPos);
-
-                //Проверка угловых клеток
-                CheckPoint(1, 1, curr, ref nextQueue, endPos);
-                CheckPoint(-1, 1, curr, ref nextQueue, endPos);
-                CheckPoint(1, -1, curr, ref nextQueue, endPos);
-                CheckPoint(-1, -1, curr, ref nextQueue, endPos);
-
-                queue.RemoveAt(0);
-
-                if (queue.Count == 0)
-                {
-                    queue = new List<Point>(nextQueue);
-                    nextQueue.Clear();
-                }
-            }
-            Debug.LogWarning("[ArtificialWarn]: Path wasn't found: " + startPos + " " + new Vector2((int)endPos.x, (int)endPos.y));
-            //Debug.LogWarning("Start pos - : " + grid.grid[(int)(startPos.x / grid.nodeSize), (int)(startPos.y / grid.nodeSize)] + " End Pos - " + grid.grid[(int)(endPos.x / grid.nodeSize), (int)(endPos.y / grid.nodeSize)]);
-            failStrik++;
-            if (failStrik >= 2) nextTime = Time.time + failWaitTime;
-            return new List<Vector2>();
         }
 
         return new List<Vector2>();
     }
-    private void CheckPoint(int dX, int dY, Point point, ref List<Point> listOfPoints, Vector2 end) // Проверка след,, точки
+    private void ChoosePoint(List<Point> points) { } // 
+    private List<Point> GetReachablePoints(Point point, Vector2 endPoint) // 
     {
-        Point nextPoint = new Point(new Vector2(point.x, point.y));
-        nextPoint.path = new List<Vector2>(point.path);
+        List<Point> reachablePoints = new List<Point>();
 
-        //Нормальная проверка
-        if (nextPoint.x + dX < grid.gridWidth && nextPoint.x + dX >= 0 && nextPoint.y + dY < grid.gridHeight && nextPoint.y + dY >= 0
-        && visitedPoints[nextPoint.x + dX, nextPoint.y + dY] == false && grid.grid[nextPoint.x + dX, nextPoint.y + dY] == 0)
-        {
-            nextPoint.x += dX;
-            nextPoint.y += dY;
-            nextPoint.path.Add(new Vector2(nextPoint.x, nextPoint.y));
-            listOfPoints.Add(nextPoint);
+        if (CheckPoint(1, 0, point, endPoint)) reachablePoints.Add(new Point(new Vector2(point.x + 1, point.y + 0)));
+        if (CheckPoint(-1, 0, point, endPoint)) reachablePoints.Add(new Point(new Vector2(point.x + -1, point.y + 0)));
+        if (CheckPoint(0, 1, point, endPoint)) reachablePoints.Add(new Point(new Vector2(point.x + 0, point.y + 1)));
+        if (CheckPoint(0, -1, point, endPoint)) reachablePoints.Add(new Point(new Vector2(point.x + 0, point.y + -1)));
+        //if (CheckPoint(1, 1, point)) reachablePoints.Add(new Point(new Vector2(point.x + 1, point.y + 1)));
+        //if (CheckPoint(-1, 1, point)) reachablePoints.Add(new Point(new Vector2(point.x + -1, point.y + 1)));
+        //if (CheckPoint(1, -1, point)) reachablePoints.Add(new Point(new Vector2(point.x + 1, point.y + -1)));
+        //if (CheckPoint(-1, -1, point)) reachablePoints.Add(new Point(new Vector2(point.x + -1, point.y + -1)));
 
-            visitedPoints[nextPoint.x, nextPoint.y] = true;
-        }
-
-        //Если конечная точка коллайдер
-        else if (nextPoint.x + dX < grid.gridWidth && nextPoint.x + dX >= 0 && nextPoint.y + dY < grid.gridHeight && nextPoint.y + dY >= 0
-        && visitedPoints[nextPoint.x + dX, nextPoint.y + dY] == false && nextPoint.x + dX == (int)end.x && nextPoint.y + dY == (int)end.y)
-        {
-            nextPoint.x += dX;
-            nextPoint.y += dY;
-            nextPoint.path.Add(new Vector2(nextPoint.x, nextPoint.y));
-            listOfPoints.Add(nextPoint);
-
-            visitedPoints[nextPoint.x, nextPoint.y] = true;
-        }
+        return reachablePoints;
     }
+    private bool CheckPoint(int dX, int dY, Point point, Vector2 endPoint) // 
+    {
+        if (point.x + dX < grid.gridWidth && point.x + dX > 0
+        && point.y + dY < grid.gridHeight && point.y + dY > 0
+        && grid.grid[point.x + dX, point.y + dY] == 0 && !visitedPoints[point.x + dX, point.y + dY])
+        {
+            return true;
+        }
+        //Если конечная точка коллайдер
+        else if (point.x + dX < grid.gridWidth && point.x + dX >= 0
+        && point.y + dY < grid.gridHeight && point.y + dY >= 0
+        && !visitedPoints[point.x + dX, point.y + dY] && point.x + dX == (int)endPoint.x && point.y + dY == (int)endPoint.y)
+        {
+            return true;
+        }
+        else return false;
+    }
+
+    //На потом
     private void BlockedPath(Point point)
     {
         if (gridChanges.Count != 0) ResetGridChanges();
@@ -195,5 +141,19 @@ public class Pathfinder : MonoBehaviour
         for (int i = 0; i < gridChanges.Count; i++)
             grid.grid[gridChanges[i].x, gridChanges[i].y] = 0;
         gridChanges.Clear();
+    }
+
+    //Юнитивсие методы
+    private void Awake() { grid = FindObjectOfType<Grid>(); }
+    private void OnDestroy()
+    {
+        ResetGridChanges();
+        if (pathVisualization.Count != 0) //Чистка
+            for (int i = 0; i < pathVisualization.Count;)
+            {
+                Destroy(pathVisualization[0].path);
+                Destroy(pathVisualization[0].blockedPath);
+                pathVisualization.RemoveAt(0);
+            }
     }
 }
