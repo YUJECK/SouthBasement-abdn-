@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2965869361774044280}
   - component: {fileID: 5014645556661305969}
-  - component: {fileID: 5268314099377066237}
   m_Layer: 0
-  m_Name: AttackPoint
+  m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,25 +82,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5268314099377066237
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744826149531914044}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4e11abd18fa19b74a83d192f0d9a6ec7, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1305098630188571534
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +775,7 @@ MonoBehaviour:
     onExit:
       m_PersistentCalls:
         m_Calls: []
-  patternUseRate: 0.5
+  patternUseRate: 2.5
   currentPattern:
     pattern: {fileID: 0}
     chance: 0

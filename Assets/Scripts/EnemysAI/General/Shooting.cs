@@ -83,7 +83,7 @@ namespace EnemysAI
         }
         private void SetNewPattern()
         {
-            if (currentPattern != null && currentPattern.pattern.isWork) currentPattern.pattern.StopPattern(this);
+            if (currentPattern.pattern != null && currentPattern.pattern.isWork) currentPattern.pattern.StopPattern(this);
             currentPattern = FindNewPattern();
             currentPattern.pattern = Instantiate(currentPattern.pattern);
             currentPattern.onExit.AddListener(SetNewPattern);
