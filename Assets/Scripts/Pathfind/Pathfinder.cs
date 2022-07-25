@@ -8,7 +8,6 @@ public class Pathfinder : MonoBehaviour
     {
         public int x;
         public int y;
-        public int cost = 0;
         public List<Vector2> path;
 
         public Point(Vector2 start)
