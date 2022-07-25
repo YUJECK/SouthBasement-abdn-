@@ -146,9 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037c1599568db9c4baf056d576de17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeMode: 0
-  triggerMode: 0
-  targetTag: Player
+  targetTags: []
+  onTriggerEnter: 1
+  onTriggerStay: 0
+  onTriggerExit: 1
   onEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -182,11 +183,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  nowEnter: {fileID: 0}
-  nowStay: {fileID: 0}
-  nowExit: {fileID: 0}
-  triggerObject: {fileID: 0}
-  otherObjects: []
   trigger: 0
 --- !u!58 &8849817317102000647
 CircleCollider2D:
@@ -398,6 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5630845710053068691}
   - component: {fileID: 7112295092639880517}
+  - component: {fileID: 5104344037244704757}
   - component: {fileID: 997358912328341320}
   - component: {fileID: 1160361261316572005}
   - component: {fileID: 954463900787170469}
@@ -471,7 +468,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21139409978486505, guid: 3f8713e2b7e782048804ceb665352786, type: 3}
+  m_Sprite: {fileID: 4880453327934791435, guid: 67240a99ff24ea6439a9f62914941563, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -482,6 +479,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5104344037244704757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b594a2dc7b2c1468aeda017cfc1e61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 2
+  runSpeed: 3.3
+  onSleep:
+    m_PersistentCalls:
+      m_Calls: []
+  onWakeUp:
+    m_PersistentCalls:
+      m_Calls: []
+  targetSelection: {fileID: 4066900711061194624}
 --- !u!114 &997358912328341320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,16 +730,81 @@ MonoBehaviour:
   forceMode: 0
   patternsUsage: 0
   bulletsList: []
+  onFire:
+    m_PersistentCalls:
+      m_Calls: []
   fireRate: 1
   patternsList:
-  - patternChance: 100
-    pattern: {fileID: 11400000, guid: a92f4391dde855d46ba418c6fc4da5a0, type: 2}
-  - patternChance: 70
-    pattern: {fileID: 11400000, guid: a8aa9d1952fb6b8499833bf4348bcfc5, type: 2}
-  - patternChance: 90
-    pattern: {fileID: 11400000, guid: a3483e38aefa246469e22af63eedee21, type: 2}
+  - pattern: {fileID: 11400000, guid: a92f4391dde855d46ba418c6fc4da5a0, type: 2}
+    chance: 100
+    onEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5630845709475724668}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: ResetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ThrowPetard
+            m_BoolArgument: 0
+          m_CallState: 2
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
+  - pattern: {fileID: 11400000, guid: a8aa9d1952fb6b8499833bf4348bcfc5, type: 2}
+    chance: 70
+    onEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5630845709475724668}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ThrowPetard
+            m_BoolArgument: 0
+          m_CallState: 2
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
+  - pattern: {fileID: 11400000, guid: a3483e38aefa246469e22af63eedee21, type: 2}
+    chance: 80
+    onEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5630845709475724668}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ThrowPatard
+            m_BoolArgument: 0
+          m_CallState: 2
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
   patternUseRate: 0.5
-  currentPattern: {fileID: 0}
+  currentPattern:
+    pattern: {fileID: 0}
+    chance: 0
+    onEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
   firePoint: {fileID: 2965869361774044280}
 --- !u!114 &525621702351148791
 MonoBehaviour:

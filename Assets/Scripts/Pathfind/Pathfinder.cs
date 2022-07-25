@@ -8,6 +8,7 @@ public class Pathfinder : MonoBehaviour
     {
         public int x;
         public int y;
+        public int cost;
         public List<Vector2> path;
 
         public Point(Vector2 start)
@@ -55,18 +56,6 @@ public class Pathfinder : MonoBehaviour
     private float failWaitTime = 1.5f;
     private float nextTime = 0;
 
-    private void Awake() { grid = FindObjectOfType<Grid>(); }
-    private void OnDestroy()
-    {
-        ResetGridChanges();
-        if (pathVisualization.Count != 0) //Чистка
-            for (int i = 0; i < pathVisualization.Count;)
-            {
-                Destroy(pathVisualization[0].path);
-                Destroy(pathVisualization[0].blockedPath);
-                pathVisualization.RemoveAt(0);
-            }
-    }
     //Методы для поиска пути
     public List<Vector2> FindPath(Vector2 startPos, Vector2 endPos, bool cashing) // Поиск пути
     {
@@ -83,6 +72,7 @@ public class Pathfinder : MonoBehaviour
                         return cache.path;
                 }
             }
+            
             visitedPoints = new bool[grid.gridWidth, grid.gridHeight];
             List<Point> queue = new List<Point>();
             List<Point> nextQueue = new List<Point>();
@@ -123,16 +113,9 @@ public class Pathfinder : MonoBehaviour
                 }
 
                 CheckPoint(1, 0, curr, ref nextQueue, endPos);
-
                 CheckPoint(-1, 0, curr, ref nextQueue, endPos);
                 CheckPoint(0, 1, curr, ref nextQueue, endPos);
                 CheckPoint(0, -1, curr, ref nextQueue, endPos);
-
-                //Проверка угловых клеток
-                CheckPoint(1, 1, curr, ref nextQueue, endPos);
-                CheckPoint(-1, 1, curr, ref nextQueue, endPos);
-                CheckPoint(1, -1, curr, ref nextQueue, endPos);
-                CheckPoint(-1, -1, curr, ref nextQueue, endPos);
 
                 queue.RemoveAt(0);
 
@@ -142,10 +125,12 @@ public class Pathfinder : MonoBehaviour
                     nextQueue.Clear();
                 }
             }
+
+            //Если путь не был найден
             Debug.LogWarning("[ArtificialWarn]: Path wasn't found: " + startPos + " " + new Vector2((int)endPos.x, (int)endPos.y));
-            //Debug.LogWarning("Start pos - : " + grid.grid[(int)(startPos.x / grid.nodeSize), (int)(startPos.y / grid.nodeSize)] + " End Pos - " + grid.grid[(int)(endPos.x / grid.nodeSize), (int)(endPos.y / grid.nodeSize)]);
             failStrik++;
             if (failStrik >= 2) nextTime = Time.time + failWaitTime;
+            
             return new List<Vector2>();
         }
 
@@ -195,5 +180,19 @@ public class Pathfinder : MonoBehaviour
         for (int i = 0; i < gridChanges.Count; i++)
             grid.grid[gridChanges[i].x, gridChanges[i].y] = 0;
         gridChanges.Clear();
+    }
+
+    //Юнитивские методы
+    private void Awake() { grid = FindObjectOfType<Grid>(); }
+    private void OnDestroy()
+    {
+        ResetGridChanges();
+        if (pathVisualization.Count != 0) //Чистка
+            for (int i = 0; i < pathVisualization.Count;)
+            {
+                Destroy(pathVisualization[0].path);
+                Destroy(pathVisualization[0].blockedPath);
+                pathVisualization.RemoveAt(0);
+            }
     }
 }
