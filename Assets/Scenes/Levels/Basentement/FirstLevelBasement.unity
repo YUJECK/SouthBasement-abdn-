@@ -438,10 +438,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 125804403466811792, guid: 2fd8b18929400ba479464781b1b2b0a1, type: 3}
-      propertyPath: patternUseRate
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5630845710053068690, guid: 2fd8b18929400ba479464781b1b2b0a1, type: 3}
       propertyPath: m_Name
       value: AngryRatPyrotechnics
@@ -490,7 +486,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5014645556661305969, guid: 2fd8b18929400ba479464781b1b2b0a1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2fd8b18929400ba479464781b1b2b0a1, type: 3}
 --- !u!1 &60721825
 GameObject:
@@ -1038,8 +1035,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe09985f7739af4a83a63ba611e2453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 60
-  maxHealth: 60
+  health: 999
+  maxHealth: 999
   damageColor: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
   destroySound: RatHurt
   hitSound: RatHurt
@@ -1244,7 +1241,7 @@ Transform:
   - {fileID: 1520601982}
   - {fileID: 192447259}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &203290219
 MonoBehaviour:
@@ -1472,9 +1469,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 60
+  m_MaxValue: 999
   m_WholeNumbers: 1
-  m_Value: 60
+  m_Value: 999
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2264,7 +2261,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &440234596
 GameObject:
@@ -2564,7 +2561,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &531380262
 GameObject:
@@ -2978,7 +2975,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &688806769
 GameObject:
@@ -3541,7 +3538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3357910533913364008, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3357910533913364008, guid: fe54d0f7d3f63ca40b03813eb45adeb5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4785,7 +4782,7 @@ Transform:
   - {fileID: 531380263}
   - {fileID: 1564828606}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1313524528
 GameObject:
@@ -5786,7 +5783,7 @@ Transform:
   - {fileID: 118789642}
   - {fileID: 1371969408}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1511004454
 MonoBehaviour:
@@ -6990,63 +6987,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818871803}
   m_CullTransparentMesh: 1
---- !u!1001 &1841455065
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5630845710053068690, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_Name
-      value: AngryRat
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 210.01062
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 190.98674
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5630845710053068691, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a334fed6dd32d7742b60e35e4845af05, type: 3}
 --- !u!1 &1847281844
 GameObject:
   m_ObjectHideFlags: 0
@@ -7181,7 +7121,7 @@ RectTransform:
   - {fileID: 1460068698}
   - {fileID: 1016608540}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

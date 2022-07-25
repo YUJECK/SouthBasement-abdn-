@@ -9,13 +9,13 @@ public class ShootAround : ShootingPattern
     private Coroutine throwProjectile;
     public override void StartPattern(Shooting shooting)
     {
-        isWork = true;
+        _isWork = true;
         onEnter.Invoke();
         throwProjectile = GameManager.instance.StartCoroutine(ThrowProjectile(shooting));
     }
     public override void StopPattern(Shooting shooting)
     {
-        isWork = false;
+        _isWork = false;
         if (throwProjectile != null) GameManager.instance.StopCoroutine(throwProjectile);
         onExit.Invoke();
     }

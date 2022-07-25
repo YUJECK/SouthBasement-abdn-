@@ -715,28 +715,9 @@ MonoBehaviour:
       m_Calls: []
   fireRate: 1
   patternsList:
-  - pattern: {fileID: 11400000, guid: a92f4391dde855d46ba418c6fc4da5a0, type: 2}
+  - shootingPattern: {fileID: 11400000, guid: a92f4391dde855d46ba418c6fc4da5a0, type: 2}
     chance: 100
-    onEnter:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5630845709475724668}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: ResetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: ThrowPetard
-            m_BoolArgument: 0
-          m_CallState: 2
-    onExit:
-      m_PersistentCalls:
-        m_Calls: []
-  - pattern: {fileID: 11400000, guid: a8aa9d1952fb6b8499833bf4348bcfc5, type: 2}
-    chance: 70
+    useRate: 1.5
     onEnter:
       m_PersistentCalls:
         m_Calls:
@@ -755,8 +736,9 @@ MonoBehaviour:
     onExit:
       m_PersistentCalls:
         m_Calls: []
-  - pattern: {fileID: 11400000, guid: a3483e38aefa246469e22af63eedee21, type: 2}
+  - shootingPattern: {fileID: 11400000, guid: a3483e38aefa246469e22af63eedee21, type: 2}
     chance: 80
+    useRate: 2
     onEnter:
       m_PersistentCalls:
         m_Calls:
@@ -775,16 +757,28 @@ MonoBehaviour:
     onExit:
       m_PersistentCalls:
         m_Calls: []
-  patternUseRate: 2.5
-  currentPattern:
-    pattern: {fileID: 0}
-    chance: 0
+  - shootingPattern: {fileID: 11400000, guid: a8aa9d1952fb6b8499833bf4348bcfc5, type: 2}
+    chance: 65
+    useRate: 3
     onEnter:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 5630845709475724668}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: ResetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ThrowPetard
+            m_BoolArgument: 0
+          m_CallState: 2
     onExit:
       m_PersistentCalls:
         m_Calls: []
+  patternUseRate: 3
   firePoint: {fileID: 2965869361774044280}
 --- !u!114 &525621702351148791
 MonoBehaviour:

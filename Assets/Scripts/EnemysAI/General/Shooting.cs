@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,7 +8,7 @@ namespace EnemysAI
     [RequireComponent(typeof(PointRotation))]
     public class Shooting : MonoBehaviour
     {
-        //Энамы
+        //Энамы для переключений у кастомного инспектора
         public enum UsageParameters
         {
             FromOtherScript,
@@ -35,13 +36,34 @@ namespace EnemysAI
         }
         [System.Serializable] public class Pattern
         {
-            public ShootingPattern pattern;
-            public int chance;
-            public UnityEvent onEnter;
-            public UnityEvent onExit;
+            [SerializeField] private ShootingPattern shootingPattern; //Сам паттерн
+            
+            [Header("Настройки использования паттерна")]
+            [SerializeField] private int chance; //Шанс использования этого паттерна
+            [SerializeField] private float useRate; //Время ожидания после использования этого паттерна
+            
+            [Header("События")]
+            public UnityEvent onEnter; //При активации этого паттерна
+            public UnityEvent onExit; //Во время завершения этого паттерна
+
+            //Геттеры и методы взаимодействия с паттерном
+            public int GetChance() { return chance; }
+            public float GetUseRate() { return useRate; }
+            public bool GetIsWork() { if (shootingPattern != null) return shootingPattern.isWork; else return false; }
+
+            public void StartPattern(Shooting shooting) { if (shootingPattern) shootingPattern.StartPattern(shooting); }
+            public void StopPattern(Shooting shooting) { if (shootingPattern) shootingPattern.StartPattern(shooting); }
+            public void ActivePattern()
+            {
+                shootingPattern = Instantiate(shootingPattern);
+
+                shootingPattern.onEnter = onEnter;
+                shootingPattern.onExit = onExit;
+            }
+        
         }
 
-
+        //Переменные
         [Header("Настройки")]
         public UsageParameters shootingController = UsageParameters.Independently; //Откуда будет осущетвляться стрельба(тут/в другом скрипте)
         public ForceMode2D forceMode = ForceMode2D.Impulse; //Форс мод при стельбе
@@ -74,7 +96,7 @@ namespace EnemysAI
 
             foreach (Pattern pattern in patternsList)
             {
-                if (pattern.chance >= chance)
+                if (pattern.GetChance() >= chance)
                     patternsInChance.Add(pattern);
             }
 
@@ -83,14 +105,22 @@ namespace EnemysAI
         }
         private void SetNewPattern()
         {
-            if (currentPattern.pattern != null && currentPattern.pattern.isWork) currentPattern.pattern.StopPattern(this);
+            if (currentPattern != null && currentPattern.GetIsWork()) currentPattern.StopPattern(this);
+            
             currentPattern = FindNewPattern();
-            currentPattern.pattern = Instantiate(currentPattern.pattern);
-            currentPattern.onExit.AddListener(SetNewPattern);
-            currentPattern.pattern.onEnter = currentPattern.onEnter;
-            currentPattern.pattern.onExit = currentPattern.onExit;
-            UnityAction<Shooting> startMethod = currentPattern.pattern.StartPattern;
-            Utility.InvokeMethod<Shooting>(startMethod, this, patternUseRate);
+            currentPattern.ActivePattern();
+        }
+        private IEnumerator ActivatePatterns()
+        {
+            float patternUseRate = 2f;
+            
+            while(true)
+            {
+                SetNewPattern();
+                patternUseRate = currentPattern.GetUseRate();
+                currentPattern.StartPattern(this);
+                yield return new WaitForSeconds(patternUseRate);
+            }
         }
 
         //Пули
@@ -109,7 +139,7 @@ namespace EnemysAI
             return Random.Range(0, bulletsList.Count);
         }
 
-        //Основные методы
+        //Методы взаимодействия со скриптом
         public void Shoot(GameObject projectile, float offset, float speed)
         {
             if (projectile != null && firePoint != null)
@@ -122,13 +152,14 @@ namespace EnemysAI
                 onFire.Invoke();
             }
         }
-        public void StopCurrentPattern() { if (currentPattern != null) currentPattern.pattern.StopPattern(this); }
+        public void StopCurrentPattern() { if (currentPattern != null) currentPattern.StopPattern(this); }
 
         //Юнитивские методы
         private void Start()
         {
-            if (patternsUsage == Patterns.UsePatterns && shootingController == UsageParameters.Independently) SetNewPattern();
             pointRotation = GetComponent<PointRotation>();
+            if (patternsUsage == Patterns.UsePatterns && shootingController == UsageParameters.Independently)
+                StartCoroutine(ActivatePatterns());
         }
         private void Update()
         {
