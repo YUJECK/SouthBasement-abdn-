@@ -25,8 +25,7 @@ namespace EnemysAI
         }
 
         //Классы
-        [System.Serializable]
-        public class Bullet
+        [System.Serializable] public class Bullet
         {
             public BulletsType bulletsType = BulletsType.Limited; //Ограниченное кол-во пуль или нет
             public GameObject projectile; //Сама пуля
@@ -34,12 +33,14 @@ namespace EnemysAI
             public float bulletChance = 100f; //Шанс выбора пули(при одной пули в листе не учитывается)
             public int bulletCount; //Кол-во пуль(При бесконечном кол-ве пуль не учитывается)
         }
-        [System.Serializable]
-        public class Pattern
+        [System.Serializable] public class Pattern
         {
-            public float patternChance = 100f;
-            [SerializeField] public ShootingPattern pattern;
+            public ShootingPattern pattern;
+            public int chance;
+            public UnityEvent onEnter;
+            public UnityEvent onExit;
         }
+
 
         [Header("Настройки")]
         public UsageParameters shootingController = UsageParameters.Independently; //Откуда будет осущетвляться стрельба(тут/в другом скрипте)
@@ -49,6 +50,7 @@ namespace EnemysAI
         //Без паттернов
         [Header("Настройка обычной стрельбы")]
         [SerializeField] private List<Bullet> bulletsList = new List<Bullet>();
+        public UnityEvent onFire = new UnityEvent();
         [SerializeField] private float fireRate = 1f; //Скорость стрельбы
         private float nextTime = 0f; //След время для стерльбы
 
@@ -56,7 +58,7 @@ namespace EnemysAI
         [Header("Настройка паттернов")]
         public List<Pattern> patternsList = new List<Pattern>(); //Лист паттернов
         public float patternUseRate = 0.5f; //Частота использования паттернов
-        [HideInInspector] public ShootingPattern currentPattern; //Паттерн который сейчас активен
+        [HideInInspector] public Pattern currentPattern; //Паттерн который сейчас активен
 
         [Header("Другое")]
         [SerializeField] private Transform firePoint; //Точка спавна пуль
@@ -72,7 +74,7 @@ namespace EnemysAI
 
             foreach (Pattern pattern in patternsList)
             {
-                if (pattern.patternChance >= chance)
+                if (pattern.chance >= chance)
                     patternsInChance.Add(pattern);
             }
 
@@ -81,11 +83,13 @@ namespace EnemysAI
         }
         private void SetNewPattern()
         {
-            if (currentPattern != null && currentPattern.isWork) currentPattern.StopPattern(this);
-            currentPattern = FindNewPattern().pattern;
-            currentPattern = Instantiate(currentPattern);
+            if (currentPattern != null && currentPattern.pattern.isWork) currentPattern.pattern.StopPattern(this);
+            currentPattern = FindNewPattern();
+            currentPattern.pattern = Instantiate(currentPattern.pattern);
             currentPattern.onExit.AddListener(SetNewPattern);
-            UnityAction<Shooting> startMethod = currentPattern.StartPattern;
+            currentPattern.pattern.onEnter = currentPattern.onEnter;
+            currentPattern.pattern.onExit = currentPattern.onExit;
+            UnityAction<Shooting> startMethod = currentPattern.pattern.StartPattern;
             Utility.InvokeMethod<Shooting>(startMethod, this, patternUseRate);
         }
 
@@ -115,9 +119,10 @@ namespace EnemysAI
                 GameObject _projectile = Instantiate(projectile, firePoint.position, firePoint.rotation);
                 Rigidbody2D rb = _projectile.GetComponent<Rigidbody2D>();
                 rb.AddForce(firePoint.up * speed, forceMode);
+                onFire.Invoke();
             }
         }
-        public void StopCurrentPattern() { if (currentPattern != null) currentPattern.StopPattern(this); }
+        public void StopCurrentPattern() { if (currentPattern != null) currentPattern.pattern.StopPattern(this); }
 
         //Юнитивские методы
         private void Start()
