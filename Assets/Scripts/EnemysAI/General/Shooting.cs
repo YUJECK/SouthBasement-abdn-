@@ -73,13 +73,12 @@ namespace EnemysAI
         [Header("Настройка обычной стрельбы")]
         [SerializeField] private List<Bullet> bulletsList = new List<Bullet>();
         public UnityEvent onFire = new UnityEvent();
-        [SerializeField] private float fireRate = 1f; //Скорость стрельбы
         private float nextTime = 0f; //След время для стерльбы
+        [SerializeField] private float fireRate;
 
         //C паттерами
         [Header("Настройка паттернов")]
         public List<Pattern> patternsList = new List<Pattern>(); //Лист паттернов
-        public float patternUseRate = 0.5f; //Частота использования паттернов
         [HideInInspector] public Pattern currentPattern; //Паттерн который сейчас активен
 
         [Header("Другое")]
@@ -122,6 +121,20 @@ namespace EnemysAI
                 yield return new WaitForSeconds(patternUseRate);
             }
         }
+        private IEnumerator ActivateShooting(float fireRate)
+        {   
+            while(true)
+            {
+                int bulletInd = FindBullet();
+                Shoot(bulletsList[bulletInd].projectile, 0f, bulletsList[bulletInd].bulletSpeed);
+                if (bulletsList[bulletInd].bulletsType == BulletsType.Limited)
+                {
+                    bulletsList[bulletInd].bulletCount--;
+                    if (bulletsList[bulletInd].bulletCount <= 0) bulletsList.RemoveAt(bulletInd);
+                }
+                yield return new WaitForSeconds(fireRate);
+            }
+        }
 
         //Пули
         private int FindBullet()
@@ -160,23 +173,8 @@ namespace EnemysAI
             pointRotation = GetComponent<PointRotation>();
             if (patternsUsage == Patterns.UsePatterns && shootingController == UsageParameters.Independently)
                 StartCoroutine(ActivatePatterns());
-        }
-        private void Update()
-        {
-            if (shootingController == UsageParameters.Independently)
-            {
-                if (patternsUsage == Patterns.DontUsePatterns && Time.time >= nextTime)
-                {
-                    int bulletInd = FindBullet();
-                    Shoot(bulletsList[bulletInd].projectile, 0f, bulletsList[bulletInd].bulletSpeed);
-                    if (bulletsList[bulletInd].bulletsType == BulletsType.Limited)
-                    {
-                        bulletsList[bulletInd].bulletCount--;
-                        if (bulletsList[bulletInd].bulletCount <= 0) bulletsList.RemoveAt(bulletInd);
-                    }
-                    nextTime = Time.time + fireRate;
-                }
-            }
+            else if (shootingController == UsageParameters.Independently)
+                StartCoroutine(ActivateShooting(fireRate));
         }
     }
 }

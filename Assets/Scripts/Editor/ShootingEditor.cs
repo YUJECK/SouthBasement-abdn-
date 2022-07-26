@@ -8,14 +8,14 @@ public class ShootingEditor : Editor
     private Shooting shooting;
 
     private SerializedProperty shootingController;
+    private SerializedProperty forceMode;
     private SerializedProperty patternsUsage;
 
+    private SerializedProperty bulletsList;
+    private SerializedProperty onFire;
     private SerializedProperty firePoint;
-    private SerializedProperty forceMode;
     private SerializedProperty fireRate;
-    private SerializedProperty bullets;
     private SerializedProperty patternsList;
-    private SerializedProperty patternUseRate;
 
     private void OnEnable()
     {
@@ -23,13 +23,12 @@ public class ShootingEditor : Editor
         {
             shootingController = serializedObject.FindProperty("shootingController");
             patternsUsage = serializedObject.FindProperty("patternsUsage");
+            onFire = serializedObject.FindProperty("onFire");
             firePoint = serializedObject.FindProperty("firePoint");
             forceMode = serializedObject.FindProperty("forceMode");
             fireRate = serializedObject.FindProperty("fireRate");
-            bullets = serializedObject.FindProperty("bulletsList");
+            bulletsList = serializedObject.FindProperty("bulletsList");
             patternsList = serializedObject.FindProperty("patternsList");
-            patternUseRate = serializedObject.FindProperty("patternUseRate");
-            patternUseRate = serializedObject.FindProperty("patternUseRate");
         }
     }
 
@@ -46,12 +45,12 @@ public class ShootingEditor : Editor
             {
                 //С паттернами
                 EditorGUILayout.PropertyField(patternsList);
-                EditorGUILayout.PropertyField(patternUseRate);
             }
             else if (shooting.patternsUsage == Shooting.Patterns.DontUsePatterns)
             {
                 //Без паттернов
-                EditorGUILayout.PropertyField(bullets);
+                EditorGUILayout.PropertyField(bulletsList);
+                EditorGUILayout.PropertyField(onFire);    
                 EditorGUILayout.PropertyField(fireRate);
             }
             //Другое
