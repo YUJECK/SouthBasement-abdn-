@@ -27,8 +27,12 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        if (new Vector3(transform.position.x, transform.position.y, 0f) != new Vector3(target.position.x, target.position.y, 0f))
-            transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+        if (target != null)
+        {
+            if (new Vector3(transform.position.x, transform.position.y, 0f) != new Vector3(target.position.x, target.position.y, 0f))
+                transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+        }
+        else if(player != null) SetTarget(player);
     }
 
     public void SetTarget(Transform newTarget) => target = newTarget;

@@ -62,7 +62,7 @@ public class FoodItem : ScriptableObject
             usesInGame++;
         }
     }
-    public void GlassOfMilk() { playerHealth.SetHealth(playerHealth.maxHealth+10, 0); }
+    public void GlassOfMilk() { playerHealth.SetHealth(playerHealth.maxHealth+10, playerHealth.health); }
 
     public void Blueberry()
     {
