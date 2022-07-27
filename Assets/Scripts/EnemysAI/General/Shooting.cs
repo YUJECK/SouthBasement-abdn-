@@ -65,6 +65,7 @@ namespace EnemysAI
 
         //Переменные
         [Header("Настройки")]
+        private bool isStopped = false;
         public UsageParameters shootingController = UsageParameters.Independently; //Откуда будет осущетвляться стрельба(тут/в другом скрипте)
         public ForceMode2D forceMode = ForceMode2D.Impulse; //Форс мод при стельбе
         public Patterns patternsUsage = Patterns.UsePatterns; //Просто стрелять или использовать паттерны атак
@@ -109,15 +110,28 @@ namespace EnemysAI
             currentPattern = FindNewPattern();
             currentPattern.ActivePattern();
         }
+        
+        //Корутины работы стрельбы
+        public void StartWorking()
+        {
+            if (patternsUsage == Patterns.UsePatterns && shootingController == UsageParameters.Independently)
+                StartCoroutine(ActivatePatterns());
+            else if (shootingController == UsageParameters.Independently)
+                StartCoroutine(ActivateShooting(fireRate));
+        }
         private IEnumerator ActivatePatterns()
         {
             float patternUseRate = 2f;
             
             while(true)
             {
-                SetNewPattern();
-                patternUseRate = currentPattern.GetUseRate();
-                currentPattern.StartPattern(this);
+                Debug.Log("[Shooting] - Working");
+                if(!isStopped)
+                {
+                    SetNewPattern();
+                    patternUseRate = currentPattern.GetUseRate();
+                    currentPattern.StartPattern(this);
+                }
                 yield return new WaitForSeconds(patternUseRate);
             }
         }
@@ -125,12 +139,15 @@ namespace EnemysAI
         {   
             while(true)
             {
-                int bulletInd = FindBullet();
-                Shoot(bulletsList[bulletInd].projectile, 0f, bulletsList[bulletInd].bulletSpeed);
-                if (bulletsList[bulletInd].bulletsType == BulletsType.Limited)
+                if(!isStopped)
                 {
-                    bulletsList[bulletInd].bulletCount--;
-                    if (bulletsList[bulletInd].bulletCount <= 0) bulletsList.RemoveAt(bulletInd);
+                    int bulletInd = FindBullet();
+                    Shoot(bulletsList[bulletInd].projectile, 0f, bulletsList[bulletInd].bulletSpeed);
+                    if (bulletsList[bulletInd].bulletsType == BulletsType.Limited)
+                    {
+                        bulletsList[bulletInd].bulletCount--;
+                        if (bulletsList[bulletInd].bulletCount <= 0) bulletsList.RemoveAt(bulletInd);
+                    }
                 }
                 yield return new WaitForSeconds(fireRate);
             }
@@ -153,6 +170,9 @@ namespace EnemysAI
         }
 
         //Методы взаимодействия со скриптом
+        public void SetStop(bool active) => isStopped = active;
+        public bool GetStop() { return isStopped; }
+
         public void Shoot(GameObject projectile, float offset, float speed)
         {
             if (projectile != null && firePoint != null)
@@ -171,10 +191,7 @@ namespace EnemysAI
         private void Start()
         {
             pointRotation = GetComponent<PointRotation>();
-            if (patternsUsage == Patterns.UsePatterns && shootingController == UsageParameters.Independently)
-                StartCoroutine(ActivatePatterns());
-            else if (shootingController == UsageParameters.Independently)
-                StartCoroutine(ActivateShooting(fireRate));
+            StartWorking();
         }
     }
 }

@@ -116,6 +116,10 @@ public class Pathfinder : MonoBehaviour
                 CheckPoint(-1, 0, curr, ref nextQueue, endPos);
                 CheckPoint(0, 1, curr, ref nextQueue, endPos);
                 CheckPoint(0, -1, curr, ref nextQueue, endPos);
+                CheckPoint(-1, -1, curr, ref nextQueue, endPos);
+                CheckPoint(1, -1, curr, ref nextQueue, endPos);
+                CheckPoint(-1, 1, curr, ref nextQueue, endPos);
+                CheckPoint(1, 1, curr, ref nextQueue, endPos);
 
                 queue.RemoveAt(0);
 
