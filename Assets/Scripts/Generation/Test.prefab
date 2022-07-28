@@ -95,7 +95,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!1 &1564896911889424406
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +191,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!1 &5208009789197318582
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +287,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!1 &5387467937376967529
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +546,7 @@ GameObject:
   - component: {fileID: 5387467937760179324}
   - component: {fileID: 5387467937760179322}
   - component: {fileID: 6959420668723757464}
+  - component: {fileID: 4632533586810614125}
   m_Layer: 0
   m_Name: Test
   m_TagString: Room
@@ -638,10 +639,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3378930890cab6f45ae69e58a92b8bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isStartRoom: 0
   passagesCountMin: 2
   passagesCountMax: 3
   passagesMustSpawned: 
   randomizePassagesOnAwake: 0
+  spawnPoint: {fileID: 0}
   upPassage: {fileID: 508111507368763521}
   downPassage: {fileID: 2246982874595794137}
   leftPassage: {fileID: 1634120096477704493}
@@ -672,6 +675,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &4632533586810614125
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387467937760179325}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &5387467937770153513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,4 +1329,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7

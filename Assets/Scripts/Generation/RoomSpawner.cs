@@ -103,6 +103,8 @@ namespace Generation
                             break;
                     }
                     newRoom.RandomizePassages();
+                    SetPassageToStatic();
+                    _isSpawned = true;
                 }
             }
             else Close();
@@ -119,12 +121,14 @@ namespace Generation
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (isSpawned && collision.CompareTag("Room"))
+            if (_isSpawned && collision.CompareTag("Room"))
             {
+                Room enterRoom = collision.GetComponent<Room>();
                 Debug.Log("Enter " + collision.name);
-                if (collision.gameObject != room && !collision.GetComponent<Room>().isStartRoom)
-                    collision.GetComponent<Room>().spawnPoint.DestroyRoom();
+                if (collision.gameObject != room && !enterRoom.isStartRoom)
+                    enterRoom.spawnPoint.DestroyRoom();
             }
+            else if(!_isSpawned) Close();
         }
     }
 }

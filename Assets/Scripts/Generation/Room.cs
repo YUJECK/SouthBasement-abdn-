@@ -14,7 +14,7 @@ namespace Generation
         }
 
         public bool isStartRoom { get => isStartRoom; set => isStartRoom = value; }
-        private bool _isStartRoom = false;
+        [SerializeField] private bool _isStartRoom = false;
         public int passagesCountMin = 2;
         public int passagesCountMax = 3;
 
@@ -49,6 +49,8 @@ namespace Generation
         private void Awake()
         {
             if (randomizePassagesOnAwake) RandomizePassages();
+            //Это надо удалить
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 356), Random.Range(0, 356), Random.Range(0, 356));
         }
     }
 }
