@@ -74,27 +74,27 @@ namespace Generation
         }
         public void SpawnRoom()
         {
-            if (generationManager.nowSpawnedRoomsCount < generationManager.roomsCount)
+            if (!generationManager.GetIsSpawned())
             {
                 //Если комната не закрыта и еще не заспавнена 
                 if (!_isClosed && !_isSpawned && !_staticPassage)
                 {
-                    int roomIndex = Random.Range(0, generationManager.rooms.Count);
+                    int chance = Random.Range(0, 101);
+                    GameObject randomRoom = generationManager.GetRandomRoomInChance(chance);
+                    
 
-                    //Определении позиции спавна
+                    //Определение позиции спавна
                     if (openingDirection == Room.Directories.Up) 
-                        spawnPoint.localPosition = generationManager.rooms[roomIndex].GetComponent<Room>().instantiatePositionDown + ownInstantiateDifference;
+                        spawnPoint.localPosition = randomRoom.GetComponent<Room>().instantiatePositionDown + ownInstantiateDifference;
                     if (openingDirection == Room.Directories.Down) 
-                        spawnPoint.localPosition = generationManager.rooms[roomIndex].GetComponent<Room>().instantiatePositionUp + ownInstantiateDifference;
+                        spawnPoint.localPosition = randomRoom.GetComponent<Room>().instantiatePositionUp + ownInstantiateDifference;
                     if (openingDirection == Room.Directories.Left) 
-                        spawnPoint.localPosition = generationManager.rooms[roomIndex].GetComponent<Room>().instantiatePositionRight + ownInstantiateDifference;
+                        spawnPoint.localPosition = randomRoom.GetComponent<Room>().instantiatePositionRight + ownInstantiateDifference;
                     if (openingDirection == Room.Directories.Right) 
-                        spawnPoint.localPosition = generationManager.rooms[roomIndex].GetComponent<Room>().instantiatePositionLeft + ownInstantiateDifference;
+                        spawnPoint.localPosition = randomRoom.GetComponent<Room>().instantiatePositionLeft + ownInstantiateDifference;
 
                     //Спавн
-                    _room = Instantiate(generationManager.rooms[roomIndex]
-                        , spawnPoint.position, Quaternion.identity);
-                    generationManager.nowSpawnedRoomsCount++;
+                    _room = Instantiate(randomRoom, spawnPoint.position, Quaternion.identity);
                     Room newRoom = _room.GetComponent<Room>();
                     newRoom.spawnPoint = this;
 
@@ -118,9 +118,12 @@ namespace Generation
                             newRoom.leftPassage.SetPassageToStatic();
                             break;
                     }
+                    
                     //Рандомизируем проходы в заспавненой комнате и делаем этот проход статичным 
                     newRoom.RandomizePassages();
                     SetPassageToStatic();
+                    generationManager.IncreaseSpawnedRoomsCount();
+                    if (generationManager.GetNowSpawnedRoomsCount() >= generationManager.GetRoomsCount()) generationManager.SetIsSpawned();
                     _isSpawned = true;
                 }
             }
@@ -130,15 +133,16 @@ namespace Generation
         {
         }
 
+
         //Юнитивские методы
         private void Start()
         {
             generationManager = FindObjectOfType<GenerationManager>();
-            Invoke("SpawnRoom", Random.Range(0f, 0.3f));
+            Invoke("SpawnRoom", Random.Range(0.05f, 0.3f));
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(!_isSpawned && collision.CompareTag("Room")) Close();
+            if (!_isSpawned && collision.CompareTag("Room")) Close();
             if (collision.CompareTag("Spawner") && !_isSpawned) Close();
         }
     }
