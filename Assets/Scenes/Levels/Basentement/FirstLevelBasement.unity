@@ -2901,6 +2901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9448f0cbe41faa4a8d65fcfde51f606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomsMap: 
   roomsCount: 12
   nowSpawnedRoomsCount: 0
   rooms:
@@ -2912,6 +2913,19 @@ MonoBehaviour:
     chance: 100
   - room: {fileID: 5387467937760179325, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
     chance: 50
+  npcRoomsCount: 3
+  nowSpawnedNpcRoomsCount: 0
+  boxesOnLevel: 1
+  isTraderWillSpawn: 1
+  npcRooms:
+  - room: {fileID: 5387467937760179325, guid: b52faccda07099040ac384a403906643, type: 3}
+    chance: 90
+  - room: {fileID: 5387467937760179325, guid: 4779407a9f039a34492387ffaf0bca54, type: 3}
+    chance: 100
+  - room: {fileID: 5387467937760179325, guid: 587d8fa23d7a77842b5dcb4246824b17, type: 3}
+    chance: 70
+  traderRooms: []
+  boxRooms: []
   afterSpawned:
     m_PersistentCalls:
       m_Calls: []

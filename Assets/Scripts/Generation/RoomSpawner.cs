@@ -80,7 +80,9 @@ namespace Generation
                 if (!_isClosed && !_isSpawned && !_staticPassage)
                 {
                     int chance = Random.Range(0, 101);
-                    GameObject randomRoom = generationManager.GetRandomRoomInChance(chance);
+                    GameObject randomRoom = null;
+                    if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 0) randomRoom = generationManager.GetRandomRoomInChance(chance);
+                    else if(generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 1) randomRoom = generationManager.GetRandomNpcRoomInChance(chance);
                     
 
                     //Определение позиции спавна

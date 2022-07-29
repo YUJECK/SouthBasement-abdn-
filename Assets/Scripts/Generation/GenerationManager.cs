@@ -14,7 +14,7 @@ namespace Generation
         }
 
         [Header("Настройки комнат")]
-        [SerializeField] private int[] roomsMap;
+        public int[] roomsMap;
         [SerializeField] private int roomsCount = 10;
         [SerializeField] private int nowSpawnedRoomsCount = 0;
         [SerializeField] private List<RoomObject> rooms = new List<RoomObject>();
@@ -36,16 +36,16 @@ namespace Generation
         private void GenerateRoomsList()
         {
             roomsMap = new int[roomsCount + npcRoomsCount + boxesOnLevel];
-            List<bool> isEmploy = new List<bool>(roomsMap.Length);
 
             for (int i = 0; i < npcRoomsCount; i++)
             {
                 int tmp = Random.Range(0, roomsMap.Length);
-             
-                if(!isEmploy[tmp] == true)
+
+                if (roomsMap[tmp] == 0) roomsMap[tmp] = 1;
+                else
                 {
-                    roomsMap[tmp] = 1;
-                    isEmploy[tmp] = true;
+                    i--;
+                    Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
                 }
             }
         }
@@ -62,7 +62,15 @@ namespace Generation
                 if (roomToCheck.chance >= chance) roomsInChance.Add(roomToCheck);
             return roomsInChance[Random.Range(0, roomsInChance.Count)].room;
         }
+        public GameObject GetRandomNpcRoomInChance(int chance)
+        {
+            List<RoomObject> roomsInChance = new List<RoomObject>();
 
+            foreach (RoomObject roomToCheck in npcRooms)
+                if (roomToCheck.chance >= chance) roomsInChance.Add(roomToCheck);
+            return roomsInChance[Random.Range(0, roomsInChance.Count)].room;
+
+        }
         private void Awake()
         {
             GenerateRoomsList();
