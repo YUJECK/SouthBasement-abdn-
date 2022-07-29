@@ -2068,7 +2068,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 100
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2184,7 +2184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413493277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 217.012, y: 195.81, z: -360}
+  m_LocalPosition: {x: 216.45, y: 194.11, z: -360}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2828,9 +2828,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9448f0cbe41faa4a8d65fcfde51f606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomsCount: 15
+  roomsCount: 12
   nowSpawnedRoomsCount: 0
   rooms:
+  - {fileID: 5387467937760179325, guid: 815b8fd5d09a91c4090fd26f66b6ed2e, type: 3}
+  - {fileID: 5387467937760179325, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+  - {fileID: 5387467937760179325, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
   - {fileID: 5387467937760179325, guid: 4091875864995ea419c7336ddd22b0a1, type: 3}
 --- !u!4 &630008336
 Transform:
@@ -3433,6 +3436,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5387467937760179322, guid: 4091875864995ea419c7336ddd22b0a1, type: 3}
       propertyPath: _isStartRoom
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179322, guid: 4091875864995ea419c7336ddd22b0a1, type: 3}
+      propertyPath: randomizePassagesOnAwake
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5387467937760179323, guid: 4091875864995ea419c7336ddd22b0a1, type: 3}

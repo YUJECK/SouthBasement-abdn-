@@ -5,6 +5,7 @@ namespace Generation
     public class RoomSpawner : MonoBehaviour
     {
         public Room.Directories openingDirection;
+        public Vector2 ownInstantiateDifference = new Vector2(0f, 0f);
         [SerializeField] private Transform spawnPoint;
         [SerializeField] private GameObject passage;
         [SerializeField] private GameObject wall;
@@ -44,6 +45,7 @@ namespace Generation
         public bool GetStatic() { return _staticPassage; }
         public void DestroyRoom()
         {
+                Debug.Log("Room tryied to destroy");
             if (_room != null)
             {
                 Debug.Log("Room has been destroyd");
@@ -77,12 +79,26 @@ namespace Generation
                 //Если комната не закрыта и еще не заспавнена 
                 if (!_isClosed && !_isSpawned && !_staticPassage)
                 {
-                    _room = Instantiate(generationManager.rooms[Random.Range(0, generationManager.rooms.Count)]
+                    int roomIndex = Random.Range(0, generationManager.rooms.Count);
+
+                    //Определении позиции спавна
+                    if (openingDirection == Room.Directories.Up) 
+                        spawnPoint.localPosition = generationManager.rooms[roomIndex].GetComponent<Room>().instantiatePositionDown + ownInstantiateDifference;
+                    if (openingDirection == Room.Directories.Down) 
+                        spawnPoint.localPosition = generationManager.rooms[roomIndex].GetComponent<Room>().instantiatePositionUp + ownInstantiateDifference;
+                    if (openingDirection == Room.Directories.Left) 
+                        spawnPoint.localPosition = generationManager.rooms[roomIndex].GetComponent<Room>().instantiatePositionRight + ownInstantiateDifference;
+                    if (openingDirection == Room.Directories.Right) 
+                        spawnPoint.localPosition = generationManager.rooms[roomIndex].GetComponent<Room>().instantiatePositionLeft + ownInstantiateDifference;
+
+                    //Спавн
+                    _room = Instantiate(generationManager.rooms[roomIndex]
                         , spawnPoint.position, Quaternion.identity);
                     generationManager.nowSpawnedRoomsCount++;
                     Room newRoom = _room.GetComponent<Room>();
                     newRoom.spawnPoint = this;
 
+                    //Ставим соединяющий проход статичным, чтобы его нельзя было закрыть
                     switch (openingDirection)
                     {
                         case Room.Directories.Up:
@@ -102,6 +118,7 @@ namespace Generation
                             newRoom.leftPassage.SetPassageToStatic();
                             break;
                     }
+                    //Рандомизируем проходы в заспавненой комнате и делаем этот проход статичным 
                     newRoom.RandomizePassages();
                     SetPassageToStatic();
                     _isSpawned = true;
@@ -117,18 +134,12 @@ namespace Generation
         private void Start()
         {
             generationManager = FindObjectOfType<GenerationManager>();
-            SpawnRoom();
+            Invoke("SpawnRoom", Random.Range(0f, 0.3f));
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (_isSpawned && collision.CompareTag("Room"))
-            {
-                Room enterRoom = collision.GetComponent<Room>();
-                Debug.Log("Enter " + collision.name);
-                if (collision.gameObject != room && !enterRoom.isStartRoom)
-                    enterRoom.spawnPoint.DestroyRoom();
-            }
-            else if(!_isSpawned) Close();
+            if(!_isSpawned && collision.CompareTag("Room")) Close();
+            if (collision.CompareTag("Spawner") && !_isSpawned) Close();
         }
     }
 }

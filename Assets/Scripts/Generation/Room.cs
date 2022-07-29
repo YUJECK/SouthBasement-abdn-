@@ -13,7 +13,7 @@ namespace Generation
             Right
         }
 
-        public bool isStartRoom { get => isStartRoom; set => isStartRoom = value; }
+        public bool isStartRoom { get => _isStartRoom; set => _isStartRoom = value; }
         [SerializeField] private bool _isStartRoom = false;
         public int passagesCountMin = 2;
         public int passagesCountMax = 3;
@@ -23,9 +23,13 @@ namespace Generation
         [SerializeField] private bool randomizePassagesOnAwake = false;
         public RoomSpawner spawnPoint;
         public RoomSpawner upPassage;
+        public Vector2 instantiatePositionUp = new Vector2(0f, 18f);
         public RoomSpawner downPassage;
+        public Vector2 instantiatePositionDown = new Vector2(0f, -18f);
         public RoomSpawner leftPassage;
+        public Vector2 instantiatePositionLeft = new Vector2(-18f, 0f);
         public RoomSpawner rightPassage;
+        public Vector2 instantiatePositionRight = new Vector2(18f, 0f);
 
 
         public void RandomizePassages() //–андомизаци€ проходов
@@ -49,8 +53,6 @@ namespace Generation
         private void Awake()
         {
             if (randomizePassagesOnAwake) RandomizePassages();
-            //Ёто надо удалить
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 356), Random.Range(0, 356), Random.Range(0, 356));
         }
     }
 }
