@@ -1,8 +1,10 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
 {
     public float standartValaue = 6f;
+    new private Camera camera;
     public Transform target;
     private Transform player;
     public static CameraFollow instance;
@@ -18,12 +20,11 @@ public class CameraFollow : MonoBehaviour
         }
         player = FindObjectOfType<PlayerController>().transform;
         target = player;
+        camera = GetComponent<Camera>();
+        camera.orthographicSize = standartValaue;
     }
     
-    private void OnLevelWasLoaded(int level)
-    {
-        GetComponent<Camera>().orthographicSize = standartValaue;
-    }
+    private void OnLevelWasLoaded(int level) => camera.orthographicSize = standartValaue;
 
     void Update()
     {

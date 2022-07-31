@@ -83,6 +83,8 @@ namespace Generation
                     GameObject randomRoom = null;
                     if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 0) randomRoom = generationManager.GetRandomRoomInChance(chance);
                     else if(generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 1) randomRoom = generationManager.GetRandomNpcRoomInChance(chance);
+                    else if(generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 2) randomRoom = generationManager.GetRandomTraderRoomInChance(chance);
+                    else if(generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 3) randomRoom = generationManager.GetRandomBoxRoomInChance(chance);
                     
 
                     //Определение позиции спавна
@@ -144,8 +146,8 @@ namespace Generation
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!_isSpawned && collision.CompareTag("Room")) Close();
-            if (collision.CompareTag("Spawner") && !_isSpawned) Close();
+            if (!_isSpawned && collision.CompareTag("Room") || collision.CompareTag("Spawner")) Close();
+            if (_isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().isSpawned) DestroyRoom();
         }
     }
 }
