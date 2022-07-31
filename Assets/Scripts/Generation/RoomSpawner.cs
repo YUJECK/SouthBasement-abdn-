@@ -81,10 +81,12 @@ namespace Generation
                 {
                     int chance = Random.Range(0, 101);
                     GameObject randomRoom = null;
-                    if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 0) randomRoom = generationManager.GetRandomRoomInChance(chance);
-                    else if(generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 1) randomRoom = generationManager.GetRandomNpcRoomInChance(chance);
-                    else if(generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 2) randomRoom = generationManager.GetRandomTraderRoomInChance(chance);
-                    else if(generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 3) randomRoom = generationManager.GetRandomBoxRoomInChance(chance);
+                    if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 0) randomRoom = generationManager.roomsLists.GetRandomRoomInChance(chance, false);
+                    else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 1) randomRoom = generationManager.roomsLists.GetRandomNpcRoomInChance(chance, false);
+                    else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 2) randomRoom = generationManager.roomsLists.GetRandomTraderRoomInChance(chance, false);
+                    else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 3) randomRoom = generationManager.roomsLists.GetRandomBoxRoomInChance(chance, false);
+                    else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 4) Debug.Log("RoomSpawner.cs: Напиши спавн обязательных комнат");
+                    else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 5) randomRoom = generationManager.roomsLists.GetRandomExitRoomInChance(chance, false);
                     
 
                     //Определение позиции спавна
@@ -127,7 +129,7 @@ namespace Generation
                     newRoom.RandomizePassages();
                     SetPassageToStatic();
                     generationManager.IncreaseSpawnedRoomsCount();
-                    if (generationManager.GetNowSpawnedRoomsCount() >= generationManager.GetRoomsCount()) generationManager.SetIsSpawned();
+                    if (generationManager.GetNowSpawnedRoomsCount() >= generationManager.GetAllRoomsCount()) generationManager.SetIsSpawned();
                     _isSpawned = true;
                 }
             }

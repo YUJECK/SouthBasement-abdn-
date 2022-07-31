@@ -2824,6 +2824,7 @@ GameObject:
   m_Component:
   - component: {fileID: 630008336}
   - component: {fileID: 630008335}
+  - component: {fileID: 630008337}
   m_Layer: 0
   m_Name: GenerationManager
   m_TagString: Untagged
@@ -2846,30 +2847,10 @@ MonoBehaviour:
   roomsMap: 
   roomsCount: 12
   nowSpawnedRoomsCount: 0
-  rooms:
-  - room: {fileID: 5387467937760179325, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
-    chance: 40
-  - room: {fileID: 5387467937760179325, guid: 815b8fd5d09a91c4090fd26f66b6ed2e, type: 3}
-    chance: 60
-  - room: {fileID: 5387467937760179325, guid: 4091875864995ea419c7336ddd22b0a1, type: 3}
-    chance: 100
-  - room: {fileID: 5387467937760179325, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
-    chance: 50
   npcRoomsCount: 3
   nowSpawnedNpcRoomsCount: 0
   boxesOnLevel: 1
   isTraderWillSpawn: 1
-  npcRooms:
-  - room: {fileID: 5387467937760179325, guid: b52faccda07099040ac384a403906643, type: 3}
-    chance: 100
-  - room: {fileID: 5387467937760179325, guid: 4779407a9f039a34492387ffaf0bca54, type: 3}
-    chance: 50
-  traderRooms:
-  - room: {fileID: 5387467937760179325, guid: 587d8fa23d7a77842b5dcb4246824b17, type: 3}
-    chance: 100
-  boxRooms:
-  - room: {fileID: 5387467937760179325, guid: dd075197d6711b4429495530afb58bb2, type: 3}
-    chance: 100
   afterSpawned:
     m_PersistentCalls:
       m_Calls: []
@@ -2887,6 +2868,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &630008337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630008334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5176e6ff8dd5e7845b95fa36a1489ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleRooms:
+  - room: {fileID: 5387467937760179325, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+    chance: 70
+  - room: {fileID: 5387467937760179325, guid: 4091875864995ea419c7336ddd22b0a1, type: 3}
+    chance: 56
+  - room: {fileID: 5387467937760179325, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
+    chance: 80
+  - room: {fileID: 5387467937760179325, guid: 815b8fd5d09a91c4090fd26f66b6ed2e, type: 3}
+    chance: 100
+  npcRooms:
+  - room: {fileID: 5387467937760179325, guid: b52faccda07099040ac384a403906643, type: 3}
+    chance: 60
+  - room: {fileID: 5387467937760179325, guid: 4779407a9f039a34492387ffaf0bca54, type: 3}
+    chance: 100
+  traderRooms:
+  - room: {fileID: 5387467937760179325, guid: 587d8fa23d7a77842b5dcb4246824b17, type: 3}
+    chance: 100
+  boxRooms:
+  - room: {fileID: 5387467937760179325, guid: dd075197d6711b4429495530afb58bb2, type: 3}
+    chance: 100
+  exitRooms:
+  - room: {fileID: 5387467937760179325, guid: 7d4b61f1b4ea96c458ed416f2681df8f, type: 3}
+    chance: 100
 --- !u!1 &643324836
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,33 +10,30 @@ namespace Generation
     // 3 - комната с коробкой
     // 4 - комната из листа roomsMustSpawn
     // 5 - комната выхода/с боссом
+    [RequireComponent(typeof(RoomsLists))]
     public class GenerationManager : MonoBehaviour
     {
-        [System.Serializable]
-        public class RoomObject
-        {
-            public GameObject room;
-            public int chance;
-        }
-
-        [Header("Настройки комнат")]
         public int[] roomsMap;
+        [Header("Настройки комнат")]
         [SerializeField] private int roomsCount = 10;
-        [SerializeField] private int nowSpawnedRoomsCount = 0;
-        [SerializeField] private List<RoomObject> rooms = new List<RoomObject>();
-
+        private int nowSpawnedRoomsCount = 0;
         [Header("Настройка НПС")]
         [SerializeField] private int npcRoomsCount = 1;
-        [SerializeField] private int nowSpawnedNpcRoomsCount = 0;
+        private int nowSpawnedNpcRoomsCount = 0;
         [SerializeField] private int boxesOnLevel = 1;
         [SerializeField] private bool isTraderWillSpawn = true;
-        [SerializeField] private List<RoomObject> npcRooms = new List<RoomObject>();
-        [SerializeField] private List<RoomObject> traderRooms = new List<RoomObject>();
-        [SerializeField] private List<RoomObject> boxRooms = new List<RoomObject>();
 
         [Header("События")]
         [SerializeField] private UnityEvent afterSpawned = new UnityEvent();
         private bool isRoomsSpawned = false;
+        //Другое
+        private RoomsLists _roomsLists;
+        public RoomsLists roomsLists
+        {
+            get { return _roomsLists; }
+            private set { _roomsLists = value; }
+        }
+
 
         //Геттеры, сеттеры
         private void GenerateRoomsList()
@@ -44,9 +41,9 @@ namespace Generation
             roomsMap = new int[roomsCount + npcRoomsCount + boxesOnLevel];
 
             //Просто комнаты с НПС
-            if(npcRooms.Count != 0) for (int i = 0; i < npcRoomsCount; i++)
+            if(roomsLists.GetNpcRoomsList().Count != 0) for (int i = 0; i < npcRoomsCount; i++)
             {
-                int tmp = Random.Range(0, roomsMap.Length);
+                int tmp = Random.Range(0, roomsMap.Length - 1);
 
                 if (roomsMap[tmp] == 0) roomsMap[tmp] = 1;
                 else
@@ -56,66 +53,34 @@ namespace Generation
                 }
             }
             //Торговец
-            if(traderRooms.Count != 0) for (int i = 0; i < 1; i++)
+            if(isTraderWillSpawn && roomsLists.GetNpcRoomsList().Count != 0) for (int i = 0; i < 1; i++)
             {
-                int traderRoomIndex = Random.Range(0, roomsMap.Length);
+                int traderRoomIndex = Random.Range(0, roomsMap.Length - 1);
                 if (roomsMap[traderRoomIndex] == 0) roomsMap[traderRoomIndex] = 2;
                 else i--;
             }
             //Коробка
-            if(boxRooms.Count != 0) for (int i = 0; i < 1; i++)
+            if(roomsLists.GetBoxRoomsList().Count != 0) for (int i = 0; i < 1; i++)
             {
-                int boxRoomIndex = Random.Range(0, roomsMap.Length);
+                int boxRoomIndex = Random.Range(0, roomsMap.Length-1);
                 if (roomsMap[boxRoomIndex] == 0) roomsMap[boxRoomIndex] = 3;
                 else i--;
             }
-
             //Сделать комнаты которые обязательно должны заспавнится
+
+            //Выход
+            roomsMap[roomsMap.Length - 1] = 5;
         }
         public bool GetIsSpawned() { return isRoomsSpawned; }
         public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; afterSpawned.Invoke(); } }
-        public int GetRoomsCount() { return roomsCount; }
+        public int GetAllRoomsCount() { return roomsCount + npcRoomsCount + boxesOnLevel; }
         public int GetNowSpawnedRoomsCount() { return nowSpawnedRoomsCount; }
         public void IncreaseSpawnedRoomsCount() { nowSpawnedRoomsCount++; }
-        public GameObject GetRandomRoomInChance(int chance)
-        {
-            List<RoomObject> roomsInChance = new List<RoomObject>();
-
-            foreach (RoomObject roomToCheck in rooms)
-                if (roomToCheck.chance >= chance) roomsInChance.Add(roomToCheck);
-            return roomsInChance[Random.Range(0, roomsInChance.Count)].room;
-        }
-        public GameObject GetRandomNpcRoomInChance(int chance)
-        {
-            List<RoomObject> roomsInChance = new List<RoomObject>();
-
-            foreach (RoomObject roomToCheck in npcRooms)
-                if (roomToCheck.chance >= chance) roomsInChance.Add(roomToCheck);
-            return roomsInChance[Random.Range(0, roomsInChance.Count)].room;
-
-        }
-        public GameObject GetRandomTraderRoomInChance(int chance)
-        {
-            List<RoomObject> roomsInChance = new List<RoomObject>();
-
-            foreach (RoomObject roomToCheck in traderRooms)
-                if (roomToCheck.chance >= chance) roomsInChance.Add(roomToCheck);
-            return roomsInChance[Random.Range(0, roomsInChance.Count)].room;
-
-        }
-        public GameObject GetRandomBoxRoomInChance(int chance)
-        {
-            List<RoomObject> roomsInChance = new List<RoomObject>();
-
-            foreach (RoomObject roomToCheck in boxRooms)
-                if (roomToCheck.chance >= chance) roomsInChance.Add(roomToCheck);
-            return roomsInChance[Random.Range(0, roomsInChance.Count)].room;
-
-        }
         
         //Юнитивские методы
         private void Awake()
         {
+            _roomsLists = GetComponent<RoomsLists>();
             GenerateRoomsList();
         }
     }

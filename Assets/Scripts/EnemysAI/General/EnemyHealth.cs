@@ -19,7 +19,6 @@ public class EnemyHealth : Health
 
     //Другое
     [Header("Другое")]
-    public RoomCloser roomCloser;
     private Coroutine damageInd;
     [HideInInspector] public AudioManager audioManager;
 
@@ -84,11 +83,6 @@ public class EnemyHealth : Health
         gameManager = FindObjectOfType<GameManager>();
         effectManager = FindObjectOfType<EffectsInfo>();
         audioManager = FindObjectOfType<AudioManager>();
-        if (roomCloser != null)
-        {
-            roomCloser.EnemyCounterTunUp();
-            onDie.AddListener(roomCloser.EnemyCounterTunDown);
-        }
         effectHandler = GetComponent<EffectHandler>();
         useEffects = true;
         effectHandler.health = this;

@@ -9,6 +9,10 @@ public class CameraFollow : MonoBehaviour
     private Transform player;
     public static CameraFollow instance;
 
+    public void SetTarget(Transform newTarget) => target = newTarget;
+    public void ResetTarget() => target = player;
+    
+    //Юнитивские методы
     private void Awake()
     {
         if(instance == null)
@@ -23,9 +27,7 @@ public class CameraFollow : MonoBehaviour
         camera = GetComponent<Camera>();
         camera.orthographicSize = standartValaue;
     }
-    
     private void OnLevelWasLoaded(int level) => camera.orthographicSize = standartValaue;
-
     void Update()
     {
         if (target != null)
@@ -35,7 +37,4 @@ public class CameraFollow : MonoBehaviour
         }
         else if(player != null) SetTarget(player);
     }
-
-    public void SetTarget(Transform newTarget) => target = newTarget;
-    public void ResetTarget() => target = player;
 }
