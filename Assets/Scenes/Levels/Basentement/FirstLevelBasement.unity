@@ -2864,6 +2864,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  testPrefab: {fileID: 1595022129692522939, guid: 03bff309a4b9039489b8b3244a546475, type: 3}
 --- !u!4 &630008336
 Transform:
   m_ObjectHideFlags: 0
@@ -3496,6 +3497,11 @@ RectTransform:
   m_AnchoredPosition: {x: 103.520004, y: 24.2}
   m_SizeDelta: {x: 130.66, y: 64.07}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &875716318 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3792840196486990929, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
+  m_PrefabInstance: {fileID: 1521835919}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &890802314
 GameObject:
   m_ObjectHideFlags: 0
@@ -5830,6 +5836,14 @@ PrefabInstance:
       propertyPath: isStartSpawnPoint
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179322, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
+      propertyPath: pointsForSomething.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179322, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
+      propertyPath: pointsForSomething.Array.data[0]
+      value: 
+      objectReference: {fileID: 875716318}
     - target: {fileID: 5387467937760179323, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
       propertyPath: m_RootOrder
       value: 3

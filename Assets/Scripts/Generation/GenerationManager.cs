@@ -9,6 +9,7 @@ namespace Generation
     {
         public RoomsLists.Rooms[] roomsMap;
         [Header("Настройки комнат")]
+        private List<Room> rooms = new List<Room>();
         [SerializeField] private int roomsCount = 10;
         private int nowSpawnedRoomsCount = 0;
         [Header("Настройка НПС")]
@@ -17,8 +18,9 @@ namespace Generation
         [SerializeField] private bool isTraderWillSpawn = true;
 
         [Header("События")]
-        [SerializeField] private UnityEvent afterSpawned = new UnityEvent();
+        public UnityEvent afterSpawned = new UnityEvent();
         private bool isRoomsSpawned = false;
+        public GameObject testPrefab;
         //Другое
         private RoomsLists _roomsLists;
         public RoomsLists roomsLists
@@ -77,11 +79,12 @@ namespace Generation
             roomsMap[roomsMap.Length - 1] = RoomsLists.Rooms.Exit;
         }
         public bool GetIsSpawned() { return isRoomsSpawned; }
-        public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; afterSpawned.Invoke(); } }
+        public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; rooms[Random.Range(0, rooms.Count)].SpawnSomething(testPrefab); afterSpawned.Invoke(); } }
         public int GetAllRoomsCount() { return roomsCount + npcRoomsCount + boxesOnLevel; }
         public int GetNowSpawnedRoomsCount() { return nowSpawnedRoomsCount; }
         public void IncreaseSpawnedRoomsCount() { nowSpawnedRoomsCount++; }
-        
+        public void AddRoom(Room newRoom) { rooms.Add(newRoom); }
+
         //Юнитивские методы
         private void Awake()
         {

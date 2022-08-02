@@ -22,6 +22,7 @@ namespace Generation
         public List<Directories> passagesMustSpawned = new List<Directories>();
         [SerializeField] private bool randomizePassagesOnAwake = false;
         public RoomSpawner spawnPoint;
+        [SerializeField] private List<Transform> pointsForSomething;
         public RoomSpawner upPassage;
         public Vector2 instantiatePositionUp = new Vector2(0f, 18f);
         public RoomSpawner downPassage;
@@ -48,6 +49,12 @@ namespace Generation
                 if (index == 2 && !leftPassage.GetStatic()) leftPassage.Close();
                 if (index == 3 && !rightPassage.GetStatic()) rightPassage.Close();
             }
+        }
+        public void SpawnSomething(GameObject something) 
+        {
+            int randomPlace = Random.Range(0, pointsForSomething.Count);
+            Instantiate(something, pointsForSomething[randomPlace].position, Quaternion.identity, pointsForSomething[randomPlace]);
+            pointsForSomething.RemoveAt(randomPlace);
         }
 
         private void Awake()

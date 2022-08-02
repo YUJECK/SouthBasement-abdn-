@@ -76,6 +76,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 934490293391918109}
   passage: {fileID: 4835920094197156731}
   wall: {fileID: 6349158054473860954}
+  isStartSpawnPoint: 0
 --- !u!50 &8010448056675682552
 Rigidbody2D:
   serializedVersion: 4
@@ -173,6 +174,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 8394793477998551968}
   passage: {fileID: 7777863323252592937}
   wall: {fileID: 1624905512736358693}
+  isStartSpawnPoint: 0
 --- !u!50 &7067444725327102878
 Rigidbody2D:
   serializedVersion: 4
@@ -194,6 +196,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!1 &4719167452373579666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3304220721416452501}
+  m_Layer: 0
+  m_Name: SpawnPointForSomething
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3304220721416452501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4719167452373579666}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.504486, y: 0.79071045, z: -1.3053625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5387467937760179323}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4835920094197156731
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,6 +335,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 2976683001727573250}
   passage: {fileID: 8088607906570533719}
   wall: {fileID: 3927753967715151716}
+  isStartSpawnPoint: 0
 --- !u!50 &4274272358964914327
 Rigidbody2D:
   serializedVersion: 4
@@ -364,6 +397,7 @@ Transform:
   - {fileID: 934490293391918109}
   - {fileID: 2976683001727573250}
   - {fileID: 6005427388124780431}
+  - {fileID: 3304220721416452501}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -385,6 +419,8 @@ MonoBehaviour:
   passagesMustSpawned: 
   randomizePassagesOnAwake: 0
   spawnPoint: {fileID: 0}
+  pointsForSomething:
+  - {fileID: 3304220721416452501}
   upPassage: {fileID: 508111507368763521}
   instantiatePositionUp: {x: 0, y: -21}
   downPassage: {fileID: 2246982874595794137}
@@ -644,6 +680,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 7278667173732581796}
   passage: {fileID: 7737250936751321680}
   wall: {fileID: 6797510584144250606}
+  isStartSpawnPoint: 0
 --- !u!50 &3113334230081617515
 Rigidbody2D:
   serializedVersion: 4
@@ -888,14 +925,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 935ba65f3607b3e48a8638a0f012b2c5, type: 3}
---- !u!4 &5428492668637629439 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5584027379994449496, guid: 935ba65f3607b3e48a8638a0f012b2c5, type: 3}
-  m_PrefabInstance: {fileID: 444609530000219559}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6349158054473860954 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6788947325123500797, guid: 935ba65f3607b3e48a8638a0f012b2c5, type: 3}
+  m_PrefabInstance: {fileID: 444609530000219559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5428492668637629439 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5584027379994449496, guid: 935ba65f3607b3e48a8638a0f012b2c5, type: 3}
   m_PrefabInstance: {fileID: 444609530000219559}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &660961809830966787
@@ -2149,14 +2186,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 935ba65f3607b3e48a8638a0f012b2c5, type: 3}
---- !u!1 &1624905512736358693 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6788947325123500797, guid: 935ba65f3607b3e48a8638a0f012b2c5, type: 3}
-  m_PrefabInstance: {fileID: 5241061227797060568}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &415894920502791552 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5584027379994449496, guid: 935ba65f3607b3e48a8638a0f012b2c5, type: 3}
+  m_PrefabInstance: {fileID: 5241061227797060568}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1624905512736358693 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6788947325123500797, guid: 935ba65f3607b3e48a8638a0f012b2c5, type: 3}
   m_PrefabInstance: {fileID: 5241061227797060568}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5498498920352641335

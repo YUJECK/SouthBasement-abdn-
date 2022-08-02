@@ -53,14 +53,15 @@ namespace Generation
                     _room = Instantiate(randomRoom, spawnPoint.position, Quaternion.identity);
                     Room newRoom = _room.GetComponent<Room>();
                     newRoom.spawnPoint = this;
-                    
+
                     //Настраиваем комнату
                     MakeThePassageFriendly(newRoom);
                     newRoom.RandomizePassages();
                     SetPassageToStatic();
                     generationManager.IncreaseSpawnedRoomsCount();
                     if (generationManager.GetNowSpawnedRoomsCount() >= generationManager.GetAllRoomsCount()) generationManager.SetIsSpawned();
-                    
+
+                    generationManager.AddRoom(newRoom);
                     _isSpawned = true;
                 }
             }
@@ -71,7 +72,7 @@ namespace Generation
         }
         public void DestroyRoom()
         {
-                Debug.Log("Room tryied to destroy");
+            Debug.Log("Room tryied to destroy");
             if (_room != null)
             {
                 Debug.Log("Room has been destroyd");
@@ -102,22 +103,37 @@ namespace Generation
         {
             _staticPassage = true;
             if (_isClosed) Open();
-            if(!isStartSpawnPoint) Destroy(gameObject);
+            if (!isStartSpawnPoint) Destroy(gameObject);
         }
         public bool GetStatic() { return _staticPassage; }
-        
+
         //Приватные методы для спавна
         private GameObject GetRoom()
         {
             int chance = Random.Range(0, 101);
             GameObject randomRoom = null;
-            if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Default) randomRoom = generationManager.roomsLists.GetRandomRoomInChance(chance, false);
-            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.NPC) randomRoom = generationManager.roomsLists.GetRandomNpcRoomInChance(chance, false);
-            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Trader) randomRoom = generationManager.roomsLists.GetRandomTraderRoomInChance(chance, false);
-            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Box) randomRoom = generationManager.roomsLists.GetRandomBoxRoomInChance(chance, false);
-            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.MustSpawn) randomRoom = generationManager.roomsLists.GetRandomMustSpawnRoomInChance(chance, true);
-            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Exit) randomRoom = generationManager.roomsLists.GetRandomExitRoomInChance(chance, false);
-
+            RoomsLists.Rooms thisRoom = generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()];
+            switch (thisRoom)
+            {
+                case RoomsLists.Rooms.Default:
+                    randomRoom = generationManager.roomsLists.GetRandomRoomInChance(chance, false);
+                    break;
+                case RoomsLists.Rooms.NPC:
+                    randomRoom = generationManager.roomsLists.GetRandomNpcRoomInChance(chance, false);
+                    break;
+                case RoomsLists.Rooms.Trader:
+                    randomRoom = generationManager.roomsLists.GetRandomTraderRoomInChance(chance, false);
+                    break;
+                case RoomsLists.Rooms.Box:
+                    randomRoom = generationManager.roomsLists.GetRandomBoxRoomInChance(chance, false);
+                    break;
+                case RoomsLists.Rooms.MustSpawn:
+                    randomRoom = generationManager.roomsLists.GetRandomMustSpawnRoomInChance(chance, true);
+                    break;
+                case RoomsLists.Rooms.Exit:
+                    randomRoom = generationManager.roomsLists.GetRandomExitRoomInChance(chance, false);
+                    break;
+            }
             return randomRoom;
         }
         private void SetSpawnPointPosition(Room room)
