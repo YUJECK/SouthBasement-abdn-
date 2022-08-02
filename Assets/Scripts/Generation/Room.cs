@@ -13,26 +13,59 @@ namespace Generation
             Right
         }
 
-        public bool isStartRoom { get => _isStartRoom; set => _isStartRoom = value; }
-        [SerializeField] private bool _isStartRoom = false;
-        public int passagesCountMin = 2;
-        public int passagesCountMax = 3;
-
-        [Header("Проходы")]
-        public List<Directories> passagesMustSpawned = new List<Directories>();
+        [Header("Настройки")]
+        [SerializeField] private int passagesCountMin = 2;
+        [SerializeField] public int passagesCountMax = 3;
         [SerializeField] private bool randomizePassagesOnAwake = false;
-        public RoomSpawner spawnPoint;
+        [SerializeField] private bool _isStartRoom = false;
+        [Header("Проходы")]
+        [SerializeField] private RoomSpawner upPassage;
+        [SerializeField] private Vector2 instantiatePositionUp = new Vector2(0f, 18f);
+        [SerializeField] private RoomSpawner downPassage;
+        [SerializeField] private Vector2 instantiatePositionDown = new Vector2(0f, -18f);
+        [SerializeField] private RoomSpawner leftPassage;
+        [SerializeField] private Vector2 instantiatePositionLeft = new Vector2(-18f, 0f);
+        [SerializeField] private RoomSpawner rightPassage;
+        [SerializeField] private Vector2 instantiatePositionRight = new Vector2(18f, 0f);
         [SerializeField] private List<Transform> pointsForSomething;
-        public RoomSpawner upPassage;
-        public Vector2 instantiatePositionUp = new Vector2(0f, 18f);
-        public RoomSpawner downPassage;
-        public Vector2 instantiatePositionDown = new Vector2(0f, -18f);
-        public RoomSpawner leftPassage;
-        public Vector2 instantiatePositionLeft = new Vector2(-18f, 0f);
-        public RoomSpawner rightPassage;
-        public Vector2 instantiatePositionRight = new Vector2(18f, 0f);
 
+        private List<Directories> _passagesMustSpawned = new List<Directories>();
+        private RoomSpawner _spawnPoint;
 
+        //Геттеры
+        public bool isStartRoom { get => _isStartRoom; set => _isStartRoom = value; }
+        public RoomSpawner spawnPoint { get => _spawnPoint; set => _spawnPoint = value; }
+        public List<Directories> passagesMustSpawned { get => _passagesMustSpawned; set => _passagesMustSpawned = value; }
+        public Vector2 GetInstantiatePosition(Directories direction)
+        {
+            switch (direction)
+            {
+                case Directories.Up:
+                    return instantiatePositionUp;
+                case Directories.Down:
+                    return instantiatePositionDown;
+                case Directories.Left:
+                    return instantiatePositionLeft;
+                case Directories.Right:
+                    return instantiatePositionRight;
+            }
+            return new Vector2(18f, 18f);
+        }
+        public RoomSpawner GetPassage(Directories direction)
+        {
+            switch (direction)
+            {
+                case Directories.Up:
+                    return upPassage;
+                case Directories.Down:
+                    return downPassage;
+                case Directories.Left:
+                    return leftPassage;
+                case Directories.Right:
+                    return rightPassage;
+            }
+            return null;
+        }
         public void RandomizePassages() //Рандомизация проходов
         {
             //Проверка кол-ва проходов

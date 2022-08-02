@@ -131,17 +131,20 @@ namespace EnemysAI
         //Методы поиска пути
         public void FindNewPath(EnemyTarget target)
         {
-            Debug.Log("Move: find new path");
-            if (path.Count != 0) ResetTarget();
-            if(this.moveTarget != target) this.moveTarget = target;
+            if(target != null)
+            {
+                Debug.Log("Move: find new path");
+                if (path.Count != 0) ResetTarget();
+                if(this.moveTarget != target) this.moveTarget = target;
 
-            bool cashinPath; //Будет ли "кэшироваться" путь
-            if (target.targetMoveType == TargetType.Static) cashinPath = true;
-            else cashinPath = false;
+                bool cashinPath; //Будет ли "кэшироваться" путь
+                if (target.targetMoveType == TargetType.Static) cashinPath = true;
+                else cashinPath = false;
 
-            path = pathfinder.FindPath(
-                new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
-                new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize), cashinPath);
+                path = pathfinder.FindPath(
+                    new Vector2(transform.position.x / grid.nodeSize, transform.position.y / grid.nodeSize),
+                    new Vector2(target.transform.position.x / grid.nodeSize, target.transform.position.y / grid.nodeSize), cashinPath);
+            }
         }
         public void ResetTarget(EnemyTarget target = null)
         {

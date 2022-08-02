@@ -5,10 +5,10 @@ namespace Generation
     public class RoomSpawner : MonoBehaviour
     {
         public Room.Directories openingDirection;
-        public Vector2 ownInstantiateDifference = new Vector2(0f, 0f);
-        [SerializeField] private Transform spawnPoint;
-        [SerializeField] private GameObject passage;
-        [SerializeField] private GameObject wall;
+        public Vector2 ownInstantiateDifference = new Vector2(0f, 0f); //Оклонение относительно центра
+        [SerializeField] private bool isStartSpawnPoint = false;
+        [SerializeField] private GameObject passage; //Проход
+        [SerializeField] private GameObject wall; //Закрывающая стенка
 
         //Геттеры
         public bool isClosed
@@ -28,7 +28,6 @@ namespace Generation
         }
 
         //Другие приватные поля
-        [SerializeField] private bool isStartSpawnPoint = false;
         private bool _staticPassage = false;
         private bool _isClosed = false;
         private bool _isSpawned = false;
@@ -50,7 +49,7 @@ namespace Generation
                     GameObject randomRoom = GetRoom();
                     SetSpawnPointPosition(randomRoom.GetComponent<Room>());
 
-                    _room = Instantiate(randomRoom, spawnPoint.position, Quaternion.identity);
+                    _room = Instantiate(randomRoom, transform.position, Quaternion.identity);
                     Room newRoom = _room.GetComponent<Room>();
                     newRoom.spawnPoint = this;
 
@@ -140,13 +139,13 @@ namespace Generation
         {
             //Определение позиции спавна
             if (openingDirection == Room.Directories.Up)
-                spawnPoint.localPosition = room.instantiatePositionDown + ownInstantiateDifference;
+                transform.localPosition = room.GetInstantiatePosition(Room.Directories.Down) + ownInstantiateDifference;
             if (openingDirection == Room.Directories.Down)
-                spawnPoint.localPosition = room.instantiatePositionUp + ownInstantiateDifference;
+                transform.localPosition = room.GetInstantiatePosition(Room.Directories.Up) + ownInstantiateDifference;
             if (openingDirection == Room.Directories.Left)
-                spawnPoint.localPosition = room.instantiatePositionRight + ownInstantiateDifference;
+                transform.localPosition = room.GetInstantiatePosition(Room.Directories.Right) + ownInstantiateDifference;
             if (openingDirection == Room.Directories.Right)
-                spawnPoint.localPosition = room.instantiatePositionLeft + ownInstantiateDifference;
+                transform.localPosition = room.GetInstantiatePosition(Room.Directories.Left) + ownInstantiateDifference;
         }
         private void MakeThePassageFriendly(Room room)
         {
@@ -155,19 +154,19 @@ namespace Generation
             {
                 case Room.Directories.Up:
                     room.passagesMustSpawned.Add(Room.Directories.Down);
-                    room.downPassage.SetPassageToStatic();
+                    room.GetPassage(Room.Directories.Down).SetPassageToStatic();
                     break;
                 case Room.Directories.Down:
                     room.passagesMustSpawned.Add(Room.Directories.Up);
-                    room.upPassage.SetPassageToStatic();
+                    room.GetPassage(Room.Directories.Up).SetPassageToStatic();
                     break;
                 case Room.Directories.Left:
                     room.passagesMustSpawned.Add(Room.Directories.Right);
-                    room.rightPassage.SetPassageToStatic();
+                    room.GetPassage(Room.Directories.Right).SetPassageToStatic();
                     break;
                 case Room.Directories.Right:
                     room.passagesMustSpawned.Add(Room.Directories.Left);
-                    room.leftPassage.SetPassageToStatic();
+                    room.GetPassage(Room.Directories.Left).SetPassageToStatic();
                     break;
             }
         }
