@@ -26,6 +26,7 @@ namespace Generation
         [SerializeField] private List<RoomObject> npcRooms = new List<RoomObject>();
         [SerializeField] private List<RoomObject> traderRooms = new List<RoomObject>();
         [SerializeField] private List<RoomObject> boxRooms = new List<RoomObject>();
+        [SerializeField] private List<RoomObject> mustSpawnRooms = new List<RoomObject>();
         [SerializeField] private List<RoomObject> exitRooms = new List<RoomObject>();
 
         //Геттеры
@@ -35,6 +36,7 @@ namespace Generation
         public List<RoomObject> GetNpcRoomsList() { return npcRooms; }
         public List<RoomObject> GetTraderRoomsList() { return traderRooms; }
         public List<RoomObject> GetBoxRoomsList() { return boxRooms; }
+        public List<RoomObject> GetMustSpawnRoomsList() { return mustSpawnRooms; }
         public List<RoomObject> GetExitRoomsList() { return exitRooms; }
 
         //На рандомную комнату
@@ -71,7 +73,14 @@ namespace Generation
             foreach (RoomObject roomToCheck in boxRooms)
                 if (roomToCheck.chance >= chance) roomsInChance.Add(roomToCheck);
             return roomsInChance[Random.Range(0, roomsInChance.Count)].room;
+        }
+        public GameObject GetRandomMustSpawnRoomInChance(int chance, bool remove)
+        {
+            List<RoomObject> roomsInChance = new List<RoomObject>();
 
+            foreach (RoomObject roomToCheck in mustSpawnRooms)
+                if (roomToCheck.chance >= chance) roomsInChance.Add(roomToCheck);
+            return roomsInChance[Random.Range(0, roomsInChance.Count)].room;
         }
         public GameObject GetRandomExitRoomInChance(int chance, bool remove)
         {

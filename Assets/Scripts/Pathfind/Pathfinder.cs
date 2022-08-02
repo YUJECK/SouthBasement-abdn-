@@ -173,6 +173,11 @@ public class Pathfinder : MonoBehaviour
     {
         if (gridChanges.Count != 0) ResetGridChanges();
 
+        for (int i = 0; i < point.path.Count / 2; i++)
+        {
+            point.path.RemoveAt(point.path.Count - 1);
+        }
+
         for (int i = 0; i < point.path.Count - 1; i++)//Чтобы враги не сталкивались
         {
             grid.grid[(int)(point.path[i].x / grid.nodeSize), (int)(point.path[i].y / grid.nodeSize)] = 1;

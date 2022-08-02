@@ -115,7 +115,7 @@ namespace Generation
             else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.NPC) randomRoom = generationManager.roomsLists.GetRandomNpcRoomInChance(chance, false);
             else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Trader) randomRoom = generationManager.roomsLists.GetRandomTraderRoomInChance(chance, false);
             else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Box) randomRoom = generationManager.roomsLists.GetRandomBoxRoomInChance(chance, false);
-            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.MustSpawn) Debug.Log("RoomSpawner.cs: Напиши спавн обязательных комнат");
+            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.MustSpawn) randomRoom = generationManager.roomsLists.GetRandomMustSpawnRoomInChance(chance, true);
             else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Exit) randomRoom = generationManager.roomsLists.GetRandomExitRoomInChance(chance, false);
 
             return randomRoom;

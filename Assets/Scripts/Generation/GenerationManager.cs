@@ -45,6 +45,18 @@ namespace Generation
                     Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
                 }
             }
+            //Обязательные комнаты 
+            for (int i = 0; i < roomsLists.GetMustSpawnRoomsList().Count; i++)
+            {
+                int tmp = Random.Range(0, roomsMap.Length - 1);
+
+                if (roomsMap[tmp] == RoomsLists.Rooms.Default) roomsMap[tmp] = RoomsLists.Rooms.MustSpawn;
+                else
+                {
+                    i--;
+                    Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
+                }
+            }
             //Торговец
             if(isTraderWillSpawn && roomsLists.GetNpcRoomsList().Count != 0) for (int i = 0; i < 1; i++)
             {

@@ -85,6 +85,8 @@ namespace EnemysAI
                 else if (path.Count == 0)
                 {
                     isNowWalk = false;
+                    FindNewPath(moveTarget);
+                    SetNextSearchTime();
                     if (moveTarget != null && moveTarget.targetMoveType == TargetType.Static)
                     {
                         ResetTarget();
@@ -92,7 +94,6 @@ namespace EnemysAI
                     }
                 }
             }
-
             else
             {
                 isNowWalk = false;
@@ -101,7 +102,7 @@ namespace EnemysAI
         public void DynamicPathfind()
         {
             //Динамичный поиск пути
-            if (!isStopped && moveTarget != null && moveTarget.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime || path.Count == 0))
+            if (!isStopped && moveTarget != null && moveTarget.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime))
             {
                 ResetTarget();
                 FindNewPath(moveTarget);

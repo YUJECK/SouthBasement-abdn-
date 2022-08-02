@@ -2503,7 +2503,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &531380262
 GameObject:
@@ -2909,6 +2909,11 @@ MonoBehaviour:
     chance: 100
   boxRooms:
   - room: {fileID: 5387467937760179325, guid: dd075197d6711b4429495530afb58bb2, type: 3}
+    chance: 100
+  mustSpawnRooms:
+  - room: {fileID: 5387467937760179325, guid: eda6cdb876e88834f83f4dd65a21115a, type: 3}
+    chance: 100
+  - room: {fileID: 5387467937760179325, guid: 2703b5f22a0bd3541b2d11329455231a, type: 3}
     chance: 100
   exitRooms:
   - room: {fileID: 5387467937760179325, guid: 7d4b61f1b4ea96c458ed416f2681df8f, type: 3}
@@ -5279,7 +5284,7 @@ MonoBehaviour:
     action:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 1454888726}
           m_TargetAssemblyTypeName: RatConsole, Assembly-CSharp
           m_MethodName: ShowGrid
           m_Mode: 1
@@ -5674,7 +5679,7 @@ Transform:
   - {fileID: 118789642}
   - {fileID: 1371969408}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1511004454
 MonoBehaviour:
@@ -5809,6 +5814,10 @@ PrefabInstance:
       propertyPath: isStartSpawnPoint
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 893724170878017071, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1634120096477704493, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
       propertyPath: isStartSpawnPoint
       value: 1
@@ -5823,7 +5832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5387467937760179323, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5387467937760179323, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7084,7 +7093,7 @@ RectTransform:
   - {fileID: 1460068698}
   - {fileID: 1016608540}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7775,7 +7784,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954132437}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 219.8, y: 198.5, z: -27.437973}
+  m_LocalPosition: {x: 263.9, y: 203.4, z: -27.437973}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
