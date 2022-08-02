@@ -4,22 +4,15 @@ using UnityEngine.Events;
 
 namespace Generation
 {
-    // 0 - обычная комната
-    // 1 - комната с НПС
-    // 2 - комната торговца
-    // 3 - комната с коробкой
-    // 4 - комната из листа roomsMustSpawn
-    // 5 - комната выхода/с боссом
     [RequireComponent(typeof(RoomsLists))]
     public class GenerationManager : MonoBehaviour
     {
-        public int[] roomsMap;
+        public RoomsLists.Rooms[] roomsMap;
         [Header("Настройки комнат")]
         [SerializeField] private int roomsCount = 10;
         private int nowSpawnedRoomsCount = 0;
         [Header("Настройка НПС")]
         [SerializeField] private int npcRoomsCount = 1;
-        private int nowSpawnedNpcRoomsCount = 0;
         [SerializeField] private int boxesOnLevel = 1;
         [SerializeField] private bool isTraderWillSpawn = true;
 
@@ -38,14 +31,14 @@ namespace Generation
         //Геттеры, сеттеры
         private void GenerateRoomsList()
         {
-            roomsMap = new int[roomsCount + npcRoomsCount + boxesOnLevel];
+            roomsMap = new RoomsLists.Rooms[roomsCount + npcRoomsCount + boxesOnLevel];
 
             //Просто комнаты с НПС
             if(roomsLists.GetNpcRoomsList().Count != 0) for (int i = 0; i < npcRoomsCount; i++)
             {
                 int tmp = Random.Range(0, roomsMap.Length - 1);
 
-                if (roomsMap[tmp] == 0) roomsMap[tmp] = 1;
+                if (roomsMap[tmp] == RoomsLists.Rooms.Default) roomsMap[tmp] = RoomsLists.Rooms.NPC;
                 else
                 {
                     i--;
@@ -56,20 +49,20 @@ namespace Generation
             if(isTraderWillSpawn && roomsLists.GetNpcRoomsList().Count != 0) for (int i = 0; i < 1; i++)
             {
                 int traderRoomIndex = Random.Range(0, roomsMap.Length - 1);
-                if (roomsMap[traderRoomIndex] == 0) roomsMap[traderRoomIndex] = 2;
+                if (roomsMap[traderRoomIndex] == RoomsLists.Rooms.Default) roomsMap[traderRoomIndex] = RoomsLists.Rooms.Trader;
                 else i--;
             }
             //Коробка
             if(roomsLists.GetBoxRoomsList().Count != 0) for (int i = 0; i < 1; i++)
             {
                 int boxRoomIndex = Random.Range(0, roomsMap.Length-1);
-                if (roomsMap[boxRoomIndex] == 0) roomsMap[boxRoomIndex] = 3;
+                if (roomsMap[boxRoomIndex] == RoomsLists.Rooms.Default) roomsMap[boxRoomIndex] = RoomsLists.Rooms.Box;
                 else i--;
             }
             //Сделать комнаты которые обязательно должны заспавнится
 
             //Выход
-            roomsMap[roomsMap.Length - 1] = 5;
+            roomsMap[roomsMap.Length - 1] = RoomsLists.Rooms.Exit;
         }
         public bool GetIsSpawned() { return isRoomsSpawned; }
         public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; afterSpawned.Invoke(); } }

@@ -105,7 +105,7 @@ public class InventoryManager : MonoBehaviour
             {
                 if(i != activeFoodSlot)
                 {
-                    if(foodItems[i].gameObject.active)
+                    if(foodItems[i].gameObject.activeSelf)
                     {
                         foodItems[i].gameObject.SetActive(false);
                          foodItems[i].isActiveSlot = false;
@@ -124,7 +124,7 @@ public class InventoryManager : MonoBehaviour
             {
                 if(i != activeAciveItemSlot)
                 {
-                    if(activeItems[i].gameObject.active)
+                    if(activeItems[i].gameObject.activeSelf)
                     {
                         activeItems[i].gameObject.SetActive(false);
                         activeItems[i].isActiveSlot = false;
@@ -143,7 +143,7 @@ public class InventoryManager : MonoBehaviour
             {
                 if(i != melleRangeActiveSlot)
                 {
-                    if(melleWeapons[i].gameObject.active)
+                    if(melleWeapons[i].gameObject.activeSelf)
                     {
                         melleWeapons[i].gameObject.SetActive(false);
                         melleWeapons[i].isActiveSlot = false;

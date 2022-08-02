@@ -28,6 +28,7 @@ namespace Generation
         }
 
         //Другие приватные поля
+        [SerializeField] private bool isStartSpawnPoint = false;
         private bool _staticPassage = false;
         private bool _isClosed = false;
         private bool _isSpawned = false;
@@ -37,12 +38,37 @@ namespace Generation
         //Ссылки на другие скрипты
         private GenerationManager generationManager;
 
-        public void SetPassageToStatic()
+        //Публичные методы
+        public void SpawnRoom()
         {
-            _staticPassage = true;
-            if (_isClosed) Open();
+            if (!generationManager.GetIsSpawned())
+            {
+                //Если комната не закрыта и еще не заспавнена 
+                if (!_isClosed && !_isSpawned && !_staticPassage)
+                {
+                    //Спавн
+                    GameObject randomRoom = GetRoom();
+                    SetSpawnPointPosition(randomRoom.GetComponent<Room>());
+
+                    _room = Instantiate(randomRoom, spawnPoint.position, Quaternion.identity);
+                    Room newRoom = _room.GetComponent<Room>();
+                    newRoom.spawnPoint = this;
+                    
+                    //Настраиваем комнату
+                    MakeThePassageFriendly(newRoom);
+                    newRoom.RandomizePassages();
+                    SetPassageToStatic();
+                    generationManager.IncreaseSpawnedRoomsCount();
+                    if (generationManager.GetNowSpawnedRoomsCount() >= generationManager.GetAllRoomsCount()) generationManager.SetIsSpawned();
+                    
+                    _isSpawned = true;
+                }
+            }
+            else Close();
         }
-        public bool GetStatic() { return _staticPassage; }
+        public void RegenerateRoom()
+        {
+        }
         public void DestroyRoom()
         {
                 Debug.Log("Room tryied to destroy");
@@ -72,71 +98,62 @@ namespace Generation
                 wall.SetActive(false);
             }
         }
-        public void SpawnRoom()
+        public void SetPassageToStatic()
         {
-            if (!generationManager.GetIsSpawned())
-            {
-                //Если комната не закрыта и еще не заспавнена 
-                if (!_isClosed && !_isSpawned && !_staticPassage)
-                {
-                    int chance = Random.Range(0, 101);
-                    GameObject randomRoom = null;
-                    if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 0) randomRoom = generationManager.roomsLists.GetRandomRoomInChance(chance, false);
-                    else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 1) randomRoom = generationManager.roomsLists.GetRandomNpcRoomInChance(chance, false);
-                    else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 2) randomRoom = generationManager.roomsLists.GetRandomTraderRoomInChance(chance, false);
-                    else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 3) randomRoom = generationManager.roomsLists.GetRandomBoxRoomInChance(chance, false);
-                    else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 4) Debug.Log("RoomSpawner.cs: Напиши спавн обязательных комнат");
-                    else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == 5) randomRoom = generationManager.roomsLists.GetRandomExitRoomInChance(chance, false);
-                    
-
-                    //Определение позиции спавна
-                    if (openingDirection == Room.Directories.Up) 
-                        spawnPoint.localPosition = randomRoom.GetComponent<Room>().instantiatePositionDown + ownInstantiateDifference;
-                    if (openingDirection == Room.Directories.Down) 
-                        spawnPoint.localPosition = randomRoom.GetComponent<Room>().instantiatePositionUp + ownInstantiateDifference;
-                    if (openingDirection == Room.Directories.Left) 
-                        spawnPoint.localPosition = randomRoom.GetComponent<Room>().instantiatePositionRight + ownInstantiateDifference;
-                    if (openingDirection == Room.Directories.Right) 
-                        spawnPoint.localPosition = randomRoom.GetComponent<Room>().instantiatePositionLeft + ownInstantiateDifference;
-
-                    //Спавн
-                    _room = Instantiate(randomRoom, spawnPoint.position, Quaternion.identity);
-                    Room newRoom = _room.GetComponent<Room>();
-                    newRoom.spawnPoint = this;
-
-                    //Ставим соединяющий проход статичным, чтобы его нельзя было закрыть
-                    switch (openingDirection)
-                    {
-                        case Room.Directories.Up:
-                            newRoom.passagesMustSpawned.Add(Room.Directories.Down);
-                            newRoom.downPassage.SetPassageToStatic();
-                            break;
-                        case Room.Directories.Down:
-                            newRoom.passagesMustSpawned.Add(Room.Directories.Up);
-                            newRoom.upPassage.SetPassageToStatic();
-                            break;
-                        case Room.Directories.Left:
-                            newRoom.passagesMustSpawned.Add(Room.Directories.Right);
-                            newRoom.rightPassage.SetPassageToStatic();
-                            break;
-                        case Room.Directories.Right:
-                            newRoom.passagesMustSpawned.Add(Room.Directories.Left);
-                            newRoom.leftPassage.SetPassageToStatic();
-                            break;
-                    }
-                    
-                    //Рандомизируем проходы в заспавненой комнате и делаем этот проход статичным 
-                    newRoom.RandomizePassages();
-                    SetPassageToStatic();
-                    generationManager.IncreaseSpawnedRoomsCount();
-                    if (generationManager.GetNowSpawnedRoomsCount() >= generationManager.GetAllRoomsCount()) generationManager.SetIsSpawned();
-                    _isSpawned = true;
-                }
-            }
-            else Close();
+            _staticPassage = true;
+            if (_isClosed) Open();
+            if(!isStartSpawnPoint) Destroy(gameObject);
         }
-        public void RegenerateRoom()
+        public bool GetStatic() { return _staticPassage; }
+        
+        //Приватные методы для спавна
+        private GameObject GetRoom()
         {
+            int chance = Random.Range(0, 101);
+            GameObject randomRoom = null;
+            if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Default) randomRoom = generationManager.roomsLists.GetRandomRoomInChance(chance, false);
+            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.NPC) randomRoom = generationManager.roomsLists.GetRandomNpcRoomInChance(chance, false);
+            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Trader) randomRoom = generationManager.roomsLists.GetRandomTraderRoomInChance(chance, false);
+            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Box) randomRoom = generationManager.roomsLists.GetRandomBoxRoomInChance(chance, false);
+            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.MustSpawn) Debug.Log("RoomSpawner.cs: Напиши спавн обязательных комнат");
+            else if (generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()] == RoomsLists.Rooms.Exit) randomRoom = generationManager.roomsLists.GetRandomExitRoomInChance(chance, false);
+
+            return randomRoom;
+        }
+        private void SetSpawnPointPosition(Room room)
+        {
+            //Определение позиции спавна
+            if (openingDirection == Room.Directories.Up)
+                spawnPoint.localPosition = room.instantiatePositionDown + ownInstantiateDifference;
+            if (openingDirection == Room.Directories.Down)
+                spawnPoint.localPosition = room.instantiatePositionUp + ownInstantiateDifference;
+            if (openingDirection == Room.Directories.Left)
+                spawnPoint.localPosition = room.instantiatePositionRight + ownInstantiateDifference;
+            if (openingDirection == Room.Directories.Right)
+                spawnPoint.localPosition = room.instantiatePositionLeft + ownInstantiateDifference;
+        }
+        private void MakeThePassageFriendly(Room room)
+        {
+            //Ставим соединяющий проход статичным, чтобы его нельзя было закрыть
+            switch (openingDirection)
+            {
+                case Room.Directories.Up:
+                    room.passagesMustSpawned.Add(Room.Directories.Down);
+                    room.downPassage.SetPassageToStatic();
+                    break;
+                case Room.Directories.Down:
+                    room.passagesMustSpawned.Add(Room.Directories.Up);
+                    room.upPassage.SetPassageToStatic();
+                    break;
+                case Room.Directories.Left:
+                    room.passagesMustSpawned.Add(Room.Directories.Right);
+                    room.rightPassage.SetPassageToStatic();
+                    break;
+                case Room.Directories.Right:
+                    room.passagesMustSpawned.Add(Room.Directories.Left);
+                    room.leftPassage.SetPassageToStatic();
+                    break;
+            }
         }
 
 
