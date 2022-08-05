@@ -7,7 +7,12 @@ namespace Generation
     [RequireComponent(typeof(RoomsLists))]
     public class GenerationManager : MonoBehaviour
     {
-        public RoomsLists.Rooms[] roomsMap;
+        private Rooms[] _roomsMap;
+        public Rooms[] roomsMap
+        {
+            get { return _roomsMap; }
+            private set { _roomsMap = value; }
+        }
         [Header("Настройки комнат")]
         private List<Room> rooms = new List<Room>();
         [SerializeField] private int roomsCount = 10;
@@ -33,26 +38,26 @@ namespace Generation
         //Геттеры, сеттеры
         private void GenerateRoomsMap()
         {
-            roomsMap = new RoomsLists.Rooms[roomsCount + npcRoomsCount + boxesOnLevel];
+            roomsMap = new Rooms[roomsCount + npcRoomsCount + boxesOnLevel];
 
             //Просто комнаты с НПС
-            if(roomsLists.GetRoomsList(RoomsLists.Rooms.NPC).Count != 0) for (int i = 0; i < npcRoomsCount; i++)
-            {
-                int tmp = Random.Range(0, roomsMap.Length - 1);
-
-                if (roomsMap[tmp] == RoomsLists.Rooms.Default) roomsMap[tmp] = RoomsLists.Rooms.NPC;
-                else
+            if (roomsLists.GetRoomsList(Rooms.NPC).Count != 0) for (int i = 0; i < npcRoomsCount; i++)
                 {
-                    i--;
-                    Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
+                    int tmp = Random.Range(0, roomsMap.Length - 1);
+
+                    if (roomsMap[tmp] == Rooms.Default) roomsMap[tmp] = Rooms.NPC;
+                    else
+                    {
+                        i--;
+                        Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
+                    }
                 }
-            }
             //Обязательные комнаты 
-            for (int i = 0; i < roomsLists.GetRoomsList(RoomsLists.Rooms.MustSpawn).Count; i++)
+            for (int i = 0; i < roomsLists.GetRoomsList(Rooms.MustSpawn).Count; i++)
             {
                 int tmp = Random.Range(0, roomsMap.Length - 1);
 
-                if (roomsMap[tmp] == RoomsLists.Rooms.Default) roomsMap[tmp] = RoomsLists.Rooms.MustSpawn;
+                if (roomsMap[tmp] == Rooms.Default) roomsMap[tmp] = Rooms.MustSpawn;
                 else
                 {
                     i--;
@@ -60,29 +65,30 @@ namespace Generation
                 }
             }
             //Торговец
-            if(isTraderWillSpawn && roomsLists.GetRoomsList(RoomsLists.Rooms.Trader).Count != 0) for (int i = 0; i < 1; i++)
-            {
-                int traderRoomIndex = Random.Range(0, roomsMap.Length - 1);
-                if (roomsMap[traderRoomIndex] == RoomsLists.Rooms.Default) roomsMap[traderRoomIndex] = RoomsLists.Rooms.Trader;
-                else i--;
-            }
+            if (isTraderWillSpawn && roomsLists.GetRoomsList(Rooms.Trader).Count != 0) for (int i = 0; i < 1; i++)
+                {
+                    int traderRoomIndex = Random.Range(0, roomsMap.Length - 1);
+                    if (roomsMap[traderRoomIndex] == Rooms.Default) roomsMap[traderRoomIndex] = Rooms.Trader;
+                    else i--;
+                }
             //Коробка
-            if(roomsLists.GetRoomsList(RoomsLists.Rooms.Box).Count != 0) for (int i = 0; i < boxesOnLevel; i++)
-            {
-                int boxRoomIndex = Random.Range(0, roomsMap.Length-1);
-                if (roomsMap[boxRoomIndex] == RoomsLists.Rooms.Default) roomsMap[boxRoomIndex] = RoomsLists.Rooms.Box;
-                else i--;
-            }
+            if (roomsLists.GetRoomsList(Rooms.Box).Count != 0) for (int i = 0; i < boxesOnLevel; i++)
+                {
+                    int boxRoomIndex = Random.Range(0, roomsMap.Length - 1);
+                    if (roomsMap[boxRoomIndex] == Rooms.Default) roomsMap[boxRoomIndex] = Rooms.Box;
+                    else i--;
+                }
             //Сделать комнаты которые обязательно должны заспавнится
 
             //Выход
-            roomsMap[roomsMap.Length - 1] = RoomsLists.Rooms.Exit;
+            roomsMap[roomsMap.Length - 1] = Rooms.Exit;
         }
         public bool GetIsSpawned() { return isRoomsSpawned; }
         public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; rooms[Random.Range(0, rooms.Count)].SpawnSomething(testPrefab); afterSpawned.Invoke(); } }
         public int GetAllRoomsCount() { return roomsCount + npcRoomsCount + boxesOnLevel; }
         public int GetNowSpawnedRoomsCount() { return nowSpawnedRoomsCount; }
         public void IncreaseSpawnedRoomsCount() { nowSpawnedRoomsCount++; }
+        public void ReduceSpawnedRoomsCount() { nowSpawnedRoomsCount--; }
         public void AddRoom(Room newRoom) { rooms.Add(newRoom); }
 
         //Юнитивские методы

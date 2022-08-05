@@ -77,10 +77,27 @@ namespace Generation
             for (int i = 0; i < 4 - passagesCount; i++)
             {
                 int index = Random.Range(0, 4);
-                if (index == 0 && !upPassage.GetStatic()) upPassage.Close();
-                if (index == 1 && !downPassage.GetStatic()) downPassage.Close();
-                if (index == 2 && !leftPassage.GetStatic()) leftPassage.Close();
-                if (index == 3 && !rightPassage.GetStatic()) rightPassage.Close();
+                if (index == 0 && upPassage.GetState() == RoomSpawnerState.Open)
+                { 
+                    upPassage.Close(true);
+                    continue;
+                } 
+                if (index == 1 && downPassage.GetState() == RoomSpawnerState.Open)
+                {
+                    downPassage.Close(true); 
+                    continue;
+                }
+                if (index == 2 && leftPassage.GetState() == RoomSpawnerState.Open)
+                {
+                    leftPassage.Close(true);
+                    continue;
+                }
+                if (index == 3 && rightPassage.GetState() == RoomSpawnerState.Open)
+                {
+                    rightPassage.Close(true);
+                    continue;
+                }
+                i--;
             }
         }
         public void SpawnSomething(GameObject something) 

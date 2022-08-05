@@ -3,25 +3,29 @@ using UnityEngine;
 
 namespace Generation
 {
-
+    public enum RoomSpawnerState
+    {
+        Open,
+        Close,
+        StaticOpen,
+        StaticClose
+    }
+    [System.Serializable] public class RoomObject
+    {
+        public GameObject room;
+        public int chance;
+    }
+    public enum Rooms
+    {
+        Default,
+        NPC,
+        Trader,
+        Box,
+        MustSpawn,
+        Exit
+    }
     public class RoomsLists : MonoBehaviour
     {
-        [System.Serializable]
-        public class RoomObject
-        {
-            public GameObject room;
-            public int chance;
-        }
-        public enum Rooms
-        {
-            Default,
-            NPC,
-            Trader,
-            Box,
-            MustSpawn,
-            Exit
-        }
-
         [SerializeField] private List<RoomObject> simpleRooms = new List<RoomObject>();
         [SerializeField] private List<RoomObject> npcRooms = new List<RoomObject>();
         [SerializeField] private List<RoomObject> traderRooms = new List<RoomObject>();

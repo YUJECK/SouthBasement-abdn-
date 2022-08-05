@@ -57,7 +57,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12, y: 12}
+  m_Size: {x: 16, y: 16}
   m_EdgeRadius: 0
 --- !u!114 &1634120096477704493
 MonoBehaviour:
@@ -73,10 +73,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openingDirection: 2
   ownInstantiateDifference: {x: 0, y: -4}
-  spawnPoint: {fileID: 934490293391918109}
+  isStartSpawnPoint: 0
   passage: {fileID: 4835920094197156731}
   wall: {fileID: 6349158054473860954}
-  isStartSpawnPoint: 0
 --- !u!50 &8010448056675682552
 Rigidbody2D:
   serializedVersion: 4
@@ -155,7 +154,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12, y: 12}
+  m_Size: {x: 16, y: 16}
   m_EdgeRadius: 0
 --- !u!114 &2246982874595794137
 MonoBehaviour:
@@ -171,10 +170,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openingDirection: 1
   ownInstantiateDifference: {x: -3, y: 0}
-  spawnPoint: {fileID: 8394793477998551968}
+  isStartSpawnPoint: 0
   passage: {fileID: 7777863323252592937}
   wall: {fileID: 1624905512736358693}
-  isStartSpawnPoint: 0
 --- !u!50 &7067444725327102878
 Rigidbody2D:
   serializedVersion: 4
@@ -317,7 +315,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12, y: 12}
+  m_Size: {x: 16, y: 16}
   m_EdgeRadius: 0
 --- !u!114 &3909018058388275452
 MonoBehaviour:
@@ -333,10 +331,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openingDirection: 3
   ownInstantiateDifference: {x: 0, y: 0}
-  spawnPoint: {fileID: 2976683001727573250}
+  isStartSpawnPoint: 0
   passage: {fileID: 8088607906570533719}
   wall: {fileID: 3927753967715151716}
-  isStartSpawnPoint: 0
 --- !u!50 &4274272358964914327
 Rigidbody2D:
   serializedVersion: 4
@@ -415,14 +412,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3378930890cab6f45ae69e58a92b8bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isStartRoom: 0
   passagesCountMin: 2
   passagesCountMax: 3
-  passagesMustSpawned: 
   randomizePassagesOnAwake: 0
-  spawnPoint: {fileID: 0}
-  pointsForSomething:
-  - {fileID: 8429337258508929777}
+  _isStartRoom: 0
   upPassage: {fileID: 508111507368763521}
   instantiatePositionUp: {x: -4, y: -21}
   downPassage: {fileID: 2246982874595794137}
@@ -431,6 +424,8 @@ MonoBehaviour:
   instantiatePositionLeft: {x: 21, y: 4}
   rightPassage: {fileID: 3909018058388275452}
   instantiatePositionRight: {x: -21, y: 0}
+  pointsForSomething:
+  - {fileID: 8429337258508929777}
 --- !u!61 &6959420668723757464
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -663,7 +658,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12, y: 12}
+  m_Size: {x: 16, y: 16}
   m_EdgeRadius: 0
 --- !u!114 &508111507368763521
 MonoBehaviour:
@@ -679,10 +674,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openingDirection: 0
   ownInstantiateDifference: {x: 4, y: 0}
-  spawnPoint: {fileID: 7278667173732581796}
+  isStartSpawnPoint: 0
   passage: {fileID: 7737250936751321680}
   wall: {fileID: 6797510584144250606}
-  isStartSpawnPoint: 0
 --- !u!50 &3113334230081617515
 Rigidbody2D:
   serializedVersion: 4
