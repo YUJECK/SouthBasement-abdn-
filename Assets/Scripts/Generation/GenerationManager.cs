@@ -31,12 +31,12 @@ namespace Generation
 
 
         //Геттеры, сеттеры
-        private void GenerateRoomsList()
+        private void GenerateRoomsMap()
         {
             roomsMap = new RoomsLists.Rooms[roomsCount + npcRoomsCount + boxesOnLevel];
 
             //Просто комнаты с НПС
-            if(roomsLists.GetNpcRoomsList().Count != 0) for (int i = 0; i < npcRoomsCount; i++)
+            if(roomsLists.GetRoomsList(RoomsLists.Rooms.NPC).Count != 0) for (int i = 0; i < npcRoomsCount; i++)
             {
                 int tmp = Random.Range(0, roomsMap.Length - 1);
 
@@ -48,7 +48,7 @@ namespace Generation
                 }
             }
             //Обязательные комнаты 
-            for (int i = 0; i < roomsLists.GetMustSpawnRoomsList().Count; i++)
+            for (int i = 0; i < roomsLists.GetRoomsList(RoomsLists.Rooms.MustSpawn).Count; i++)
             {
                 int tmp = Random.Range(0, roomsMap.Length - 1);
 
@@ -60,14 +60,14 @@ namespace Generation
                 }
             }
             //Торговец
-            if(isTraderWillSpawn && roomsLists.GetNpcRoomsList().Count != 0) for (int i = 0; i < 1; i++)
+            if(isTraderWillSpawn && roomsLists.GetRoomsList(RoomsLists.Rooms.Trader).Count != 0) for (int i = 0; i < 1; i++)
             {
                 int traderRoomIndex = Random.Range(0, roomsMap.Length - 1);
                 if (roomsMap[traderRoomIndex] == RoomsLists.Rooms.Default) roomsMap[traderRoomIndex] = RoomsLists.Rooms.Trader;
                 else i--;
             }
             //Коробка
-            if(roomsLists.GetBoxRoomsList().Count != 0) for (int i = 0; i < 1; i++)
+            if(roomsLists.GetRoomsList(RoomsLists.Rooms.Box).Count != 0) for (int i = 0; i < boxesOnLevel; i++)
             {
                 int boxRoomIndex = Random.Range(0, roomsMap.Length-1);
                 if (roomsMap[boxRoomIndex] == RoomsLists.Rooms.Default) roomsMap[boxRoomIndex] = RoomsLists.Rooms.Box;
@@ -89,7 +89,7 @@ namespace Generation
         private void Awake()
         {
             _roomsLists = GetComponent<RoomsLists>();
-            GenerateRoomsList();
+            GenerateRoomsMap();
         }
     }
 }

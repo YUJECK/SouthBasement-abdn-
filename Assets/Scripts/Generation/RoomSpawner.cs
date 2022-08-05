@@ -110,30 +110,8 @@ namespace Generation
         private GameObject GetRoom()
         {
             int chance = Random.Range(0, 101);
-            GameObject randomRoom = null;
             RoomsLists.Rooms thisRoom = generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()];
-            switch (thisRoom)
-            {
-                case RoomsLists.Rooms.Default:
-                    randomRoom = generationManager.roomsLists.GetRandomRoomInChance(chance, false);
-                    break;
-                case RoomsLists.Rooms.NPC:
-                    randomRoom = generationManager.roomsLists.GetRandomNpcRoomInChance(chance, false);
-                    break;
-                case RoomsLists.Rooms.Trader:
-                    randomRoom = generationManager.roomsLists.GetRandomTraderRoomInChance(chance, false);
-                    break;
-                case RoomsLists.Rooms.Box:
-                    randomRoom = generationManager.roomsLists.GetRandomBoxRoomInChance(chance, false);
-                    break;
-                case RoomsLists.Rooms.MustSpawn:
-                    randomRoom = generationManager.roomsLists.GetRandomMustSpawnRoomInChance(chance, true);
-                    break;
-                case RoomsLists.Rooms.Exit:
-                    randomRoom = generationManager.roomsLists.GetRandomExitRoomInChance(chance, false);
-                    break;
-            }
-            return randomRoom;
+            return generationManager.roomsLists.GetRandomRoomInChance(thisRoom, chance, false);
         }
         private void SetSpawnPointPosition(Room room)
         {
@@ -170,7 +148,6 @@ namespace Generation
                     break;
             }
         }
-
 
         //Юнитивские методы
         private void Start()
