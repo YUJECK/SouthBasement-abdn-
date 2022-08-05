@@ -107,9 +107,6 @@ namespace Generation
             pointsForSomething.RemoveAt(randomPlace);
         }
 
-        private void Awake()
-        {
-            if (randomizePassagesOnAwake) RandomizePassages();
-        }
+        private void Awake() { if (randomizePassagesOnAwake) RandomizePassages(); }
     }
 }

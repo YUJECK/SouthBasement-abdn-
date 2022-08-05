@@ -5,81 +5,26 @@ namespace Generation
     public class RoomSpawner : MonoBehaviour
     {
         public Room.Directories openingDirection;
-        private RoomSpawnerState state;
         public Vector2 ownInstantiateDifference = new Vector2(0f, 0f); //Оклонение относительно центра
         [SerializeField] private bool isStartSpawnPoint = false;
         [SerializeField] private GameObject passage; //Проход
         [SerializeField] private GameObject wall; //Закрывающая стенка
 
-        //Геттеры
-        public bool isSpawned
-        {
-            get { return _isSpawned; }
-            private set => _isSpawned = value;
-        }
-        public GameObject room
-        {
-            get { return _room; }
-            private set => _room = value;
-        }
-
         //Другие приватные поля
-        private GameObject _room;
-        private GameObject friendlyPassage;
-        private bool _isSpawned = false;
+        private RoomSpawnerState state;
+        private GameObject room;
+        private bool isSpawned = false;
 
         //Ссылки на другие скрипты
         private GenerationManager generationManager;
 
         //Публичные методы
-        public void SpawnRoom()
-        {
-            if (!generationManager.GetIsSpawned())
-            {
-                //Если комната не закрыта и еще не заспавнена 
-                if (state == RoomSpawnerState.Open && !_isSpawned)
-                {
-                    //Спавн
-                    GameObject randomRoom = GetRoom();
-                    SetSpawnPointPosition(randomRoom.GetComponent<Room>());
-
-                    _room = Instantiate(randomRoom, transform.position, Quaternion.identity, generationManager.transform);
-                    Room newRoom = _room.GetComponent<Room>();
-                    newRoom.spawnPoint = this;
-
-                    //Настраиваем комнату
-                    MakeThePassageFriendly(newRoom);
-                    newRoom.RandomizePassages();
-                    Open(true);
-                    generationManager.IncreaseSpawnedRoomsCount();
-                    if (generationManager.GetNowSpawnedRoomsCount() >= generationManager.GetAllRoomsCount()) generationManager.SetIsSpawned();
-
-                    generationManager.AddRoom(newRoom);
-                    _isSpawned = true;
-                }
-            }
-            else Close(true);
-        }
-        public void RegenerateRoom()
-        {
-            DestroyRoom();
-
-            SpawnRoom();
-        }
-        public void DestroyRoom()
-        {
-            Debug.Log("Room tryied to destroy");
-            if (_room != null)
-            {
-                Debug.Log("Room has been destroyd");
-                Destroy(_room);
-                Close(true);
-                generationManager.ReduceSpawnedRoomsCount();
-            }
-        }
+        public RoomSpawnerState GetState() => state; 
+        public GameObject GetSpawnedRoom() => room; 
+        public bool GetIsSpawned() => isSpawned; 
         public void Close(bool isStatic)
         {
-            if(!_isSpawned && state != RoomSpawnerState.StaticOpen)
+            if(!isSpawned && state != RoomSpawnerState.StaticOpen)
             {
                 if(isStatic)
                 {                 
@@ -97,6 +42,12 @@ namespace Generation
                 }
             }
         }
+        public void ForcedClose()
+        {
+            state = RoomSpawnerState.Close;
+            passage.SetActive(false);
+            wall.SetActive(true);
+        }
         public void Open(bool isStatic)
         {
             if(isStatic && state != RoomSpawnerState.StaticClose)
@@ -113,14 +64,58 @@ namespace Generation
                 wall.SetActive(false);
             }
         }
-        public RoomSpawnerState GetState() { return state; }
+        public void SpawnRoom()
+        {
+            if (!generationManager.GetIsSpawned())
+            {
+                //Если комната не закрыта и еще не заспавнена 
+                if (state == RoomSpawnerState.Open && !isSpawned)
+                {
+                    //Спавн
+                    GameObject randomRoom = GetRoom();
+                    SetSpawnPointPosition(randomRoom.GetComponent<Room>());
+
+                    room = Instantiate(randomRoom, transform.position, Quaternion.identity, generationManager.transform);
+                    Room newRoom = room.GetComponent<Room>();
+                    newRoom.spawnPoint = this;
+
+                    //Настраиваем комнату
+                    MakeThePassageFriendly(newRoom);
+                    newRoom.RandomizePassages();
+                    Open(true);
+                    generationManager.IncreaseSpawnedRoomsCount();
+                    if (generationManager.GetNowSpawnedRoomsCount() >= generationManager.GetAllRoomsCount()) generationManager.SetIsSpawned();
+
+                    generationManager.AddRoom(newRoom);
+                    isSpawned = true;
+                }
+            }
+            else Close(true);
+        }
+        public void RegenerateRoom()
+        {
+            DestroyRoom();
+
+            SpawnRoom();
+        }
+        public void DestroyRoom()
+        {
+            if (room != null)
+            {
+                Debug.Log("[Info]: Room has been destroyd");
+                generationManager.GetNowSpawnedRooms().Remove(room.GetComponent<Room>());
+                ForcedClose();
+                generationManager.ReduceSpawnedRoomsCount();
+                Destroy(room);
+            }
+        }
 
         //Приватные методы для спавна
         private GameObject GetRoom()
         {
             int chance = Random.Range(0, 101);
-            Rooms thisRoom = generationManager.roomsMap[generationManager.GetNowSpawnedRoomsCount()];
-            return generationManager.roomsLists.GetRandomRoomInChance(thisRoom, chance, false);
+            Rooms thisRoom = generationManager.GetRoomsMap()[generationManager.GetNowSpawnedRoomsCount()];
+            return generationManager.GetRoomsLists.GetRandomRoomInChance(thisRoom, chance, false);
         }
         private void SetSpawnPointPosition(Room room)
         {
@@ -166,8 +161,8 @@ namespace Generation
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!_isSpawned && collision.CompareTag("Room") || collision.CompareTag("Spawner")) Close(true);
-            if (_isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().isSpawned) DestroyRoom();
+            if (!isSpawned && collision.CompareTag("Room") || collision.CompareTag("Spawner")) Close(true);
+            if (isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().GetIsSpawned()) DestroyRoom();
         }
     }
 }

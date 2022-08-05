@@ -24,6 +24,7 @@ namespace Generation
         MustSpawn,
         Exit
     }
+    
     public class RoomsLists : MonoBehaviour
     {
         [SerializeField] private List<RoomObject> simpleRooms = new List<RoomObject>();
