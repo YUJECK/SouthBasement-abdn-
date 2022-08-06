@@ -133,7 +133,6 @@ namespace EnemysAI
         {
             if(target != null)
             {
-                Debug.Log("Move: find new path");
                 if (path.Count != 0) ResetTarget();
                 if(this.moveTarget != target) this.moveTarget = target;
 

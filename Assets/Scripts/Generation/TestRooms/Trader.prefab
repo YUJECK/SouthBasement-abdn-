@@ -380,10 +380,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3378930890cab6f45ae69e58a92b8bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passagesCountMin: 2
+  passagesCountMin: 3
   passagesCountMax: 3
   randomizePassagesOnAwake: 0
-  _isStartRoom: 0
+  isStartRoom: 0
+  pointsForSomething:
+  - {fileID: 5478690098522855868}
   upPassage: {fileID: 508111507368763521}
   instantiatePositionUp: {x: 0, y: -21}
   downPassage: {fileID: 2246982874595794137}
@@ -392,8 +394,7 @@ MonoBehaviour:
   instantiatePositionLeft: {x: 21, y: 0}
   rightPassage: {fileID: 3909018058388275452}
   instantiatePositionRight: {x: -21, y: 0}
-  pointsForSomething:
-  - {fileID: 5478690098522855868}
+  startingSpawnPoint: {fileID: 0}
 --- !u!61 &6959420668723757464
 BoxCollider2D:
   m_ObjectHideFlags: 0

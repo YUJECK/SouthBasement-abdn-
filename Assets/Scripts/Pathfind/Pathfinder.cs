@@ -173,12 +173,12 @@ public class Pathfinder : MonoBehaviour
     {
         if (gridChanges.Count != 0) ResetGridChanges();
 
-        for (int i = 0; i < point.path.Count / 2; i++)
+        for (int i = 0; i < point.path.Count / 2 - 3; i++)
         {
             point.path.RemoveAt(point.path.Count - 1);
         }
 
-        for (int i = 0; i < point.path.Count - 1; i++)//Чтобы враги не сталкивались
+        for (int i = 0; i < point.path.Count - 1; i++) //Чтобы враги не сталкивались
         {
             grid.grid[(int)(point.path[i].x / grid.nodeSize), (int)(point.path[i].y / grid.nodeSize)] = 1;
             gridChanges.Add(new Vector2Int((int)(point.path[i].x / grid.nodeSize), (int)(point.path[i].y / grid.nodeSize)));

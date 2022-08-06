@@ -26,13 +26,13 @@ namespace Generation
         private RoomsLists roomsLists;
 
         //Геттеры, сеттеры
-        public Rooms[] GetRoomsMap() => roomsMap;
-        public RoomsLists GetRoomsLists => roomsLists;  
-        public bool GetIsSpawned() => isRoomsSpawned; 
-        public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; afterSpawned.Invoke(); } }
-        public int GetAllRoomsCount() => roomsCount + npcRoomsCount + boxesOnLevel; 
-        public int GetNowSpawnedRoomsCount() => nowSpawnedRoomsCount; 
-        public List<Room> GetNowSpawnedRooms() => rooms; 
+        public Rooms[] RoomsMap => roomsMap;
+        public RoomsLists RoomsLists => roomsLists;  
+        public bool IsSpawned => isRoomsSpawned; 
+        public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; afterSpawned.Invoke(); Debug.Log("[Info]: Rooms have been spawned"); } }
+        public int AllRoomsCount => roomsCount + npcRoomsCount + boxesOnLevel + 1; 
+        public int NowSpawnedRoomsCount => nowSpawnedRoomsCount; 
+        public List<Room> NowSpawnedRooms => rooms; 
         public void IncreaseSpawnedRoomsCount() => nowSpawnedRoomsCount++; 
         public void ReduceSpawnedRoomsCount() => nowSpawnedRoomsCount--; 
         public void AddRoom(Room newRoom) => rooms.Add(newRoom); 
@@ -40,10 +40,10 @@ namespace Generation
         //Другое
         private void GenerateRoomsMap()
         {
-            roomsMap = new Rooms[roomsCount + npcRoomsCount + boxesOnLevel];
+            roomsMap = new Rooms[roomsCount + npcRoomsCount + boxesOnLevel + 1];
 
             //Просто комнаты с НПС
-            if (GetRoomsLists.GetRoomsList(Rooms.NPC).Count != 0) for (int i = 0; i < npcRoomsCount; i++)
+            if (RoomsLists.GetRoomsList(Rooms.NPC).Count != 0) for (int i = 0; i < npcRoomsCount; i++)
                 {
                     int tmp = Random.Range(0, roomsMap.Length - 1);
 
@@ -54,8 +54,22 @@ namespace Generation
                         Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
                     }
                 }
+            //Торговец
+            if (isTraderWillSpawn && RoomsLists.GetRoomsList(Rooms.Trader).Count != 0) for (int i = 0; i < 1; i++)
+            {
+                int traderRoomIndex = Random.Range(0, roomsMap.Length - 1);
+                if (roomsMap[traderRoomIndex] == Rooms.Default) roomsMap[traderRoomIndex] = Rooms.Trader;
+                else i--;
+            }
+            //Коробка
+            if (RoomsLists.GetRoomsList(Rooms.Box).Count != 0) for (int i = 0; i < boxesOnLevel; i++)
+            {
+                int boxRoomIndex = Random.Range(0, roomsMap.Length - 1);
+                if (roomsMap[boxRoomIndex] == Rooms.Default) roomsMap[boxRoomIndex] = Rooms.Box;
+                else i--;
+            }
             //Обязательные комнаты 
-            for (int i = 0; i < GetRoomsLists.GetRoomsList(Rooms.MustSpawn).Count; i++)
+            for (int i = 0; i < RoomsLists.GetRoomsList(Rooms.MustSpawn).Count; i++)
             {
                 int tmp = Random.Range(0, roomsMap.Length - 1);
 
@@ -66,22 +80,6 @@ namespace Generation
                     Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
                 }
             }
-            //Торговец
-            if (isTraderWillSpawn && GetRoomsLists.GetRoomsList(Rooms.Trader).Count != 0) for (int i = 0; i < 1; i++)
-                {
-                    int traderRoomIndex = Random.Range(0, roomsMap.Length - 1);
-                    if (roomsMap[traderRoomIndex] == Rooms.Default) roomsMap[traderRoomIndex] = Rooms.Trader;
-                    else i--;
-                }
-            //Коробка
-            if (GetRoomsLists.GetRoomsList(Rooms.Box).Count != 0) for (int i = 0; i < boxesOnLevel; i++)
-                {
-                    int boxRoomIndex = Random.Range(0, roomsMap.Length - 1);
-                    if (roomsMap[boxRoomIndex] == Rooms.Default) roomsMap[boxRoomIndex] = Rooms.Box;
-                    else i--;
-                }
-            //Сделать комнаты которые обязательно должны заспавнится
-
             //Выход
             roomsMap[roomsMap.Length - 1] = Rooms.Exit;
         }

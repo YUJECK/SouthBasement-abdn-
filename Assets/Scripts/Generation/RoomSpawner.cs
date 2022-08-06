@@ -4,7 +4,7 @@ namespace Generation
 {
     public class RoomSpawner : MonoBehaviour
     {
-        public Room.Directories openingDirection;
+        public Room.Directions openingDirection;
         public Vector2 ownInstantiateDifference = new Vector2(0f, 0f); //Оклонение относительно центра
         [SerializeField] private bool isStartSpawnPoint = false;
         [SerializeField] private GameObject passage; //Проход
@@ -18,10 +18,10 @@ namespace Generation
         //Ссылки на другие скрипты
         private GenerationManager generationManager;
 
-        //Публичные методы
-        public RoomSpawnerState GetState() => state; 
-        public GameObject GetSpawnedRoom() => room; 
-        public bool GetIsSpawned() => isSpawned; 
+        //Геттеры, сеттеры
+        public RoomSpawnerState State => state; 
+        public GameObject SpawnedRoom => room; 
+        public bool IsSpawned => isSpawned; 
         public void Close(bool isStatic)
         {
             if(!isSpawned && state != RoomSpawnerState.StaticOpen)
@@ -64,9 +64,11 @@ namespace Generation
                 wall.SetActive(false);
             }
         }
+
+        //Методы спавна
         public void SpawnRoom()
         {
-            if (!generationManager.GetIsSpawned())
+            if (!generationManager.IsSpawned)
             {
                 //Если комната не закрыта и еще не заспавнена 
                 if (state == RoomSpawnerState.Open && !isSpawned)
@@ -77,14 +79,14 @@ namespace Generation
 
                     room = Instantiate(randomRoom, transform.position, Quaternion.identity, generationManager.transform);
                     Room newRoom = room.GetComponent<Room>();
-                    newRoom.spawnPoint = this;
+                    newRoom.startingSpawnPoint = this;
 
                     //Настраиваем комнату
                     MakeThePassageFriendly(newRoom);
                     newRoom.RandomizePassages();
                     Open(true);
                     generationManager.IncreaseSpawnedRoomsCount();
-                    if (generationManager.GetNowSpawnedRoomsCount() >= generationManager.GetAllRoomsCount()) generationManager.SetIsSpawned();
+                    if (generationManager.NowSpawnedRoomsCount >= generationManager.AllRoomsCount) generationManager.SetIsSpawned();
 
                     generationManager.AddRoom(newRoom);
                     isSpawned = true;
@@ -102,55 +104,55 @@ namespace Generation
         {
             if (room != null)
             {
-                Debug.Log("[Info]: Room has been destroyd");
-                generationManager.GetNowSpawnedRooms().Remove(room.GetComponent<Room>());
+                Debug.Log("[Info]: Room has been destroyed");
+                generationManager.NowSpawnedRooms.Remove(room.GetComponent<Room>());
                 ForcedClose();
                 generationManager.ReduceSpawnedRoomsCount();
                 Destroy(room);
             }
         }
-
-        //Приватные методы для спавна
         private GameObject GetRoom()
         {
             int chance = Random.Range(0, 101);
-            Rooms thisRoom = generationManager.GetRoomsMap()[generationManager.GetNowSpawnedRoomsCount()];
-            return generationManager.GetRoomsLists.GetRandomRoomInChance(thisRoom, chance, false);
+            Rooms thisRoom = generationManager.RoomsMap[generationManager.NowSpawnedRoomsCount];
+            return generationManager.RoomsLists.GetRandomRoomInChance(thisRoom, chance, false);
         }
-        private void SetSpawnPointPosition(Room room)
-        {
-            //Определение позиции спавна
-            if (openingDirection == Room.Directories.Up)
-                transform.localPosition = room.GetInstantiatePosition(Room.Directories.Down) + ownInstantiateDifference;
-            if (openingDirection == Room.Directories.Down)
-                transform.localPosition = room.GetInstantiatePosition(Room.Directories.Up) + ownInstantiateDifference;
-            if (openingDirection == Room.Directories.Left)
-                transform.localPosition = room.GetInstantiatePosition(Room.Directories.Right) + ownInstantiateDifference;
-            if (openingDirection == Room.Directories.Right)
-                transform.localPosition = room.GetInstantiatePosition(Room.Directories.Left) + ownInstantiateDifference;
-        }
+        private void SetSpawnPointPosition(Room room) => transform.localPosition = room.GetInstantiatePosition(GetOppositeDirection(openingDirection)) + ownInstantiateDifference;
         private void MakeThePassageFriendly(Room room)
         {
             //Ставим соединяющий проход статичным, чтобы его нельзя было закрыть
             switch (openingDirection)
             {
-                case Room.Directories.Up:
-                    room.passagesMustSpawned.Add(Room.Directories.Down);
-                    room.GetPassage(Room.Directories.Down).Open(true);
+                case Room.Directions.Up:
+                    room.GetPassage(Room.Directions.Down).Open(true);
                     break;
-                case Room.Directories.Down:
-                    room.passagesMustSpawned.Add(Room.Directories.Up);
-                    room.GetPassage(Room.Directories.Up).Open(true);
+                case Room.Directions.Down:
+                    room.GetPassage(Room.Directions.Up).Open(true);
                     break;
-                case Room.Directories.Left:
-                    room.passagesMustSpawned.Add(Room.Directories.Right);
-                    room.GetPassage(Room.Directories.Right).Open(true);
+                case Room.Directions.Left:
+                    room.GetPassage(Room.Directions.Right).Open(true);
                     break;
-                case Room.Directories.Right:
-                    room.passagesMustSpawned.Add(Room.Directories.Left);
-                    room.GetPassage(Room.Directories.Left).Open(true);
+                case Room.Directions.Right:
+                    room.GetPassage(Room.Directions.Left).Open(true);
                     break;
             }
+        }
+
+        //Другое
+        public Room.Directions GetOppositeDirection(Room.Directions direction)
+        {
+            switch (direction)
+            {
+                case Room.Directions.Up:
+                    return Room.Directions.Down;
+                case Room.Directions.Down:
+                    return Room.Directions.Up;
+                case Room.Directions.Left:
+                    return Room.Directions.Right;
+                case Room.Directions.Right:
+                    return Room.Directions.Left;
+            }
+            return Room.Directions.Up;
         }
 
         //Юнитивские методы
@@ -162,7 +164,7 @@ namespace Generation
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (!isSpawned && collision.CompareTag("Room") || collision.CompareTag("Spawner")) Close(true);
-            if (isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().GetIsSpawned()) DestroyRoom();
+            if (isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) DestroyRoom();
         }
     }
 }
