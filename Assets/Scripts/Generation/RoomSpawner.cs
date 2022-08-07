@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Generation
 {
@@ -15,6 +16,12 @@ namespace Generation
         private GameObject room;
         private bool isSpawned = false;
 
+        //Ивенты
+        [Header("События")]
+        public UnityEvent onSpawn = new UnityEvent();
+        public UnityEvent onClose = new UnityEvent();
+        public UnityEvent onOpen = new UnityEvent();
+
         //Ссылки на другие скрипты
         private GenerationManager generationManager;
 
@@ -22,7 +29,7 @@ namespace Generation
         public RoomSpawnerState State => state; 
         public GameObject SpawnedRoom => room; 
         public bool IsSpawned => isSpawned; 
-        public void Close(bool isStatic)
+        public bool Close(bool isStatic)
         {
             if(!isSpawned && state != RoomSpawnerState.StaticOpen)
             {
@@ -32,15 +39,18 @@ namespace Generation
                     passage.SetActive(false);
                     wall.SetActive(true);
                     if (!isStartSpawnPoint) Destroy(gameObject);
-                    return;
+                    return true;
                 }
                 if (state == RoomSpawnerState.Open)
                 {
                     state = RoomSpawnerState.Close;
                     passage.SetActive(false);
                     wall.SetActive(true);
+                    return true;
                 }
+                return false;
             }
+            return false;
         }
         public void ForcedClose()
         {
@@ -48,21 +58,23 @@ namespace Generation
             passage.SetActive(false);
             wall.SetActive(true);
         }
-        public void Open(bool isStatic)
+        public bool Open(bool isStatic)
         {
             if(isStatic && state != RoomSpawnerState.StaticClose)
             {
                 state = RoomSpawnerState.StaticOpen;
                 passage.SetActive(true);
                 wall.SetActive(false);
-                return;
+                return true;
             }
             if (state == RoomSpawnerState.Close)
             {
                 state = RoomSpawnerState.Open;
                 passage.SetActive(true);
                 wall.SetActive(false);
+                return true;
             }
+            return false;
         }
 
         //Методы спавна
@@ -79,7 +91,7 @@ namespace Generation
 
                     room = Instantiate(randomRoom, transform.position, Quaternion.identity, generationManager.transform);
                     Room newRoom = room.GetComponent<Room>();
-                    newRoom.startingSpawnPoint = this;
+                    newRoom.SetStartingSpawnPoint(this);
 
                     //Настраиваем комнату
                     MakeThePassageFriendly(newRoom);
@@ -163,8 +175,8 @@ namespace Generation
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!isSpawned && collision.CompareTag("Room") || collision.CompareTag("Spawner")) Close(true);
-            if (isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) DestroyRoom();
+            if (!isSpawned && collision.CompareTag("Room")) Close(true);
+            else if (isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) DestroyRoom();
         }
     }
 }

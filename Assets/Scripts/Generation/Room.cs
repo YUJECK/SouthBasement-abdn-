@@ -29,9 +29,16 @@ namespace Generation
         [SerializeField] private RoomSpawner rightPassage;
         [SerializeField] private Vector2 instantiatePositionRight = new Vector2(18f, 0f);
 
-        [HideInInspector] public RoomSpawner startingSpawnPoint;
+        private RoomSpawner startingSpawnPoint;
+        private GenerationManager generationManager;
 
         //Геттеры
+        public void SetStartingSpawnPoint(RoomSpawner point) 
+        {
+            startingSpawnPoint = point;
+            startingSpawnPoint.onClose.AddListener(startingSpawnPoint.DestroyRoom);
+        }
+        public RoomSpawner StartingSpawnPoint => startingSpawnPoint;
         public bool IsStartRoom => isStartRoom;
         public Vector2 GetInstantiatePosition(Directions direction)
         {
@@ -65,6 +72,7 @@ namespace Generation
         }
         public void RandomizePassages() //Рандомизация проходов
         {
+            Debug.Log("Randomizing passages");
             //Проверка кол-ва проходов
             if (passagesCountMin <= 0) passagesCountMin = 1;
             if (passagesCountMax > 4) passagesCountMax = 4;
@@ -76,23 +84,23 @@ namespace Generation
                 int index = Random.Range(0, 4);
                 if (index == 0 && upPassage.State == RoomSpawnerState.Open)
                 { 
-                    upPassage.Close(true);
-                    continue;
+                    bool isClosed = upPassage.Close(true);
+                    if(isClosed) continue;
                 } 
                 if (index == 1 && downPassage.State == RoomSpawnerState.Open)
                 {
-                    downPassage.Close(true); 
-                    continue;
+                    bool isClosed = downPassage.Close(true);
+                    if (isClosed) continue;
                 }
                 if (index == 2 && leftPassage.State == RoomSpawnerState.Open)
                 {
-                    leftPassage.Close(true);
-                    continue;
+                    bool isClosed = leftPassage.Close(true);
+                    if (isClosed) continue;
                 }
                 if (index == 3 && rightPassage.State == RoomSpawnerState.Open)
                 {
-                    rightPassage.Close(true);
-                    continue;
+                    bool isClosed = rightPassage.Close(true);
+                    if (isClosed) continue;
                 }
                 i--;
             }
@@ -104,17 +112,18 @@ namespace Generation
             pointsForSomething.RemoveAt(randomPlace);
         }
 
-        private void Awake() { if (randomizePassagesOnAwake) RandomizePassages(); }
+        private void Awake() { generationManager = FindObjectOfType<GenerationManager>(); if (randomizePassagesOnAwake) RandomizePassages(); }
         private void OnDestroy()
         {
+            generationManager.ReduceSpawnedRoomsCount();
             if (upPassage != null && upPassage.SpawnedRoom != null)
-                upPassage.SpawnedRoom.GetComponent<Room>().downPassage.ForcedClose();
+                Destroy(upPassage.SpawnedRoom);
             if (downPassage != null && downPassage.SpawnedRoom != null)
-                downPassage.SpawnedRoom.GetComponent<Room>().upPassage.ForcedClose();
+                Destroy(downPassage.SpawnedRoom);
             if (leftPassage != null && leftPassage.SpawnedRoom != null)
-                leftPassage.SpawnedRoom.GetComponent<Room>().rightPassage.ForcedClose();
+                Destroy(leftPassage.SpawnedRoom);
             if (rightPassage != null && rightPassage.SpawnedRoom != null)
-                rightPassage.SpawnedRoom.GetComponent<Room>().leftPassage.ForcedClose();
+                Destroy(rightPassage.SpawnedRoom);
             startingSpawnPoint.ForcedClose();
         }
     }

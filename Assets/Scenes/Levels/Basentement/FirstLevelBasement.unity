@@ -2034,7 +2034,6 @@ GameObject:
   - component: {fileID: 413493282}
   - component: {fileID: 413493281}
   - component: {fileID: 413493279}
-  - component: {fileID: 413493280}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2099,20 +2098,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyingOnMenus: 1
   menusIdexes: 
---- !u!114 &413493280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 413493277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 314f22ce7fc872349aa7904176b35250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  standartValaue: 6
-  target: {fileID: 0}
 --- !u!114 &413493281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2849,7 +2834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9448f0cbe41faa4a8d65fcfde51f606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomsCount: 24
+  roomsCount: 12
   npcRoomsCount: 1
   boxesOnLevel: 2
   isTraderWillSpawn: 1
@@ -3665,7 +3650,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6190,7 +6175,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6631,7 +6616,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.5, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7089,7 +7074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1852085043
 RectTransform:
   m_ObjectHideFlags: 0

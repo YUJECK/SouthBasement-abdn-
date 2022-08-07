@@ -9,7 +9,13 @@ public static class Utility
         Much,
         Less
     }
+    public static void InvokeMethod(UnityAction method, float delay) => GameManager.instance.StartCoroutine(_InvokeMethod(method, delay));
     public static void InvokeMethod<T>(UnityAction<T> method, T argument, float delay) => GameManager.instance.StartCoroutine(_InvokeMethod(method, argument, delay));
+    private static IEnumerator _InvokeMethod(UnityAction method, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        method.Invoke();
+    }
     private static IEnumerator _InvokeMethod<T>(UnityAction<T> method, T argument, float delay)
     {
         yield return new WaitForSeconds(delay);
