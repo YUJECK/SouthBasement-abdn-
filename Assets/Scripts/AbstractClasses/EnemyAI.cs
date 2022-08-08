@@ -17,6 +17,7 @@ namespace EnemysAI
 
         //—сылки на другие классы
         [Header("ƒругое")]
+        [SerializeField] private bool wakeUpOnSettingTarget = false;
         [SerializeField] protected UnityEvent onSleep = new UnityEvent();
         [SerializeField] protected UnityEvent onWakeUp = new UnityEvent();
 
@@ -53,8 +54,7 @@ namespace EnemysAI
                 else if (target == null || target.targetMoveType != newTarget.targetMoveType) StartCoroutine(ChangeSpeed(newTarget.targetMoveType));
                 
                 target = newTarget;
-                
-                WakeUp();
+                if (wakeUpOnSettingTarget) WakeUp();
             }
         }
 
@@ -72,7 +72,8 @@ namespace EnemysAI
         //“ипо сеттеры и геттеры
         public abstract void GoSleep();
         public abstract void WakeUp();
+        public bool IsSleep => isSleep;
         public void SetStop(bool active) { isStopped = active; }
-        public bool GetStop() { return isStopped; }
+        public bool GetStop => isStopped; 
     }
 }

@@ -21,7 +21,7 @@ public class Box : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
        
-        chance = Random.Range(0, 101);
+        chance = PlayerStats.GenerateChance();
         Invoke("GetAllItemInChance", 3f);
     }
 
@@ -56,22 +56,22 @@ public class Box : MonoBehaviour
         if (itemsClassesToTrade.Contains(ItemClass.Food))
         {
             for (int i = 0; i < gameManager.Food.Count; i++)
-                if(gameManager.Food[i].GetComponent<ItemInfo>().chanceOfDrop >= chance - PlayerStats.luck) ItemsInChance.Add(gameManager.Food[i]);
+                if(gameManager.Food[i].GetComponent<ItemInfo>().chanceOfDrop >= chance) ItemsInChance.Add(gameManager.Food[i]);
         }
         if (itemsClassesToTrade.Contains(ItemClass.MelleRangeWeapon))
         {
             for (int i = 0; i < gameManager.MelleRange.Count; i++)
-                if (gameManager.MelleRange[i].GetComponent<ItemInfo>().chanceOfDrop >= chance - PlayerStats.luck) ItemsInChance.Add(gameManager.MelleRange[i]);
+                if (gameManager.MelleRange[i].GetComponent<ItemInfo>().chanceOfDrop >= chance) ItemsInChance.Add(gameManager.MelleRange[i]);
         }
         if (itemsClassesToTrade.Contains(ItemClass.ActiveItem))
         {
             for (int i = 0; i < gameManager.ActiveItems.Count; i++)
-                if (gameManager.ActiveItems[i].GetComponent<ItemInfo>().chanceOfDrop >= chance - PlayerStats.luck) ItemsInChance.Add(gameManager.ActiveItems[i]);
+                if (gameManager.ActiveItems[i].GetComponent<ItemInfo>().chanceOfDrop >= chance) ItemsInChance.Add(gameManager.ActiveItems[i]);
         }
         if (itemsClassesToTrade.Contains(ItemClass.PassiveItem))
         {
             for (int i = 0; i < gameManager.PassiveItems.Count; i++)
-                if (gameManager.PassiveItems[i].GetComponent<ItemInfo>().chanceOfDrop >= chance - PlayerStats.luck) ItemsInChance.Add(gameManager.PassiveItems[i]);
+                if (gameManager.PassiveItems[i].GetComponent<ItemInfo>().chanceOfDrop >= chance) ItemsInChance.Add(gameManager.PassiveItems[i]);
         }
     }
 

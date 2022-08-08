@@ -125,7 +125,7 @@ namespace Generation
         }
         private GameObject GetRoom()
         {
-            int chance = Random.Range(0, 101);
+            int chance = PlayerStats.GenerateChance();
             Rooms thisRoom = generationManager.RoomsMap[generationManager.NowSpawnedRoomsCount];
             return generationManager.RoomsLists.GetRandomRoomInChance(thisRoom, chance, false);
         }

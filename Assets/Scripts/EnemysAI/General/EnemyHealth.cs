@@ -27,8 +27,7 @@ public class EnemyHealth : Health
         List<Drop> itemsInChance = new List<Drop>();
         if (itemsDrop.Count > 0)
         {
-            int chance = Random.Range(0, 101);
-            chance -= PlayerStats.luck;
+            int chance = PlayerStats.GenerateChance();
 
             foreach (Drop item in itemsDrop)
             {

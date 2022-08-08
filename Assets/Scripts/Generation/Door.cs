@@ -10,7 +10,6 @@ public class Door : MonoBehaviour
     private int enemysCount = 0;
     public UnityEvent onClose = new UnityEvent();
     public UnityEvent onOpen = new UnityEvent();
-    public List<GameObject> targetSelections = new List<GameObject>();
 
     public void IncreaseEnemysCount() => enemysCount++;
     public void ReduceEnemysCount()
@@ -29,7 +28,7 @@ public class Door : MonoBehaviour
         {
             doors.SetActive(true); isClosed = true;
             for (int i = 0; i < enemysCount; i++)
-                targetSelections[targetSelections.Count - 1].SetActive(true);
+                transform.GetChild(i).GetComponent<EnemyAI>().WakeUp();
         }
     }
     public void OpenDoors() { doors.SetActive(false); isClosed = false; }
@@ -38,10 +37,6 @@ public class Door : MonoBehaviour
     {
         enemysCount = transform.childCount;
         for (int i = 0; i < enemysCount; i++)
-        {
             transform.GetChild(i).GetComponent<EnemyHealth>().onDie.AddListener(ReduceEnemysCount);
-            targetSelections.Add(transform.GetChild(i).GetComponentInChildren<TargetSelection>().gameObject);
-            Utility.InvokeMethod<bool>(targetSelections[targetSelections.Count - 1].SetActive, false, 0.1f);
-        }
     }
 }
