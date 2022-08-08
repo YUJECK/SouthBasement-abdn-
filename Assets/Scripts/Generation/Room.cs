@@ -19,6 +19,9 @@ namespace Generation
         [SerializeField] private bool randomizePassagesOnAwake = false;
         [SerializeField] private bool isStartRoom = false;
         [SerializeField] private List<Transform> pointsForSomething;
+        [SerializeField] private bool isEnemyRoom = false;
+        [Header("Настройки вражеской комнаты")]
+        [SerializeField] private Door doors;
         [Header("Проходы")]
         [SerializeField] private RoomSpawner upPassage;
         [SerializeField] private Vector2 instantiatePositionUp = new Vector2(0f, 18f);
@@ -113,6 +116,11 @@ namespace Generation
         }
 
         private void Awake() { generationManager = FindObjectOfType<GenerationManager>(); if (randomizePassagesOnAwake) RandomizePassages(); }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.CompareTag("Player") && !doors.IsClosed)
+                doors.CloseDoors();
+        }
         private void OnDestroy()
         {
             generationManager.ReduceSpawnedRoomsCount();

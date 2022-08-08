@@ -172,9 +172,7 @@ public class RatConsole : MonoBehaviour
             InfoText.gameObject.SetActive(!InfoText.gameObject.activeSelf);
             showInfo = !showInfo;
         }
-
-        if(!stopConsole)
-            /*if(showInfo)*/ DisplayText("", Color.white, Mode.Info);
+        if(!stopConsole && showInfo) DisplayText("", Color.white, Mode.Info);
 
 
         if(Input.GetKeyDown(KeyCode.KeypadEnter))
