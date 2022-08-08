@@ -72,7 +72,7 @@ namespace Generation
         }
         public void RandomizePassages() //Рандомизация проходов
         {
-            Debug.Log("Randomizing passages");
+
             //Проверка кол-ва проходов
             if (passagesCountMin <= 0) passagesCountMin = 1;
             if (passagesCountMax > 4) passagesCountMax = 4;

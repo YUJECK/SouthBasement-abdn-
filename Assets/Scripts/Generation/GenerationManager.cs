@@ -7,6 +7,7 @@ namespace Generation
     [RequireComponent(typeof(RoomsLists))]
     public class GenerationManager : MonoBehaviour
     {
+        [SerializeField] private string locationName = "Basement";
         [Header("Настройки комнат")]
         private List<Room> rooms = new List<Room>();
         [SerializeField] private int roomsCount = 10;
@@ -26,6 +27,7 @@ namespace Generation
         private RoomsLists roomsLists;
 
         //Геттеры, сеттеры
+        public string LocationName => locationName;
         public Rooms[] RoomsMap => roomsMap;
         public RoomsLists RoomsLists => roomsLists;  
         public bool IsSpawned => isRoomsSpawned; 
