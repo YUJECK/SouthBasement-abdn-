@@ -39,6 +39,12 @@ namespace EnemysAI
             onSetTarget.Invoke(newTarget);
             _target = newTarget;
         }
+
+        internal void SetActive(bool v)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private EnemyTarget FindNewTarget()
         {
             bool isSamePriority = true;

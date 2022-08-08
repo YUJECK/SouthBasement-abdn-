@@ -1,76 +1,20 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class LevelExit : MonoBehaviour
 {
-    private bool isOnTrigger;
-    public string[] LevelNames;
-    public bool isDrowf;
-    public Text DialogCloudtext;
-    
-    [TextArea(3,3)]
-    public string FirstBasementText;
-    
-    [TextArea(3,3)]
-    public string SecondBasementText;
-    
-    [TextArea(3,3)]
-    public string ThirdBasementText;
-    public Text levelCounterText;
-    public int LevelCounterInt = 1;
-    private int _levelCounter = 0;
+    [SerializeField] private string nextLevelName;
+    public UnityEvent beforeEnterNextScene = new UnityEvent();
 
-    void Awake()
+    private void EnterToTheNextLevel()
     {
-        LevelCounterInt = FindObjectOfType<GameManager>().LevelCounter;
-        _levelCounter = FindObjectOfType<GameManager>().LevelCounter-1;
-
-        if(isDrowf)
-        {
-            if(LevelCounterInt == 1)
-                DialogCloudtext.text = FirstBasementText;
-            
-            if(LevelCounterInt == 2)
-                DialogCloudtext.text = SecondBasementText;
-            
-            if(LevelCounterInt == 3)
-                DialogCloudtext.text =  ThirdBasementText;
-        }
+        beforeEnterNextScene.Invoke();
+        SceneManager.LoadScene(nextLevelName);
     }
-    void Start()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        levelCounterText = GameObject.FindGameObjectWithTag("LevelCounter").GetComponent<Text>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D coll)
-    {
-        if(coll.tag == "Player")
-            isOnTrigger = true;
-    } 
-    private void OnTriggerExit2D(Collider2D coll)
-    {
-        if(coll.tag == "Player")
-            isOnTrigger = false;
-    } 
-
-    void Update()
-    {
-        if(isOnTrigger)
-        {
-            if(Input.GetKeyDown(KeyCode.E))
-                NextLevel();
-        }
-    }
-
-
-    private void NextLevel()
-    {
-        _levelCounter++;
-        SceneManager.LoadScene(LevelNames[_levelCounter]);
-        LevelCounterInt++;
-        FindObjectOfType<GameManager>().LevelCounter = LevelCounterInt;
-        levelCounterText.text = "1 - " + LevelCounterInt.ToString();
+        if (Input.GetKeyDown(KeyCode.E))
+            EnterToTheNextLevel();
     }
 }

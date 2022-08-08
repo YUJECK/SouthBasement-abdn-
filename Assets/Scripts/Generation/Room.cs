@@ -118,8 +118,8 @@ namespace Generation
         private void Awake() { generationManager = FindObjectOfType<GenerationManager>(); if (randomizePassagesOnAwake) RandomizePassages(); }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.CompareTag("Player") && !doors.IsClosed)
-                doors.CloseDoors();
+            if(isEnemyRoom && collision.CompareTag("Player") && !doors.IsClosed)
+                Utility.InvokeMethod(doors.CloseDoors, 0.5f);
         }
         private void OnDestroy()
         {
