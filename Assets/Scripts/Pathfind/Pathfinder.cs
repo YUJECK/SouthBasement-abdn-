@@ -59,7 +59,7 @@ public class Pathfinder : MonoBehaviour
     //Методы для поиска пути
     public List<Vector2> FindPath(Vector2 startPos, Vector2 endPos, bool cashing) // Поиск пути
     {
-        if (grid != null && grid.isGridCreated && Time.time >= nextTime)
+        if (grid != null && grid.IsGridCreated && Time.time >= nextTime)
         {
             if (cashing)
             {

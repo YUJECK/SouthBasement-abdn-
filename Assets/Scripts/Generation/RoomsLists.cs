@@ -22,6 +22,7 @@ namespace Generation
         Trader,
         Box,
         MustSpawn,
+        Passage,
         Exit
     }
     
@@ -32,6 +33,7 @@ namespace Generation
         [SerializeField] private List<RoomObject> traderRooms = new List<RoomObject>();
         [SerializeField] private List<RoomObject> boxRooms = new List<RoomObject>();
         [SerializeField] private List<RoomObject> mustSpawnRooms = new List<RoomObject>();
+        [SerializeField] private List<RoomObject> passages = new List<RoomObject>();
         [SerializeField] private List<RoomObject> exitRooms = new List<RoomObject>();
 
         //Геттеры
@@ -51,6 +53,8 @@ namespace Generation
                     return boxRooms;
                 case Rooms.MustSpawn:
                     return mustSpawnRooms;
+                case Rooms.Passage:
+                    return passages;
                 case Rooms.Exit:
                     return exitRooms;
             }
@@ -70,6 +74,8 @@ namespace Generation
                     return ref boxRooms;
                 case Rooms.MustSpawn:
                     return ref mustSpawnRooms;
+                case Rooms.Passage:
+                    return ref passages;
                 case Rooms.Exit:
                     return ref exitRooms;
             }

@@ -39,4 +39,5 @@ public class Door : MonoBehaviour
         for (int i = 0; i < enemysCount; i++)
             transform.GetChild(i).GetComponent<EnemyHealth>().onDie.AddListener(ReduceEnemysCount);
     }
+    private void OnTriggerEnter2D(Collider2D collision) { if (collision.CompareTag("Player")) CloseDoors(); }
 }

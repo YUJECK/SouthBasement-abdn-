@@ -11,6 +11,7 @@ namespace Generation
         [Header("Настройки комнат")]
         private List<Room> rooms = new List<Room>();
         [SerializeField] private int roomsCount = 10;
+        [SerializeField] private int passagesCount = 2;
         private int nowSpawnedRoomsCount = 0;
         
         [Header("Настройка НПС")]
@@ -21,8 +22,9 @@ namespace Generation
         [Header("События")]
         public UnityEvent afterSpawned = new UnityEvent();
         private bool isRoomsSpawned = false;
-        
+
         //Другое
+        public float roomSpawnOffset = 0.05f;
         private Rooms[] roomsMap;
         private RoomsLists roomsLists;
 
@@ -76,6 +78,18 @@ namespace Generation
                 int tmp = Random.Range(0, roomsMap.Length - 1);
 
                 if (roomsMap[tmp] == Rooms.Default) roomsMap[tmp] = Rooms.MustSpawn;
+                else
+                {
+                    i--;
+                    Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
+                }
+            }
+            //Комнаты коридоры
+            for (int i = 0; i < passagesCount; i++)
+            {
+                int tmp = Random.Range(0, roomsMap.Length - 1);
+
+                if (roomsMap[tmp] == Rooms.Default) roomsMap[tmp] = Rooms.Passage;
                 else
                 {
                     i--;

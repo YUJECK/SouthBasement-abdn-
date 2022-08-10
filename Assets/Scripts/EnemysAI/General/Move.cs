@@ -63,7 +63,7 @@ namespace EnemysAI
         }
         public void Moving()
         {
-            if (!isStopped && pathfinder.grid.isGridCreated)
+            if (!isStopped && pathfinder.grid.IsGridCreated)
             {
                 //Движение 
                 if (path.Count != 0)

@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: b44f523ab168b7245bd8a693f0a3b55f, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 34985ee31164caf42a0de00c3a6650f7, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -718,7 +718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 180220247}
   - component: {fileID: 180220246}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EarthFull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2894,6 +2894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locationName: Basement
   roomsCount: 12
+  passagesCount: 2
   npcRoomsCount: 1
   boxesOnLevel: 2
   isTraderWillSpawn: 1
@@ -2912,6 +2913,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  roomSpawnOffset: 0.1
 --- !u!4 &630008336
 Transform:
   m_ObjectHideFlags: 0
@@ -2961,6 +2963,9 @@ MonoBehaviour:
   - room: {fileID: 5387467937760179325, guid: eda6cdb876e88834f83f4dd65a21115a, type: 3}
     chance: 100
   - room: {fileID: 5387467937760179325, guid: 2703b5f22a0bd3541b2d11329455231a, type: 3}
+    chance: 100
+  passages:
+  - room: {fileID: 5387467937760179325, guid: 46ee5183e7574b24f9d4456a76a6bd7c, type: 3}
     chance: 100
   exitRooms:
   - room: {fileID: 5387467937760179325, guid: 7d4b61f1b4ea96c458ed416f2681df8f, type: 3}
@@ -8515,7 +8520,9 @@ MonoBehaviour:
   _isGridCreated: 0
   _collider: {fileID: 3130808374768147733, guid: 3bda5fff204c4324a824613f1066f5f4, type: 3}
   enemyPath: {fileID: 593271785916145084, guid: 44dbb34d537c8604da3884335f119b90, type: 3}
-  emptyArea: {fileID: 3130808374768147733, guid: 6a086c9fac8d94b48ba93c47205a8bcc, type: 3}
+  blackTagList:
+  - Enemy
+  - Player
   gridWidth: 500
   gridHeight: 500
   nodeSize: 1

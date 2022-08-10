@@ -8,12 +8,13 @@ namespace Generation
         public Room.Directions openingDirection;
         public Vector2 ownInstantiateDifference = new Vector2(0f, 0f); //Оклонение относительно центра
         [SerializeField] private bool isStartSpawnPoint = false;
+        [SerializeField] private Room ownRoom; //Проход
         [SerializeField] private GameObject passage; //Проход
         [SerializeField] private GameObject wall; //Закрывающая стенка
 
         //Другие приватные поля
         private RoomSpawnerState state;
-        private GameObject room;
+        private GameObject spawnedRoom;
         private bool isSpawned = false;
 
         //Ивенты
@@ -27,8 +28,10 @@ namespace Generation
 
         //Геттеры, сеттеры
         public RoomSpawnerState State => state; 
-        public GameObject SpawnedRoom => room; 
-        public bool IsSpawned => isSpawned; 
+        public GameObject SpawnedRoom => spawnedRoom; 
+        public Room OwnRoom => ownRoom; 
+        public bool IsSpawned => isSpawned;
+        public void SetOwnRoom(Room ownRoom) => this.ownRoom = ownRoom;
         public bool Close(bool isStatic)
         {
             if(!isSpawned && state != RoomSpawnerState.StaticOpen)
@@ -55,8 +58,8 @@ namespace Generation
         public void ForcedClose()
         {
             state = RoomSpawnerState.Close;
-            passage.SetActive(false);
-            wall.SetActive(true);
+            if(passage != null) passage.SetActive(false);
+            if (wall != null) wall.SetActive(true);
         }
         public bool Open(bool isStatic)
         {
@@ -78,7 +81,8 @@ namespace Generation
         }
 
         //Методы спавна
-        public void SpawnRoom()
+        public void StartSpawnningRoom(float offset) => Invoke("SpawnRoom", offset);
+        private void SpawnRoom()
         {
             if (!generationManager.IsSpawned)
             {
@@ -89,18 +93,19 @@ namespace Generation
                     GameObject randomRoom = GetRoom();
                     SetSpawnPointPosition(randomRoom.GetComponent<Room>());
 
-                    room = Instantiate(randomRoom, transform.position, Quaternion.identity, generationManager.transform);
-                    Room newRoom = room.GetComponent<Room>();
+                    spawnedRoom = Instantiate(randomRoom, transform.position, Quaternion.identity, generationManager.transform);
+                    Room newRoom = spawnedRoom.GetComponent<Room>();
                     newRoom.SetStartingSpawnPoint(this);
 
                     //Настраиваем комнату
                     MakeThePassageFriendly(newRoom);
-                    newRoom.RandomizePassages();
+                    //newRoom.RandomizePassages();
                     Open(true);
                     generationManager.IncreaseSpawnedRoomsCount();
                     if (generationManager.NowSpawnedRoomsCount >= generationManager.AllRoomsCount) generationManager.SetIsSpawned();
 
                     generationManager.AddRoom(newRoom);
+                    if(ownRoom != null) ownRoom.AddSpawnedRoom(newRoom);
                     isSpawned = true;
                 }
             }
@@ -114,13 +119,13 @@ namespace Generation
         }
         public void DestroyRoom()
         {
-            if (room != null)
+            if (spawnedRoom != null)
             {
                 Debug.Log("[Info]: Room has been destroyed");
-                generationManager.NowSpawnedRooms.Remove(room.GetComponent<Room>());
+                generationManager.NowSpawnedRooms.Remove(spawnedRoom.GetComponent<Room>());
                 ForcedClose();
                 generationManager.ReduceSpawnedRoomsCount();
-                Destroy(room);
+                Destroy(spawnedRoom);
             }
         }
         private GameObject GetRoom()
@@ -168,11 +173,7 @@ namespace Generation
         }
 
         //Юнитивские методы
-        private void Start()
-        {
-            generationManager = FindObjectOfType<GenerationManager>();
-            Invoke("SpawnRoom", Random.Range(0.05f, 0.3f));
-        }
+        private void Awake() => generationManager = FindObjectOfType<GenerationManager>();
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (!isSpawned && collision.CompareTag("Room")) Close(true);
