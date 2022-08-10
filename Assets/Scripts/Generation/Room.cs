@@ -153,6 +153,7 @@ namespace Generation
         }
         private void OnDestroy()
         {
+            if (generationManager == null) generationManager = FindObjectOfType<GenerationManager>();
             generationManager.ReduceSpawnedRoomsCount();
             if (upPassage != null && upPassage.SpawnedRoom != null)
                 Destroy(upPassage.SpawnedRoom);

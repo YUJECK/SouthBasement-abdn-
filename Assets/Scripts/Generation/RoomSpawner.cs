@@ -23,9 +23,6 @@ namespace Generation
         public UnityEvent onClose = new UnityEvent();
         public UnityEvent onOpen = new UnityEvent();
 
-        //Ссылки на другие скрипты
-        private GenerationManager generationManager;
-
         //Геттеры, сеттеры
         public RoomSpawnerState State => state; 
         public GameObject SpawnedRoom => spawnedRoom; 
@@ -84,7 +81,7 @@ namespace Generation
         public void StartSpawnningRoom(float offset) => Invoke("SpawnRoom", offset);
         private void SpawnRoom()
         {
-            if (!generationManager.IsSpawned)
+            if (!ManagerList.GenerationManager.IsSpawned)
             {
                 //Если комната не закрыта и еще не заспавнена 
                 if (state == RoomSpawnerState.Open && !isSpawned)
@@ -93,7 +90,7 @@ namespace Generation
                     GameObject randomRoom = GetRoom();
                     SetSpawnPointPosition(randomRoom.GetComponent<Room>());
 
-                    spawnedRoom = Instantiate(randomRoom, transform.position, Quaternion.identity, generationManager.transform);
+                    spawnedRoom = Instantiate(randomRoom, transform.position, Quaternion.identity, ManagerList.GenerationManager.transform);
                     Room newRoom = spawnedRoom.GetComponent<Room>();
                     newRoom.SetStartingSpawnPoint(this);
 
@@ -101,10 +98,10 @@ namespace Generation
                     MakeThePassageFriendly(newRoom);
                     //newRoom.RandomizePassages();
                     Open(true);
-                    generationManager.IncreaseSpawnedRoomsCount();
-                    if (generationManager.NowSpawnedRoomsCount >= generationManager.AllRoomsCount) generationManager.SetIsSpawned();
+                    ManagerList.GenerationManager.IncreaseSpawnedRoomsCount();
+                    if (ManagerList.GenerationManager.NowSpawnedRoomsCount >= ManagerList.GenerationManager.AllRoomsCount) ManagerList.GenerationManager.SetIsSpawned();
 
-                    generationManager.AddRoom(newRoom);
+                    ManagerList.GenerationManager.AddRoom(newRoom);
                     if(ownRoom != null) ownRoom.AddSpawnedRoom(newRoom);
                     isSpawned = true;
                 }
@@ -122,17 +119,17 @@ namespace Generation
             if (spawnedRoom != null)
             {
                 Debug.Log("[Info]: Room has been destroyed");
-                generationManager.NowSpawnedRooms.Remove(spawnedRoom.GetComponent<Room>());
+                ManagerList.GenerationManager.NowSpawnedRooms.Remove(spawnedRoom.GetComponent<Room>());
                 ForcedClose();
-                generationManager.ReduceSpawnedRoomsCount();
+                ManagerList.GenerationManager.ReduceSpawnedRoomsCount();
                 Destroy(spawnedRoom);
             }
         }
         private GameObject GetRoom()
         {
             int chance = PlayerStats.GenerateChance();
-            Rooms thisRoom = generationManager.RoomsMap[generationManager.NowSpawnedRoomsCount];
-            return generationManager.RoomsLists.GetRandomRoomInChance(thisRoom, chance, false);
+            Rooms thisRoom = ManagerList.GenerationManager.RoomsMap[ManagerList.GenerationManager.NowSpawnedRoomsCount];
+            return ManagerList.GenerationManager.RoomsLists.GetRandomRoomInChance(thisRoom, chance, false);
         }
         private void SetSpawnPointPosition(Room room) => transform.localPosition = room.GetInstantiatePosition(GetOppositeDirection(openingDirection)) + ownInstantiateDifference;
         private void MakeThePassageFriendly(Room room)
@@ -173,7 +170,6 @@ namespace Generation
         }
 
         //Юнитивские методы
-        private void Awake() => generationManager = FindObjectOfType<GenerationManager>();
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (!isSpawned && collision.CompareTag("Room")) Close(true);
