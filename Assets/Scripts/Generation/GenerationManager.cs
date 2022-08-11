@@ -12,7 +12,6 @@ namespace Generation
         private List<Room> rooms = new List<Room>();
         [SerializeField] private int roomsCount = 10;
         [SerializeField] private int passagesCount = 2;
-        private int nowSpawnedRoomsCount = 0;
         
         [Header("Настройка НПС")]
         [SerializeField] private int npcRoomsCount = 1;
@@ -35,16 +34,14 @@ namespace Generation
         public bool IsSpawned => isRoomsSpawned; 
         public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; afterSpawned.Invoke(); Debug.Log("[Info]: Rooms have been spawned"); } }
         public int AllRoomsCount => roomsCount + npcRoomsCount + boxesOnLevel + 1; 
-        public int NowSpawnedRoomsCount => nowSpawnedRoomsCount; 
-        public List<Room> NowSpawnedRooms => rooms; 
-        public void IncreaseSpawnedRoomsCount() => nowSpawnedRoomsCount++; 
-        public void ReduceSpawnedRoomsCount() => nowSpawnedRoomsCount--; 
-        public void AddRoom(Room newRoom) => rooms.Add(newRoom); 
+        public int NowSpawnedRoomsCount => rooms.Count; 
+        public void AddRoomToList(Room newRoom) => rooms.Add(newRoom); 
+        public void RemoveRoomFromList(Room removableRoom) => rooms.Remove(removableRoom); 
 
         //Другое
         private void GenerateRoomsMap()
         {
-            roomsMap = new Rooms[roomsCount + npcRoomsCount + boxesOnLevel + 1];
+            roomsMap = new Rooms[AllRoomsCount];
 
             //Просто комнаты с НПС
             if (RoomsLists.GetRoomsList(Rooms.NPC).Count != 0) for (int i = 0; i < npcRoomsCount; i++)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Generation
 {
@@ -79,6 +80,7 @@ namespace Generation
         }
 
         //Другое
+        private void CheckSpawnedRoomsCount(int roomsCount, UnityAction action) { if (spawnedRooms.Count == roomsCount) action.Invoke(); }
         public void SpawnSomething(GameObject something)
         {
             int randomPlace = Random.Range(0, pointsForSomething.Count);
@@ -147,24 +149,20 @@ namespace Generation
             {
                 rightPassage.SetOwnRoom(this);
                 rightPassage.StartSpawnningRoom(generationManager.roomSpawnOffset + 0.08f);
+                if (isPassageRoom) rightPassage.onSpawn.AddListener( () => { if (spawnedRooms.Count == 0) startingSpawnPoint.DestroyRoom(); });
             }
-
-            if (isPassageRoom && spawnedRooms.Count == 0) Destroy(gameObject); 
         }
         private void OnDestroy()
         {
-            if (generationManager == null) generationManager = FindObjectOfType<GenerationManager>();
-            generationManager.ReduceSpawnedRoomsCount();
             if (upPassage != null && upPassage.SpawnedRoom != null)
-                Destroy(upPassage.SpawnedRoom);
+                upPassage.DestroyRoom();
             if (downPassage != null && downPassage.SpawnedRoom != null)
-                Destroy(downPassage.SpawnedRoom);
+                downPassage.DestroyRoom();
             if (leftPassage != null && leftPassage.SpawnedRoom != null)
-                Destroy(leftPassage.SpawnedRoom);
+                leftPassage.DestroyRoom();
             if (rightPassage != null && rightPassage.SpawnedRoom != null)
-                Destroy(rightPassage.SpawnedRoom);
+                rightPassage.DestroyRoom();
             startingSpawnPoint.ForcedClose();
         }
-        private void OnTriggerEnter2D(Collider2D collision) { if (collision.CompareTag("Room")) startingSpawnPoint.DestroyRoom(); }
     }
 }

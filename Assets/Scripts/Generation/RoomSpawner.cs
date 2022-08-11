@@ -38,6 +38,7 @@ namespace Generation
                     state = RoomSpawnerState.StaticClose;
                     passage.SetActive(false);
                     wall.SetActive(true);
+                    onClose.Invoke();
                     if (!isStartSpawnPoint) Destroy(gameObject);
                     return true;
                 }
@@ -46,6 +47,7 @@ namespace Generation
                     state = RoomSpawnerState.Close;
                     passage.SetActive(false);
                     wall.SetActive(true);
+                    onClose.Invoke();
                     return true;
                 }
                 return false;
@@ -65,6 +67,7 @@ namespace Generation
                 state = RoomSpawnerState.StaticOpen;
                 passage.SetActive(true);
                 wall.SetActive(false);
+                onOpen.Invoke();
                 return true;
             }
             if (state == RoomSpawnerState.Close)
@@ -72,6 +75,7 @@ namespace Generation
                 state = RoomSpawnerState.Open;
                 passage.SetActive(true);
                 wall.SetActive(false);
+                onOpen.Invoke();
                 return true;
             }
             return false;
@@ -98,15 +102,15 @@ namespace Generation
                     MakeThePassageFriendly(newRoom);
                     //newRoom.RandomizePassages();
                     Open(true);
-                    ManagerList.GenerationManager.IncreaseSpawnedRoomsCount();
-                    if (ManagerList.GenerationManager.NowSpawnedRoomsCount >= ManagerList.GenerationManager.AllRoomsCount) ManagerList.GenerationManager.SetIsSpawned();
-
-                    ManagerList.GenerationManager.AddRoom(newRoom);
+                    ManagerList.GenerationManager.AddRoomToList(newRoom);
                     if(ownRoom != null) ownRoom.AddSpawnedRoom(newRoom);
                     isSpawned = true;
+
+                    if (ManagerList.GenerationManager.NowSpawnedRoomsCount >= ManagerList.GenerationManager.RoomsMap.Length) ManagerList.GenerationManager.SetIsSpawned();
                 }
             }
             else Close(true);
+            onSpawn.Invoke();
         }
         public void RegenerateRoom()
         {
@@ -119,9 +123,8 @@ namespace Generation
             if (spawnedRoom != null)
             {
                 Debug.Log("[Info]: Room has been destroyed");
-                ManagerList.GenerationManager.NowSpawnedRooms.Remove(spawnedRoom.GetComponent<Room>());
+                ManagerList.GenerationManager.RemoveRoomFromList(spawnedRoom.GetComponent<Room>());
                 ForcedClose();
-                ManagerList.GenerationManager.ReduceSpawnedRoomsCount();
                 Destroy(spawnedRoom);
             }
         }
@@ -174,6 +177,7 @@ namespace Generation
         {
             if (!isSpawned && collision.CompareTag("Room")) Close(true);
             else if (isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) DestroyRoom();
+            else if (!isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) Close(true);
         }
     }
 }
