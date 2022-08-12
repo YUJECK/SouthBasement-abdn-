@@ -20,7 +20,7 @@ namespace Generation
         private bool isRoomsSpawned = false;
 
         //Другое
-        private float roomsSpawnOffset = 0.05f; //Изначальный промежуток спавна комнат
+        [SerializeField] private float roomsSpawnOffset = 0.05f; //Изначальный промежуток спавна комнат
         private Rooms[] roomsMap; //Карта комнат
         private RoomsLists roomsLists; //Ссылка на листы со всемы комнатами
 
