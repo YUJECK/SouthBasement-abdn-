@@ -139,7 +139,6 @@ namespace Generation
                 downPassage.SetOwnRoom(this);
                 downPassage.StartSpawnningRoom(generationManager.roomSpawnOffset + 0.06f);
             }
-
             if (leftPassage != null)
             {
                 leftPassage.SetOwnRoom(this);
@@ -149,7 +148,7 @@ namespace Generation
             {
                 rightPassage.SetOwnRoom(this);
                 rightPassage.StartSpawnningRoom(generationManager.roomSpawnOffset + 0.08f);
-                if (isPassageRoom) rightPassage.onSpawn.AddListener( () => { if (spawnedRooms.Count == 0) startingSpawnPoint.DestroyRoom(); });
+                if (isPassageRoom) rightPassage.onSpawn.AddListener(() => { if (spawnedRooms.Count == 0) StartingSpawnPoint.DestroyRoom(); });
             }
         }
         private void OnDestroy()
@@ -162,7 +161,7 @@ namespace Generation
                 leftPassage.DestroyRoom();
             if (rightPassage != null && rightPassage.SpawnedRoom != null)
                 rightPassage.DestroyRoom();
-            startingSpawnPoint.ForcedClose();
+            if (StartingSpawnPoint != null) StartingSpawnPoint.ForcedClose();
         }
     }
 }

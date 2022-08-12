@@ -57,7 +57,7 @@ namespace Generation
         public void ForcedClose()
         {
             state = RoomSpawnerState.Close;
-            if(passage != null) passage.SetActive(false);
+            if (passage != null) passage.SetActive(false);
             if (wall != null) wall.SetActive(true);
         }
         public bool Open(bool isStatic)
@@ -178,6 +178,7 @@ namespace Generation
             if (!isSpawned && collision.CompareTag("Room")) Close(true);
             else if (isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) DestroyRoom();
             else if (!isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) Close(true);
+            else if (!isSpawned && collision.CompareTag("Spawner") && !collision.GetComponent<RoomSpawner>().IsSpawned) Close(true);
         }
     }
 }

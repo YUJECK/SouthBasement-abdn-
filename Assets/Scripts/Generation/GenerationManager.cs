@@ -84,7 +84,7 @@ namespace Generation
             //Комнаты коридоры
             for (int i = 0; i < passagesCount; i++)
             {
-                int tmp = Random.Range(0, roomsMap.Length - 1);
+                int tmp = Random.Range(0, roomsMap.Length - 5);
 
                 if (roomsMap[tmp] == Rooms.Default) roomsMap[tmp] = Rooms.Passage;
                 else
