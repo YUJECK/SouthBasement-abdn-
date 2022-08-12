@@ -7,39 +7,37 @@ namespace Generation
     [RequireComponent(typeof(RoomsLists))]
     public class GenerationManager : MonoBehaviour
     {
-        [SerializeField] private string locationName = "Basement";
+        [SerializeField] private string locationName = "Basement"; //Имя локации
         [Header("Настройки комнат")]
-        private List<Room> rooms = new List<Room>();
-        [SerializeField] private int roomsCount = 10;
-        [SerializeField] private int passagesCount = 2;
-        
-        [Header("Настройка НПС")]
-        [SerializeField] private int npcRoomsCount = 1;
-        [SerializeField] private int boxesOnLevel = 1;
-        [SerializeField] private bool isTraderWillSpawn = true;
-
+        private List<Room> rooms = new List<Room>(); //Лист вмех заспавненных комнат
+        [Range(1, 100)] [SerializeField] private int roomsCount = 10; //Кол-во обычных комнат
+        [Range(0, 100)] [SerializeField] private int passagesCount = 2; //Кол-во комнат-проходов
+        [Range(0, 100)] [SerializeField] private int npcRoomsCount = 1; //Кол-во комнат с НПС
+        [Range(0, 100)] [SerializeField] private int boxesOnLevel = 1; //Кол-во коробок на уровне
+        [SerializeField] private bool isTraderWillSpawn = true; //Будет ли спавнится торговец
         [Header("События")]
         public UnityEvent afterSpawned = new UnityEvent();
         private bool isRoomsSpawned = false;
 
         //Другое
-        public float roomSpawnOffset = 0.05f;
-        private Rooms[] roomsMap;
-        private RoomsLists roomsLists;
+        private float roomsSpawnOffset = 0.05f; //Изначальный промежуток спавна комнат
+        private Rooms[] roomsMap; //Карта комнат
+        private RoomsLists roomsLists; //Ссылка на листы со всемы комнатами
 
         //Геттеры, сеттеры
-        public string LocationName => locationName;
-        public Rooms[] RoomsMap => roomsMap;
-        public RoomsLists RoomsLists => roomsLists;  
-        public bool IsSpawned => isRoomsSpawned; 
+        public float RoomsSpawnOffset => roomsSpawnOffset; //Изначальный промежуток спавна комнат
+        public string LocationName => locationName; //Имя локации
+        public Rooms[] RoomsMap => roomsMap; //Карта комнат
+        public RoomsLists RoomsLists => roomsLists; //Ссылка на листы со всемы комнатами
+        public bool IsSpawned => isRoomsSpawned; //Закончен ли спавн всех комнат
         public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; afterSpawned.Invoke(); Debug.Log("[Info]: Rooms have been spawned"); } }
-        public int AllRoomsCount => roomsCount + npcRoomsCount + boxesOnLevel + 1; 
-        public int NowSpawnedRoomsCount => rooms.Count; 
-        public void AddRoomToList(Room newRoom) => rooms.Add(newRoom); 
-        public void RemoveRoomFromList(Room removableRoom) => rooms.Remove(removableRoom); 
+        public int AllRoomsCount => roomsCount + npcRoomsCount + boxesOnLevel + 1; //Получить общее кол-во комнат
+        public int NowSpawnedRoomsCount => rooms.Count; //Сколько комнат заспавнено сейчас
+        public void AddRoomToList(Room newRoom) => rooms.Add(newRoom); //Добавить комнату в список всех заспавненных комнат
+        public void RemoveRoomFromList(Room removableRoom) => rooms.Remove(removableRoom); //Убрать комнату из списка всех заспавненных комнат
 
         //Другое
-        private void GenerateRoomsMap()
+        private void GenerateRoomsMap() //Сгенерировать карту комнат
         {
             roomsMap = new Rooms[AllRoomsCount];
 
@@ -57,18 +55,18 @@ namespace Generation
                 }
             //Торговец
             if (isTraderWillSpawn && RoomsLists.GetRoomsList(Rooms.Trader).Count != 0) for (int i = 0; i < 1; i++)
-            {
-                int traderRoomIndex = Random.Range(0, roomsMap.Length - 1);
-                if (roomsMap[traderRoomIndex] == Rooms.Default) roomsMap[traderRoomIndex] = Rooms.Trader;
-                else i--;
-            }
+                {
+                    int traderRoomIndex = Random.Range(0, roomsMap.Length - 1);
+                    if (roomsMap[traderRoomIndex] == Rooms.Default) roomsMap[traderRoomIndex] = Rooms.Trader;
+                    else i--;
+                }
             //Коробка
             if (RoomsLists.GetRoomsList(Rooms.Box).Count != 0) for (int i = 0; i < boxesOnLevel; i++)
-            {
-                int boxRoomIndex = Random.Range(0, roomsMap.Length - 1);
-                if (roomsMap[boxRoomIndex] == Rooms.Default) roomsMap[boxRoomIndex] = Rooms.Box;
-                else i--;
-            }
+                {
+                    int boxRoomIndex = Random.Range(0, roomsMap.Length - 1);
+                    if (roomsMap[boxRoomIndex] == Rooms.Default) roomsMap[boxRoomIndex] = Rooms.Box;
+                    else i--;
+                }
             //Обязательные комнаты 
             for (int i = 0; i < RoomsLists.GetRoomsList(Rooms.MustSpawn).Count; i++)
             {
@@ -96,7 +94,22 @@ namespace Generation
             //Выход
             roomsMap[roomsMap.Length - 1] = Rooms.Exit;
         }
-        
+        public Room.Directions GetOppositeDirection(Room.Directions direction)//Получить противоположное направравление
+        {
+            switch (direction)
+            {
+                case Room.Directions.Up:
+                    return Room.Directions.Down;
+                case Room.Directions.Down:
+                    return Room.Directions.Up;
+                case Room.Directions.Left:
+                    return Room.Directions.Right;
+                case Room.Directions.Right:
+                    return Room.Directions.Left;
+            }
+            return Room.Directions.Up;
+        }
+
         //Юнитивские методы
         private void Awake()
         {

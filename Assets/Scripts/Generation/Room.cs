@@ -6,7 +6,7 @@ namespace Generation
 {
     public class Room : MonoBehaviour
     {
-        public enum Directions
+        public enum Directions //Список направлений
         {
             Up,
             Down,
@@ -15,40 +15,39 @@ namespace Generation
         }
 
         [Header("Настройки")]
-        [SerializeField] private int passagesCountMin = 2;
+        [SerializeField] private int passagesCountMin = 2; //Минимальное, максимальное кол-во проходов при их рандоме
         [SerializeField] public int passagesCountMax = 3;
-        [SerializeField] private bool randomizePassagesOnAwake = false;
-        [SerializeField] private bool isStartRoom = false;
-        [SerializeField] private bool isPassageRoom = false;
-        [SerializeField] private List<Transform> pointsForSomething;
-        [Header("Проходы")]
-        [SerializeField] private RoomSpawner upPassage;
-        [SerializeField] private RoomSpawner downPassage;
-        [SerializeField] private RoomSpawner leftPassage;
-        [SerializeField] private RoomSpawner rightPassage;
-        [Header("Настройки спавна")]
+        [SerializeField] private bool randomizePassagesOnAwake = false; //Будут ли рандомится проходы при вызове Awake()
+        [SerializeField] private bool isStartRoom = false; //Начальная ли комната
+        [SerializeField] private bool isPassageRoom = false; //Если это комната-коридор
+        [SerializeField] private List<Transform> pointsForSomething; //Точки для спавна различных вещей
+        [Header("Проходы")] //Проходы
+        [SerializeField] private RoomSpawner upPassage; //Верхний проход
+        [SerializeField] private RoomSpawner downPassage; //Нижний проход
+        [SerializeField] private RoomSpawner leftPassage; //Левый проход
+        [SerializeField] private RoomSpawner rightPassage; //Правый проход
+        [Header("Настройки спавна")] //Позиции для точки спавна
         [SerializeField] private Vector2 instantiatePositionUp = new Vector2(0f, 18f);
         [SerializeField] private Vector2 instantiatePositionDown = new Vector2(0f, -18f);
         [SerializeField] private Vector2 instantiatePositionLeft = new Vector2(-18f, 0f);
         [SerializeField] private Vector2 instantiatePositionRight = new Vector2(18f, 0f);
 
-        //Info
-        private List<Room> spawnedRooms = new List<Room>();
-        private RoomSpawner startingSpawnPoint;
-        private GenerationManager generationManager;
+        //Ссылки на другие вещи
+        private List<Room> spawnedRooms = new List<Room>(); // Заспавненные здесь комнаты
+        private RoomSpawner startingSpawnPoint; // Точка откуда была заспавнена эта комната
 
         //Геттеры и сеттеры
-        public List<Room> SpawnedRooms => spawnedRooms;
-        public bool IsStartRoom => isStartRoom;
-        public bool IsPassageRoom => isPassageRoom;
-        public RoomSpawner StartingSpawnPoint => startingSpawnPoint;
-        public void AddSpawnedRoom(Room newRoom) => spawnedRooms.Add(newRoom);
-        public void SetStartingSpawnPoint(RoomSpawner point)
+        public List<Room> SpawnedRooms => spawnedRooms; //Кол-во заспавненых здесь комнат
+        public bool IsStartRoom => isStartRoom; //Начальная ли комната
+        public bool IsPassageRoom => isPassageRoom; //Комната-коридор
+        public RoomSpawner StartingSpawnPoint => startingSpawnPoint; // Точка откуда была заспавнена эта комната
+        public void AddSpawnedRoom(Room newRoom) => spawnedRooms.Add(newRoom); //Добавить заспавненную комнату
+        public void SetStartingSpawnPoint(RoomSpawner point) //Поставить начальную точку
         {
             startingSpawnPoint = point;
             startingSpawnPoint.onClose.AddListener(startingSpawnPoint.DestroyRoom);
-        }
-        public Vector2 GetInstantiatePosition(Directions direction)
+        } 
+        public Vector2 GetInstantiatePosition(Directions direction) //Получить позицию спавна по направлению
         {
             switch (direction)
             {
@@ -63,7 +62,7 @@ namespace Generation
             }
             return new Vector2(18f, 18f);
         }
-        public RoomSpawner GetPassage(Directions direction)
+        public RoomSpawner GetPassage(Directions direction) //Получить проход по направлению
         {
             switch (direction)
             {
@@ -80,8 +79,9 @@ namespace Generation
         }
 
         //Другое
+        //Выполение методы при определенном кол-ве заспавненых здесь комнаты
         private void CheckSpawnedRoomsCount(int roomsCount, UnityAction action) { if (spawnedRooms.Count == roomsCount) action.Invoke(); }
-        public void SpawnSomething(GameObject something)
+        public void SpawnSomething(GameObject something) //Спавн чего-то в комнате
         {
             int randomPlace = Random.Range(0, pointsForSomething.Count);
             Instantiate(something, pointsForSomething[randomPlace].position, Quaternion.identity, pointsForSomething[randomPlace]);
@@ -125,34 +125,35 @@ namespace Generation
 
         //Юнитивские методы
         private void Start()
-        {
-            generationManager = FindObjectOfType<GenerationManager>();
+        { 
             if (randomizePassagesOnAwake) RandomizePassages();
 
+            //Спавн комнат
             if (upPassage != null)
             {
                 upPassage.SetOwnRoom(this);
-                upPassage.StartSpawnningRoom(generationManager.roomSpawnOffset + 0.05f);
+                upPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomSpawnOffset + 0.05f);
             }
             if (downPassage != null)
             {
                 downPassage.SetOwnRoom(this);
-                downPassage.StartSpawnningRoom(generationManager.roomSpawnOffset + 0.06f);
+                downPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomSpawnOffset + 0.06f);
             }
             if (leftPassage != null)
             {
                 leftPassage.SetOwnRoom(this);
-                leftPassage.StartSpawnningRoom(generationManager.roomSpawnOffset + 0.07f);
+                leftPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomSpawnOffset + 0.07f);
             }
             if (rightPassage != null)
             {
                 rightPassage.SetOwnRoom(this);
-                rightPassage.StartSpawnningRoom(generationManager.roomSpawnOffset + 0.08f);
+                rightPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomSpawnOffset + 0.08f);
                 if (isPassageRoom) rightPassage.onSpawn.AddListener(() => { if (spawnedRooms.Count == 0) StartingSpawnPoint.DestroyRoom(); });
             }
         }
         private void OnDestroy()
         {
+            //Уничтожение заспавненных здесь комнат и закрытие начального прохода
             if (upPassage != null && upPassage.SpawnedRoom != null)
                 upPassage.DestroyRoom();
             if (downPassage != null && downPassage.SpawnedRoom != null)
