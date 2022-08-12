@@ -31,7 +31,7 @@ namespace Generation
         public RoomsLists RoomsLists => roomsLists; //Ссылка на листы со всемы комнатами
         public bool IsSpawned => isRoomsSpawned; //Закончен ли спавн всех комнат
         public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; afterSpawned.Invoke(); Debug.Log("[Info]: Rooms have been spawned"); } }
-        public int AllRoomsCount => roomsCount + npcRoomsCount + boxesOnLevel + 1; //Получить общее кол-во комнат
+        public int AllRoomsCount => roomsCount + npcRoomsCount + boxesOnLevel + passagesCount + 1; //Получить общее кол-во комнат
         public int NowSpawnedRoomsCount => rooms.Count; //Сколько комнат заспавнено сейчас
         public void AddRoomToList(Room newRoom) => rooms.Add(newRoom); //Добавить комнату в список всех заспавненных комнат
         public void RemoveRoomFromList(Room removableRoom) => rooms.Remove(removableRoom); //Убрать комнату из списка всех заспавненных комнат

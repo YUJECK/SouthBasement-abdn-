@@ -132,23 +132,26 @@ namespace Generation
             if (upPassage != null)
             {
                 upPassage.SetOwnRoom(this);
-                upPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomSpawnOffset + 0.05f);
+                upPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomsSpawnOffset + 0.05f);
+                if(IsPassageRoom) upPassage.onSpawn.AddListener( () => { if (SpawnedRooms.Count == 0) startingSpawnPoint.DestroyRoom(); });
             }
             if (downPassage != null)
             {
                 downPassage.SetOwnRoom(this);
-                downPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomSpawnOffset + 0.06f);
+                downPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomsSpawnOffset + 0.07f);
+                if(IsPassageRoom) downPassage.onSpawn.AddListener(() => { if (SpawnedRooms.Count == 0) startingSpawnPoint.DestroyRoom(); });
             }
             if (leftPassage != null)
             {
                 leftPassage.SetOwnRoom(this);
-                leftPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomSpawnOffset + 0.07f);
+                leftPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomsSpawnOffset + 0.09f);
+                if (IsPassageRoom) leftPassage.onSpawn.AddListener(() => { if (SpawnedRooms.Count == 0) startingSpawnPoint.DestroyRoom(); });
             }
             if (rightPassage != null)
             {
                 rightPassage.SetOwnRoom(this);
-                rightPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomSpawnOffset + 0.08f);
-                if (isPassageRoom) rightPassage.onSpawn.AddListener(() => { if (spawnedRooms.Count == 0) StartingSpawnPoint.DestroyRoom(); });
+                rightPassage.StartSpawnningRoom(ManagerList.GenerationManager.RoomsSpawnOffset + 0.11f);
+                if (IsPassageRoom) rightPassage.onSpawn.AddListener(() => { if (SpawnedRooms.Count == 0) startingSpawnPoint.DestroyRoom(); });
             }
         }
         private void OnDestroy()

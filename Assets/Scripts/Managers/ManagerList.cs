@@ -67,11 +67,11 @@ public class ManagerList : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("[Info]: " + GameManager.name + "has been setted");
-        Debug.Log("[Info]: " + SkinManager.name + "has been setted");
-        Debug.Log("[Info]: " + AudioManager.name + "has been setted");
-        Debug.Log("[Info]: " + EffectsInfo.name + "has been setted");
-        Debug.Log("[Info]: " + GenerationManager.name + "has been setted");
-        Debug.Log("[Info]: " + Grid.name + "has been setted");
+        Debug.Log("[Info]: " + GameManager.name + " has been setted");
+        Debug.Log("[Info]: " + SkinManager.name + " has been setted");
+        Debug.Log("[Info]: " + AudioManager.name + " has been setted");
+        Debug.Log("[Info]: " + EffectsInfo.name + " has been setted");
+        Debug.Log("[Info]: " + GenerationManager.name + " has been setted");
+        Debug.Log("[Info]: " + Grid.name + " has been setted");
     }
 }
