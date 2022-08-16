@@ -5,10 +5,10 @@ namespace Generation
 {
     public class RoomSpawner : MonoBehaviour
     {
-        public Room.Directions openingDirection; //Направление
+        public RoomTemplate.Directions openingDirection; //Направление
         public Vector2 ownInstantiateDifference = new Vector2(0f, 0f); //Оклонение относительно центра
         [SerializeField] private bool isStartSpawnPoint = false;
-        [SerializeField] private Room ownRoom; //Комната в которой находится этот проход
+        [SerializeField] private RoomTemplate ownRoom; //Комната в которой находится этот проход
         [SerializeField] private GameObject passage; //Проход
         [SerializeField] private GameObject wall; //Закрывающая стенка
 
@@ -26,9 +26,9 @@ namespace Generation
         //Геттеры, сеттеры
         public RoomSpawnerState State => state; //Состояние
         public GameObject SpawnedRoom => spawnedRoom; //Заспавненная комната
-        public Room OwnRoom => ownRoom; //Эта комната
+        public RoomTemplate OwnRoom => ownRoom; //Эта комната
         public bool IsSpawned => isSpawned; //Заспавнена ли
-        public void SetOwnRoom(Room ownRoom) => this.ownRoom = ownRoom; 
+        public void SetOwnRoom(RoomTemplate ownRoom) => this.ownRoom = ownRoom; 
         public bool Close(bool isStatic) //Закрыть
         {
             if(!isSpawned && state != RoomSpawnerState.StaticOpen)
@@ -86,7 +86,7 @@ namespace Generation
             Rooms thisRoom = ManagerList.GenerationManager.RoomsMap[ManagerList.GenerationManager.NowSpawnedRoomsCount];
             return ManagerList.GenerationManager.RoomsLists.GetRandomRoomInChance(thisRoom, chance, false);
         }
-        private void SetSpawnPointPosition(Room room) => transform.localPosition = room.GetInstantiatePosition(ManagerList.GenerationManager.GetOppositeDirection(openingDirection)) + ownInstantiateDifference;
+        private void SetSpawnPointPosition(RoomTemplate room) => transform.localPosition = room.GetInstantiatePosition(ManagerList.GenerationManager.GetOppositeDirection(openingDirection)) + ownInstantiateDifference;
 
         //Методы спавна
         public void StartSpawnningRoom(float offset = 0.1f) => Invoke("SpawnRoom", offset); //Начать спавн
@@ -99,10 +99,10 @@ namespace Generation
                 {
                     //Спавн
                     GameObject randomRoom = GetRoom();
-                    SetSpawnPointPosition(randomRoom.GetComponent<Room>());
+                    SetSpawnPointPosition(randomRoom.GetComponent<RoomTemplate>());
 
                     spawnedRoom = Instantiate(randomRoom, transform.position, Quaternion.identity, ManagerList.GenerationManager.transform);
-                    Room newRoom = spawnedRoom.GetComponent<Room>();
+                    RoomTemplate newRoom = spawnedRoom.GetComponent<RoomTemplate>();
                     newRoom.SetStartingSpawnPoint(this);
 
                     //Настраиваем комнату
@@ -130,27 +130,27 @@ namespace Generation
             if (spawnedRoom != null)
             {
                 Debug.Log("[Info]: Room has been destroyed");
-                ManagerList.GenerationManager.RemoveRoomFromList(spawnedRoom.GetComponent<Room>());
+                ManagerList.GenerationManager.RemoveRoomFromList(spawnedRoom.GetComponent<RoomTemplate>());
                 ForcedClose();
                 Destroy(spawnedRoom);
             }
         }
-        private void MakeThePassageFriendly(Room room) //Сделать какой-то проход открытым
+        private void MakeThePassageFriendly(RoomTemplate room) //Сделать какой-то проход открытым
         {
             //Ставим соединяющий проход статичным, чтобы его нельзя было закрыть
             switch (openingDirection)
             {
-                case Room.Directions.Up:
-                    room.GetPassage(Room.Directions.Down).Open(true);
+                case RoomTemplate.Directions.Up:
+                    room.GetPassage(RoomTemplate.Directions.Down).Open(true);
                     break;
-                case Room.Directions.Down:
-                    room.GetPassage(Room.Directions.Up).Open(true);
+                case RoomTemplate.Directions.Down:
+                    room.GetPassage(RoomTemplate.Directions.Up).Open(true);
                     break;
-                case Room.Directions.Left:
-                    room.GetPassage(Room.Directions.Right).Open(true);
+                case RoomTemplate.Directions.Left:
+                    room.GetPassage(RoomTemplate.Directions.Right).Open(true);
                     break;
-                case Room.Directions.Right:
-                    room.GetPassage(Room.Directions.Left).Open(true);
+                case RoomTemplate.Directions.Right:
+                    room.GetPassage(RoomTemplate.Directions.Left).Open(true);
                     break;
             }
         }

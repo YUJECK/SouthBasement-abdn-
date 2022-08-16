@@ -74,6 +74,7 @@ MonoBehaviour:
   openingDirection: 2
   ownInstantiateDifference: {x: 0, y: -4}
   isStartSpawnPoint: 0
+  ownRoom: {fileID: 0}
   passage: {fileID: 4835920094197156731}
   wall: {fileID: 6349158054473860954}
   onSpawn:
@@ -214,6 +215,7 @@ MonoBehaviour:
   openingDirection: 1
   ownInstantiateDifference: {x: -3, y: 0}
   isStartSpawnPoint: 0
+  ownRoom: {fileID: 0}
   passage: {fileID: 7777863323252592937}
   wall: {fileID: 1624905512736358693}
   onSpawn:
@@ -383,6 +385,7 @@ MonoBehaviour:
   openingDirection: 3
   ownInstantiateDifference: {x: 0, y: 0}
   isStartSpawnPoint: 0
+  ownRoom: {fileID: 0}
   passage: {fileID: 8088607906570533719}
   wall: {fileID: 3927753967715151716}
   onSpawn:
@@ -469,23 +472,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 5387467937760179325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3378930890cab6f45ae69e58a92b8bd2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4492a6de7ad12a3458359eb0c496be69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passagesCountMin: 3
+  passagesCountMin: 2
   passagesCountMax: 3
   randomizePassagesOnAwake: 0
   isStartRoom: 0
   pointsForSomething:
   - {fileID: 488263584868580361}
   upPassage: {fileID: 508111507368763521}
-  instantiatePositionUp: {x: -4, y: -21}
   downPassage: {fileID: 2246982874595794137}
-  instantiatePositionDown: {x: 3, y: 21}
   leftPassage: {fileID: 1634120096477704493}
-  instantiatePositionLeft: {x: 21, y: 4}
   rightPassage: {fileID: 3909018058388275452}
-  instantiatePositionRight: {x: -21, y: 0}
+  instantiatePositionUp: {x: 0, y: 18}
+  instantiatePositionDown: {x: 0, y: -18}
+  instantiatePositionLeft: {x: -18, y: 0}
+  instantiatePositionRight: {x: 18, y: 0}
 --- !u!61 &6959420668723757464
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -735,6 +738,7 @@ MonoBehaviour:
   openingDirection: 0
   ownInstantiateDifference: {x: 4, y: 0}
   isStartSpawnPoint: 0
+  ownRoom: {fileID: 0}
   passage: {fileID: 7737250936751321680}
   wall: {fileID: 6797510584144250606}
   onSpawn:

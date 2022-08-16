@@ -1,16 +1,16 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Generation
 {
-    public class Room : RoomTemplate
+    public class PassageRoom : RoomTemplate
     {
         protected override void OnSpawned()
         {
         }
         protected override void StartSpawning()
-        { 
+        {
             //Спавн комнат
             if (upPassage != null)
             {
@@ -32,10 +32,15 @@ namespace Generation
                 GetPassage(Directions.Right).SetOwnRoom(this);
                 GetPassage(Directions.Right).StartSpawnningRoom(ManagerList.GenerationManager.RoomsSpawnOffset + 0.11f);
             }
+            Utility.InvokeMethod(OnSpawned, ManagerList.GenerationManager.RoomsSpawnOffset + 0.11f);
         }
-        
+
         //Юнитивские методы
-        private void Start() { if (randomizePassagesOnAwake) RandomizePassages(); StartSpawning(); }
+        private void Start()
+        {
+            if (randomizePassagesOnAwake) RandomizePassages();
+            StartSpawning();
+        }
         private void OnDestroy() => DefaultOnDestroy();
     }
 }

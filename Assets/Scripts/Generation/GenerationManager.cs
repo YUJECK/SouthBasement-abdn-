@@ -9,7 +9,7 @@ namespace Generation
     {
         [SerializeField] private string locationName = "Basement"; //Имя локации
         [Header("Настройки комнат")]
-        private List<Room> rooms = new List<Room>(); //Лист вмех заспавненных комнат
+        private List<RoomTemplate> rooms = new List<RoomTemplate>(); //Лист вмех заспавненных комнат
         [Range(1, 100)] [SerializeField] private int roomsCount = 10; //Кол-во обычных комнат
         [Range(0, 100)] [SerializeField] private int passagesCount = 2; //Кол-во комнат-проходов
         [Range(0, 100)] [SerializeField] private int npcRoomsCount = 1; //Кол-во комнат с НПС
@@ -33,8 +33,8 @@ namespace Generation
         public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; afterSpawned.Invoke(); Debug.Log("[Info]: Rooms have been spawned"); } }
         public int AllRoomsCount => roomsCount + npcRoomsCount + boxesOnLevel + passagesCount + 1; //Получить общее кол-во комнат
         public int NowSpawnedRoomsCount => rooms.Count; //Сколько комнат заспавнено сейчас
-        public void AddRoomToList(Room newRoom) => rooms.Add(newRoom); //Добавить комнату в список всех заспавненных комнат
-        public void RemoveRoomFromList(Room removableRoom) => rooms.Remove(removableRoom); //Убрать комнату из списка всех заспавненных комнат
+        public void AddRoomToList(RoomTemplate newRoom) => rooms.Add(newRoom); //Добавить комнату в список всех заспавненных комнат
+        public void RemoveRoomFromList(RoomTemplate removableRoom) => rooms.Remove(removableRoom); //Убрать комнату из списка всех заспавненных комнат
 
         //Другое
         private void GenerateRoomsMap() //Сгенерировать карту комнат
@@ -94,20 +94,20 @@ namespace Generation
             //Выход
             roomsMap[roomsMap.Length - 1] = Rooms.Exit;
         }
-        public Room.Directions GetOppositeDirection(Room.Directions direction)//Получить противоположное направравление
+        public RoomTemplate.Directions GetOppositeDirection(RoomTemplate.Directions direction)//Получить противоположное направравление
         {
             switch (direction)
             {
-                case Room.Directions.Up:
-                    return Room.Directions.Down;
-                case Room.Directions.Down:
-                    return Room.Directions.Up;
-                case Room.Directions.Left:
-                    return Room.Directions.Right;
-                case Room.Directions.Right:
-                    return Room.Directions.Left;
+                case RoomTemplate.Directions.Up:
+                    return RoomTemplate.Directions.Down;
+                case RoomTemplate.Directions.Down:
+                    return RoomTemplate.Directions.Up;
+                case RoomTemplate.Directions.Left:
+                    return RoomTemplate.Directions.Right;
+                case RoomTemplate.Directions.Right:
+                    return RoomTemplate.Directions.Left;
             }
-            return Room.Directions.Up;
+            return RoomTemplate.Directions.Up;
         }
 
         //Юнитивские методы
