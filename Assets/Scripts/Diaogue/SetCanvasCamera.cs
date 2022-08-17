@@ -2,5 +2,9 @@ using UnityEngine;
 
 public class SetCanvasCamera : MonoBehaviour
 {
-    void Start() => gameObject.GetComponent<Canvas>().worldCamera = Camera.main;
+    void Start() 
+    {
+        if (GetComponent<Canvas>().worldCamera != null) 
+            GetComponent<Canvas>().worldCamera = Camera.main; 
+    }
 }
