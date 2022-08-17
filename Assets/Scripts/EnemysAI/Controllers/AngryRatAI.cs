@@ -54,8 +54,8 @@ namespace EnemysAI
                 if (animator != null && moving != null)//Анимация
                 {
                     //Анимация бега
-                    if (moving.isNowWalk && !animator.GetBool("isRun")) animator.SetBool("isRun", true);
-                    if ((!moving.isNowWalk || moving.GetStop()) && animator.GetBool("isRun")) animator.SetBool("isRun", false);
+                    if (moving.isNowWalk && !animator.GetCurrentAnimatorStateInfo(0).IsName("AngryRatRunning")) animator.Play("AngryRatRunning");
+                    if ((!moving.isNowWalk || moving.GetStop()) && animator.GetCurrentAnimatorStateInfo(0).IsName("AngryRatRunning")) animator.Play("AngryRatIdle");
                 }
             }
         }

@@ -480,9 +480,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78891d9d39c6f744b6ae48933daf211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wakingUpTime: 0.6
   onSleep:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5630845709475724668}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: AngryRatSleeping
+          m_BoolArgument: 0
+        m_CallState: 2
+  beforeWakeUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5630845709475724668}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: AngryRatWakeUp
+          m_BoolArgument: 0
+        m_CallState: 2
   onWakeUp:
     m_PersistentCalls:
       m_Calls: []
@@ -618,7 +646,9 @@ MonoBehaviour:
   effectHandler: {fileID: 2371407094003424733}
   minCheese: 0
   maxCheese: 10
-  itemsDrop: []
+  itemsDrop:
+  - drop: {fileID: 7980954278028660767, guid: 82783a3792f49444a98114bb4662708d, type: 3}
+    chance: 100
   audioManager: {fileID: 0}
 --- !u!114 &2371407094003424733
 MonoBehaviour:
@@ -764,14 +794,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5630845709475724668}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
+        m_MethodName: Play
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: isAttack
+          m_StringArgument: AngryRatAttack
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5268314099377066237}

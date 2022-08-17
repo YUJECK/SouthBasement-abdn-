@@ -6,7 +6,9 @@ using UnityEngine.Events;
 public class Sleeping : MonoBehaviour
 {
     private bool isSleep = false;
+    [SerializeField] private float wakingUpTime = 0f;
     public UnityEvent onSleep = new UnityEvent();
+    public UnityEvent beforeWakeUp = new UnityEvent();
     public UnityEvent onWakeUp = new UnityEvent();
     public List<Behaviour> componentsToDisable = new List<Behaviour>();
 
@@ -22,8 +24,10 @@ public class Sleeping : MonoBehaviour
                 behaviour.enabled = false;
         }
     }
-    public void WakeUp()
+    public void WakeUp() { if (isSleep) { beforeWakeUp.Invoke(); StartCoroutine(WakingUp()); } }
+    public IEnumerator WakingUp()
     {
+        yield return new WaitForSeconds(wakingUpTime);
         if (isSleep)
         {
             isSleep = false;
