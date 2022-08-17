@@ -72,7 +72,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 2
-  ownInstantiateDifference: {x: 0, y: 0}
   isStartSpawnPoint: 0
   ownRoom: {fileID: 0}
   passage: {fileID: 4835920094197156731}
@@ -179,7 +178,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 1
-  ownInstantiateDifference: {x: 0, y: 0}
   isStartSpawnPoint: 0
   ownRoom: {fileID: 0}
   passage: {fileID: 7777863323252592937}
@@ -319,7 +317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 3
-  ownInstantiateDifference: {x: 0, y: 0}
   isStartSpawnPoint: 0
   ownRoom: {fileID: 0}
   passage: {fileID: 8088607906570533719}
@@ -420,10 +417,10 @@ MonoBehaviour:
   downPassage: {fileID: 2246982874595794137}
   leftPassage: {fileID: 1634120096477704493}
   rightPassage: {fileID: 3909018058388275452}
-  instantiatePositionUp: {x: 0, y: -24}
-  instantiatePositionDown: {x: 0, y: 24}
-  instantiatePositionLeft: {x: 24, y: 0}
-  instantiatePositionRight: {x: -24, y: 0}
+  instantiatePositionUp: {x: 0, y: 12}
+  instantiatePositionDown: {x: 0, y: -12}
+  instantiatePositionLeft: {x: -12, y: -1}
+  instantiatePositionRight: {x: 12, y: -1}
 --- !u!61 &6959420668723757464
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -671,7 +668,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 0
-  ownInstantiateDifference: {x: 0, y: 0}
   isStartSpawnPoint: 0
   ownRoom: {fileID: 0}
   passage: {fileID: 7737250936751321680}

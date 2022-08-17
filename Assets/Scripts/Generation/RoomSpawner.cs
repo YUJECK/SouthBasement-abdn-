@@ -106,7 +106,6 @@ namespace Generation
 
                     //Настраиваем комнату
                     MakeThePassageFriendly(newRoom);
-                    //newRoom.RandomizePassages();
                     Open(true);
                     ManagerList.GenerationManager.AddRoomToList(newRoom);
                     if (ownRoom != null) ownRoom.AddSpawnedRoom(newRoom);
@@ -157,10 +156,13 @@ namespace Generation
         //Юнитивские методы
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!isSpawned && collision.CompareTag("Room")) Close(true);
-            else if (isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) DestroyRoom();
-            else if (!isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) Close(true);
-            else if (!isSpawned && collision.CompareTag("Spawner") && !collision.GetComponent<RoomSpawner>().IsSpawned) Close(true);
+            if(state == RoomSpawnerState.Open || state == RoomSpawnerState.StaticClose)
+            {
+                if (!isSpawned && collision.CompareTag("Room")) ForcedClose();
+                else if (isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) DestroyRoom();
+                else if (!isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) Close(true);
+                else if (!isSpawned && collision.CompareTag("Spawner") && !collision.GetComponent<RoomSpawner>().IsSpawned) Close(true);
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 using EnemysAI;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,7 +23,7 @@ public class Door : MonoBehaviour
     public bool IsClosed => isClosed;
     public void CloseDoors()
     {
-        if(enemysCount > 0)
+        if (enemysCount > 0)
         {
             doors.SetActive(true); isClosed = true;
             for (int i = 0; i < enemysCount; i++)

@@ -2888,11 +2888,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locationName: Basement
-  roomsCount: 6
-  passagesCount: 0
-  npcRoomsCount: 0
-  boxesOnLevel: 0
-  isTraderWillSpawn: 0
+  roomsCount: 12
+  passagesCount: 2
+  npcRoomsCount: 1
+  boxesOnLevel: 2
+  isTraderWillSpawn: 1
   afterSpawned:
     m_PersistentCalls:
       m_Calls:
@@ -2919,7 +2919,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1468940594}
   m_Father: {fileID: 1564828606}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2936,10 +2937,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simpleRooms:
-  - room: {fileID: 5387467937760179325, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
-    chance: 70
   - room: {fileID: 5387467937760179325, guid: 4091875864995ea419c7336ddd22b0a1, type: 3}
     chance: 56
+  - room: {fileID: 5387467937760179325, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+    chance: 70
   - room: {fileID: 5387467937760179325, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
     chance: 100
   npcRooms:
@@ -5498,6 +5499,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460068697}
   m_CullTransparentMesh: 1
+--- !u!1001 &1468940593
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 630008336}
+    m_Modifications:
+    - target: {fileID: 2282734868094838021, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 41.223724
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.0331726
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387467937760179325, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+      propertyPath: m_Name
+      value: Test 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+--- !u!4 &1468940594 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5387467937760179323, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+  m_PrefabInstance: {fileID: 1468940593}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1501704414
 GameObject:
   m_ObjectHideFlags: 0
