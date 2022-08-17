@@ -120,7 +120,6 @@ namespace Generation
         public void RegenerateRoom() //Заново заспавнить комнату
         {
             DestroyRoom();
-
             SpawnRoom();
         }
         public void DestroyRoom() //Уничтожить заспавненную комнату

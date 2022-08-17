@@ -8,6 +8,7 @@ namespace Generation
     public class GenerationManager : MonoBehaviour
     {
         [SerializeField] private string locationName = "Basement"; //Имя локации
+        [SerializeField] private RoomTemplate startRoom;  
         [Header("Настройки комнат")]
         private List<RoomTemplate> rooms = new List<RoomTemplate>(); //Лист вмех заспавненных комнат
         [Range(2, 50)] [SerializeField] private int roomsCount = 10; //Кол-во обычных комнат
@@ -37,6 +38,18 @@ namespace Generation
         public void RemoveRoomFromList(RoomTemplate removableRoom) => rooms.Remove(removableRoom); //Убрать комнату из списка всех заспавненных комнат
 
         //Другое
+        private void CheckSpawnedRoomsCount()
+        {
+            if (rooms.Count < roomsMap.Length)
+            {
+                Debug.Log("[Info]: Rooms count less than normal");
+                isRoomsSpawned = false;
+                startRoom.GetPassage(RoomTemplate.Directions.Up)?.RegenerateRoom();
+                startRoom.GetPassage(RoomTemplate.Directions.Down)?.RegenerateRoom();
+                startRoom.GetPassage(RoomTemplate.Directions.Left)?.RegenerateRoom();
+                startRoom.GetPassage(RoomTemplate.Directions.Right)?.RegenerateRoom();
+            }
+        }
         private void GenerateRoomsMap() //Сгенерировать карту комнат
         {
             roomsMap = new Rooms[AllRoomsCount];
@@ -116,6 +129,7 @@ namespace Generation
         {
             roomsLists = GetComponent<RoomsLists>();
             GenerateRoomsMap();
+            afterSpawned.AddListener(CheckSpawnedRoomsCount);
         }
     }
 }

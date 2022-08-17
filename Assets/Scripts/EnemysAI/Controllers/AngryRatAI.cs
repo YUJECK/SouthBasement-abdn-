@@ -44,9 +44,7 @@ namespace EnemysAI
                 moving.enabled = false;
                 health.effectHandler.enabled = false;
                 health.enabled = false;
-                for (int i = 0; i < transform.childCount; i++)
-                    transform.GetChild(i).gameObject.SetActive(false);
-                targetSelection.gameObject.SetActive(true);
+                for (int i = 0; i < transform.childCount; i++) transform.GetChild(i).gameObject.SetActive(false);
             }
         }
         public override void WakeUp()

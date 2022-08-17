@@ -8,21 +8,8 @@ namespace EnemysAI
     {
         //Приватные поля
         [SerializeField] private List<string> blackTagList = new List<string>(); //Список тегов которые не будут читаться 
-        private EnemyTarget _target; //Текущий таргет
-        private List<EnemyTarget> _targets = new List<EnemyTarget>(); //Список всех таргетов
-        
-        //Публичные поля
-        public EnemyTarget target
-        {
-            get => _target;
-            private set => _target = value;
-        }
-        public List<EnemyTarget> targets
-        {
-            get => _targets;
-            private set => _targets = value;
-        }
-
+        private EnemyTarget target; //Текущий таргет
+        private List<EnemyTarget> targets = new List<EnemyTarget>(); //Список всех таргетов
         //Ивенты
         [Header("События")]
         public UnityEvent<EnemyTarget> onSetTarget = new UnityEvent<EnemyTarget>();
@@ -30,43 +17,39 @@ namespace EnemysAI
         public UnityEvent<EnemyTarget> onResetTarget = new UnityEvent<EnemyTarget>();
 
         //Методы взаимодействия
+        public EnemyTarget Target => target;
+        public List<EnemyTarget> Targets => targets;
         public void SetNewTarget() 
         {
             EnemyTarget newTarget = FindNewTarget();
 
             //Вызов ивентов
-            if (newTarget != null && _target != newTarget) { onTargetChange.Invoke(newTarget); }
+            if (newTarget != null && target != newTarget) { onTargetChange.Invoke(newTarget); }
             onSetTarget.Invoke(newTarget);
-            _target = newTarget;
+            target = newTarget;
         }
-
-        internal void SetActive(bool v)
-        {
-            throw new System.NotImplementedException();
-        }
-
         private EnemyTarget FindNewTarget()
         {
             bool isSamePriority = true;
             EnemyTarget target = null;
-            int priority = _targets[0].priority;
+            int priority = targets[0].priority;
 
-            for (int i = 0; i < _targets.Count; i++)
+            for (int i = 0; i < targets.Count; i++)
             //Проверяем все таргеты по приоритету
             {
-                if (_targets[i].priority == priority) continue;
+                if (targets[i].priority == priority) continue;
                 else //Если приоритет не одинаковый
                 {
                     isSamePriority = false;
-                    target = _targets[_targets.Count - 1];
+                    target = targets[targets.Count - 1];
                     break;
                 }
             }
             if (isSamePriority)
             //Если у всех таргетов одинаковый приоритет
             {
-                int rand = Random.Range(0, _targets.Count);
-                target = _targets[rand];
+                int rand = Random.Range(0, targets.Count);
+                target = targets[rand];
             }
             //Выводим сообщение в консоль если ничего не нашли, не думаю что сюда код вообще попадет
             if (target == null) FindObjectOfType<RatConsole>().DisplayText("Таргет не был найден", Color.red,
@@ -120,10 +103,10 @@ namespace EnemysAI
                 if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
                 {
                     EnemyTarget newTarget = coll.GetComponent<EnemyTarget>();
-                    if(!_targets.Contains(newTarget))
+                    if(!targets.Contains(newTarget))
                     {
-                        _targets.Add(newTarget);
-                        QuickSort(_targets, 0, _targets.Count - 1);
+                        targets.Add(newTarget);
+                        QuickSort(targets, 0, targets.Count - 1);
                         SetNewTarget();
                     }
                 }
@@ -134,15 +117,15 @@ namespace EnemysAI
             if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
             {
                 EnemyTarget exitTarget = coll.GetComponent<EnemyTarget>();
-                if (_targets.Contains(exitTarget))
+                if (targets.Contains(exitTarget))
                 {
-                    _targets.Remove(exitTarget);
+                    targets.Remove(exitTarget);
                     
                     //Если таргет который вышел за пределы поля зрения действующий таргет, то мы заново ищем таргет
-                    if (_target == exitTarget)
+                    if (target == exitTarget)
                     {
-                        _target = null;
-                        if (_targets.Count != 0) _target = FindNewTarget();
+                        target = null;
+                        if (targets.Count != 0) target = FindNewTarget();
                     }
 
                     onResetTarget.Invoke(exitTarget);

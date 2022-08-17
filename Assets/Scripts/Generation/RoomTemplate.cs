@@ -21,20 +21,20 @@ namespace Generation
         [SerializeField] protected bool isStartRoom = false; //Начальная ли комната
         [SerializeField] protected List<Transform> pointsForSomething; //Точки для спавна различных вещей
         [Header("Проходы")] //Проходы
-        [SerializeField] protected RoomSpawner upPassage; //Верхний проход
-        [SerializeField] protected RoomSpawner downPassage; //Нижний проход
-        [SerializeField] protected RoomSpawner leftPassage; //Левый проход
-        [SerializeField] protected RoomSpawner rightPassage; //Правый проход
+        [SerializeField] private RoomSpawner upPassage; //Верхний проход
+        [SerializeField] private RoomSpawner downPassage; //Нижний проход
+        [SerializeField] private RoomSpawner leftPassage; //Левый проход
+        [SerializeField] private RoomSpawner rightPassage; //Правый проход
 
         [Header("Настройки спавна")] //Позиции для точки спавна
-        [SerializeField] protected Vector2 instantiatePositionUp = new Vector2(0f, -18f);
-        [SerializeField] protected Vector2 instantiatePositionDown = new Vector2(0f, 18f);
-        [SerializeField] protected Vector2 instantiatePositionLeft = new Vector2(-18f, 0f);
-        [SerializeField] protected Vector2 instantiatePositionRight = new Vector2(18f, 0f);
+        [SerializeField] private Vector2 instantiatePositionUp = new Vector2(0f, -18f);
+        [SerializeField] private Vector2 instantiatePositionDown = new Vector2(0f, 18f);
+        [SerializeField] private Vector2 instantiatePositionLeft = new Vector2(-18f, 0f);
+        [SerializeField] private Vector2 instantiatePositionRight = new Vector2(18f, 0f);
 
         //Ссылки на другие вещи
-        protected List<RoomTemplate> spawnedRooms = new List<RoomTemplate>(); // Заспавненные здесь комнаты
-        protected RoomSpawner startingSpawnPoint; // Точка откуда была заспавнена эта комната
+        private List<RoomTemplate> spawnedRooms = new List<RoomTemplate>(); // Заспавненные здесь комнаты
+        private RoomSpawner startingSpawnPoint; // Точка откуда была заспавнена эта комната
 
         //Геттеры и сеттеры
         public List<RoomTemplate> SpawnedRooms => spawnedRooms; //Кол-во заспавненых здесь комнат
@@ -66,13 +66,17 @@ namespace Generation
             switch (direction)
             {
                 case Directions.Up:
-                    return upPassage;
+                    if(upPassage != null) return upPassage;
+                    break;
                 case Directions.Down:
-                    return downPassage;
+                    if (downPassage != null) return downPassage;
+                    break;
                 case Directions.Left:
-                    return leftPassage;
+                    if (leftPassage != null) return leftPassage;
+                    break;
                 case Directions.Right:
-                    return rightPassage;
+                    if (rightPassage != null) return rightPassage;
+                    break;
             }
             return null;
         }
@@ -132,7 +136,7 @@ namespace Generation
                 leftPassage.DestroyRoom();
             if (rightPassage != null && rightPassage.SpawnedRoom != null)
                 rightPassage.DestroyRoom();
-            if (StartingSpawnPoint != null) StartingSpawnPoint.ForcedClose();
+            if (!StartingSpawnPoint.Equals(null)) StartingSpawnPoint.ForcedClose();
         }
 
         //Абстрактные методы

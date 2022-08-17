@@ -43,18 +43,11 @@ namespace EnemysAI
         }
         protected void CheckTarget(EnemyTarget newTarget)
         {
-            if (targetSelection.targets.Count == 0 && !isSleep)
-            {
-                GoSleep();
-                target = null;
-            }
-            if (targetSelection.targets.Count > 0 && isSleep)
+            if (targetSelection.Targets.Count > 0 && isSleep)
             {
                 if (target == newTarget) return;
                 else if (target == null || target.targetMoveType != newTarget.targetMoveType) StartCoroutine(ChangeSpeed(newTarget.targetMoveType));
-                
                 target = newTarget;
-                if (wakeUpOnSettingTarget) WakeUp();
             }
         }
 
