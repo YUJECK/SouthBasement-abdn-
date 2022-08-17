@@ -382,6 +382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5630845710053068691}
   - component: {fileID: 7112295092639880517}
+  - component: {fileID: 5414004272345151957}
   - component: {fileID: 5157359432002517473}
   - component: {fileID: 997358912328341320}
   - component: {fileID: 1160361261316572005}
@@ -467,6 +468,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5414004272345151957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78891d9d39c6f744b6ae48933daf211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSleep:
+    m_PersistentCalls:
+      m_Calls: []
+  onWakeUp:
+    m_PersistentCalls:
+      m_Calls: []
+  componentsToDisable:
+  - {fileID: 5157359432002517473}
+  - {fileID: 997358912328341320}
+  - {fileID: 1160361261316572005}
+  - {fileID: 954463900787170469}
+  - {fileID: 2371407094003424733}
 --- !u!114 &5157359432002517473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,6 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 2
   runSpeed: 3
+  wakeUpOnSettingTarget: 0
   onSleep:
     m_PersistentCalls:
       m_Calls: []
@@ -572,8 +598,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9727c2d35101849bf11baf0fc62792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 120
-  maxHealth: 130
+  health: 100
+  maxHealth: 120
   damageColor: {r: 0.9811321, g: 0.42114633, b: 0.42114633, a: 1}
   destroySound: RatHurt
   hitSound: RatHurt
@@ -769,7 +795,7 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 1
-  enterTag: Player
+  enterTags: []
 --- !u!114 &525621702351148791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,7 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80433a10ef25dd24697b243beb570018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetType: 0
+  targetType: 2
   target: {fileID: 0}
   movePosToCenter: 1
   center: {fileID: 7370679699852093159}
@@ -804,7 +830,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.2008195
+  m_Radius: 1.3795598
 --- !u!1 &8302321032984290554
 GameObject:
   m_ObjectHideFlags: 0

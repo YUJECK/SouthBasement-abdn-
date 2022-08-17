@@ -176,10 +176,10 @@ MonoBehaviour:
   onSetTarget:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5104344037244704757}
-        m_TargetAssemblyTypeName: EnemysAI.AngryRatPyrotechnicAI, Assembly-CSharp
-        m_MethodName: WakeUp
-        m_Mode: 1
+      - m_Target: {fileID: 125804403466811792}
+        m_TargetAssemblyTypeName: EnemysAI.Shooting, Assembly-CSharp
+        m_MethodName: SetStop
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -193,7 +193,19 @@ MonoBehaviour:
       m_Calls: []
   onResetTarget:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 125804403466811792}
+        m_TargetAssemblyTypeName: EnemysAI.Shooting, Assembly-CSharp
+        m_MethodName: SetStop
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!58 &8718833800493481110
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -322,6 +334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5630845710053068691}
   - component: {fileID: 7112295092639880517}
+  - component: {fileID: 7775715111216481859}
   - component: {fileID: 5104344037244704757}
   - component: {fileID: 997358912328341320}
   - component: {fileID: 1160361261316572005}
@@ -407,6 +420,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7775715111216481859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78891d9d39c6f744b6ae48933daf211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSleep:
+    m_PersistentCalls:
+      m_Calls: []
+  onWakeUp:
+    m_PersistentCalls:
+      m_Calls: []
+  componentsToDisable:
+  - {fileID: 5104344037244704757}
+  - {fileID: 997358912328341320}
+  - {fileID: 1160361261316572005}
+  - {fileID: 954463900787170469}
+  - {fileID: 2371407094003424733}
 --- !u!114 &5104344037244704757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 2
   runSpeed: 3.3
+  wakeUpOnSettingTarget: 0
   onSleep:
     m_PersistentCalls:
       m_Calls: []
@@ -511,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9727c2d35101849bf11baf0fc62792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 80
   maxHealth: 120
   damageColor: {r: 0.9811321, g: 0.42114633, b: 0.42114633, a: 1}
   destroySound: RatHurt
@@ -544,7 +582,6 @@ MonoBehaviour:
   minCheese: 0
   maxCheese: 10
   itemsDrop: []
-  roomCloser: {fileID: 0}
   audioManager: {fileID: 0}
 --- !u!114 &2371407094003424733
 MonoBehaviour:

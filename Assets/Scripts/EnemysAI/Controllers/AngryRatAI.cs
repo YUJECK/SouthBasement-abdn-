@@ -6,6 +6,7 @@ namespace EnemysAI
     [RequireComponent(typeof(Move))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(EnemyHealth))]
+    [RequireComponent(typeof(Sleeping))]
     public class AngryRatAI : EnemyAI
     {
         //Ссылки на другие классы
@@ -33,35 +34,6 @@ namespace EnemysAI
             animator.SetBool("isStunned", false);
         }
 
-        //Типо сеттеры и геттеры
-        public override void GoSleep()
-        {
-            if (!isSleep)
-            {
-                isSleep = true;
-                onSleep.Invoke();
-                if (animator.GetBool("isRun")) animator.SetBool("isRun", false);
-                moving.enabled = false;
-                health.effectHandler.enabled = false;
-                health.enabled = false;
-                for (int i = 0; i < transform.childCount; i++) transform.GetChild(i).gameObject.SetActive(false);
-            }
-        }
-        public override void WakeUp()
-        {
-            if (isSleep)
-            {
-                isSleep = false;
-                onWakeUp.Invoke();
-                moving.enabled = true;
-                health.enabled = true;
-                health.effectHandler.enabled = true;
-
-                for (int i = 0; i < transform.childCount; i++)
-                    transform.GetChild(i).gameObject.SetActive(true);
-            }
-        }
-
         //Юнитивские методы
         private void Start()
         {
@@ -73,11 +45,11 @@ namespace EnemysAI
             //События
             targetSelection.onSetTarget.AddListener(CheckTarget);
             targetSelection.onResetTarget.AddListener(CheckTarget);
-            GoSleep();
+            GetComponent<Sleeping>().GoSleep();
         }
         private void Update() //Анимации
         {
-            if (!isSleep && !isStopped)
+            if (!isStopped)
             {
                 if (animator != null && moving != null)//Анимация
                 {

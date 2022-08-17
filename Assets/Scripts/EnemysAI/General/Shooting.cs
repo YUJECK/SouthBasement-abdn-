@@ -192,6 +192,7 @@ namespace EnemysAI
         {
             pointRotation = GetComponent<PointRotation>();
             StartWorking();
+            SetStop(true);
         }
     }
 }

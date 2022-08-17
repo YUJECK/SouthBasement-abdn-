@@ -85,7 +85,7 @@ namespace EnemysAI
                 else if (path.Count == 0)
                 {
                     isNowWalk = false;
-                    FindNewPath(moveTarget);
+                    SetNewTargetAndFindPath(moveTarget);
                     SetNextSearchTime();
                     if (moveTarget != null && moveTarget.targetMoveType == TargetType.Static)
                     {
@@ -105,7 +105,7 @@ namespace EnemysAI
             if (!isStopped && moveTarget != null && moveTarget.targetMoveType == TargetType.Movable && (Time.time >= nextSearchTime))
             {
                 ResetTarget();
-                FindNewPath(moveTarget);
+                SetNewTargetAndFindPath(moveTarget);
                 SetNextSearchTime();
             }
         }
@@ -129,7 +129,7 @@ namespace EnemysAI
         }
 
         //Методы поиска пути
-        public void FindNewPath(EnemyTarget target)
+        public void SetNewTargetAndFindPath(EnemyTarget target)
         {
             if(target != null)
             {
@@ -169,7 +169,7 @@ namespace EnemysAI
             pathfinder = GetComponent<Pathfinder>();
             rb = GetComponent<Rigidbody2D>();
             grid = FindObjectOfType<Grid>();
-            targetSelection.onTargetChange.AddListener(FindNewPath);
+            targetSelection.onTargetChange.AddListener(SetNewTargetAndFindPath);
             targetSelection.onResetTarget.AddListener(ResetTarget);
             if (movement == Movement.Wandering) onArrive.AddListener(targetSelection.SetNewTarget);
             isStopped = false;

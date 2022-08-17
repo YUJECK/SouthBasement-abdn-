@@ -27,7 +27,7 @@ public class Door : MonoBehaviour
         {
             doors.SetActive(true); isClosed = true;
             for (int i = 0; i < enemysCount; i++)
-                transform.GetChild(i).GetComponent<EnemyAI>().WakeUp();
+                transform.GetChild(i).GetComponent<Sleeping>().WakeUp();
         }
     }
     public void OpenDoors() { doors.SetActive(false); isClosed = false; }

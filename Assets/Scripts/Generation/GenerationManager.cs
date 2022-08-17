@@ -7,7 +7,6 @@ namespace Generation
     [RequireComponent(typeof(RoomsLists))]
     public class GenerationManager : MonoBehaviour
     {
-        [SerializeField] private string locationName = "Basement"; //Имя локации
         [SerializeField] private RoomTemplate startRoom;  
         [Header("Настройки комнат")]
         private List<RoomTemplate> rooms = new List<RoomTemplate>(); //Лист вмех заспавненных комнат
@@ -24,12 +23,13 @@ namespace Generation
         [SerializeField] private float roomsSpawnOffset = 0.05f; //Изначальный промежуток спавна комнат
         private Rooms[] roomsMap; //Карта комнат
         private RoomsLists roomsLists; //Ссылка на листы со всемы комнатами
+        private LevelInformatoin levelInformatoin; //Ссылка на информацию о уровне
 
         //Геттеры, сеттеры
         public float RoomsSpawnOffset => roomsSpawnOffset; //Изначальный промежуток спавна комнат
-        public string LocationName => locationName; //Имя локации
         public Rooms[] RoomsMap => roomsMap; //Карта комнат
         public RoomsLists RoomsLists => roomsLists; //Ссылка на листы со всемы комнатами
+        public LevelInformatoin LevelInformatoin => levelInformatoin; //Ссылка на информацию о уровне
         public bool IsSpawned => isRoomsSpawned; //Закончен ли спавн всех комнат
         public void SetIsSpawned() { if (!isRoomsSpawned) { isRoomsSpawned = true; afterSpawned.Invoke(); Debug.Log("[Info]: Rooms have been spawned"); } }
         public int AllRoomsCount => roomsCount + npcRoomsCount + boxesOnLevel + passagesCount + 1; //Получить общее кол-во комнат

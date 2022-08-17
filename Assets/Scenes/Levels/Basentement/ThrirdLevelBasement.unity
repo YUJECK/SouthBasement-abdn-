@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 479413651}
   - component: {fileID: 479413653}
   - component: {fileID: 479413652}
+  - component: {fileID: 479413654}
   m_Layer: 0
   m_Name: GenerationManager
   m_TagString: Untagged
@@ -388,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9448f0cbe41faa4a8d65fcfde51f606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locationName: Basement
+  startRoom: {fileID: 0}
   roomsCount: 14
   passagesCount: 2
   npcRoomsCount: 1
@@ -451,6 +452,23 @@ MonoBehaviour:
   exitRooms:
   - room: {fileID: 5387467937760179325, guid: b9ac8f78dc3010641b47cb88abdcb278, type: 3}
     chance: 100
+--- !u!114 &479413654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479413650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a06631c49e2cb41852c9fee7830176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelName: ThirdLevelBasement
+  locationName: Basement
+  levelIcon: {fileID: 0}
+  music:
+  - BasementTheme1
 --- !u!1 &533764616
 GameObject:
   m_ObjectHideFlags: 0

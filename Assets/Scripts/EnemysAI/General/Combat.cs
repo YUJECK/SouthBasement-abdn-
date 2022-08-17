@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -25,7 +26,7 @@ namespace EnemysAI
 
         [Header("Определение цели")]
         [SerializeField] private LayerMask damageLayer; // Дамажный слой
-        [SerializeField] private string enterTag = "Player"; // Тег на проверку у тригера
+        [SerializeField] private List<string> enterTags = new List<string>(); // Тег на проверку у тригера
 
         private float nextTime = 0f;
         private bool onTrigger = false;
@@ -69,7 +70,11 @@ namespace EnemysAI
         public bool GetStop() { return isStopped; }
 
         //Юнитивские методы
-        private void Awake() => pointRotation = GetComponent<PointRotation>();
+        private void Awake() 
+        {
+            pointRotation = GetComponent<PointRotation>();
+            if(enterTags.Count == 0) enterTags.Add("Player");
+        }
         private void Update()
         {
             if (controlCombatFromHere)
@@ -81,15 +86,16 @@ namespace EnemysAI
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.tag == enterTag)
+            if (enterTags.Contains(collision.tag))
             {
                 onTrigger = true;
+                pointRotation.SetTarget(collision.transform);
                 onEnterArea.Invoke();
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.tag == "Player")
+            if (pointRotation.Target == collision.transform)
                 onTrigger = false;
         }
         void OnDrawGizmosSelected()//Отрисовка радиуса атаки

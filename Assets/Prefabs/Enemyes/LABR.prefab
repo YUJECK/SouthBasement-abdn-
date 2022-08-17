@@ -181,9 +181,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037c1599568db9c4baf056d576de17c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeMode: 0
-  triggerMode: 0
-  targetTag: Player
+  targetTags: []
+  onTriggerEnter: 1
+  onTriggerStay: 0
+  onTriggerExit: 1
   onEnter:
     m_PersistentCalls:
       m_Calls:
@@ -241,11 +242,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  nowEnter: {fileID: 0}
-  nowStay: {fileID: 0}
-  nowExit: {fileID: 0}
-  triggerObject: {fileID: 0}
-  otherObjects: []
   trigger: 0
 --- !u!58 &983121516894182602
 CircleCollider2D:
@@ -474,6 +470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   runSpeed: 4
+  wakeUpOnSettingTarget: 0
   onSleep:
     m_PersistentCalls:
       m_Calls: []
@@ -565,7 +562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9727c2d35101849bf11baf0fc62792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 60
+  health: 55
   maxHealth: 65
   damageColor: {r: 0.98039216, g: 0.41960785, b: 0.41960785, a: 1}
   destroySound: RatHurt
@@ -586,7 +583,6 @@ MonoBehaviour:
   minCheese: 0
   maxCheese: 7
   itemsDrop: []
-  roomCloser: {fileID: 0}
   audioManager: {fileID: 0}
 --- !u!114 &2371407094003424733
 MonoBehaviour:

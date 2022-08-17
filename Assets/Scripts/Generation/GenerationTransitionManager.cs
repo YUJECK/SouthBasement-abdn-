@@ -46,40 +46,38 @@ public class GenerationTransitionManager : MonoBehaviour
 
     private void OnLevelWasLoaded()
     {
-        GenerationManager newGenerationManager = FindObjectOfType<GenerationManager>();
-
-        FindObjectOfType<RatConsole>().DisplayText("Enter to the " + newGenerationManager.LocationName, Color.green, RatConsole.Mode.ConsoleMessege, "[YUJECKMessege]");
+        FindObjectOfType<RatConsole>().DisplayText("Enter to the " + ManagerList.GenerationManager.LevelInformatoin.LocationName, Color.green, RatConsole.Mode.ConsoleMessege, "[YUJECKMessege]");
 
         //Добавление комнат при переходе на следующий уровень
         foreach (RoomInformation room in nextSimpleRooms)
         {
-            if (room.locationName == newGenerationManager.LocationName)
-                newGenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
+            if (room.locationName == ManagerList.GenerationManager.LevelInformatoin.LocationName)
+                ManagerList.GenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
         }
         foreach (RoomInformation room in nextNpcRooms)
         {
-            if (room.locationName == newGenerationManager.LocationName)
-                newGenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
+            if (room.locationName == ManagerList.GenerationManager.LevelInformatoin.LocationName)
+                ManagerList.GenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
         }
         foreach (RoomInformation room in nextTraderRooms)
         {
-            if (room.locationName == newGenerationManager.LocationName)
-                newGenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
+            if (room.locationName == ManagerList.GenerationManager.LevelInformatoin.LocationName)
+                ManagerList.GenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
         }
         foreach (RoomInformation room in nextBoxRooms)
         {
-            if (room.locationName == newGenerationManager.LocationName)
-                newGenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
+            if (room.locationName == ManagerList.GenerationManager.LevelInformatoin.LocationName)
+                ManagerList.GenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
         }
         foreach (RoomInformation room in nexteMustSpawnRooms)
         {
-            if (room.locationName == newGenerationManager.LocationName)
-                newGenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
+            if (room.locationName == ManagerList.GenerationManager.LevelInformatoin.LocationName)
+                ManagerList.GenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
         }
         foreach (RoomInformation room in nexteExitRooms)
         {
-            if (room.locationName == newGenerationManager.LocationName)
-                newGenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
+            if (room.locationName == ManagerList.GenerationManager.LevelInformatoin.LocationName)
+                ManagerList.GenerationManager.RoomsLists.GetRoomsList(Rooms.Default).Add(room.roomObject);
         }
     }
 }

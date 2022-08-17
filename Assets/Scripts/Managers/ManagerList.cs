@@ -74,4 +74,11 @@ public class ManagerList : MonoBehaviour
         Debug.Log("[Info]: " + GenerationManager.name + " has been setted");
         Debug.Log("[Info]: " + Grid.name + " has been setted");
     }
+    private void OnLevelWasLoaded(int level)
+    {
+        generationManager = FindObjectOfType<GenerationManager>();
+        grid = FindObjectOfType<Grid>();
+        Debug.Log("[Info]: " + GenerationManager.name + " has been updated");
+        Debug.Log("[Info]: " + Grid.name + " has been updated");
+    }
 }

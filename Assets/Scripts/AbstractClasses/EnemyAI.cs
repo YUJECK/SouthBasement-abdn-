@@ -12,7 +12,6 @@ namespace EnemysAI
         protected EnemyTarget target; //Подвижный ли таргет
 
         //Всякие приватные поля
-        protected bool isSleep = false;
         protected bool isStopped = false;
 
         //Ссылки на другие классы
@@ -43,7 +42,7 @@ namespace EnemysAI
         }
         protected void CheckTarget(EnemyTarget newTarget)
         {
-            if (targetSelection.Targets.Count > 0 && isSleep)
+            if (targetSelection.Targets.Count > 0)
             {
                 if (target == newTarget) return;
                 else if (target == null || target.targetMoveType != newTarget.targetMoveType) StartCoroutine(ChangeSpeed(newTarget.targetMoveType));
@@ -63,9 +62,6 @@ namespace EnemysAI
         public abstract void ResetStun(bool stopChange, bool blockChange);
 
         //Типо сеттеры и геттеры
-        public abstract void GoSleep();
-        public abstract void WakeUp();
-        public bool IsSleep => isSleep;
         public void SetStop(bool active) { isStopped = active; }
         public bool GetStop => isStopped; 
     }

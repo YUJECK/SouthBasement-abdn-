@@ -2112,7 +2112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standartValaue: 6
-  target: {fileID: 0}
+  target: {fileID: 203290218}
 --- !u!114 &413493281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2866,6 +2866,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 630008336}
+  - component: {fileID: 630008338}
   - component: {fileID: 630008337}
   - component: {fileID: 630008335}
   m_Layer: 0
@@ -2887,8 +2888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9448f0cbe41faa4a8d65fcfde51f606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locationName: Basement
-  startRoom: {fileID: 0}
+  startRoom: {fileID: 672272449}
   roomsCount: 8
   passagesCount: 2
   npcRoomsCount: 1
@@ -2962,6 +2962,23 @@ MonoBehaviour:
   exitRooms:
   - room: {fileID: 5387467937760179325, guid: 8917f35655818ea4ab0a60558c611a79, type: 3}
     chance: 100
+--- !u!114 &630008338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630008334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a06631c49e2cb41852c9fee7830176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelName: FirstLevelBasement
+  locationName: Basement
+  levelIcon: {fileID: 0}
+  music:
+  - BasementTheme1
 --- !u!1 &643324836
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,6 +3084,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &672272449 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5387467937760179322, guid: c0c1d00ec770d4b428b6debf9a873cfb, type: 3}
+  m_PrefabInstance: {fileID: 1468940593}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4492a6de7ad12a3458359eb0c496be69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &688806769
 GameObject:
   m_ObjectHideFlags: 0

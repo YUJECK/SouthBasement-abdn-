@@ -45,6 +45,8 @@ public class PointRotation : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0f, 0f, coefficient * CalculateAngle());
     }
 
+    public Transform Target => target;
+    public void SetTarget(Transform newTarget) { if (targetType == TargetType.Other) target = newTarget; }
     public void MultiplyCoefficent(float x) { coefficient *= x; }
     private float CalculateAngle() 
     {
