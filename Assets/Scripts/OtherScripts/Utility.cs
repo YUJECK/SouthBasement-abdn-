@@ -29,4 +29,5 @@ public static class Utility
         else if (checkNumber == CheckNumber.Less)
             if (ownNumber < verificationNumber) ownNumber = finalNumber;
     }
+    public static Vector2 InvertVector2(Vector2 original) => original * new Vector2(-1f, -1f);
 }

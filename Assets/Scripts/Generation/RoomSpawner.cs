@@ -6,7 +6,6 @@ namespace Generation
     public class RoomSpawner : MonoBehaviour
     {
         public RoomTemplate.Directions openingDirection; //Направление
-        public Vector2 ownInstantiateDifference = new Vector2(0f, 0f); //Оклонение относительно центра
         [SerializeField] private bool isStartSpawnPoint = false;
         [SerializeField] private RoomTemplate ownRoom; //Комната в которой находится этот проход
         [SerializeField] private GameObject passage; //Проход
@@ -28,13 +27,13 @@ namespace Generation
         public GameObject SpawnedRoom => spawnedRoom; //Заспавненная комната
         public RoomTemplate OwnRoom => ownRoom; //Эта комната
         public bool IsSpawned => isSpawned; //Заспавнена ли
-        public void SetOwnRoom(RoomTemplate ownRoom) => this.ownRoom = ownRoom; 
+        public void SetOwnRoom(RoomTemplate ownRoom) => this.ownRoom = ownRoom;
         public bool Close(bool isStatic) //Закрыть
         {
-            if(!isSpawned && state != RoomSpawnerState.StaticOpen)
+            if (!isSpawned && state != RoomSpawnerState.StaticOpen)
             {
-                if(isStatic)
-                {                 
+                if (isStatic)
+                {
                     state = RoomSpawnerState.StaticClose;
                     passage.SetActive(false);
                     wall.SetActive(true);
@@ -62,7 +61,7 @@ namespace Generation
         }
         public bool Open(bool isStatic) //Открыть
         {
-            if(isStatic && state != RoomSpawnerState.StaticClose)
+            if (isStatic && state != RoomSpawnerState.StaticClose)
             {
                 state = RoomSpawnerState.StaticOpen;
                 passage.SetActive(true);
@@ -86,7 +85,7 @@ namespace Generation
             Rooms thisRoom = ManagerList.GenerationManager.RoomsMap[ManagerList.GenerationManager.NowSpawnedRoomsCount];
             return ManagerList.GenerationManager.RoomsLists.GetRandomRoomInChance(thisRoom, chance, false);
         }
-        private void SetSpawnPointPosition(RoomTemplate room) => transform.localPosition = room.GetInstantiatePosition(ManagerList.GenerationManager.GetOppositeDirection(openingDirection)) + ownInstantiateDifference;
+        private Vector2 GetSpawnPosition(RoomTemplate otherRoom) => Utility.InvertVector2(otherRoom.GetInstantiatePosition(ManagerList.GenerationManager.GetOppositeDirection(openingDirection))) + ownRoom.GetInstantiatePosition(openingDirection);
 
         //Методы спавна
         public void StartSpawnningRoom(float offset = 0.1f) => Invoke("SpawnRoom", offset); //Начать спавн
@@ -99,7 +98,7 @@ namespace Generation
                 {
                     //Спавн
                     GameObject randomRoom = GetRoom();
-                    SetSpawnPointPosition(randomRoom.GetComponent<RoomTemplate>());
+                    transform.localPosition = GetSpawnPosition(randomRoom.GetComponent<RoomTemplate>());
 
                     spawnedRoom = Instantiate(randomRoom, transform.position, Quaternion.identity, ManagerList.GenerationManager.transform);
                     RoomTemplate newRoom = spawnedRoom.GetComponent<RoomTemplate>();
@@ -110,7 +109,7 @@ namespace Generation
                     //newRoom.RandomizePassages();
                     Open(true);
                     ManagerList.GenerationManager.AddRoomToList(newRoom);
-                    if(ownRoom != null) ownRoom.AddSpawnedRoom(newRoom);
+                    if (ownRoom != null) ownRoom.AddSpawnedRoom(newRoom);
                     isSpawned = true;
 
                     if (ManagerList.GenerationManager.NowSpawnedRoomsCount >= ManagerList.GenerationManager.RoomsMap.Length) ManagerList.GenerationManager.SetIsSpawned();
@@ -156,7 +155,7 @@ namespace Generation
         }
 
         //Юнитивские методы
-        private void OnTriggerEnter2D(Collider2D collision) 
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (!isSpawned && collision.CompareTag("Room")) Close(true);
             else if (isSpawned && collision.CompareTag("Spawner") && collision.GetComponent<RoomSpawner>().IsSpawned) DestroyRoom();

@@ -10,10 +10,10 @@ namespace Generation
         [SerializeField] private string locationName = "Basement"; //Имя локации
         [Header("Настройки комнат")]
         private List<RoomTemplate> rooms = new List<RoomTemplate>(); //Лист вмех заспавненных комнат
-        [Range(1, 100)] [SerializeField] private int roomsCount = 10; //Кол-во обычных комнат
-        [Range(0, 100)] [SerializeField] private int passagesCount = 2; //Кол-во комнат-проходов
-        [Range(0, 100)] [SerializeField] private int npcRoomsCount = 1; //Кол-во комнат с НПС
-        [Range(0, 100)] [SerializeField] private int boxesOnLevel = 1; //Кол-во коробок на уровне
+        [Range(2, 50)] [SerializeField] private int roomsCount = 10; //Кол-во обычных комнат
+        [Range(0, 25)] [SerializeField] private int passagesCount = 2; //Кол-во комнат-проходов
+        [Range(0, 20)] [SerializeField] private int npcRoomsCount = 1; //Кол-во комнат с НПС
+        [Range(0, 25)] [SerializeField] private int boxesOnLevel = 1; //Кол-во коробок на уровне
         [SerializeField] private bool isTraderWillSpawn = true; //Будет ли спавнится торговец
         [Header("События")]
         public UnityEvent afterSpawned = new UnityEvent();
@@ -107,6 +107,7 @@ namespace Generation
                 case RoomTemplate.Directions.Right:
                     return RoomTemplate.Directions.Left;
             }
+            Debug.Log("![Error]!");
             return RoomTemplate.Directions.Up;
         }
 

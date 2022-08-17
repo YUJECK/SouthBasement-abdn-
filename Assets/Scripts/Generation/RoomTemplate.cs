@@ -27,10 +27,10 @@ namespace Generation
         [SerializeField] protected RoomSpawner rightPassage; //Правый проход
 
         [Header("Настройки спавна")] //Позиции для точки спавна
-        [SerializeField] protected Vector2 instantiatePositionUp = new Vector2(0f, 18f);
-        [SerializeField] protected Vector2 instantiatePositionDown = new Vector2(0f, -18f);
-        [SerializeField] protected Vector2 instantiatePositionLeft = new Vector2(18f, 0f);
-        [SerializeField] protected Vector2 instantiatePositionRight = new Vector2(-18f, 0f);
+        [SerializeField] protected Vector2 instantiatePositionUp = new Vector2(0f, -18f);
+        [SerializeField] protected Vector2 instantiatePositionDown = new Vector2(0f, 18f);
+        [SerializeField] protected Vector2 instantiatePositionLeft = new Vector2(-18f, 0f);
+        [SerializeField] protected Vector2 instantiatePositionRight = new Vector2(18f, 0f);
 
         //Ссылки на другие вещи
         protected List<RoomTemplate> spawnedRooms = new List<RoomTemplate>(); // Заспавненные здесь комнаты
