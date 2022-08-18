@@ -133,15 +133,19 @@ namespace EnemysAI
         {
             if(moveTarget != null)
             {
-                if (transform.position.x > moveTarget.transform.position.x && flippedOnRight)
+                if(transform.position.x != moveTarget.transform.position.x)
                 {
-                    FlipThisObject();
-                    flippedOnRight = false;
-                }
-                else if (transform.position.x > moveTarget.transform.position.x && !flippedOnRight)
-                {
-                    FlipThisObject();
-                    flippedOnRight = true;
+                    Debug.Log("Cheching rotation");
+                    if (transform.position.x > moveTarget.transform.position.x && flippedOnRight)
+                    {
+                        FlipThisObject();
+                        flippedOnRight = false;
+                    }
+                    else if (transform.position.x < moveTarget.transform.position.x && !flippedOnRight)
+                    {
+                        FlipThisObject();
+                        flippedOnRight = true;
+                    }
                 }
             }
         }
@@ -178,7 +182,7 @@ namespace EnemysAI
         public bool GetBlocking() { return blockStop; }
 
         //Метод поворота    
-        private void FlipThisObject() { if (!isStopped) { transform.Rotate(0f, 180f, 0f); onFlip.Invoke(); } }
+        private void FlipThisObject() { transform.Rotate(0f, 180f, 0f); onFlip.Invoke();  }
         public void FlipOther(Transform _transform) { _transform.Rotate(180f, 0f, 0f); }
 
         //Юнитивские методы
