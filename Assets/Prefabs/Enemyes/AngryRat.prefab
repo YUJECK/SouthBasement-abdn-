@@ -156,7 +156,7 @@ MonoBehaviour:
   onStay:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1160361261316572005}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: SetStop
         m_Mode: 6
@@ -171,7 +171,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1160361261316572005}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: SetStop
         m_Mode: 6
@@ -382,10 +382,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5630845710053068691}
   - component: {fileID: 7112295092639880517}
+  - component: {fileID: 6977520012407713813}
+  - component: {fileID: 2475755926364852292}
+  - component: {fileID: 1485251605867826153}
+  - component: {fileID: 2181824385966395268}
   - component: {fileID: 5414004272345151957}
-  - component: {fileID: 5157359432002517473}
-  - component: {fileID: 997358912328341320}
-  - component: {fileID: 1160361261316572005}
   - component: {fileID: 954463900787170469}
   - component: {fileID: 2371407094003424733}
   - component: {fileID: 5630845709475724661}
@@ -468,6 +469,67 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6977520012407713813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c49f353b6563149843364adca749fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preset: {fileID: 0}
+--- !u!114 &2475755926364852292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab308a78383f65418541c5435013daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  definitionOfRotation: 0
+  onFlip:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1485251605867826153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57caaf44dd8111b42b8b513cba9035d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  searchRate: 1
+  whenANewPathIsFound:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2181824385966395268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2667505a3f1586045b604a7688c14269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  onArrive:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5414004272345151957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,105 +577,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   componentsToDisable:
-  - {fileID: 5157359432002517473}
-  - {fileID: 997358912328341320}
-  - {fileID: 1160361261316572005}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 954463900787170469}
   - {fileID: 2371407094003424733}
---- !u!114 &5157359432002517473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f975bdfffc214a84e8605b105297679e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 2
-  runSpeed: 3
-  wakeUpOnSettingTarget: 0
-  onSleep:
-    m_PersistentCalls:
-      m_Calls: []
-  onWakeUp:
-    m_PersistentCalls:
-      m_Calls: []
-  targetSelection: {fileID: 4066900711061194624}
-  combat: {fileID: 3957418438233326896}
---- !u!114 &997358912328341320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46c1c42e4d5d07f4c9478587f9891327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  changeGrid: 1
-  isPathVisualization: 0
-  gridChanges: []
---- !u!114 &1160361261316572005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d8f7d1eb7abf434eb3015745e311bb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movement: 0
-  _speed: 3
-  searchRate: 1
-  controlMovementFromHere: 1
-  isNowWalk: 0
-  onFlip:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 525621702351148791}
-        m_TargetAssemblyTypeName: PointRotation, Assembly-CSharp
-        m_MethodName: MultiplyCoefficent
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: -1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1160361261316572005}
-        m_TargetAssemblyTypeName: Move, Assembly-CSharp
-        m_MethodName: FlipOther
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2965869361774044280}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onArrive:
-    m_PersistentCalls:
-      m_Calls: []
-  onWakeUp:
-    m_PersistentCalls:
-      m_Calls: []
-  onSleep:
-    m_PersistentCalls:
-      m_Calls: []
-  stopCheker: {fileID: 7877029375638524724}
-  targetSelection: {fileID: 4066900711061194624}
 --- !u!114 &954463900787170469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -676,7 +644,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5630845710053068690}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

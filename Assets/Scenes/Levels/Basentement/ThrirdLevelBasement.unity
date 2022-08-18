@@ -343,6 +343,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3792840196486990929, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
   m_PrefabInstance: {fileID: 318421336}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &318421339 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5387467937760179322, guid: d446d830157012c459eee5e5ddf76ffd, type: 3}
+  m_PrefabInstance: {fileID: 318421336}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4492a6de7ad12a3458359eb0c496be69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &479413650
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,9 +363,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 479413651}
+  - component: {fileID: 479413654}
   - component: {fileID: 479413653}
   - component: {fileID: 479413652}
-  - component: {fileID: 479413654}
   m_Layer: 0
   m_Name: GenerationManager
   m_TagString: Untagged
@@ -389,8 +400,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9448f0cbe41faa4a8d65fcfde51f606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startRoom: {fileID: 0}
-  roomsCount: 14
+  startRoom: {fileID: 318421339}
+  roomsCount: 11
   passagesCount: 2
   npcRoomsCount: 1
   boxesOnLevel: 2
@@ -441,11 +452,7 @@ MonoBehaviour:
   boxRooms:
   - room: {fileID: 5387467937760179325, guid: dd075197d6711b4429495530afb58bb2, type: 3}
     chance: 100
-  mustSpawnRooms:
-  - room: {fileID: 5387467937760179325, guid: eda6cdb876e88834f83f4dd65a21115a, type: 3}
-    chance: 100
-  - room: {fileID: 5387467937760179325, guid: 2703b5f22a0bd3541b2d11329455231a, type: 3}
-    chance: 100
+  mustSpawnRooms: []
   passages:
   - room: {fileID: 5387467937760179325, guid: 46ee5183e7574b24f9d4456a76a6bd7c, type: 3}
     chance: 100
@@ -469,6 +476,8 @@ MonoBehaviour:
   levelIcon: {fileID: 0}
   music:
   - BasementTheme1
+  outPutLevelName: "\u0422\u0440\u0435\u0442\u0438\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C"
+  outPutLocationName: "\u041F\u043E\u0434\u0432\u0430\u043B"
 --- !u!1 &533764616
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +577,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 1
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.2
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 3d4c8e2b199ae010c3fc5df200000000
   m_LightCookieSprite: {fileID: 0}
