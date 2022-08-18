@@ -11,12 +11,12 @@ public class SimpleProjectileThrow : ShootingPattern
     {
         _isWork = true;
         onEnter.Invoke();
-        projectileThrow = GameManager.instance.StartCoroutine(ThrowProjectile(shooting));
+        projectileThrow = ManagerList.GameManager.StartCoroutine(ThrowProjectile(shooting));
     }
     public override void StopPattern(Shooting shooting)
     {
         _isWork = false;
-        if (projectileThrow != null) GameManager.instance.StopCoroutine(projectileThrow);
+        if (projectileThrow != null) ManagerList.GameManager.StopCoroutine(projectileThrow);
         onExit.Invoke();
     }
 

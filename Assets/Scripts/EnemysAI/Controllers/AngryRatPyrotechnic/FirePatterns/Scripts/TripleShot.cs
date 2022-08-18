@@ -11,12 +11,12 @@ public class TripleShot : ShootingPattern
     {
         _isWork = true;
         onEnter.Invoke();
-        tripleShot = GameManager.instance.StartCoroutine(ThrowProjectile(shooting));
+        tripleShot = ManagerList.GameManager.StartCoroutine(ThrowProjectile(shooting));
     }
     public override void StopPattern(Shooting shooting)
     {
         _isWork = false;
-        if (tripleShot != null) GameManager.instance.StopCoroutine(tripleShot);
+        if (tripleShot != null) ManagerList.GameManager.StopCoroutine(tripleShot);
         onExit.Invoke();
     }
 

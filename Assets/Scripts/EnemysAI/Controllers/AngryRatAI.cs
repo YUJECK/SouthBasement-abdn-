@@ -12,8 +12,6 @@ namespace EnemysAI
         //Ссылки на другие классы
         private Animator animator; 
         [SerializeField] private Combat combat; 
-        private EnemyHealth health;
-        private EffectHandler effectHandler;
 
         //Оглушение
         public override void SetStun(bool stopChange, bool blockChange)
@@ -39,7 +37,6 @@ namespace EnemysAI
         {
             animator = GetComponent<Animator>();
             moving = GetComponent<Move>();
-            health = GetComponent<EnemyHealth>();
             moving.speed = walkSpeed;
 
             //События

@@ -48,7 +48,11 @@ namespace EnemysAI
                     if (moving.isNowWalk && !animator.GetBool("isRun")) animator.SetBool("isRun", true);
                     if ((!moving.isNowWalk || moving.GetStop()) && animator.GetBool("isRun")) animator.SetBool("isRun", false);
                 }
+                moving.DynamicPathfind();
+                moving.Moving();
             }
+            moving.CheckRotationByTarget();
+            moving.ResetVelocity();
         }
     }
 }

@@ -75,8 +75,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTags: []
-  onTriggerEnter: 1
-  onTriggerStay: 0
+  onTriggerEnter: 0
+  onTriggerStay: 1
   onTriggerExit: 1
   onEnter:
     m_PersistentCalls:
@@ -127,7 +127,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.013061523, y: -0.10880923}
   serializedVersion: 2
-  m_Radius: 2.4241157
+  m_Radius: 5.05744
 --- !u!1 &3342140925434090965
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +411,7 @@ SpriteRenderer:
   m_SortingOrder: 10
   m_Sprite: {fileID: 4880453327934791435, guid: 67240a99ff24ea6439a9f62914941563, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -432,7 +432,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78891d9d39c6f744b6ae48933daf211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wakingUpTime: 0
   onSleep:
+    m_PersistentCalls:
+      m_Calls: []
+  beforeWakeUp:
     m_PersistentCalls:
       m_Calls: []
   onWakeUp:
@@ -458,25 +462,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 2
   runSpeed: 3.3
-  wakeUpOnSettingTarget: 0
-  onSleep:
-    m_PersistentCalls:
-      m_Calls: []
-  onWakeUp:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 125804403466811792}
-        m_TargetAssemblyTypeName: EnemysAI.Shooting, Assembly-CSharp
-        m_MethodName: StartWorking
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   targetSelection: {fileID: 4066900711061194624}
 --- !u!114 &997358912328341320
 MonoBehaviour:
@@ -509,7 +494,7 @@ MonoBehaviour:
   movement: 0
   _speed: 3
   searchRate: 1
-  controlMovementFromHere: 1
+  controlMovementFromHere: 0
   isNowWalk: 0
   onFlip:
     m_PersistentCalls:

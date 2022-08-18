@@ -191,8 +191,14 @@ namespace EnemysAI
         private void Start()
         {
             pointRotation = GetComponent<PointRotation>();
-            StartWorking();
             SetStop(true);
+        }
+        private void OnEnable()
+        {
+            if(pointRotation == null)
+                pointRotation = GetComponent<PointRotation>();
+            StartWorking();
+            Debug.Log("[Info]: Shooting component has been enabled");
         }
     }
 }

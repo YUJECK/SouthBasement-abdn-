@@ -5,6 +5,7 @@ namespace EnemysAI
 {
     [RequireComponent(typeof(Pathfinder))]
     [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(SpriteRenderer))]
     public class Move : MonoBehaviour
     {
         [Header("Параметры передвижения")]
@@ -44,7 +45,7 @@ namespace EnemysAI
         public UnityEvent onSleep = new UnityEvent();
 
         //Переменные для поворота
-        private bool flippedOnRight;
+        private bool flippedOnRight = false;
         private Vector2 lastPos;
 
         //Ссылки на другие скрипты
@@ -53,13 +54,14 @@ namespace EnemysAI
         [SerializeField] private TargetSelection targetSelection;
         private Pathfinder pathfinder;
         private Grid grid;
-        private Rigidbody2D rb;
+        private Rigidbody2D rigidBody;
+        private SpriteRenderer spriteRenderer;
 
         //Методы управления скриптом
         public void ResetVelocity()
         {
             //Сброс velocity
-            if (rb != null) rb.velocity = Vector2.zero;
+            if (rigidBody != null) rigidBody.velocity = Vector2.zero;
         }
         public void Moving()
         {
@@ -109,23 +111,39 @@ namespace EnemysAI
                 SetNextSearchTime();
             }
         }
-        public void CheckRotation()
+        public void CheckRotationByMoving()
         {
             //Поворот
             if (new Vector3(lastPos.x, lastPos.y, transform.position.z) != transform.position && isNowWalk)
             {
-                if (lastPos.x < transform.position.x && flippedOnRight)
+                if (lastPos.x > transform.position.x && flippedOnRight)
                 {
                     FlipThisObject();
                     flippedOnRight = false;
                 }
-                else if (lastPos.x > transform.position.x && !flippedOnRight)
+                else if (lastPos.x < transform.position.x && !flippedOnRight)
                 {
                     FlipThisObject();
                     flippedOnRight = true;
                 }
             }
             lastPos = transform.position;
+        }
+        public void CheckRotationByTarget()
+        {
+            if(moveTarget != null)
+            {
+                if (transform.position.x > moveTarget.transform.position.x && flippedOnRight)
+                {
+                    FlipThisObject();
+                    flippedOnRight = false;
+                }
+                else if (transform.position.x > moveTarget.transform.position.x && !flippedOnRight)
+                {
+                    FlipThisObject();
+                    flippedOnRight = true;
+                }
+            }
         }
 
         //Методы поиска пути
@@ -167,8 +185,9 @@ namespace EnemysAI
         private void Awake()
         {
             pathfinder = GetComponent<Pathfinder>();
-            rb = GetComponent<Rigidbody2D>();
+            rigidBody = GetComponent<Rigidbody2D>();
             grid = FindObjectOfType<Grid>();
+            
             targetSelection.onTargetChange.AddListener(SetNewTargetAndFindPath);
             targetSelection.onResetTarget.AddListener(ResetTarget);
             if (movement == Movement.Wandering) onArrive.AddListener(targetSelection.SetNewTarget);
@@ -181,7 +200,7 @@ namespace EnemysAI
                 ResetVelocity();
                 DynamicPathfind();
                 Moving();
-                CheckRotation();
+                CheckRotationByMoving();
             }
         }
     }

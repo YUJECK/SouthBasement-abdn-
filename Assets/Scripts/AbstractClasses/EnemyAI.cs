@@ -14,12 +14,6 @@ namespace EnemysAI
         //Всякие приватные поля
         protected bool isStopped = false;
 
-        //Ссылки на другие классы
-        [Header("Другое")]
-        [SerializeField] private bool wakeUpOnSettingTarget = false;
-        [SerializeField] protected UnityEvent onSleep = new UnityEvent();
-        [SerializeField] protected UnityEvent onWakeUp = new UnityEvent();
-
         [Header("Другие компоненты")]
         [SerializeField] protected TargetSelection targetSelection;
         protected Move moving;

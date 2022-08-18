@@ -25,13 +25,11 @@ namespace Generation
         [SerializeField] private RoomSpawner downPassage; //Нижний проход
         [SerializeField] private RoomSpawner leftPassage; //Левый проход
         [SerializeField] private RoomSpawner rightPassage; //Правый проход
-
         [Header("Настройки спавна")] //Позиции для точки спавна
         [SerializeField] private Vector2 instantiatePositionUp = new Vector2(0f, -18f);
         [SerializeField] private Vector2 instantiatePositionDown = new Vector2(0f, 18f);
         [SerializeField] private Vector2 instantiatePositionLeft = new Vector2(-18f, 0f);
         [SerializeField] private Vector2 instantiatePositionRight = new Vector2(18f, 0f);
-
         //Ссылки на другие вещи
         private List<RoomTemplate> spawnedRooms = new List<RoomTemplate>(); // Заспавненные здесь комнаты
         private RoomSpawner startingSpawnPoint; // Точка откуда была заспавнена эта комната
