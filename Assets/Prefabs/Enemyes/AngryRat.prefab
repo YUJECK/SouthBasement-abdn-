@@ -383,17 +383,15 @@ GameObject:
   - component: {fileID: 5630845710053068691}
   - component: {fileID: 7112295092639880517}
   - component: {fileID: 5414004272345151957}
-  - component: {fileID: 6977520012407713813}
   - component: {fileID: 2475755926364852292}
   - component: {fileID: 1485251605867826153}
   - component: {fileID: 2181824385966395268}
   - component: {fileID: 954463900787170469}
   - component: {fileID: 2371407094003424733}
+  - component: {fileID: 3898114776289481681}
   - component: {fileID: 5630845709475724661}
   - component: {fileID: 5630845709475724668}
   - component: {fileID: 1658189367019712007}
-  - component: {fileID: 3898114776289481681}
-  - component: {fileID: 2645149665407792750}
   m_Layer: 6
   m_Name: AngryRat
   m_TagString: Enemy
@@ -523,29 +521,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 954463900787170469}
   - {fileID: 2371407094003424733}
---- !u!114 &6977520012407713813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9237d98ec4cbf8644bc2d11b4fd4e0e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preset: {fileID: 11400000, guid: 83136853c874b4042ac2420403477090, type: 2}
-  moving: {fileID: 2181824385966395268}
-  flipping: {fileID: 2475755926364852292}
-  dynamicPathFinding: {fileID: 1485251605867826153}
-  combat: {fileID: 3957418438233326896}
-  health: {fileID: 954463900787170469}
-  shooting: {fileID: 0}
-  targetSelection: {fileID: 4066900711061194624}
-  stopTrigger: {fileID: 7877029375638524724}
-  sleeping: {fileID: 5414004272345151957}
-  animationList: {fileID: 2645149665407792750}
 --- !u!114 &2475755926364852292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,6 +626,22 @@ MonoBehaviour:
   effects:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3898114776289481681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c1c42e4d5d07f4c9478587f9891327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  changeGrid: 0
+  isPathVisualization: 0
+  gridChanges: []
 --- !u!50 &5630845709475724661
 Rigidbody2D:
   serializedVersion: 4
@@ -707,34 +698,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.05328539, y: -0.17224759}
   m_Size: {x: 0.4015259, y: 0.54734397}
   m_Direction: 0
---- !u!114 &3898114776289481681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46c1c42e4d5d07f4c9478587f9891327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  changeGrid: 0
-  isPathVisualization: 0
-  gridChanges: []
---- !u!114 &2645149665407792750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55b8ecff0ca6e3f4693d91933639a099, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6114075096480147822
 GameObject:
   m_ObjectHideFlags: 0
