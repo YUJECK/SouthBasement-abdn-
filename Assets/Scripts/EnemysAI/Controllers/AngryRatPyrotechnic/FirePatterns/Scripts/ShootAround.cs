@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using EnemysAI;
+using EnemysAI.CombatSkills;
 
 [CreateAssetMenu(fileName = "ShootAround", menuName = "ShootingPatterns/ShootAround")]
 public class ShootAround : ShootingPattern

@@ -4,16 +4,17 @@ using UnityEngine.Events;
 
 namespace EnemysAI.Moving
 {
-    public class Moving : MonoBehaviour
+    public class Move : MonoBehaviour
     {
         [Header("Настройки движения")]
         [SerializeField] private float speed = 3; // Скорость передвижения 
+        public UnityEvent onBeginingOfMoving = new UnityEvent(); //Начало ходьбы
         public UnityEvent onArrive = new UnityEvent(); //Когда придет к конечной точке пути
         
         private List<Vector2> path = new List<Vector2>(); //Путь по которому идет объект
         private bool isNowWalk = false; //Идет ли сейчас объект
         private bool isStopped = false;
-        private bool blockStop = false;
+        private bool blockingStop = false;
 
         public float Speed
         {
@@ -27,20 +28,23 @@ namespace EnemysAI.Moving
             }
         }
         public void SetPath(List<Vector2> path) => this.path = path;
-        public void SetStop(bool stopped) => isStopped = stopped;
+        public void SetStop(bool stopped) { if (!blockingStop) isStopped = stopped; }
+        public void BlockStop(bool blocked) => blockingStop = blocked; 
         public bool IsStopped => isStopped;
+        private void Moving()
+        {
+            if (!isNowWalk) onBeginingOfMoving.Invoke();
+            transform.position = Vector2.MoveTowards(transform.position, path[0], Speed * Time.deltaTime);
+            isNowWalk = true;
+
+            if (transform.position == new Vector3(path[0].x, path[0].y, transform.position.z))
+                path.RemoveAt(0);
+        }
 
         private void FixedUpdate() //Физическая логика
         {
             //Движение 
-            if (path.Count != 0)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, path[0], Speed * Time.deltaTime);
-                isNowWalk = true;
-
-                if (transform.position == new Vector3(path[0].x, path[0].y, transform.position.z))
-                    path.RemoveAt(0);
-            }
+            if (path.Count != 0 && !isStopped) Moving();
             else
             {
                 isNowWalk = false;

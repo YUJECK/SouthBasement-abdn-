@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EnemysAI
+namespace EnemysAI.Other
 {
     public class TargetSelection : MonoBehaviour
     {

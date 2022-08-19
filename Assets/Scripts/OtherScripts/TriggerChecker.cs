@@ -6,9 +6,9 @@ public class TriggerChecker : MonoBehaviour
 {
     [Header("Настройки")]
     public List<string> targetTags = new List<string>();
-    [SerializeField] private bool onTriggerEnter = true;
-    [SerializeField] private bool onTriggerStay = false;
-    [SerializeField] private bool onTriggerExit = true;
+    public bool onTriggerEnter = true;
+    public bool onTriggerStay = false;
+    public bool onTriggerExit = true;
 
     [Header("События")]
     public UnityEvent<GameObject> onEnter = new UnityEvent<GameObject>();

@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.Events;
 namespace EnemysAI
 {
-    [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(EnemyHealth))]
-    [RequireComponent(typeof(Sleeping))]
+    //[RequireComponent(typeof(Animator))]
+    //[RequireComponent(typeof(EnemyHealth))]
+    //[RequireComponent(typeof(Sleeping))]
     public class AngryRatAI : EnemyAI
     {
         ////Ссылки на другие классы

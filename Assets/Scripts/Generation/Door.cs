@@ -1,4 +1,5 @@
 using EnemysAI;
+using EnemysAI.Other;
 using UnityEngine;
 using UnityEngine.Events;
 

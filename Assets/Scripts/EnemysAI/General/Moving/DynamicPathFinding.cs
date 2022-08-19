@@ -17,12 +17,15 @@ public class DynamicPathFinding : MonoBehaviour
 
     private IEnumerator DynamicPathfinding()
     {
-        if (!isStopped)
-        { 
-            path = FindPath();
-            whenANewPathIsFound.Invoke(path);
+        while (true)
+        {
+            if (!isStopped && target != null)
+            {
+                path = FindPath();
+                whenANewPathIsFound.Invoke(path);
+            }
+            yield return new WaitForSeconds(searchRate);
         }
-        yield return new WaitForSeconds(searchRate);
     }
     private List<Vector2> FindPath() 
     {
@@ -30,7 +33,18 @@ public class DynamicPathFinding : MonoBehaviour
             new Vector2(transform.position.x / ManagerList.Grid.nodeSize, transform.position.y / ManagerList.Grid.nodeSize),
             new Vector2(target.transform.position.x / ManagerList.Grid.nodeSize, target.transform.position.y / ManagerList.Grid.nodeSize), false);
     }
-    public void SetNewTarget(Transform target) => this.target = target;
+    public float SearchRate
+    {
+        get => searchRate;
+        set 
+        {
+            if (value < 0.5) value = 0.5f;
+            if (value > 6) value = 6;
+
+            searchRate = value;
+        }
+    }
+    public void SetNewTarget(EnemyTarget target) => this.target = target.transform;
     public void ResetTarget() => target = null;
 
     private void Start()
@@ -40,6 +54,7 @@ public class DynamicPathFinding : MonoBehaviour
     }
     private void OnEnable()
     {
+        if(pathfinder == null) pathfinder = GetComponent<Pathfinder>();
         StartCoroutine(DynamicPathfinding());
     }
 }

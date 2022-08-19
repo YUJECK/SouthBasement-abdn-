@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EnemysAI
+namespace EnemysAI.CombatSkills
 {
     [RequireComponent(typeof(PointRotation))]
     public class Combat : MonoBehaviour

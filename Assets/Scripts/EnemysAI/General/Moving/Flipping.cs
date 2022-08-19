@@ -5,7 +5,7 @@ namespace EnemysAI.Moving
 {
     public class Flipping : MonoBehaviour
     {
-        private enum DefinitionOfRotation
+        public enum DefinitionOfRotation
         {
             ByMoving,
             ByTarget

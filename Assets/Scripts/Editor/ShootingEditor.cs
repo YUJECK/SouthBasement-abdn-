@@ -1,4 +1,5 @@
 using EnemysAI;
+using EnemysAI.CombatSkills;
 using UnityEditor;
 
 [CanEditMultipleObjects]
