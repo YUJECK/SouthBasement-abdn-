@@ -389,6 +389,7 @@ GameObject:
   - component: {fileID: 954463900787170469}
   - component: {fileID: 2371407094003424733}
   - component: {fileID: 3898114776289481681}
+  - component: {fileID: 3018920216312722910}
   - component: {fileID: 5630845709475724661}
   - component: {fileID: 5630845709475724668}
   - component: {fileID: 1658189367019712007}
@@ -516,11 +517,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   componentsToDisable:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2475755926364852292}
+  - {fileID: 1485251605867826153}
+  - {fileID: 2181824385966395268}
   - {fileID: 954463900787170469}
   - {fileID: 2371407094003424733}
+  - {fileID: 3898114776289481681}
+  - {fileID: 3018920216312722910}
 --- !u!114 &2475755926364852292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57caaf44dd8111b42b8b513cba9035d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searchRate: 1
+  searchRate: 0.5
   whenANewPathIsFound:
     m_PersistentCalls:
       m_Calls: []
@@ -568,10 +571,34 @@ MonoBehaviour:
   speed: 3
   onBeginingOfMoving:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5630845709475724668}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: AngryRatRunning
+          m_BoolArgument: 0
+        m_CallState: 2
   onArrive:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5630845709475724668}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: AngryRatIdle
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &954463900787170469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +620,19 @@ MonoBehaviour:
   destroyOffset: 0
   stun:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDie:
     m_PersistentCalls:
       m_Calls: []
@@ -620,7 +659,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8396d1031dd0c545b0d69da1ec72bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectsCanUse: 01000000020000000300000004000000
+  effectsCanUse: 0100000002000000030000000400000005000000
+  onStun:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5414004272345151957}
+        m_TargetAssemblyTypeName: EnemysAI.Other.Sleeping, Assembly-CSharp
+        m_MethodName: GoSleep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5630845709475724668}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: AngryRatStunned
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDisableStun:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5414004272345151957}
+        m_TargetAssemblyTypeName: EnemysAI.Other.Sleeping, Assembly-CSharp
+        m_MethodName: WakeUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   health: {fileID: 954463900787170469}
   effectIndicator: {fileID: 3330916501560165472}
   effects:
@@ -642,6 +723,19 @@ MonoBehaviour:
   changeGrid: 0
   isPathVisualization: 0
   gridChanges: []
+--- !u!114 &3018920216312722910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630845710053068690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f975bdfffc214a84e8605b105297679e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSelection: {fileID: 4066900711061194624}
 --- !u!50 &5630845709475724661
 Rigidbody2D:
   serializedVersion: 4

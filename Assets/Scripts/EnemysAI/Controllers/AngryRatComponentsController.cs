@@ -12,11 +12,15 @@ namespace EnemysAI.Controllers
     [RequireComponent(typeof(Sleeping))]
     public class AngryRatComponentsController : EnemyAI
     {
+        private DynamicPathFinding dynamicPathFinding;
+        [SerializeField] private TargetSelection targetSelection;
+        private Move move;
         private void Start()
         {
-            //Написать добавление лисэнеров в ивенты
-            //Продумать работу стана
-            //Перестать кодить без плана
+            dynamicPathFinding = GetComponent<DynamicPathFinding>();
+            move = GetComponent<Move>();
+            dynamicPathFinding.whenANewPathIsFound.AddListener(move.SetPath);
+            targetSelection.onSetTarget.AddListener(dynamicPathFinding.SetNewTarget);
         }
     }
 }

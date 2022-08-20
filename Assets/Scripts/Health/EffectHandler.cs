@@ -7,6 +7,8 @@ public class EffectHandler : MonoBehaviour
 {
     [Header("Настройки еффектов")]
     public List<EffectsList> effectsCanUse;
+    public UnityEvent onStun = new UnityEvent();
+    public UnityEvent onDisableStun = new UnityEvent();
     private EffectStats burn;
     private EffectStats poison;
     private EffectStats bleed;
@@ -78,6 +80,11 @@ public class EffectHandler : MonoBehaviour
                     if (gameManager != null)
                         effectIndicator.sprite = gameManager.hollowSprite;
                     break;
+                case EffectsList.Stun:
+                    Stun(true);
+                    yield return new WaitForSeconds(duration);
+                    Stun(false);
+                    break;
             }
         }
     }
@@ -115,6 +122,12 @@ public class EffectHandler : MonoBehaviour
             regeneration.SetNextTime(regeneration.effectRate);
             health.Heal(regeneration.effectStrength);
         }
+    }
+    public void Stun(bool active)
+    {
+        Debug.Log("sldfj;slkdfa");
+        if(active) onStun.Invoke();
+        else onDisableStun.Invoke();
     }
 
     //Юнитивские методы

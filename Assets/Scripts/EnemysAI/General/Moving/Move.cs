@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 namespace EnemysAI.Moving
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Move : MonoBehaviour
     {
         [Header("Настройки движения")]
@@ -15,6 +16,7 @@ namespace EnemysAI.Moving
         private bool isNowWalk = false; //Идет ли сейчас объект
         private bool isStopped = false;
         private bool blockingStop = false;
+        private Rigidbody2D rigidbody;
 
         public float Speed
         {
@@ -41,6 +43,7 @@ namespace EnemysAI.Moving
                 path.RemoveAt(0);
         }
 
+        private void Start() => rigidbody = GetComponent<Rigidbody2D>();
         private void FixedUpdate() //Физическая логика
         {
             //Движение 
@@ -50,6 +53,7 @@ namespace EnemysAI.Moving
                 isNowWalk = false;
                 onArrive.Invoke();
             }
+            rigidbody.velocity = Vector2.zero;
         }
     }
 }

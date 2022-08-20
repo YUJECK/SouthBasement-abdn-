@@ -18,5 +18,6 @@ public enum EffectsList
     Burn,
     Bleed,
     Poison,
-    Regeneration
+    Regeneration,
+    Stun
 }
