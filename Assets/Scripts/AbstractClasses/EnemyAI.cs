@@ -1,61 +1,59 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace EnemysAI
 {
+    public enum EnemyState
+    {
+        Idle,
+        Sleeping,
+        WakeUp,
+        Walking,
+        Attacking,
+        Heeling,
+        Stunned
+    }
+    public class State
+    {
+        private EnemyState state = EnemyState.Idle;
+        private Animator animator;
+        private string animation = "No animation";
+        private UnityEvent[] actionsOnStart;
+        private UnityEvent[] dynamicActions;
+        private UnityEvent[] actionsOnEnd;
+
+        public EnemyState EnemyState => state;
+        public string Animation => animation;
+        public Animator Animator => animator;
+        public void InvokeStartActions(float delay) => ManagerList.GameManager.StartCoroutine(InvokeActions(delay, actionsOnStart));
+        public void InvokeEndActions(float delay) => ManagerList.GameManager.StartCoroutine(InvokeActions(delay, actionsOnEnd));
+        public void InvokeDynamicActions()
+        {
+            foreach (UnityEvent action in dynamicActions)
+                action.Invoke();
+        }
+        private IEnumerator InvokeActions(float delay, UnityEvent[] actions)
+        {
+            yield return new WaitForSeconds(delay);
+            foreach (UnityEvent aciton in actions)
+                aciton.Invoke();
+        }
+    }
+
     public abstract class EnemyAI : MonoBehaviour
     {
-        //[Header("Параметры скорости")]
-        //[SerializeField] protected float walkSpeed = 2f; //Скорость при ходьбе
-        //[SerializeField] protected float runSpeed = 3.3f; //Скорость при беге
-        //protected EnemyTarget target; //Подвижный ли таргет
+        private List<State> states = new List<State>();
+        private State currentState;
+        private List<Vector2> path;
 
-        ////Всякие приватные поля
-        //protected bool isStopped = false;
-
-        //[Header("Другие компоненты")]
-        //[SerializeField] protected TargetSelection targetSelection;
-
-        //protected IEnumerator ChangeSpeed(TargetType moveType) //Плавный переход скорости
-        //{
-        //    float nextSpeed;
-        //    if (moveType == TargetType.Static) nextSpeed = walkSpeed;
-        //    else nextSpeed = runSpeed;
-
-        //    float k = (nextSpeed - moving.speed) / 20;
-        //    int n = (int)((nextSpeed - moving.speed) / k);
-        //    if (n < 0f) n *= -1;
-
-        //    for (int i = 0; i < n; i++)
-        //    {
-        //        yield return new WaitForSeconds(0.25f);
-        //        moving.speed += k;
-        //    }
-        //}
-        //protected void CheckTarget(EnemyTarget newTarget)
-        //{
-        //    if (targetSelection.Targets.Count > 0)
-        //    {
-        //        if (target == newTarget) return;
-        //        else if (target == null || target.targetMoveType != newTarget.targetMoveType) StartCoroutine(ChangeSpeed(newTarget.targetMoveType));
-        //        target = newTarget;
-        //    }
-        //}
-
-        ////Оглушение
-        //public IEnumerator Stun(float duration)
-        //{
-        //    SetStun(true, true);
-        //    yield return new WaitForSeconds(duration);
-        //    ResetStun(true, true);
-        //}
-        //public void GetStunned(float duration) => StartCoroutine(Stun(duration));
-        //public abstract void SetStun(bool stopChange, bool blockChange);
-        //public abstract void ResetStun(bool stopChange, bool blockChange);
-
-        ////Типо сеттеры и геттеры
-        //public void SetStop(bool active) { isStopped = active; }
-        //public bool GetStop => isStopped; 
+        public void ChangeState(State newState, float currentActionStopDelay, float newActionStartDelay)
+        {
+            if (currentState != null) currentState.InvokeEndActions(currentActionStopDelay);
+            currentState = newState;
+            currentState.InvokeStartActions(newActionStartDelay);
+            if (currentState.Animation != "No animation") currentState.Animator.Play(currentState.Animation);
+        }
     }
 }
