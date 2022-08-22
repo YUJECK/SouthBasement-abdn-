@@ -15,6 +15,8 @@ public class DynamicPathFinding : MonoBehaviour
     private List<Vector2> path = new List<Vector2>();
     private Pathfinder pathfinder;
 
+    public void StartDynamicPathfinding() => StartCoroutine(DynamicPathfinding());
+    public void StopDynamicPathfinding() => StartCoroutine(DynamicPathfinding());
     private IEnumerator DynamicPathfinding()
     {
         while (true)
@@ -47,14 +49,8 @@ public class DynamicPathFinding : MonoBehaviour
     public void SetNewTarget(EnemyTarget target) => this.target = target.transform;
     public void ResetTarget() => target = null;
 
-    private void Start()
+    private void Awake()
     {
         pathfinder = GetComponent<Pathfinder>();
-        StartCoroutine(DynamicPathfinding());
-    }
-    private void OnEnable()
-    {
-        if(pathfinder == null) pathfinder = GetComponent<Pathfinder>();
-        StartCoroutine(DynamicPathfinding());
     }
 }

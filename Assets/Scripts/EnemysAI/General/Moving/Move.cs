@@ -33,27 +33,25 @@ namespace EnemysAI.Moving
         public void SetStop(bool stopped) { if (!blockingStop) isStopped = stopped; }
         public void BlockStop(bool blocked) => blockingStop = blocked; 
         public bool IsStopped => isStopped;
-        private void Moving()
+        public void Moving()
         {
-            if (!isNowWalk) onBeginingOfMoving.Invoke();
-            transform.position = Vector2.MoveTowards(transform.position, path[0], Speed * Time.deltaTime);
-            isNowWalk = true;
+            rigidbody.velocity = Vector2.zero;
+            if (path.Count != 0 && !isStopped)
+            {
+                if (!isNowWalk) onBeginingOfMoving.Invoke();
+                transform.position = Vector2.MoveTowards(transform.position, path[0], Speed * Time.deltaTime);
+                isNowWalk = true;
 
-            if (transform.position == new Vector3(path[0].x, path[0].y, transform.position.z))
-                path.RemoveAt(0);
-        }
-
-        private void Start() => rigidbody = GetComponent<Rigidbody2D>();
-        private void FixedUpdate() //Физическая логика
-        {
-            //Движение 
-            if (path.Count != 0 && !isStopped) Moving();
+                if (transform.position == new Vector3(path[0].x, path[0].y, transform.position.z))
+                    path.RemoveAt(0);
+            }
             else
             {
                 isNowWalk = false;
                 onArrive.Invoke();
             }
-            rigidbody.velocity = Vector2.zero;
         }
+
+        private void Start() => rigidbody = GetComponent<Rigidbody2D>();
     }
 }

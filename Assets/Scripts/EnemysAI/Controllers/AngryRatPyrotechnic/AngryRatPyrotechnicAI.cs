@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace EnemysAI
 {
-    public class AngryRatPyrotechnicAI : EnemyAI
+    public class AngryRatPyrotechnicAI : StateMachine
     {
         //private Animator animator;
         //private Shooting shooting;
