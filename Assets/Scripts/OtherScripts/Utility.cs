@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public static class Utility
 {
-    public enum CheckNumber
+    public enum CheckNumberVariants
     {
         Much,
         Less
@@ -22,11 +22,11 @@ public static class Utility
         method.Invoke(argument);
     }
 
-    public static void ChechNumber(ref int ownNumber, int verificationNumber, int finalNumber, CheckNumber checkNumber)
+    public static void CheckNumber(ref int ownNumber, int verificationNumber, int finalNumber, CheckNumberVariants checkNumber)
     {
-        if (checkNumber == CheckNumber.Much)
+        if (checkNumber == CheckNumberVariants.Much)
             if (ownNumber > verificationNumber) ownNumber = finalNumber;
-        else if (checkNumber == CheckNumber.Less)
+        else if (checkNumber == CheckNumberVariants.Less)
             if (ownNumber < verificationNumber) ownNumber = finalNumber;
     }
     public static Vector2 InvertVector2(Vector2 original) => original * new Vector2(-1f, -1f);

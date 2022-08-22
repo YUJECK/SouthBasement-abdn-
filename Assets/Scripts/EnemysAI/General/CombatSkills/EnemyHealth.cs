@@ -20,7 +20,6 @@ public class EnemyHealth : Health
     //Другое
     [Header("Другое")]
     private Coroutine damageInd;
-    [HideInInspector] public AudioManager audioManager;
 
     private void DropItem()
     {
@@ -41,35 +40,29 @@ public class EnemyHealth : Health
     //Методы управления
     public override void Heal(int heal)
     {
-        health += heal;
-        if (health >= maxHealth) health = maxHealth;
+        currentHealth += heal;
+        if (currentHealth >= maxHealth) currentHealth = maxHealth;
 
-        onHealthChange.Invoke(health, maxHealth);
+        onHealthChange.Invoke(currentHealth, maxHealth);
     }
     public override void TakeHit(int damage, float stunDuration = 0f)
     {
-        health -= damage;
+        currentHealth -= damage;
         if (damageInd != null) StopCoroutine(damageInd);
-        if (stunDuration > 0f)
-            stun.Invoke(stunDuration);
-        damageInd = StartCoroutine(TakeHitVizualization());
-        onHealthChange.Invoke(health, maxHealth);
+        onHealthChange.Invoke(CurrentHealth, MaxHealth);
 
-        if (health <= 0)
+        if (CurrentHealth <= 0)
         {
             onDie.Invoke();
             int cheese = Random.Range(minCheese, maxCheese);
-            if (destroySound != "") audioManager.PlayClip(destroySound);
-            gameManager.SpawnCheese(gameObject.transform.position, cheese);
-            if (destroyOnDie) Destroy(gameObject, destroyOffset);
         }
     }
     public override void SetHealth(int newMaxHealth, int newHealth)
     {
         maxHealth = newMaxHealth;
-        if (health >= maxHealth) health = maxHealth;
+        Utility.CheckNumber(ref currentHealth, maxHealth, maxHealth, Utility.CheckNumberVariants.Much);
         
-        newHealth -= health;
+        newHealth -= CurrentHealth;
         if (newHealth < 0)
             TakeHit(-newHealth);
         else if (newHealth > 0)
@@ -79,11 +72,7 @@ public class EnemyHealth : Health
     //Юнитивские методы
     private void Awake()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        effectManager = FindObjectOfType<EffectsInfo>();
-        audioManager = FindObjectOfType<AudioManager>();
         effectHandler = GetComponent<EffectHandler>();
-        useEffects = true;
         effectHandler.health = this;
         //stun.AddListener(GetComponent<EnemyAI>().GetStunned);
         onDie.AddListener(DropItem);

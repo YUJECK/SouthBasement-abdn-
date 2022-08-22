@@ -6,14 +6,12 @@ using UnityEngine.Events;
 
 [System.Serializable] public abstract class State
 {
-    [SerializeField] private EnemyState state = EnemyState.Idle;
     [SerializeField] private Animator animator;
     [SerializeField] private string animation = "No animation";
-    [SerializeField] protected UnityEvent onEnter = new UnityEvent();
-    [SerializeField] protected UnityEvent onExit = new UnityEvent();
-    [SerializeField] protected UnityEvent onUpdate = new UnityEvent();
+    public UnityEvent onEnter = new UnityEvent();
+    public UnityEvent onExit = new UnityEvent();
+    public UnityEvent onUpdate = new UnityEvent();
 
-    public EnemyState EnemyState => state;
     public Animator Animator => animator;
     public string Animation => animation;
 

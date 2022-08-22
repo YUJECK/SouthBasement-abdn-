@@ -21,7 +21,8 @@ namespace EnemysAI.CombatSkills
 
         [Header("События")]
         public UnityEvent onAttack = new UnityEvent(); // При атаке
-        public UnityEvent onBeforeAttack = new UnityEvent(); // За attackTimeOffset до атаки
+        public UnityEvent beforeAttack = new UnityEvent(); // За attackTimeOffset до атаки
+        public UnityEvent afterAttack = new UnityEvent();
         public UnityEvent onEnterArea = new UnityEvent(); // Когда зашел в радиус активации атаки
 
         [Header("Определение цели")]
@@ -29,25 +30,24 @@ namespace EnemysAI.CombatSkills
         [SerializeField] private List<string> enterTags = new List<string>(); // Тег на проверку у тригера
 
         private float nextTime = 0f;
-        private bool onTrigger = false;
+        private bool isOnTrigger = false;
         private bool isStopped = false;
+        private Transform attackTarget;
 
         //Методы управления скриптом
-        public void Attack()
-        {
-            if (!isStopped && onTrigger && Time.time >= nextTime - attackTimeOffset)
-            {
-                StartCoroutine(StartAttack(attackTimeOffset));
-                SetNextAttackTime(attackRate + attackTimeOffset);
-            }
-        }
+        public void Attack() => StartCoroutine(StartAttack(attackTimeOffset));
 
         //Методы атаки
         private IEnumerator StartAttack(float waitTime)
         {
-            onBeforeAttack.Invoke();
-            yield return new WaitForSeconds(waitTime);
-            Hit();
+            while(!isStopped && isOnTrigger)
+            {
+                beforeAttack.Invoke();
+                yield return new WaitForSeconds(attackTimeOffset);
+                Hit();
+                afterAttack.Invoke();
+                yield return new WaitForSeconds(attackRate);
+            }
         }
         private void Hit()
         {
@@ -63,11 +63,11 @@ namespace EnemysAI.CombatSkills
                     obj.GetComponent<PlayerHealth>().TakeHit(Random.Range(minDamage, maxDamage + 1));
             }
         }
-        private void SetNextAttackTime(float value) { nextTime = Time.time + value; }
 
         //Типо сеттеры и геттеры
         public void SetStop(bool active) { isStopped = active; }
         public bool GetStop() { return isStopped; }
+        public bool IsOnTrigger => isOnTrigger;
 
         //Юнитивские методы
         private void Awake() 
@@ -75,28 +75,19 @@ namespace EnemysAI.CombatSkills
             pointRotation = GetComponent<PointRotation>();
             if(enterTags.Count == 0) enterTags.Add("Player");
         }
-        private void Update()
-        {
-            if (controlCombatFromHere)
-            {
-                //Проверяем можем ли мы атаковать
-                if (!isStopped && onTrigger && Time.time >= nextTime - attackTimeOffset)
-                    Attack();
-            }
-        }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (enterTags.Contains(collision.tag))
             {
-                onTrigger = true;
-                pointRotation.SetTarget(collision.transform);
+                isOnTrigger = true;
+                attackTarget = collision.transform;
                 onEnterArea.Invoke();
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (pointRotation.Target == collision.transform)
-                onTrigger = false;
+            if (attackTarget == collision.transform)
+                isOnTrigger = false;
         }
         void OnDrawGizmosSelected()//Отрисовка радиуса атаки
         {

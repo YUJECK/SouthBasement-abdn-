@@ -6,25 +6,25 @@ public class DecorationHealth : Health
 {
     public override void Heal(int heal)
     {
-        health += heal;
-        if (health > maxHealth) health = maxHealth;
-        onHealthChange.Invoke(maxHealth, health);
+        currentHealth += heal;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        onHealthChange.Invoke(maxHealth, currentHealth);
     }
 
     public override void SetHealth(int newMaxHealth, int newHealth)
     {
-        health = newHealth;
+        currentHealth = newHealth;
         maxHealth = newMaxHealth;
-        if (health > maxHealth) health = maxHealth;
-        onHealthChange.Invoke(maxHealth, health);
+        if (CurrentHealth > maxHealth) currentHealth = maxHealth;
+        onHealthChange.Invoke(maxHealth, currentHealth);
     }
 
     public override void TakeHit(int damage, float stunDuration = 0)
     {
-        health -= damage;
-        if (health <= 0)
+        currentHealth -= damage;
+        if (currentHealth <= 0)
         {
-            onHealthChange.Invoke(maxHealth, health);
+            onHealthChange.Invoke(maxHealth, currentHealth);
             onDie.Invoke();
             Destroy(gameObject);
         }

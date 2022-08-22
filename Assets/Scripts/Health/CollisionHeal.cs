@@ -13,7 +13,7 @@ public class CollisionHeal : MonoBehaviour
         {
             PlayerHealth health = coll.gameObject.GetComponent<PlayerHealth>();
             
-            if(health.health != health.maxHealth)
+            if(health.CurrentHealth != health.MaxHealth)
             {
                 health.Heal(collisionHeal);
                 Destroy(gameObject);

@@ -36,13 +36,13 @@ public class FoodItem : ScriptableObject
 
     public void PowerDrink()
     {
-        playerHealth.SetHealth(playerHealth.maxHealth - 10, playerHealth.health - 10);
+        playerHealth.SetHealth(playerHealth.MaxHealth - 10, playerHealth.CurrentHealth - 10);
         plaeyrController.BoostSpeed(0.22f);
     }
 
     public void Cookie()
     {
-        if (playerHealth.health != playerHealth.maxHealth)
+        if (playerHealth.CurrentHealth != playerHealth.MaxHealth)
         {
             playerHealth.Heal(10);
             SetSprite(extraSprites[0], slot.objectOfItem.GetComponent<SpriteRenderer>(), slot.slotIcon);
@@ -50,31 +50,31 @@ public class FoodItem : ScriptableObject
     }
     public void PeaceOfCake()
     {
-        if (playerHealth.health != playerHealth.maxHealth)
+        if (playerHealth.CurrentHealth != playerHealth.MaxHealth)
             playerHealth.Heal(50);
     }
     public void CannedCockroach()
     {
-        if (playerHealth.health != playerHealth.maxHealth)
+        if (playerHealth.CurrentHealth != playerHealth.MaxHealth)
         {
             playerHealth.Heal(10);
             SetSprite(extraSprites[usesInGame], null, slot.slotIcon);
             usesInGame++;
         }
     }
-    public void GlassOfMilk() { playerHealth.SetHealth(playerHealth.maxHealth+10, playerHealth.health); }
+    public void GlassOfMilk() { playerHealth.SetHealth(playerHealth.MaxHealth+10, playerHealth.CurrentHealth); }
 
     public void Blueberry()
     {
-        if (playerHealth.health != playerHealth.maxHealth)
+        if (playerHealth.CurrentHealth != playerHealth.MaxHealth)
             playerHealth.Heal(10);
     }
 
     public void CheeseSnack()
     {
-        if (playerHealth.health != playerHealth.maxHealth)
+        if (playerHealth.CurrentHealth != playerHealth.MaxHealth)
         {
-            playerHealth.SetHealth(playerHealth.maxHealth-10, playerHealth.health - 10);;
+            playerHealth.SetHealth(playerHealth.MaxHealth-10, playerHealth.CurrentHealth - 10);;
             playerHealth.Heal(50);
             SetSprite(extraSprites[0], itemInfo.GetComponent<SpriteRenderer>());
             itemInfo.active = false;
@@ -82,7 +82,7 @@ public class FoodItem : ScriptableObject
     }
     public void BakedCockroach()
     {
-        if (playerHealth.health != playerHealth.maxHealth)
+        if (playerHealth.CurrentHealth != playerHealth.MaxHealth)
             playerHealth.Heal(40);
     }
 

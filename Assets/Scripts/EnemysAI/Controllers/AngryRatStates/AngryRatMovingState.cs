@@ -7,7 +7,6 @@ public class AngryRatMovingState : State
 {
     public override void Enter(StateMachine stateMachine)
     {
-        Debug.Log("Start");
         stateMachine.DynamicPathFinding.StartDynamicPathfinding();
         stateMachine.Animator.Play("Walking");
         onEnter.Invoke();

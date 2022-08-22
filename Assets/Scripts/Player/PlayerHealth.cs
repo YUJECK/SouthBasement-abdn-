@@ -9,23 +9,22 @@ public class PlayerHealth : Health
     [Header("Другое")]
     private bool invisibleCadrs = false;
     public Animator healthBar;
-    [HideInInspector] public AudioManager audioManager;
     
     //Методы управления
     public override void Heal(int heal)
     {
-        health += heal;
+        currentHealth += heal;
 
-        if (health > maxHealth)
-            health = maxHealth;
-        onHealthChange.Invoke(health, maxHealth);
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+        onHealthChange.Invoke(CurrentHealth, MaxHealth);
     }
     public override void SetHealth(int newMaxHealth, int newHealth)
     {
         maxHealth = newMaxHealth;
-        if (health >= maxHealth) health = maxHealth;
+        if (CurrentHealth >= MaxHealth) currentHealth = MaxHealth;
 
-        newHealth -= health;
+        newHealth -= CurrentHealth;
         if (newHealth < 0)
             TakeHit(-newHealth);
         else if (newHealth > 0)
@@ -35,17 +34,15 @@ public class PlayerHealth : Health
     {
         if (!invisibleCadrs)
         {
-            health -= damage;
-            audioManager.PlayClip("RatHurt");
-            StartCoroutine(TakeHitVizualization());
+            currentHealth -= damage;
 
             invisibleCadrs = true;
             healthBar.SetBool("InvisibleCadrs", true);
             StartCoroutine(InvisibleCadrs());
 
-            onHealthChange.Invoke(health, maxHealth);
+            onHealthChange.Invoke(CurrentHealth, MaxHealth);
 
-            if (health <= 0)
+            if (CurrentHealth <= 0)
             {
                 Destroy(gameObject);
                 SceneManager.LoadScene("RestartMenu");
@@ -56,12 +53,8 @@ public class PlayerHealth : Health
     //Юнитивские методы
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        effectManager = FindObjectOfType<EffectsInfo>();
-        audioManager = FindObjectOfType<AudioManager>();
-        onHealthChange.Invoke(health, maxHealth);
+        onHealthChange.Invoke(CurrentHealth, MaxHealth);
         effectHandler = GetComponent<EffectHandler>();
-        useEffects = true;
         effectHandler.health = this;
     }
     public IEnumerator InvisibleCadrs()

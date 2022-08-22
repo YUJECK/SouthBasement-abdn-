@@ -7,22 +7,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace EnemysAI
-{
-    public enum EnemyState
-    {
-        Idle,
-        Sleeping,
-        WakeUp,
-        Walking,
-        Attacking,
-        Heeling,
-        Stunned
-    }
-
+{ 
     public abstract class StateMachine : MonoBehaviour
     {
-        protected State currentState;
+        private State currentState;
         protected List<Vector2> path;
+            
         [Header("Компоненты")]
         [SerializeField] protected Animator animator; 
         [SerializeField] protected Sleeping sleeping;
@@ -32,6 +22,7 @@ namespace EnemysAI
         [SerializeField] protected TargetSelection targetSelection;
         [SerializeField] protected Combat combat;
 
+        public State CurrentState => currentState;
         public Animator Animator => animator;
         public Sleeping Sleeping => sleeping;
         public Health Health => health;
@@ -42,10 +33,14 @@ namespace EnemysAI
 
         public void ChangeState(State newState)
         {
+            Debug.Log("ChangeState");
             if (currentState != null) currentState.Exit(this);
             currentState = newState;
+            //currentState.onExit.AddListener(ChooseState);
             currentState.Enter(this);
             if (currentState.Animation != "No animation" && currentState.Animation != "") currentState.Animator.Play(currentState.Animation);
+            
         }
+        public abstract void ChooseState();
     }
 }

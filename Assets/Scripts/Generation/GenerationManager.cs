@@ -63,7 +63,7 @@ namespace Generation
                     else
                     {
                         i--;
-                        Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
+                        Utility.CheckNumber(ref i, 0, 0, Utility.CheckNumberVariants.Less);
                     }
                 }
             //Торговец
@@ -89,7 +89,7 @@ namespace Generation
                 else
                 {
                     i--;
-                    Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
+                    Utility.CheckNumber(ref i, 0, 0, Utility.CheckNumberVariants.Less);
                 }
             }
             //Комнаты коридоры
@@ -101,7 +101,7 @@ namespace Generation
                 else
                 {
                     i--;
-                    Utility.ChechNumber(ref i, 0, 0, Utility.CheckNumber.Less);
+                    Utility.CheckNumber(ref i, 0, 0, Utility.CheckNumberVariants.Less);
                 }
             }
             //Выход

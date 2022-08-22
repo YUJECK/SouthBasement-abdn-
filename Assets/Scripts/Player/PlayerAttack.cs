@@ -63,8 +63,8 @@ public class PlayerAttack : MonoBehaviour
             {
                 Health enemyHealth = enemy.GetComponent<Health>();
                 //Накладываем еффект если есть
-                if (melleWeapon != null && melleWeapon.effect != EffectsList.None && enemyHealth.useEffects)
-                    enemyHealth.effectHandler.GetEffect(melleWeapon.effectTime, melleWeapon.effectStats, melleWeapon.effect);
+                if (melleWeapon != null && melleWeapon.effect != EffectsList.None && enemyHealth.EffectHandler != null)
+                    enemyHealth.EffectHandler.GetEffect(melleWeapon.effectTime, melleWeapon.effectStats, melleWeapon.effect);
                 //Наносим урон
                 enemyHealth.TakeHit(damage+damageBoost, melleWeapon.stunTime);
             }
