@@ -44,12 +44,15 @@ public class EnemyHealth : Health
         if (currentHealth >= maxHealth) currentHealth = maxHealth;
 
         onHealthChange.Invoke(currentHealth, maxHealth);
+        onHeal.Invoke(currentHealth, maxHealth);
     }
     public override void TakeHit(int damage, float stunDuration = 0f)
     {
         currentHealth -= damage;
         if (damageInd != null) StopCoroutine(damageInd);
-        onHealthChange.Invoke(CurrentHealth, MaxHealth);
+        
+        onHealthChange.Invoke(currentHealth, maxHealth);
+        onTakeHit.Invoke(currentHealth, maxHealth);
 
         if (CurrentHealth <= 0)
         {
@@ -62,7 +65,7 @@ public class EnemyHealth : Health
         maxHealth = newMaxHealth;
         Utility.CheckNumber(ref currentHealth, maxHealth, maxHealth, Utility.CheckNumberVariants.Much);
         
-        newHealth -= CurrentHealth;
+        newHealth -= currentHealth;
         if (newHealth < 0)
             TakeHit(-newHealth);
         else if (newHealth > 0)

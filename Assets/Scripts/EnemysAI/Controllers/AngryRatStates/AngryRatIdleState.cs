@@ -5,5 +5,10 @@ using UnityEngine;
 
 public class AngryRatIdleState : State
 {
-    public override void Enter(StateMachine stateMachine) => stateMachine.Animator.Play("OrangeIdle");
+    public AngryRatIdleState(bool canInterrupt) => this.canInterrupt = canInterrupt;
+    public override void Enter(StateMachine stateMachine) 
+    {
+        stateCondition = StateConditions.Working;
+        stateMachine.Animator.Play("OrangeIdle");
+    }
 }

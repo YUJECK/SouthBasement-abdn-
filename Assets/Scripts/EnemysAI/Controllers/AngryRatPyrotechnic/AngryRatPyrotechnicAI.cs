@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace EnemysAI
 {
-    public class AngryRatPyrotechnicAI 
+    public class AngryRatPyrotechnicAI : MonoBehaviour
     {
         //private Animator animator;
         //private Shooting shooting;

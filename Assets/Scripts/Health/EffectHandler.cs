@@ -106,15 +106,23 @@ public class EffectHandler : MonoBehaviour
                 return;
             case EffectsList.Burn:
                 effects.RemoveListener(Burn);
+                burn.ResetNextTimeToZero();
+                effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
                 break;
             case EffectsList.Bleed:
                 effects.RemoveListener(Bleed);
+                bleed.ResetNextTimeToZero();
+                effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
                 break;
             case EffectsList.Poison:
                 effects.RemoveListener(Poison);
+                poison.ResetNextTimeToZero();
+                effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
                 break;
             case EffectsList.Regeneration:
                 effects.RemoveListener(Regeneration);
+                regeneration.ResetNextTimeToZero();
+                effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
                 break;
             case EffectsList.Stun:
                 Stun(false);

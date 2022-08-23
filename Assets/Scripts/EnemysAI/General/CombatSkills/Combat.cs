@@ -17,7 +17,6 @@ namespace EnemysAI.CombatSkills
         [SerializeField] private float attackRange = 0.5f; // Радиус атаки
         [SerializeField] private float attackRate = 3f; // Периодичность атаки
         [SerializeField] private float attackTimeOffset = 0.6f; // Время когда сработает корутина
-        [SerializeField] private bool controlCombatFromHere = true; //Будет ли атака работать отсюда
 
         [Header("События")]
         public UnityEvent onAttack = new UnityEvent(); // При атаке
@@ -29,7 +28,6 @@ namespace EnemysAI.CombatSkills
         [SerializeField] private LayerMask damageLayer; // Дамажный слой
         [SerializeField] private List<string> enterTags = new List<string>(); // Тег на проверку у тригера
 
-        private float nextTime = 0f;
         private bool isOnTrigger = false;
         private bool isStopped = false;
         private Transform attackTarget;

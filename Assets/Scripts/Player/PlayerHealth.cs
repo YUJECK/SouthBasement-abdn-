@@ -17,7 +17,9 @@ public class PlayerHealth : Health
 
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
-        onHealthChange.Invoke(CurrentHealth, MaxHealth);
+        
+        onHealthChange.Invoke(currentHealth, maxHealth);
+        onHeal.Invoke(currentHealth, maxHealth);
     }
     public override void SetHealth(int newMaxHealth, int newHealth)
     {
@@ -40,7 +42,8 @@ public class PlayerHealth : Health
             healthBar.SetBool("InvisibleCadrs", true);
             StartCoroutine(InvisibleCadrs());
 
-            onHealthChange.Invoke(CurrentHealth, MaxHealth);
+            onHealthChange.Invoke(currentHealth, maxHealth);
+            onTakeHit.Invoke(currentHealth, maxHealth);
 
             if (CurrentHealth <= 0)
             {
