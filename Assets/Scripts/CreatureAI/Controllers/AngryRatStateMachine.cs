@@ -1,14 +1,14 @@
-using EnemysAI.CombatSkills;
-using EnemysAI.Moving;
-using EnemysAI.Other;
+using Creature.CombatSkills;
+using Creature.Moving;
+using Creature.Other;
 using UnityEngine;
 
-namespace EnemysAI.Controllers
+namespace Creature.Controllers
 {
     [RequireComponent(typeof(Sleeping))]
     [RequireComponent(typeof(DynamicPathfinding))]
     [RequireComponent(typeof(Move))]
-    [AddComponentMenu("EnemysAI/Controllers/Angry Rat State Machine")]
+    [AddComponentMenu("Creature/Controllers/Angry Rat State Machine")]
     public class AngryRatStateMachine : StateMachine
     {
         private AngryRatIdleState idleState = new AngryRatIdleState(true, "AngryRatIdleState");

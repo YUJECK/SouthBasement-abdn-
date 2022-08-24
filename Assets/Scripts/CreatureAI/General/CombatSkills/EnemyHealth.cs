@@ -1,4 +1,4 @@
-using EnemysAI;
+using Creature;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +10,7 @@ public class Drop
     public int chance;
 }
 [RequireComponent(typeof(EffectHandler))]
-[AddComponentMenu("EnemysAI/General/CombatSkills/Enemy Health")]
+[AddComponentMenu("Creature/General/CombatSkills/Enemy Health")]
 public class EnemyHealth : Health
 {
     [Header("Âûןאהאולûו ןנוהלועû")]

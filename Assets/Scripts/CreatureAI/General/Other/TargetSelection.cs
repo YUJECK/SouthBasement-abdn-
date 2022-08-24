@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EnemysAI.Other
+namespace Creature.Other
 {
-    [AddComponentMenu("EnemysAI/General/Other/Target Selection")]
+    [AddComponentMenu("Creature/General/Other/Target Selection")]
     public class TargetSelection : MonoBehaviour
     {
         //Приватные поля

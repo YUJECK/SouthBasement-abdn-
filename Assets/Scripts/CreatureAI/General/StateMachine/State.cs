@@ -1,4 +1,4 @@
-using EnemysAI;
+using Creature;
 using UnityEngine.Events;
 
 [System.Serializable]

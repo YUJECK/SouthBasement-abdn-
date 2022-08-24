@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EnemysAI.CombatSkills
+namespace Creature.CombatSkills
 {
     [RequireComponent(typeof(PointRotation))]
-    [AddComponentMenu("EnemysAI/General/CombatSkills/Combat")]
+    [AddComponentMenu("Creature/General/CombatSkills/Combat")]
     public class Combat : MonoBehaviour
     {
         [SerializeField] private Transform attackPoint; // Точка атаки

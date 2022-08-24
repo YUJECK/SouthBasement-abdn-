@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using EnemysAI.CombatSkills;
+using Creature.CombatSkills;
 
 [CreateAssetMenu(fileName = "ProjectileThrow", menuName = "ShootingPatterns/ProjectileThrow")]
 public class SimpleProjectileThrow : ShootingPattern

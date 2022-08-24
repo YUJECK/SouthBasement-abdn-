@@ -1,9 +1,9 @@
-using EnemysAI.CombatSkills;
-using EnemysAI.Moving;
-using EnemysAI.Other;
+using Creature.CombatSkills;
+using Creature.Moving;
+using Creature.Other;
 using UnityEngine;
 
-namespace EnemysAI
+namespace Creature
 {
     public abstract class StateMachine : MonoBehaviour
     {

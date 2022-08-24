@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EnemysAI.Other
+namespace Creature.Other
 {
-    [AddComponentMenu("EnemysAI/General/Other/Sleeping")]
+    [AddComponentMenu("Creature/General/Other/Sleeping")]
     public class Sleeping : MonoBehaviour
     {
         private bool isSleep = false;

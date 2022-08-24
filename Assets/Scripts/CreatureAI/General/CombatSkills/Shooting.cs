@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EnemysAI.CombatSkills
+namespace Creature.CombatSkills
 {
     [RequireComponent(typeof(PointRotation))]
-    [AddComponentMenu("EnemysAI/General/CombatSkills/Shooting")]
+    [AddComponentMenu("Creature/General/CombatSkills/Shooting")]
     public class Shooting : MonoBehaviour
     {
         //Ёнамы дл€ переключений у кастомного инспектора

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EnemysAI
+namespace Creature
 {
     public class AngryRatPyrotechnicAI : MonoBehaviour
     {

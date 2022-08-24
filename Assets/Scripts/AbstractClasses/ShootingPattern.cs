@@ -1,5 +1,5 @@
 using UnityEngine;
-using EnemysAI.CombatSkills;
+using Creature.CombatSkills;
 using UnityEngine.Events;
 
 public abstract class ShootingPattern : ScriptableObject

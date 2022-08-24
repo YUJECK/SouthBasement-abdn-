@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EnemysAI.Moving
+namespace Creature.Moving
 {
-    [AddComponentMenu("EnemysAI/General/Moving/Flipping")]
+    [AddComponentMenu("Creature/General/Moving/Flipping")]
     public class Flipping : MonoBehaviour
     {
         public enum DefinitionOfRotation

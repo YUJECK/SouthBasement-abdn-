@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EnemysAI.Moving
+namespace Creature.Moving
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    [AddComponentMenu("EnemysAI/General/Moving/Move")]
+    [AddComponentMenu("Creature/General/Moving/Move")]
     public class Move : MonoBehaviour
     {
         [Header("Настройки движения")]

@@ -1,4 +1,4 @@
-using EnemysAI;
+using Creature;
 
 public class AngryRatHealingState : State
 {

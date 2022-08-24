@@ -1,4 +1,4 @@
-using EnemysAI.CombatSkills;
+using Creature.CombatSkills;
 using System.Collections;
 using UnityEngine;
 

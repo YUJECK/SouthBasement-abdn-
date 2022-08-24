@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace EnemysAI.Moving
+namespace Creature.Moving
 {
-    [AddComponentMenu("EnemysAI/General/Moving/Dynamic Pathfinfing")]
+    [AddComponentMenu("Creature/General/Moving/Dynamic Pathfinfing")]
     [RequireComponent(typeof(Pathfinder))]
     public class DynamicPathfinding : MonoBehaviour
     {

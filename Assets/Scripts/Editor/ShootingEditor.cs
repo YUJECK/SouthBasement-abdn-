@@ -1,5 +1,5 @@
-using EnemysAI;
-using EnemysAI.CombatSkills;
+using Creature;
+using Creature.CombatSkills;
 using UnityEditor;
 
 [CanEditMultipleObjects]
