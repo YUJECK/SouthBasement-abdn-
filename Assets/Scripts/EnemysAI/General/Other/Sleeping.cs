@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 namespace EnemysAI.Other
 {
+    [AddComponentMenu("EnemysAI/General/Other/Sleeping")]
     public class Sleeping : MonoBehaviour
     {
         private bool isSleep = false;

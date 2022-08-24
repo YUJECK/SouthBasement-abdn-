@@ -1,10 +1,8 @@
 using EnemysAI;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable] public abstract class State
+[System.Serializable]
+public abstract class State
 {
     public enum StateConditions
     {
@@ -12,16 +10,18 @@ using UnityEngine.Events;
         Working,
         Finished
     }
-    
+
+    protected string stateName;
     protected bool canInterrupt = false; //Можно ли прервать состояние во время работы
     protected StateConditions stateCondition = StateConditions.DontWork; //Текущее состояние состояния :\
     //Ивенты
-    public UnityEvent onEnter = new UnityEvent(); 
+    public UnityEvent onEnter = new UnityEvent();
     public UnityEvent onExit = new UnityEvent();
     public UnityEvent onUpdate = new UnityEvent();
 
     public bool CanInterrupt => canInterrupt;
     public StateConditions StateCondition => stateCondition;
+    public string StateName => stateName;
 
     public virtual void Enter(StateMachine stateMachine) => onEnter.Invoke();
     public virtual void Exit(StateMachine stateMachine) => onExit.Invoke();

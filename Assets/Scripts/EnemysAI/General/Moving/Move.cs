@@ -5,6 +5,7 @@ using UnityEngine.Events;
 namespace EnemysAI.Moving
 {
     [RequireComponent(typeof(Rigidbody2D))]
+    [AddComponentMenu("EnemysAI/General/Moving/Move")]
     public class Move : MonoBehaviour
     {
         [Header("Настройки движения")]

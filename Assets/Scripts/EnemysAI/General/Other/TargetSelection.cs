@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 namespace EnemysAI.Other
 {
+    [AddComponentMenu("EnemysAI/General/Other/Target Selection")]
     public class TargetSelection : MonoBehaviour
     {
         //Приватные поля

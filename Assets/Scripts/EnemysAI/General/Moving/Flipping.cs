@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 namespace EnemysAI.Moving
 {
+    [AddComponentMenu("EnemysAI/General/Moving/Flipping")]
     public class Flipping : MonoBehaviour
     {
         public enum DefinitionOfRotation

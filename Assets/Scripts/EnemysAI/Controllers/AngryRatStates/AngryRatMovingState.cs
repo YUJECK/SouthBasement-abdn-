@@ -1,11 +1,8 @@
 using EnemysAI;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class AngryRatMovingState : State
 {
-    public AngryRatMovingState(bool canInterrupt) => this.canInterrupt = canInterrupt;
+    public AngryRatMovingState(bool canInterrupt, string name) { this.canInterrupt = canInterrupt; stateName = name; }
 
     public override void Enter(StateMachine stateMachine)
     {

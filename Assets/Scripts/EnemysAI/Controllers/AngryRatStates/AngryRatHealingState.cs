@@ -1,11 +1,8 @@
 using EnemysAI;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class AngryRatHealingState : State
 {
-    public AngryRatHealingState(bool canInterrupt) => this.canInterrupt = canInterrupt;
+    public AngryRatHealingState(bool canInterrupt, string name) { this.canInterrupt = canInterrupt; stateName = name; }
     public override void Enter(StateMachine stateMachine)
     {
         stateMachine.Animator.Play("OrangeIdle");
@@ -22,7 +19,7 @@ public class AngryRatHealingState : State
     public override void Exit(StateMachine stateMachine)
     {
         stateCondition = StateConditions.Finished;
-        stateMachine.Health.EffectHandler.ResetEffect(EffectsList.Regeneration); 
+        stateMachine.Health.EffectHandler.ResetEffect(EffectsList.Regeneration);
         stateMachine.Move.SetStop(false);
         stateMachine.Move.BlockStop(false);
     }

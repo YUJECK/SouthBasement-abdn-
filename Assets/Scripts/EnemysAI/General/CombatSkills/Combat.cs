@@ -6,6 +6,7 @@ using UnityEngine.Events;
 namespace EnemysAI.CombatSkills
 {
     [RequireComponent(typeof(PointRotation))]
+    [AddComponentMenu("EnemysAI/General/CombatSkills/Combat")]
     public class Combat : MonoBehaviour
     {
         [SerializeField] private Transform attackPoint; // Точка атаки
@@ -47,9 +48,10 @@ namespace EnemysAI.CombatSkills
                 yield return new WaitForSeconds(attackRate);
             }
         }
-        private void Hit()
+        private bool Hit()
         {
             //Определяем все объекты попавшие в радиус атаки
+            bool hasHitted = false;
             Collider2D[] hitObj = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, damageLayer);
             pointRotation.StopRotating(true, 0.8f);
             onAttack.Invoke();
@@ -57,9 +59,12 @@ namespace EnemysAI.CombatSkills
             //Проверяем каждый их них на наличие комнонента Health
             foreach (Collider2D obj in hitObj)
             {
+                hasHitted = true;
                 if (obj.TryGetComponent(typeof(PlayerHealth), out Component comp))
                     obj.GetComponent<PlayerHealth>().TakeHit(Random.Range(minDamage, maxDamage + 1));
             }
+            
+            return hasHitted;
         }
 
         //Типо сеттеры и геттеры
@@ -85,7 +90,10 @@ namespace EnemysAI.CombatSkills
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (attackTarget == collision.transform)
+            {
                 isOnTrigger = false;
+                attackTarget = null;
+            }
         }
         void OnDrawGizmosSelected()//Отрисовка радиуса атаки
         {

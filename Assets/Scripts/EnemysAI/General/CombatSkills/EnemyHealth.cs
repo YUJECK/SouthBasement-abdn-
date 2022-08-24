@@ -10,6 +10,7 @@ public class Drop
     public int chance;
 }
 [RequireComponent(typeof(EffectHandler))]
+[AddComponentMenu("EnemysAI/General/CombatSkills/Enemy Health")]
 public class EnemyHealth : Health
 {
     [Header("Âûןאהאולûו ןנוהלועû")]

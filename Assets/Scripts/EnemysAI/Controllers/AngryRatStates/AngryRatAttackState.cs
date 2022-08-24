@@ -1,11 +1,8 @@
 using EnemysAI;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class AngryRatAttackState : State
 {
-    public AngryRatAttackState(bool canInterrupt) => this.canInterrupt = canInterrupt;
+    public AngryRatAttackState(bool canInterrupt, string name) { this.canInterrupt = canInterrupt; stateName = name; }
     public override void Enter(StateMachine stateMachine)
     {
         stateCondition = StateConditions.Working;
@@ -14,8 +11,8 @@ public class AngryRatAttackState : State
         stateMachine.Move.BlockStop(true);
 
         stateMachine.Combat.Attack();
+        Utility.InvokeMethod(Exit, stateMachine, 1f);
         onEnter.Invoke();
-        Utility.InvokeMethod(Exit, stateMachine, 2f);
     }
     public override void Exit(StateMachine stateMachine)
     {

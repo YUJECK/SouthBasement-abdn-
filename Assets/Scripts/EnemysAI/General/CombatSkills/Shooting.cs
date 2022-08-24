@@ -6,6 +6,7 @@ using UnityEngine.Events;
 namespace EnemysAI.CombatSkills
 {
     [RequireComponent(typeof(PointRotation))]
+    [AddComponentMenu("EnemysAI/General/CombatSkills/Shooting")]
     public class Shooting : MonoBehaviour
     {
         //Ёнамы дл€ переключений у кастомного инспектора
