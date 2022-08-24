@@ -75,7 +75,7 @@ namespace EnemysAI.CombatSkills
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (enterTags.Contains(collision.tag))
+            if (enterTags.Contains(collision.tag) && attackTarget != collision.transform)
             {
                 isOnTrigger = true;
                 attackTarget = collision.transform;

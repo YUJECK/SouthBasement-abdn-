@@ -16,7 +16,7 @@ namespace EnemysAI.Moving
         private bool isNowWalk = false; //ָהוע כט סויקאס מבתוךע
         private bool isStopped = false;
         private bool blockingStop = false;
-        private Rigidbody2D rigidbody;
+        new private Rigidbody2D rigidbody;
 
         public float Speed
         {
@@ -36,6 +36,8 @@ namespace EnemysAI.Moving
         public void Moving()
         {
             rigidbody.velocity = Vector2.zero;
+            rigidbody.angularVelocity = 0f;
+
             if (path.Count != 0 && !isStopped)
             {
                 if (!isNowWalk) onBeginingOfMoving.Invoke();
@@ -52,6 +54,6 @@ namespace EnemysAI.Moving
             }
         }
 
-        private void Start() => rigidbody = GetComponent<Rigidbody2D>();
+        private void Awake() => rigidbody = GetComponent<Rigidbody2D>();
     }
 }

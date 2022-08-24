@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     private int lastPoint;
 
     //Графика и компонеты
-    private Rigidbody2D rb;
+    new private Rigidbody2D rigidbody;
     private Animator anim;
     private SpriteRenderer playerSpiteRend; // Спрайт игрока
     private bool flippedOnRight = false; // Повернут ли игрок направо
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rigidbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         playerSpiteRend = GetComponent<SpriteRenderer>();
         normalSpeed = speed;
@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
         if (!GameManager.isPlayerStopped)
         {
             //Движение игрока
-            rb.velocity = new Vector2(movement.x, movement.y) * speed;
+            rigidbody.velocity = new Vector2(movement.x, movement.y) * speed;
             // audioManager.PlayClip("RatWalk");
 
             //Рывок
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
                 Flip();
         }
         else
-            rb.velocity = Vector2.zero;
+            rigidbody.velocity = Vector2.zero;
     }
 
     public void PlayAttackAnimation(TypeOfAttack type)
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Dashing()
     {
-        rb.velocity = new Vector2(movement.x, movement.y) * (speed + dashSpeed);
+        rigidbody.velocity = new Vector2(movement.x, movement.y) * (speed + dashSpeed);
         dashTime -= 0.1f;
     }
     public void BoostSpeed(float speedBoost) { speed = speed + speed * speedBoost; } // Ускорение игрока

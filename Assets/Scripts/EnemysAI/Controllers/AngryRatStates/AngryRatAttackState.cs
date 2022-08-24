@@ -15,7 +15,7 @@ public class AngryRatAttackState : State
 
         stateMachine.Combat.Attack();
         onEnter.Invoke();
-        Utility.InvokeMethod<StateMachine>(Exit, stateMachine, stateMachine.Animator.GetCurrentAnimatorClipInfo(0).Length);
+        Utility.InvokeMethod(Exit, stateMachine, stateMachine.Animator.GetCurrentAnimatorClipInfo(0).Length);
     }
     public override void Exit(StateMachine stateMachine)
     {

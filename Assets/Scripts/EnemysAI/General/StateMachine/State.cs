@@ -13,18 +13,15 @@ using UnityEngine.Events;
         Finished
     }
     
-    [SerializeField] private Animator animator;
-    [SerializeField] private string animation = "No animation";
-    protected bool canInterrupt = false;
-    public StateConditions stateCondition;
-    public UnityEvent onEnter = new UnityEvent();
+    protected bool canInterrupt = false; //Можно ли прервать состояние во время работы
+    public StateConditions stateCondition = StateConditions.DontWork; //Текущее состояние состояния :\
+    //Ивенты
+    public UnityEvent onEnter = new UnityEvent(); 
     public UnityEvent onExit = new UnityEvent();
     public UnityEvent onUpdate = new UnityEvent();
 
     public bool CanInterrupt => canInterrupt;
     public StateConditions StateCondition => stateCondition;
-    public Animator Animator => animator;
-    public string Animation => animation;
 
     public virtual void Enter(StateMachine stateMachine) => onEnter.Invoke();
     public virtual void Exit(StateMachine stateMachine) => onExit.Invoke();

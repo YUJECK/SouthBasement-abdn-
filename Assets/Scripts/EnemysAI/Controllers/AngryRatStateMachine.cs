@@ -16,6 +16,19 @@ namespace EnemysAI.Controllers
         private AngryRatHealingState heelingState = new AngryRatHealingState(false);
         private TriggerChecker attackTrigger;
 
+        public override void ChooseState()
+        {
+            if (CurrentState.stateCondition == State.StateConditions.Finished || CurrentState.CanInterrupt)
+            {
+                State nextState = idleState;
+                if (!Move.IsStopped){ nextState = movingState; }
+                if (Combat.IsOnTrigger) nextState = attackState;
+                if (Health.CurrentHealth < 10) nextState = heelingState; 
+
+                if(CurrentState != nextState) ChangeState(nextState);
+            }
+        }
+        
         private void Start()
         {
             moving = GetComponent<Move>();
@@ -23,24 +36,12 @@ namespace EnemysAI.Controllers
             dynamicPathFinding.SetNewTarget(FindObjectOfType<EnemyTarget>());
 
             dynamicPathFinding.whenANewPathIsFound.AddListener(moving.SetPath);
-            ChangeState(movingState);
+            ChangeState(idleState);
         }
         private void Update()
         {
-            ChooseState();
+            if(CurrentState.CanInterrupt) ChooseState();
             if(CurrentState != null) CurrentState.Update(this);
-        }
-        public override void ChooseState()
-        {
-            if(CurrentState.stateCondition == State.StateConditions.Finished || CurrentState.CanInterrupt)
-            {
-                State nextState = idleState;
-                if (!Move.IsStopped) nextState = movingState;
-                if (Combat.IsOnTrigger) nextState = attackState;
-                if (Health.CurrentHealth < 10) nextState = heelingState; 
-
-                if(CurrentState != nextState) ChangeState(nextState);
-            }
         }
     }
 }

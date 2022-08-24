@@ -1022,7 +1022,7 @@ Transform:
   - {fileID: 1520601982}
   - {fileID: 192447259}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &203290219
 MonoBehaviour:
@@ -1080,7 +1080,7 @@ GameObject:
   - component: {fileID: 221897865}
   m_Layer: 0
   m_Name: AttackTrigger
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1100,8 +1100,8 @@ Transform:
   m_Father: {fileID: 1738212268}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &221897865
-BoxCollider2D:
+--- !u!58 &221897865
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1110,22 +1110,12 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9233334, y: 1.8476027}
-  m_EdgeRadius: 0
+  m_Radius: 0.8459898
 --- !u!114 &221897866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1141,7 +1131,7 @@ MonoBehaviour:
   attackPoint: {fileID: 1067191862}
   minDamage: 10
   maxDamage: 15
-  attackRange: 0.5
+  attackRange: 0.8
   attackRate: 3
   attackTimeOffset: 0.6
   onAttack:
@@ -1155,19 +1145,7 @@ MonoBehaviour:
       m_Calls: []
   onEnterArea:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 221897866}
-        m_TargetAssemblyTypeName: EnemysAI.CombatSkills.Combat, Assembly-CSharp
-        m_MethodName: Attack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   damageLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -2192,7 +2170,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413493277}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 314f22ce7fc872349aa7904176b35250, type: 3}
   m_Name: 
@@ -2289,7 +2267,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &440234596
 GameObject:
@@ -2589,7 +2567,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &530932569
 GameObject:
@@ -3200,6 +3178,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2094211216}
+        m_TargetAssemblyTypeName: Grid, Assembly-CSharp
+        m_MethodName: ShowGrid
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   roomsSpawnOffset: 0.05
 --- !u!4 &630008336
 Transform:
@@ -3375,7 +3365,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &672272449 stripped
 MonoBehaviour:
@@ -6193,7 +6183,7 @@ Transform:
   - {fileID: 118789642}
   - {fileID: 1371969408}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1511004454
 MonoBehaviour:
@@ -7068,7 +7058,7 @@ GameObject:
   - component: {fileID: 1738212274}
   m_Layer: 0
   m_Name: "\u0421\u0443\u043F\u0435\u0440 \u0441\u0442\u044D\u0439\u0442 \u043C\u0430\u0448\u0438\u043D"
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7087,7 +7077,7 @@ Transform:
   - {fileID: 580204152}
   - {fileID: 221897864}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1738212269
 MonoBehaviour:
@@ -7165,7 +7155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57caaf44dd8111b42b8b513cba9035d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searchRate: 1
+  searchRate: 0.5
   whenANewPathIsFound:
     m_PersistentCalls:
       m_Calls: []
@@ -7570,7 +7560,7 @@ RectTransform:
   - {fileID: 1150694644}
   - {fileID: 1923359719}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8807,6 +8797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2094211217}
   - component: {fileID: 2094211216}
+  - component: {fileID: 2094211218}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -8826,9 +8817,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30828b07069f39243892b71ffa9ac304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isGridCreated: 0
-  _collider: {fileID: 3130808374768147733, guid: 3bda5fff204c4324a824613f1066f5f4, type: 3}
-  enemyPath: {fileID: 593271785916145084, guid: 44dbb34d537c8604da3884335f119b90, type: 3}
   blackTagList:
   - Enemy
   - Player
@@ -8849,6 +8837,19 @@ Transform:
   m_Father: {fileID: 1564828606}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2094211218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094211215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1a968c50e9ea24bb6b5e3295d92afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderPrefab: {fileID: 3130808374768147733, guid: 3bda5fff204c4324a824613f1066f5f4, type: 3}
 --- !u!1 &2114427196
 GameObject:
   m_ObjectHideFlags: 0

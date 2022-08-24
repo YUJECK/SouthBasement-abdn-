@@ -107,11 +107,8 @@ public class RatConsole : MonoBehaviour
     public void OnePunch() { playerAttack.damageBoost = 1000; DisplayText("Damage boost - " + playerAttack.damageBoost.ToString(), Color.green,  Mode.ConsoleMessege); }//Сделать игрока очень сильным
     public void SpawnEnemy() { Instantiate(enemy, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн врага
     public void SpawnBox() { Instantiate(box, Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)), Quaternion.identity); } //Спавн коробки
-    public void PathVisualization(bool active) { FindObjectOfType<Grid>().PathVisualization(active); DisplayText("Path - " + active, Color.green, Mode.ConsoleMessege); } //Визуалищ=зация путя врагов
-    public void ShowGrid(){FindObjectOfType<Grid>().ShowGrid();}
     public void GetCheese(){FindObjectOfType<GameManager>().CheeseScore(100);}
     public void GetHealth(){FindObjectOfType<PlayerHealth>().SetHealth(100, 100);}
-    public void DisableGrid() { FindObjectOfType<Grid>().DisableGrid(); }
     public void Ghost() { FindObjectOfType<PlayerController>().GetComponent<Collider2D>().isTrigger = true; DisplayText("Ghost - true", Color.green, Mode.ConsoleMessege); }
     public void ResetGhost() { FindObjectOfType<PlayerController>().GetComponent<Collider2D>().isTrigger = false; DisplayText("Ghost - false", Color.green, Mode.ConsoleMessege); }
     public void Give(string name)

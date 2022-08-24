@@ -17,6 +17,20 @@ public class DynamicPathFinding : MonoBehaviour
 
     public void StartDynamicPathfinding() => StartCoroutine(DynamicPathfinding());
     public void StopDynamicPathfinding() => StartCoroutine(DynamicPathfinding());
+    public float SearchRate
+    {
+        get => searchRate;
+        set 
+        {
+            if (value < 0.5) value = 0.5f;
+            if (value > 6) value = 6;
+
+            searchRate = value;
+        }
+    }
+    public void SetNewTarget(EnemyTarget target) => this.target = target.transform;
+    public void ResetTarget() => target = null;
+
     private IEnumerator DynamicPathfinding()
     {
         while (true)
@@ -32,23 +46,10 @@ public class DynamicPathFinding : MonoBehaviour
     private List<Vector2> FindPath() 
     {
         return pathfinder.FindPath(
-            new Vector2(transform.position.x / ManagerList.Grid.nodeSize, transform.position.y / ManagerList.Grid.nodeSize),
-            new Vector2(target.transform.position.x / ManagerList.Grid.nodeSize, target.transform.position.y / ManagerList.Grid.nodeSize), false);
+            new Vector2(transform.position.x / ManagerList.Grid.NodeSize, transform.position.y / ManagerList.Grid.NodeSize),
+            new Vector2(target.transform.position.x / ManagerList.Grid.NodeSize, target.transform.position.y / ManagerList.Grid.NodeSize), false);
     }
-    public float SearchRate
-    {
-        get => searchRate;
-        set 
-        {
-            if (value < 0.5) value = 0.5f;
-            if (value > 6) value = 6;
-
-            searchRate = value;
-        }
-    }
-    public void SetNewTarget(EnemyTarget target) => this.target = target.transform;
-    public void ResetTarget() => target = null;
-
+    
     private void Awake()
     {
         pathfinder = GetComponent<Pathfinder>();

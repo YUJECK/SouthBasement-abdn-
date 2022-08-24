@@ -3,21 +3,24 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    public bool _isGridCreated = false;
-    public GameObject _collider;
-    public GameObject enemyPath;
-    private List<GameObject> gridVizualization = new List<GameObject>();
+    private bool isGridCreated = false;
 
     public int[,] grid;
-    // 0 - нет коллайлера/это триггер
-    // 1 - есть коллайлера
+    // 0 - пусто
+    // 1 - не пусто :\
 
     // Выстоа и ширина сетки 
-    [SerializeField] private List<string> blackTagList;
-    public int gridWidth;
-    public int gridHeight;
+    [SerializeField] private List<string> blackTagList = new List<string>(); //Теги по которым не будет записываться 1
+    [SerializeField] private int gridWidth = 300;
+    [SerializeField] private int gridHeight = 300;
 
-    public float nodeSize;
+    [SerializeField] private float nodeSize = 1;
+
+    //Геттеры
+    public bool IsGridCreated => isGridCreated;
+    public float NodeSize => nodeSize;
+    public int GridWidth => gridWidth;
+    public int GridHeight => gridHeight;
 
     public void StartGrid()
     {
@@ -65,11 +68,10 @@ public class Grid : MonoBehaviour
             }
         }
 
-        _isGridCreated = true;
+        isGridCreated = true;
         Debug.Log("[Info]: Grid created");
     }
-    public bool IsGridCreated => _isGridCreated;
-    public void OverwriteGrid(Vector2 start, Vector2 end)
+    public void OverWriteGrid(Vector2 start, Vector2 end)
     {
         Camera camera = Camera.main;
 
@@ -127,29 +129,4 @@ public class Grid : MonoBehaviour
         else return 2;
     }
     public void EditGrid(int x, int y, int newPoint) { if (IsGridCreated) grid[x, y] = newPoint; }
-    public void ShowGrid()
-    {
-        for (float x = 0; x < gridWidth; x += nodeSize)
-        {
-            for (float y = 0; y < gridHeight; y += nodeSize)
-            {
-                if (grid[(int)x, (int)y] == 1)
-                    gridVizualization.Add(Instantiate(_collider, new Vector3(x, y, 0), Quaternion.identity, transform));
-            }
-        }
-    }
-    public void DisableGrid()
-    {
-        for (int i = 0; i < gridVizualization.Count; i++)
-        {
-            Destroy(gridVizualization[0]);
-            gridVizualization.RemoveAt(0);
-        }
-    }
-
-    public void PathVisualization(bool active)
-    {
-        foreach (Pathfinder path in Resources.FindObjectsOfTypeAll(typeof(Pathfinder)) as Pathfinder[])
-        { path.isPathVisualization = active; }
-    }
 }

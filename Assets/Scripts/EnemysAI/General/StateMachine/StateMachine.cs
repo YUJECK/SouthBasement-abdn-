@@ -10,10 +10,9 @@ namespace EnemysAI
 { 
     public abstract class StateMachine : MonoBehaviour
     {
-        private State currentState;
-        protected List<Vector2> path;
+        private State currentState; //Текущее состония
             
-        [Header("Компоненты")]
+        [Header("Компоненты")] //Все компоненты которые могут понадобиться
         [SerializeField] protected Animator animator; 
         [SerializeField] protected Sleeping sleeping;
         [SerializeField] protected Health health;
@@ -33,14 +32,11 @@ namespace EnemysAI
 
         public void ChangeState(State newState)
         {
-            Debug.Log("ChangeState");
-            if (currentState != null) currentState.Exit(this);
-            currentState = newState;
-            //currentState.onExit.AddListener(ChooseState);
-            currentState.Enter(this);
-            if (currentState.Animation != "No animation" && currentState.Animation != "") currentState.Animator.Play(currentState.Animation);
-            
+            if (currentState != null) currentState.Exit(this); //Выходим из прошлого состояния
+            currentState = newState; //Делаем новое состояние как текущим
+            if(!currentState.CanInterrupt) currentState.onExit.AddListener(ChooseState); //Добавляем выбор нового состояния на выход если оно не может прекратиться пока не закончится
+            currentState.Enter(this); //Входим в новое состояние
         }
-        public abstract void ChooseState();
+        public abstract void ChooseState(); //Метод выбора состояния
     }
 }

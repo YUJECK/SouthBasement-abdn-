@@ -84,7 +84,7 @@ MonoBehaviour:
   onStay:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1160361261316572005}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: SetStop
         m_Mode: 6
@@ -99,7 +99,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1160361261316572005}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Move, Assembly-CSharp
         m_MethodName: SetStop
         m_Mode: 6
@@ -337,7 +337,6 @@ GameObject:
   - component: {fileID: 7775715111216481859}
   - component: {fileID: 5104344037244704757}
   - component: {fileID: 997358912328341320}
-  - component: {fileID: 1160361261316572005}
   - component: {fileID: 954463900787170469}
   - component: {fileID: 2371407094003424733}
   - component: {fileID: 5630845709475724668}
@@ -349,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5630845710053068691
 Transform:
   m_ObjectHideFlags: 0
@@ -445,7 +444,7 @@ MonoBehaviour:
   componentsToDisable:
   - {fileID: 5104344037244704757}
   - {fileID: 997358912328341320}
-  - {fileID: 1160361261316572005}
+  - {fileID: 0}
   - {fileID: 954463900787170469}
   - {fileID: 2371407094003424733}
 --- !u!114 &5104344037244704757
@@ -460,9 +459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b594a2dc7b2c1468aeda017cfc1e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2
-  runSpeed: 3.3
-  targetSelection: {fileID: 4066900711061194624}
 --- !u!114 &997358912328341320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,49 +475,6 @@ MonoBehaviour:
   changeGrid: 1
   isPathVisualization: 0
   gridChanges: []
---- !u!114 &1160361261316572005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5630845710053068690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d8f7d1eb7abf434eb3015745e311bb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movement: 0
-  _speed: 3
-  searchRate: 1
-  controlMovementFromHere: 0
-  isNowWalk: 0
-  onFlip:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 525621702351148791}
-        m_TargetAssemblyTypeName: PointRotation, Assembly-CSharp
-        m_MethodName: MultiplyCoefficent
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: -1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onArrive:
-    m_PersistentCalls:
-      m_Calls: []
-  onWakeUp:
-    m_PersistentCalls:
-      m_Calls: []
-  onSleep:
-    m_PersistentCalls:
-      m_Calls: []
-  stopCheker: {fileID: 7877029375638524724}
-  targetSelection: {fileID: 4066900711061194624}
 --- !u!114 &954463900787170469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,14 +487,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9727c2d35101849bf11baf0fc62792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 80
+  currentHealth: 60
   maxHealth: 120
-  damageColor: {r: 0.9811321, g: 0.42114633, b: 0.42114633, a: 1}
-  destroySound: RatHurt
-  hitSound: RatHurt
-  destroyOnDie: 1
   destroyOffset: 0
-  stun:
+  onHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onTakeHit:
+    m_PersistentCalls:
+      m_Calls: []
+  onHeal:
     m_PersistentCalls:
       m_Calls: []
   onDie:
@@ -559,15 +514,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onHealthChange:
-    m_PersistentCalls:
-      m_Calls: []
-  useEffects: 0
-  effectHandler: {fileID: 0}
   minCheese: 0
   maxCheese: 10
   itemsDrop: []
-  audioManager: {fileID: 0}
 --- !u!114 &2371407094003424733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,6 +530,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectsCanUse: 01000000020000000300000004000000
+  onStun:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisableStun:
+    m_PersistentCalls:
+      m_Calls: []
   health: {fileID: 0}
   effectIndicator: {fileID: 3330916501560165472}
   effects:
