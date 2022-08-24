@@ -32,7 +32,7 @@ namespace EnemysAI
 
         public void ChangeState(State newState)
         {
-            if (currentState != null) currentState.Exit(this); //¬ыходим из прошлого состо€ни€
+            if (currentState != null && currentState.StateCondition == State.StateConditions.Working) currentState.Exit(this); //¬ыходим из прошлого состо€ни€
             currentState = newState; //ƒелаем новое состо€ние как текущим
             if(!currentState.CanInterrupt) currentState.onExit.AddListener(ChooseState); //ƒобавл€ем выбор нового состо€ни€ на выход если оно не может прекратитьс€ пока не закончитс€
             currentState.Enter(this); //¬ходим в новое состо€ние

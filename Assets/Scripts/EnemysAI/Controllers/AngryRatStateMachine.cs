@@ -8,6 +8,8 @@ using UnityEngine.Events;
 namespace EnemysAI.Controllers
 {
     [RequireComponent(typeof(Sleeping))]
+    [RequireComponent(typeof(DynamicPathFinding))]
+    [RequireComponent(typeof(Move))]
     public class AngryRatStateMachine : StateMachine
     {
         private AngryRatIdleState idleState = new AngryRatIdleState(true);
@@ -18,30 +20,30 @@ namespace EnemysAI.Controllers
 
         public override void ChooseState()
         {
-            if (CurrentState.stateCondition == State.StateConditions.Finished || CurrentState.CanInterrupt)
-            {
-                State nextState = idleState;
-                if (!Move.IsStopped){ nextState = movingState; }
-                if (Combat.IsOnTrigger) nextState = attackState;
-                if (Health.CurrentHealth < 10) nextState = heelingState; 
+            State nextState = idleState;
+            if (DynamicPathFinding.Target != null) { nextState = movingState; }
+            if (Combat.IsOnTrigger) nextState = attackState;
+            if (Health.CurrentHealth < 10) nextState = heelingState; 
 
-                if(CurrentState != nextState) ChangeState(nextState);
-            }
+            if(CurrentState != nextState) ChangeState(nextState);
         }
         
         private void Start()
         {
+            //Инициализация компонентов которые находятся на этом объекте
             moving = GetComponent<Move>();
             dynamicPathFinding = GetComponent<DynamicPathFinding>();
-            dynamicPathFinding.SetNewTarget(FindObjectOfType<EnemyTarget>());
-
+            sleeping = GetComponent<Sleeping>();
+            //Добавляем лисэнеров в ивенты
+            targetSelection.onSetTarget.AddListener(dynamicPathFinding.SetNewTarget);
             dynamicPathFinding.whenANewPathIsFound.AddListener(moving.SetPath);
-            ChangeState(idleState);
+            //Ставим idle состояние
+            ChangeState(idleState); 
         }
         private void Update()
         {
             if(CurrentState.CanInterrupt) ChooseState();
-            if(CurrentState != null) CurrentState.Update(this);
+            if (CurrentState != null) CurrentState.Update(this);
         }
     }
 }

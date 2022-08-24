@@ -14,7 +14,7 @@ using UnityEngine.Events;
     }
     
     protected bool canInterrupt = false; //Можно ли прервать состояние во время работы
-    public StateConditions stateCondition = StateConditions.DontWork; //Текущее состояние состояния :\
+    protected StateConditions stateCondition = StateConditions.DontWork; //Текущее состояние состояния :\
     //Ивенты
     public UnityEvent onEnter = new UnityEvent(); 
     public UnityEvent onExit = new UnityEvent();

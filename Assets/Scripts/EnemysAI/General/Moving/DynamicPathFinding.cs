@@ -11,12 +11,13 @@ public class DynamicPathFinding : MonoBehaviour
     public UnityEvent<List<Vector2>> whenANewPathIsFound = new UnityEvent<List<Vector2>>();
     
     private bool isStopped = false; //Остановлен ли
+    private bool isNowWorking = false; //Работает ли 
     private Transform target;
     private List<Vector2> path = new List<Vector2>();
     private Pathfinder pathfinder;
 
-    public void StartDynamicPathfinding() => StartCoroutine(DynamicPathfinding());
-    public void StopDynamicPathfinding() => StartCoroutine(DynamicPathfinding());
+    public void StartDynamicPathfinding() { StartCoroutine(DynamicPathfinding()); isNowWorking = true; }
+    public void StopDynamicPathfinding() { StopCoroutine(DynamicPathfinding()); isNowWorking = false; }
     public float SearchRate
     {
         get => searchRate;
@@ -28,6 +29,9 @@ public class DynamicPathFinding : MonoBehaviour
             searchRate = value;
         }
     }
+    public bool IsStopped => isStopped; 
+    public bool IsNowWorking => isNowWorking;
+    public Transform Target => target;
     public void SetNewTarget(EnemyTarget target) => this.target = target.transform;
     public void ResetTarget() => target = null;
 

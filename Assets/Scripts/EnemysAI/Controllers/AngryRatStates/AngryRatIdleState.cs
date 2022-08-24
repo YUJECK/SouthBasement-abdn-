@@ -9,6 +9,6 @@ public class AngryRatIdleState : State
     public override void Enter(StateMachine stateMachine) 
     {
         stateCondition = StateConditions.Working;
-        stateMachine.Animator.Play("OrangeIdle");
+        stateMachine.Animator.StopPlayback();
     }
 }
