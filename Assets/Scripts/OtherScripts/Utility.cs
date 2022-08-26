@@ -4,6 +4,12 @@ using UnityEngine.Events;
 
 public static class Utility
 {
+    public enum ComponentWorkState
+    {
+        Stopped,
+        Working,
+        DontWork
+    }
     public enum CheckNumberVariants
     {
         Much,

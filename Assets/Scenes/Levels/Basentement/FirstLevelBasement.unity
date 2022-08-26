@@ -1134,16 +1134,16 @@ MonoBehaviour:
   attackRange: 0.8
   attackRate: 3
   attackTimeOffset: 0.6
-  onAttack:
+  onEnterArea:
     m_PersistentCalls:
       m_Calls: []
   beforeAttack:
     m_PersistentCalls:
       m_Calls: []
-  afterAttack:
+  onAttack:
     m_PersistentCalls:
       m_Calls: []
-  onEnterArea:
+  afterAttack:
     m_PersistentCalls:
       m_Calls: []
   damageLayer:
@@ -7221,6 +7221,10 @@ MonoBehaviour:
   dynamicPathFinding: {fileID: 1738212275}
   targetSelection: {fileID: 277234295}
   combat: {fileID: 221897866}
+  idleState: {fileID: 11400000, guid: 70f03685f3d13284d8e1701acde2274b, type: 2}
+  movingState: {fileID: 11400000, guid: 784c11d09cc0f1b4ea023849fda6a90c, type: 2}
+  attackState: {fileID: 11400000, guid: 7c2282cea7b4b434f929cb15777d9821, type: 2}
+  healingState: {fileID: 11400000, guid: 49bf1ee501da065469333fec53a2c4d4, type: 2}
 --- !u!114 &1738212270
 MonoBehaviour:
   m_ObjectHideFlags: 0

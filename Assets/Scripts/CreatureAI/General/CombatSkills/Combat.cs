@@ -20,10 +20,10 @@ namespace Creature.CombatSkills
         [SerializeField] private float attackTimeOffset = 0.6f; // Время когда сработает корутина
 
         [Header("События")]
-        public UnityEvent onAttack = new UnityEvent(); // При атаке
-        public UnityEvent beforeAttack = new UnityEvent(); // За attackTimeOffset до атаки
-        public UnityEvent afterAttack = new UnityEvent();
         public UnityEvent onEnterArea = new UnityEvent(); // Когда зашел в радиус активации атаки
+        public UnityEvent beforeAttack = new UnityEvent(); // За attackTimeOffset до атаки
+        public UnityEvent onAttack = new UnityEvent(); // Во время атаке
+        public UnityEvent afterAttack = new UnityEvent(); //Сразу после атаки
 
         [Header("Определение цели")]
         [SerializeField] private LayerMask damageLayer; // Дамажный слой
@@ -67,7 +67,11 @@ namespace Creature.CombatSkills
             return hasHitted;
         }
 
-        //Типо сеттеры и геттеры
+        //Сеттеры и геттеры
+        public float AttackRate => attackRate;
+        public float AttackRange => attackRange;
+        public int MinDamage => minDamage;
+        public int MaxDamage => maxDamage;
         public void SetStop(bool active) { isStopped = active; }
         public bool GetStop() { return isStopped; }
         public bool IsOnTrigger => isOnTrigger;

@@ -9,23 +9,23 @@ namespace Creature.Controllers
     [RequireComponent(typeof(DynamicPathfinding))]
     [RequireComponent(typeof(Move))]
     [AddComponentMenu("Creature/Controllers/Angry Rat State Machine")]
-    public class AngryRatStateMachine : StateMachine
+    public sealed class AngryRatStateMachine : StateMachine
     {
-        private AngryRatIdleState idleState = new AngryRatIdleState(true, "AngryRatIdleState");
-        private AngryRatMovingState movingState = new AngryRatMovingState(true, "AngryRatMovingState");
-        private AngryRatAttackState attackState = new AngryRatAttackState(false, "AngryRatAttackingState");
-        private AngryRatHealingState healingState = new AngryRatHealingState(false, "AngryRatHealingState");
-        private TriggerChecker attackTrigger;
+        [Header("Состояния")]
+        [SerializeField] private AngryRatIdleState idleState;
+        [SerializeField] private AngryRatMovingState movingState;
+        [SerializeField] private AngryRatAttackState attackState;
+        [SerializeField] private AngryRatHealingState healingState;
 
         public override void ChooseState()
         {
-            Debug.Log("Choosing State");
             State nextState = idleState;
             if (DynamicPathFinding.Target != null) { nextState = movingState; }
             if (Combat.IsOnTrigger) nextState = attackState;
             if (Health.CurrentHealth < 10) nextState = healingState;
 
-            if (CurrentState != nextState) ChangeState(nextState);
+            Debug.Log(nextState.StateName);
+            if (CurrentState != nextState || CurrentState.CanRepeated) ChangeState(nextState);
         }
 
         private void Start()
@@ -42,8 +42,11 @@ namespace Creature.Controllers
         }
         private void Update()
         {
-            if (CurrentState.CanInterrupt) ChooseState();
-            if (CurrentState != null) CurrentState.Update(this);
+            if (CurrentState != null)
+            {
+                if (CurrentState.CanInterrupt) ChooseState();
+                if (CurrentState.IsDynamicState) CurrentState.UpdateState(this);
+            }
         }
     }
 }

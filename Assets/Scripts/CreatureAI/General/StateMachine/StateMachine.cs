@@ -19,6 +19,7 @@ namespace Creature
         [SerializeField] protected TargetSelection targetSelection;
         [SerializeField] protected Combat combat;
 
+        //Геттеры
         public State CurrentState => currentState;
         public Animator Animator => animator;
         public Sleeping Sleeping => sleeping;
@@ -28,14 +29,24 @@ namespace Creature
         public TargetSelection TargetSelection => targetSelection;
         public Combat Combat => combat;
 
+        //Методы 
         public void ChangeState(State newState)
         {
-            if (currentState != null && currentState.StateCondition == State.StateConditions.Working) currentState.Exit(this); //Выходим из прошлого состояния
+            if (currentState != null && currentState.StateCondition == State.StateConditions.Working) currentState.ExitState(this); //Выходим из прошлого состояния
             currentState = newState; //Делаем новое состояние как текущим
             currentStateName = currentState.StateName;
-            if (!currentState.CanInterrupt) currentState.onExit.AddListener(ChooseState); //Добавляем выбор нового состояния на выход если оно не может прекратиться пока не закончится
-            currentState.Enter(this); //Входим в новое состояние
+            if (!currentState.CanInterrupt) currentState.onFinish.AddListener(ChooseState); //Добавляем выбор нового состояния на выход если оно не может прекратиться пока не закончится
+            currentState.EnterState(this); //Входим в новое состояние
         }
         public abstract void ChooseState(); //Метод выбора состояния
+        public void PlayAnimation(string animation, float animationSpeed)
+        {
+            if (Animator != null)
+            {
+                Animator.Play(animation);
+                Animator.speed = animationSpeed;
+            }
+            else Debug.LogWarning("Failed trying to play " + animation + ". Animator is null");
+        }
     }
 }
