@@ -51,7 +51,7 @@ namespace Creature.CombatSkills
         private bool Hit()
         {
             //Определяем все объекты попавшие в радиус атаки
-            bool hasHitted = false;
+            bool hitSomeone = false;
             Collider2D[] hitObj = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, damageLayer);
             pointRotation.StopRotating(true, 0.8f);
             onAttack.Invoke();
@@ -59,12 +59,12 @@ namespace Creature.CombatSkills
             //Проверяем каждый их них на наличие комнонента Health
             foreach (Collider2D obj in hitObj)
             {
-                hasHitted = true;
-                if (obj.TryGetComponent(typeof(PlayerHealth), out Component comp))
-                    obj.GetComponent<PlayerHealth>().TakeHit(Random.Range(minDamage, maxDamage + 1));
+                hitSomeone = true;
+                if (obj.TryGetComponent(out Health health))
+                    health.TakeHit(Random.Range(minDamage, maxDamage + 1));
             }
             
-            return hasHitted;
+            return hitSomeone;
         }
 
         //Сеттеры и геттеры

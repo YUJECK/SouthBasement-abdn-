@@ -13,11 +13,12 @@ namespace Creature.Moving
         [SerializeField] private float searchRate = 1f; //Частота поиска пути
         public UnityEvent<List<Vector2>> whenANewPathIsFound = new UnityEvent<List<Vector2>>();
 
-        private Utility.ComponentWorkState workState;
-        private Transform target;
-        private List<Vector2> path = new List<Vector2>();
-        private Pathfinder pathfinder;
+        private Utility.ComponentWorkState workState; //Состояние работы
+        private Transform target; //Таргет для поиска пути
+        private List<Vector2> path = new List<Vector2>(); //Сам путь
+        private Pathfinder pathfinder; 
 
+        //Методы взаимодействия и геттеры, сеттеры
         public void StartDynamicPathfinding() { StartCoroutine(DynamicPathfindingCoroutine()); workState = Utility.ComponentWorkState.Working; }
         public void StopDynamicPathfinding() { StopCoroutine(DynamicPathfindingCoroutine()); workState = Utility.ComponentWorkState.Stopped; }
         public float SearchRate
@@ -36,6 +37,7 @@ namespace Creature.Moving
         public void SetNewTarget(EnemyTarget target) => this.target = target.transform;
         public void ResetTarget() => target = null;
 
+        //Приватные методы
         private IEnumerator DynamicPathfindingCoroutine()
         {
             while (true)
@@ -55,6 +57,7 @@ namespace Creature.Moving
                 new Vector2(target.transform.position.x / ManagerList.Grid.NodeSize, target.transform.position.y / ManagerList.Grid.NodeSize), false);
         }
 
+        //Юнитивские методы
         private void Awake() => pathfinder = GetComponent<Pathfinder>();
     }
 }

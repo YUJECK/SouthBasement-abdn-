@@ -12,15 +12,16 @@ public abstract class State : ScriptableObject
     }
 
     [SerializeField] protected string stateName = "Some state"; //Имя состояния. Не обязательная вещь, просто иногда помогает в дебаге
+    [Space]
     [SerializeField] protected bool canInterrupt = false; //Можно ли прервать состояние во время работы
     [SerializeField] protected bool canRepeated = false; //Может повторяться
     [SerializeField] protected bool isDynamicState; //Динамическое ли состояние
     protected StateConditions stateCondition = StateConditions.DontWork; //Текущее состояние состояния :\
     //Ивенты
-    public UnityEvent onEnter = new UnityEvent();
-    public UnityEvent onFinish = new UnityEvent();
-    public UnityEvent onExit = new UnityEvent();
-    public UnityEvent onUpdate = new UnityEvent();
+    [HideInInspector] public UnityEvent onEnter = new UnityEvent();
+    [HideInInspector] public UnityEvent onFinish = new UnityEvent();
+    [HideInInspector] public UnityEvent onExit = new UnityEvent();
+    [HideInInspector] public UnityEvent onUpdate = new UnityEvent();
 
     //Геттеры
     public bool CanInterrupt => canInterrupt;

@@ -9,7 +9,7 @@ namespace Creature.Other
     {
         //Приватные поля
         [SerializeField] private List<string> blackTagList = new List<string>(); //Список тегов которые не будут читаться 
-        private EnemyTarget target; //Текущий таргет
+        private EnemyTarget target; //Лучший тарег из targets
         private List<EnemyTarget> targets = new List<EnemyTarget>(); //Список всех таргетов
         //Ивенты
         [Header("События")]
@@ -101,13 +101,12 @@ namespace Creature.Other
         {
             if (!blackTagList.Contains(coll.tag))
             {
-                if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
+                if (coll.TryGetComponent(out EnemyTarget newTarget))
                 {
-                    EnemyTarget newTarget = coll.GetComponent<EnemyTarget>();
                     if(!targets.Contains(newTarget))
                     {
                         targets.Add(newTarget);
-                        QuickSort(targets, 0, targets.Count - 1);
+                        if(targets.Count > 1) QuickSort(targets, 0, targets.Count - 1);
                         SetNewTarget();
                     }
                 }
@@ -115,9 +114,8 @@ namespace Creature.Other
         }
         public void OnTriggerExit2D(Collider2D coll) //Выход из поля зрения
         {
-            if (coll.TryGetComponent(typeof(EnemyTarget), out Component comp))
+            if (coll.TryGetComponent(out EnemyTarget exitTarget))
             {
-                EnemyTarget exitTarget = coll.GetComponent<EnemyTarget>();
                 if (targets.Contains(exitTarget))
                 {
                     targets.Remove(exitTarget);

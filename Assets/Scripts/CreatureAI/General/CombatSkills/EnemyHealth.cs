@@ -78,7 +78,6 @@ public class EnemyHealth : Health
     {
         effectHandler = GetComponent<EffectHandler>();
         effectHandler.health = this;
-        //stun.AddListener(GetComponent<EnemyAI>().GetStunned);
         onDie.AddListener(DropItem);
     }
 }

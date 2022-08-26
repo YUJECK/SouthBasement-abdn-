@@ -12,10 +12,10 @@ namespace Creature.Controllers
     public sealed class AngryRatStateMachine : StateMachine
     {
         [Header("Состояния")]
-        [SerializeField] private AngryRatIdleState idleState;
-        [SerializeField] private AngryRatMovingState movingState;
-        [SerializeField] private AngryRatAttackState attackState;
-        [SerializeField] private AngryRatHealingState healingState;
+        [SerializeField] private State idleState;
+        [SerializeField] private State movingState;
+        [SerializeField] private State attackState;
+        [SerializeField] private State healingState;
 
         public override void ChooseState()
         {

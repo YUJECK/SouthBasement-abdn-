@@ -4,6 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AngryRatMovingState", menuName = "States/Enemys/AngryRat/AngryRatMovingState")]
 public sealed class AngryRatMovingState : State
 {
+    [Header("Параметры передвижения")]
+    [SerializeField] private float moveSpeed = 3;
+
     public override void EnterState(StateMachine stateMachine)
     {
         stateMachine.DynamicPathFinding.StartDynamicPathfinding();
