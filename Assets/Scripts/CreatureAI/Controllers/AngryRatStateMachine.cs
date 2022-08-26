@@ -25,7 +25,10 @@ namespace Creature.Controllers
             if (Health.CurrentHealth < 10) nextState = healingState;
 
             Debug.Log(nextState.StateName);
-            if (CurrentState != nextState || CurrentState.CanRepeated) ChangeState(nextState);
+            if (CurrentState != nextState)
+                ChangeState(nextState);
+            else if (CurrentState.CanRepeated && CurrentState.StateCondition == State.StateConditions.Finished)
+                ChangeState(nextState);
         }
 
         private void Start()
@@ -44,8 +47,8 @@ namespace Creature.Controllers
         {
             if (CurrentState != null)
             {
-                if (CurrentState.CanInterrupt) ChooseState();
-                if (CurrentState.IsDynamicState) CurrentState.UpdateState(this);
+                if (CurrentState.IsDynamicState) 
+                    CurrentState.UpdateState(this);
             }
         }
     }

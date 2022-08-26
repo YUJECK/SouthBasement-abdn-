@@ -14,6 +14,7 @@ public sealed class AngryRatMovingState : State
     {
         stateCondition = StateConditions.Working;
         stateMachine.Move.Moving();
+        stateMachine.ChooseState();
         onUpdate.Invoke();
     }
     public override void ExitState(StateMachine stateMachine)

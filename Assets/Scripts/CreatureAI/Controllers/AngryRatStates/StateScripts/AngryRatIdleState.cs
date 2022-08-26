@@ -9,4 +9,9 @@ public class AngryRatIdleState : State
         stateCondition = StateConditions.Working;
         stateMachine.Animator.StopPlayback();
     }
+    public override void UpdateState(StateMachine stateMachine)
+    {
+        stateMachine.ChooseState();
+        onUpdate.Invoke();
+    }
 }
