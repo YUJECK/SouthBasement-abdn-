@@ -76,7 +76,7 @@ public class Projectile : MonoBehaviour
                     hittedHealth.TakeHit(damage);
 
                     if (projectileEffect != EffectsList.None && hittedHealth.EffectHandler != null) //Если есть еффект
-                        hittedHealth.EffectHandler.GetEffect(effectDuration, effectStats, projectileEffect);
+                        hittedHealth.EffectHandler.AddEffect(effectDuration, effectStats, projectileEffect);
                 }
             }
         }
@@ -102,7 +102,7 @@ public class Projectile : MonoBehaviour
                 hittedHealth.TakeHit(damage);
 
                 if (projectileEffect != EffectsList.None && hittedHealth.EffectHandler != null) //Если есть еффект
-                    hittedHealth.EffectHandler.GetEffect(effectDuration, effectStats, projectileEffect);
+                    hittedHealth.EffectHandler.AddEffect(effectDuration, effectStats, projectileEffect);
             }
 
             GameObject effect = Instantiate(projectileExplosionObject, gameObject.transform.position, Quaternion.identity);

@@ -16,18 +16,18 @@ namespace Creature.Controllers
         [SerializeField] private State movingState;
         [SerializeField] private State attackState;
         [SerializeField] private State healingState;
+        [SerializeField] private State stunnedState;
 
         public override void ChooseState()
         {
             State nextState = idleState;
+            
             if (DynamicPathFinding.Target != null) { nextState = movingState; }
             if (Combat.IsOnTrigger) nextState = attackState;
             if (Health.CurrentHealth < 10) nextState = healingState;
+            if (Health.EffectHandler.HasEffect(EffectsList.Stun)) nextState = stunnedState;
 
-            Debug.Log(nextState.StateName);
-            if (CurrentState != nextState)
-                ChangeState(nextState);
-            else if (CurrentState.CanRepeated && CurrentState.StateCondition == State.StateConditions.Finished)
+            if (CurrentState != nextState || (CurrentState == nextState && CurrentState.CanRepeated && CurrentState.StateCondition == State.StateConditions.Finished))
                 ChangeState(nextState);
         }
 
@@ -43,13 +43,6 @@ namespace Creature.Controllers
             //Ставим idle состояние
             ChangeState(idleState);
         }
-        private void Update()
-        {
-            if (CurrentState != null)
-            {
-                if (CurrentState.IsDynamicState) 
-                    CurrentState.UpdateState(this);
-            }
-        }
+        private void Update() => UpdateStates();
     }
 }

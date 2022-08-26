@@ -58,7 +58,6 @@ public class PlayerHealth : Health
     {
         onHealthChange.Invoke(CurrentHealth, MaxHealth);
         effectHandler = GetComponent<EffectHandler>();
-        effectHandler.health = this;
     }
     public IEnumerator InvisibleCadrs()
     {

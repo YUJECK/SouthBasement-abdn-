@@ -77,7 +77,6 @@ public class EnemyHealth : Health
     private void Awake()
     {
         effectHandler = GetComponent<EffectHandler>();
-        effectHandler.health = this;
         onDie.AddListener(DropItem);
     }
 }

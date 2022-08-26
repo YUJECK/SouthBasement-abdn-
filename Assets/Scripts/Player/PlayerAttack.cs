@@ -37,13 +37,12 @@ public class PlayerAttack : MonoBehaviour
     {
         if(Time.time >= nextTime) // Атака крысы
         {
+            is_Attack = false;
             if (!GameManager.isPlayerStopped & Input.GetMouseButtonDown(0) & !FindObjectOfType<PlayerController>().isSprinting)
             {
                 SetNextTime();
                 Attack();
             }
-            if (Time.time >= nextTime)
-                is_Attack = false;
         }
     }
     
@@ -64,7 +63,7 @@ public class PlayerAttack : MonoBehaviour
                 Health enemyHealth = enemy.GetComponent<Health>();
                 //Накладываем еффект если есть
                 if (melleWeapon != null && melleWeapon.effect != EffectsList.None && enemyHealth.EffectHandler != null)
-                    enemyHealth.EffectHandler.GetEffect(melleWeapon.effectTime, melleWeapon.effectStats, melleWeapon.effect);
+                    enemyHealth.EffectHandler.AddEffect(melleWeapon.effectTime, melleWeapon.effectStats, melleWeapon.effect);
                 //Наносим урон
                 enemyHealth.TakeHit(damage+damageBoost, melleWeapon.stunTime);
             }

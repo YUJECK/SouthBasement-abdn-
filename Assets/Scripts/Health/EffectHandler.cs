@@ -20,7 +20,7 @@ using UnityEngine.Events;
 public class EffectHandler : MonoBehaviour
 {
     [Header("Настройки еффектов")]
-    public List<EffectsList> effectsCanUse;
+    [SerializeField] private List<EffectsList> effectsCanUse;
     public UnityEvent onStun = new UnityEvent();
     public UnityEvent onDisableStun = new UnityEvent();
     private EffectStats burn;
@@ -29,76 +29,65 @@ public class EffectHandler : MonoBehaviour
     private EffectStats regeneration;
 
     [Header("Другое")]
-    public Health health;
-    [SerializeField] private SpriteRenderer effectIndicator;
-    [HideInInspector] public UnityEvent effects = new UnityEvent();
+    [SerializeField] private Health health;
+    [SerializeField] private SpriteRenderer firstEffectIndicator;
+    [SerializeField] private SpriteRenderer secondEffectIndicator;
+    private UnityEvent effects = new UnityEvent();
     private List<EffectsList> currentEffects = new List<EffectsList>();
 
-    //Еффекты которые могут наложиться на врага    
+    //Геттеры
+    public Health Health => health;
+    public bool CanUse(EffectsList effect) => effectsCanUse.Contains(effect); 
+    public bool HasEffect(EffectsList effect) => currentEffects.Contains(effect);
+
+    //Добавление, снятие еффектов
     private IEnumerator EffectActive(float duration, EffectStats effectStats, EffectsList effect)
     {
         if (effectsCanUse.Contains(effect))
         {
-            switch (effect)
-            {
-                case EffectsList.Burn:
-                    //Добавление еффекта
-                    effectIndicator.sprite = ManagerList.EffectsInfo.burnIndicator;
-                    burn = effectStats;
-                    effects.AddListener(Burn);
-
-                    //Сброс еффекта
-                    yield return new WaitForSeconds(duration);
-                    effects.RemoveListener(Burn);
-                    burn.ResetNextTimeToZero();
-                    effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
-                    break;
-                case EffectsList.Bleed:
-                    //Добавление еффекта
-                    effectIndicator.sprite = ManagerList.EffectsInfo.bleedndicator;
-                    bleed = effectStats;
-                    effects.AddListener(Bleed);
-
-                    //Сброс еффекта
-                    yield return new WaitForSeconds(duration);
-                    effects.RemoveListener(Bleed);
-                    bleed.ResetNextTimeToZero();
-                    effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
-                    break;
-                case EffectsList.Poison:
-                    //Добавление еффекта
-                    effectIndicator.sprite = ManagerList.EffectsInfo.poisonIndicator;
-                    poison = effectStats;
-                    effects.AddListener(Poison);
-
-                    //Сброс еффекта
-                    yield return new WaitForSeconds(duration);
-                    effects.RemoveListener(Poison);
-                    poison.ResetNextTimeToZero();
-                    effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
-                    break;
-                case EffectsList.Regeneration:
-                    //Добавление еффекта
-                    effectIndicator.sprite = ManagerList.EffectsInfo.regenerationIndicator;
-                    regeneration = effectStats;
-                    effects.AddListener(Regeneration);
-
-                    //Сброс еффекта
-                    yield return new WaitForSeconds(duration);
-                    effects.RemoveListener(Regeneration);
-                    regeneration.ResetNextTimeToZero();
-                    effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
-                    break;
-                case EffectsList.Stun:
-                    Stun(true);
-                    yield return new WaitForSeconds(duration);
-                    Stun(false);
-                    break;
-            }
+            SetEffect(effect, effectStats);
+            yield return new WaitForSeconds(duration);
+            RemoveEffect(effect);
         }
     }
-    public void GetEffect(float duration, EffectStats effectStats, EffectsList newEffect) => StartCoroutine(EffectActive(duration, effectStats, newEffect));
-    public void ResetEffect(EffectsList effectsToRemove)
+    private void SetEffect(EffectsList effect, EffectStats effectStats)
+    {
+        //Если 2 эффекта, то мы убираем первый
+        ref SpriteRenderer effectIndicator = ref firstEffectIndicator;
+        if (currentEffects.Count == 1) effectIndicator = ref secondEffectIndicator;
+        if (currentEffects.Count == 2) { RemoveEffect(currentEffects[0]); effectIndicator = firstEffectIndicator; }
+
+        switch (effect)
+        {
+            case EffectsList.Burn:
+                effectIndicator.sprite = ManagerList.EffectsInfo.burnIndicator;
+                burn = effectStats;
+                effects.AddListener(Burn);
+                break;
+            case EffectsList.Bleed:
+                effectIndicator.sprite = ManagerList.EffectsInfo.bleedndicator;
+                bleed = effectStats;
+                effects.AddListener(Bleed);
+                break;
+            case EffectsList.Poison:
+                effectIndicator.sprite = ManagerList.EffectsInfo.poisonIndicator;
+                poison = effectStats;
+                effects.AddListener(Poison);
+                break;
+            case EffectsList.Regeneration:
+                effectIndicator.sprite = ManagerList.EffectsInfo.regenerationIndicator;
+                regeneration = effectStats;
+                effects.AddListener(Regeneration);
+                break;
+            case EffectsList.Stun:
+                Stun(true);
+                break;
+        }
+        currentEffects.Add(effect);
+    }
+    
+    public void AddEffect(float duration, EffectStats effectStats, EffectsList newEffect) => StartCoroutine(EffectActive(duration, effectStats, newEffect));
+    public void RemoveEffect(EffectsList effectsToRemove)
     {
         switch (effectsToRemove)
         {
@@ -107,27 +96,28 @@ public class EffectHandler : MonoBehaviour
             case EffectsList.Burn:
                 effects.RemoveListener(Burn);
                 burn.ResetNextTimeToZero();
-                effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
                 break;
             case EffectsList.Bleed:
                 effects.RemoveListener(Bleed);
                 bleed.ResetNextTimeToZero();
-                effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
                 break;
             case EffectsList.Poison:
                 effects.RemoveListener(Poison);
                 poison.ResetNextTimeToZero();
-                effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
                 break;
             case EffectsList.Regeneration:
                 effects.RemoveListener(Regeneration);
                 regeneration.ResetNextTimeToZero();
-                effectIndicator.sprite = ManagerList.GameManager.hollowSprite;
                 break;
             case EffectsList.Stun:
                 Stun(false);
                 break;
         }
+        
+        if(currentEffects.Count == 1) firstEffectIndicator.sprite = ManagerList.GameManager.hollowSprite;
+        else secondEffectIndicator.sprite = ManagerList.GameManager.hollowSprite;
+        
+        currentEffects.Remove(effectsToRemove);
     }
 
     //Еффекты
@@ -169,5 +159,6 @@ public class EffectHandler : MonoBehaviour
         else onDisableStun.Invoke();
     }
 
-    private void Update() { effects.Invoke(); }
+    //Работа еффектов
+    private void Update() => effects.Invoke(); 
 }

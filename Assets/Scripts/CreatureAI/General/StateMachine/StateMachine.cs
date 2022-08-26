@@ -35,8 +35,18 @@ namespace Creature
             if (currentState != null && currentState.StateCondition == State.StateConditions.Working) currentState.ExitState(this); //¬ыходим из прошлого состо€ни€
             currentState = newState; //ƒелаем новое состо€ние как текущим
             currentStateName = currentState.StateName;
-            if (!currentState.CanInterrupt) currentState.onFinish.AddListener(ChooseState); //ƒобавл€ем выбор нового состо€ни€ на выход если оно не может прекратитьс€ пока не закончитс€
+            currentState.onFinish.AddListener(ChooseState); //ƒобавл€ем выбор нового состо€ни€ на выход если оно не может прекратитьс€ пока не закончитс€
             currentState.EnterState(this); //¬ходим в новое состо€ние
+        }
+        public virtual void UpdateStates()
+        {
+            if (CurrentState != null)
+            {
+                if (CurrentState.IsDynamicState)
+                    CurrentState.UpdateState(this);
+                if (CurrentState.MustBeFinished)
+                    ChooseState();
+            }
         }
         public abstract void ChooseState(); //ћетод выбора состо€ни€
         public void PlayAnimation(string animation, float animationSpeed)
