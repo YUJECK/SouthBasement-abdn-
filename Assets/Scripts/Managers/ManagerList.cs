@@ -1,6 +1,6 @@
 using Generation;
 using UnityEngine;
-
+using Creature.Pathfind;
 public class ManagerList : MonoBehaviour
 {
     private static GameManager gameManager;
@@ -8,7 +8,7 @@ public class ManagerList : MonoBehaviour
     private static AudioManager audioManager;
     private static EffectsInfo effectsInfo;
     private static GenerationManager generationManager;
-    private static Grid grid;
+    private static Creature.Pathfind.Grid grid;
 
     public static GameManager GameManager
     {
@@ -55,11 +55,11 @@ public class ManagerList : MonoBehaviour
         }
         private set => generationManager = value;
     }
-    public static Grid Grid
+    public static Creature.Pathfind.Grid Grid
     {
         get
         {
-            if (grid == null) grid = FindObjectOfType<Grid>();
+            if (grid == null) grid = FindObjectOfType<Creature.Pathfind.Grid>();
             return grid;
         }
         private set => grid = value;
@@ -67,7 +67,7 @@ public class ManagerList : MonoBehaviour
     private void OnLevelWasLoaded(int level)
     {
         generationManager = FindObjectOfType<GenerationManager>();
-        grid = FindObjectOfType<Grid>();
+        grid = FindObjectOfType<Creature.Pathfind.Grid>();
         Debug.Log("[Info]: " + GenerationManager.name + " has been updated");
         Debug.Log("[Info]: " + Grid.name + " has been updated");
     }

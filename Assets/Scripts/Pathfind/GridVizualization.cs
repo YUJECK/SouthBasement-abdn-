@@ -1,34 +1,36 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Grid))]
-public class GridVizualization : MonoBehaviour
+namespace Creature.Pathfind
 {
-    private List<GameObject> gridVizualization = new List<GameObject>();
-    [SerializeField] private GameObject colliderPrefab;
-    private Grid grid;
-
-    public void ShowGrid()
+    [RequireComponent(typeof(Grid))]
+    public class GridVizualization : MonoBehaviour
     {
-        if(grid.IsGridCreated)
+        private List<GameObject> gridVizualization = new List<GameObject>();
+        [SerializeField] private GameObject colliderPrefab;
+        private Grid grid;
+
+        public void ShowGrid()
         {
-            for (int x = 0; x < grid.GridWidth; x++)
+            if (grid.IsGridCreated)
             {
-                for (int y = 0; y < grid.GridHeight; y++)
+                for (int x = 0; x < grid.GridWidth; x++)
                 {
-                    if (grid.GetGridPoint((int)x, (int)y) == 1)
-                        gridVizualization.Add(Instantiate(colliderPrefab, new Vector3(x, y, 0), Quaternion.identity, transform));
+                    for (int y = 0; y < grid.GridHeight; y++)
+                    {
+                        if (grid.GetGridPoint((int)x, (int)y) == 1)
+                            gridVizualization.Add(Instantiate(colliderPrefab, new Vector3(x, y, 0), Quaternion.identity, transform));
+                    }
                 }
             }
         }
-    }
-    public void DisableGrid()
-    {
-        for (int i = 0; i < gridVizualization.Count; i++)
+        public void DisableGrid()
         {
-            Destroy(gridVizualization[0]);
-            gridVizualization.RemoveAt(0);
+            for (int i = 0; i < gridVizualization.Count; i++)
+            {
+                Destroy(gridVizualization[0]);
+                gridVizualization.RemoveAt(0);
+            }
         }
     }
 }
