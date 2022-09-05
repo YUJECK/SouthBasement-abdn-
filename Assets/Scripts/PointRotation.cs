@@ -79,4 +79,6 @@ public class PointRotation : MonoBehaviour
         if (DefineTargetPosition() != lastTargetPosition)
             transform.localRotation = Quaternion.Euler(0f, 0f, coefficient * CalculateAngle());
     }
+
+    //private void OnDrawGizmosSelected() => Gizmos.DrawWireSphere(DefineTargetPosition(), 1f);
 }
