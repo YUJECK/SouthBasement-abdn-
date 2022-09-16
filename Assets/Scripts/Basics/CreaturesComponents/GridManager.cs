@@ -18,7 +18,8 @@ namespace CreaturesAI.Pathfinding
         [SerializeField] private ObstacleDefining obstacleDefining;
         [SerializeField] private List<string> tagBlackList = new List<string>();
         [SerializeField] private List<string> obstacleTags = new List<string>();
-        
+
+        public GameObject test;
         private int[,] grid = { };
         private Dictionary<Vector2Int, int> editedPoints = new Dictionary<Vector2Int, int>();
 
@@ -86,7 +87,7 @@ namespace CreaturesAI.Pathfinding
                     {
                         if (nextHit.collider != null && !nextHit.collider.isTrigger)
                         {
-                            Debug.Log("Collider");
+                            //Instantiate(test, new Vector2(x, y), Quaternion.identity);
                             if(obstacleDefining == ObstacleDefining.AllColliders) grid[x, y] = 1;
                             else if(obstacleTags.Contains(nextHit.transform.tag)) grid[x, y] = 1;
                         }

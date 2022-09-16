@@ -8,8 +8,12 @@ namespace CreaturesAI.Pathfinding
     {
         private class Point
         {
+            //position
             private int x;
             private int y;
+            //costs
+            private float g = 0; 
+            private float h = 0;
 
             private Point cameFrom;
 
@@ -19,44 +23,59 @@ namespace CreaturesAI.Pathfinding
                 this.y = y;
             }
 
-            public void SetCameFrom(Point startingPoint) => cameFrom = startingPoint;
-            public Point GetCameFrom() => cameFrom;
+            public Point CameFrom => cameFrom;
+            public float G => g;
+            public float H => h;
+            public float F => g + h;
             public int X => x;
             public int Y => y;
+            public void SetCosts(float g, float h) { this.g = g; this.h = h; }
+            public void SetCameFrom(Point startingPoint) => cameFrom = startingPoint;
             public void SetXY(Vector2 point)
             {
                 x = (int)point.x;
                 y = (int)point.y;
             }
         }
-
-        [SerializeField] List<Vector2> test;
         
         GridManager grid;
         [SerializeField] GameObject obj;
-        public List<Vector2> FindPath(Vector2Int startPoint, Vector2Int endPoint)
+        [SerializeField] GameObject test2;
+
+        public List<Vector2> FindPath(Vector2 start, Vector2 end)
         {
-            Queue<Point> nextPoints = new Queue<Point>();
+            List<Point> nextPoints = new List<Point>();
             bool[,] visitedPoints = new bool[grid.GridWidth, grid.GridHeight];
-            Point start = new Point(startPoint.x, startPoint.y);
+            Point startPoint = new Point((int)start.x, (int)start.y);
+            Point endPoint = new Point((int)end.x, (int)end.y);
 
-            nextPoints.Enqueue(start);
+            Instantiate(test2, start, Quaternion.identity);
+            Instantiate(test2, end, Quaternion.identity);
 
-            while (nextPoints.Count > 0)
+
+            Point currentPoint = startPoint;
+
+            while (true)
             {
-                if (nextPoints.Peek().X == endPoint.x && nextPoints.Peek().Y == endPoint.y)
-                    return RestorePath(nextPoints.Peek());
-                visitedPoints[(int)nextPoints.Peek().X, (int)nextPoints.Peek().Y] = true;
-
-                List<Point> neibhourPoints = GetNeibhourPoints(nextPoints.Peek(), visitedPoints);
-
+                List<Point> neibhourPoints = GetNeibhourPoints(currentPoint, visitedPoints);
                 foreach (Point point in neibhourPoints)
                 {
-                    point.SetCameFrom(nextPoints.Peek());
-                    nextPoints.Enqueue(point);
+                    point.SetCosts(currentPoint.G + Vector2.Distance(new Vector2(currentPoint.X, currentPoint.Y),
+                        new Vector2(point.X, point.Y)), Heuristic(point, endPoint));
+                    point.SetCameFrom(currentPoint);
+                    nextPoints.Add(point);
+
                     visitedPoints[point.X, point.Y] = true;
+
+                    Instantiate(obj, new Vector2(point.X, point.Y), Quaternion.identity);
                 }
-                nextPoints.Dequeue();
+
+                currentPoint = GetBestPoint(nextPoints);
+
+                if (currentPoint.X == end.x && currentPoint.Y == end.y)
+                    return RestorePath(currentPoint);
+                
+                nextPoints.Remove(currentPoint);
             }
 
             return new List<Vector2>();
@@ -82,6 +101,19 @@ namespace CreaturesAI.Pathfinding
             }
             return neibhourPoints;
         }
+        private Point GetBestPoint(List<Point> points)
+        {
+            Point bestPoint = points[0];
+            
+            foreach (Point point in points)
+            {
+                if (point.F < bestPoint.F)
+                    bestPoint = point;
+            }
+
+            return bestPoint;
+        }
+        private int Heuristic(Point first, Point second) => Mathf.Abs((first.X - second.X) + (first.Y - second.Y));
         private bool CheckPoint(Point point, bool[,] ignoredPoints)
         {
             if (grid.GetPoint(new Vector2Int(point.X, point.Y)) == 0 && !ignoredPoints[point.X, point.Y])
@@ -97,8 +129,8 @@ namespace CreaturesAI.Pathfinding
             {
                 Instantiate(obj, new Vector2(current.X, current.Y), Quaternion.identity);
                 path.Add(new Vector2(current.X, current.Y));
-                current = current.GetCameFrom();
-            } while ((current.GetCameFrom() != null));
+                current = current.CameFrom;
+            } while ((current.CameFrom != null));
 
             return path;
         }
@@ -106,8 +138,7 @@ namespace CreaturesAI.Pathfinding
         void Start()
         {
             grid = FindObjectOfType<GridManager>();
-            //test = GetNeibhourPoints(new Vector2(10, 10), new List<Vector2>());
-            test = FindPath(new Vector2Int(40, 40), new Vector2Int(60, 60));
+            FindPath(new Vector2Int(33, 20), new Vector2Int(59, 21));
         }
     }
 }
