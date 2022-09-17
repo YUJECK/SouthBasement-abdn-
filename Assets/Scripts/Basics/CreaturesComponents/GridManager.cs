@@ -85,9 +85,8 @@ namespace CreaturesAI.Pathfinding
 
                     foreach (RaycastHit2D nextHit in hits)
                     {
-                        if (nextHit.collider != null && !nextHit.collider.isTrigger)
+                        if (nextHit.collider != null && !nextHit.collider.isTrigger && !tagBlackList.Contains(nextHit.transform.tag))
                         {
-                            //Instantiate(test, new Vector2(x, y), Quaternion.identity);
                             if(obstacleDefining == ObstacleDefining.AllColliders) grid[x, y] = 1;
                             else if(obstacleTags.Contains(nextHit.transform.tag)) grid[x, y] = 1;
                         }
