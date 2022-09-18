@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace CreaturesAI.Pathfinding
 {
-    public class Pathfinder : MonoBehaviour
+    public sealed class Pathfinder : MonoBehaviour
     {
         private enum GCostDefining
         {
@@ -17,7 +16,7 @@ namespace CreaturesAI.Pathfinding
             private int x;
             private int y;
             //costs
-            private float g = 0; 
+            private float g = 0;
             private float h = 0;
 
             private Point previosPoint;
@@ -27,22 +26,31 @@ namespace CreaturesAI.Pathfinding
                 this.x = x;
                 this.y = y;
             }
-
-            public Point CameFrom => previosPoint;
+            
+            public Point PreviosPoint => previosPoint;
             public float G => g;
             public float H => h;
             public float F => g + h;
             public int X => x;
             public int Y => y;
             public void SetCosts(float g, float h) { this.g = g; this.h = h; }
-            public void SetCameFrom(Point startingPoint) => previosPoint = startingPoint;
+            public void SetPreviosPoint(Point startingPoint) => previosPoint = startingPoint;
             public void SetXY(Vector2 point)
             {
                 x = (int)point.x;
                 y = (int)point.y;
             }
         }
-        
+        private class PointComparer : IComparer<Point>
+        {
+            public int Compare(Point x, Point y)
+            {
+                if (x.F > y.F) return 1;
+                else if (x.F < y.F) return -1;
+                return 0;
+            }
+        }
+
         [SerializeField] private GCostDefining gCostDefining;
         GridManager grid;
 
@@ -85,18 +93,6 @@ namespace CreaturesAI.Pathfinding
             }
             return neibhourPoints;
         }
-        private Point GetBestPoint(List<Point> points)
-        {
-            Point bestPoint = points[0];
-            
-            foreach (Point point in points)
-            {
-                if (point.F < bestPoint.F)
-                    bestPoint = point;
-            }
-
-            return bestPoint;
-        }
         public List<Vector2> FindPath(Vector2 start, Vector2 end)
         {
             List<Point> nextPoints = new List<Point>();
@@ -114,19 +110,21 @@ namespace CreaturesAI.Pathfinding
 
                 //getting neibhours
                 List<Point> neibhourPoints = GetNeibhourPoints(currentPoint, visitedPoints);
-               
+
                 //defining costs, previos point
                 foreach (Point point in neibhourPoints)
                 {
                     point.SetCosts(currentPoint.G + DefineGCost(currentPoint, point), Heuristic(point, endPoint));
-                    point.SetCameFrom(currentPoint);
+                    point.SetPreviosPoint(currentPoint);
                     nextPoints.Add(point);
 
                     visitedPoints[point.X, point.Y] = true;
                 }
-                
+                //sorting points
+                nextPoints.Sort(new PointComparer());
+
                 //choosing the best point
-                currentPoint = GetBestPoint(nextPoints);
+                currentPoint = nextPoints[0];
                 nextPoints.Remove(currentPoint);
             }
         }
@@ -138,8 +136,10 @@ namespace CreaturesAI.Pathfinding
             do
             {
                 path.Add(new Vector2(current.X, current.Y));
-                current = current.CameFrom;
-            } while ((current.CameFrom != null));
+                current = current.PreviosPoint;
+            } while ((current.PreviosPoint != null));
+
+            path.Reverse();
 
             return path;
         }

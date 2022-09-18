@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace CreaturesAI.Pathfinding
 {
-    public class GridManager : MonoBehaviour
+    public sealed class GridManager : MonoBehaviour
     {
         enum ObstacleDefining
         {
@@ -42,11 +41,11 @@ namespace CreaturesAI.Pathfinding
         }
         public int GridWidth => gridWidth;
         public int GridHeight => gridHeight;
-        
+
         //setters
         public void EditPoint(Vector2Int point, int newValue)
         {
-            if(CheckRange(point))
+            if (CheckRange(point))
             {
                 editedPoints.Add(point, grid[point.x, point.y]);
                 grid[point.x, point.y] = newValue;
@@ -81,21 +80,21 @@ namespace CreaturesAI.Pathfinding
             {
                 for (int y = 0; y < gridHeight; y++)
                 {
-                    RaycastHit2D[] hits = Physics2D.RaycastAll(new Vector2(x,y), new Vector2(0, 0));
+                    RaycastHit2D[] hits = Physics2D.RaycastAll(new Vector2(x, y), new Vector2(0, 0));
 
                     foreach (RaycastHit2D nextHit in hits)
                     {
                         if (nextHit.collider != null && !nextHit.collider.isTrigger && !tagBlackList.Contains(nextHit.transform.tag))
                         {
-                            if(obstacleDefining == ObstacleDefining.AllColliders) grid[x, y] = 1;
-                            else if(obstacleTags.Contains(nextHit.transform.tag)) grid[x, y] = 1;
+                            if (obstacleDefining == ObstacleDefining.AllColliders) grid[x, y] = 1;
+                            else if (obstacleTags.Contains(nextHit.transform.tag)) grid[x, y] = 1;
                         }
                         else grid[x, y] = 0;
                     }
                 }
             }
         }
-        
+
         //unity methods
         private void Awake() => GenerateGrid();
     }
