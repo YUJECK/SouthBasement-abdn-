@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public sealed class TargetSelection : MonoBehaviour
 {
+    //variables
     private Target currentTarget;
     public UnityEvent<Target> onTargetChange;
     private List<Target> targets = new List<Target>();
@@ -12,29 +13,15 @@ public sealed class TargetSelection : MonoBehaviour
     //methods
     private void ChangeTarget()
     {
-        Target newTarget = FindBestTarget();
+        Target.TargetComparator targetComparer = new Target.TargetComparator();
+        targets.Sort(targetComparer);
+        Target newTarget = targets[0];
         
         if(newTarget != currentTarget)
         {
             currentTarget = newTarget;
             onTargetChange.Invoke(currentTarget);
         }
-    }
-    private Target FindBestTarget()
-    {
-        if (targets.Count > 0)
-        {
-            Target bestTarget = targets[0];
-
-            foreach (Target nextTarget in targets)
-            {
-                if (nextTarget.Priority > bestTarget.Priority)
-                    bestTarget = nextTarget;
-            }
-
-            return bestTarget;
-        }
-        else return null;
     }
 
     //unity methods

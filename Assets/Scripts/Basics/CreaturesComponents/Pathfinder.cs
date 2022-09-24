@@ -10,7 +10,7 @@ namespace CreaturesAI.Pathfinding
             Distance,
             Random
         }
-        private class Point
+        private sealed class Point
         {
             //position
             private int x;
@@ -41,7 +41,7 @@ namespace CreaturesAI.Pathfinding
                 y = (int)point.y;
             }
         }
-        private class PointComparer : IComparer<Point>
+        private sealed class PointComparer : IComparer<Point>
         {
             public int Compare(Point x, Point y)
             {
@@ -52,7 +52,6 @@ namespace CreaturesAI.Pathfinding
         }
 
         [SerializeField] private GCostDefining gCostDefining;
-        GridManager grid;
 
         private float DefineGCost(Point startPoint, Point endPoint)
         {
@@ -68,7 +67,7 @@ namespace CreaturesAI.Pathfinding
         private int Heuristic(Point first, Point second) => Mathf.Abs(first.X - second.X) + Mathf.Abs(first.Y - second.Y);
         private bool CheckPointCollider(Point point)
         {
-            if (grid.GetPoint(new Vector2Int(point.X, point.Y)) == 0)
+            if (Managers.Grid.GetPoint(new Vector2Int(point.X, point.Y)) == 0)
                 return true;
             else return false;
         }
@@ -96,7 +95,7 @@ namespace CreaturesAI.Pathfinding
         public List<Vector2> FindPath(Vector2 start, Vector2 end)
         {
             List<Point> nextPoints = new List<Point>();
-            bool[,] visitedPoints = new bool[grid.GridWidth, grid.GridHeight];
+            bool[,] visitedPoints = new bool[Managers.Grid.GridWidth, Managers.Grid.GridHeight];
             Point startPoint = new Point((int)start.x, (int)start.y);
             Point endPoint = new Point((int)end.x, (int)end.y);
 
@@ -143,7 +142,5 @@ namespace CreaturesAI.Pathfinding
 
             return path;
         }
-
-        void Awake() => grid = FindObjectOfType<GridManager>();
     }
 }

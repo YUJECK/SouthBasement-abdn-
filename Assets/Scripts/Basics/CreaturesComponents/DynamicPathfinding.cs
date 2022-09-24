@@ -13,7 +13,6 @@ namespace CreaturesAI.Pathfinding
         private Utility.ComponentWorkState workState;
         private List<Vector2> path = new List<Vector2>();
 
-
         private Pathfinder pathfinder;
 
         //methods

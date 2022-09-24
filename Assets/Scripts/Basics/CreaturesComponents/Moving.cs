@@ -1,7 +1,6 @@
-using System.Collections;
+using CreaturesAI.Pathfinding;
 using System.Collections.Generic;
 using UnityEngine;
-using CreaturesAI.Pathfinding;
 
 namespace CreaturesAI.Moving
 {
@@ -27,7 +26,7 @@ namespace CreaturesAI.Moving
         }
 
         //unity methods
-        private void Start()
+        private void Awake()
         {
             dynamicPathfinding = GetComponent<DynamicPathfinding>();
             dynamicPathfinding.onPathWasFound.AddListener(SetPath);
