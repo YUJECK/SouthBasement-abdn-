@@ -10,6 +10,10 @@ public sealed class TargetSelection : MonoBehaviour
     private List<Target> targets = new List<Target>();
     private List<string> ignoringTags = new List<string>();
 
+    //getters
+    public int TargetsCount => targets.Count;
+    public Transform CurrentTarget => currentTarget.transform;
+
     //methods
     private void ChangeTarget()
     {
