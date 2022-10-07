@@ -17,14 +17,17 @@ public sealed class TargetSelection : MonoBehaviour
     //methods
     private void ChangeTarget()
     {
-        Target.TargetComparator targetComparer = new Target.TargetComparator();
-        targets.Sort(targetComparer);
-        Target newTarget = targets[0];
-        
-        if(newTarget != currentTarget)
+        if(targets.Count > 0)
         {
-            currentTarget = newTarget;
-            onTargetChange.Invoke(currentTarget);
+            Target.TargetComparator targetComparer = new Target.TargetComparator();
+            targets.Sort(targetComparer);
+            Target newTarget = targets[0];
+        
+            if(newTarget != currentTarget)
+            {
+                currentTarget = newTarget;
+                onTargetChange.Invoke(currentTarget);
+            }
         }
     }
 

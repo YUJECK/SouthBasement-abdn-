@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using CreaturesAI;
 using UnityEngine;
 
 [CreateAssetMenu()]
 public class TestMovingState : State
 {
+    [Space(10)]
+    [SerializeField] private float moveSpeed;
+
     public override void EnterState(StateMachine stateMachine)
     {
         stateMachine.DynamicPathfinding.StartPathfinding(stateMachine.TargetSelection.CurrentTarget);
@@ -17,7 +19,7 @@ public class TestMovingState : State
 
     public override void UpdateState(StateMachine stateMachine)
     {
-        stateMachine.Moving.Move();
-        stateMachine.ChooseState();
+        stateMachine.Moving.Move(moveSpeed);
+        stateMachine.StateChoosing();
     }
 }

@@ -18,7 +18,6 @@ namespace CreaturesAI.Pathfinding
         [SerializeField] private List<string> tagBlackList = new List<string>();
         [SerializeField] private List<string> obstacleTags = new List<string>();
 
-        public GameObject test;
         private int[,] grid = { };
         private Dictionary<Vector2Int, int> editedPoints = new Dictionary<Vector2Int, int>();
 

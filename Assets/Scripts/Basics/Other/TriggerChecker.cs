@@ -14,7 +14,6 @@ public class TriggerChecker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) 
     {
-            Debug.Log("Why?~?");
         if (enterTags.Contains(collision.tag))
         {
             objects.Add(collision.gameObject);

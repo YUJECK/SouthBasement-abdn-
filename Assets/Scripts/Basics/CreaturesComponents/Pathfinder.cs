@@ -132,11 +132,19 @@ namespace CreaturesAI.Pathfinding
             Point current = endPoint;
             List<Vector2> path = new List<Vector2>();
 
-            do
+            if (current.PreviosPoint == null)
             {
                 path.Add(new Vector2(current.X, current.Y));
+                return path;
+            }
+
+            while(true)
+            {
+                path.Add(new Vector2(current.X, current.Y));
+
+                if (current.PreviosPoint == null) break;
                 current = current.PreviosPoint;
-            } while ((current.PreviosPoint != null));
+            } 
 
             path.Reverse();
 

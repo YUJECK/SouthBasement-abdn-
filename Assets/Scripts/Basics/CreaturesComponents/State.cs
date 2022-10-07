@@ -1,13 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class State : ScriptableObject
+namespace CreaturesAI
 {
-    [SerializeField] private string stateName = "Some state";
-    public string StateName => stateName;
+    abstract public class State : ScriptableObject
+    {
+        [Header("State settings")]
+        [SerializeField] private string stateName = "Some state";
+        public string StateName => stateName;
 
-    abstract public void EnterState(StateMachine stateMachine);
-    abstract public void UpdateState(StateMachine stateMachine);
-    abstract public void ExitState(StateMachine stateMachine);
+            
+        abstract public void EnterState(StateMachine stateMachine);
+        abstract public void UpdateState(StateMachine stateMachine);
+        abstract public void ExitState(StateMachine stateMachine);
+    }
 }
