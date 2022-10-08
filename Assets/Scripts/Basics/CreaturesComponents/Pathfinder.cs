@@ -94,6 +94,13 @@ namespace CreaturesAI.Pathfinding
         }
         public List<Vector2> FindPath(Vector2 start, Vector2 end)
         {
+            //simple check endpoint for obstacle
+            if (Managers.Grid.GetPoint(end) == 1)
+            {
+                Debug.LogWarning("End point is obstacle");
+                return new List<Vector2>();
+            }
+
             List<Point> nextPoints = new List<Point>();
             bool[,] visitedPoints = new bool[Managers.Grid.GridWidth, Managers.Grid.GridHeight];
             Point startPoint = new Point((int)start.x, (int)start.y);
@@ -132,17 +139,9 @@ namespace CreaturesAI.Pathfinding
             Point current = endPoint;
             List<Vector2> path = new List<Vector2>();
 
-            if (current.PreviosPoint == null)
+            while(current.PreviosPoint != null)
             {
                 path.Add(new Vector2(current.X, current.Y));
-                return path;
-            }
-
-            while(true)
-            {
-                path.Add(new Vector2(current.X, current.Y));
-
-                if (current.PreviosPoint == null) break;
                 current = current.PreviosPoint;
             } 
 

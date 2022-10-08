@@ -8,28 +8,42 @@ namespace CreaturesAI.Pathfinding
     [RequireComponent(typeof(Pathfinder))]
     public sealed class DynamicPathfinding : MonoBehaviour
     {
+        //variables
         [SerializeField] private float pathfindingRate = 0.5f;
         public UnityEvent<List<Vector2>> onPathWasFound;
-        private Utility.ComponentWorkState workState;
         private List<Vector2> path = new List<Vector2>();
 
         private Pathfinder pathfinder;
+        private Coroutine pathFindingCoroutine;
+
+        //getters
+        public bool IsNowWorking 
+        {
+            ///<summary>
+            ///simple check pathFindingCoroutine
+            ///if it's null - return false
+            ///if it isn't return true
+            get
+            {
+                if (pathFindingCoroutine == null) return false;
+                else return true;
+            }
+        }
 
         //methods
         public void StartPathfinding(Transform target)
         {
-            if (workState != Utility.ComponentWorkState.Working)
-            {
-                StartCoroutine(Pathfinding(target));
-                workState = Utility.ComponentWorkState.Working;
-            }
+            if (!IsNowWorking)
+                pathFindingCoroutine = StartCoroutine(Pathfinding(target));
         }
         public void StopPathfinding()
         {
-            if (workState == Utility.ComponentWorkState.Working)
+            if (IsNowWorking)
             {
-                StopCoroutine(Pathfinding(null));
-                workState = Utility.ComponentWorkState.Stopped;
+                StopCoroutine(pathFindingCoroutine);
+                pathFindingCoroutine = null;
+
+                path.Clear();
             }
         }
 
@@ -56,7 +70,8 @@ namespace CreaturesAI.Pathfinding
         {
             if (path.Count > 0)
             {
-                Vector2 previos = path[0];
+                Vector2 previos = transform.position;
+
                 foreach (Vector2 nextPoint in path)
                 {
                     Gizmos.color = Color.green;
