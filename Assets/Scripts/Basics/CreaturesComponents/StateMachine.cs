@@ -15,6 +15,7 @@ namespace CreaturesAI
         //some components
         [Header("Components")]
         [SerializeField] private TMP_Text text;
+        [SerializeField] private Shooting shooting;
         [SerializeField] private Moving moving;
         [SerializeField] private TargetSelection targetSelection;
         [SerializeField] private DynamicPathfinding dymamicPathfinding;
@@ -24,6 +25,7 @@ namespace CreaturesAI
         //getters
         protected State CurrentState => currentState;
         public Moving Moving => moving;
+        public Shooting Shooting => shooting;
         public TargetSelection TargetSelection => targetSelection;
         public DynamicPathfinding DynamicPathfinding => dymamicPathfinding;
         public Health Health => health;
