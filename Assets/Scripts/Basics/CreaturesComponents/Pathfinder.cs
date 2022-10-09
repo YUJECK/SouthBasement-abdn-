@@ -5,6 +5,7 @@ namespace CreaturesAI.Pathfinding
 {
     public sealed class Pathfinder : MonoBehaviour
     {
+        //classes, enums
         private enum GCostDefining
         {
             Distance,
@@ -50,9 +51,11 @@ namespace CreaturesAI.Pathfinding
                 return 0;
             }
         }
-
+        
+        //variables
         [SerializeField] private GCostDefining gCostDefining;
 
+        //methods helpers
         private float DefineGCost(Point startPoint, Point endPoint)
         {
             switch (gCostDefining)
@@ -67,31 +70,11 @@ namespace CreaturesAI.Pathfinding
         private int Heuristic(Point first, Point second) => Mathf.Abs(first.X - second.X) + Mathf.Abs(first.Y - second.Y);
         private bool CheckPointCollider(Point point)
         {
-            if (Managers.Grid.GetPoint(new Vector2Int(point.X, point.Y)) == 0)
-                return true;
+            if (Managers.Grid.GetPoint(new Vector2Int(point.X, point.Y)) == 0) return true;
             else return false;
         }
-        private List<Point> GetNeibhourPoints(Point point, bool[,] ignoredPoints)
-        {
-            List<Point> neibhourPoints = new List<Point>();
-            List<Point> pointsToCheck = new List<Point>();
-            //adding points to check
-            pointsToCheck.Add(new Point(point.X, point.Y + 1));
-            pointsToCheck.Add(new Point(point.X, point.Y - 1));
-            pointsToCheck.Add(new Point(point.X + 1, point.Y));
-            pointsToCheck.Add(new Point(point.X - 1, point.Y));
-            pointsToCheck.Add(new Point(point.X + 1, point.Y + 1));
-            pointsToCheck.Add(new Point(point.X - 1, point.Y - 1));
-            pointsToCheck.Add(new Point(point.X + 1, point.Y - 1));
-            pointsToCheck.Add(new Point(point.X - 1, point.Y + 1));
-            //cheking points
-            foreach (Point nextPoint in pointsToCheck)
-            {
-                if (CheckPointCollider(nextPoint) && !ignoredPoints[nextPoint.X, nextPoint.Y])
-                    neibhourPoints.Add(nextPoint);
-            }
-            return neibhourPoints;
-        }
+        
+        //main methods
         public List<Vector2> FindPath(Vector2 start, Vector2 end)
         {
             //simple check endpoint for obstacle
@@ -134,19 +117,40 @@ namespace CreaturesAI.Pathfinding
                 nextPoints.Remove(currentPoint);
             }
         }
+        private List<Point> GetNeibhourPoints(Point point, bool[,] ignoredPoints)
+        {
+            List<Point> neibhourPoints = new List<Point>();
+            List<Point> pointsToCheck = new List<Point>();
+            //adding points to check
+            pointsToCheck.Add(new Point(point.X, point.Y + 1));
+            pointsToCheck.Add(new Point(point.X, point.Y - 1));
+            pointsToCheck.Add(new Point(point.X + 1, point.Y));
+            pointsToCheck.Add(new Point(point.X - 1, point.Y));
+            pointsToCheck.Add(new Point(point.X + 1, point.Y + 1));
+            pointsToCheck.Add(new Point(point.X - 1, point.Y - 1));
+            pointsToCheck.Add(new Point(point.X + 1, point.Y - 1));
+            pointsToCheck.Add(new Point(point.X - 1, point.Y + 1));
+            //cheking points
+            foreach (Point nextPoint in pointsToCheck)
+            {
+                if (CheckPointCollider(nextPoint) && !ignoredPoints[nextPoint.X, nextPoint.Y])
+                    neibhourPoints.Add(nextPoint);
+            }
+            return neibhourPoints;
+        }
         private List<Vector2> RestorePath(Point endPoint)
         {
             Point current = endPoint;
             List<Vector2> path = new List<Vector2>();
 
+            //go from end point to starting point
             while(current.PreviosPoint != null)
             {
                 path.Add(new Vector2(current.X, current.Y));
                 current = current.PreviosPoint;
             } 
 
-            path.Reverse();
-
+            path.Reverse(); //reversing path
             return path;
         }
     }

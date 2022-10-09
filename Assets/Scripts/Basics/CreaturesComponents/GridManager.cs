@@ -3,19 +3,15 @@ using UnityEngine;
 
 namespace CreaturesAI.Pathfinding
 {
+    public enum ObstacleDefining { AllColliders, CustomTags }
     public sealed class GridManager : MonoBehaviour
     {
-        enum ObstacleDefining
-        {
-            AllColliders,
-            CustomTags
-        }
-
+        //variables
         [SerializeField] private int gridWidth = 300;
         [SerializeField] private int gridHeight = 300;
-
+        [Space(10)]
         [SerializeField] private ObstacleDefining obstacleDefining;
-        [SerializeField] private List<string> tagBlackList = new List<string>();
+        [SerializeField] private List<string> obstacleTagsBlacklist = new List<string>();
         [SerializeField] private List<string> obstacleTags = new List<string>();
 
         private int[,] grid = { };
@@ -40,6 +36,7 @@ namespace CreaturesAI.Pathfinding
         }
         public int GridWidth => gridWidth;
         public int GridHeight => gridHeight;
+        public ObstacleDefining ObstacleDefining => obstacleDefining;
 
         //setters
         public void EditPoint(Vector2 point, int newValue)
@@ -83,7 +80,7 @@ namespace CreaturesAI.Pathfinding
 
                     foreach (RaycastHit2D nextHit in hits)
                     {
-                        if (nextHit.collider != null && !nextHit.collider.isTrigger && !tagBlackList.Contains(nextHit.transform.tag))
+                        if (nextHit.collider != null && !nextHit.collider.isTrigger && !obstacleTagsBlacklist.Contains(nextHit.transform.tag))
                         {
                             if (obstacleDefining == ObstacleDefining.AllColliders) grid[x, y] = 1;
                             else if (obstacleTags.Contains(nextHit.transform.tag)) grid[x, y] = 1;

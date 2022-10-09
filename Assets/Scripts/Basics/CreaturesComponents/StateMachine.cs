@@ -1,5 +1,6 @@
 using CreaturesAI.Pathfinding;
 using UnityEngine;
+using TMPro;
 
 namespace CreaturesAI
 {
@@ -13,6 +14,7 @@ namespace CreaturesAI
 
         //some components
         [Header("Components")]
+        [SerializeField] private TMP_Text text;
         [SerializeField] private Moving moving;
         [SerializeField] private TargetSelection targetSelection;
         [SerializeField] private DynamicPathfinding dymamicPathfinding;
@@ -36,6 +38,7 @@ namespace CreaturesAI
                 currentState = newState;
                 currentStateName = currentState.StateName;
                 currentState.EnterState(this);
+                text.SetText(currentStateName);
             }
         }
 

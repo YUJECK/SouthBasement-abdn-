@@ -6,6 +6,7 @@ public class PointRotationEditor : Editor
 {
     private PointRotation pointRotation;
 
+    //propertys
     private SerializedProperty targetType;
     private SerializedProperty usePlayerAsTarget;
     private SerializedProperty rotationTarget;
@@ -14,6 +15,7 @@ public class PointRotationEditor : Editor
     private SerializedProperty coefficient;
     private SerializedProperty angle;
 
+    //methods
     private void OnEnable()
     {
         pointRotation = target as PointRotation;
@@ -27,26 +29,25 @@ public class PointRotationEditor : Editor
             angle = serializedObject.FindProperty("angle");
         }
     }
-
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+        
+        //settings
+        EditorGUILayout.PropertyField(targetType);
+        EditorGUILayout.PropertyField(useLocalPos);
+
+        if (pointRotation.TargetType == PointRotationTargetType.Other)
         {
-            //Settings
-            EditorGUILayout.PropertyField(targetType);
-            EditorGUILayout.PropertyField(useLocalPos);
-
-            if (pointRotation.TargetType == PointRotationTargetType.Other)
-            {
-                EditorGUILayout.PropertyField(usePlayerAsTarget);
-                if(!pointRotation.UsePlayerAsTarget) EditorGUILayout.PropertyField(rotationTarget);
-            }
-
-            //Info
-            EditorGUILayout.PropertyField(offset);
-            EditorGUILayout.PropertyField(coefficient);
-            EditorGUILayout.PropertyField(angle);
+            EditorGUILayout.PropertyField(usePlayerAsTarget);
+            if(!pointRotation.UsePlayerAsTarget) EditorGUILayout.PropertyField(rotationTarget);
         }
+
+        //info
+        EditorGUILayout.PropertyField(offset);
+        EditorGUILayout.PropertyField(coefficient);
+        EditorGUILayout.PropertyField(angle);
+
         serializedObject.ApplyModifiedProperties();
     }
 }
