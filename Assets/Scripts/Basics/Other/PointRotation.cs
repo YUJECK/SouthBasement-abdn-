@@ -16,8 +16,8 @@ public class PointRotation : MonoBehaviour
     [SerializeField] private bool useLocalPosition; //Будет ли использоваться локальная позиция или глобальная
 
     [Header("Info")]
-    [SerializeField] private float offset = 0f; //Смещение
-    [SerializeField] private float coefficient = 1f; //Коэффициент
+    public float offset = 0f; //Смещение
+    public float coefficient = 1f; //Коэффициент
 
     //Другое
     private bool stopRotating = false; //Остановка кручения
@@ -29,8 +29,6 @@ public class PointRotation : MonoBehaviour
     //Геттеры
     public bool UsePlayerAsTarget => usePlayerAsTarget;
     public Transform Target => target;
-    public float Offset => offset;
-    public float Coefficient => coefficient;
     public PointRotationTargetType TargetType => targetType;
 
     //Другое
@@ -58,7 +56,7 @@ public class PointRotation : MonoBehaviour
 
             lastTargetPosition = targetPosition;
 
-            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
             angle += offset;
             return angle;
         }
