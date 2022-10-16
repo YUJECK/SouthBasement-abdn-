@@ -10,7 +10,6 @@ public class PointRotationEditor : Editor
     private SerializedProperty targetType;
     private SerializedProperty usePlayerAsTarget;
     private SerializedProperty rotationTarget;
-    private SerializedProperty useLocalPos;
     private SerializedProperty offset;
     private SerializedProperty coefficient;
     private SerializedProperty angle;
@@ -23,7 +22,6 @@ public class PointRotationEditor : Editor
             targetType = serializedObject.FindProperty("targetType");
             usePlayerAsTarget = serializedObject.FindProperty("usePlayerAsTarget");
             rotationTarget = serializedObject.FindProperty("target");
-            useLocalPos = serializedObject.FindProperty("useLocalPosition");
             offset = serializedObject.FindProperty("offset");
             coefficient = serializedObject.FindProperty("coefficient");
             angle = serializedObject.FindProperty("angle");
@@ -35,7 +33,6 @@ public class PointRotationEditor : Editor
         
         //settings
         EditorGUILayout.PropertyField(targetType);
-        EditorGUILayout.PropertyField(useLocalPos);
 
         if (pointRotation.TargetType == PointRotationTargetType.Other)
         {

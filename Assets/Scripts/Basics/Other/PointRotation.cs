@@ -13,7 +13,6 @@ public class PointRotation : MonoBehaviour
     [SerializeField] private PointRotationTargetType targetType;
     [SerializeField] private bool usePlayerAsTarget;
     [SerializeField] private Transform target;
-    [SerializeField] private bool useLocalPosition; //Будет ли использоваться локальная позиция или глобальная
 
     [Header("Info")]
     public float offset = 0f; //Смещение
@@ -57,8 +56,7 @@ public class PointRotation : MonoBehaviour
             lastTargetPosition = targetPosition;
 
             angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
-            angle += offset;
-            return angle;
+            return coefficient * angle + offset;
         }
         return angle;
     }
@@ -75,6 +73,6 @@ public class PointRotation : MonoBehaviour
     {
         //Кручение 
         if (DefineTargetPosition() != lastTargetPosition)
-            transform.localRotation = Quaternion.Euler(0f, 0f, coefficient * CalculateAngle());
+            transform.rotation = Quaternion.Euler(0f, 0f, CalculateAngle());
     }
 }
