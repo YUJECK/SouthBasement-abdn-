@@ -37,7 +37,7 @@ namespace CreaturesAI
             if(newState != currentState)
             {
                 if(currentState != null) currentState.ExitState(this);
-                currentState = newState;
+                currentState = Instantiate(newState);
                 currentStateName = currentState.StateName;
                 currentState.EnterState(this);
                 text.SetText(currentStateName);

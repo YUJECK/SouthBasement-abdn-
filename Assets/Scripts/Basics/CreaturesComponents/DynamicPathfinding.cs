@@ -23,6 +23,7 @@ namespace CreaturesAI.Pathfinding
             ///simple check pathFindingCoroutine
             ///if it's null - return false
             ///if it isn't return true
+
             get
             {
                 if (pathFindingCoroutine == null) return false;
@@ -42,7 +43,6 @@ namespace CreaturesAI.Pathfinding
             {
                 StopCoroutine(pathFindingCoroutine);
                 pathFindingCoroutine = null;
-
                 path.Clear();
             }
         }

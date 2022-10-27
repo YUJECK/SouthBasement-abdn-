@@ -1,7 +1,7 @@
 using CreaturesAI;
 using UnityEngine;
 
-public class TestStateMachine : StateMachine
+public sealed class TestStateMachine : StateMachine
 {
     [Header("States")]
     [SerializeField] private State idleState;
@@ -17,6 +17,7 @@ public class TestStateMachine : StateMachine
         if (Combat.TriggerChecker.IsOnTrigger)
             newState = attackingState;
 
+        //cheking by name
         ChangeState(newState);
     }
 

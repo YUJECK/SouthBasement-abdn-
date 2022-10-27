@@ -8,35 +8,33 @@ public enum PointRotationTargetType
 }
 public class PointRotation : MonoBehaviour
 {
-
     [Header("Settings")]
     [SerializeField] private PointRotationTargetType targetType;
     [SerializeField] private bool usePlayerAsTarget;
     [SerializeField] private Transform target;
 
     [Header("Info")]
-    public float offset = 0f; //Смещение
-    public float coefficient = 1f; //Коэффициент
+    public float offset = 0f;
+    public float coefficient = 1f;
 
-    //Другое
-    private bool stopRotating = false; //Остановка кручения
+    //private variables
+    private bool stopRotating = false; 
     private Vector3 lastTargetPosition;
-    [SerializeField] private float angle; //Последний угол поворота который был вычислен
+    [SerializeField] private float angle; //current angle
 
     private Camera mainCamera;
 
-    //Геттеры
+    //getters
     public bool UsePlayerAsTarget => usePlayerAsTarget;
     public Transform Target => target;
     public PointRotationTargetType TargetType => targetType;
 
-    //Другое
+    //setters
     public void SetTarget(Transform newTarget)
     {
         if (targetType == PointRotationTargetType.Other) target = newTarget;
         else Debug.LogWarning("Rotation type is - " + targetType);
     }
-    public void MultiplyCoefficent(float x) { coefficient *= x; }
     public void StopRotating(bool active, float time) { StartCoroutine(StopRotatingCoroutine(active, time)); }
 
     private IEnumerator StopRotatingCoroutine(bool active, float time)
@@ -67,11 +65,11 @@ public class PointRotation : MonoBehaviour
     }
     private Vector2 CalculateDirection(Vector3 targetPosition) => transform.position - targetPosition;
 
-    //Юнитивские методы
+    //unity methods
     private void Awake() => mainCamera = Camera.main;
     private void FixedUpdate()
     {
-        //Кручение 
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
         if (DefineTargetPosition() != lastTargetPosition)
             transform.rotation = Quaternion.Euler(0f, 0f, CalculateAngle());
     }

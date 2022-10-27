@@ -35,7 +35,7 @@ public sealed class TargetSelection : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Target newTarget) && !ignoringTags.Contains(collision.tag))
-        { 
+        {  
             targets.Add(newTarget);
             ChangeTarget();
         }

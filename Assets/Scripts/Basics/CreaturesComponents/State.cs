@@ -7,7 +7,6 @@ namespace CreaturesAI
         [Header("State settings")]
         [SerializeField] private string stateName = "Some state";
         public string StateName => stateName;
-
             
         abstract public void EnterState(StateMachine stateMachine);
         abstract public void UpdateState(StateMachine stateMachine);
