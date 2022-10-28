@@ -17,7 +17,6 @@ public sealed class TestStateMachine : StateMachine
         if (Combat.TriggerChecker.IsOnTrigger)
             newState = attackingState;
 
-        //cheking by name
         ChangeState(newState);
     }
 

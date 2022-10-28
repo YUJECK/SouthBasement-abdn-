@@ -1,6 +1,7 @@
 using CreaturesAI.Pathfinding;
-using UnityEngine;
+using System.Collections;
 using TMPro;
+using UnityEngine;
 
 namespace CreaturesAI
 {
@@ -34,9 +35,33 @@ namespace CreaturesAI
         //constant methods
         protected void ChangeState(State newState)
         {
-            if(newState != currentState)
+            if (newState != currentState)
             {
-                if(currentState != null) currentState.ExitState(this);
+                if (currentState != null && currentState.StateTransitionDelay != 0f)
+                    StartCoroutine(EnterNewState(newState, currentState.StateTransitionDelay));
+                else EnterNewState(newState);
+            }
+        }
+        private void EnterNewState(State newState)
+        {
+            if (newState != currentState && newState != null)
+            {
+                if (currentState != null) currentState.ExitState(this);
+                currentState = Instantiate(newState);   
+                currentStateName = currentState.StateName;
+                currentState.EnterState(this);
+                text.SetText(currentStateName);
+            }
+        }
+        private IEnumerator EnterNewState(State newState, float delay)
+        {
+            currentState = null;
+
+            yield return new WaitForSeconds(delay);
+
+            if (newState != currentState & newState != null)
+            {
+                if (currentState != null) currentState.ExitState(this);
                 currentState = Instantiate(newState);
                 currentStateName = currentState.StateName;
                 currentState.EnterState(this);
@@ -50,6 +75,6 @@ namespace CreaturesAI
 
         //unity methods
         private void Start() => StateChoosing();
-        private void Update() => UpdateStates(); 
+        private void Update() => UpdateStates();
     }
 }

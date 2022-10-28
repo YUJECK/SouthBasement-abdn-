@@ -1,31 +1,27 @@
 using CreaturesAI;
 using UnityEngine;
-using System.Collections;
 
 [CreateAssetMenu()]
 public class TestCombatState : State
 {
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private ShootingPattern simpleShootingPattern;
+    [SerializeField] private ShootingPattern roundPattern;
 
-    public override void EnterState(StateMachine stateMachine) 
+    private ShootingPattern currentPattern;
+
+    public override void EnterState(StateMachine stateMachine)
     {
-        stateMachine.StartCoroutine(testPattern(stateMachine));
+        if (Vector2.Distance(stateMachine.transform.position, stateMachine.TargetSelection.CurrentTarget.position) < 1.5f)
+            currentPattern = Instantiate(roundPattern);
+        else currentPattern = Instantiate(simpleShootingPattern);
+
+        currentPattern.UsePattern(stateMachine.Shooting);
     }
-    public override void ExitState(StateMachine stateMachine) 
-    {
-        stateMachine.StopCoroutine(testPattern(stateMachine)); 
-        stateMachine.StateChoosing();
-    }
-    public override void UpdateState(StateMachine stateMachine) { }
 
-    public IEnumerator testPattern(StateMachine stateMachine)
+    public override void ExitState(StateMachine stateMachine) { }
+    public override void UpdateState(StateMachine stateMachine) 
     {
-        for(int i = 0; i < 10; i++)
-        {
-            stateMachine.Shooting.Shoot(projectile, 10f, 0f, 20f*i, ForceMode2D.Impulse);   
-            yield return new WaitForSeconds(0.01f);
-        }
-
-        ExitState(stateMachine);
+        if (currentPattern.IsFinished)
+            stateMachine.StateChoosing();
     }
 }
