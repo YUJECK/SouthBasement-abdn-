@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// чисто тестовый скрипт чтобы протестить поведение пиксельной камеры
+/// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class test : MonoBehaviour
 {
