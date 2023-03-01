@@ -6,33 +6,32 @@ using Zenject;
 public class RatMovable : IMovable
 {
     public bool CanMove { get; set; } = true;
-    public float MoveSpeed { get; private set; }
 
-    private Rigidbody2D rigidbody;
-    private InputMap inputs;
+    private Rigidbody2D rigidbody2d;
+    [Inject] private InputMap inputs; 
+    [Inject] private CharacterStats characterStats; 
 
     public event Action<Vector2> OnMoved;
     public event Action OnMoveReleased;
     public Vector2 Movement => inputs.CharacterContoller.Move.ReadValue<Vector2>();
 
-    public RatMovable(Rigidbody2D rigidbody) => this.rigidbody = rigidbody;
-
-    [Inject]
-    private void Construct(InputMap inputs)
+    public RatMovable(InputMap inputs, Rigidbody2D rigidbody2D, CharacterStats characterStats)
     {
         this.inputs = inputs;
+        this.rigidbody2d = rigidbody2D;
+        this.characterStats = characterStats;
     }
 
     public void Move()
     {
         if (CanMove)
         {
-            rigidbody.velocity = Movement * MoveSpeed;
-            OnMoved?.Invoke(Movement * MoveSpeed);
+            rigidbody2d.velocity = Movement * characterStats.MoveSpeed;
+            OnMoved?.Invoke(Movement * characterStats.MoveSpeed);
         }
         else 
         {
-            rigidbody.velocity = Vector2.zero;
+            rigidbody2d.velocity = Vector2.zero;
             OnMoveReleased?.Invoke();
         }
     }
