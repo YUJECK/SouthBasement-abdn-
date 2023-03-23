@@ -1,6 +1,6 @@
+using Assets.InternalAssets.Scripts.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TheRat.Helpers;
 using UnityEngine;
 using Zenject;
@@ -25,8 +25,8 @@ namespace TheRat.LocationGeneration
         [Inject]
         public void Construct(RoomsStorager roomsStorager, ContainersHelper containersHelper)
         {
-            this._roomsStorager = roomsStorager;
-            this._containersHelper = containersHelper;
+            _roomsStorager = roomsStorager;
+            _containersHelper = containersHelper;
         }
 
         private void Start()
@@ -41,15 +41,10 @@ namespace TheRat.LocationGeneration
 
             while(_roomsSpawned.Count <= _roomsCount)
             {
-                Room room = roomsQueue.Dequeue();
+                Room[] spawnedRooms = roomsQueue.Dequeue().UseFactories();
 
-                foreach (RoomFactory factory in room.Factories)
-                {
-                    Room newRoom = factory.Create();
-
-                    roomsQueue.Enqueue(newRoom);
-                    _roomsSpawned.Add(newRoom);
-                }
+                roomsQueue.EnqueueRange(spawnedRooms);
+                _roomsSpawned.AddRange(spawnedRooms);           
             }
         }
 
