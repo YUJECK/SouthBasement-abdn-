@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TheRat.Helpers;
 using UnityEngine;
 using Zenject;
@@ -11,13 +12,15 @@ namespace TheRat.LocationGeneration
         [SerializeField] private int _roomsCount = 14;
         [SerializeField] private Transform _startPoint;
 
+        [SerializeField] private RoomFactory _startFactory;
+
         public event Action OnGenerationStarted;
         public event Action OnGenerationEnded;
 
         private RoomsStorager _roomsStorager;
         private ContainersHelper _containersHelper;
 
-        private List<Room> _roomsSpawned;
+        private List<Room> _roomsSpawned = new();
 
         [Inject]
         public void Construct(RoomsStorager roomsStorager, ContainersHelper containersHelper)
@@ -26,15 +29,21 @@ namespace TheRat.LocationGeneration
             this._containersHelper = containersHelper;
         }
 
+        private void Start()
+        {
+            StartGeneration();
+        }
+
         public void StartGeneration()
         {
             Queue<Room> roomsQueue = new();
-
             roomsQueue.Enqueue(SpawnStartRoom());
-            
-            foreach(Room room in roomsQueue)
+
+            while(_roomsSpawned.Count <= _roomsCount)
             {
-                foreach (RoomFactory factory in room.factories)
+                Room room = roomsQueue.Dequeue();
+
+                foreach (RoomFactory factory in room.Factories)
                 {
                     Room newRoom = factory.Create();
 
@@ -46,8 +55,7 @@ namespace TheRat.LocationGeneration
 
         private Room SpawnStartRoom()
         {
-            Room randomStartRoom = GetRandomRoom(_roomsStorager.StartRooms);
-            Room startRoom = Instantiate(randomStartRoom, _startPoint.position, Quaternion.identity, _containersHelper.RoomsContainer);
+            Room startRoom = _startFactory.Create();
 
             _roomsSpawned.Add(startRoom);
 
@@ -56,20 +64,8 @@ namespace TheRat.LocationGeneration
 
         public void Regenerate()
         {
-            foreach (RoomFactory roomFactory in _roomsSpawned[0].factories)
+            foreach (RoomFactory roomFactory in _roomsSpawned[0].Factories)
                 roomFactory.Destroy();
-        }
-
-        private Room GetRandomRoom(List<Room> rooms)
-        {
-            Room randomRoom = RandomizeRoom();
-
-            while (randomRoom.chance >= ChanceSystem.GetChance())
-                return randomRoom;
-
-            return null;
-
-            Room RandomizeRoom() => rooms[UnityEngine.Random.Range(0, rooms.Count)];
         }
     }
 }
