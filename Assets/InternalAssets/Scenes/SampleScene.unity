@@ -915,7 +915,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5.84375
+  orthographic size: 5.90625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1794,6 +1794,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &841800425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 841800426}
+  - component: {fileID: 841800427}
+  m_Layer: 0
+  m_Name: LocationGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &841800426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841800425}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.1303105, y: -2.812142, z: 0.6608005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &841800427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841800425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8b9e8396a660f4297f045817c4b60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roomsCount: 14
+  _startPoint: {fileID: 0}
 --- !u!1 &853292473
 GameObject:
   m_ObjectHideFlags: 0
@@ -3790,7 +3836,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb78344a61c5414f975a77f24b6384b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 963364319234757035, guid: 67f51bb34194201489f0a18950bcda2e, type: 3}
   startPoint: {fileID: 61938912}
 --- !u!1 &2002211410
 GameObject:
