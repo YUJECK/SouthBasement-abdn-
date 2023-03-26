@@ -14,7 +14,7 @@ namespace TheRat.LocationGeneration
         {
             Room randomRoom = RandomizeRoom();
 
-            while (randomRoom.Chance >= ChanceSystem.GetChance())
+            while (randomRoom.SpawnChance >= ChanceSystem.GetChance())
                 return randomRoom;
 
             return null;

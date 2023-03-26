@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7048570869129472414}
   - component: {fileID: 7048570869129472415}
   - component: {fileID: 9125897335409618302}
-  - component: {fileID: 8294212729649319428}
   - component: {fileID: 9053688383891455723}
   - component: {fileID: 237595785925528211}
+  - component: {fileID: 3940701312693565053}
   m_Layer: 3
   m_Name: RoomFactory
   m_TagString: Untagged
@@ -58,18 +58,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55609208d8816a64b81107dca0f19ca1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8294212729649319428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7048570869129472409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de14235a03da5884a95424f306ebe9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &9053688383891455723
@@ -119,3 +107,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3940701312693565053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7048570869129472409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de14235a03da5884a95424f306ebe9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _thisRoom: {fileID: 0}

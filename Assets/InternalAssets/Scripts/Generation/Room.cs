@@ -1,31 +1,34 @@
 ﻿using System.Collections.Generic;
+using TheRat.Graphs;
+using TheRat.Interfaces;
 using UnityEngine;
 
 namespace TheRat.LocationGeneration
 {
-    public class Room : MonoBehaviour
+    public class Room : MonoBehaviour, IGraphVertex, ISpawnable
     {
-        [field: SerializeField] public int Chance { get; private set; }
-        [field: SerializeField] public List<RoomFactory> Factories { get; private set; }
+        public List<IGraphEdge> Edges { get; private set; }
 
-        public Room[] UseFactories()
+        [field: SerializeField] public RoomFactoriesMixer RoomFactoryMixer { get; private set; }
+        [field: SerializeField] public int SpawnChance { get; private set; }
+
+        private void Awake()
         {
-            RandomizeFactories();
-        
-            List<Room> spawnedRooms = new List<Room>();
-
-            foreach(RoomFactory roomFactory in Factories)
-                spawnedRooms.Add(roomFactory.Create());
-
-            return spawnedRooms.ToArray();
+            RoomFactoryMixer = new(
+                GetComponentInChildren<RoomFactoriesContainerMarker>()
+                .GetComponentsInChildren<IRoomFactory>());
         }
 
-        private void RandomizeFactories()
-        {
-            int factoriesCount = Random.Range(2, Factories.Count);
+        public virtual void OnSpawned() { }
 
-            for (int i = 0; i < Factories.Count - factoriesCount; i++)
-                Factories.RemoveAt(Random.Range(0, Factories.Count));
+        public void AddEdge(IGraphEdge edge)
+        {
+            Edges.Add(edge);
+
+        }
+        public void RemoveEdge(IGraphEdge edge)
+        {
+            Edges.Remove(edge);
         }
     }
 }

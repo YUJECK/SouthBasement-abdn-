@@ -1,4 +1,5 @@
 using Assets.InternalAssets.Scripts.Extensions;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using TheRat.Helpers;
@@ -12,7 +13,7 @@ namespace TheRat.LocationGeneration
         [SerializeField] private int _roomsCount = 14;
         [SerializeField] private Transform _startPoint;
 
-        [SerializeField] private RoomFactory _startFactory;
+        [SerializeField] private EnemyRoomFactory _startFactory;
 
         public event Action OnGenerationStarted;
         public event Action OnGenerationEnded;
@@ -34,17 +35,26 @@ namespace TheRat.LocationGeneration
             StartGeneration();
         }
 
-        public void StartGeneration()
+        public async void StartGeneration()
         {
             Queue<Room> roomsQueue = new();
             roomsQueue.Enqueue(SpawnStartRoom());
 
-            while(_roomsSpawned.Count <= _roomsCount)
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
+
+            while (_roomsSpawned.Count < _roomsCount)
             {
-                Room[] spawnedRooms = roomsQueue.Dequeue().UseFactories();
+                Room[] spawnedRooms = roomsQueue
+                    .Dequeue()
+                    .RoomFactoryMixer
+                    .CreateAll();
+
+                
 
                 roomsQueue.EnqueueRange(spawnedRooms);
-                _roomsSpawned.AddRange(spawnedRooms);           
+                _roomsSpawned.AddRange(spawnedRooms);
+
+                await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
             }
         }
 
@@ -59,8 +69,7 @@ namespace TheRat.LocationGeneration
 
         public void Regenerate()
         {
-            foreach (RoomFactory roomFactory in _roomsSpawned[0].Factories)
-                roomFactory.Destroy();
+            _roomsSpawned[0].RoomFactoryMixer.DestroyAll();
         }
     }
 }
