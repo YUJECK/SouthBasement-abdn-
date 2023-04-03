@@ -3,11 +3,11 @@ using TheRat.LocationGeneration;
 using UnityEngine;
 
 [RequireComponent(typeof(RoomObserver))]
-[RequireComponent(typeof(EnemyRoomFactory))]
+[RequireComponent(typeof(RoomFactory))]
 public class RoomDestroyer : MonoBehaviour
 {
     private RoomObserver _roomObserver;
-    private EnemyRoomFactory _roomFactory;
+    private RoomFactory _roomFactory;
 
     [SerializeField] private Room _thisRoom;
 
@@ -15,7 +15,7 @@ public class RoomDestroyer : MonoBehaviour
     {
         _thisRoom = GetComponentInParent<Room>();
         _roomObserver = GetComponent<RoomObserver>();
-        _roomFactory = GetComponent<EnemyRoomFactory>();
+        _roomFactory = GetComponent<RoomFactory>();
 
         _roomObserver.OnRoomEntered += OnRoomEntered;
     }
@@ -24,10 +24,10 @@ public class RoomDestroyer : MonoBehaviour
     {
         foreach (IGraphEdge edge in _thisRoom.Edges)
         {
-            if (room == (object)edge.EnterVertex || room == (object)edge.ExitVertex)
+            if (room == (Room)edge.EnterVertex || room == (Room)edge.ExitVertex)
                 return;
         }
 
-        Destroy(_roomFactory.gameObject);
+        Destroy(_thisRoom);
     }
 }

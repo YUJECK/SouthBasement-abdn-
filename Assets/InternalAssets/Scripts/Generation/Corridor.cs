@@ -2,8 +2,7 @@
 
 namespace TheRat.LocationGeneration
 {
-    public sealed class RoomFactoriesContainerMarker : MonoBehaviour
+    internal class Corridor : MonoBehaviour
     {
-
     }
 }

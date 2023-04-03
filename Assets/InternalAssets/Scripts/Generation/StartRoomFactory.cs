@@ -3,7 +3,7 @@ using Zenject;
 
 namespace TheRat.LocationGeneration
 {
-    public sealed class EnemyRoomFactory : MonoBehaviour, IRoomFactory
+    public sealed class StartRoomFactory : MonoBehaviour, IRoomFactory
     {
         private RoomsStorager _roomsStorager;
         private DiContainer _container;
@@ -12,6 +12,8 @@ namespace TheRat.LocationGeneration
             => _spawnedRoom != null;
 
         public Directions Direction { get; private set; }
+
+        public Passage ConnectedPassage => null;
 
         private Room _spawnedRoom;
 
@@ -29,18 +31,17 @@ namespace TheRat.LocationGeneration
             if (_canSpawn && !IsSpawned)
             {
                 _spawnedRoom = InstantiateRoom();
-                
                 _spawnedRoom.OnSpawned();
-                
+
                 return _spawnedRoom;
             }
             else return null;
         }
-        
+
         public void Destroy()
             => Destroy(_spawnedRoom.gameObject);
 
-       private Room InstantiateRoom()
+        private Room InstantiateRoom()
         {
             return _container
                 .InstantiatePrefab(_roomsStorager.GetRandomRoom(_roomsStorager.EnemyRooms), transform.position, Quaternion.identity, null)

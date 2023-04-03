@@ -1,7 +1,7 @@
-using Assets.InternalAssets.Scripts.Extensions;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using TheRat.Extensions.DataStructures;
 using TheRat.Helpers;
 using UnityEngine;
 using Zenject;
@@ -13,7 +13,7 @@ namespace TheRat.LocationGeneration
         [SerializeField] private int _roomsCount = 14;
         [SerializeField] private Transform _startPoint;
 
-        [SerializeField] private EnemyRoomFactory _startFactory;
+        [SerializeField] private StartRoomFactory _startFactory;
 
         public event Action OnGenerationStarted;
         public event Action OnGenerationEnded;
@@ -48,9 +48,7 @@ namespace TheRat.LocationGeneration
                     .Dequeue()
                     .RoomFactoryMixer
                     .CreateAll();
-
                 
-
                 roomsQueue.EnqueueRange(spawnedRooms);
                 _roomsSpawned.AddRange(spawnedRooms);
 
