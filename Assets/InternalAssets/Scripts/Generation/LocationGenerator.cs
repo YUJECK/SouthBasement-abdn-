@@ -42,18 +42,18 @@ namespace TheRat.LocationGeneration
 
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
 
-            while (_roomsSpawned.Count < _roomsCount)
-            {
-                Room[] spawnedRooms = roomsQueue
-                    .Dequeue()
-                    .RoomFactoryMixer
-                    .CreateAll();
+            //while (_roomsSpawned.Count < _roomsCount)
+            //{
+            //    Room[] spawnedRooms = roomsQueue
+            //        .Dequeue()
+            //        .RoomFactoryMixer
+            //        .CreateAll();
                 
-                roomsQueue.EnqueueRange(spawnedRooms);
-                _roomsSpawned.AddRange(spawnedRooms);
+            //    roomsQueue.EnqueueRange(spawnedRooms);
+            //    _roomsSpawned.AddRange(spawnedRooms);
 
-                await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
-            }
+            //    await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
+            //}
         }
 
         private Room SpawnStartRoom()
@@ -67,7 +67,7 @@ namespace TheRat.LocationGeneration
 
         public void Regenerate()
         {
-            _roomsSpawned[0].RoomFactoryMixer.DestroyAll();
+            //_roomsSpawned[0].RoomFactoryMixer.DestroyAll();
         }
     }
 }

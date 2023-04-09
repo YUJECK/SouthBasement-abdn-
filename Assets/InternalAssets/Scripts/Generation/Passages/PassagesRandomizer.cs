@@ -41,7 +41,7 @@ public class PassagesRandomizer : MonoBehaviour
         _passages = new Dictionary<Directions, Passage>();
 
         foreach (Passage passage in loadedPassages)
-            _passages.Add(passage.Direction, passage);
+            _passages.Add(passage.Config.Direction, passage);
     }
 
     private Directions GetRandomDirection()

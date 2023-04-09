@@ -4,14 +4,17 @@ using Zenject;
 
 namespace TheRat.LocationGeneration
 {
-    public sealed class RoomFactory
+    public sealed class RoomFactory : MonoBehaviour
     {
+        [SerializeField] private Directions _direction;
+
+        public Passage Passage { get; private set; }
+
         private RoomsStorager _roomsStorager;
         private DiContainer _container;
-        
-        public bool IsSpawned => _spawnedRoom != null;
 
-        private Room _spawnedRoom;
+        private Room _owner;
+        private Passage _passage;
 
         public event Action OnSpawned;
         public event Action OnDestroyed;
@@ -23,37 +26,44 @@ namespace TheRat.LocationGeneration
             _container = container;
         }
 
-        public Room Create(Vector2 spawnPosition, Room owner, Passage connectedPassage)
+        public void SetPassage(Passage passage)
         {
-            if (IsSpawned)
-                return null;
+            if (passage != null)
+                _passage = passage;
+        }
 
+        public Room Create(Passage connectedPassage)
+        {
             RoomBuilder roomBuilder = new();
 
-            Room newRoom = InstantiateRoom(spawnPosition);
+            Room newRoom = InstantiateRoom();
 
             newRoom.OnSpawned();
             OnSpawned?.Invoke();
             
-            roomBuilder.ConnectPassageToExit(_spawnedRoom, connectedPassage);
+            roomBuilder.ConnectPassageToExit(newRoom, connectedPassage);
 
-            return _spawnedRoom = newRoom;
+            return newRoom;
         }
-        
+
+        private Room InstantiateRoom()
+        {
+            Room newRoomPrefab = GetRandomRoom(); 
+
+            Vector2 spawnPosition 
+                = _passage.Config.SpawnOffset;
+
+            return _container.InstantiatePrefab(newRoomPrefab, spawnPosition, Quaternion.identity, null)
+                .GetComponent<Room>();
+        }
+
+        private Room GetRandomRoom()
+        {
+            return _roomsStorager.GetRandomRoom(_roomsStorager.EnemyRooms);
+        }
+
         public void Destroy()
         {
-            if(_spawnedRoom != null)
-            {
-                GameObject.Destroy(_spawnedRoom.gameObject);
-                OnDestroyed?.Invoke();
-            }
-        }
-
-        private Room InstantiateRoom(Vector2 spawnPosition)
-        {
-            return _container
-                .InstantiatePrefab(_roomsStorager.GetRandomRoom(_roomsStorager.EnemyRooms), spawnPosition, Quaternion.identity, null)
-                .GetComponent<Room>();
         }
     }
 }

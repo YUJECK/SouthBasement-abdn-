@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8291971936677996262}
+  - component: {fileID: 6195337035330204934}
+  - component: {fileID: 3426723264540088674}
+  - component: {fileID: 3619980965018400173}
   m_Layer: 3
   m_Name: Passages
   m_TagString: Untagged
@@ -35,6 +38,42 @@ Transform:
   m_Father: {fileID: 5942231820594910837}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6195337035330204934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947340162055319645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1855002e8b3d3543abe8b7d6b5003e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3426723264540088674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947340162055319645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27c155a9f2c52340b6d1a613bc67e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3619980965018400173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947340162055319645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca07f97fd45e4443a24f1fce3ef295e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5942231820594910835
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +281,22 @@ PrefabInstance:
       propertyPath: <Direction>k__BackingField
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<Direction>k__BackingField
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<SpawnOffset>k__BackingField.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<SpawnOffset>k__BackingField.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<SpawnDistance>k__BackingField.x
+      value: 0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
 --- !u!4 &1564972964725856418 stripped
@@ -308,6 +363,18 @@ PrefabInstance:
       propertyPath: <Direction>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<Direction>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<SpawnOffset>k__BackingField.y
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<SpawnDistance>k__BackingField.y
+      value: -0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
 --- !u!4 &6058552955736351477 stripped
@@ -369,6 +436,14 @@ PrefabInstance:
     - target: {fileID: 2877459928990104456, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
       propertyPath: m_Name
       value: Passage (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<SpawnOffset>k__BackingField.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<SpawnDistance>k__BackingField.y
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
@@ -435,6 +510,22 @@ PrefabInstance:
     - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
       propertyPath: <Direction>k__BackingField
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<Direction>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<SpawnOffset>k__BackingField.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<SpawnOffset>k__BackingField.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031944056778013716, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}
+      propertyPath: <Config>k__BackingField.<SpawnDistance>k__BackingField.x
+      value: -0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe1867384d8b28f48b974a4db0ead0af, type: 3}

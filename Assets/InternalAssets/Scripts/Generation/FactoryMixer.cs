@@ -1,14 +1,35 @@
-﻿using TheRat.LocationGeneration;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace Assets.InternalAssets.Scripts.Generation
+namespace TheRat.LocationGeneration
 {
     public sealed class FactoryMixer
     {
-        private RoomFactory[] roomFactorys;
+        private readonly List<RoomFactory> _roomFactories;
 
-        public void CreateAll()
+        public FactoryMixer(RoomFactory[] roomFactories)
+            => _roomFactories = new(roomFactories);
+
+        public void Add(RoomFactory roomFactory)
         {
+            if (roomFactory == null)
+            {
+                Debug.Log("You tried to add null factory");
+                return;
+            }
 
+            _roomFactories.Add(roomFactory);
+        }
+
+        public async void CreateAll()
+        {
+            foreach (RoomFactory roomFactory in _roomFactories)
+            {
+                //roomFactory.Create();
+
+                await UniTask.Delay(100);
+            }
         }
     }
 }

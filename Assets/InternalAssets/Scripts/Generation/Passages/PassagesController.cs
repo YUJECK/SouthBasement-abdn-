@@ -9,14 +9,13 @@ public class PassagesController : MonoBehaviour
     private void Awake()
         => AddPassages();
 
+    public Passage Get(Directions direction)
+        => passages[direction];
+
     public void Close(Directions direction)
-    {
-        passages[direction].Close();
-    }
+        => passages[direction].Close();
     public void Open(Directions direction)
-    {
-        passages[direction].Open();
-    }
+        => passages[direction].Open();
 
     private void AddPassages()
     {
@@ -24,7 +23,7 @@ public class PassagesController : MonoBehaviour
 
         foreach (Passage passage in allPassages)
         {
-            if (!passages.TryAdd(passage.Direction, passage))
+            if (!passages.TryAdd(passage.Config.Direction, passage))
                 Debug.LogWarning("Extra passage was found", gameObject);
         }
 
