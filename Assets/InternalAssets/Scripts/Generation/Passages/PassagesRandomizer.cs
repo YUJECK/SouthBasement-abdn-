@@ -4,12 +4,12 @@ using TheRat.Helpers;
 using TheRat.LocationGeneration;
 using UnityEngine;
 
-[RequireComponent(typeof(RoomPassagesContainer))]
+[RequireComponent(typeof(RoomEntriesContainer))]
 public class PassagesRandomizer : MonoBehaviour
 {
-    private Dictionary<Directions, Passage> _passages;
+    private Dictionary<Directions, Entry> _passages;
 
-    public Passage[] Passages => _passages.ToValueArray();
+    public Entry[] Passages => _passages.ToValueArray();
 
     public void Randomize()
     {
@@ -22,26 +22,26 @@ public class PassagesRandomizer : MonoBehaviour
         {
             Directions passageToDelete = GetRandomDirection();
 
-            if (_passages[passageToDelete].ExitVertex != null)
+            if (_passages[passageToDelete].Passage.ExitVertex != null)
             {
                 overallPassagesCount++;
                 continue;
             }
 
-            _passages[passageToDelete].Close();
+            _passages[passageToDelete].Passage.Close();
             _passages.Remove(passageToDelete);
         }
     }
 
     private void Awake()
-        => GetComponent<RoomPassagesContainer>().OnPassagesLoaded += AddPassagesToDictionary;
+        => GetComponent<RoomEntriesContainer>().OnPassagesLoaded += AddPassagesToDictionary;
 
-    private void AddPassagesToDictionary(Passage[] loadedPassages)
+    private void AddPassagesToDictionary(Entry[] loadedPassages)
     {
-        _passages = new Dictionary<Directions, Passage>();
+        _passages = new Dictionary<Directions, Entry>();
 
-        foreach (Passage passage in loadedPassages)
-            _passages.Add(passage.Config.Direction, passage);
+        foreach (Entry entry in loadedPassages)
+            _passages.Add(entry.Passage.Config.Direction, entry);
     }
 
     private Directions GetRandomDirection()

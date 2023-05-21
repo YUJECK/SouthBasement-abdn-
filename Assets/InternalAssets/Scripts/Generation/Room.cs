@@ -9,7 +9,7 @@ namespace TheRat.LocationGeneration
     {
         public List<IGraphEdge> Edges { get; private set; } = new();
 
-        public PassagesController PassagesController { get; private set; }
+        public RoomEntriesContainer PassagesController { get; private set; }
 
         [field: SerializeField] public int SpawnChance { get; private set; }
 
