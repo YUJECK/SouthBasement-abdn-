@@ -1,69 +1,64 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.LocationGeneration
+namespace TheRat.Generation
 {
     public sealed class RoomFactory : MonoBehaviour
     {
-        [SerializeField] private Directions _direction;
-
-        public Passage Passage { get; private set; }
-
-        private RoomsStorager _roomsStorager;
-        private DiContainer _container;
+        private DiContainer _diContainer;
+        private RoomsContainer _roomsContainer;
 
         private Room _owner;
-        private Passage _passage;
-
-        public event Action OnSpawned;
-        public event Action OnDestroyed;
+        private Direction _direction;
 
         [Inject]
-        private void Construct(RoomsStorager roomsStorager, DiContainer container)
+        private void Construct(RoomsContainer roomsContainer, DiContainer diContainer)
         {
-            _roomsStorager = roomsStorager;
-            _container = container;
+            _diContainer = diContainer;
+            _roomsContainer = roomsContainer;
         }
 
-        public void SetPassage(Passage passage)
+
+        public void Init(Room owner, Direction direction)
         {
-            if (passage != null)
-                _passage = passage;
+            if (_owner == null)
+            {
+                _owner = owner;
+                _direction = direction;
+            }
         }
-
-        public Room Create(Passage connectedPassage)
+        
+        public Room Create()
         {
-            RoomBuilder roomBuilder = new();
+            Room roomToSpawn = _roomsContainer.GetRandom();
 
-            Room newRoom = InstantiateRoom();
+            transform.localPosition = GetPosition(roomToSpawn);
 
-            newRoom.OnSpawned();
-            OnSpawned?.Invoke();
+            var test = Physics2D.OverlapBoxAll(transform.position, roomToSpawn.RoomSize, 0f);
+
+            foreach (var hit2D in test)
+            {
+                if (hit2D.transform.gameObject.TryGetComponent<Room>(out Room room))
+                    return null;
+            }
             
-            roomBuilder.ConnectPassageToExit(newRoom, connectedPassage);
+            var spawnedRoom = _diContainer.InstantiatePrefabForComponent<Room>(roomToSpawn, transform.position, quaternion.identity, null);
 
-            return newRoom;
+            spawnedRoom.GetPassage(DirectionHelper.GetOpposite(_direction)).Connect(_owner);    
+            _owner.GetPassage(_direction).Connect(spawnedRoom);
+            
+            spawnedRoom.BuildPassages( new List<Direction>() {DirectionHelper.GetOpposite(_direction)});
+            
+            FindObjectOfType<GenerationController>().AddSpawnedRoom(spawnedRoom);
+            
+            return spawnedRoom;
         }
 
-        private Room InstantiateRoom()
+        private Vector2 GetPosition(Room roomToSpawn)
         {
-            Room newRoomPrefab = GetRandomRoom(); 
-
-            Vector2 spawnPosition 
-                = _passage.Config.SpawnOffset;
-
-            return _container.InstantiatePrefab(newRoomPrefab, spawnPosition, Quaternion.identity, null)
-                .GetComponent<Room>();
-        }
-
-        private Room GetRandomRoom()
-        {
-            return _roomsStorager.GetRandomRoom(_roomsStorager.EnemyRooms);
-        }
-
-        public void Destroy()
-        {
+            return _owner.GetOffCenter(_direction) - roomToSpawn.GetOffCenter(DirectionHelper.GetOpposite(_direction));
         }
     }
 }

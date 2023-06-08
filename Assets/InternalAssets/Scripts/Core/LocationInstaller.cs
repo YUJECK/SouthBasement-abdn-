@@ -1,5 +1,5 @@
-﻿using TheRat.Helpers;
-using TheRat.LocationGeneration;
+﻿using TheRat.Generation;
+using TheRat.Helpers;
 using TheRat.Player;
 using UnityEngine;
 using Zenject;
@@ -24,11 +24,11 @@ namespace TheRat
 
         private void BindRoomStorager()
         {
-            RoomsStorager roomsStorager = Resources.Load<RoomsStorager>(AssetsPath.RoomsStorager);
-
+            RoomsContainer roomsContainer = Resources.Load<RoomsContainer>(AssetsPath.RoomsContainer);
+        
             Container
-                .Bind<RoomsStorager>()
-                .FromInstance(roomsStorager)
+                .Bind<RoomsContainer>()
+                .FromInstance(roomsContainer)
                 .AsSingle();
         }
 
