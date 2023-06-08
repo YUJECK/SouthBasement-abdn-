@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
-using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TheRat.Generation
 {
     public class Room : MonoBehaviour
     {
-        [FormerlySerializedAs("_passages")] [SerializeField] private SerializedDictionary<Direction, Passage> passages;
+        [SerializeField] private SerializedDictionary<Direction, Passage> passages;
         [field: SerializeField] public Vector2 RoomSize { get; private set; }
         
         private void Awake()

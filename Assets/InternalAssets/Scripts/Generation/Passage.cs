@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace TheRat.Generation
@@ -10,17 +11,15 @@ namespace TheRat.Generation
         
         public Room ConnectedRoom { get; private set; }
 
+
         public void Connect(Room room)
-        {
-            ConnectedRoom = room;
-        }
+            => ConnectedRoom = room;
 
         public void Close()
         {
             wall.SetActive(true);
             gameObject.SetActive(false);
         }
-
         public void Open()
         {
             wall.SetActive(false);

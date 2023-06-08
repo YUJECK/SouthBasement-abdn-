@@ -26,7 +26,7 @@ namespace TheRat.Generation
 
         private void GenerateMap()
         {
-            _map = new RoomType[20];
+            _map = new RoomType[_roomsContainer.RoomsCount];
 
             _map[0] = RoomType.StartRoom;
             _map[^1] = RoomType.ExitRoom;
