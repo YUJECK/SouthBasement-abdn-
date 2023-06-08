@@ -8,21 +8,22 @@ namespace TheRat
 {
     public sealed class LocationInstaller : MonoInstaller
     {
-        [SerializeField] private Transform _startPoint;
-        [SerializeField] private ContainersHelper _containersHelper;
+        [SerializeField] private Transform startPoint;
+        [SerializeField] private ContainersHelper containersHelper;
 
         public override void InstallBindings()
         {
             BindCharacter();
-            BindRoomStorager();
-
+            BindRoomContainer();
+            BindGeneration();
+            
             Container
                 .Bind<ContainersHelper>()
-                .FromInstance(_containersHelper)
+                .FromInstance(containersHelper)
                 .AsSingle();
         }
 
-        private void BindRoomStorager()
+        private void BindRoomContainer()
         {
             RoomsContainer roomsContainer = Resources.Load<RoomsContainer>(AssetsPath.RoomsContainer);
         
@@ -38,12 +39,20 @@ namespace TheRat
 
             Character character = 
                 Container
-                .InstantiatePrefab(characterPrefab, _startPoint.position, _startPoint.rotation, null)
+                .InstantiatePrefab(characterPrefab, startPoint.position, startPoint.rotation, null)
                 .GetComponent<Character>();
             
             Container
                 .Bind<Character>()
                 .FromInstance(character)
+                .AsSingle();
+        }
+
+        private void BindGeneration()
+        {
+            Container
+                .BindInterfacesAndSelfTo<GenerationController>()
+                .FromInstance(new GenerationController(Resources.Load<RoomsContainer>(AssetsPath.RoomsContainer), Container, startPoint))
                 .AsSingle();
         }
     }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
+using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace TheRat.Generation
 {
@@ -20,7 +19,7 @@ namespace TheRat.Generation
 
         public Vector2 GetOffCenter(Direction direction)
         {
-            return passages[direction].transform.localPosition;
+            return passages[direction].Factory.transform.localPosition;
         }
 
         public Passage GetPassage(Direction direction)
@@ -53,13 +52,13 @@ namespace TheRat.Generation
 
             if (!directions.Contains((Direction)firstToDelete))
             {
-                Destroy(passages[(Direction)firstToDelete].gameObject);
+                passages[(Direction)firstToDelete].Close();
                 passages.Remove((Direction)firstToDelete);
             }
 
             if (firstToDelete != second && !directions.Contains((Direction)second))
             {
-                Destroy(passages[(Direction)second].gameObject);
+                passages[(Direction)second].Close();
                 passages.Remove((Direction) second);
             }
         }
@@ -69,7 +68,7 @@ namespace TheRat.Generation
             foreach (var passage in passages)
             {
                 if (passage.Value.ConnectedRoom == null)
-                    Destroy(passage.Value.gameObject);                    
+                    passage.Value.Close();                    
             }
         }
 

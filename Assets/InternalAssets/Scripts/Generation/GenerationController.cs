@@ -1,48 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 namespace TheRat.Generation
 {
-    public sealed class GenerationController :  MonoBehaviour
+    public sealed class GenerationController : IInitializable
     {
-        [SerializeField] private Transform _startPosition;
-        
-        private RoomsContainer _roomsContainer;
-        private DiContainer _diContainer;
+        private readonly RoomsContainer _roomsContainer;
+        private readonly Transform _startPoint;
+        private readonly DiContainer _diContainer;
 
         private readonly List<Room> _spawnedRooms = new();
+        private RoomType[] _map;
         private int CurrentRoomsCount => _spawnedRooms.Count;
 
-        [Inject]
-        private void Construct(RoomsContainer roomsContainer, DiContainer diContainer)
+        public GenerationController(RoomsContainer roomsContainer, DiContainer diContainer, Transform startPoint)
         {
             _roomsContainer = roomsContainer;
             _diContainer = diContainer;
+            _startPoint = startPoint;
         }
 
-        private void Start()
-        {
-            Generate();
-        }
+        public void AddSpawnedRoom(Room room) 
+            => _spawnedRooms.Add(room);
 
-        public void AddSpawnedRoom(Room room)
+        private void GenerateMap()
         {
-            _spawnedRooms.Add(room);
+            _map = new RoomType[20];
+
+            _map[0] = RoomType.StartRoom;
+            _map[^1] = RoomType.ExitRoom;
+
+            _map[Random.Range(1, _map.Length - 2)] = RoomType.TraderRoom;
+
+            for (int i = 0; i < 4; i++)
+            {
+                int roomID = Random.Range(1, _map.Length - 2);
+
+                if (_map[roomID] != RoomType.FightRoom)
+                    _map[roomID] = RoomType.NPCRoom;
+                else
+                    i--;
+            }
         }
-        
         private void Generate()
         {
             var roomQueue = new Queue<Room>();
-            var startRoomPrefab = _roomsContainer.GetRandom();
+            var startRoomPrefab = _roomsContainer.GetRandomStart();
 
-            var startRoom = _diContainer.InstantiatePrefabForComponent<Room>(startRoomPrefab, _startPosition.position, Quaternion.identity, transform);
+            var startRoom = _diContainer.InstantiatePrefabForComponent<Room>(startRoomPrefab, _startPoint.position, Quaternion.identity, null);
 
             roomQueue.Enqueue(startRoom);
             
-            while (CurrentRoomsCount <= 20)
+            while (CurrentRoomsCount <= _map.Length)
             {
                 if (roomQueue.Peek().TryGetFree(out var passage))
                 {
@@ -61,9 +71,13 @@ namespace TheRat.Generation
             }
 
             foreach (var room in _spawnedRooms)
-            {
                 room.CloseAllFree();
-            }
+        }
+
+        public void Initialize()
+        {
+            GenerateMap();
+            Generate();
         }
     }
 }
