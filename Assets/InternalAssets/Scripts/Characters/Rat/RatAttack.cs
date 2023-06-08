@@ -1,18 +1,24 @@
-﻿using UnityEngine;
+﻿using TheRat.InputServices;
+using TheRat.Player;
+using UnityEngine;
 
-namespace TheRat.Player
+namespace TheRat.Characters.Rat
 {
     public sealed class RatAttack : IAttackable
     {
         private readonly Transform _attackPoint;
         private readonly CharacterStats _characterStats;
         private readonly PlayerAnimator _playerAnimator;
+        private readonly IInputService _inputService;
 
-        public RatAttack(Transform attackPoint, CharacterStats characterStats, PlayerAnimator playerAnimator)
+        public RatAttack(IInputService inputService, Transform attackPoint, CharacterStats characterStats, PlayerAnimator playerAnimator)
         {
             _attackPoint = attackPoint;
             _characterStats = characterStats;
             _playerAnimator = playerAnimator;
+            _inputService = inputService;
+            
+            _inputService.OnAttack += Attack;
         }
 
         public void Attack()

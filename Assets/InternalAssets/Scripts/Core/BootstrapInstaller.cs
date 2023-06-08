@@ -1,4 +1,5 @@
 using TheRat;
+using TheRat.InputServices;
 using UnityEngine;
 using Zenject;
 
@@ -20,12 +21,9 @@ public sealed class BootstrapInstaller : MonoInstaller
 
     private void BindInputMap()
     {
-        InputMap inputs = new InputMap();
-        inputs.Enable();
-
         Container
-            .Bind<InputMap>()
-            .FromInstance(inputs)
+            .BindInterfacesTo<InputSystemService>()
+            .FromInstance(new InputSystemService())
             .AsSingle()
             .NonLazy();
     }

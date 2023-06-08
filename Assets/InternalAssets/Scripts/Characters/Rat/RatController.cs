@@ -1,18 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using TheRat.InputServices;
+using TheRat.Player;
 using Zenject;
 
-namespace TheRat.Player
+namespace TheRat.Characters.Rat
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public sealed class RatController : Character
     {
+        [SerializeField] private Transform attackPoint;
+        
         private Rigidbody2D _rigidbody;
-        private InputMap _inputs;
+        private IInputService _inputs;
 
         private PlayerAnimator _animator;
 
         [Inject]
-        private void Construct(InputMap inputs, CharacterStats characterStats)
+        private void Construct(IInputService inputs, CharacterStats characterStats)
         {
             this._inputs = inputs;
             this.Stats = characterStats;
@@ -24,13 +29,10 @@ namespace TheRat.Player
             _animator = new(GetComponentInChildren<Animator>());
             
             Movable = new RatMovable(_inputs, _rigidbody, Stats);
+            Attackable = new RatAttack(_inputs, attackPoint, Stats, _animator);
 
             Movable.OnMoved += (Vector2 vector2) => _animator.PlayWalk();
             Movable.OnMoveReleased += () => _animator.PlayIdle();
-        }
-        private void FixedUpdate()
-        {
-            Movable.Move();
         }
     }
 }

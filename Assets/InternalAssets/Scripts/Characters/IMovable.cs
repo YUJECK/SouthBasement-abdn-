@@ -7,6 +7,4 @@ public interface IMovable
     public event Action OnMoveReleased;
 
     public bool CanMove { get; set; }
-
-    public void Move();
 }

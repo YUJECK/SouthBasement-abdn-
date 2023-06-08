@@ -1,7 +1,7 @@
 using TheRat.Player;
 using UnityEngine;
 
-namespace VioletHell.PlayerServices
+namespace TheRat.PlayerServices
 {
     public class PlayerFlipper : MonoBehaviour
     {

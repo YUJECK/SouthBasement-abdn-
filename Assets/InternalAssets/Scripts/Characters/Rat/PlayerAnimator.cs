@@ -6,9 +6,9 @@ namespace TheRat.Player
     {
         private readonly Animator _animator;
 
-        private readonly int _walkAnimation = Animator.StringToHash("PlayerWalk");
-        private readonly int _idleAnimation = Animator.StringToHash("PlayerIdle");
-        private readonly int _attackAnimation = Animator.StringToHash("PlayerAttack");
+        private readonly int _walkAnimation = Animator.StringToHash("RatWalk");
+        private readonly int _idleAnimation = Animator.StringToHash("RatIdle");
+        private readonly int _attackAnimation = Animator.StringToHash("RatAttack");
         
         public PlayerAnimator(Animator animator) 
             => _animator = animator;
