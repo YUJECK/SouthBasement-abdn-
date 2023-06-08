@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using TheRat.InputServices;
+using TheRat.InternalAssets.Scripts.Helpers;
 using TheRat.Player;
 using Zenject;
 
@@ -9,7 +10,7 @@ namespace TheRat.Characters.Rat
     [RequireComponent(typeof(Rigidbody2D))]
     public sealed class RatController : Character
     {
-        [SerializeField] private Transform attackPoint;
+        [SerializeField] private AttackRotator attackPoint;
         
         private Rigidbody2D _rigidbody;
         private IInputService _inputs;

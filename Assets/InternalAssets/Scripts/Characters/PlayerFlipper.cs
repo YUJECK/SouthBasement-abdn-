@@ -1,3 +1,4 @@
+using System;
 using TheRat.Player;
 using UnityEngine;
 
@@ -6,18 +7,21 @@ namespace TheRat.PlayerServices
     public class PlayerFlipper : MonoBehaviour
     {
         private bool _faceRight = true;
+        [SerializeField] private Transform target;
 
-        private void Start()
-            => GetComponent<Character>().Movable.OnMoved += OnMoved;
-
-        private void OnMoved(Vector2 obj)
+        private void Awake()
         {
-            if(obj.x > 0 && !_faceRight)
+            target = FindObjectOfType<Mouse>().transform;
+        }
+
+        private void Update()
+        {
+            if(target.position.x > transform.position.x && !_faceRight)
             {
                 transform.Rotate(0f, 180f, 0f);
                 _faceRight = true;
             }
-            else if (obj.x < 0 && _faceRight)
+            else if (target.position.x < transform.position.x && _faceRight)
             {
                 transform.Rotate(0f, -180f, 0f);
                 _faceRight = false;
