@@ -61,10 +61,7 @@ namespace TheRat.Generation
             return spawnedRoom;
         }
 
-        private Vector2 GetPosition(Room roomToSpawn)
-        {
-            Debug.Log(_direction + " " + _owner.GetOffCenter(_direction) + " - " + roomToSpawn.GetOffCenter(DirectionHelper.GetOpposite(_direction)));
-            return _owner.GetOffCenter(_direction) - roomToSpawn.GetOffCenter(DirectionHelper.GetOpposite(_direction));
-        }
+        private Vector2 GetPosition(Room roomToSpawn) 
+            => _owner.GetOffCenter(_direction) - roomToSpawn.GetOffCenter(DirectionHelper.GetOpposite(_direction));
     }
 }
