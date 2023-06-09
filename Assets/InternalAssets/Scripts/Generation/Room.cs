@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace TheRat.Generation
 {
@@ -68,6 +70,12 @@ namespace TheRat.Generation
                 if (passage.Value.ConnectedRoom == null)
                     passage.Value.Close();                    
             }
+        }
+
+        private void OnValidate()
+        {
+            if (TryGetComponent<BoxCollider2D>(out BoxCollider2D boxCollider2D))
+                boxCollider2D.size = RoomSize;
         }
 
         private void OnDrawGizmos()
