@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TheRat.Helpers;
 using Unity.Mathematics;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Zenject;
 
@@ -70,7 +71,9 @@ namespace TheRat.Generation
 
         private bool CheckPlace(Room roomToSpawn)
         {
-            var overlapResult = Physics2D.OverlapBoxAll(transform.position, roomToSpawn.RoomSize, 0f);
+            var roomPlaceMask = LayerMask.GetMask("RoomPlace");
+            
+            var overlapResult = Physics2D.OverlapBoxAll(transform.position, roomToSpawn.RoomSize, 0f, roomPlaceMask);
 
             foreach (var hit2D in overlapResult) 
             {
