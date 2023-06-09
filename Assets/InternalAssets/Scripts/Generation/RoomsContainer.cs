@@ -11,26 +11,22 @@ namespace TheRat.Generation
         public Room[] FightRooms;
         public Room[] NPCRooms;
         public Room[] ExitRooms;
+        
+        public Room GetRandomRoom(RoomType roomType)
+        {
+            switch (roomType)
+            {
+                case RoomType.StartRoom:
+                    return StartRooms[Random.Range(0, StartRooms.Length)];
+                case RoomType.FightRoom:
+                    return FightRooms[Random.Range(0, FightRooms.Length)];
+                case RoomType.NPCRoom:
+                    return NPCRooms[Random.Range(0, NPCRooms.Length)];
+                case RoomType.ExitRoom:
+                    return ExitRooms[Random.Range(0, ExitRooms.Length)];
+            }
 
-        public Room GetRandomStart()
-        {
-            int randomRoom = Random.Range(0, StartRooms.Length);
-            return StartRooms[randomRoom];
-        }
-        public Room GetRandomFight()
-        {
-            int randomRoom = Random.Range(0, FightRooms.Length);
-            return FightRooms[randomRoom];
-        }
-        public Room GetRandomNPC()
-        {
-            int randomRoom = Random.Range(0, NPCRooms.Length);
-            return NPCRooms[randomRoom];
-        }
-        public Room GetRandomExit()
-        {
-            int randomRoom = Random.Range(0, ExitRooms.Length);
-            return ExitRooms[randomRoom];
+            return null;
         }
     }
 }

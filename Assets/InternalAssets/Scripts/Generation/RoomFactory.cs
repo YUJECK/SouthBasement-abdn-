@@ -6,7 +6,7 @@ using Zenject;
 
 namespace TheRat.Generation
 {
-    public sealed class RoomFactory : MonoBehaviour
+    public sealed class RoomFactory : MonoBehaviour, IRoomFactory
     {
         private DiContainer _diContainer;
         private RoomsContainer _roomsContainer;
@@ -34,13 +34,13 @@ namespace TheRat.Generation
             }
         }
         
-        public Room Create()
+        public Room Create(RoomType roomType)
         {
-            var roomToSpawn = _roomsContainer.GetRandomStart();
+            var roomToSpawn = _roomsContainer.GetRandomRoom(roomType);
 
             transform.localPosition = GetPosition(roomToSpawn);
 
-            if (!CanSpawn(roomToSpawn))
+            if (!CheckPlace(roomToSpawn))
                 return null;
 
             var spawnedRoom = SpawnRoom(roomToSpawn);
@@ -68,7 +68,7 @@ namespace TheRat.Generation
             _owner.GetPassage(_direction).Connect(spawnedRoom);
         }
 
-        private bool CanSpawn(Room roomToSpawn)
+        private bool CheckPlace(Room roomToSpawn)
         {
             var overlapResult = Physics2D.OverlapBoxAll(transform.position, roomToSpawn.RoomSize, 0f);
 

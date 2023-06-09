@@ -46,17 +46,17 @@ namespace TheRat.Generation
         private void Generate()
         {
             var roomQueue = new Queue<Room>();
-            var startRoomPrefab = _roomsContainer.GetRandomStart();
+            var startRoomPrefab = _roomsContainer.GetRandomRoom(RoomType.StartRoom);
 
             var startRoom = _diContainer.InstantiatePrefabForComponent<Room>(startRoomPrefab, _startPoint.position, Quaternion.identity, null);
 
             roomQueue.Enqueue(startRoom);
             
-            while (CurrentRoomsCount <= _map.Length)
+            while (CurrentRoomsCount < _map.Length)
             {
                 if (roomQueue.Peek().TryGetFree(out var passage))
                 {
-                    var room = passage.Factory.Create();
+                    var room = passage.Factory.Create(_map[CurrentRoomsCount]);
 
                     if (room != null)
                         roomQueue.Enqueue(room);

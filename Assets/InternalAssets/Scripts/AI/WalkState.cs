@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AutumnForest.AI
 {
-    public class WalkState : State<DefaultRatStateMachine>
+    public sealed class WalkState : State<DefaultRatStateMachine>
     {
         private int _currentPoint = 0;
         
