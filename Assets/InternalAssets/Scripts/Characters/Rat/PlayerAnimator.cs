@@ -6,20 +6,18 @@ namespace TheRat.Player
     {
         private readonly Animator _animator;
 
-        private readonly int _walkAnimation = Animator.StringToHash("RatWalk");
-        private readonly int _idleAnimation = Animator.StringToHash("RatIdle");
-        private readonly int _attackAnimation = Animator.StringToHash("RatAttack");
-        
+        private readonly string _walkAnimation = "Walk";
+        private readonly string _attackAnimation = "Attack";
         public PlayerAnimator(Animator animator) 
             => _animator = animator;
 
         public void PlayWalk()
-            => _animator.Play(_walkAnimation);
+            => _animator.SetBool(_walkAnimation, true);
 
         public void PlayIdle()
-            => _animator.Play(_idleAnimation);
+            => _animator.SetBool(_walkAnimation, false);
 
         public void PlayAttack()
-            => _animator.Play(_attackAnimation);
+            => _animator.SetTrigger(_attackAnimation);
     }
 }
