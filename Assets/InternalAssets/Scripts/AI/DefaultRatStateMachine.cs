@@ -1,6 +1,7 @@
 ﻿using System;
 using NTC.ContextStateMachine;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace AutumnForest.AI
 {
@@ -8,6 +9,7 @@ namespace AutumnForest.AI
     {
         public EnemyAnimator EnemyAnimator { get; private set; }
         [field: SerializeField] public Transform[] RandomPoints { get; private set; }
+        public NavMeshAgent Agent;
 
         private readonly StateMachine<DefaultRatStateMachine> _stateMachine = new();
 

@@ -7,9 +7,9 @@ namespace AutumnForest.AI.Grid
     {
         public NavMeshSurface Surface2D;
 
-        void Start()
+        private void Start()
         {
-            Surface2D.BuildNavMeshAsync();
+            GetComponent<NavMeshSurface>().BuildNavMeshAsync();
         }
     }
 }
