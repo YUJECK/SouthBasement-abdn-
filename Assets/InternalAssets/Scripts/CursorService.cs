@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AutumnForest
+namespace TheRat
 {
     public class CursorService : MonoBehaviour
     {

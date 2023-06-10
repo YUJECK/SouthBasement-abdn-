@@ -1,7 +1,7 @@
 ﻿using NTC.ContextStateMachine;
 using UnityEngine;
 
-namespace AutumnForest.AI
+namespace TheRat.AI
 {
     public sealed class WalkState : State<DefaultRatStateMachine>
     {
@@ -9,20 +9,26 @@ namespace AutumnForest.AI
         
         public WalkState(DefaultRatStateMachine stateInitializer) : base(stateInitializer) { }
 
+        public override void OnEnter()
+        {
+            Initializer.EnemyAnimator.PlayWalk();
+            Initializer.Agent.isStopped = false;
+        }
+
         public override void OnRun()
         {
-            Initializer.Agent.destination = GetDestination(); 
-            
-            if (Initializer.transform.position == GetDestination())
-                _currentPoint++;
-            if (_currentPoint >= Initializer.RandomPoints.Length)
-                _currentPoint = 0;
+            Initializer.Agent.SetDestination(GetDestination());
+        }
 
+        public override void OnExit()
+        {
+            Initializer.Agent.isStopped = true;
+            
         }
 
         private Vector3 GetDestination()
         {
-            return Initializer.RandomPoints[_currentPoint].position;
+            return Initializer.TargetSelector.Target.transform.position;
         }
     }
 }

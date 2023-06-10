@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AutumnForest.AI
+namespace TheRat.AI
 {
     public sealed class EnemyAnimator
     {

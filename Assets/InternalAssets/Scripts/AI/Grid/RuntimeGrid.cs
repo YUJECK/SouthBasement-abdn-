@@ -1,7 +1,7 @@
 ﻿using NavMeshPlus.Components;
 using UnityEngine;
 
-namespace AutumnForest.AI.Grid
+namespace TheRat.AI.Grid
 {
     public sealed class RuntimeGrid : MonoBehaviour
     {

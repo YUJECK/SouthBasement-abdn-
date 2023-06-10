@@ -19,8 +19,14 @@ namespace TheRat.InputServices
             _inputActions = new InputMap();
 
             _inputActions.CharacterContoller.Attack.performed += OnAttackPerformed;
+            _inputActions.CharacterContoller.Interaction.performed += InteractionOnperformed;
             
             _inputActions.Enable();
+        }
+
+        private void InteractionOnperformed(InputAction.CallbackContext obj)
+        {
+            OnInteracted?.Invoke();
         }
 
         public void Tick()

@@ -1,14 +1,13 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace TheRat.InternalAssets.Scripts.Helpers
+namespace TheRat.Helpers.Rotator
 {
-    [RequireComponent(typeof(AttackRotator))]
+    [RequireComponent(typeof(ObjectRotator))]
     public sealed class MouseTargetSetter : MonoBehaviour
     {
         private void Awake()
         {
-            GetComponent<AttackRotator>().Target = GameObject.FindWithTag("Mouse").transform;
+            GetComponent<ObjectRotator>().Target = GameObject.FindWithTag("Mouse").transform;
         }
     }
 }

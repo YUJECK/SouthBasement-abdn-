@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace TheRat.InternalAssets.Scripts.Helpers
+namespace TheRat.Helpers.Rotator
 {
-    public sealed class AttackRotator : MonoBehaviour
+    public sealed class ObjectRotator : MonoBehaviour
     {
         private bool _stopped;
         [field: SerializeField] public Transform Target { get; set; }

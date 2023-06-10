@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace AutumnForest.Tests
+namespace TheRat.Tests
 {
     public sealed class TestDamagable : MonoBehaviour, IDamagable
     {
@@ -9,9 +9,9 @@ namespace AutumnForest.Tests
         
         public async void Damage(int damage)
         {
-            GetComponent<SpriteRenderer>().color = Color.red;
+            GetComponentInChildren<SpriteRenderer>().color = Color.red;
             await UniTask.Delay(500);
-            GetComponent<SpriteRenderer>().color = Color.white;
+            GetComponentInChildren<SpriteRenderer>().color = Color.white;
         }
     }
 }

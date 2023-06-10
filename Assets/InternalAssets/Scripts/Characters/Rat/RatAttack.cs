@@ -1,7 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using TheRat.Helpers.Rotator;
 using TheRat.InputServices;
-using TheRat.InternalAssets.Scripts.Helpers;
 using TheRat.Player;
 using UnityEngine;
 
@@ -9,14 +9,14 @@ namespace TheRat.Characters.Rat
 {
     public sealed class RatAttack : IAttackable
     {
-        private readonly AttackRotator _attackPoint;
+        private readonly ObjectRotator _attackPoint;
         private readonly CharacterStats _characterStats;
         private readonly PlayerAnimator _playerAnimator;
         private readonly IInputService _inputService;
 
         private bool _blocked;
         
-        public RatAttack(IInputService inputService, AttackRotator attackPoint, CharacterStats characterStats, PlayerAnimator playerAnimator)
+        public RatAttack(IInputService inputService, ObjectRotator attackPoint, CharacterStats characterStats, PlayerAnimator playerAnimator)
         {
             _attackPoint = attackPoint;
             _characterStats = characterStats;
@@ -40,7 +40,7 @@ namespace TheRat.Characters.Rat
 
             foreach (var hit in hits)
             {
-                if(hit.TryGetComponent<IDamagable>(out var damagable))
+                if(!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
                     damagable.Damage(_characterStats.Damage);
             }
             OnAttacked?.Invoke(_characterStats.AttackRate);

@@ -1,5 +1,6 @@
 ﻿using TheRat.Generation;
 using TheRat.Helpers;
+using TheRat.InventorySystem;
 using TheRat.Player;
 using UnityEngine;
 using Zenject;
@@ -16,6 +17,7 @@ namespace TheRat
             BindCharacter();
             BindRoomContainer();
             BindGeneration();
+            BindInventory();
             
             Container
                 .Bind<ContainersHelper>()
@@ -53,6 +55,14 @@ namespace TheRat
             Container
                 .BindInterfacesAndSelfTo<GenerationController>()
                 .FromInstance(new GenerationController(Resources.Load<RoomsContainer>(AssetsPath.RoomsContainer), Container, startPoint))
+                .AsSingle();
+        }
+
+        private void BindInventory()
+        {
+            Container
+                .BindInterfacesAndSelfTo<Inventory>()
+                .FromInstance(new Inventory(Container))
                 .AsSingle();
         }
     }

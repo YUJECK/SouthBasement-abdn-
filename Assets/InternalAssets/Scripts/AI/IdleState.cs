@@ -1,6 +1,6 @@
 ﻿using NTC.ContextStateMachine;
 
-namespace AutumnForest.AI
+namespace TheRat.AI
 {
     public class IdleState : State<DefaultRatStateMachine>
     {

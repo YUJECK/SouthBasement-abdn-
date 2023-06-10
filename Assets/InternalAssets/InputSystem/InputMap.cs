@@ -46,6 +46,15 @@ namespace TheRat
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""6788272a-a30c-432d-968f-d3f917911ca7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -114,6 +123,17 @@ namespace TheRat
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""783e6890-0239-478c-8552-3484e2b64e17"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -124,6 +144,7 @@ namespace TheRat
             m_CharacterContoller = asset.FindActionMap("CharacterContoller", throwIfNotFound: true);
             m_CharacterContoller_Move = m_CharacterContoller.FindAction("Move", throwIfNotFound: true);
             m_CharacterContoller_Attack = m_CharacterContoller.FindAction("Attack", throwIfNotFound: true);
+            m_CharacterContoller_Interaction = m_CharacterContoller.FindAction("Interaction", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -187,12 +208,14 @@ namespace TheRat
         private List<ICharacterContollerActions> m_CharacterContollerActionsCallbackInterfaces = new List<ICharacterContollerActions>();
         private readonly InputAction m_CharacterContoller_Move;
         private readonly InputAction m_CharacterContoller_Attack;
+        private readonly InputAction m_CharacterContoller_Interaction;
         public struct CharacterContollerActions
         {
             private @InputMap m_Wrapper;
             public CharacterContollerActions(@InputMap wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_CharacterContoller_Move;
             public InputAction @Attack => m_Wrapper.m_CharacterContoller_Attack;
+            public InputAction @Interaction => m_Wrapper.m_CharacterContoller_Interaction;
             public InputActionMap Get() { return m_Wrapper.m_CharacterContoller; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -208,6 +231,9 @@ namespace TheRat
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @Interaction.started += instance.OnInteraction;
+                @Interaction.performed += instance.OnInteraction;
+                @Interaction.canceled += instance.OnInteraction;
             }
 
             private void UnregisterCallbacks(ICharacterContollerActions instance)
@@ -218,6 +244,9 @@ namespace TheRat
                 @Attack.started -= instance.OnAttack;
                 @Attack.performed -= instance.OnAttack;
                 @Attack.canceled -= instance.OnAttack;
+                @Interaction.started -= instance.OnInteraction;
+                @Interaction.performed -= instance.OnInteraction;
+                @Interaction.canceled -= instance.OnInteraction;
             }
 
             public void RemoveCallbacks(ICharacterContollerActions instance)
@@ -239,6 +268,7 @@ namespace TheRat
         {
             void OnMove(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
+            void OnInteraction(InputAction.CallbackContext context);
         }
     }
 }
