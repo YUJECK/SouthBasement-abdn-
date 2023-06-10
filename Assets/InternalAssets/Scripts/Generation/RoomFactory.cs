@@ -35,10 +35,13 @@ namespace TheRat.Generation
             }
         }
         
-        public Room Create(RoomType roomType)
+        public Room CreateByType(RoomType roomType)
         {
             var roomToSpawn = _roomsContainer.GetRandomRoom(roomType);
-
+            return CreateByPrefab(roomToSpawn);
+        }
+        public Room CreateByPrefab(Room roomToSpawn)
+        {
             transform.localPosition = GetPosition(roomToSpawn);
 
             if (!CheckPlace(roomToSpawn))

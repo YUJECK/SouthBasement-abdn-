@@ -3,7 +3,7 @@ using TheRat.Helpers;
 using TheRat.Player;
 using UnityEngine;
 
-namespace TheRat
+namespace TheRat.Generation
 {
     [RequireComponent(typeof(Collider2D))]
     public sealed class PlayerEnterTrigger : MonoBehaviour

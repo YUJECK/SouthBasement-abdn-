@@ -15,8 +15,23 @@ namespace TheRat.Generation
         {
             foreach (var passage in passages)
                 passage.Value.Factory.Init(this, passage.Key);
+            
+            OpenAllDoors();
         }
 
+
+        public void OpenAllDoors()
+        {
+            foreach (var passage in passages)
+                passage.Value.OpenDoor();
+        }
+
+        public void CloseAllDoors()
+        {
+            foreach (var passage in passages)
+                passage.Value.CloseDoor();
+        }
+        
         public Vector2 GetOffCenter(Direction direction)
         {
             return passages[direction].Factory.transform.localPosition;
@@ -52,13 +67,13 @@ namespace TheRat.Generation
 
             if (!directions.Contains((Direction)firstToDelete))
             {
-                passages[(Direction)firstToDelete].Close();
+                passages[(Direction)firstToDelete].DisablePassage();
                 passages.Remove((Direction)firstToDelete);
             }
 
             if (firstToDelete != second && !directions.Contains((Direction)second))
             {
-                passages[(Direction)second].Close();
+                passages[(Direction)second].DisablePassage();
                 passages.Remove((Direction) second);
             }
         }
@@ -68,7 +83,7 @@ namespace TheRat.Generation
             foreach (var passage in passages)
             {
                 if (passage.Value.ConnectedRoom == null)
-                    passage.Value.Close();                    
+                    passage.Value.DisablePassage();                    
             }
         }
 
