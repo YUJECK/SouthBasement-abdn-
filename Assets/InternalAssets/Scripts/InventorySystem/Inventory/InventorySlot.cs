@@ -13,14 +13,18 @@ namespace TheRat.InventorySystem
         private void Awake()
         {
             _itemImage = GetComponent<Image>();
+            SetItem(null);
         }
 
         public void SetItem(Item item)
         {
             if(item == null)
-                _itemImage.gameObject.SetActive(false);
+                _itemImage.color = Color.clear;
             else
+            {
                 _itemImage.sprite = item.ItemSprite;
+                _itemImage.color = Color.white;
+            }
 
             CurrentItem = item;
         }

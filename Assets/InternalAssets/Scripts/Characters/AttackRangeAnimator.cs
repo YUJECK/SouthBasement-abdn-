@@ -11,14 +11,17 @@ namespace TheRat.InternalAssets.Scripts.Characters
 
         private readonly int _rangeAnimation = Animator.StringToHash("AttackRange");
 
-
+        [SerializeField] private bool asPlayer;
+        
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            FindObjectOfType<Character>().Attackable.OnAttacked += Play;
+
+            if(asPlayer)
+                FindObjectOfType<Character>().Attackable.OnAttacked += Play;
         }
 
-        private void Play(float time)
+        public void Play(float time)
         {
             _animator.Play(_rangeAnimation);
         } 

@@ -5,13 +5,18 @@ namespace TheRat.Tests
 {
     public sealed class TestDamagable : MonoBehaviour, IDamagable
     {
-        public int CurrentHealth { get; }
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+        public int CurrentHealth { get; private set; } = 35;
         
         public async void Damage(int damage)
         {
-            GetComponentInChildren<SpriteRenderer>().color = Color.red;
+            _spriteRenderer.color = Color.red;
             await UniTask.Delay(500);
-            GetComponentInChildren<SpriteRenderer>().color = Color.white;
+            _spriteRenderer.color = Color.white;
+            
+            CurrentHealth -= damage;
+            if(CurrentHealth <= 0)
+                Destroy(gameObject);
         }
     }
 }

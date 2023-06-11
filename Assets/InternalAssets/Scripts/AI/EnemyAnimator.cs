@@ -4,7 +4,7 @@ namespace TheRat.AI
 {
     public sealed class EnemyAnimator
     {
-        private Animator _animator;
+        private readonly Animator _animator;
 
         public EnemyAnimator(Animator animator)
         {

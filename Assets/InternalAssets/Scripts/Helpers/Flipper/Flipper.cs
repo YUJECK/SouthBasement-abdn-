@@ -16,6 +16,9 @@ namespace TheRat.PlayerServices
 
         private void Update()
         {
+            if(Target == null)
+                return;
+                
             if(Target.position.x > transform.position.x && !_faceRight)
             {
                 transform.Rotate(0f, 180f, 0f);

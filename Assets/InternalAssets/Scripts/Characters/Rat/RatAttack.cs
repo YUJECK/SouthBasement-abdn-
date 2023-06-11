@@ -26,6 +26,11 @@ namespace TheRat.Characters.Rat
             _inputService.OnAttack += Attack;
         }
 
+        ~RatAttack()
+        {
+            _inputService.OnAttack -= Attack;
+        }
+        
         public event Action<float> OnAttacked;
 
         public void Attack()

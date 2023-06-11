@@ -19,7 +19,6 @@ namespace TheRat.Generation
         private void OnEntered(Character obj)
         {
             _room.CloseAllDoors();
-            Destroy(_playerEnterTrigger);
         }
     }
 }

@@ -8,9 +8,11 @@ namespace TheRat.Generation
     [RequireComponent(typeof(Collider2D))]
     public sealed class PlayerEnterTrigger : MonoBehaviour
     {
-        public event Action<Character> OnEntered; 
+        public event Action<Character> OnEntered;
 
-        private void Start()
+        public bool Enabled { get; set; } = true;
+
+        private void Awake()
         {
             var collider = GetComponent<Collider2D>();
 
@@ -20,8 +22,11 @@ namespace TheRat.Generation
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(TagHelper.Player))
+            if (Enabled && other.CompareTag(TagHelper.Player))
+            {
                OnEntered?.Invoke(other.GetComponent<Character>());
+               Enabled = false;
+            }
         }
     }
 }

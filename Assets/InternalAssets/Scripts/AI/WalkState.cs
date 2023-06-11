@@ -23,7 +23,7 @@ namespace TheRat.AI
         public override void OnExit()
         {
             Initializer.Agent.isStopped = true;
-            
+            Initializer.EnemyAnimator.PlayIdle();
         }
 
         private Vector3 GetDestination()

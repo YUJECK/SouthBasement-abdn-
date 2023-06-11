@@ -24,6 +24,11 @@ namespace TheRat.Characters.Rat
             _inputs.OnMoved += Move;
         }
 
+        ~RatMovable()
+        {
+            _inputs.OnMoved -= Move;
+        }
+
         public void Move(Vector2 movement)
         {
             if (CanMove)
