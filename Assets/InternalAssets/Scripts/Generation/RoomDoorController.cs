@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace TheRat.Generation
 {
+    [RequireComponent(typeof(RoomEnemyController))]
     public sealed class RoomDoorController : MonoBehaviour
     {
         private PlayerEnterTrigger _playerEnterTrigger;
@@ -14,6 +15,7 @@ namespace TheRat.Generation
             _playerEnterTrigger.OnEntered += OnEntered;
             
             _room = GetComponentInParent<Room>();
+            GetComponent<RoomEnemyController>().OnEnemiesDefeated += () => _room.OpenAllDoors();
         }
 
         private void OnEntered(Character obj)

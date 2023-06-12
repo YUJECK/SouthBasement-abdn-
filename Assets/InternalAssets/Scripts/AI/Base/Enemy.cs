@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace TheRat.AI
 {
@@ -6,6 +7,13 @@ namespace TheRat.AI
     {
         public bool Enabled { get; private set; } = false;
 
+        public event Action OnDied;
+
+        public virtual void Die()
+        {
+            OnDied?.Invoke();
+        }
+        
         public virtual void Enable()
         {
             Enabled = true;
