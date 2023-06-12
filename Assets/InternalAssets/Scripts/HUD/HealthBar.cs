@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
@@ -7,7 +8,8 @@ namespace TheRat.HUD
     [AddComponentMenu("HUD/HealthBar")]
     public sealed class HealthBar : MonoBehaviour
     {
-        private Image _bar;
+        [SerializeField] private TMP_Text healthScore;
+        [SerializeField] private Image barFill;
         private CharacterStats _characterStats;
 
         [Inject]
@@ -17,14 +19,10 @@ namespace TheRat.HUD
             characterStats.OnHealthChanged += OnHealthChanged;
         }
 
-        private void Awake()
+        private void OnHealthChanged(int health)
         {
-            _bar = GetComponent<Image>();
-        }
-
-        private void OnHealthChanged(int obj)
-        {
-            _bar.fillAmount = (float)obj / _characterStats.MaximumHealth;
+            barFill.fillAmount = (float)health / _characterStats.MaximumHealth;
+            healthScore.text = $"{health} / {_characterStats.MaximumHealth}";
         }
     }
 }

@@ -1,5 +1,34 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7968666674383167658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32a464d8ccff4e40a60c45b40a1e648, type: 3}
+  m_Name: Sentence Node
+  m_EditorClassIdentifier: 
+  connectedNodesList: []
+  nodeGraph: {fileID: 11400000}
+  rect:
+    serializedVersion: 2
+    x: 670
+    y: 322
+    width: 240
+    height: 115
+  isDragging: 0
+  isSelected: 1
+  sentence:
+    characterName: "\u041A\u0440\u044B\u0441 \u0422\u043E\u0440\u0433\u043E\u0432\u0435\u0446"
+    text: "\u041F\u043B\u043E\u0445\u043E, \u043D\u043E \u0447\u0442\u043E \u043F\u043E\u0434\u0435\u043B\u0430\u0442\u044C,
+      \u0442\u0430\u043A\u043E\u0435 \u0432\u0440\u0435\u043C\u044F"
+    characterSprite: {fileID: 0}
+  parentNode: {fileID: 1525658073341632962}
+  childNode: {fileID: 0}
 --- !u!114 &-4840130879031741112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23,8 +52,11 @@ MonoBehaviour:
   isDragging: 0
   isSelected: 0
   sentence:
-    characterName: fghsgfhsgf
-    text: hgdfjdhdj
+    characterName: "\u041A\u0440\u044B\u0441 \u0422\u043E\u0440\u0433\u043E\u0432\u0435\u0446"
+    text: "\u041F\u0440\u0438\u0432\u0435\u0442! \u041A\u0430\u043A \u0436\u0438\u0437\u043D\u044C,
+      \u043A\u0430\u043A \u043D\u043E\u0440\u043A\u0430? \u041A\u0440\u044B\u0441\u044B
+      \u0438\u0437 \u0421\u0435\u0432\u0435\u0440\u043D\u043E\u0433\u043E \u043F\u043E\u0434\u0432\u0430\u043B\u0430
+      \u0435\u0449\u0435 \u043D\u0435 \u043D\u0430\u0432\u0435\u0449\u0430\u043B\u0438?"
     characterSprite: {fileID: 0}
   parentNode: {fileID: 0}
   childNode: {fileID: 1525658073341632962}
@@ -44,6 +76,7 @@ MonoBehaviour:
   - {fileID: -4840130879031741112}
   - {fileID: 1525658073341632962}
   - {fileID: 1761646593532061377}
+  - {fileID: -7968666674383167658}
   nodeToDrawLineFrom: {fileID: 0}
   linePosition: {x: 0, y: 0}
 --- !u!114 &1525658073341632962
@@ -62,21 +95,21 @@ MonoBehaviour:
   nodeGraph: {fileID: 11400000}
   rect:
     serializedVersion: 2
-    x: 430
+    x: 431
     y: 192
     width: 190
     height: 145
   isDragging: 0
   isSelected: 1
   answers:
-  - fshgsfghsgfhgs
-  - 
+  - "\u041D\u0435\u0442, \u0432\u0441\u0435 \u0442\u0438\u0445\u043E"
+  - "\u0414\u0430, \u0431\u044B\u043B\u043E \u0434\u0435\u043B\u043E"
   - 
   - 
   parentSentenceNode: {fileID: -4840130879031741112}
   childSentenceNodes:
   - {fileID: 1761646593532061377}
-  - {fileID: 0}
+  - {fileID: -7968666674383167658}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &1761646593532061377
@@ -95,15 +128,17 @@ MonoBehaviour:
   nodeGraph: {fileID: 11400000}
   rect:
     serializedVersion: 2
-    x: 691
-    y: 110
+    x: 584
+    y: 107
     width: 240
     height: 115
   isDragging: 0
-  isSelected: 1
+  isSelected: 0
   sentence:
-    characterName: hbvxdgfhfgh
-    text: hsfgj
+    characterName: "\u041A\u0440\u044B\u0441 \u0422\u043E\u0440\u0433\u043E\u0432\u0435\u0446"
+    text: "\u041D\u0443 \u0438 \u0445\u043E\u0440\u0448\u043E. \u0410 \u0442\u043E
+      \u043C\u043D\u0435 \u043F\u0435\u0440\u0438\u043E\u0434\u0438\u0447\u0435\u0441\u043A\u0438
+      \u043E\u0442\u0431\u0438\u0432\u0430\u0442\u044C\u0441\u044F \u043F\u0440\u0438\u0445\u043E\u0434\u0438\u0442\u0441\u044F"
     characterSprite: {fileID: 0}
   parentNode: {fileID: 1525658073341632962}
   childNode: {fileID: 0}
