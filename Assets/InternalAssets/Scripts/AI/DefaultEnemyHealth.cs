@@ -28,7 +28,7 @@ namespace TheRat.AI
             _cheeseService.SpawnCheese(transform.position, 4);
             
             foreach (var objectToDrop in objectsToDrop)
-                Instantiate(objectToDrop, transform.position, quaternion.identity);
+                Instantiate(objectToDrop, transform.position, transform.rotation);
         }
     }
 }
