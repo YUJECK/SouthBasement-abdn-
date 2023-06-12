@@ -32,12 +32,12 @@ namespace TheRat.Characters.Rat
         public void Move(Vector2 movement)
         {
             if (CanMove)
-                _rigidbody2d.velocity = movement * _characterStats.MoveSpeed;
+                _rigidbody2d.velocity = movement * _characterStats.MoveSpeed.Value;
             else
                 _rigidbody2d.velocity = Vector2.zero;
         
             if(movement != Vector2.zero)
-                OnMoved?.Invoke(movement * _characterStats.MoveSpeed);
+                OnMoved?.Invoke(movement * _characterStats.MoveSpeed.Value);
             else 
                 OnMoveReleased?.Invoke();
         }

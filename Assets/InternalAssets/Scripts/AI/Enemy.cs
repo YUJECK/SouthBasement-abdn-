@@ -8,7 +8,6 @@ namespace TheRat.AI
 
         public virtual void Enable()
         {
-            Debug.Log("|sdlf");
             Enabled = true;
         }
 

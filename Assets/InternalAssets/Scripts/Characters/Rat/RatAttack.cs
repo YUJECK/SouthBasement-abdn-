@@ -39,16 +39,16 @@ namespace TheRat.Characters.Rat
                 return;
             
             _playerAnimator.PlayAttack();
-            _attackPoint.Stop(_characterStats.AttackRate - 0.05f);
+            _attackPoint.Stop(_characterStats.AttackRate.Value - 0.05f);
             
-            var hits = Physics2D.OverlapCircleAll(_attackPoint.Point.transform.position, _characterStats.AttackRange);
+            var hits = Physics2D.OverlapCircleAll(_attackPoint.Point.transform.position, _characterStats.AttackRange.Value);
 
             foreach (var hit in hits)
             {
                 if(!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
-                    damagable.Damage(_characterStats.Damage);
+                    damagable.Damage(_characterStats.Damage.Value);
             }
-            OnAttacked?.Invoke(_characterStats.AttackRate);
+            OnAttacked?.Invoke(_characterStats.AttackRate.Value);
             
             Culldown();
         }
@@ -56,7 +56,7 @@ namespace TheRat.Characters.Rat
         private async void Culldown()
         {
             _blocked = true;
-            await UniTask.Delay(TimeSpan.FromSeconds(_characterStats.AttackRate));
+            await UniTask.Delay(TimeSpan.FromSeconds(_characterStats.AttackRate.Value));
             _blocked = false;
         }
     }

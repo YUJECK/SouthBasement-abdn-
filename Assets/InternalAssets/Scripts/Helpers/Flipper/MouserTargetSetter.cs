@@ -1,13 +1,22 @@
-﻿    using UnityEngine;
+﻿using UnityEngine;
 
 namespace TheRat.PlayerServices
 {
     [RequireComponent(typeof(Flipper))]
     public sealed class MouserTargetSetter : MonoBehaviour
     {
+        private CursorService _cursorService;
+        //
+        // [Inject]
+        // private void Construct(CursorService cursorService)
+        // {
+        //     _cursorService = cursorService;
+        // }
+        
         private void Awake()
         {
-            GetComponent<Flipper>().Target = FindObjectOfType<Mouse>().transform;
+            FindObjectOfType<CursorService>();
+            GetComponent<Flipper>().Target = FindObjectOfType<CursorService>().transform;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace TheRat
             BindRoomContainer();
             BindGeneration();
             BindInventory();
-            
+
             Container
                 .Bind<ContainersHelper>()
                 .FromInstance(containersHelper)
@@ -28,7 +28,7 @@ namespace TheRat
         private void BindRoomContainer()
         {
             RoomsContainer roomsContainer = Resources.Load<RoomsContainer>(AssetsPath.RoomsContainer);
-        
+
             Container
                 .Bind<RoomsContainer>()
                 .FromInstance(roomsContainer)
@@ -39,11 +39,11 @@ namespace TheRat
         {
             Character characterPrefab = Resources.Load<Character>(AssetsPath.Player);
 
-            Character character = 
+            Character character =
                 Container
-                .InstantiatePrefab(characterPrefab, startPoint.position, startPoint.rotation, null)
-                .GetComponent<Character>();
-            
+                    .InstantiatePrefab(characterPrefab, startPoint.position, startPoint.rotation, null)
+                    .GetComponent<Character>();
+
             Container
                 .Bind<Character>()
                 .FromInstance(character)
@@ -54,7 +54,8 @@ namespace TheRat
         {
             Container
                 .BindInterfacesAndSelfTo<GenerationController>()
-                .FromInstance(new GenerationController(Resources.Load<RoomsContainer>(AssetsPath.RoomsContainer), Container, startPoint))
+                .FromInstance(new GenerationController(Resources.Load<RoomsContainer>(AssetsPath.RoomsContainer),
+                    Container, startPoint))
                 .AsSingle();
         }
 

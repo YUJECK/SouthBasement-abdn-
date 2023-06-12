@@ -4,16 +4,17 @@ namespace TheRat
 {
     public class CursorService : MonoBehaviour
     {
-        private Camera mainCamera;
+        private Camera _mainCamera;
 
-        void Awake()
+        private void Awake()
         {
-            mainCamera = Camera.main;
+            _mainCamera = Camera.main;
             Cursor.visible = true;
         }
-        void LateUpdate()
+
+        private void LateUpdate()
         {
-            Vector3 newPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            var newPos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
             transform.position = new Vector3(newPos.x, newPos.y, -100f);
         }
 
