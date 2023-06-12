@@ -1,4 +1,5 @@
-﻿using NavMeshPlus.Extensions;
+﻿using System;
+using NavMeshPlus.Extensions;
 using NTC.ContextStateMachine;
 using TheRat.AI;
 using TheRat.InternalAssets.Scripts.Characters;
@@ -11,11 +12,13 @@ namespace TheRat.AI
     [RequireComponent(typeof(AgentOverride2d))]
     public sealed class DefaultRatStateMachine : Enemy
     {
+        [field: SerializeField] public SingleAnimationService WarningPoint { get; private set; }
+        [field: SerializeField] public AttackRangeAnimator AttackRangeAnimator { get; private set; }
+        [field: SerializeField] public Transform AttackPoint { get; private set; }
+        
         public EnemyAnimator EnemyAnimator { get; private set; }
         public TargetSelector TargetSelector { get; private set; }
         public AttackTrigger AttackTrigger { get; private set; }
-        [field: SerializeField] public AttackRangeAnimator AttackRangeAnimator { get; private set; }
-        [field: SerializeField] public Transform AttackPoint { get; private set; }
         public NavMeshAgent Agent { get; private set; }
 
         private readonly StateMachine<DefaultRatStateMachine> _stateMachine = new();

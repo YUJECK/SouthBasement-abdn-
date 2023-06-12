@@ -1,5 +1,4 @@
-﻿using System;
-using TheRat.Helpers;
+﻿using TheRat.Helpers;
 using UnityEngine;
 using Zenject;
 

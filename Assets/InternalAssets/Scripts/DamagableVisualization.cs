@@ -7,6 +7,8 @@ namespace TheRat.InternalAssets.Scripts
     public sealed class DamagableVisualization : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private Color damageColor;
+
         private Coroutine _coroutine;
         
         private void Awake()
@@ -24,7 +26,7 @@ namespace TheRat.InternalAssets.Scripts
 
         private IEnumerator GetRed()
         {
-            _spriteRenderer.color = Color.red;
+            _spriteRenderer.color = damageColor;
             yield return new WaitForSeconds(0.4f);
             _spriteRenderer.color = Color.white;
         }

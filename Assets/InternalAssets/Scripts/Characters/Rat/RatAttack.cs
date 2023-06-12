@@ -40,6 +40,8 @@ namespace TheRat.Characters.Rat
             
             _playerAnimator.PlayAttack();
             _attackPoint.Stop(_characterStats.AttackRate.Value - 0.05f);
+
+            var mask = LayerMask.GetMask("Enemy"); 
             
             var hits = Physics2D.OverlapCircleAll(_attackPoint.Point.transform.position, _characterStats.AttackRange.Value);
 

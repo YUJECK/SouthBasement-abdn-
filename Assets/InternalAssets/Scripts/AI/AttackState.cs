@@ -1,4 +1,5 @@
-﻿using NTC.ContextStateMachine;
+﻿using System.Collections;
+using NTC.ContextStateMachine;
 using UnityEngine;
 
 namespace TheRat.AI
@@ -9,6 +10,15 @@ namespace TheRat.AI
 
         public override void OnEnter()
         {
+            Initializer.StartCoroutine(Attack());
+        }
+
+        private IEnumerator Attack()
+        {
+            Initializer.WarningPoint.Play();
+            
+            yield return new WaitForSeconds(0.5f);
+            
             Initializer.AttackRangeAnimator.Play(1f);
             
             var playerLayer = LayerMask.GetMask("PlayerMarker");

@@ -1,6 +1,6 @@
 ﻿using System;
-using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 namespace TheRat.Economy
 {
@@ -9,12 +9,15 @@ namespace TheRat.Economy
         public int CheeseAmount { get; private set; }
         private CheeseObject _cheesePrefab;
 
+        private DiContainer _container;
+        
         public event Action<int> OnCheeseAmountChanged;
 
-        public CheeseService(CheeseServiceConfig config)
+        public CheeseService(CheeseServiceConfig config, DiContainer container)
         {
             _cheesePrefab = config.CheesePrefab;
             CheeseAmount = config.StartCheeseAmount;
+            _container = container;
         }
 
         public void AddCheese(int addAmount)
@@ -39,7 +42,7 @@ namespace TheRat.Economy
         
         public CheeseObject SpawnCheese(Vector2 postition, int amount)
         {
-             var resultCheese = GameObject.Instantiate<CheeseObject>(_cheesePrefab, postition, Quaternion.identity);
+             var resultCheese = _container.InstantiatePrefabForComponent<CheeseObject>(_cheesePrefab, postition, Quaternion.identity, null);
              resultCheese.SetCheeseValue(amount);
 
              return resultCheese;

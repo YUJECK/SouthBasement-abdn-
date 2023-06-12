@@ -18,7 +18,7 @@ public sealed class BootstrapInstaller : MonoInstaller
     {
         Container
             .Bind<CheeseService>()
-            .FromInstance(new CheeseService(CheeseServiceConfig))
+            .FromInstance(new CheeseService(CheeseServiceConfig, Container))
             .AsSingle();
     }
 

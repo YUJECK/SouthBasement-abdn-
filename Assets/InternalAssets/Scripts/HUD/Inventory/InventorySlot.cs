@@ -13,7 +13,14 @@ namespace TheRat.InventorySystem
         private void Awake()
         {
             _itemImage = GetComponent<Image>();
+            GetComponentInParent<Button>().onClick.AddListener(TryUseItem);
             SetItem(null);
+        }
+
+        private void TryUseItem()
+        {
+            if(CurrentItem is IUsableItem usableItem)
+                usableItem.Use();
         }
 
         public void SetItem(Item item)
