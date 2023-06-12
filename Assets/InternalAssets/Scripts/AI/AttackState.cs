@@ -15,7 +15,10 @@ namespace TheRat.AI
 
         private IEnumerator Attack()
         {
+            Initializer.CurrentAttacking = true;
+            
             Initializer.WarningPoint.Play();
+            Initializer.EnemyAnimator.PlayAttack();
             
             yield return new WaitForSeconds(0.5f);
             
@@ -29,6 +32,9 @@ namespace TheRat.AI
                 if(!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
                     damagable.Damage(5);
             }
+
+            yield return new WaitForSeconds(1f);
+            Initializer.CurrentAttacking = false;
         }
     }
 }

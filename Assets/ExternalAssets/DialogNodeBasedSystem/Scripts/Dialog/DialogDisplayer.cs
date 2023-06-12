@@ -5,25 +5,24 @@ namespace cherrydev
 {
     public class DialogDisplayer : MonoBehaviour
     {
-        [SerializeField] private SentencePanel dialogSentensePanel;
+        [SerializeField] private SentencePanel dialogSentencePanel;
         [SerializeField] private AnswerPanel dialogAnswerPanel;
         [SerializeField] private DialogBehaviour dialogBehaviour;
 
         private void OnEnable()
         {
-            transform.DOMoveY(200f, 1f);
-                
             dialogBehaviour.AddListenerToOnDialogFinished(DisableDialogPanel);
+            dialogBehaviour.AddListenerToOnDialogStarted(EnableDialogPanel);
 
             DialogBehaviour.OnAnswerButtonSetUp += SetUpAnswerButtonsClickEvent;
 
-            DialogBehaviour.OnDialogSentenceEnd += dialogSentensePanel.ResetDialogText;
+            DialogBehaviour.OnDialogSentenceEnd += dialogSentencePanel.ResetDialogText;
 
-            DialogBehaviour.OnDialogTextCharWrote += dialogSentensePanel.AddCharToDialogText;
+            DialogBehaviour.OnDialogTextCharWrote += dialogSentencePanel.AddCharToDialogText;
 
             DialogBehaviour.OnSentenceNodeActive += EnableDialogSentencePanel;
             DialogBehaviour.OnSentenceNodeActive += DisableDialogAnswerPanel;
-            DialogBehaviour.OnSentenceNodeActiveWithParameter += dialogSentensePanel.AssignDialogNameTextAndSprite;
+            DialogBehaviour.OnSentenceNodeActiveWithParameter += dialogSentencePanel.AssignDialogNameTextAndSprite;
 
             DialogBehaviour.OnAnswerNodeActive += EnableDialogAnswerPanel;
             DialogBehaviour.OnAnswerNodeActive += DisableDialogSentencePanel;
@@ -32,19 +31,19 @@ namespace cherrydev
 
             DialogBehaviour.OnAnswerNodeSetUp += SetUpAnswerDialogPanel;
         }
-
+        
         private void OnDisable()
         {
             DialogBehaviour.OnAnswerButtonSetUp -= SetUpAnswerButtonsClickEvent;
 
-            DialogBehaviour.OnDialogSentenceEnd -= dialogSentensePanel.ResetDialogText;
+            DialogBehaviour.OnDialogSentenceEnd -= dialogSentencePanel.ResetDialogText;
 
-            DialogBehaviour.OnDialogTextCharWrote -= dialogSentensePanel.AddCharToDialogText;
+            DialogBehaviour.OnDialogTextCharWrote -= dialogSentencePanel.AddCharToDialogText;
 
             DialogBehaviour.OnSentenceNodeActive -= EnableDialogSentencePanel;
             DialogBehaviour.OnSentenceNodeActive -= DisableDialogAnswerPanel;
 
-            DialogBehaviour.OnSentenceNodeActiveWithParameter -= dialogSentensePanel.AssignDialogNameTextAndSprite;
+            DialogBehaviour.OnSentenceNodeActiveWithParameter -= dialogSentencePanel.AssignDialogNameTextAndSprite;
 
             DialogBehaviour.OnAnswerNodeActive -= EnableDialogAnswerPanel;
             DialogBehaviour.OnAnswerNodeActive -= DisableDialogSentencePanel;
@@ -54,56 +53,22 @@ namespace cherrydev
             DialogBehaviour.OnAnswerNodeSetUp -= SetUpAnswerDialogPanel;
         }
 
-        /// <summary>
-        /// Disable dialog answer and sentence panel
-        /// </summary>
-        public void DisableDialogPanel()
-        {
-            transform.DOMoveY(-400f, 1f);
-            
-            //DisableDialogAnswerPanel();
-            //DisableDialogSentencePanel();
-        }
+        private void EnableDialogPanel() => transform.DOMoveY(200f, 1f);
+        private void DisableDialogPanel() => transform.DOMoveY(-400f, 1f);
 
-        /// <summary>
-        /// Enable dialog answer panel
-        /// </summary>
-        public void EnableDialogAnswerPanel()
+        private void EnableDialogAnswerPanel()
         {
             ActiveGameObject(dialogAnswerPanel.gameObject, true);
             dialogAnswerPanel.DisalbleAllButtons();
         }
 
-        /// <summary>
-        /// Disable dialog answer panel
-        /// </summary>
-        public void DisableDialogAnswerPanel()
-        {
-            ActiveGameObject(dialogAnswerPanel.gameObject, false);
-        }
+        private void DisableDialogAnswerPanel() => ActiveGameObject(dialogAnswerPanel.gameObject, false);
 
-        /// <summary>
-        /// Enable dialog sentence panel
-        /// </summary>
-        public void EnableDialogSentencePanel()
-        {
-            ActiveGameObject(dialogSentensePanel.gameObject, true);
-        }
+        private void EnableDialogSentencePanel() => ActiveGameObject(dialogSentencePanel.gameObject, true);
 
-        /// <summary>
-        /// Disable dialog sentence panel
-        /// </summary>
-        public void DisableDialogSentencePanel()
-        {
-            ActiveGameObject(dialogSentensePanel.gameObject, false);
-        }
+        private void DisableDialogSentencePanel() => ActiveGameObject(dialogSentencePanel.gameObject, false);
 
-        /// <summary>
-        /// Enable or disable game object depends on isActive bool flag
-        /// </summary>
-        /// <param name="gameObject"></param>
-        /// <param name="isActive"></param>
-        public void ActiveGameObject(GameObject gameObject, bool isActive)
+        private void ActiveGameObject(GameObject gameObject, bool isActive)
         {
             if (gameObject == null)
             {
@@ -114,12 +79,7 @@ namespace cherrydev
             gameObject.SetActive(isActive);
         }
 
-        /// <summary>
-        /// Setting up answer button onClick event
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="answerNode"></param>
-        public void SetUpAnswerButtonsClickEvent(int index, AnswerNode answerNode)
+        private void SetUpAnswerButtonsClickEvent(int index, AnswerNode answerNode)
         {
             dialogAnswerPanel.GetButtonByIndex(index).onClick.AddListener(() =>
             {
@@ -127,14 +87,6 @@ namespace cherrydev
             });
         }
 
-        /// <summary>
-        /// Setting up answer dialog panel
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="answerText"></param>
-        public void SetUpAnswerDialogPanel(int index, string answerText)
-        {
-            dialogAnswerPanel.GetButtonTextByIndex(index).text = answerText;
-        }
+        private void SetUpAnswerDialogPanel(int index, string answerText) => dialogAnswerPanel.GetButtonTextByIndex(index).text = answerText;
     }
 }

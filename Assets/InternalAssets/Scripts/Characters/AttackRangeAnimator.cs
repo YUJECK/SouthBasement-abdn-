@@ -23,6 +23,7 @@ namespace TheRat.InternalAssets.Scripts.Characters
 
         public void Play(float time)
         {
+            _animator.speed = time;
             _animator.Play(_rangeAnimation);
         } 
     }

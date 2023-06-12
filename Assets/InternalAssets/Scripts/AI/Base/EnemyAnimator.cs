@@ -23,7 +23,7 @@ namespace TheRat.AI
 
         public void PlayAttack()
         {
-            
+            _animator.Play("Attack");
         }
     }
 }

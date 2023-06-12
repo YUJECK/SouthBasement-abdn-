@@ -21,6 +21,8 @@ namespace TheRat.AI
         public AttackTrigger AttackTrigger { get; private set; }
         public NavMeshAgent Agent { get; private set; }
 
+        public bool CurrentAttacking = false;
+
         private readonly StateMachine<DefaultRatStateMachine> _stateMachine = new();
 
         private void Awake()
@@ -46,8 +48,8 @@ namespace TheRat.AI
         }
 
         public bool CanEnterAttackState() => AttackTrigger.CanAttack && Enabled;
-        public bool CanEnterWalkState() => TargetSelector.Target != null && !AttackTrigger.CanAttack && Enabled;
-        public bool CanEnterIdleState() => TargetSelector.Target == null && !AttackTrigger.CanAttack;
+        public bool CanEnterWalkState() => TargetSelector.Target != null && !AttackTrigger.CanAttack && Enabled && !CurrentAttacking;
+        public bool CanEnterIdleState() => TargetSelector.Target == null && !AttackTrigger.CanAttack && !CurrentAttacking;
         
         private void FixedUpdate()
         {

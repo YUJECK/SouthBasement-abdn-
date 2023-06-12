@@ -19,12 +19,12 @@ namespace TheRat.PlayerServices
             if(Target == null)
                 return;
                 
-            if(Target.position.x >= transform.position.x && !_faceRight)
+            if(Target.position.x > transform.position.x && !_faceRight)
             {
                 transform.Rotate(0f, 180f, 0f);
                 _faceRight = true;
             }
-            else if (Target.position.x <= transform.position.x && _faceRight)
+            else if (Target.position.x < transform.position.x && _faceRight)
             {
                 transform.Rotate(0f, -180f, 0f);
                 _faceRight = false;
