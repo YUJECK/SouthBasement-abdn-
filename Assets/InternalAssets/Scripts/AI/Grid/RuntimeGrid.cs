@@ -1,11 +1,12 @@
-﻿using NavMeshPlus.Components;
+﻿using System;
+using NavMeshPlus.Components;
 using UnityEngine;
 
 namespace TheRat.AI.Grid
 {
     public sealed class RuntimeGrid : MonoBehaviour
     {
-        public NavMeshSurface Surface2D;
+        private NavMeshSurface _surface2D;
 
         private void Start()
         {

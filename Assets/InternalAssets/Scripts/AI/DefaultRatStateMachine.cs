@@ -1,7 +1,5 @@
-﻿using System;
-using NavMeshPlus.Extensions;
+﻿using NavMeshPlus.Extensions;
 using NTC.ContextStateMachine;
-using TheRat.AI;
 using TheRat.InternalAssets.Scripts.Characters;
 using UnityEngine;
 using UnityEngine.AI;
@@ -25,7 +23,7 @@ namespace TheRat.AI
 
         private readonly StateMachine<DefaultRatStateMachine> _stateMachine = new();
 
-        private void Awake()
+        private void Start()
         {
             EnemyAnimator = new EnemyAnimator(GetComponentInChildren<Animator>());
             
@@ -38,8 +36,9 @@ namespace TheRat.AI
 
         private void CreateStates()
         {
-            _stateMachine.AddStates(new IdleState(this), new WalkState(this), new AttackState(this));
+            _stateMachine.AddStates(new IdleState(this), new WalkState(this), new AttackState(this), new AFKState(this));
 
+            _stateMachine.AddAnyTransition<AFKState>(CanEnterAFK);
             _stateMachine.AddAnyTransition<AttackState>(CanEnterAttackState);
             _stateMachine.AddAnyTransition<WalkState>(CanEnterWalkState);
             _stateMachine.AddAnyTransition<IdleState>(CanEnterIdleState);
@@ -50,6 +49,7 @@ namespace TheRat.AI
         public bool CanEnterAttackState() => AttackTrigger.CanAttack && Enabled;
         public bool CanEnterWalkState() => TargetSelector.Target != null && !AttackTrigger.CanAttack && Enabled && !CurrentAttacking;
         public bool CanEnterIdleState() => TargetSelector.Target == null && !AttackTrigger.CanAttack && !CurrentAttacking;
+        public bool CanEnterAFK() => !Enabled;
         
         private void FixedUpdate()
         {

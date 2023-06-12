@@ -25,5 +25,10 @@ namespace TheRat.AI
         {
             _animator.Play("Attack");
         }
+
+        public void PlayAFK()
+        {
+            _animator.Play("AFK");
+        }
     }
 }

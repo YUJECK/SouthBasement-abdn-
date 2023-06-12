@@ -105,11 +105,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ArmouredRat_0
+      name: ArmouredRat_Idle
       rect:
         serializedVersion: 2
         x: 0
-        y: 72
+        y: 96
         width: 24
         height: 24
       alignment: 0
@@ -126,11 +126,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_1
+      name: ArmouredRat_Walk_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
+        y: 72
         width: 24
         height: 24
       alignment: 0
@@ -147,11 +147,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_2
+      name: ArmouredRat_Walk_2
       rect:
         serializedVersion: 2
         x: 24
-        y: 48
+        y: 72
         width: 24
         height: 24
       alignment: 0
@@ -168,11 +168,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_3
+      name: ArmouredRat_Attack_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -189,11 +189,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_4
+      name: ArmouredRat_Attack_2
       rect:
         serializedVersion: 2
         x: 24
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -210,11 +210,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_5
+      name: ArmouredRat_Attack_3
       rect:
         serializedVersion: 2
         x: 48
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -231,11 +231,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_6
+      name: ArmouredRat_Attack_4
       rect:
         serializedVersion: 2
         x: 72
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -252,11 +252,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_7
+      name: ArmouredRat_Attack_5
       rect:
         serializedVersion: 2
         x: 96
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -273,11 +273,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_8
+      name: ArmouredRat_Attack_6
       rect:
         serializedVersion: 2
         x: 120
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -294,11 +294,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_9
+      name: ArmouredRat_Attack_
       rect:
         serializedVersion: 2
         x: 144
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -315,11 +315,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_10
+      name: ArmouredRat_Attack_9
       rect:
         serializedVersion: 2
         x: 168
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -336,11 +336,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_11
+      name: ArmouredRat_Attack_8
       rect:
         serializedVersion: 2
         x: 192
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 0
@@ -357,11 +357,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_12
+      name: ArmouredRat_Die_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 24
         width: 24
         height: 24
       alignment: 0
@@ -378,11 +378,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_13
+      name: ArmouredRat_Die_2
       rect:
         serializedVersion: 2
         x: 24
-        y: 0
+        y: 24
         width: 24
         height: 24
       alignment: 0
@@ -399,15 +399,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ArmouredRat_14
+      name: ArmouredRat_Die_3
       rect:
         serializedVersion: 2
         x: 48
-        y: 0
+        y: 24
         width: 24
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -415,6 +415,48 @@ TextureImporter:
       bones: []
       spriteID: ba4cbe22361ffdd4a8d93b041e9aa4a6
       internalID: -143456065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArmouredRat_Sleep_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cffeff1469ee78d4fb10c95bc3c19553
+      internalID: -2098668299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArmouredRat_Sleep_2
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f1bc354c491fe348bd5ed0ff16a916c
+      internalID: 393901078
       vertices: []
       indices: 
       edges: []
@@ -430,21 +472,23 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ArmouredRat_0: -1986039952
-      ArmouredRat_1: 1432008101
-      ArmouredRat_10: -2065439194
-      ArmouredRat_11: -1284598938
-      ArmouredRat_12: -2077748843
-      ArmouredRat_13: -619693499
-      ArmouredRat_14: -143456065
-      ArmouredRat_2: 1253482931
-      ArmouredRat_3: -210387892
-      ArmouredRat_4: 1189065686
-      ArmouredRat_5: -1374696501
-      ArmouredRat_6: -1808917999
-      ArmouredRat_7: -1878874341
-      ArmouredRat_8: 1571515974
-      ArmouredRat_9: 13318528
+      ArmouredRat_Attack_: 13318528
+      ArmouredRat_Attack_1: -210387892
+      ArmouredRat_Attack_2: 1189065686
+      ArmouredRat_Attack_3: -1374696501
+      ArmouredRat_Attack_4: -1808917999
+      ArmouredRat_Attack_5: -1878874341
+      ArmouredRat_Attack_6: 1571515974
+      ArmouredRat_Attack_8: -1284598938
+      ArmouredRat_Attack_9: -2065439194
+      ArmouredRat_Die_1: -2077748843
+      ArmouredRat_Die_2: -619693499
+      ArmouredRat_Die_3: -143456065
+      ArmouredRat_Idle: -1986039952
+      ArmouredRat_Sleep_1: -2098668299
+      ArmouredRat_Sleep_2: 393901078
+      ArmouredRat_Walk_1: 1432008101
+      ArmouredRat_Walk_2: 1253482931
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
