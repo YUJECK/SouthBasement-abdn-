@@ -55,6 +55,15 @@ namespace TheRat
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""746c88a4-5153-4ed0-8efd-60c0f3d42730"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -134,6 +143,17 @@ namespace TheRat
                     ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b141a4d3-3e46-4598-a18e-ea3f547a5b7d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -145,6 +165,7 @@ namespace TheRat
             m_CharacterContoller_Move = m_CharacterContoller.FindAction("Move", throwIfNotFound: true);
             m_CharacterContoller_Attack = m_CharacterContoller.FindAction("Attack", throwIfNotFound: true);
             m_CharacterContoller_Interaction = m_CharacterContoller.FindAction("Interaction", throwIfNotFound: true);
+            m_CharacterContoller_Dash = m_CharacterContoller.FindAction("Dash", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -209,6 +230,7 @@ namespace TheRat
         private readonly InputAction m_CharacterContoller_Move;
         private readonly InputAction m_CharacterContoller_Attack;
         private readonly InputAction m_CharacterContoller_Interaction;
+        private readonly InputAction m_CharacterContoller_Dash;
         public struct CharacterContollerActions
         {
             private @InputMap m_Wrapper;
@@ -216,6 +238,7 @@ namespace TheRat
             public InputAction @Move => m_Wrapper.m_CharacterContoller_Move;
             public InputAction @Attack => m_Wrapper.m_CharacterContoller_Attack;
             public InputAction @Interaction => m_Wrapper.m_CharacterContoller_Interaction;
+            public InputAction @Dash => m_Wrapper.m_CharacterContoller_Dash;
             public InputActionMap Get() { return m_Wrapper.m_CharacterContoller; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -234,6 +257,9 @@ namespace TheRat
                 @Interaction.started += instance.OnInteraction;
                 @Interaction.performed += instance.OnInteraction;
                 @Interaction.canceled += instance.OnInteraction;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
 
             private void UnregisterCallbacks(ICharacterContollerActions instance)
@@ -247,6 +273,9 @@ namespace TheRat
                 @Interaction.started -= instance.OnInteraction;
                 @Interaction.performed -= instance.OnInteraction;
                 @Interaction.canceled -= instance.OnInteraction;
+                @Dash.started -= instance.OnDash;
+                @Dash.performed -= instance.OnDash;
+                @Dash.canceled -= instance.OnDash;
             }
 
             public void RemoveCallbacks(ICharacterContollerActions instance)
@@ -269,6 +298,7 @@ namespace TheRat
             void OnMove(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
             void OnInteraction(InputAction.CallbackContext context);
+            void OnDash(InputAction.CallbackContext context);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace TheRat.Characters.Rat
     public class RatMovable : IMovable
     {
         public bool CanMove { get; set; } = true;
+        public Vector2 Movement { get; private set; }
 
         private readonly Rigidbody2D _rigidbody2d;
         private readonly IInputService _inputs;
@@ -31,15 +32,25 @@ namespace TheRat.Characters.Rat
 
         public void Move(Vector2 movement)
         {
+            Movement = movement * _characterStats.MoveSpeed.Value;
+            
             if (CanMove)
-                _rigidbody2d.velocity = movement * _characterStats.MoveSpeed.Value;
+            {
+                _rigidbody2d.velocity = Movement;
+            }
             else
+            {
                 _rigidbody2d.velocity = Vector2.zero;
-        
-            if(movement != Vector2.zero)
-                OnMoved?.Invoke(movement * _characterStats.MoveSpeed.Value);
-            else 
+            }
+
+            if (movement != Vector2.zero)
+            {
+                OnMoved?.Invoke(Movement);
+            }
+            else
+            {
                 OnMoveReleased?.Invoke();
+            }
         }
     }
 }

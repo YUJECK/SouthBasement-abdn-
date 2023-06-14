@@ -31,6 +31,7 @@ namespace TheRat.Characters.Rat
             
             Movable = new RatMovable(_inputs, _rigidbody, Stats);
             Attackable = new RatAttack(_inputs, attackPoint, Stats, _animator);
+            Dashable = new RatDashable(_inputs, Movable, transform, _animator, this);
 
             Movable.OnMoved += (Vector2 vector2) => _animator.PlayWalk();
             Movable.OnMoveReleased += () => _animator.PlayIdle();

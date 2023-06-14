@@ -18,7 +18,7 @@ namespace TheRat.InternalAssets.Scripts
             GetComponent<IDamagable>().OnDamaged += OnDamaged;
         }
 
-        private void OnDamaged(int obj)
+        private void OnDamaged(int damage)
         {
             if(_coroutine != null)
                 StopCoroutine(_coroutine);

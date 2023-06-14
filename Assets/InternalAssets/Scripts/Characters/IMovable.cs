@@ -7,4 +7,5 @@ public interface IMovable
     public event Action OnMoveReleased;
 
     public bool CanMove { get; set; }
+    public Vector2 Movement { get; }
 }

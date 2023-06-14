@@ -8,6 +8,7 @@ namespace TheRat.Player
 
         private readonly string _walkAnimation = "Walk";
         private readonly string _attackAnimation = "Attack";
+        private readonly string _dashTrigger = "Dash";
         public PlayerAnimator(Animator animator) 
             => _animator = animator;
 
@@ -19,5 +20,8 @@ namespace TheRat.Player
 
         public void PlayAttack()
             => _animator.SetTrigger(_attackAnimation);
+        
+        public void PlayDash()
+            => _animator.SetTrigger(_dashTrigger);
     }
 }

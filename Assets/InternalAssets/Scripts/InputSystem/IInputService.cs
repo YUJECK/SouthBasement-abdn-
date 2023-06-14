@@ -7,6 +7,7 @@ namespace TheRat.InputServices
     {
         event Action<Vector2> OnMoved;
         event Action OnInteracted;
+        event Action OnDashed;
         event Action OnAttack;
     }
 }   
