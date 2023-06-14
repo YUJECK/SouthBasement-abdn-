@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using TheRat.Helpers.Rotator;
 using TheRat.InputServices;
+using TheRat.InventorySystem;
 using TheRat.Player;
 using UnityEngine;
 

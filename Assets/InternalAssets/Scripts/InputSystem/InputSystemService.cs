@@ -12,6 +12,9 @@ namespace TheRat.InputServices
         public event Action OnInteracted;
         public event Action OnDashed;
         public event Action OnAttack;
+        public event Action ActiveItemUsage;
+        public event Action InventoryOpen;
+        public event Action MapOpen;
 
         private readonly InputMap _inputActions;
 
@@ -22,6 +25,9 @@ namespace TheRat.InputServices
             _inputActions.CharacterContoller.Attack.performed += (context) => OnAttack?.Invoke();
             _inputActions.CharacterContoller.Interaction.performed += (context) => OnInteracted?.Invoke();
             _inputActions.CharacterContoller.Dash.performed += (context) => OnDashed?.Invoke();
+            _inputActions.CharacterContoller.ActiveItemUsage.performed += (context) => ActiveItemUsage?.Invoke();
+            _inputActions.CharacterContoller.InventoryOpen.performed += (context) => InventoryOpen?.Invoke();
+            _inputActions.CharacterContoller.MapOpen.performed += (context) => MapOpen?.Invoke();
             
             _inputActions.Enable();
         }

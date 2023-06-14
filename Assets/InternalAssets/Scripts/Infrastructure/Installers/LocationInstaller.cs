@@ -17,7 +17,6 @@ namespace TheRat
             BindCharacter();
             BindRoomContainer();
             BindGeneration();
-            BindInventory();
 
             Container
                 .Bind<ContainersHelper>()
@@ -56,14 +55,6 @@ namespace TheRat
                 .BindInterfacesAndSelfTo<GenerationController>()
                 .FromInstance(new GenerationController(Resources.Load<RoomsContainer>(AssetsPath.RoomsContainer),
                     Container, startPoint))
-                .AsSingle();
-        }
-
-        private void BindInventory()
-        {
-            Container
-                .BindInterfacesAndSelfTo<Inventory>()
-                .FromInstance(new Inventory(Container))
                 .AsSingle();
         }
     }

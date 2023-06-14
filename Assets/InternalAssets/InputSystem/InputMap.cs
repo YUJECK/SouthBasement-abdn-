@@ -64,6 +64,33 @@ namespace TheRat
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ActiveItemUsage"",
+                    ""type"": ""Button"",
+                    ""id"": ""47ab8a3b-87d0-4a66-9b94-f0b7d50350e1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryOpen"",
+                    ""type"": ""Button"",
+                    ""id"": ""01c0aefb-54dc-4973-9dc9-e7f34309b935"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MapOpen"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae628402-1f7e-465f-b85e-62724335428c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -154,6 +181,39 @@ namespace TheRat
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0abe0f8-6e30-4059-b498-f2b155292625"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActiveItemUsage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59a5723d-6406-4c46-a9b4-d7664c53f63e"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryOpen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c576a4b-5f32-4833-a6b2-a286d340927a"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MapOpen"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -166,6 +226,9 @@ namespace TheRat
             m_CharacterContoller_Attack = m_CharacterContoller.FindAction("Attack", throwIfNotFound: true);
             m_CharacterContoller_Interaction = m_CharacterContoller.FindAction("Interaction", throwIfNotFound: true);
             m_CharacterContoller_Dash = m_CharacterContoller.FindAction("Dash", throwIfNotFound: true);
+            m_CharacterContoller_ActiveItemUsage = m_CharacterContoller.FindAction("ActiveItemUsage", throwIfNotFound: true);
+            m_CharacterContoller_InventoryOpen = m_CharacterContoller.FindAction("InventoryOpen", throwIfNotFound: true);
+            m_CharacterContoller_MapOpen = m_CharacterContoller.FindAction("MapOpen", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -231,6 +294,9 @@ namespace TheRat
         private readonly InputAction m_CharacterContoller_Attack;
         private readonly InputAction m_CharacterContoller_Interaction;
         private readonly InputAction m_CharacterContoller_Dash;
+        private readonly InputAction m_CharacterContoller_ActiveItemUsage;
+        private readonly InputAction m_CharacterContoller_InventoryOpen;
+        private readonly InputAction m_CharacterContoller_MapOpen;
         public struct CharacterContollerActions
         {
             private @InputMap m_Wrapper;
@@ -239,6 +305,9 @@ namespace TheRat
             public InputAction @Attack => m_Wrapper.m_CharacterContoller_Attack;
             public InputAction @Interaction => m_Wrapper.m_CharacterContoller_Interaction;
             public InputAction @Dash => m_Wrapper.m_CharacterContoller_Dash;
+            public InputAction @ActiveItemUsage => m_Wrapper.m_CharacterContoller_ActiveItemUsage;
+            public InputAction @InventoryOpen => m_Wrapper.m_CharacterContoller_InventoryOpen;
+            public InputAction @MapOpen => m_Wrapper.m_CharacterContoller_MapOpen;
             public InputActionMap Get() { return m_Wrapper.m_CharacterContoller; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -260,6 +329,15 @@ namespace TheRat
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @ActiveItemUsage.started += instance.OnActiveItemUsage;
+                @ActiveItemUsage.performed += instance.OnActiveItemUsage;
+                @ActiveItemUsage.canceled += instance.OnActiveItemUsage;
+                @InventoryOpen.started += instance.OnInventoryOpen;
+                @InventoryOpen.performed += instance.OnInventoryOpen;
+                @InventoryOpen.canceled += instance.OnInventoryOpen;
+                @MapOpen.started += instance.OnMapOpen;
+                @MapOpen.performed += instance.OnMapOpen;
+                @MapOpen.canceled += instance.OnMapOpen;
             }
 
             private void UnregisterCallbacks(ICharacterContollerActions instance)
@@ -276,6 +354,15 @@ namespace TheRat
                 @Dash.started -= instance.OnDash;
                 @Dash.performed -= instance.OnDash;
                 @Dash.canceled -= instance.OnDash;
+                @ActiveItemUsage.started -= instance.OnActiveItemUsage;
+                @ActiveItemUsage.performed -= instance.OnActiveItemUsage;
+                @ActiveItemUsage.canceled -= instance.OnActiveItemUsage;
+                @InventoryOpen.started -= instance.OnInventoryOpen;
+                @InventoryOpen.performed -= instance.OnInventoryOpen;
+                @InventoryOpen.canceled -= instance.OnInventoryOpen;
+                @MapOpen.started -= instance.OnMapOpen;
+                @MapOpen.performed -= instance.OnMapOpen;
+                @MapOpen.canceled -= instance.OnMapOpen;
             }
 
             public void RemoveCallbacks(ICharacterContollerActions instance)
@@ -299,6 +386,9 @@ namespace TheRat
             void OnAttack(InputAction.CallbackContext context);
             void OnInteraction(InputAction.CallbackContext context);
             void OnDash(InputAction.CallbackContext context);
+            void OnActiveItemUsage(InputAction.CallbackContext context);
+            void OnInventoryOpen(InputAction.CallbackContext context);
+            void OnMapOpen(InputAction.CallbackContext context);
         }
     }
 }

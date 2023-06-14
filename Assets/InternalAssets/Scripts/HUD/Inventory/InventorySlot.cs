@@ -3,34 +3,19 @@ using UnityEngine.UI;
 
 namespace TheRat.InventorySystem
 {
-    [RequireComponent(typeof(Image))]
-    [AddComponentMenu("HUD/Inventory/InventorySlot")]
-    public sealed class InventorySlot : MonoBehaviour
+    public abstract class InventorySlot<TItem> : MonoBehaviour where TItem : Item 
     {
-        private Image _itemImage;
-        public Item CurrentItem { get; private set; }
+        protected Image ItemImage;
+        public TItem CurrentItem { get; private set; }
 
-        private void Awake()
-        {
-            _itemImage = GetComponent<Image>();
-            GetComponentInParent<Button>().onClick.AddListener(TryUseItem);
-            SetItem(null);
-        }
-
-        private void TryUseItem()
-        {
-            if(CurrentItem is IUsableItem usableItem)
-                usableItem.Use();
-        }
-
-        public void SetItem(Item item)
+        public void SetItem(TItem item)
         {
             if(item == null)
-                _itemImage.color = Color.clear;
+                ItemImage.color = Color.clear;
             else
             {
-                _itemImage.sprite = item.ItemSprite;
-                _itemImage.color = Color.white;
+                ItemImage.sprite = item.ItemSprite;
+                ItemImage.color = Color.white;
             }
 
             CurrentItem = item;

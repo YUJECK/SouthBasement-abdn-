@@ -1,27 +1,26 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace TheRat.InventorySystem
 {
-    [AddComponentMenu("HUD/Inventory/InventoryHUD")]
-    public sealed class InventoryHUD : MonoBehaviour
+    [AddComponentMenu("HUD/Inventory/ActiveItemsInventoryHUD")]
+    public sealed class ActiveItemsInventoryHUD : MonoBehaviour
     {
-        private InventorySlot[] _slots;
+        private ActiveItemSlot[] _slots;
 
         [Inject]
         private void Construct(Inventory inventory)
         {
-            inventory.OnAdded += OnAdded;
+            inventory.OnAddedActiveItem += OnAddedActiveItem;
             inventory.OnRemoved += OnRemoved;
         }
 
         private void Awake()
         {
-            _slots = GetComponentsInChildren<InventorySlot>();
+            _slots = GetComponentsInChildren<ActiveItemSlot>();
         }
 
-        private void OnAdded(Item item)
+        private void OnAddedActiveItem(ActiveItem item)
         {
             GetEmpty()?.SetItem(item);
         }
@@ -31,7 +30,7 @@ namespace TheRat.InventorySystem
             Find(item)?.SetItem(null);
         }
         
-        private InventorySlot Find(Item item)
+        private ActiveItemSlot Find(Item item)
         {
             foreach (var slot in _slots)
             {
@@ -42,7 +41,7 @@ namespace TheRat.InventorySystem
             return null;
         }
 
-        private InventorySlot GetEmpty()
+        private ActiveItemSlot GetEmpty()
         {
             foreach (var slot in _slots)
             {

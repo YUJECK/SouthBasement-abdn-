@@ -5,13 +5,16 @@ using UnityEngine;
 namespace TheRat.Tests
 {
     [CreateAssetMenu]
-    public sealed class TestItem : Item, IUsableItem
+    public sealed class TestItem : ActiveItem
     {
+        [SerializeField] private string _message;
+        
         public event Action OnUsed;
         
-        public void Use()
+        public override void Use()
         {
-            Debug.Log("DKLFjsd;lkfjda;slfjlk");
+            Debug.Log(_message);
+            OnUsed?.Invoke();
         }
     }
 }

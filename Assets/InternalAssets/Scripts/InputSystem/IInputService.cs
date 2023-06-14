@@ -9,5 +9,8 @@ namespace TheRat.InputServices
         event Action OnInteracted;
         event Action OnDashed;
         event Action OnAttack;
+        event Action ActiveItemUsage;
+        event Action InventoryOpen;
+        event Action MapOpen;
     }
 }   

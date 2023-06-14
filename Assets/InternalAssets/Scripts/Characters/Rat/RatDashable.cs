@@ -40,11 +40,11 @@ namespace TheRat.Characters.Rat
             {
                 var dashMove = GetPositionInVector2() + _movable.Movement;
                 
-                var dashStopTime = Time.time + 0.2f;
+                var dashStopTime = Time.time + 0.2;
                 
                 while (Time.time < dashStopTime)
                 {
-                    _rigidbody2D.MovePosition(Vector2.MoveTowards(_transform.position, dashMove, Time.deltaTime * 40));
+                    _rigidbody2D.MovePosition(Vector2.MoveTowards(_transform.position, dashMove, Time.deltaTime * 30));
                     yield return new WaitForFixedUpdate();
                 }
             }
@@ -57,6 +57,7 @@ namespace TheRat.Characters.Rat
         private void StartDash()
         {
             _movable.CanMove = false;
+            _blocked = true;
             _playerAnimator.PlayDash();
             _transform.gameObject.layer = 11;
         }
