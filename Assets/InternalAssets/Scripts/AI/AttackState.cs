@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using NTC.ContextStateMachine;
-using UnityEngine;
+﻿using NTC.ContextStateMachine;
 
 namespace TheRat.AI
 {
@@ -10,31 +8,22 @@ namespace TheRat.AI
 
         public override void OnEnter()
         {
-            Initializer.StartCoroutine(Attack());
+            Attack();
         }
 
-        private IEnumerator Attack()
+        private void Attack()
         {
+            if (!Initializer.CanEnterAttackState())
+                return;
+            
+            Initializer.EnemyAnimator.PlayAttack();
             Initializer.CurrentAttacking = true;
             
-            Initializer.WarningPoint.Play();
-            Initializer.EnemyAnimator.PlayAttack();
-            
-            yield return new WaitForSeconds(0.5f);
-            
-            Initializer.AttackRangeAnimator.Play(1f);
-            
-            var playerLayer = LayerMask.GetMask("PlayerMarker");
-            var hits = Physics2D.OverlapCircleAll(Initializer.AttackPoint.transform.position, 0.6f, playerLayer);
-
-            foreach (var hit in hits)
+            Initializer.EnemyAttacker.StartAttack(7, () =>
             {
-                if(!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
-                    damagable.Damage(5);
-            }
-
-            yield return new WaitForSeconds(1f);
-            Initializer.CurrentAttacking = false;
+                Initializer.CurrentAttacking = false;
+                Attack();
+            });
         }
     }
 }

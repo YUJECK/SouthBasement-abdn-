@@ -1,6 +1,5 @@
 ﻿using NavMeshPlus.Extensions;
 using NTC.ContextStateMachine;
-using TheRat.InternalAssets.Scripts.Characters;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,10 +9,7 @@ namespace TheRat.AI
     [RequireComponent(typeof(AgentOverride2d))]
     public sealed class DefaultRatStateMachine : Enemy
     {
-        [field: SerializeField] public SingleAnimationService WarningPoint { get; private set; }
-        [field: SerializeField] public AttackRangeAnimator AttackRangeAnimator { get; private set; }
-        [field: SerializeField] public Transform AttackPoint { get; private set; }
-        
+        public EnemyAttacker EnemyAttacker { get; private set; }
         public EnemyAnimator EnemyAnimator { get; private set; }
         public TargetSelector TargetSelector { get; private set; }
         public AttackTrigger AttackTrigger { get; private set; }
@@ -27,9 +23,11 @@ namespace TheRat.AI
         {
             EnemyAnimator = new EnemyAnimator(GetComponentInChildren<Animator>());
             
+            Agent = GetComponent<NavMeshAgent>();
+            
             TargetSelector = GetComponentInChildren<TargetSelector>();
             AttackTrigger = GetComponentInChildren<AttackTrigger>();
-            Agent = GetComponent<NavMeshAgent>();
+            EnemyAttacker = GetComponentInChildren<EnemyAttacker>();
 
             CreateStates();
         }
