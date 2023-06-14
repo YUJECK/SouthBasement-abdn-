@@ -8,6 +8,8 @@ namespace TheRat.InternalAssets.Scripts
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Color damageColor;
+        [SerializeField] private string playTrigger;
+        [SerializeField] private Animator animator;
 
         private Coroutine _coroutine;
         
@@ -21,6 +23,9 @@ namespace TheRat.InternalAssets.Scripts
             if(_coroutine != null)
                 StopCoroutine(_coroutine);
             
+            if(playTrigger != "" && animator != null)
+                animator.SetTrigger(playTrigger);
+                
             _coroutine = StartCoroutine(GetRed());
         }
 
