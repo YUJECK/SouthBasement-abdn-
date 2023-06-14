@@ -1,6 +1,5 @@
-﻿using TheRat.Player;
+﻿using TheRat.Characters;
 using UnityEngine;
-using Zenject;
 
 namespace TheRat.InternalAssets.Scripts.Characters
 {

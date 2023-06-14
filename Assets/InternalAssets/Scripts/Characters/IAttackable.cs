@@ -1,10 +1,14 @@
 ﻿using System;
+using TheRat.InventorySystem;
 
 namespace TheRat
 {
     public interface IAttackable
     {
-        event Action<float> OnAttacked; 
+        event Action<float> OnAttacked;
+        
+        WeaponItem Weapon { get; set; }
+        
         void Attack();
     }
 }

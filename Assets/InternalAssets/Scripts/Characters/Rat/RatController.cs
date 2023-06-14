@@ -1,8 +1,6 @@
-﻿using System;
-using TheRat.Helpers.Rotator;
+﻿using TheRat.Helpers.Rotator;
 using UnityEngine;
 using TheRat.InputServices;
-using TheRat.Player;
 using Zenject;
 
 namespace TheRat.Characters.Rat
@@ -10,7 +8,7 @@ namespace TheRat.Characters.Rat
     [RequireComponent(typeof(Rigidbody2D))]
     public sealed class RatController : Character
     {
-        [SerializeField] private ObjectRotator attackPoint;
+        [SerializeField] private DefaultAttacker attacker;
         
         private Rigidbody2D _rigidbody;
         private IInputService _inputs;
@@ -30,7 +28,7 @@ namespace TheRat.Characters.Rat
             _animator = new(GetComponentInChildren<Animator>());
             
             Movable = new RatMovable(_inputs, _rigidbody, Stats);
-            Attackable = new RatAttack(_inputs, attackPoint, Stats, _animator);
+            Attackable = new RatAttack(_inputs, Stats, attacker, _animator);
             Dashable = new RatDashable(_inputs, Movable, transform, _animator, this);
 
             Movable.OnMoved += (Vector2 vector2) => _animator.PlayWalk();

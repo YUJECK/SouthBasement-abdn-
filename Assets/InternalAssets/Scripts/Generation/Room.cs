@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -80,11 +81,19 @@ namespace TheRat.Generation
 
         public void CloseAllFree()
         {
+            List<Direction> toRemove = new();
+
             foreach (var passage in passages)
             {
                 if (passage.Value.ConnectedRoom == null)
+                {
                     passage.Value.DisablePassage();                    
+                    toRemove.Add(passage.Key);
+                }
             }
+
+            foreach (var direction in toRemove)
+                passages.Remove(direction);
         }
 
         private void OnValidate()
@@ -98,13 +107,5 @@ namespace TheRat.Generation
             Gizmos.color = Color.blue;
             Gizmos.DrawWireCube(transform.position, RoomSize);
         }
-    }
-
-    public enum Direction
-    {
-        Up = 0,
-        Down = 1,
-        Right = 2,
-        Left = 3
     }
 }

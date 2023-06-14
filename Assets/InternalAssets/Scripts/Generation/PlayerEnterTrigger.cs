@@ -1,6 +1,6 @@
 using System;
+using TheRat.Characters;
 using TheRat.Helpers;
-using TheRat.Player;
 using UnityEngine;
 
 namespace TheRat.Generation

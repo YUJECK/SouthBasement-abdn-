@@ -157,6 +157,7 @@ Transform:
   - {fileID: 1320468327239050328}
   - {fileID: 8203174486814448615}
   - {fileID: 1509399055499500176}
+  - {fileID: 4045232920657451287}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -193,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b02c5c3e50c1045ba767a7b502edc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPoint: {fileID: 1738427265940209694}
+  attacker: {fileID: 508266518288486820}
 --- !u!61 &1654310326677587428
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -322,6 +323,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f40c4b84084a4448b7f0c1ad4224745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5055242034069310400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4045232920657451287}
+  - component: {fileID: 508266518288486820}
+  m_Layer: 0
+  m_Name: Attacker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4045232920657451287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055242034069310400}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.392829, y: 0.127711, z: -0.020000884}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 963364319234757031}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &508266518288486820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055242034069310400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13007a74b20482ca1195994586fb108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackPoint: {fileID: 1738427265940209694}
 --- !u!1 &5875499455834953336
 GameObject:
   m_ObjectHideFlags: 0

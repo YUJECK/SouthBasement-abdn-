@@ -4,7 +4,7 @@ namespace TheRat.Tools
 {
     public sealed class MinimapSpritesSynchroniser : MonoBehaviour
     {
-        [NaughtyAttributes.Button()]
+        [NaughtyAttributes.Button]
         private void Synchronise()
         {
             var allSpriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
@@ -18,6 +18,7 @@ namespace TheRat.Tools
 
                     sprite.drawMode = SpriteDrawMode.Tiled;
                     sprite.size = parent.size;
+                    sprite.transform.localScale = new Vector3(1, 1, 1);
                 }
             }
         }

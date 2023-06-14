@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class bootstrapstate : MonoBehaviour
+public sealed class FirstLevelLoader : MonoBehaviour
 {
     void Start()
     {

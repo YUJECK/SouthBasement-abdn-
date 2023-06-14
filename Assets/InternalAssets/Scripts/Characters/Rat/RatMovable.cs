@@ -1,5 +1,6 @@
 using System;
 using TheRat.InputServices;
+using TheRat.InternalAssets.Scripts.Characters;
 using UnityEngine;
 
 namespace TheRat.Characters.Rat

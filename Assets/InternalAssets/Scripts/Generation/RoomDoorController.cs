@@ -1,4 +1,4 @@
-﻿using TheRat.Player;
+﻿using TheRat.Characters;
 using UnityEngine;
 
 namespace TheRat.Generation

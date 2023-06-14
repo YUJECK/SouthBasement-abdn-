@@ -1,7 +1,6 @@
-﻿using TheRat.Generation;
+﻿using TheRat.Characters;
+using TheRat.Generation;
 using TheRat.Helpers;
-using TheRat.InventorySystem;
-using TheRat.Player;
 using UnityEngine;
 using Zenject;
 
@@ -26,7 +25,7 @@ namespace TheRat
 
         private void BindRoomContainer()
         {
-            RoomsContainer roomsContainer = Resources.Load<RoomsContainer>(AssetsPath.RoomsContainer);
+            RoomsContainer roomsContainer = Resources.Load<RoomsContainer>(ResourcesPathHelper.RoomsContainer);
 
             Container
                 .Bind<RoomsContainer>()
@@ -36,7 +35,7 @@ namespace TheRat
 
         private void BindCharacter()
         {
-            Character characterPrefab = Resources.Load<Character>(AssetsPath.Player);
+            Character characterPrefab = Resources.Load<Character>(ResourcesPathHelper.Player);
 
             Character character =
                 Container
@@ -53,7 +52,7 @@ namespace TheRat
         {
             Container
                 .BindInterfacesAndSelfTo<GenerationController>()
-                .FromInstance(new GenerationController(Resources.Load<RoomsContainer>(AssetsPath.RoomsContainer),
+                .FromInstance(new GenerationController(Resources.Load<RoomsContainer>(ResourcesPathHelper.RoomsContainer),
                     Container, startPoint))
                 .AsSingle();
         }

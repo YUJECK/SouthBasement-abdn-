@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheRat.Player
+namespace TheRat.Characters
 {
     public sealed class PlayerAnimator
     {

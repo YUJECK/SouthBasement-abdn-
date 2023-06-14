@@ -13,7 +13,11 @@ namespace TheRat.InventorySystem
         private Inventory _inventory;
 
         [Inject]
-        private void Construct(Inventory inventory) => _inventory = inventory;
+        private void Construct(Inventory inventory, DiContainer diContainer)
+        {
+            diContainer.Inject(item);
+            _inventory = inventory;
+        } 
 
         private void Start()
         {

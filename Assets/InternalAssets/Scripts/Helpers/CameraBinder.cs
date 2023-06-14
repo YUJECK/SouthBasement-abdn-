@@ -1,5 +1,5 @@
 using Cinemachine;
-using TheRat.Player;
+using TheRat.Characters;
 using UnityEngine;
 using Zenject;
 
