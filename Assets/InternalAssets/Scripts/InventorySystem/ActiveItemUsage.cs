@@ -6,7 +6,6 @@ namespace TheRat.InventorySystem
     public sealed class ActiveItemUsage 
     {
         private ActiveItem _activeItem;
-        private ActiveItemUsage _activeItemUsage;
 
         public event Action<ActiveItem> OnSelected;
         

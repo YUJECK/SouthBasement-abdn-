@@ -1,12 +1,11 @@
 ﻿using System;
+using TheRat.Weapons;
 
 namespace TheRat
 {
     public sealed class CharacterStats
     {
-        public ObservableVariable<int> Damage { get; private set; } = new(35);
-        public ObservableVariable<float> AttackRange { get; private set; } = new(0.4f);
-        public ObservableVariable<float> AttackRate { get; private set; } = new(1f);
+        public WeaponStats WeaponStats { get; set; } = new();
         public ObservableVariable<float> MoveSpeed { get; private set; } = new(5f);
 
         public int MaximumStamina { get; set; } = 100;

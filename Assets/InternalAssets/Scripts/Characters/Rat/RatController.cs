@@ -1,6 +1,7 @@
 ﻿using TheRat.Helpers.Rotator;
 using UnityEngine;
 using TheRat.InputServices;
+using TheRat.InventorySystem;
 using Zenject;
 
 namespace TheRat.Characters.Rat
@@ -14,12 +15,14 @@ namespace TheRat.Characters.Rat
         private IInputService _inputs;
 
         private PlayerAnimator _animator;
+        private WeaponsUsage _weaponsUsage;
 
         [Inject]
-        private void Construct(IInputService inputs, CharacterStats characterStats)
+        private void Construct(IInputService inputs, CharacterStats characterStats, WeaponsUsage weaponsUsage)
         {
             this._inputs = inputs;
             this.Stats = characterStats;
+            _weaponsUsage = weaponsUsage;
         }
 
         private void Awake()
@@ -28,7 +31,7 @@ namespace TheRat.Characters.Rat
             _animator = new(GetComponentInChildren<Animator>());
             
             Movable = new RatMovable(_inputs, _rigidbody, Stats);
-            Attackable = new RatAttack(_inputs, Stats, attacker, _animator);
+            Attackable = new RatAttack(_inputs, Stats, attacker, _animator, _weaponsUsage);
             Dashable = new RatDashable(_inputs, Movable, transform, _animator, this);
 
             Movable.OnMoved += (Vector2 vector2) => _animator.PlayWalk();

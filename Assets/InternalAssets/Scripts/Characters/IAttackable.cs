@@ -7,7 +7,7 @@ namespace TheRat
     {
         event Action<float> OnAttacked;
         
-        WeaponItem Weapon { get; set; }
+        WeaponItem Weapon { get; }
         
         void Attack();
     }
