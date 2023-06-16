@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TheRat.InputServices;
 using UnityEngine;
 
@@ -16,14 +17,19 @@ namespace TheRat.Characters.Rat
 
         private bool _blocked;
         private readonly IInputService _inputService;
+        private readonly StaminaController _staminaController;
+        private readonly CharacterStats _characterStats;
 
-        public RatDashable(IInputService inputService, IMovable movable, Transform transform, PlayerAnimator playerAnimator, MonoBehaviour coroutineRunner)
+        public event Action OnDashed;
+
+        public RatDashable(IInputService inputService, IMovable movable, Transform transform, StaminaController staminaController, CharacterStats characterStats, MonoBehaviour coroutineRunner)
         {
             _movable = movable;
             _transform = transform;
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
             _coroutineRunner = coroutineRunner;
-            _playerAnimator = playerAnimator;
+            _staminaController = staminaController;
+            _characterStats = characterStats;
 
             _inputService = inputService;
             _inputService.OnDashed += Dash;
@@ -34,9 +40,10 @@ namespace TheRat.Characters.Rat
             _inputService.OnDashed -= Dash;
         }
 
+
         public void Dash()
         {
-            if (_blocked)
+            if (_blocked || !_staminaController.TryDo(_characterStats.DashStaminaRequire))
                 return;
 
             _coroutineRunner.StartCoroutine(DashCoroutine());
@@ -66,8 +73,9 @@ namespace TheRat.Characters.Rat
         {
             _movable.CanMove = false;
             _blocked = true;
-            _playerAnimator.PlayDash();
             _transform.gameObject.layer = 11;
+            
+            OnDashed?.Invoke();
         }
 
         private void ReleaseDash()

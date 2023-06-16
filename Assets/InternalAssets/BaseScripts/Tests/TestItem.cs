@@ -9,19 +9,23 @@ namespace TheRat.Tests
     [CreateAssetMenu]
     public sealed class TestItem : ActiveItem
     {
-        private StaminaController _staminaController;
+        private CharacterStats _characterStats;
+        private Inventory _inventory;
 
         [Inject]
-        private void Construct(StaminaController staminaController)
+        private void Construct(CharacterStats characterStats, Inventory inventory)
         {
-            _staminaController = staminaController;
+            _inventory = inventory;
+            _characterStats = characterStats;
         }
         
         public event Action OnUsed;
         
         public override void Use()
         {
-            _staminaController.TryDo(10);               
+            _characterStats.SetHealth(_characterStats.CurrentHealth, _characterStats.MaximumHealth + 10);
+            _inventory.RemoveItem(this.ItemID);
+
             OnUsed?.Invoke();
         }
     }

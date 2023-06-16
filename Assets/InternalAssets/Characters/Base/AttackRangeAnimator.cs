@@ -17,12 +17,11 @@ namespace TheRat.InternalAssets.Scripts.Characters
             _animator = GetComponent<Animator>();
 
             if(asPlayer)
-                FindObjectOfType<Character>().Attackable.OnAttacked += Play;
+                FindObjectOfType<Character>().Attackable.OnAttacked += (_) => Play();
         }
 
-        public void Play(float time)
+        public void Play()
         {
-            _animator.speed = time;
             _animator.Play(_rangeAnimation);
         } 
     }

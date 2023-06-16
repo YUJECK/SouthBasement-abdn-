@@ -87,7 +87,7 @@ public sealed class BootstrapInstaller : MonoInstaller
     {
         Container
             .Bind<WeaponsUsage>()
-            .FromInstance(new WeaponsUsage(_inputService, _inventory, _characterStats))
+            .FromInstance(new WeaponsUsage(_inventory, _characterStats))
             .AsSingle();
     }
 }

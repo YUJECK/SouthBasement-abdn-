@@ -1,26 +1,31 @@
-﻿using UnityEngine;
+﻿using TheRat.InventorySystem;
+using UnityEngine;
 using Zenject;
 
-namespace TheRat.InventorySystem
+namespace TheRat.HUD
 {
-    [AddComponentMenu("HUD/Inventory/ActiveItemsInventoryHUD")]
-    public sealed class ActiveItemsInventoryHUD : MonoBehaviour
+    public class SlotHUD<TSlot, TItem> : MonoBehaviour 
+        where TSlot : InventorySlot<TItem> 
+        where TItem : Item
     {
-        private ActiveItemSlot[] _slots;
+        private TSlot[] _slots;
+        private Inventory _inventory;
 
         [Inject]
         private void Construct(Inventory inventory)
         {
-            inventory.OnAddedActiveItem += OnAddedActiveItem;
-            inventory.OnRemoved += OnRemoved;
+            _inventory = inventory;
+            
+            inventory.OnAddedActiveItem.OnAdded += OnAddedActiveItem;
+            inventory.OnAddedActiveItem.OnRemoved += OnRemoved;
         }
 
         private void Awake()
         {
-            _slots = GetComponentsInChildren<ActiveItemSlot>();
+            _slots = GetComponentsInChildren<TSlot>();
         }
 
-        private void OnAddedActiveItem(ActiveItem item)
+        private void OnAddedActiveItem(TItem item)
         {
             GetEmpty()?.SetItem(item);
         }

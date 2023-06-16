@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace TheRat.InventorySystem
@@ -8,6 +9,8 @@ namespace TheRat.InventorySystem
         protected Image ItemImage;
         public TItem CurrentItem { get; private set; }
 
+        public event Action<TItem> OnSetted;
+        
         public void SetItem(TItem item)
         {
             if(item == null)
@@ -19,6 +22,7 @@ namespace TheRat.InventorySystem
             }
 
             CurrentItem = item;
+            OnSetted?.Invoke(CurrentItem);
         }
     }
 }

@@ -1,4 +1,5 @@
 using TheRat.Interactions;
+using TheRat.Tests;
 using UnityEngine;
 using Zenject;
 
@@ -25,7 +26,7 @@ namespace TheRat.InventorySystem
 
             if(item == null)
                 Destroy(gameObject);
-                
+            
             SetItem(item);
         }
 

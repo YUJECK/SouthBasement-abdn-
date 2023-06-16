@@ -27,7 +27,7 @@ namespace TheRat.AI
             
             yield return new WaitForSeconds(AttackDelay);
             
-            attackRangeAnimator.Play(AttackDuration);
+            attackRangeAnimator.Play();
             
             var playerLayer = LayerMask.GetMask("PlayerMarker");
             var hits = Physics2D.OverlapCircleAll(attackPoint.transform.position, 0.6f, playerLayer);

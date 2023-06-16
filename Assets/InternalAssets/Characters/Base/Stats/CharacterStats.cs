@@ -8,6 +8,7 @@ namespace TheRat
     {
         public WeaponStats WeaponStats { get; set; } = new();
         public ObservableVariable<float> MoveSpeed { get; private set; } = new(5f);
+        public int DashStaminaRequire { get; set; } = 10;
 
         public int MaximumStamina { get; set; } = 100;
         public ObservableVariable<int> Stamina { get; set; } = new(100);
@@ -17,8 +18,11 @@ namespace TheRat
 
         public Action<int> OnHealthChanged;
 
-        public void SetHealth(int currentHealth)
+        public void SetHealth(int currentHealth, int maximumHealth = -10)
         {
+            if(maximumHealth > 0)
+                MaximumHealth = maximumHealth;
+
             CurrentHealth = currentHealth;
 
             if (CurrentHealth >= MaximumHealth)

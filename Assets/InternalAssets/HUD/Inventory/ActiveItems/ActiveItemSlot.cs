@@ -15,15 +15,15 @@ namespace TheRat.InventorySystem
         private void Construct(ActiveItemUsage activeItemUsage)
         {
             _activeItemUsage = activeItemUsage;
-            _activeItemUsage.OnSelected += OnSelected;
+            _activeItemUsage.OnSelected += CheckCurrent;
         }
 
-        private void OnSelected(ActiveItem item)
+        private void CheckCurrent(ActiveItem item)
         {
-            if(CurrentItem == null)
+            if (CurrentItem == null || item == null)
                 return;
 
-            if(item.ItemID == CurrentItem.ItemID)
+            if (item.ItemID == CurrentItem.ItemID)
                 isCurrent.SetActive(true);
             else
                 isCurrent.SetActive(false);
@@ -34,6 +34,7 @@ namespace TheRat.InventorySystem
             ItemImage = GetComponent<Image>();
             GetComponentInParent<Button>().onClick.AddListener(SetCurrent);
             
+            OnSetted += CheckCurrent;
             SetItem(null);
         }
 

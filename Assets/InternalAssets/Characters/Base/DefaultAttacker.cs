@@ -9,22 +9,9 @@ namespace TheRat.Characters
     public sealed class DefaultAttacker : MonoBehaviour
     {
         [SerializeField] private ObjectRotator _attackPoint;
-        
-        private StaminaController _staminaController;
 
-        private bool _blocked;
-
-        [Inject]
-        private void Construct(StaminaController staminaController)
+        public void Attack(int damage, float culldown, float range)
         {
-            _staminaController = staminaController;
-        }
-
-        public void Attack(int damage, int staminaRequire, float culldown, float range)
-        {
-            if(_blocked && !_staminaController.TryDo(staminaRequire))
-                return;
-            
             _attackPoint.Stop(culldown - 0.05f);
 
             var mask = LayerMask.GetMask("Enemy"); 
@@ -36,15 +23,6 @@ namespace TheRat.Characters
                 if(!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
                     damagable.Damage(damage);
             }
-            
-            Culldown(culldown);
-        }
-
-        private async void Culldown(float culldown)
-        {
-            _blocked = true;
-            await UniTask.Delay(TimeSpan.FromSeconds(culldown));
-            _blocked = false;
         }
     }
 }

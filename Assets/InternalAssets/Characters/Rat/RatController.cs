@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using TheRat.InputServices;
+using TheRat.InternalAssets.Scripts.Characters;
 using TheRat.InventorySystem;
 using Zenject;
 
@@ -10,32 +11,46 @@ namespace TheRat.Characters.Rat
     public sealed class RatController : Character
     {
         [SerializeField] private DefaultAttacker attacker;
+        [SerializeField] private AttackRangeAnimator attackRangeAnimator;
         
         private Rigidbody2D _rigidbody;
         private IInputService _inputs;
 
         private PlayerAnimator _animator;
         private WeaponsUsage _weaponsUsage;
+        private StaminaController _staminaController;
 
         [Inject]
-        private void Construct(IInputService inputs, CharacterStats characterStats, WeaponsUsage weaponsUsage)
+        private void Construct(IInputService inputs, CharacterStats characterStats, WeaponsUsage weaponsUsage, StaminaController staminaController)
         {
             this._inputs = inputs;
             this.Stats = characterStats;
             _weaponsUsage = weaponsUsage;
+            _staminaController = staminaController;
         }
 
         private void Awake()
-        { 
-            _rigidbody = GetComponent<Rigidbody2D>();
-            _animator = new(GetComponentInChildren<Animator>());
-            
-            Movable = new RatMovable(_inputs, _rigidbody, Stats);
-            Attackable = new RatAttack(_inputs, Stats, attacker, _animator, _weaponsUsage);
-            Dashable = new RatDashable(_inputs, Movable, transform, _animator, this);
+        {
+            CreateComponents();
+            AddAnimationsPlayCallbacks();
+        }
 
-            Movable.OnMoved += (Vector2 vector2) => _animator.PlayWalk();
+        private void CreateComponents()
+        {
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _animator = new(GetComponentInChildren<Animator>(), attackRangeAnimator, _weaponsUsage);
+
+            Movable = new RatMovable(_inputs, _rigidbody, Stats);
+            Attackable = new RatAttack(_inputs, Stats, attacker, _weaponsUsage, _staminaController);
+            Dashable = new RatDashable(_inputs, Movable, transform,  _staminaController, Stats, this);
+        }
+
+        private void AddAnimationsPlayCallbacks()
+        {
+            Movable.OnMoved += _ => _animator.PlayWalk();
             Movable.OnMoveReleased += () => _animator.PlayIdle();
+            Attackable.OnAttacked += (_) => _animator.PlayAttack();
+            Dashable.OnDashed += () => _animator.PlayDash();
         }
 
         private void OnDestroy()

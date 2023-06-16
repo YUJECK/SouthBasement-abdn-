@@ -3,18 +3,26 @@ using TheRat.InputServices;
 
 namespace TheRat.InventorySystem
 {
-    public class WeaponsUsage
+    public sealed class WeaponsUsage
     {
         public WeaponItem CurrentWeapon { get; private set; }
         private ActiveItemUsage _activeItemUsage;
         private readonly CharacterStats _characterStats;
+        private readonly Inventory _inventory;
 
         public event Action<WeaponItem> OnSelected;
         
-        public WeaponsUsage(IInputService service, Inventory inventory, CharacterStats characterStats)
+        public WeaponsUsage(Inventory inventory, CharacterStats characterStats)
         {
             _characterStats = characterStats;
-            inventory.OnAddedWeapon += item => CurrentWeapon = item;
+            _inventory = inventory;
+            
+            inventory.OnAddedWeapon.OnAdded += SetCurrent;
+        }
+
+        ~WeaponsUsage()
+        {
+            _inventory.OnAddedWeapon.OnAdded += SetCurrent;
         }
 
         public void SetCurrent(WeaponItem item)
