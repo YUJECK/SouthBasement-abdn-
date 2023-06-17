@@ -1,6 +1,5 @@
 ﻿using TheRat.InventorySystem;
 using UnityEngine;
-using Zenject;
 
 namespace TheRat.HUD
 {
@@ -8,34 +7,22 @@ namespace TheRat.HUD
         where TSlot : InventorySlot<TItem> 
         where TItem : Item
     {
-        private TSlot[] _slots;
-        private Inventory _inventory;
+        protected TSlot[] _slots;
 
-        [Inject]
-        private void Construct(Inventory inventory)
-        {
-            _inventory = inventory;
-            
-            inventory.OnAddedActiveItem.OnAdded += OnAddedActiveItem;
-            inventory.OnAddedActiveItem.OnRemoved += OnRemoved;
-        }
+        protected void SetSlotsInChildren() 
+            => _slots = GetComponentsInChildren<TSlot>();
 
-        private void Awake()
-        {
-            _slots = GetComponentsInChildren<TSlot>();
-        }
-
-        private void OnAddedActiveItem(TItem item)
+        protected virtual void OnAdded(TItem item)
         {
             GetEmpty()?.SetItem(item);
         }
 
-        private void OnRemoved(Item item)
+        protected virtual void OnRemoved(TItem item)
         {
             Find(item)?.SetItem(null);
         }
         
-        private ActiveItemSlot Find(Item item)
+        protected TSlot Find(TItem item)
         {
             foreach (var slot in _slots)
             {
@@ -46,7 +33,7 @@ namespace TheRat.HUD
             return null;
         }
 
-        private ActiveItemSlot GetEmpty()
+        protected  TSlot GetEmpty()
         {
             foreach (var slot in _slots)
             {

@@ -2,7 +2,7 @@
 
 namespace TheRat.InventorySystem
 {
-    public sealed class AddRemoveAction<TType>
+    public sealed class AddRemoveAction<TType> where TType : Item
     {
         public event Action<TType> OnAdded; 
         public event Action<TType> OnRemoved;

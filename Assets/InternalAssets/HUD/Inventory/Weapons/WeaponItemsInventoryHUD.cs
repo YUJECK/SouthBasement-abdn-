@@ -1,12 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using TheRat.HUD;
 using Zenject;
 
 namespace TheRat.InventorySystem.Weapons
 {
-    public class WeaponItemsInventoryHUD : MonoBehaviour
+    public class WeaponItemsInventoryHUD : SlotHUD<WeaponSlot, WeaponItem>
     {
-        private WeaponSlot[] _slots;
         private Inventory _inventory;
 
         [Inject]
@@ -18,46 +16,14 @@ namespace TheRat.InventorySystem.Weapons
 
         private void OnEnable()
         {
-            _inventory.OnAddedWeapon.OnAdded += OnAddedWeapon;
+            _inventory.OnAddedWeapon.OnAdded += OnAdded;
             _inventory.OnAddedWeapon.OnRemoved += OnRemoved;
         }
 
         private void OnDisable()
         {
-            _inventory.OnAddedWeapon.OnAdded -= OnAddedWeapon;
+            _inventory.OnAddedWeapon.OnAdded -= OnAdded;
             _inventory.OnAddedWeapon.OnRemoved -= OnRemoved;
-        }
-
-        private void OnAddedWeapon(WeaponItem item)
-        {
-            GetEmpty()?.SetItem(item);
-        }
-
-        private void OnRemoved(Item item)
-        {
-            Find(item)?.SetItem(null);
-        }
-        
-        private WeaponSlot Find(Item item)
-        {
-            foreach (var slot in _slots)
-            {
-                if (slot.CurrentItem.ItemID == item.ItemID)
-                    return slot;
-            }
-
-            return null;
-        }
-
-        private WeaponSlot GetEmpty()
-        {
-            foreach (var slot in _slots)
-            {
-                if (slot.CurrentItem == null)
-                    return slot;
-            }
-            
-            return null;
         }
     }
 }

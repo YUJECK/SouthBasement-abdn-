@@ -1,4 +1,5 @@
 ﻿using System;
+using TheRat.HUD;
 using Zenject;
 
 namespace TheRat.InventorySystem
@@ -7,7 +8,7 @@ namespace TheRat.InventorySystem
     {
         private DiContainer _container;
  
-        public AddRemoveAction<Item> OnAddedJunkItem = new();
+        public AddRemoveAction<JunkItem> OnAddedJunkItem = new();
         public AddRemoveAction<WeaponItem> OnAddedWeapon = new(); 
         public AddRemoveAction<PassiveItem> OnAddedPassive = new();
         public AddRemoveAction<ActiveItem> OnAddedActiveItem = new();
@@ -40,7 +41,7 @@ namespace TheRat.InventorySystem
         private void InvokeAddEvent(Type type, object item)
         {
             if(type == typeof(Item))
-                OnAddedJunkItem?.InvokeAdded((Item)item);
+                OnAddedJunkItem?.InvokeAdded((JunkItem)item);
             if(type == typeof(ActiveItem))
                 OnAddedActiveItem?.InvokeAdded((ActiveItem)item);
             if(type == typeof(WeaponItem))
@@ -51,7 +52,7 @@ namespace TheRat.InventorySystem
         private void InvokeRemoveEvent(Type type, object item)
         {
             if(type == typeof(Item))
-                OnAddedJunkItem?.InvokeRemoved((Item)item);
+                OnAddedJunkItem?.InvokeRemoved((JunkItem)item);
             if(type == typeof(ActiveItem))
                 OnAddedActiveItem?.InvokeRemoved((ActiveItem)item);
             if(type == typeof(WeaponItem))
