@@ -22,10 +22,12 @@ namespace SouthBasement.Tests
         
         public override void Use()
         {
-            _characterStats.SetHealth(_characterStats.CurrentHealth, _characterStats.MaximumHealth + 10);
-            _inventory.RemoveItem(ItemID);
-
-            OnUsed?.Invoke();
+            var items = _inventory.MainContainer.GetAllInSubContainerOfContainer<WeaponItem>("bone_made");
+            
+            foreach (var item in items)
+            {
+                Debug.Log(item.ItemID);
+            }
         }
 
         public override Type GetItemType()

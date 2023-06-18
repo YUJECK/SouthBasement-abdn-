@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace SouthBasement.InventorySystem
@@ -65,19 +66,25 @@ namespace SouthBasement.InventorySystem
             return false;
         }
 
-        public TContainer[] GetAllInContainer<TContainer>() where TContainer : Item
+        public Item[] GetAllInContainer<TContainer>() where TContainer : Item
         {
-            var items = new List<TContainer>();
+            var items = new List<Item>();
 
             _itemsContainers.TryGetValue(typeof(TContainer), out var container);
             {
                 foreach (var subcontainer in container)
-                    items.AddRange(subcontainer.Value.GetAllInContainer() as TContainer[] ?? Array.Empty<TContainer>());
+                {
+                    if(subcontainer.Value.ItemsCount > 0)
+                        items.AddRange(subcontainer.Value.GetAllInContainer());
+                }
             }
 
             return items.ToArray();
         }
-        
+
+        public Item[] GetAllInSubContainerOfContainer<TContainer>(string subContainerID) 
+            => GetSubContainer(typeof(TContainer), subContainerID).GetAllInContainer();
+
         private Container GetSubContainer(Type type, string subcontainerID)
         {
             if (_itemsContainers.TryGetValue(type, out var container))

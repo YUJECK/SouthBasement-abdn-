@@ -9,10 +9,12 @@ namespace SouthBasement.InventorySystem
     {
         private readonly Dictionary<string, Item> _container = new();
         public Type ContainerType { get; private set; }
-
+        
         public event Action<Type, Item> OnAdded; 
         public event Action<Type, Item> OnRemoved;
 
+        public int ItemsCount => _container.Count;
+        
         public void Init<TContainerType>()
             => ContainerType = typeof(TContainerType);
 

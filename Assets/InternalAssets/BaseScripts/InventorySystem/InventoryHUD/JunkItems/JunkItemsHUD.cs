@@ -1,5 +1,5 @@
-﻿using System;
-using SouthBasement.InventorySystem;
+﻿using SouthBasement.InventorySystem;
+using UnityEngine;
 using Zenject;
 
 namespace SouthBasement.HUD
@@ -12,7 +12,9 @@ namespace SouthBasement.HUD
         private void Construct(Inventory inventory) => _inventory = inventory;
 
         private void Awake()
-            => SetSlotsInChildren();
+        {
+            SetSlotsInChildren();
+        }
 
         private void OnEnable()
         {

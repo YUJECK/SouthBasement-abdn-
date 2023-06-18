@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5636374708079653251}
   - component: {fileID: 2560203779442044973}
   - component: {fileID: 6274394570244082326}
+  - component: {fileID: 3002786110985997141}
   m_Layer: 5
   m_Name: FoodSlot (15)
   m_TagString: Untagged
@@ -121,6 +122,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3002786110985997141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106666979018993508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &107366204553404940
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,6 +463,7 @@ GameObject:
   - component: {fileID: 5066761015889775523}
   - component: {fileID: 7301633562959078322}
   - component: {fileID: 8082861104982327212}
+  - component: {fileID: 2580314879073490041}
   m_Layer: 5
   m_Name: FoodSlot (7)
   m_TagString: Untagged
@@ -559,6 +573,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2580314879073490041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465860397607269465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &670546634925314990
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,6 +597,7 @@ GameObject:
   - component: {fileID: 7729383661748823128}
   - component: {fileID: 7568806973488755938}
   - component: {fileID: 2129446947460397754}
+  - component: {fileID: 2731063327374451579}
   m_Layer: 5
   m_Name: FoodSlot (11)
   m_TagString: Untagged
@@ -680,6 +707,62 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2731063327374451579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670546634925314990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &672750199605493487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1700746925338270310}
+  - component: {fileID: 4620701966839001929}
+  m_Layer: 0
+  m_Name: PassiveItems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1700746925338270310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672750199605493487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5676204592800920505}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4620701966839001929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672750199605493487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792e0240789845ec8911b5ea70cb93c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &855453622769984498
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +1060,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3348115194586291047}
   - component: {fileID: 4672118456121330388}
-  - component: {fileID: 6094145210877958738}
   m_Layer: 5
   m_Name: PassiveItemsList
   m_TagString: Untagged
@@ -1003,8 +1085,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 368.1875, y: -1.275343}
-  m_SizeDelta: {x: 109.5381, y: 435.2922}
+  m_AnchoredPosition: {x: 388.2186, y: -8.678139}
+  m_SizeDelta: {x: 187.0524, y: 347.0095}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4672118456121330388
 CanvasRenderer:
@@ -1014,18 +1096,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167278213915239270}
   m_CullTransparentMesh: 1
---- !u!114 &6094145210877958738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167278213915239270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338f7cd0a10f4c0e821bbdeae5483d9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1212813371585712577
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,6 +1352,7 @@ GameObject:
   - component: {fileID: 5199393485241936251}
   - component: {fileID: 2765356333383090422}
   - component: {fileID: 9213217345342757485}
+  - component: {fileID: 6972526854983102517}
   m_Layer: 5
   m_Name: FoodSlot (14)
   m_TagString: Untagged
@@ -1391,6 +1462,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6972526854983102517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550554589168756563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1551323717595300183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +1951,7 @@ GameObject:
   - component: {fileID: 7366107444939561780}
   - component: {fileID: 8313345316052657550}
   - component: {fileID: 8157911543534108282}
+  - component: {fileID: 8260985454220828638}
   m_Layer: 5
   m_Name: FoodSlot (10)
   m_TagString: Untagged
@@ -1977,6 +2061,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8260985454220828638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154862871463590122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2191077109342972187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,6 +2085,7 @@ GameObject:
   - component: {fileID: 8951017336496500794}
   - component: {fileID: 8995589532913832114}
   - component: {fileID: 4700877759385438743}
+  - component: {fileID: 9038801222854490712}
   m_Layer: 5
   m_Name: FoodSlot (2)
   m_TagString: Untagged
@@ -2098,6 +2195,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9038801222854490712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2191077109342972187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2233628262095364188
 GameObject:
   m_ObjectHideFlags: 0
@@ -3048,7 +3157,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7408559773336174989}
   - component: {fileID: 7707758211844949365}
-  - component: {fileID: 108985103132178290}
   m_Layer: 0
   m_Name: SwitchableInventory
   m_TagString: Untagged
@@ -3091,20 +3199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objects:
-  - {fileID: 6951640731165801961}
-  - {fileID: 1167278213915239270}
---- !u!114 &108985103132178290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3580917458054091099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338f7cd0a10f4c0e821bbdeae5483d9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  - {fileID: 7116276023596925530}
+  - {fileID: 4870054104815248619}
 --- !u!1 &3601930006170833799
 GameObject:
   m_ObjectHideFlags: 0
@@ -3450,6 +3546,7 @@ GameObject:
   - component: {fileID: 151620748606526132}
   - component: {fileID: 6144734873905017848}
   - component: {fileID: 1229458460807584147}
+  - component: {fileID: 5488226940545363265}
   m_Layer: 5
   m_Name: FoodSlot
   m_TagString: Untagged
@@ -3559,6 +3656,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5488226940545363265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298710711164965115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4476643333120111762
 GameObject:
   m_ObjectHideFlags: 0
@@ -3571,6 +3680,7 @@ GameObject:
   - component: {fileID: 7217657479925950223}
   - component: {fileID: 4683757545065633275}
   - component: {fileID: 6414514091045662628}
+  - component: {fileID: 2059925126632914030}
   m_Layer: 5
   m_Name: FoodSlot (3)
   m_TagString: Untagged
@@ -3680,6 +3790,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2059925126632914030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4476643333120111762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4548257590193198276
 GameObject:
   m_ObjectHideFlags: 0
@@ -3692,6 +3814,7 @@ GameObject:
   - component: {fileID: 319542765329800334}
   - component: {fileID: 4053090825290966924}
   - component: {fileID: 6790804962593873223}
+  - component: {fileID: 1114049818079648931}
   m_Layer: 5
   m_Name: FoodSlot (9)
   m_TagString: Untagged
@@ -3801,6 +3924,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1114049818079648931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4548257590193198276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4623689340894946550
 GameObject:
   m_ObjectHideFlags: 0
@@ -3813,6 +3948,7 @@ GameObject:
   - component: {fileID: 1992736907215991358}
   - component: {fileID: 1376400055646853844}
   - component: {fileID: 5067960901144507360}
+  - component: {fileID: 749060958283690692}
   m_Layer: 5
   m_Name: FoodSlot (12)
   m_TagString: Untagged
@@ -3922,6 +4058,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &749060958283690692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4623689340894946550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4843456372220552811
 GameObject:
   m_ObjectHideFlags: 0
@@ -3934,6 +4082,7 @@ GameObject:
   - component: {fileID: 9184604769490803035}
   - component: {fileID: 3431707882418883939}
   - component: {fileID: 6155389665035554046}
+  - component: {fileID: 6653334337613351464}
   m_Layer: 5
   m_Name: FoodSlot (17)
   m_TagString: Untagged
@@ -4043,6 +4192,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6653334337613351464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4843456372220552811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4870054104815248619
 GameObject:
   m_ObjectHideFlags: 0
@@ -4053,6 +4214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7400715753424735861}
   - component: {fileID: 3620545634561486018}
+  - component: {fileID: 1882861782252976126}
   m_Layer: 5
   m_Name: PassiveItemsSlots
   m_TagString: Untagged
@@ -4118,10 +4280,22 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 40, y: 40}
+  m_CellSize: {x: 50, y: 50}
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1882861782252976126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870054104815248619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d158fdadda84004b85647eae1ec0fe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5053478270824111959
 GameObject:
   m_ObjectHideFlags: 0
@@ -4210,6 +4384,7 @@ GameObject:
   - component: {fileID: 3571992440261438276}
   - component: {fileID: 4524492303243161770}
   - component: {fileID: 602446840861748145}
+  - component: {fileID: 7204269506179206063}
   m_Layer: 5
   m_Name: FoodSlot (4)
   m_TagString: Untagged
@@ -4319,6 +4494,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7204269506179206063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5379425697714144521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5390415479307193149
 GameObject:
   m_ObjectHideFlags: 0
@@ -4331,6 +4518,7 @@ GameObject:
   - component: {fileID: 8206602986517204557}
   - component: {fileID: 8186204482322490111}
   - component: {fileID: 6857422768177737442}
+  - component: {fileID: 168122934632702092}
   m_Layer: 5
   m_Name: FoodSlot (16)
   m_TagString: Untagged
@@ -4440,6 +4628,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &168122934632702092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5390415479307193149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5676204591416216604
 GameObject:
   m_ObjectHideFlags: 0
@@ -5057,6 +5257,7 @@ RectTransform:
   - {fileID: 5676204592419509627}
   - {fileID: 5676204592911496244}
   - {fileID: 7408559773336174989}
+  - {fileID: 1700746925338270310}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5099,7 +5300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 16
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1366, y: 768}
   m_ScreenMatchMode: 0
@@ -5583,6 +5784,7 @@ GameObject:
   - component: {fileID: 4727127729614640950}
   - component: {fileID: 1354613322519567227}
   - component: {fileID: 6398503619152891116}
+  - component: {fileID: 239312379168379167}
   m_Layer: 5
   m_Name: FoodSlot (5)
   m_TagString: Untagged
@@ -5692,6 +5894,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &239312379168379167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6230159730467592768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6610161879296732714
 GameObject:
   m_ObjectHideFlags: 0
@@ -5704,6 +5918,7 @@ GameObject:
   - component: {fileID: 1917145446927373031}
   - component: {fileID: 4660089695496030211}
   - component: {fileID: 840984133070731045}
+  - component: {fileID: 4019190737496975393}
   m_Layer: 5
   m_Name: FoodSlot (1)
   m_TagString: Untagged
@@ -5813,6 +6028,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4019190737496975393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6610161879296732714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6661880545391562358
 GameObject:
   m_ObjectHideFlags: 0
@@ -5945,6 +6172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7516633620987099516}
   - component: {fileID: 4387132601628488411}
+  - component: {fileID: 2973960410057068351}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -5981,6 +6209,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6951640731165801961}
   m_CullTransparentMesh: 1
+--- !u!114 &2973960410057068351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951640731165801961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338f7cd0a10f4c0e821bbdeae5483d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7071795965415479880
 GameObject:
   m_ObjectHideFlags: 0
@@ -6069,6 +6309,7 @@ GameObject:
   - component: {fileID: 2247226440786631172}
   - component: {fileID: 4423121356047620185}
   - component: {fileID: 2910216472963507844}
+  - component: {fileID: 5638809510745499890}
   m_Layer: 5
   m_Name: FoodSlot (8)
   m_TagString: Untagged
@@ -6178,6 +6419,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5638809510745499890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7077294675598755461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7116276023596925530
 GameObject:
   m_ObjectHideFlags: 0
@@ -6268,6 +6521,7 @@ GameObject:
   - component: {fileID: 738925216755668485}
   - component: {fileID: 6788389498248991540}
   - component: {fileID: 4889191891064056990}
+  - component: {fileID: 8089626136119962952}
   m_Layer: 5
   m_Name: FoodSlot (6)
   m_TagString: Untagged
@@ -6377,6 +6631,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8089626136119962952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7493984211476706536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7843395579757977366
 GameObject:
   m_ObjectHideFlags: 0
@@ -7475,6 +7741,7 @@ GameObject:
   - component: {fileID: 7063990307839726558}
   - component: {fileID: 3744403698172202048}
   - component: {fileID: 373916833707544634}
+  - component: {fileID: 2132392270074377290}
   m_Layer: 5
   m_Name: FoodSlot (13)
   m_TagString: Untagged
@@ -7584,6 +7851,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2132392270074377290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8982533787341751704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798513a412d448ab0f08b0fa5034fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3588019907796134441
 PrefabInstance:
   m_ObjectHideFlags: 0

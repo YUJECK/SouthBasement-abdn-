@@ -2,9 +2,9 @@
 {
     public enum Rarity
     {
-        Usual = 0,
-        Unusual = 30,
-        Rare = 50,
-        VeryRare = 70
+        D = 0,
+        C = 30,
+        B = 50,
+        A = 70
     }
 }
