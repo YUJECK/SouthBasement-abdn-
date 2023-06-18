@@ -55,7 +55,7 @@ namespace SouthBasement.Characters.Rat
             {
                 var dashMove = GetPositionInVector2() + _movable.Movement;
                 
-                var dashStopTime = Time.time + 0.15;
+                var dashStopTime = Time.time + 0.135;
                 
                 while (Time.time < dashStopTime)
                 {
