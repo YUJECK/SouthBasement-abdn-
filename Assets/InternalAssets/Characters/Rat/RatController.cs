@@ -1,11 +1,11 @@
 ﻿using System;
+using SouthBasement.InputServices;
+using SouthBasement.InternalAssets.Scripts.Characters;
+using SouthBasement.InventorySystem;
 using UnityEngine;
-using TheRat.InputServices;
-using TheRat.InternalAssets.Scripts.Characters;
-using TheRat.InventorySystem;
 using Zenject;
 
-namespace TheRat.Characters.Rat
+namespace SouthBasement.Characters.Rat
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public sealed class RatController : Character

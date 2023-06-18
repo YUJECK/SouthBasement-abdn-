@@ -1,7 +1,7 @@
-﻿using TheRat.Characters;
+﻿using SouthBasement.Characters;
 using UnityEngine;
 
-namespace TheRat.InternalAssets.Scripts.Characters
+namespace SouthBasement.InternalAssets.Scripts.Characters
 {
     [RequireComponent(typeof(Animator))]
     public sealed class AttackRangeAnimator : MonoBehaviour

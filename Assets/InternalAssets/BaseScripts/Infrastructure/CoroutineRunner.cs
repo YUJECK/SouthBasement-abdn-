@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace TheRat.Infrastucture
+namespace SouthBasement.Infrastucture
 {
     public sealed class CoroutineRunner : MonoBehaviour, ICoroutineRunner
     {

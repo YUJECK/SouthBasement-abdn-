@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace TheRat.Generation
+namespace SouthBasement.Generation
 {
     public class Room : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheRat.Generation
+namespace SouthBasement.Generation
 {
     [CreateAssetMenu]
     public class RoomsContainer : ScriptableObject

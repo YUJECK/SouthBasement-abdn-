@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheRat.PlayerServices
+namespace SouthBasement.PlayerServices
 {
     [RequireComponent(typeof(Flipper))]
     public sealed class MouserTargetSetter : MonoBehaviour

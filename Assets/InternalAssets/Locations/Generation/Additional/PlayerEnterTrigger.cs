@@ -1,9 +1,9 @@
 using System;
-using TheRat.Characters;
-using TheRat.Helpers;
+using SouthBasement.Characters;
+using SouthBasement.Helpers;
 using UnityEngine;
 
-namespace TheRat.Generation
+namespace SouthBasement.Generation
 {
     [RequireComponent(typeof(Collider2D))]
     public sealed class PlayerEnterTrigger : MonoBehaviour

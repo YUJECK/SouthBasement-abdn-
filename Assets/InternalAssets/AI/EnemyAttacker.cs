@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
-using TheRat.InternalAssets.Scripts.Characters;
+using SouthBasement.InternalAssets.Scripts.Characters;
 using UnityEditor;
 using UnityEngine;
 
-namespace TheRat.AI
+namespace SouthBasement.AI
 {
     public class EnemyAttacker : MonoBehaviour
     {

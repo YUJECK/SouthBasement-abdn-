@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Zenject;
 
-namespace TheRat.HUD
+namespace SouthBasement.HUD
 {
     [RequireComponent(typeof(Image))]
     public sealed class StaminaHUD : MonoBehaviour

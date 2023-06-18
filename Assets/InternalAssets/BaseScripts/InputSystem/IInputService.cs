@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TheRat.InputServices
+namespace SouthBasement.InputServices
 {
     public interface IInputService
     {

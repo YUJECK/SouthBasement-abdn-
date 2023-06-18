@@ -1,7 +1,7 @@
 ﻿using NTC.ContextStateMachine;
 using UnityEngine;
 
-namespace TheRat.AI
+namespace SouthBasement.AI
 {
     public sealed class WalkState : State<DefaultRatStateMachine>
     {

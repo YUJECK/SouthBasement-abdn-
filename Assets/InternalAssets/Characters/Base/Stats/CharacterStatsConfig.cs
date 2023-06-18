@@ -1,8 +1,8 @@
 ﻿using System;
-using TheRat.Weapons;
+using SouthBasement.Weapons;
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     [Serializable]
     public sealed class CharacterStatsConfig

@@ -1,8 +1,8 @@
-﻿using TheRat.HUD;
+﻿using SouthBasement.HUD;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     [AddComponentMenu("HUD/Inventory/ActiveItemsInventoryHUD")]
     public sealed class ActiveItemsInventoryHUD : SlotHUD<ActiveItemSlot, ActiveItem>
@@ -14,16 +14,16 @@ namespace TheRat.InventorySystem
         {
             _inventory = inventory;
             
-            inventory.OnAddedActiveItem.OnAdded += OnAdded;
-            inventory.OnAddedActiveItem.OnRemoved += OnRemoved;
+            inventory.OnAdded += OnAdded;
+            inventory.OnRemoved += OnRemoved;
         }
 
         private void Awake() => SetSlotsInChildren();
 
         private void OnDestroy()
         {
-            _inventory.OnAddedActiveItem.OnAdded -= OnAdded;
-            _inventory.OnAddedActiveItem.OnRemoved -= OnRemoved;
+            _inventory.OnAdded -= OnAdded;
+            _inventory.OnRemoved -= OnRemoved;
         }
     }
 }

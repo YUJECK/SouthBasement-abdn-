@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
-namespace TheRat.AI
+namespace SouthBasement.AI
 {
     public class TargetSelector : MonoBehaviour
     {

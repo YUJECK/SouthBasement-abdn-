@@ -1,6 +1,6 @@
-﻿using TheRat.InventorySystem;
+﻿using SouthBasement.InventorySystem;
 
-namespace TheRat.HUD
+namespace SouthBasement.HUD
 {
     public class JunkItemSlot : InventorySlot<JunkItem>
     {

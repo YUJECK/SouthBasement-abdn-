@@ -1,69 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheRat.Extensions.DataStructures;
+using UnityEngine;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     public sealed class ItemsDictionaryContainer
     {
-        private readonly Dictionary<Type, Dictionary<string, Item>> _itemsContainers = new();
+        private readonly Dictionary<Type, Dictionary<string, Container>> _itemsContainers = new();
 
-        public ItemsDictionaryContainer AddContainer<TItem>() where TItem : Item
+        public ItemsDictionaryContainer AddContainer<TContainer>(string mainSubContainer = "any") where TContainer : Item
         {
-            _itemsContainers.TryAdd(typeof(TItem), new Dictionary<string, Item>());
-            return this;
-        } 
-
-        public Item GetItem(string id)
-        {
-            foreach (var container in _itemsContainers)
+            if (_itemsContainers.TryAdd(typeof(TContainer), new Dictionary<string, Container>()))
             {
-                if(container.Value.TryGetValue(id, out var item))
-                    return item;
+                var newContainer = new Container();
+                newContainer.Init<TContainer>();
+                
+                _itemsContainers[typeof(TContainer)].TryAdd(mainSubContainer, newContainer);
             }
+            
+            return this;
+        }
 
-            return null;
+        public ItemsDictionaryContainer AddSubContainerTo<TContainer>(string subcontaienr) where TContainer : Item
+        {
+            if (_itemsContainers.TryGetValue(typeof(TContainer), out var container))
+            {
+                var newContainer = new Container();
+                newContainer.Init<TContainer>();
+                
+                container.TryAdd(subcontaienr, newContainer);
+            }
+            
+            return this;
+        }
+        public bool TryAddItem<TContainer>(TContainer item, string subcontainerID = "any") 
+            where TContainer : Item
+        {
+            if(item == null)
+                Debug.LogError($"You tried to add null item to {typeof(TContainer).Name} in subcontainer {subcontainerID}");
+            
+            var subcontainer = GetSubContainer(item.GetItemType(), subcontainerID);
+
+            if (subcontainer == null)
+            {
+                Debug.LogError($"Cant add {item}");
+                return false;
+            }
+            
+            return subcontainer.TryAddItem(item);
+        }
+        public bool Remove(string itemID) 
+        {
+            var subcontainer = FindWithItem(itemID);
+
+            if (subcontainer == null)
+            {
+                Debug.LogError($"{itemID} wasnt found");
+                return false;
+            }
+            
+            if(subcontainer.RemoveItem(itemID))
+                return true;
+
+            return false;
         }
 
         public TContainer[] GetAllInContainer<TContainer>() where TContainer : Item
         {
-            if (_itemsContainers.TryGetValue(typeof(TContainer), out var container))
-                return container.ToValueArray() as TContainer[];
+            var items = new List<TContainer>();
 
-            return null;
+            _itemsContainers.TryGetValue(typeof(TContainer), out var container);
+            {
+                foreach (var subcontainer in container)
+                    items.AddRange(subcontainer.Value.GetAllInContainer() as TContainer[] ?? Array.Empty<TContainer>());
+            }
+
+            return items.ToArray();
         }
         
-        public bool RemoveItem(string id, Action<Type, object> callback)
+        private Container GetSubContainer(Type type, string subcontainerID)
+        {
+            if (_itemsContainers.TryGetValue(type, out var container))
+            {
+                container.TryGetValue(subcontainerID, out var subcontainer);
+                return subcontainer;
+            }
+            
+            Debug.LogError($"Cannot find subcontainer {subcontainerID} in {type}");
+            return null;
+        }
+
+        private Container FindWithItem(string id)
         {
             foreach (var container in _itemsContainers)
             {
-                if (container.Value.ContainsKey(id))
+                foreach (var subcontainer in container.Value)
                 {
-                    callback?.Invoke(container.Value[id].GetType().BaseType, container.Value[id]);
-                    container.Value.Remove(id);
-                    
-                    return true;
+                    if (subcontainer.Value.TryGetItem(id, out var item))
+                        return subcontainer.Value;
                 }
             }
 
-            return false;
-        }
-
-        public bool TryAddItem(Item item, Action<Type, object> callback)
-        {
-            var baseType = item.GetType().BaseType;
-
-            if (_itemsContainers.ContainsKey(baseType))
-            {
-                if (_itemsContainers[baseType].TryAdd(item.ItemID, item))
-                {
-                    callback?.Invoke(baseType, item);
-                    return true;
-                }
-                
-            }
-
-            return false;
+            return null;
         }
     }
 }

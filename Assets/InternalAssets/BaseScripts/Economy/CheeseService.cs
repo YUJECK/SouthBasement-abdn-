@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Economy
+namespace SouthBasement.Economy
 {
     public sealed class CheeseService
     {

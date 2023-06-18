@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TheRat.PlayerServices
+namespace SouthBasement.PlayerServices
 {
     public class Flipper : MonoBehaviour
     {

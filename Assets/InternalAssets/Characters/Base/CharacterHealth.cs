@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Characters
+namespace SouthBasement.Characters
 {
     public sealed class CharacterHealth : MonoBehaviour, IDamagable
     {

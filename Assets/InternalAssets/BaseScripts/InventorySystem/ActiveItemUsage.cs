@@ -1,7 +1,7 @@
 ﻿using System;
-using TheRat.InputServices;
+using SouthBasement.InputServices;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     public sealed class ActiveItemUsage 
     {
@@ -16,17 +16,29 @@ namespace TheRat.InventorySystem
             _inventory = inventory;
             
             service.ActiveItemUsage += () => _activeItem?.Use();
-            inventory.OnAddedActiveItem.OnAdded += SetCurrent;
-        }
-        ~ActiveItemUsage()
-        {
-            _inventory.OnAddedActiveItem.OnAdded -= SetCurrent;
+            
+            inventory.OnAdded += SetCurrent;
+            inventory.OnRemoved += OnRemoved;
         }
 
-        public void SetCurrent(ActiveItem item)
+        private void OnRemoved(string id)
         {
-            _activeItem = item;
-            OnSelected?.Invoke(item);
+            if (id == _activeItem.ItemID)
+                _activeItem = null;
+        }
+
+        ~ActiveItemUsage()
+        {
+            _inventory.OnAdded -= SetCurrent;
+        }
+
+        public void SetCurrent(Item item)
+        {
+            if (item.GetItemType() == typeof(ActiveItem))
+            {
+                _activeItem = item as ActiveItem;
+                OnSelected?.Invoke(_activeItem);
+            }
         }
     }
 }

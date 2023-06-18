@@ -1,8 +1,8 @@
-﻿using TheRat.Helpers;
+﻿using SouthBasement.Helpers;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Economy
+namespace SouthBasement.Economy
 {
     public sealed class CheeseObject : MonoBehaviour
     {

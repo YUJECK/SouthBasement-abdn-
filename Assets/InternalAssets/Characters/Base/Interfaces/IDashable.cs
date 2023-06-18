@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheRat
+namespace SouthBasement
 {
     public interface IDashable : IDisposable
     {

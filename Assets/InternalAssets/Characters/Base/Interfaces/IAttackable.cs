@@ -1,7 +1,7 @@
 ﻿using System;
-using TheRat.InventorySystem;
+using SouthBasement.InventorySystem;
 
-namespace TheRat
+namespace SouthBasement
 {
     public interface IAttackable : IDisposable
     {

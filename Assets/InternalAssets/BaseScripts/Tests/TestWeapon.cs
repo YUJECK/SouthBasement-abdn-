@@ -1,7 +1,8 @@
-using TheRat.InventorySystem;
+using System;
+using SouthBasement.InventorySystem;
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     [CreateAssetMenu]
     public class TestWeapon : WeaponItem
@@ -9,6 +10,11 @@ namespace TheRat
         public override void OnAttack()
         {
             
+        }
+
+        public override Type GetItemType()
+        {
+            return typeof(WeaponItem);
         }
     }
 }

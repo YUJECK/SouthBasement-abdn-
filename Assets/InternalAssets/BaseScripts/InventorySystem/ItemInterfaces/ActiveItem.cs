@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     public abstract class ActiveItem : Item
     {

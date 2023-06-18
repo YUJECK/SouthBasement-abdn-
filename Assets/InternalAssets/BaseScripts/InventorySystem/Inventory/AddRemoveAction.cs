@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     public sealed class AddRemoveAction<TType> where TType : Item
     {

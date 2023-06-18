@@ -1,7 +1,8 @@
-﻿using TheRat.InventorySystem;
+﻿using System;
+using SouthBasement.InventorySystem;
 using UnityEngine;
 
-namespace TheRat.InternalAssets.BaseScripts.Tests
+namespace SouthBasement.InternalAssets.BaseScripts.Tests
 {
     [CreateAssetMenu]
     public sealed class TestPassiveItem : PassiveItem
@@ -14,6 +15,11 @@ namespace TheRat.InternalAssets.BaseScripts.Tests
         public override void OnRun()
         {
             Debug.Log("Run");
+        }
+
+        public override Type GetItemType()
+        {
+            return typeof(PassiveItem);
         }
     }
 }

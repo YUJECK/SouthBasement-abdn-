@@ -1,10 +1,9 @@
 ﻿using System;
-using TheRat.InventorySystem;
-using TheRat.Characters;
+using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Tests
+namespace SouthBasement.Tests
 {
     [CreateAssetMenu]
     public sealed class TestItem : ActiveItem
@@ -24,9 +23,14 @@ namespace TheRat.Tests
         public override void Use()
         {
             _characterStats.SetHealth(_characterStats.CurrentHealth, _characterStats.MaximumHealth + 10);
-            _inventory.RemoveItem(this.ItemID);
+            _inventory.RemoveItem(ItemID);
 
             OnUsed?.Invoke();
+        }
+
+        public override Type GetItemType()
+        {
+            return typeof(ActiveItem);
         }
     }
 }

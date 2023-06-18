@@ -1,8 +1,8 @@
-using TheRat.InputServices;
+using SouthBasement.InputServices;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.HUD
+namespace SouthBasement.HUD
 {
     public sealed class SwitchableInventory : MonoBehaviour
     {

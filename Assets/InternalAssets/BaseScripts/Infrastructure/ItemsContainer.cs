@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TheRat.InventorySystem;
+using SouthBasement.InventorySystem;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Items
+namespace SouthBasement.Items
 {
     public sealed class ItemsContainer
     {

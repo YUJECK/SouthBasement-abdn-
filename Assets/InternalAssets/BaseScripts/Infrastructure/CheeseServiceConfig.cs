@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheRat.Economy
+namespace SouthBasement.Economy
 {
     [CreateAssetMenu(menuName = "Create CheeseServiceConfig", fileName = "CheeseServiceConfig", order = 0)]
     public sealed class CheeseServiceConfig : ScriptableObject

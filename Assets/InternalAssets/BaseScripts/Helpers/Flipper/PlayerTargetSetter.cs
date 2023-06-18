@@ -1,7 +1,7 @@
-﻿using TheRat.Characters;
+﻿using SouthBasement.Characters;
 using UnityEngine;
 
-namespace TheRat.PlayerServices
+namespace SouthBasement.PlayerServices
 {
     [RequireComponent(typeof(Flipper))]
     public sealed class PlayerTargetSetter : MonoBehaviour

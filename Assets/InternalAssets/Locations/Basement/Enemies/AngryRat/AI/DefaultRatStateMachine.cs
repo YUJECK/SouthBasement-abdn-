@@ -3,7 +3,7 @@ using NTC.ContextStateMachine;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace TheRat.AI
+namespace SouthBasement.AI
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(AgentOverride2d))]

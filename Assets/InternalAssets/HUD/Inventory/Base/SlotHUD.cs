@@ -1,7 +1,8 @@
-﻿using TheRat.InventorySystem;
+﻿using System;
+using SouthBasement.InventorySystem;
 using UnityEngine;
 
-namespace TheRat.HUD
+namespace SouthBasement.HUD
 {
     public class SlotHUD<TSlot, TItem> : MonoBehaviour 
         where TSlot : InventorySlot<TItem> 
@@ -12,14 +13,15 @@ namespace TheRat.HUD
         protected void SetSlotsInChildren() 
             => _slots = GetComponentsInChildren<TSlot>();
 
-        protected virtual void OnAdded(TItem item)
+        protected virtual void OnAdded(Item item)
         {
-            GetEmpty()?.SetItem(item);
+            if(item is TItem)
+                GetEmpty()?.SetItem(item as TItem);
         }
 
-        protected virtual void OnRemoved(TItem item)
+        protected virtual void OnRemoved(string itemID)
         {
-            Find(item)?.SetItem(null);
+            Find(itemID)?.SetItem(null);
         }
         
         protected TSlot Find(TItem item)
@@ -33,6 +35,18 @@ namespace TheRat.HUD
             return null;
         }
 
+        protected TSlot Find(string itemID)
+        {
+            foreach (var slot in _slots)
+            {
+                if (slot.CurrentItem != null && slot.CurrentItem.ItemID == itemID)
+                    return slot;
+            }
+
+            return null;
+        }
+
+        
         protected  TSlot GetEmpty()
         {
             foreach (var slot in _slots)

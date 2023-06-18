@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace TheRat.Helpers.Rotator
+namespace SouthBasement.Helpers.Rotator
 {
     public sealed class ObjectRotator : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheRat.AI
+namespace SouthBasement.AI
 {
     public sealed class EnemyAnimator
     {

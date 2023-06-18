@@ -1,9 +1,9 @@
 ﻿using System;
-using TheRat.AI;
-using TheRat.Characters;
+using SouthBasement.AI;
+using SouthBasement.Characters;
 using UnityEngine;
 
-namespace TheRat.Generation
+namespace SouthBasement.Generation
 {
     [RequireComponent(typeof(RoomDoorController))]
     public sealed class RoomEnemyController : MonoBehaviour

@@ -1,7 +1,7 @@
-﻿using TheRat.InternalAssets.Scripts.Helpers;
+﻿using SouthBasement.InternalAssets.Scripts.Helpers;
 using UnityEngine;
 
-namespace TheRat.AI
+namespace SouthBasement.AI
 {
     [RequireComponent(typeof(TriggerCallback))]
     public sealed class AttackTrigger : MonoBehaviour

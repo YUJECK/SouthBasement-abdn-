@@ -1,7 +1,7 @@
-﻿using TheRat.Weapons;
+﻿using SouthBasement.Weapons;
 using UnityEngine;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     public abstract class WeaponItem : Item
     {

@@ -1,4 +1,4 @@
-﻿namespace TheRat.Interfaces
+﻿namespace SouthBasement.Interfaces
 {
     public interface ISpawnable
     {

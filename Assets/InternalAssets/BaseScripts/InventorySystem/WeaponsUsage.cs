@@ -1,7 +1,7 @@
 ﻿using System;
-using TheRat.InputServices;
+using SouthBasement.InputServices;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     public sealed class WeaponsUsage
     {
@@ -17,20 +17,23 @@ namespace TheRat.InventorySystem
             _characterStats = characterStats;
             _inventory = inventory;
             
-            inventory.OnAddedWeapon.OnAdded += SetCurrent;
+            inventory.OnAdded += SetCurrent;
         }
 
         ~WeaponsUsage()
         {
-            _inventory.OnAddedWeapon.OnAdded += SetCurrent;
+            _inventory.OnAdded -= SetCurrent;
         }
 
-        public void SetCurrent(WeaponItem item)
+        public void SetCurrent(Item item)
         {
-            CurrentWeapon = item;
-            _characterStats.WeaponStats = item.WeaponStats;
-            
-            OnSelected?.Invoke(item);
+            if (item.GetItemType() == typeof(WeaponItem))
+            {
+                CurrentWeapon = item as WeaponItem;
+                _characterStats.WeaponStats = CurrentWeapon.WeaponStats;
+                
+                OnSelected?.Invoke(CurrentWeapon);
+            }
         }
     }
 }

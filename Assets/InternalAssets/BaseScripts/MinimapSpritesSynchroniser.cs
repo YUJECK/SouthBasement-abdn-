@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TheRat.Tools
+namespace SouthBasement.Tools
 {
     public sealed class MinimapSpritesSynchroniser : MonoBehaviour
     {

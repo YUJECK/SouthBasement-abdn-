@@ -1,8 +1,8 @@
 ﻿using System;
-using TheRat.InventorySystem;
+using SouthBasement.InventorySystem;
 using Zenject;
 
-namespace TheRat.HUD
+namespace SouthBasement.HUD
 {
     public class JunkItemsHUD : SlotHUD<JunkItemSlot, JunkItem>
     {
@@ -16,14 +16,14 @@ namespace TheRat.HUD
 
         private void OnEnable()
         {
-            _inventory.OnAddedJunkItem.OnAdded += OnAdded;
-            _inventory.OnAddedJunkItem.OnRemoved += OnRemoved;
+            _inventory.OnAdded += OnAdded;
+            _inventory.OnRemoved += OnRemoved;
         }
 
         private void OnDisable()
         {
-            _inventory.OnAddedJunkItem.OnAdded -= OnAdded;
-            _inventory.OnAddedJunkItem.OnRemoved -= OnRemoved;
+            _inventory.OnAdded -= OnAdded;
+            _inventory.OnRemoved -= OnRemoved;
         }
     }
 }

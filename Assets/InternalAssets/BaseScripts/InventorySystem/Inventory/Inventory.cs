@@ -1,73 +1,56 @@
 ﻿using System;
-using TheRat.HUD;
 using Zenject;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     public sealed class Inventory : ITickable
     {
-        private DiContainer _container;
- 
-        public AddRemoveAction<JunkItem> OnAddedJunkItem = new();
-        public AddRemoveAction<WeaponItem> OnAddedWeapon = new(); 
-        public AddRemoveAction<PassiveItem> OnAddedPassive = new();
-        public AddRemoveAction<ActiveItem> OnAddedActiveItem = new();
-        
-        private ItemsDictionaryContainer _itemsContainer;
-        
         public int ActiveItemsSlots { get; private set; } = 2;
         public int WeaponItemsSlots { get; private set; } = 3;
 
-        public Inventory(DiContainer container)
+        private DiContainer _diContainer;
+        private ItemsDictionaryContainer _itemsContainer;
+        
+        public event Action<Item> OnAdded;
+        public event Action<string> OnRemoved;
+
+        public Inventory(DiContainer diContainer)
         {
-            _container = container;
+            _diContainer = diContainer;
 
             _itemsContainer = new ItemsDictionaryContainer();
-            
+
             _itemsContainer
-                .AddContainer<Item>()
+                .AddContainer<JunkItem>()
                 .AddContainer<FoodItem>()
-                .AddContainer<WeaponItem>()
                 .AddContainer<ActiveItem>()
                 .AddContainer<PassiveItem>();
+
+            _itemsContainer.AddContainer<WeaponItem>()
+                .AddSubContainerTo<WeaponItem>("bone_made")
+                .AddSubContainerTo<WeaponItem>("wooden_made");
         }
 
         public void AddItem(Item item)
-            => _itemsContainer.TryAddItem(item, InvokeAddEvent);
-        
-        public void RemoveItem(string id)
-            => _itemsContainer.RemoveItem(id, InvokeRemoveEvent);
-
-        private void InvokeAddEvent(Type type, object item)
         {
-            if(type == typeof(Item))
-                OnAddedJunkItem?.InvokeAdded((JunkItem)item);
-            if(type == typeof(ActiveItem))
-                OnAddedActiveItem?.InvokeAdded((ActiveItem)item);
-            if(type == typeof(WeaponItem))
-                OnAddedWeapon?.InvokeAdded((WeaponItem)item);
-            if(type == typeof(PassiveItem))
-                OnAddedPassive?.InvokeAdded((PassiveItem)item);
+            if(_itemsContainer.TryAddItem(item, item.ItemCategory))
+                OnAdded?.Invoke(item);
         }
-        private void InvokeRemoveEvent(Type type, object item)
+
+        public void RemoveItem(string id)
         {
-            if(type == typeof(Item))
-                OnAddedJunkItem?.InvokeRemoved((JunkItem)item);
-            if(type == typeof(ActiveItem))
-                OnAddedActiveItem?.InvokeRemoved((ActiveItem)item);
-            if(type == typeof(WeaponItem))
-                OnAddedWeapon?.InvokeRemoved((WeaponItem)item);
-            if(type == typeof(PassiveItem))
-                OnAddedPassive?.InvokeRemoved((PassiveItem)item);
+            if(_itemsContainer.Remove(id))
+                OnRemoved?.Invoke(id);
         }
 
         public void Tick()
         {
             var passiveItems = _itemsContainer.GetAllInContainer<PassiveItem>();
 
-            if(passiveItems != null)
-                foreach (var item in passiveItems)
-                    item.OnRun();
+            if (passiveItems == null) return;
+            
+            foreach (var item in passiveItems)
+                item.OnRun();
         }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 using cherrydev;
-using TheRat.Interactions;
+using SouthBasement.Interactions;
 
 public class TestDialogStarter : MonoBehaviour, IInteractive
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TheRat.Extensions.DataStructures
+namespace SouthBasement.Extensions.DataStructures
 {
     public static class QueueExtensions
     {

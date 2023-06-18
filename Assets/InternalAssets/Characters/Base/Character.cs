@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheRat.Characters
+namespace SouthBasement.Characters
 {
     public abstract class Character : MonoBehaviour
     {

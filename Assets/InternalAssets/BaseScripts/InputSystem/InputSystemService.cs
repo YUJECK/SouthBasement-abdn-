@@ -1,10 +1,10 @@
 ﻿using System;
-using TheRat;
+using SouthBasement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace TheRat.InputServices
+namespace SouthBasement.InputServices
 {
     public sealed class InputSystemService : IInputService, ITickable
     {

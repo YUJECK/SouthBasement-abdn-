@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace TheRat.Characters
+namespace SouthBasement.Characters
 {
     public interface IMovable : IDisposable
     {

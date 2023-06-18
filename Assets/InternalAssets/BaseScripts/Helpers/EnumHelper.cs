@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheRat.Helpers
+namespace SouthBasement.Helpers
 {
     public static class EnumHelper
     {

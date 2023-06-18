@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     public abstract class InventorySlot<TItem> : MonoBehaviour where TItem : Item 
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TheRat.Weapons
+namespace SouthBasement.Weapons
 {
     [Serializable]
     public sealed class WeaponStats

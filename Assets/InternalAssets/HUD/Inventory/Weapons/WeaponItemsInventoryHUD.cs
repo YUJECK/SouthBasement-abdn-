@@ -1,7 +1,7 @@
-﻿using TheRat.HUD;
+﻿using SouthBasement.HUD;
 using Zenject;
 
-namespace TheRat.InventorySystem.Weapons
+namespace SouthBasement.InventorySystem.Weapons
 {
     public class WeaponItemsInventoryHUD : SlotHUD<WeaponSlot, WeaponItem>
     {
@@ -16,14 +16,14 @@ namespace TheRat.InventorySystem.Weapons
 
         private void OnEnable()
         {
-            _inventory.OnAddedWeapon.OnAdded += OnAdded;
-            _inventory.OnAddedWeapon.OnRemoved += OnRemoved;
+            _inventory.OnAdded += OnAdded;
+            _inventory.OnRemoved += OnRemoved;
         }
 
         private void OnDisable()
         {
-            _inventory.OnAddedWeapon.OnAdded -= OnAdded;
-            _inventory.OnAddedWeapon.OnRemoved -= OnRemoved;
+            _inventory.OnAdded -= OnAdded;
+            _inventory.OnRemoved -= OnRemoved;
         }
     }
 }

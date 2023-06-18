@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Zenject;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     [RequireComponent(typeof(Image))]
     [AddComponentMenu("HUD/Inventory/ActiveItemSlot")]
@@ -21,7 +21,10 @@ namespace TheRat.InventorySystem
         private void CheckCurrent(ActiveItem item)
         {
             if (CurrentItem == null || item == null)
+            {
+                isCurrent.SetActive(false);
                 return;
+            }
 
             if (item.ItemID == CurrentItem.ItemID)
                 isCurrent.SetActive(true);

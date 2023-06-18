@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace TheRat.Extensions.DataStructures
+namespace SouthBasement.Extensions.DataStructures
 {
     public static class DictionaryExtensions
     {

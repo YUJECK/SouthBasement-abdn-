@@ -1,8 +1,8 @@
 ﻿using System;
-using TheRat.AI;
+using SouthBasement.AI;
 using UnityEngine;
 
-namespace TheRat.Helpers.Rotator
+namespace SouthBasement.Helpers.Rotator
 {
     public sealed class EnemyTargetSetter : MonoBehaviour
     {

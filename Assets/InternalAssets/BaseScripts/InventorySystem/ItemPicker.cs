@@ -1,9 +1,9 @@
-using TheRat.Interactions;
-using TheRat.Tests;
+using SouthBasement.Interactions;
+using SouthBasement.Tests;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class ItemPicker : MonoBehaviour, IInteractive

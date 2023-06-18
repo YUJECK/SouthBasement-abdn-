@@ -1,7 +1,7 @@
-﻿using TheRat.InventorySystem;
+﻿using SouthBasement.InventorySystem;
 using UnityEngine;
 
-namespace TheRat.InternalAssets.BaseScripts.Tests
+namespace SouthBasement.InternalAssets.BaseScripts.Tests
 {
     [CreateAssetMenu]
     public sealed class TestJunkItem : JunkItem

@@ -1,8 +1,8 @@
-﻿using TheRat.InventorySystem;
-using TheRat.Items;
+﻿using SouthBasement.InventorySystem;
+using SouthBasement.Items;
 using Zenject;
 
-namespace TheRat
+namespace SouthBasement
 {
     public sealed class ItemsContainerInstaller : MonoInstaller
     {

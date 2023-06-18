@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TheRat.InternalAssets.Scripts.Helpers
+namespace SouthBasement.InternalAssets.Scripts.Helpers
 {
     public sealed class TriggerCallback : MonoBehaviour
     {

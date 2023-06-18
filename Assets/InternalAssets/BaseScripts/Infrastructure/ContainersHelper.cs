@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheRat.Helpers
+namespace SouthBasement.Helpers
 {
     [System.Serializable]
     public sealed class ContainersHelper

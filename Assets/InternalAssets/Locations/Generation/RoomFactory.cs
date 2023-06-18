@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using TheRat.Helpers;
+using SouthBasement.Helpers;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Generation
+namespace SouthBasement.Generation
 {
     public sealed class RoomFactory : MonoBehaviour, IRoomFactory
     {

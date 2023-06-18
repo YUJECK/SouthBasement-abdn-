@@ -1,10 +1,10 @@
-﻿using TheRat.Characters;
-using TheRat.Generation;
-using TheRat.Helpers;
+﻿using SouthBasement.Characters;
+using SouthBasement.Generation;
+using SouthBasement.Helpers;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat
+namespace SouthBasement
 {
     public sealed class LocationInstaller : MonoInstaller
     {

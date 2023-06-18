@@ -1,7 +1,7 @@
-using TheRat.InventorySystem;
+using SouthBasement.InventorySystem;
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     [CreateAssetMenu()]
     public class CharacterConfig : ScriptableObject

@@ -1,8 +1,8 @@
 using System;
-using TheRat.InputServices;
+using SouthBasement.InputServices;
 using UnityEngine;
 
-namespace TheRat.Characters.Rat
+namespace SouthBasement.Characters.Rat
 {
     public class RatMovable : IMovable, IDisposable
     {

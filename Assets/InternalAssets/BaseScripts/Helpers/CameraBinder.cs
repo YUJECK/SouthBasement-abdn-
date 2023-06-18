@@ -1,9 +1,9 @@
 using Cinemachine;
-using TheRat.Characters;
+using SouthBasement.Characters;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat
+namespace SouthBasement
 {
     [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class CameraBinder : MonoBehaviour

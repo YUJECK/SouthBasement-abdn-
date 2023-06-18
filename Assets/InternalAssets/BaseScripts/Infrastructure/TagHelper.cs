@@ -1,4 +1,4 @@
-﻿namespace TheRat.Helpers
+﻿namespace SouthBasement.Helpers
 {
     public struct TagHelper
     {

@@ -1,9 +1,9 @@
-using TheRat.Infrastucture;
-using TheRat;
-using TheRat.Characters;
-using TheRat.Economy;
-using TheRat.InputServices;
-using TheRat.InventorySystem;
+using SouthBasement.Infrastucture;
+using SouthBasement;
+using SouthBasement.Characters;
+using SouthBasement.Economy;
+using SouthBasement.InputServices;
+using SouthBasement.InventorySystem;
 using Zenject;
 
 public sealed class BootstrapInstaller : MonoInstaller

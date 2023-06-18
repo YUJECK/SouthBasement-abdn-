@@ -1,11 +1,11 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using TheRat.InputServices;
-using TheRat.InternalAssets.Scripts.Characters;
-using TheRat.InventorySystem;
+using SouthBasement.InputServices;
+using SouthBasement.InventorySystem;
+using SouthBasement.InternalAssets.Scripts.Characters;
 using UnityEngine;
 
-namespace TheRat.Characters.Rat
+namespace SouthBasement.Characters.Rat
 {
     public sealed class RatAttack : IAttackable
     {

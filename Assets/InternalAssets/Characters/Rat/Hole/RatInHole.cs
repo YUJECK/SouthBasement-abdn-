@@ -1,10 +1,10 @@
 ﻿using System;
-using TheRat.InputServices;
-using TheRat.InventorySystem;
+using SouthBasement.InputServices;
+using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Characters.Rat.Hole
+namespace SouthBasement.Characters.Rat.Hole
 {
     public sealed class RatInHole : Character
     {

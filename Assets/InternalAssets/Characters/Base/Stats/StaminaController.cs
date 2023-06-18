@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using TheRat.Infrastucture;
+using SouthBasement.Infrastucture;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Characters
+namespace SouthBasement.Characters
 {
     public sealed class StaminaController
     {

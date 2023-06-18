@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Generation
+namespace SouthBasement.Generation
 {
     public sealed class GenerationController : IInitializable
     {

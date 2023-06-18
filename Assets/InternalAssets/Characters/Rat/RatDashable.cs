@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
-using TheRat.InputServices;
+using SouthBasement.InputServices;
 using UnityEngine;
 
-namespace TheRat.Characters.Rat
+namespace SouthBasement.Characters.Rat
 {
     public sealed class RatDashable : IDashable
     {
@@ -55,7 +55,7 @@ namespace TheRat.Characters.Rat
             {
                 var dashMove = GetPositionInVector2() + _movable.Movement;
                 
-                var dashStopTime = Time.time + 0.2;
+                var dashStopTime = Time.time + 0.15;
                 
                 while (Time.time < dashStopTime)
                 {

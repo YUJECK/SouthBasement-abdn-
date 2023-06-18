@@ -1,8 +1,8 @@
-﻿using TheRat.InventorySystem;
+﻿using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Characters.Base
+namespace SouthBasement.Characters.Base
 {
     public sealed class WeaponSpriteSetter : MonoBehaviour
     {

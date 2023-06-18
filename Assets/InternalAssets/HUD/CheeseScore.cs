@@ -1,9 +1,9 @@
-﻿using TheRat.Economy;
+﻿using SouthBasement.Economy;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.HUD
+namespace SouthBasement.HUD
 {
     [AddComponentMenu("HUD/CheeseScore")]
     [RequireComponent(typeof(TMP_Text))]

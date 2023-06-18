@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TheRat.AI
+namespace SouthBasement.AI
 {
     public abstract class EnemyHealth : MonoBehaviour, IDamagable
     {

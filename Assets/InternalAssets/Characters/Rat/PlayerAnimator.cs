@@ -1,8 +1,8 @@
-﻿using TheRat.InternalAssets.Scripts.Characters;
-using TheRat.InventorySystem;
+﻿using SouthBasement.InternalAssets.Scripts.Characters;
+using SouthBasement.InventorySystem;
 using UnityEngine;
 
-namespace TheRat.Characters
+namespace SouthBasement.Characters
 {
     public sealed class PlayerAnimator
     {

@@ -1,4 +1,4 @@
-﻿namespace TheRat
+﻿namespace SouthBasement
 {
     public enum Rarity
     {

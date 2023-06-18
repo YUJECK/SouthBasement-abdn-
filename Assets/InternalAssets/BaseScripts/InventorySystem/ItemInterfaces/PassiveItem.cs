@@ -1,4 +1,4 @@
-﻿namespace TheRat.InventorySystem
+﻿namespace SouthBasement.InventorySystem
 {
     public abstract class PassiveItem : Item
     {

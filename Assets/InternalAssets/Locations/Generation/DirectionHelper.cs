@@ -1,4 +1,4 @@
-﻿namespace TheRat.Generation
+﻿namespace SouthBasement.Generation
 {
     public static class DirectionHelper
     {

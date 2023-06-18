@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheRat.Generation 
+namespace SouthBasement.Generation 
 {
     public sealed class Passage : MonoBehaviour
     {

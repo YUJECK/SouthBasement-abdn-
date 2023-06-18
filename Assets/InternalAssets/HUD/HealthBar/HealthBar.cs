@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace TheRat.HUD
+namespace SouthBasement.HUD
 {
     [AddComponentMenu("HUD/HealthBar")]
     public sealed class HealthBar : MonoBehaviour

@@ -2,7 +2,7 @@
 using NavMeshPlus.Components;
 using UnityEngine;
 
-namespace TheRat.AI.Grid
+namespace SouthBasement.AI.Grid
 {
     public sealed class RuntimeGrid : MonoBehaviour
     {

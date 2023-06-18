@@ -1,4 +1,4 @@
-﻿namespace TheRat.Interactions
+﻿namespace SouthBasement.Interactions
 {
     public interface IInteractive
     {

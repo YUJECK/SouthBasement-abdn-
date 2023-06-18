@@ -1,7 +1,7 @@
 ﻿using System;
-using TheRat.Weapons;
+using SouthBasement.Weapons;
 
-namespace TheRat
+namespace SouthBasement
 {
     [Serializable]
     public sealed class CharacterStats

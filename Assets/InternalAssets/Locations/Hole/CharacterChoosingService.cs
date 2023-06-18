@@ -1,11 +1,11 @@
 ﻿using System;
-using TheRat.InputServices;
-using TheRat.Items;
+using SouthBasement.InputServices;
+using SouthBasement.Items;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace TheRat.Characters
+namespace SouthBasement.Characters
 {
     public sealed class CharacterChoosingService : MonoBehaviour
     {

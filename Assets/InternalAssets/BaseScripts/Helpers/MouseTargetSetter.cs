@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheRat.Helpers.Rotator
+namespace SouthBasement.Helpers.Rotator
 {
     [RequireComponent(typeof(ObjectRotator))]
     public sealed class MouseTargetSetter : MonoBehaviour

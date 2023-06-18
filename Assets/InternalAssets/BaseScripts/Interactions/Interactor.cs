@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using TheRat.InputServices;
+using SouthBasement.InputServices;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Interactions
+namespace SouthBasement.Interactions
 {
     public sealed class Interactor : MonoBehaviour
     {

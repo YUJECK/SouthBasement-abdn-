@@ -1,10 +1,10 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using TheRat.Helpers.Rotator;
+using SouthBasement.Helpers.Rotator;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.Characters
+namespace SouthBasement.Characters
 {
     public sealed class DefaultAttacker : MonoBehaviour
     {

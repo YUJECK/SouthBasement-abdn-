@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     public class CursorService : MonoBehaviour
     {

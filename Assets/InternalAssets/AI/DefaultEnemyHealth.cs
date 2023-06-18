@@ -1,9 +1,9 @@
-﻿using TheRat.Economy;
+﻿using SouthBasement.Economy;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat.AI
+namespace SouthBasement.AI
 {
     [RequireComponent(typeof(Enemy))]
     public sealed class DefaultEnemyHealth : EnemyHealth

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Zenject;
 
-namespace TheRat.InventorySystem.Weapons
+namespace SouthBasement.InventorySystem.Weapons
 {
     [RequireComponent(typeof(Image))]
     public sealed class WeaponSlot : InventorySlot<WeaponItem>
@@ -20,7 +20,10 @@ namespace TheRat.InventorySystem.Weapons
         private void CheckCurrent(WeaponItem item)
         {
             if (CurrentItem == null || item == null)
+            {
+                isCurrent.SetActive(false);
                 return;
+            }
 
             if (item.ItemID == CurrentItem.ItemID)
                 isCurrent.SetActive(true);
