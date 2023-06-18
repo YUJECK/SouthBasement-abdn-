@@ -34,11 +34,10 @@ namespace SouthBasement.InventorySystem
             
             return this;
         }
-        public bool TryAddItem<TContainer>(TContainer item, string subcontainerID = "any") 
-            where TContainer : Item
+        public bool TryAddItem(Item item, string subcontainerID = "any") 
         {
             if(item == null)
-                Debug.LogError($"You tried to add null item to {typeof(TContainer).Name} in subcontainer {subcontainerID}");
+                Debug.LogError($"You tried to add null item to {item.GetItemType()} in subcontainer {subcontainerID}");
             
             var subcontainer = GetSubContainer(item.GetItemType(), subcontainerID);
 

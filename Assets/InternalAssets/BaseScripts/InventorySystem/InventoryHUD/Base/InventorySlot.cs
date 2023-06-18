@@ -11,6 +11,12 @@ namespace SouthBasement.InventorySystem
 
         public event Action<TItem> OnSetted;
         
+        protected void DefaultAwake()
+        {
+            ItemImage = GetComponent<Image>();
+            SetItem(null);
+        }
+        
         public void SetItem(TItem item)
         {
             if(item == null)

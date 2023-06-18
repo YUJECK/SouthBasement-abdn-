@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using SouthBasement.InventorySystem;
 using Unity.Mathematics;
 using UnityEngine;
@@ -35,6 +34,19 @@ namespace SouthBasement.Items
             item.SetItem(itemSO);
             
             return item;
+        }
+        public ItemPicker SpawnItem(Item item, Vector3 position)
+        {
+            if (item == null)
+            {
+                Debug.Log("You tried to spawn null item");
+                return null;
+            }
+                
+            var picker = _diContainer.InstantiatePrefabForComponent<ItemPicker>(_itemPickerPrefab, position, quaternion.identity, null);
+            picker.SetItem(item);
+            
+            return picker;
         }
         
         public void Add(Item[] toAdd)

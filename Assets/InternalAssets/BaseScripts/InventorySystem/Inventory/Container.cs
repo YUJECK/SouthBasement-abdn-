@@ -59,7 +59,7 @@ namespace SouthBasement.InventorySystem
 
         public bool TryAddItem(Item item, Action<Type, Item> callback = null)
         {
-            if (item.GetType().BaseType != ContainerType)
+            if (item.GetItemType() != ContainerType)
                 return false; 
             
             if (_container.TryAdd(item.ItemID, item))

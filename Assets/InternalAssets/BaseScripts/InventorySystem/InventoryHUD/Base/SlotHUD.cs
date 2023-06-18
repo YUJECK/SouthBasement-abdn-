@@ -15,8 +15,8 @@ namespace SouthBasement.HUD
 
         protected virtual void OnAdded(Item item)
         {
-            if(item is TItem)
-                GetEmpty()?.SetItem(item as TItem);
+            if(item is TItem itemToAdd)
+                GetEmpty()?.SetItem(itemToAdd);
         }
 
         protected virtual void OnRemoved(string itemID)
@@ -47,7 +47,7 @@ namespace SouthBasement.HUD
         }
 
         
-        protected  TSlot GetEmpty()
+        protected TSlot GetEmpty()
         {
             foreach (var slot in _slots)
             {

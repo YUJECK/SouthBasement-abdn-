@@ -1,4 +1,5 @@
-﻿using SouthBasement.InventorySystem;
+﻿using System;
+using SouthBasement.InventorySystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +10,7 @@ namespace SouthBasement.HUD
     {
         private void Awake()
         {
-            ItemImage = GetComponent<Image>();
-            SetItem(null);
+            DefaultAwake();
         }
     }
 }

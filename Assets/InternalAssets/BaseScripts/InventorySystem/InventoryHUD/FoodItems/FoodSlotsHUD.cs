@@ -1,18 +1,20 @@
 ﻿using SouthBasement.InventorySystem;
 using Zenject;
 
-namespace SouthBasement.HUD
+namespace SouthBasement.HUD.FoodItems
 {
-    public sealed class PassiveItemsHUD : SlotHUD<PassiveItemsSlot, PassiveItem>
+    public sealed class FoodSlotsHUD : SlotHUD<FoodItemSlot, FoodItem>
     {
         private Inventory _inventory;
 
         [Inject]
-        private void Construct(Inventory inventory) 
+        private void Construct(Inventory inventory)
             => _inventory = inventory;
 
         private void Awake()
-            => SetSlotsInChildren();
+        {
+            SetSlotsInChildren();
+        }
 
         private void OnEnable()
         {
