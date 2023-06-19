@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using SouthBasement.Helpers;
 using SouthBasement.InventorySystem;
 using Unity.Mathematics;
@@ -16,7 +17,7 @@ namespace SouthBasement.Items
 
         private DiContainer _diContainer;
         
-        public ItemsContainer(Item[] items, DiContainer diContainer)
+        public ItemsContainer(Item[] items, ItemPicker itemPickerPrefab, DiContainer diContainer)
         {
             _items = new Dictionary<Rarity, Dictionary<Type, Dictionary<string, InventoryContainer>>>()
             {
@@ -26,13 +27,17 @@ namespace SouthBasement.Items
                 {Rarity.A, new()},
             };
             
-            Add(items);    
+            Add(items);
+
+            _itemPickerPrefab = itemPickerPrefab;
+            _diContainer = diContainer;
         }
 
         public ItemPicker SpawnItem(string id, Vector3 position)
         {
             var itemSO = ScriptableObject.Instantiate(Get(id));
             var item = _diContainer.InstantiatePrefabForComponent<ItemPicker>(_itemPickerPrefab, position, quaternion.identity, null);
+            
             item.SetItem(itemSO);
             
             return item;
