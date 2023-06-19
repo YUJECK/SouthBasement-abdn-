@@ -7,7 +7,7 @@ namespace SouthBasement.InventorySystem
     public abstract class InventorySlot<TItem> : MonoBehaviour where TItem : Item 
     {
         protected Image ItemImage;
-        public TItem CurrentItem { get; private set; }
+        public TItem CurrentItem { get; protected set; }
 
         public event Action<TItem> OnSetted;
         
@@ -17,7 +17,7 @@ namespace SouthBasement.InventorySystem
             SetItem(null);
         }
         
-        public void SetItem(TItem item)
+        public virtual void SetItem(TItem item)
         {
             if(item == null)
                 ItemImage.color = Color.clear;
@@ -29,6 +29,11 @@ namespace SouthBasement.InventorySystem
 
             CurrentItem = item;
             OnSetted?.Invoke(CurrentItem);
+        }
+
+        protected void InvokeOnSetted(TItem item)
+        {
+            OnSetted?.Invoke(item);
         }
     }
 }

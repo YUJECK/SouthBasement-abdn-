@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SouthBasement.InventorySystem
 {
-    public sealed class Container
+    public sealed class InventoryContainer : IInventoryContainer
     {
         private readonly Dictionary<string, Item> _container = new();
         public Type ContainerType { get; private set; }
@@ -15,7 +15,7 @@ namespace SouthBasement.InventorySystem
 
         public int ItemsCount => _container.Count;
         
-        public void Init<TContainerType>()
+        public void Init<TContainerType>() where TContainerType : Item
             => ContainerType = typeof(TContainerType);
 
         public Item GetItem(string id)

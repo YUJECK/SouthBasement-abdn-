@@ -7,13 +7,14 @@ namespace SouthBasement.InventorySystem
 {
     public sealed class ItemsDictionaryContainer
     {
-        private readonly Dictionary<Type, Dictionary<string, Container>> _itemsContainers = new();
+        private readonly Dictionary<Type, Dictionary<string, IInventoryContainer>> _itemsContainers = new();
 
-        public ItemsDictionaryContainer AddContainer<TContainer>(string mainSubContainer = "any") where TContainer : Item
+        public ItemsDictionaryContainer AddContainer<TContainer>(IInventoryContainer container, string mainSubContainer = "any")
+            where TContainer : Item
         {
-            if (_itemsContainers.TryAdd(typeof(TContainer), new Dictionary<string, Container>()))
+            if (_itemsContainers.TryAdd(typeof(TContainer), new Dictionary<string, IInventoryContainer>()))
             {
-                var newContainer = new Container();
+                var newContainer = container;
                 newContainer.Init<TContainer>();
                 
                 _itemsContainers[typeof(TContainer)].TryAdd(mainSubContainer, newContainer);
@@ -26,7 +27,7 @@ namespace SouthBasement.InventorySystem
         {
             if (_itemsContainers.TryGetValue(typeof(TContainer), out var container))
             {
-                var newContainer = new Container();
+                var newContainer = new InventoryContainer();
                 newContainer.Init<TContainer>();
                 
                 container.TryAdd(subcontaienr, newContainer);
@@ -84,7 +85,7 @@ namespace SouthBasement.InventorySystem
         public Item[] GetAllInSubContainerOfContainer<TContainer>(string subContainerID) 
             => GetSubContainer(typeof(TContainer), subContainerID).GetAllInContainer();
 
-        private Container GetSubContainer(Type type, string subcontainerID)
+        private IInventoryContainer GetSubContainer(Type type, string subcontainerID)
         {
             if (_itemsContainers.TryGetValue(type, out var container))
             {
@@ -96,7 +97,7 @@ namespace SouthBasement.InventorySystem
             return null;
         }
 
-        private Container FindWithItem(string id)
+        private IInventoryContainer FindWithItem(string id)
         {
             foreach (var container in _itemsContainers)
             {

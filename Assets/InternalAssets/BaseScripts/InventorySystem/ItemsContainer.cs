@@ -11,14 +11,14 @@ namespace SouthBasement.Items
 {
     public sealed class ItemsContainer
     {
-        private readonly Dictionary<Rarity, Dictionary<Type, Dictionary<string, Container>>> _items;
+        private readonly Dictionary<Rarity, Dictionary<Type, Dictionary<string, InventoryContainer>>> _items;
         private ItemPicker _itemPickerPrefab;
 
         private DiContainer _diContainer;
         
         public ItemsContainer(Item[] items, DiContainer diContainer)
         {
-            _items = new Dictionary<Rarity, Dictionary<Type, Dictionary<string, Container>>>()
+            _items = new Dictionary<Rarity, Dictionary<Type, Dictionary<string, InventoryContainer>>>()
             {
                 {Rarity.D, new()},
                 {Rarity.C, new()},
@@ -55,8 +55,8 @@ namespace SouthBasement.Items
         {
             foreach (var item in toAdd)
             {
-                _items[item.Rarity].TryAdd(item.GetItemType(), new Dictionary<string, Container>());
-                _items[item.Rarity][item.GetItemType()].TryAdd(item.ItemCategory, new Container());
+                _items[item.Rarity].TryAdd(item.GetItemType(), new Dictionary<string, InventoryContainer>());
+                _items[item.Rarity][item.GetItemType()].TryAdd(item.ItemCategory, new InventoryContainer());
                 
                 _items[item.Rarity][item.GetItemType()][item.ItemCategory].TryAddItem(item);
             }
@@ -98,8 +98,8 @@ namespace SouthBasement.Items
 
             foreach (var rarityContainerPair in _items)
             {
-                Dictionary<Type, Dictionary<string, Container>> rarityContainer = rarityContainerPair.Value;
-                foreach (KeyValuePair<Type, Dictionary<string, Container>> typeContainerPair in rarityContainer)
+                Dictionary<Type, Dictionary<string, InventoryContainer>> rarityContainer = rarityContainerPair.Value;
+                foreach (KeyValuePair<Type, Dictionary<string, InventoryContainer>> typeContainerPair in rarityContainer)
                 {
                     if (typeContainerPair.Value.TryGetValue(category, out var container)) items.AddRange(container.GetAllInContainer());
                 }
@@ -109,7 +109,7 @@ namespace SouthBasement.Items
         }
         public Item GetRandomInRarityCategory(Rarity rarity, string category)
         {
-            Dictionary<Type, Dictionary<string, Container>> rarityContainer = _items[rarity];
+            Dictionary<Type, Dictionary<string, InventoryContainer>> rarityContainer = _items[rarity];
             List<Item> items = new();
 
             foreach (var typeContainerPair in rarityContainer)

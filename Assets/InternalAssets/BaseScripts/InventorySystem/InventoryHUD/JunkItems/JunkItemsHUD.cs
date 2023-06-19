@@ -1,5 +1,4 @@
 ﻿using SouthBasement.InventorySystem;
-using UnityEngine;
 using Zenject;
 
 namespace SouthBasement.HUD
@@ -14,6 +13,28 @@ namespace SouthBasement.HUD
         private void Awake()
         {
             SetSlotsInChildren();
+        }
+
+        protected override void OnAdded(Item item)
+        {
+            if (item is JunkItem itemToAdd)
+            {
+                var slot = Find(itemToAdd.ItemID);
+
+                if (slot != null)
+                {
+                    slot.AddItem();
+                    return;
+                }
+
+                slot = GetEmpty();
+                slot.SetItem(itemToAdd);
+            }
+        }
+
+        protected override void OnRemoved(string itemID)
+        {
+            Find(itemID)?.RemoveItem();
         }
 
         private void OnEnable()

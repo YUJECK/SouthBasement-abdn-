@@ -22,12 +22,12 @@ namespace SouthBasement.InventorySystem
             MainContainer = new ItemsDictionaryContainer();
 
             MainContainer
-                .AddContainer<JunkItem>()
-                .AddContainer<FoodItem>()
-                .AddContainer<ActiveItem>()
-                .AddContainer<PassiveItem>();
+                .AddContainer<JunkItem>(new StackableInventoryContainer())
+                .AddContainer<FoodItem>(new InventoryContainer())
+                .AddContainer<ActiveItem>(new InventoryContainer())
+                .AddContainer<PassiveItem>(new InventoryContainer());
 
-            MainContainer.AddContainer<WeaponItem>()
+            MainContainer.AddContainer<WeaponItem>(new InventoryContainer())
                 .AddSubContainerTo<WeaponItem>("bone_made")
                 .AddSubContainerTo<WeaponItem>("wooden_made");
         }
