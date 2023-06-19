@@ -23,6 +23,9 @@ namespace SouthBasement.InventorySystem
 
         private void OnRemoved(string id)
         {
+            if(_activeItem == null)
+                return;
+            
             if (id == _activeItem.ItemID)
                 _activeItem = null;
         }

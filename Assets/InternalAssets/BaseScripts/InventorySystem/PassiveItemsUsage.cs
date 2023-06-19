@@ -17,6 +17,8 @@ namespace SouthBasement.InventorySystem
 
         private void OnRemoved(string itemID)
         {
+            if (!_passiveItems.ContainsKey(itemID)) return;
+            
             _passiveItems[itemID].OnPutOut();
             _passiveItems.Remove(itemID);
         }
