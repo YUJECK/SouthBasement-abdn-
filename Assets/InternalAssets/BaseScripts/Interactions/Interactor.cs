@@ -17,8 +17,10 @@ namespace SouthBasement.Interactions
         
         private void Interact()
         {
-            foreach (var interactive in _availableInteractions)
-                interactive.Interact();
+            IInteractive[] interactives = _availableInteractions.ToArray();
+            
+            foreach (var interactive in interactives)
+                interactive?.Interact();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
