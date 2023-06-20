@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using SouthBasement.InputServices;
 using SouthBasement.InventorySystem;
-using TheRat.Characters.Stats;
+using SouthBasement.Characters.Stats;
 
 namespace SouthBasement.Characters.Rat
 {
@@ -14,9 +14,9 @@ namespace SouthBasement.Characters.Rat
         private readonly WeaponsUsage _weaponsUsage;
         private readonly StaminaController _staminaController;
 
-        private bool _blocked;
 
         public WeaponItem Weapon => _weaponsUsage.CurrentWeapon;
+        public bool Blocked { get; set; }
 
         public event Action<float> OnAttacked;
 
@@ -39,7 +39,7 @@ namespace SouthBasement.Characters.Rat
 
         public void Attack()
         {
-            if (_blocked || !_staminaController.TryDo(_attackStats.CurrentStats.StaminaRequire)) 
+            if (Blocked || !_staminaController.TryDo(_attackStats.CurrentStats.StaminaRequire)) 
                 return;
             
             if(Weapon != null)
@@ -56,10 +56,9 @@ namespace SouthBasement.Characters.Rat
         
         private async void Culldown(float culldown)
         {
-            _blocked = true;
+            Blocked = true;
             await UniTask.Delay(TimeSpan.FromSeconds(culldown));
-            _blocked = false;
+            Blocked = false;
         }
-        
     }
 }

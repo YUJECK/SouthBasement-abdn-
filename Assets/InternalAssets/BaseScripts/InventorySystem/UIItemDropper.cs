@@ -1,6 +1,6 @@
 ﻿using SouthBasement.Characters;
 using SouthBasement.UI;
-using TheRat.InventoryHUD.Base;
+using SouthBasement.InventoryHUD.Base;
 using UnityEngine;
 using Zenject;
 

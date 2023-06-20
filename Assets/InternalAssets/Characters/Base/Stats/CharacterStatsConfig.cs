@@ -1,7 +1,7 @@
 ﻿using System;
 using SouthBasement.Characters;
 using SouthBasement.Weapons;
-using TheRat.Characters.Stats;
+using SouthBasement.Characters.Stats;
 using UnityEngine;
 
 namespace SouthBasement

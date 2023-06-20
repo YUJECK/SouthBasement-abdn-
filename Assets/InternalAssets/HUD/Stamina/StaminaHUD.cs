@@ -1,4 +1,4 @@
-﻿using TheRat.Characters.Stats;
+﻿using SouthBasement.Characters.Stats;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using SouthBasement.Infrastucture;
-using TheRat.Characters.Stats;
+using SouthBasement.Characters.Stats;
 using UnityEngine;
 
 namespace SouthBasement.Characters

@@ -1,6 +1,6 @@
 using System;
 using SouthBasement.InputServices;
-using TheRat.Characters.Stats;
+using SouthBasement.Characters.Stats;
 using UnityEngine;
 
 namespace SouthBasement.Characters.Rat

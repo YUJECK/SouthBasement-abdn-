@@ -1,5 +1,5 @@
 ﻿using System;
-using TheRat.InventoryHUD.Base;
+using SouthBasement.InventoryHUD.Base;
 using UnityEngine;
 using UnityEngine.UI;
 

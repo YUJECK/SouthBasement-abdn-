@@ -1,6 +1,6 @@
 ﻿using SouthBasement.InputServices;
 using SouthBasement.InventorySystem;
-using TheRat.Characters.Stats;
+using SouthBasement.Characters.Stats;
 using Zenject;
 
 namespace SouthBasement

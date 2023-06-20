@@ -1,6 +1,6 @@
 ﻿using System;
 using SouthBasement.Characters;
-using TheRat.Characters.Stats;
+using SouthBasement.Characters.Stats;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

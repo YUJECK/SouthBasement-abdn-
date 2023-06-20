@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TheRat.Characters.Stats
+namespace SouthBasement.Characters.Stats
 {
     [Serializable]
     public sealed class CharacterMoveStats

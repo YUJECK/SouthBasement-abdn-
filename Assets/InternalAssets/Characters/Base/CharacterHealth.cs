@@ -1,5 +1,5 @@
 ﻿using System;
-using TheRat.Characters.Stats;
+using SouthBasement.Characters.Stats;
 using UnityEngine;
 using Zenject;
 

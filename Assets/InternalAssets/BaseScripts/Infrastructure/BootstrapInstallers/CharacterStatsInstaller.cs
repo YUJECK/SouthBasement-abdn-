@@ -1,7 +1,7 @@
 ﻿using SouthBasement.Characters;
 using SouthBasement.Helpers;
 using SouthBasement.Infrastucture;
-using TheRat.Characters.Stats;
+using SouthBasement.Characters.Stats;
 using UnityEngine;
 using Zenject;
 
@@ -19,7 +19,8 @@ namespace SouthBasement
         
         public override void InstallBindings()
         {
-            CharacterConfig config = Resources.Load<CharacterConfig>(ResourcesPathHelper.RatConfig);
+            CharacterConfig configPrefab = Resources.Load<CharacterConfig>(ResourcesPathHelper.RatConfig);
+            var config = Instantiate(configPrefab);
             CharacterStats stats = new(config.DefaultStats);
 
             Container

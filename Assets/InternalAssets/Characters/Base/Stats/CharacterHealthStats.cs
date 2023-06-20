@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TheRat.Characters.Stats
+namespace SouthBasement.Characters.Stats
 {
     [Serializable]
     public sealed class CharacterHealthStats
@@ -9,10 +9,10 @@ namespace TheRat.Characters.Stats
         [field: SerializeField] public int MaximumHealth { get; private set; } = 60;
         [field: SerializeField] public int CurrentHealth { get; private set; } = 60;
 
-        public Action<int> OnHealthChanged;
-        public Action<int> OnMaximumHealthChanged;
+        public event Action<int> OnHealthChanged;
+        public event Action<int> OnMaximumHealthChanged;
         
-        public Action OnDied;
+        public event Action OnDied;
         
         public void SetHealth(int currentHealth)
             => SetHealth(currentHealth, MaximumHealth);

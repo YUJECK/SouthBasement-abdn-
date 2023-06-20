@@ -2,7 +2,7 @@
 using SouthBasement.Weapons;
 using UnityEngine;
 
-namespace TheRat.Characters.Stats
+namespace SouthBasement.Characters.Stats
 {
     [Serializable]
     public sealed class CharacterAttackStats

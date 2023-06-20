@@ -14,6 +14,7 @@ namespace SouthBasement.Characters
         private readonly int _attackAnimation = Animator.StringToHash("Attack");
         private readonly int _dashTrigger = Animator.StringToHash("Dash");
         private readonly int _hasWeapon = Animator.StringToHash("HasWeapon");
+        private readonly int _diedTrigger = Animator.StringToHash("RatDied");
 
         public PlayerAnimator(Animator animator, AttackRangeAnimator attackRangeAnimator, WeaponsUsage weaponsUsage)
         {
@@ -37,5 +38,7 @@ namespace SouthBasement.Characters
 
         public void PlayDash()
             => _animator.SetTrigger(_dashTrigger);
+
+        public void PlayDead() => _animator.SetBool(_diedTrigger, true);
     }
 }

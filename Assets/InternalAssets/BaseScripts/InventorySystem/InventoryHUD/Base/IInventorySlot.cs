@@ -1,6 +1,6 @@
 ﻿using SouthBasement.InventorySystem;
 
-namespace TheRat.InventoryHUD.Base
+namespace SouthBasement.InventoryHUD.Base
 {
     public interface IInventorySlot
     {

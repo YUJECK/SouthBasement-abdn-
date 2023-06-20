@@ -1,3 +1,4 @@
+using System;
 using SouthBasement.InputServices;
 using UnityEngine;
 using Zenject;
@@ -12,6 +13,15 @@ namespace SouthBasement.HUD
         private void Construct(IInputService inputSystem)
         {
             inputSystem.InventoryOpen += OnInventoryOpen;
+        }
+
+        private void Awake()
+            => Disable();
+
+        private void Disable()
+        {
+            foreach (var gameObject in _objects)
+                gameObject.SetActive(false);
         }
 
         private void OnInventoryOpen()
