@@ -35,7 +35,7 @@ namespace SouthBasement
 
         private void BindCharacter()
         {
-            Character characterPrefab = Resources.Load<Character>(ResourcesPathHelper.Player);
+            Character characterPrefab = Resources.Load<Character>(ResourcesPathHelper.RatPrefab);
 
             Character character =
                 Container

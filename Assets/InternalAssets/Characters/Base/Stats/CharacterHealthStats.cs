@@ -1,11 +1,13 @@
 ﻿using System;
+using UnityEngine;
 
 namespace TheRat.Characters.Stats
 {
+    [Serializable]
     public sealed class CharacterHealthStats
     {
-        public int MaximumHealth { get; private set; } = 60;
-        public int CurrentHealth { get; private set; } = 60;
+        [field: SerializeField] public int MaximumHealth { get; private set; } = 60;
+        [field: SerializeField] public int CurrentHealth { get; private set; } = 60;
 
         public Action<int> OnHealthChanged;
         public Action<int> OnMaximumHealthChanged;

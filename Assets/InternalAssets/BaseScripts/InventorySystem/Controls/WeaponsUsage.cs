@@ -7,15 +7,15 @@ namespace SouthBasement.InventorySystem
     {
         public WeaponItem CurrentWeapon { get; private set; }
         private ActiveItemUsage _activeItemUsage;
-        private readonly CharacterAttackStats _characterStats;
+        private readonly CharacterAttackStats _attackStats;
         private readonly Inventory _inventory;
 
         public event Action<WeaponItem> OnSelected;
         public event Action OnSelectedNull;
         
-        public WeaponsUsage(Inventory inventory, CharacterAttackStats characterStats)
+        public WeaponsUsage(Inventory inventory, CharacterAttackStats attackStats)
         {
-            _characterStats = characterStats;
+            _attackStats = attackStats;
             _inventory = inventory;
             
             inventory.OnAdded += SetCurrent;
@@ -30,6 +30,7 @@ namespace SouthBasement.InventorySystem
             if(CurrentWeapon.ItemID == itemID)
             {
                 CurrentWeapon = null;
+                _attackStats.CurrentStats = _attackStats.DefaultAttackStatsConfig;
                 OnSelectedNull?.Invoke();
             }
         }
@@ -44,7 +45,7 @@ namespace SouthBasement.InventorySystem
             if (item.GetItemType() == typeof(WeaponItem))
             {
                 CurrentWeapon = item as WeaponItem;
-                _characterStats.CurrentStats = CurrentWeapon.AttackStatsConfig;
+                _attackStats.CurrentStats = CurrentWeapon.AttackStatsConfig;
                 
                 OnSelected?.Invoke(CurrentWeapon);
             }

@@ -1,11 +1,13 @@
 ﻿using System;
+using UnityEngine;
 
 namespace SouthBasement
 {
+    [Serializable]
     public class ObservableVariable<TVariable>
     {
         public event Action<TVariable> OnChanged;
-        private TVariable _value;
+        [SerializeField] private TVariable _value;
 
         public TVariable Value
         {

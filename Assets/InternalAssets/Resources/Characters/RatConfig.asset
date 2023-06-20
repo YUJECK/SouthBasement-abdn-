@@ -18,12 +18,19 @@ MonoBehaviour:
   <CharacterItems>k__BackingField:
   - {fileID: 11400000, guid: d39ef62b4314ffb4986139187d15410d, type: 2}
   <DefaultStats>k__BackingField:
-    <WeaponStats>k__BackingField:
-      <Damage>k__BackingField: 12
-      <AttackRange>k__BackingField: 0.4
-      <AttackRate>k__BackingField: 1
-      <StaminaRequire>k__BackingField: 100
-    <DefaultMoveSpeed>k__BackingField: 5
-    <DefaultStamina>k__BackingField: 100
-    <DefaultMaximumHealth>k__BackingField: 60
-    <DefaultCurrentHealth>k__BackingField: 60
+    AttackStats:
+      <DefaultAttackStatsConfig>k__BackingField:
+        <Damage>k__BackingField: 12
+        <AttackRange>k__BackingField: 0.4
+        <AttackRate>k__BackingField: 1
+        <StaminaRequire>k__BackingField: 10
+    HealthStats:
+      <MaximumHealth>k__BackingField: 80
+      <CurrentHealth>k__BackingField: 80
+    StaminaStats:
+      <MaximumStamina>k__BackingField:
+        _value: 100
+      <StaminaIncreaseRate>k__BackingField: 0.1
+    MoveStats:
+      <MoveSpeed>k__BackingField: 5
+      <DashStaminaRequire>k__BackingField: 10

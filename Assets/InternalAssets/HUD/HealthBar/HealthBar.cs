@@ -1,4 +1,5 @@
-﻿using SouthBasement.Characters;
+﻿using System;
+using SouthBasement.Characters;
 using TheRat.Characters.Stats;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,11 @@ namespace SouthBasement.HUD
         {
             _characterStats = characterStats;
             characterStats.OnHealthChanged += OnHealthChanged;
+        }
+
+        private void Awake()
+        {
+            OnHealthChanged(_characterStats.CurrentHealth);
         }
 
         private void OnHealthChanged(int health)
