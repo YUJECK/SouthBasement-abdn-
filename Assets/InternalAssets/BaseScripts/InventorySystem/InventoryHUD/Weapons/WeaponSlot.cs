@@ -4,7 +4,6 @@ using Zenject;
 
 namespace SouthBasement.InventorySystem.Weapons
 {
-    [RequireComponent(typeof(Image))]
     public sealed class WeaponSlot : InventorySlot<WeaponItem>
     {
         private WeaponsUsage _weaponUsage;
@@ -33,7 +32,6 @@ namespace SouthBasement.InventorySystem.Weapons
 
         private void Awake()
         {
-            ItemImage = GetComponent<Image>();
             GetComponentInParent<Button>().onClick.AddListener(SetCurrent);
             
             OnSetted += CheckCurrent;

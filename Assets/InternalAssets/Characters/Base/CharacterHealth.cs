@@ -1,4 +1,5 @@
 ﻿using System;
+using TheRat.Characters.Stats;
 using UnityEngine;
 using Zenject;
 
@@ -6,20 +7,20 @@ namespace SouthBasement.Characters
 {
     public sealed class CharacterHealth : MonoBehaviour, IDamagable
     {
-        private CharacterStats _characterStats;
+        private CharacterHealthStats _healthStats;
 
-        public int CurrentHealth => _characterStats.CurrentHealth;
+        public int CurrentHealth => _healthStats.CurrentHealth;
         public event Action<int> OnDamaged;
 
         [Inject]
-        private void Construct(CharacterStats characterStats)
+        private void Construct(CharacterHealthStats characterStats)
         {
-            _characterStats = characterStats;
+            _healthStats = characterStats;
         }
         
         public void Damage(int damage)
         {
-            _characterStats.SetHealth(_characterStats.CurrentHealth - damage);
+            _healthStats.SetHealth(_healthStats.CurrentHealth - damage);
             OnDamaged?.Invoke(CurrentHealth);
         }
     }

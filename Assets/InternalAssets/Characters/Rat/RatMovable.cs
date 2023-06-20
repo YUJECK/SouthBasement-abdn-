@@ -1,5 +1,6 @@
 using System;
 using SouthBasement.InputServices;
+using TheRat.Characters.Stats;
 using UnityEngine;
 
 namespace SouthBasement.Characters.Rat
@@ -11,16 +12,16 @@ namespace SouthBasement.Characters.Rat
 
         private readonly Rigidbody2D _rigidbody2d;
         private readonly IInputService _inputs;
-        private readonly CharacterStats _characterStats;
+        private readonly CharacterMoveStats _moveStats;
 
         public event Action<Vector2> OnMoved;
         public event Action OnMoveReleased;
 
-        public RatMovable(IInputService inputs, Rigidbody2D rigidbody2D, CharacterStats characterStats)
+        public RatMovable(IInputService inputs, Rigidbody2D rigidbody2D, CharacterMoveStats moveStats)
         {
             _inputs = inputs;
             _rigidbody2d = rigidbody2D;
-            _characterStats = characterStats;
+            _moveStats = moveStats;
 
             _inputs.OnMoved += Move;
         }
@@ -32,7 +33,7 @@ namespace SouthBasement.Characters.Rat
 
         public void Move(Vector2 movement)
         {
-            Movement = movement * _characterStats.MoveSpeed.Value;
+            Movement = movement * _moveStats.MoveSpeed;
             
             if (CanMove)
             {

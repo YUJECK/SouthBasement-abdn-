@@ -4,7 +4,6 @@ using Zenject;
 
 namespace SouthBasement.InventorySystem
 {
-    [RequireComponent(typeof(Image))]
     [AddComponentMenu("HUD/Inventory/ActiveItemSlot")]
     public sealed class ActiveItemSlot : InventorySlot<ActiveItem>
     {
@@ -34,7 +33,6 @@ namespace SouthBasement.InventorySystem
 
         private void Awake()
         {
-            ItemImage = GetComponent<Image>();
             GetComponentInParent<Button>().onClick.AddListener(SetCurrent);
             
             OnSetted += CheckCurrent;

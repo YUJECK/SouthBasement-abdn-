@@ -12,8 +12,6 @@ namespace SouthBasement.HUD.FoodItems
         }
 
         private void OnClick()
-        {
-            CurrentItem?.Eat();
-        }
+            => CurrentItem?.Eat();
     }
 }

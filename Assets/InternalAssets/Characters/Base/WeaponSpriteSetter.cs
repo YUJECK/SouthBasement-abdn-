@@ -11,12 +11,15 @@ namespace SouthBasement.Characters.Base
         [Inject]
         private void Construct(WeaponsUsage weaponsUsage)
         {
-            weaponsUsage.OnSelected += item => _weaponSprite.sprite = item.ItemSprite;
+            weaponsUsage.OnSelected += item =>
+            {
+                _weaponSprite.sprite = item.ItemSprite;
+                _weaponSprite.color = Color.white;
+            };
+            weaponsUsage.OnSelectedNull += () => _weaponSprite.color = Color.clear;
         }
 
         private void Awake()
-        {
-            _weaponSprite = GetComponent<SpriteRenderer>();
-        }
+            => _weaponSprite = GetComponent<SpriteRenderer>();
     }
 }

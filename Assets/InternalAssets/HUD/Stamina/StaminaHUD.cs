@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TheRat.Characters.Stats;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
@@ -10,10 +11,10 @@ namespace SouthBasement.HUD
         private Image _stamineScale;
 
         [Inject]
-        private void Construct(CharacterStats characterStats)
+        private void Construct(CharacterStaminaStats staminaStats)
         {
-            characterStats.Stamina.OnChanged +=
-                stamine => _stamineScale.fillAmount = (float)stamine / characterStats.MaximumStamina;
+            staminaStats.Stamina.OnChanged +=
+                stamine => _stamineScale.fillAmount = (float)stamine / staminaStats.MaximumStamina.Value;
         }
         
         private void Awake()

@@ -1,5 +1,5 @@
 ﻿using System;
-using SouthBasement.InputServices;
+using TheRat.Characters.Stats;
 
 namespace SouthBasement.InventorySystem
 {
@@ -7,17 +7,31 @@ namespace SouthBasement.InventorySystem
     {
         public WeaponItem CurrentWeapon { get; private set; }
         private ActiveItemUsage _activeItemUsage;
-        private readonly CharacterStats _characterStats;
+        private readonly CharacterAttackStats _characterStats;
         private readonly Inventory _inventory;
 
         public event Action<WeaponItem> OnSelected;
+        public event Action OnSelectedNull;
         
-        public WeaponsUsage(Inventory inventory, CharacterStats characterStats)
+        public WeaponsUsage(Inventory inventory, CharacterAttackStats characterStats)
         {
             _characterStats = characterStats;
             _inventory = inventory;
             
             inventory.OnAdded += SetCurrent;
+            inventory.OnRemoved += CheckCurrent;
+        }
+
+        private void CheckCurrent(string itemID)
+        {
+            if(CurrentWeapon == null)
+                return;
+                
+            if(CurrentWeapon.ItemID == itemID)
+            {
+                CurrentWeapon = null;
+                OnSelectedNull?.Invoke();
+            }
         }
 
         ~WeaponsUsage()
@@ -30,7 +44,7 @@ namespace SouthBasement.InventorySystem
             if (item.GetItemType() == typeof(WeaponItem))
             {
                 CurrentWeapon = item as WeaponItem;
-                _characterStats.WeaponStats = CurrentWeapon.WeaponStats;
+                _characterStats.CurrentStats = CurrentWeapon.AttackStatsConfig;
                 
                 OnSelected?.Invoke(CurrentWeapon);
             }

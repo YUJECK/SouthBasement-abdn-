@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using SouthBasement.InputServices;
+using TheRat.Characters.Stats;
 using UnityEngine;
 
 namespace SouthBasement.Characters.Rat
@@ -18,18 +19,19 @@ namespace SouthBasement.Characters.Rat
         private bool _blocked;
         private readonly IInputService _inputService;
         private readonly StaminaController _staminaController;
-        private readonly CharacterStats _characterStats;
+        private readonly CharacterMoveStats _moveStats;
 
         public event Action OnDashed;
 
-        public RatDashable(IInputService inputService, IMovable movable, Transform transform, StaminaController staminaController, CharacterStats characterStats, MonoBehaviour coroutineRunner)
+        public RatDashable
+            (IInputService inputService, IMovable movable, Transform transform, StaminaController staminaController, CharacterMoveStats moveStats, MonoBehaviour coroutineRunner)
         {
             _movable = movable;
             _transform = transform;
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
             _coroutineRunner = coroutineRunner;
             _staminaController = staminaController;
-            _characterStats = characterStats;
+            _moveStats = moveStats;
 
             _inputService = inputService;
             _inputService.OnDashed += Dash;
@@ -43,7 +45,7 @@ namespace SouthBasement.Characters.Rat
 
         public void Dash()
         {
-            if (_blocked || !_staminaController.TryDo(_characterStats.DashStaminaRequire))
+            if (_blocked || !_staminaController.TryDo(_moveStats.DashStaminaRequire))
                 return;
 
             _coroutineRunner.StartCoroutine(DashCoroutine());

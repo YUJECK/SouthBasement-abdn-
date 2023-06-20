@@ -7,7 +7,7 @@ namespace SouthBasement
     [Serializable]
     public sealed class CharacterStatsConfig
     {
-        [field: SerializeField] public WeaponStats WeaponStats { get; set; } = new();
+        [field: SerializeField] public AttackStatsConfig AttackStatsConfig { get; set; } = new();
         [field: SerializeField] public float DefaultMoveSpeed { get; private set; } = 5f;
         [field: SerializeField] public int DefaultStamina { get; private set; } = 100;
         

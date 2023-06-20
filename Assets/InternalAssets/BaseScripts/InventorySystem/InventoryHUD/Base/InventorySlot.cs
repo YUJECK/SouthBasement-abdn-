@@ -1,22 +1,21 @@
 ﻿using System;
+using TheRat.InventoryHUD.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace SouthBasement.InventorySystem
 {
-    public abstract class InventorySlot<TItem> : MonoBehaviour where TItem : Item 
+    public abstract class InventorySlot<TItem> : MonoBehaviour, IInventorySlot where TItem : Item 
     {
-        protected Image ItemImage;
+        [SerializeField] protected Image ItemImage;
+
+        public Item CurrentItemNonGeneric => CurrentItem;
         public TItem CurrentItem { get; protected set; }
 
         public event Action<TItem> OnSetted;
         
-        protected void DefaultAwake()
-        {
-            ItemImage = GetComponent<Image>();
-            SetItem(null);
-        }
-        
+        protected void DefaultAwake() => SetItem(null);
+
         public virtual void SetItem(TItem item)
         {
             if(item == null)
@@ -35,5 +34,6 @@ namespace SouthBasement.InventorySystem
         {
             OnSetted?.Invoke(item);
         }
+
     }
 }

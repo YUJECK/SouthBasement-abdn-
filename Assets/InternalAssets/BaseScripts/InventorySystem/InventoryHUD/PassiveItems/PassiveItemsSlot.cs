@@ -1,8 +1,5 @@
-﻿using System;
-using SouthBasement.Characters;
+﻿using SouthBasement.Characters;
 using SouthBasement.InventorySystem;
-using SouthBasement.Items;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -12,16 +9,14 @@ namespace SouthBasement.HUD
     [RequireComponent(typeof(Image))]
     public sealed class PassiveItemsSlot : InventorySlot<PassiveItem>
     {
-        private ItemsContainer _itemsContainer;
         private Character _character;
-        private Inventory _inventory;
+        private ItemDropper _itemDropper;
 
         [Inject]
-        private void Construct(ItemsContainer itemsContainer, Character character, Inventory inventory)
+        private void Construct(ItemDropper itemDropper, Character character)
         {
-            _itemsContainer = itemsContainer;
+            _itemDropper = itemDropper;
             _character = character;
-            _inventory = inventory;
         }
         
         private void Awake()
@@ -31,14 +26,7 @@ namespace SouthBasement.HUD
             GetComponent<Button>().onClick.AddListener(DropItem);
         }
 
-        private void DropItem()
-        {
-            Vector3 spawnPosition = _character.transform.position;
-            
-            _itemsContainer
-                .SpawnItem(CurrentItem, spawnPosition)
-                .PlayMove(new Vector3(0, -1f, 0f), 15);
-            _inventory.RemoveItem(CurrentItem.ItemID);
-        }
+        private void DropItem() 
+            => _itemDropper.DropItem(CurrentItem, _character.transform.position, Vector2.down);
     }
 }

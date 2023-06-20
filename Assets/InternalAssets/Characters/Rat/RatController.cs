@@ -40,9 +40,9 @@ namespace SouthBasement.Characters.Rat
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = new(GetComponentInChildren<Animator>(), attackRangeAnimator, _weaponsUsage);
 
-            Movable = new RatMovable(_inputs, _rigidbody, Stats);
-            Attackable = new RatAttack(_inputs, Stats, attacker, _weaponsUsage, _staminaController);
-            Dashable = new RatDashable(_inputs, Movable, transform,  _staminaController, Stats, this);
+            Movable = new RatMovable(_inputs, _rigidbody, Stats.MoveStats);
+            Attackable = new RatAttack(_inputs, Stats.AttackStats, attacker, _weaponsUsage, _staminaController);
+            Dashable = new RatDashable(_inputs, Movable, transform,  _staminaController, Stats.MoveStats, this);
         }
 
         private void AddAnimationsPlayCallbacks()

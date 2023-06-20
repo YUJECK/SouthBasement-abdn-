@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using SouthBasement.Characters;
+using TheRat.Characters.Stats;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -10,10 +12,11 @@ namespace SouthBasement.HUD
     {
         [SerializeField] private TMP_Text healthScore;
         [SerializeField] private Image barFill;
-        private CharacterStats _characterStats;
+        
+        private CharacterHealthStats _characterStats;
 
         [Inject]
-        private void Construct(CharacterStats characterStats)
+        private void Construct(CharacterHealthStats characterStats)
         {
             _characterStats = characterStats;
             characterStats.OnHealthChanged += OnHealthChanged;

@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
 using Zenject;
 
 namespace SouthBasement.InventorySystem
 {
-    public sealed class PassiveItemsUsage : MonoBehaviour
+    public sealed class PassiveItemsUsage : IInitializable, ITickable, IDisposable 
     {
         private Dictionary<string, PassiveItem> _passiveItems = new();
         private Inventory _inventory;
 
-        [Inject]
-        private void Construct(Inventory inventory)
+        public PassiveItemsUsage(Inventory inventory)
         {
             _inventory = inventory;
         }
@@ -31,21 +30,20 @@ namespace SouthBasement.InventorySystem
                 passiveItem.OnPutOn();
             }
         }
-
-        private void OnEnable()
+        
+        public void Initialize()
         {
             _inventory.OnAdded += OnAddedItem;
             _inventory.OnRemoved += OnRemoved;
         }
-
-        private void OnDisable()
+        public void Dispose()
         {
             _inventory.OnAdded -= OnAddedItem;
             _inventory.OnRemoved -= OnRemoved;
         }
 
-        private void Update()
-        {
+        public void Tick()
+        {            
             foreach(var passiveItem in _passiveItems)
                 passiveItem.Value.OnRun();
         }

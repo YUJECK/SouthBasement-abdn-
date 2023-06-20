@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using SouthBasement.Infrastucture;
+using TheRat.Characters.Stats;
 using UnityEngine;
-using Zenject;
 
 namespace SouthBasement.Characters
 {
     public sealed class StaminaController
     {
-        private CharacterStats _characterStats;
+        private CharacterStaminaStats _characterStats;
         private Coroutine _increaseCoroutine;
         private ICoroutineRunner _coroutineRunner;
 
-        public StaminaController(CharacterStats characterStats, ICoroutineRunner coroutineRunner)
+        public StaminaController(CharacterStaminaStats staminaStats, ICoroutineRunner coroutineRunner)
         {
-            _characterStats = characterStats;
+            _characterStats = staminaStats;
             _coroutineRunner = coroutineRunner;
         }
         
@@ -35,7 +35,7 @@ namespace SouthBasement.Characters
 
         private IEnumerator IncreaseStamina()
         {
-            while (_characterStats.Stamina.Value < _characterStats.MaximumStamina)
+            while (_characterStats.Stamina.Value < _characterStats.MaximumStamina.Value)
             {
                 _characterStats.Stamina.Value += 1;
                 yield return new WaitForSeconds(_characterStats.StaminaIncreaseRate);

@@ -20,11 +20,7 @@ public sealed class BootstrapInstaller : MonoInstaller
     {
         BindCoroutineRunner();
         BindInputMap();
-        BindCharacterStats();
-        BindInventory();
         BindEconomy();
-        BindActiveItemUsager();
-        BindWeaponsItemUsager();
     }
 
     private void BindCoroutineRunner()
@@ -41,22 +37,6 @@ public sealed class BootstrapInstaller : MonoInstaller
             .AsSingle();
     }
 
-    private void BindCharacterStats()
-    {
-        _characterStats = new CharacterStats();
-        
-        Container
-            .Bind<CharacterStats>()
-            .FromInstance(_characterStats)
-            .AsSingle()
-            .NonLazy();
-
-        Container
-            .Bind<StaminaController>()
-            .FromInstance(new StaminaController(_characterStats, _coroutineRunner))
-            .AsSingle();
-    }
-
     private void BindInputMap()
     {
         _inputService = new InputSystemService();
@@ -66,28 +46,5 @@ public sealed class BootstrapInstaller : MonoInstaller
             .FromInstance(_inputService)
             .AsSingle()
             .NonLazy();
-    }
-    private void BindInventory()
-    {
-        _inventory = new Inventory(Container);
-        
-        Container
-            .BindInterfacesAndSelfTo<Inventory>()
-            .FromInstance(_inventory)
-            .AsSingle();
-    }
-    private void BindActiveItemUsager()
-    {
-        Container
-            .Bind<ActiveItemUsage>()
-            .FromInstance(new ActiveItemUsage(_inputService, _inventory))
-            .AsSingle();
-    }
-    private void BindWeaponsItemUsager()
-    {
-        Container
-            .Bind<WeaponsUsage>()
-            .FromInstance(new WeaponsUsage(_inventory, _characterStats))
-            .AsSingle();
     }
 }

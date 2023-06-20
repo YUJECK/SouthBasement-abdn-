@@ -2,14 +2,13 @@
 using Cysharp.Threading.Tasks;
 using SouthBasement.InputServices;
 using SouthBasement.InventorySystem;
-using SouthBasement.InternalAssets.Scripts.Characters;
-using UnityEngine;
+using TheRat.Characters.Stats;
 
 namespace SouthBasement.Characters.Rat
 {
     public sealed class RatAttack : IAttackable
     {
-        private readonly CharacterStats _characterStats;
+        private readonly CharacterAttackStats _attackStats;
         private readonly IInputService _inputService;
         private readonly DefaultAttacker _attacker;
         private readonly WeaponsUsage _weaponsUsage;
@@ -22,9 +21,9 @@ namespace SouthBasement.Characters.Rat
         public event Action<float> OnAttacked;
 
         public RatAttack
-            (IInputService inputService, CharacterStats characterStats, DefaultAttacker attacker, WeaponsUsage weaponsUsage, StaminaController staminaController)
+            (IInputService inputService, CharacterAttackStats attackStats, DefaultAttacker attacker, WeaponsUsage weaponsUsage, StaminaController staminaController)
         {
-            _characterStats = characterStats;
+            _attackStats = attackStats;
             _inputService = inputService;
             _attacker = attacker;
             _weaponsUsage = weaponsUsage;
@@ -40,19 +39,19 @@ namespace SouthBasement.Characters.Rat
 
         public void Attack()
         {
-            if (_blocked || !_staminaController.TryDo(_characterStats.WeaponStats.StaminaRequire)) 
+            if (_blocked || !_staminaController.TryDo(_attackStats.CurrentStats.StaminaRequire)) 
                 return;
             
             if(Weapon != null)
                 Weapon.OnAttack();
                 
             _attacker
-                .Attack(_characterStats.WeaponStats.Damage,
-                    _characterStats.WeaponStats.AttackRate, 
-                    _characterStats.WeaponStats.AttackRange);
+                .Attack(_attackStats.CurrentStats.Damage,
+                    _attackStats.CurrentStats.AttackRate, 
+                    _attackStats.CurrentStats.AttackRange);
                 
-            OnAttacked?.Invoke(_characterStats.WeaponStats.AttackRate);
-            Culldown(_characterStats.WeaponStats.AttackRate);
+            OnAttacked?.Invoke(_attackStats.CurrentStats.AttackRate);
+            Culldown(_attackStats.CurrentStats.AttackRate);
         } 
         
         private async void Culldown(float culldown)
