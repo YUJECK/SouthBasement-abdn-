@@ -1,12 +1,14 @@
 ﻿using System;
+using NTC.GlobalStateMachine;
 using SouthBasement.AI;
 using SouthBasement.Characters;
 using UnityEngine;
+using IdleState = NTC.GlobalStateMachine.IdleState;
 
 namespace SouthBasement.Generation
 {
     [RequireComponent(typeof(RoomDoorController))]
-    public sealed class RoomEnemyController : MonoBehaviour
+    public sealed class RoomFightController : MonoBehaviour
     {
         private Enemy[] _enemies;
 
@@ -30,7 +32,10 @@ namespace SouthBasement.Generation
             _enemiesCount--;
 
             if (_enemiesCount <= 0)
+            {
                 OnEnemiesDefeated?.Invoke();
+                GlobalStateMachine.Push<IdleState>();
+            }
         }
 
         private void OnEntered(Character obj)
@@ -40,6 +45,7 @@ namespace SouthBasement.Generation
                 if(enemy != null)
                     enemy.Enable();
             }
+            GlobalStateMachine.Push<FightState>();
         }
     }
 }

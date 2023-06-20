@@ -16,7 +16,6 @@ namespace SouthBasement.Characters.Rat
         private Rigidbody2D _rigidbody;
         private IInputService _inputs;
 
-        private PlayerAnimator _animator;
         private WeaponsUsage _weaponsUsage;
         private StaminaController _staminaController;
 
@@ -38,7 +37,7 @@ namespace SouthBasement.Characters.Rat
         private void CreateComponents()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _animator = new(GetComponentInChildren<Animator>(), attackRangeAnimator, _weaponsUsage);
+            PlayerAnimator = new(GetComponentInChildren<Animator>(), attackRangeAnimator, _weaponsUsage);
 
             Movable = new RatMovable(_inputs, _rigidbody, Stats.MoveStats);
             Attackable = new RatAttack(_inputs, Stats.AttackStats, attacker, _weaponsUsage, _staminaController);
@@ -47,10 +46,10 @@ namespace SouthBasement.Characters.Rat
 
         private void AddAnimationsPlayCallbacks()
         {
-            Movable.OnMoved += _ => _animator.PlayWalk();
-            Movable.OnMoveReleased += () => _animator.PlayIdle();
-            Attackable.OnAttacked += (_) => _animator.PlayAttack();
-            Dashable.OnDashed += () => _animator.PlayDash();
+            Movable.OnMoved += _ => PlayerAnimator.PlayWalk();
+            Movable.OnMoveReleased += () => PlayerAnimator.PlayIdle();
+            Attackable.OnAttacked += (_) => PlayerAnimator.PlayAttack();
+            Dashable.OnDashed += () => PlayerAnimator.PlayDash();
         }
 
         private void OnDestroy()

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SouthBasement.Generation
 {
-    [RequireComponent(typeof(RoomEnemyController))]
+    [RequireComponent(typeof(RoomFightController))]
     public sealed class RoomDoorController : MonoBehaviour
     {
         private PlayerEnterTrigger _playerEnterTrigger;
@@ -15,7 +15,7 @@ namespace SouthBasement.Generation
             _playerEnterTrigger.OnEntered += OnEntered;
             
             _room = GetComponentInParent<Room>();
-            GetComponent<RoomEnemyController>().OnEnemiesDefeated += () => _room.OpenAllDoors();
+            GetComponent<RoomFightController>().OnEnemiesDefeated += () => _room.OpenAllDoors();
         }
 
         private void OnEntered(Character obj)

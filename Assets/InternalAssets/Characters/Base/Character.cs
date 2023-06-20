@@ -9,6 +9,7 @@ namespace SouthBasement.Characters
         public IMovable Movable { get; protected set; }
         public IAttackable Attackable { get; protected set; }
         public IDashable Dashable { get; protected set; }
+        public PlayerAnimator PlayerAnimator { get; protected set; }
     
         public CharacterStats Stats { get; protected set; }
     }

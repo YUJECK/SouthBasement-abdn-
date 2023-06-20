@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using NTC.GlobalStateMachine;
 using UnityEngine;
 
 namespace SouthBasement.Characters.Stats
@@ -30,7 +32,10 @@ namespace SouthBasement.Characters.Stats
                 CurrentHealth = MaximumHealth;
 
             if (CurrentHealth <= 0)
+            {
+                GlobalStateMachine.Push<DiedState>();
                 OnDied?.Invoke();
+            }
                 
             OnHealthChanged?.Invoke(CurrentHealth);
         }

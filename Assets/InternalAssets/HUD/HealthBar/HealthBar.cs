@@ -1,6 +1,4 @@
-﻿using System;
-using SouthBasement.Characters;
-using SouthBasement.Characters.Stats;
+﻿using SouthBasement.Characters.Stats;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,24 +12,28 @@ namespace SouthBasement.HUD
         [SerializeField] private TMP_Text healthScore;
         [SerializeField] private Image barFill;
         
-        private CharacterHealthStats _characterStats;
+        private CharacterHealthStats _healthStats;
 
         [Inject]
         private void Construct(CharacterHealthStats characterStats)
-        {
-            _characterStats = characterStats;
-            characterStats.OnHealthChanged += OnHealthChanged;
-        }
+            => _healthStats = characterStats;
 
         private void Awake()
+            => OnHealthChanged(_healthStats.CurrentHealth);
+
+        private void OnEnable()
         {
-            OnHealthChanged(_characterStats.CurrentHealth);
+            _healthStats.OnHealthChanged += OnHealthChanged;
+            OnHealthChanged(_healthStats.CurrentHealth);
         }
+
+        private void OnDisable()
+            => _healthStats.OnHealthChanged -= OnHealthChanged;
 
         private void OnHealthChanged(int health)
         {
-            barFill.fillAmount = (float)health / _characterStats.MaximumHealth;
-            healthScore.text = $"{health} / {_characterStats.MaximumHealth}";
+            barFill.fillAmount = (float)health / _healthStats.MaximumHealth;
+            healthScore.text = $"{health} / {_healthStats.MaximumHealth}";
         }
     }
 }
