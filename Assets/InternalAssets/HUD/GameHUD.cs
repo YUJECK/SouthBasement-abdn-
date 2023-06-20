@@ -12,8 +12,8 @@ namespace SouthBasement.HUD
         [SerializeField] private Window _stamina; 
         [SerializeField] private Window _cheese;
         
-        [SerializeField] private Window _restart; 
-        
+        [SerializeField] private Window _restart;
+
         protected override void OnFight()
         {
             _minimap.Close();

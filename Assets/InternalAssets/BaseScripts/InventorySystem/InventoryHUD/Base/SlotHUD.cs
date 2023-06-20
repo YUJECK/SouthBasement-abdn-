@@ -11,7 +11,15 @@ namespace SouthBasement.HUD
         protected TSlot[] _slots;
 
         protected void SetSlotsInChildren() 
-            => _slots = GetComponentsInChildren<TSlot>();
+            => _slots = GetComponentsInChildren<TSlot>(true);
+
+        protected void UpdateInventory(Inventory inventory)
+        {
+            var items = inventory.MainContainer.GetAllInContainer<TItem>();
+            
+            foreach (var item in items)
+                GetEmpty()?.SetItem(item as TItem);
+        }
 
         protected virtual void OnAdded(Item item)
         {

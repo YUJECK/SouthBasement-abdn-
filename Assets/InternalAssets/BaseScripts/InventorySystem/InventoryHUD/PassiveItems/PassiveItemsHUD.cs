@@ -11,8 +11,11 @@ namespace SouthBasement.HUD
         private void Construct(Inventory inventory) 
             => _inventory = inventory;
 
-        private void Awake()
-            => SetSlotsInChildren();
+        private void Start()
+        {
+            SetSlotsInChildren();
+            UpdateInventory(_inventory);
+        }
 
         private void OnEnable()
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SouthBasement.InputServices;
 using UnityEngine;
 using Zenject;
@@ -8,13 +9,22 @@ namespace SouthBasement.Interactions
     public sealed class Interactor : MonoBehaviour
     {
         private readonly List<IInteractive> _availableInteractions = new();
+        private IInputService _inputService;
 
         [Inject]
-        private void Construct(IInputService inputService)
+        private void Construct(IInputService inputService) 
+            => _inputService = inputService;
+
+        private void OnEnable()
         {
-            inputService.OnInteracted += Interact;
+            _inputService.OnInteracted += Interact;
         }
-        
+
+        private void OnDisable()
+        {
+            _inputService.OnInteracted -= Interact;
+        }
+
         private void Interact()
         {
             IInteractive[] interactives = _availableInteractions.ToArray();

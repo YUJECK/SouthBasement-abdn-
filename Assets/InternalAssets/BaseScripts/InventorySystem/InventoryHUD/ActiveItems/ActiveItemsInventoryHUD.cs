@@ -18,7 +18,11 @@ namespace SouthBasement.InventorySystem
             inventory.OnRemoved += OnRemoved;
         }
 
-        private void Awake() => SetSlotsInChildren();
+        private void Awake()
+        {
+            SetSlotsInChildren();
+            UpdateInventory(_inventory);
+        }
 
         private void OnDestroy()
         {

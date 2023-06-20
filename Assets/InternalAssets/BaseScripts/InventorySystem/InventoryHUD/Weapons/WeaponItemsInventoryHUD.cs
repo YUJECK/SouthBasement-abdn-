@@ -12,7 +12,10 @@ namespace SouthBasement.InventorySystem.Weapons
             => _inventory = inventory;
 
         private void Awake()
-            => _slots = GetComponentsInChildren<WeaponSlot>();
+        {
+            _slots = GetComponentsInChildren<WeaponSlot>();
+            UpdateInventory(_inventory);
+        }
 
         private void OnEnable()
         {

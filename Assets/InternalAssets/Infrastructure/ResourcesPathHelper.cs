@@ -6,6 +6,6 @@
         public const string RatConfig = "Characters/RatConfig";
         
         public const string RoomsContainer = "Generation/RoomsContainer";
-        public const string HUD = "UI/HUD";
+        public const string HUD = "HUD";
     }
 }

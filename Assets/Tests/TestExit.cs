@@ -1,4 +1,5 @@
-﻿using SouthBasement.Interactions;
+﻿using System;
+using SouthBasement.Interactions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,11 @@ namespace TheRat.Tests
         public void Detect()
         {
             
+        }
+
+        private void Start()
+        {
+            DontDestroyOnLoad(gameObject);
         }
 
         public void Interact()

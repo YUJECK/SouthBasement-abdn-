@@ -12,8 +12,6 @@ namespace SouthBasement.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("sd;klf");
-            
             if(eventData.button == PointerEventData.InputButton.Left)
                 OnLeftClick?.Invoke();
             else if(eventData.button == PointerEventData.InputButton.Middle)

@@ -14,6 +14,7 @@ namespace SouthBasement.HUD.FoodItems
         private void Awake()
         {
             SetSlotsInChildren();
+            UpdateInventory(_inventory);
         }
 
         private void OnEnable()

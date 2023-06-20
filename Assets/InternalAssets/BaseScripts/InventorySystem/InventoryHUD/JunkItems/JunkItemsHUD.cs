@@ -13,6 +13,7 @@ namespace SouthBasement.HUD
         private void Awake()
         {
             SetSlotsInChildren();
+            UpdateInventory(_inventory);
         }
 
         protected override void OnAdded(Item item)

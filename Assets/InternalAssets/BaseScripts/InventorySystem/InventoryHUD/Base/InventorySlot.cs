@@ -14,12 +14,21 @@ namespace SouthBasement.InventorySystem
 
         public event Action<TItem> OnSetted;
         
-        protected void DefaultAwake() => SetItem(null);
+        protected void DefaultAwake()
+        {
+            if(CurrentItem == null)
+                SetItem(null);
+        }
 
         public virtual void SetItem(TItem item)
         {
-            if(item == null)
+            Debug.Log("sdf;lk");
+
+            if (item == null)
+            {
                 ItemImage.color = Color.clear;
+                Debug.Log("NUUL:LLL ITEM");
+            }
             else
             {
                 ItemImage.sprite = item.ItemSprite;
