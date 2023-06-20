@@ -8,15 +8,21 @@ namespace SouthBasement.HUD
     public sealed class SwitchableInventory : MonoBehaviour
     {
         [SerializeField] private GameObject[] _objects;
-        
+        private IInputService _inputSystem;
+
         [Inject]
         private void Construct(IInputService inputSystem)
         {
-            inputSystem.InventoryOpen += OnInventoryOpen;
+            _inputSystem = inputSystem;
         }
 
         private void Awake()
             => Disable();
+
+        private void OnEnable() 
+            => _inputSystem.InventoryOpen += OnInventoryOpen;
+        private void OnDisable() 
+            => _inputSystem.InventoryOpen -= OnInventoryOpen;
 
         private void Disable()
         {

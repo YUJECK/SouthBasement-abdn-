@@ -1,5 +1,4 @@
-﻿using System;
-using SouthBasement.InputServices;
+﻿using SouthBasement.InputServices;
 using SouthBasement.InternalAssets.Scripts.Characters;
 using SouthBasement.InventorySystem;
 using UnityEngine;
@@ -22,8 +21,9 @@ namespace SouthBasement.Characters.Rat
         [Inject]
         private void Construct(IInputService inputs, CharacterStats characterStats, WeaponsUsage weaponsUsage, StaminaController staminaController)
         {
-            this._inputs = inputs;
-            this.Stats = characterStats;
+            Stats = characterStats;
+            
+            _inputs = inputs;
             _weaponsUsage = weaponsUsage;
             _staminaController = staminaController;
         }

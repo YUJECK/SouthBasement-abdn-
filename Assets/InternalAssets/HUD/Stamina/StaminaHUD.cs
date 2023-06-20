@@ -9,17 +9,15 @@ namespace SouthBasement.HUD
     public sealed class StaminaHUD : MonoBehaviour
     {
         private Image _stamineScale;
+        private CharacterStaminaStats _staminaStats;
 
         [Inject]
-        private void Construct(CharacterStaminaStats staminaStats)
-        {
-            staminaStats.Stamina.OnChanged +=
-                stamine => _stamineScale.fillAmount = (float)stamine / staminaStats.MaximumStamina.Value;
-        }
-        
-        private void Awake()
-        {
-            _stamineScale = GetComponent<Image>();
-        }
+        private void Construct(CharacterStaminaStats staminaStats) => _staminaStats = staminaStats;
+        private void Awake() => _stamineScale = GetComponent<Image>();
+
+        private void OnEnable() => _staminaStats.Stamina.OnChanged += UpdateStamina;
+        private void OnDisable() => _staminaStats.Stamina.OnChanged -= UpdateStamina;
+ 
+        private void UpdateStamina(int stamine) => _stamineScale.fillAmount = (float)stamine / _staminaStats.MaximumStamina.Value;
     }
 }
