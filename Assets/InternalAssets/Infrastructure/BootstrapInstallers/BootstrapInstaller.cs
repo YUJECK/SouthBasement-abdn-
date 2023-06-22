@@ -1,16 +1,18 @@
 using SouthBasement.Infrastucture;
-using SouthBasement;
 using SouthBasement.Characters;
 using SouthBasement.Economy;
 using SouthBasement.Infrastructure;
 using SouthBasement.InputServices;
 using SouthBasement.InventorySystem;
+using TheRat.Helpers;
+using UnityEngine;
 using Zenject;
 
 public sealed class BootstrapInstaller : MonoInstaller
 {
     public CheeseServiceConfig CheeseServiceConfig;
     public CoroutineRunner CoroutineRunnerPrefab;
+    public Material DefaultMaterial;
     
     private IInputService _inputService;
     private ICoroutineRunner _coroutineRunner;
@@ -23,8 +25,13 @@ public sealed class BootstrapInstaller : MonoInstaller
         BindInputMap();
         BindEconomy();
         BindRunStarter();
+        BindMaterialHelper();
     }
 
+    private void BindMaterialHelper()
+    {
+        Container.Bind<MaterialHelper>().FromInstance(new MaterialHelper(DefaultMaterial));
+    }
     private void BindRunStarter()
     {
         Container.Bind<RunStarter>().FromInstance(new RunStarter(Container, _coroutineRunner)).AsSingle();

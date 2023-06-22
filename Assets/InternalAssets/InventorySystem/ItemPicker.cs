@@ -1,5 +1,6 @@
 using System.Collections;
 using SouthBasement.Interactions;
+using TheRat.Helpers;
 using UnityEngine;
 using Zenject;
 
@@ -16,14 +17,14 @@ namespace SouthBasement.InventorySystem
         
         private Inventory _inventory;
         private DiContainer _diContainer;
-        private Material _outlineMaterial;
-        private Material _defaultMaterial;
+        private MaterialHelper _materialHelper;
 
         [Inject]
-        private void Construct(Inventory inventory, DiContainer diContainer)
+        private void Construct(Inventory inventory, MaterialHelper materialHelper, DiContainer diContainer)
         {
             _diContainer = diContainer;
             _inventory = inventory;
+            _materialHelper = materialHelper;
         }
 
         private void Awake()
@@ -31,9 +32,6 @@ namespace SouthBasement.InventorySystem
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
 
-            _defaultMaterial = _spriteRenderer.material;
-            _outlineMaterial = Resources.Load<Material>("Materials/Outline");
-            
             if(item != null)
                 SetItem(item);
         }
@@ -66,7 +64,7 @@ namespace SouthBasement.InventorySystem
 
         public void Detect()
         {
-            _spriteRenderer.material = _outlineMaterial;
+            _spriteRenderer.material = _materialHelper.OutlineMaterial;
         }
 
         public void Interact()
@@ -77,7 +75,7 @@ namespace SouthBasement.InventorySystem
 
         public void DetectionReleased()
         {
-            _spriteRenderer.material = _defaultMaterial;
+            _spriteRenderer.material = _materialHelper.DefaultMaterial;
         }
     }
 }
