@@ -12,12 +12,10 @@ namespace SouthBasement.HUD
 
         [Inject]
         private void Construct(IInputService inputSystem)
-        {
-            _inputSystem = inputSystem;
-        }
+            => _inputSystem = inputSystem;
 
-        // private void Start()
-        //     => Disable();
+        private void Start()
+            => Disable();
 
         private void OnEnable() 
             => _inputSystem.InventoryOpen += OnInventoryOpen;
