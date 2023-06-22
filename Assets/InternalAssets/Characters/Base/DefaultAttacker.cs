@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using SouthBasement.Helpers.Rotator;
 using UnityEngine;
@@ -10,8 +11,9 @@ namespace SouthBasement.Characters
     {
         [SerializeField] private ObjectRotator _attackPoint;
 
-        public void Attack(int damage, float culldown, float range)
+        public IDamagable[] Attack(int damage, float culldown, float range)
         {
+            List<IDamagable> hitted = new(); 
             _attackPoint.Stop(culldown - 0.05f);
 
             var mask = LayerMask.GetMask("Enemy"); 
@@ -20,9 +22,14 @@ namespace SouthBasement.Characters
 
             foreach (var hit in hits)
             {
-                if(!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
+                if (!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
+                {
                     damagable.Damage(damage);
+                    hitted.Add(damagable);
+                }
             }
+
+            return hitted.ToArray();
         }
     }
 }

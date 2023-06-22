@@ -31,7 +31,7 @@ namespace SouthBasement.Economy
 
         public bool RemoveCheese(int removeAmount)
         {
-            if (CheeseAmount >= removeAmount)
+            if (CheeseAmount <= removeAmount)
                 return false;
             
             CheeseAmount -= removeAmount;

@@ -29,7 +29,7 @@ namespace SouthBasement.Tests
 
         public override void Eat()
         {
-            _characterStats.SetHealth(_characterStats.CurrentHealth, _characterStats.MaximumHealth + 10);
+            _characterStats.SetHealth(_characterStats.CurrentHealth + 10);
             _inventory.RemoveItem(ItemID);
         }
     }

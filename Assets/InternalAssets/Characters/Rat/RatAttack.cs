@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using NaughtyAttributes.Test;
 using SouthBasement.InputServices;
 using SouthBasement.InventorySystem;
 using SouthBasement.Characters.Stats;
@@ -42,13 +43,10 @@ namespace SouthBasement.Characters.Rat
             if (Blocked || !_staminaController.TryDo(_attackStats.CurrentStats.StaminaRequire)) 
                 return;
             
+            var hitted = _attacker.Attack(_attackStats.CurrentStats.Damage,_attackStats.CurrentStats.AttackRate, _attackStats.CurrentStats.AttackRange);
+            
             if(Weapon != null)
-                Weapon.OnAttack();
-                
-            _attacker
-                .Attack(_attackStats.CurrentStats.Damage,
-                    _attackStats.CurrentStats.AttackRate, 
-                    _attackStats.CurrentStats.AttackRange);
+                Weapon.OnAttack(hitted);
                 
             OnAttacked?.Invoke(_attackStats.CurrentStats.AttackRate);
             Culldown(_attackStats.CurrentStats.AttackRate);

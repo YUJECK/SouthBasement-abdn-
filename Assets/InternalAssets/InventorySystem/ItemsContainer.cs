@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using SouthBasement.Helpers;
 using SouthBasement.InventorySystem;
+using TheRat.Items;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
@@ -18,16 +18,19 @@ namespace SouthBasement.Items
         private readonly InventoryContainer _itemsInID = new();
 
         private ItemPicker _itemPickerPrefab;
+        private TradeItem _tradeItemPrefab;
 
         private DiContainer _diContainer;
 
-        public ItemsContainer(Item[] items, ItemPicker itemPickerPrefab, DiContainer diContainer)
+        public ItemsContainer(Item[] items, DiContainer diContainer)
         {
+            _itemPickerPrefab = Resources.Load<ItemPicker>(ResourcesPathHelper.ItemPickerPrefab);
+            _tradeItemPrefab = Resources.Load<TradeItem>(ResourcesPathHelper.TradeItemPrefab);
+            
             _itemsInID.Init<Item>();
 
             Add(items);
 
-            _itemPickerPrefab = itemPickerPrefab;
             _diContainer = diContainer;
         }
 
@@ -54,6 +57,22 @@ namespace SouthBasement.Items
                 _diContainer.InstantiatePrefabForComponent<ItemPicker>(_itemPickerPrefab, position, quaternion.identity,
                     null);
             picker.SetItem(item);
+
+            return picker;
+        }
+        public ItemPicker SpawnForTradeItem(Item item, Vector3 position, int price)
+        {
+            if (item == null)
+            {
+                Debug.Log("You tried to spawn null item");
+                return null;
+            }
+
+            var picker =
+                _diContainer.InstantiatePrefabForComponent<TradeItem>(_tradeItemPrefab, position, quaternion.identity, null);
+            
+            picker.SetItem(item);
+            picker.Price = price;
 
             return picker;
         }

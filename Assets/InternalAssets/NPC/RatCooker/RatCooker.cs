@@ -15,9 +15,7 @@ namespace SouthBasement
 
         [Inject]
         private void Construct(ItemsContainer itemsContainer)
-        {
-            _itemsContainer = itemsContainer;
-        }
+         => _itemsContainer = itemsContainer;
 
         private void Awake()
             => SpawnItems();
@@ -27,8 +25,9 @@ namespace SouthBasement
             foreach (var point in tradePoints)
             {
                 var item = GetFood();
+                
                 _currentItems.Add(item);
-                _itemsContainer.SpawnItem(item, point.position);
+                _itemsContainer.SpawnForTradeItem(item, point.position, 8);
             }
         }
 

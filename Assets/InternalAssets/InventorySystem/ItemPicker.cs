@@ -54,10 +54,11 @@ namespace SouthBasement.InventorySystem
             }
         }
 
-        public void SetItem(Item item)
+        public virtual void SetItem(Item item)
         {
             this.item = item;
             
+            gameObject.name = item.ItemID;
             _spriteRenderer.sprite = this.item.ItemSprite;
             _diContainer.Inject(item);
         }
@@ -67,13 +68,13 @@ namespace SouthBasement.InventorySystem
             _spriteRenderer.material = _materialHelper.OutlineMaterial;
         }
 
-        public void Interact()
+        public virtual void Interact()
         {
             if(_inventory.TryAddItem(item))            
                 Destroy(gameObject);
         }
 
-        public void DetectionReleased()
+        public virtual void DetectionReleased()
         {
             _spriteRenderer.material = _materialHelper.DefaultMaterial;
         }

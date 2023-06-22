@@ -7,6 +7,6 @@ namespace SouthBasement.InventorySystem
     {
         [field: SerializeField] public AttackStatsConfig AttackStatsConfig { get; private set; }
         
-        public abstract void OnAttack();
+        public abstract void OnAttack(IDamagable[] damagables);
     }
 }
