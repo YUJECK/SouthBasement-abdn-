@@ -33,12 +33,13 @@ namespace SouthBasement.Generation
                 _direction = direction;
             }
         }
-        
+
         public Room CreateByType(RoomType roomType)
         {
             var roomToSpawn = _roomsContainer.GetRandomRoom(roomType);
             return CreateByPrefab(roomToSpawn);
         }
+
         public Room CreateByPrefab(Room roomToSpawn)
         {
             transform.localPosition = GetPosition(roomToSpawn);
@@ -50,7 +51,7 @@ namespace SouthBasement.Generation
 
             ConnectRooms(spawnedRoom);
 
-            spawnedRoom.BuildPassages(new List<Direction> { DirectionHelper.GetOpposite(_direction) });
+            spawnedRoom.PassageHandler.BuildPassages(new List<Direction> { DirectionHelper.GetOpposite(_direction) });
             
             _generationController.AddSpawnedRoom(spawnedRoom);
             
@@ -67,8 +68,8 @@ namespace SouthBasement.Generation
 
         private void ConnectRooms(Room spawnedRoom)
         {
-            spawnedRoom.GetPassage(DirectionHelper.GetOpposite(_direction)).Connect(_owner);
-            _owner.GetPassage(_direction).Connect(spawnedRoom);
+            spawnedRoom.PassageHandler.GetPassage(DirectionHelper.GetOpposite(_direction)).Connect(_owner);
+            _owner.PassageHandler.GetPassage(_direction).Connect(spawnedRoom);
         }
 
         private bool CheckPlace(Room roomToSpawn)

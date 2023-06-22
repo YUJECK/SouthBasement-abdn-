@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
-using TMPro;
 using UnityEngine;
-using Random = UnityEngine.Random;
-
+    
 namespace SouthBasement.Generation
 {
-    public class Room : MonoBehaviour
+    [RequireComponent(typeof(Room))]
+    public sealed class PassageHandler : MonoBehaviour
     {
         [SerializeField] private SerializedDictionary<Direction, Passage> passages;
-        [field: SerializeField] public Vector2 RoomSize { get; private set; }
+        private Room _room;
         
         private void Awake()
         {
+            _room = GetComponent<Room>();
+            
             foreach (var passage in passages)
-                passage.Value.Factory.Init(this, passage.Key);
+                passage.Value.Factory.Init(_room, passage.Key);
             
             OpenAllDoors();
         }
-
-
+        
         public void OpenAllDoors()
         {
             foreach (var passage in passages)
@@ -33,18 +32,8 @@ namespace SouthBasement.Generation
                 passage.Value.CloseDoor();
         }
         
-        public Vector2 GetOffCenter(Direction direction)
-        {
-            return passages[direction].Factory.transform.localPosition;
-        }
-
         public Passage GetPassage(Direction direction)
-        {
-            if (!passages.ContainsKey(direction))
-                return null;
-            
-            return passages[direction];
-        }
+            => passages.TryGetValue(direction, out var passage) ? passage : null;
 
         public bool TryGetFree(out Passage freePassage)
         {
@@ -94,18 +83,6 @@ namespace SouthBasement.Generation
 
             foreach (var direction in toRemove)
                 passages.Remove(direction);
-        }
-
-        private void OnValidate()
-        {
-            if (TryGetComponent<BoxCollider2D>(out BoxCollider2D boxCollider2D))
-                boxCollider2D.size = RoomSize;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(transform.position, RoomSize);
         }
     }
 }

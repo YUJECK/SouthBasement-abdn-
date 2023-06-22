@@ -7,8 +7,7 @@ using IdleState = NTC.GlobalStateMachine.IdleState;
 
 namespace SouthBasement.Generation
 {
-    [RequireComponent(typeof(RoomDoorController))]
-    public sealed class RoomFightController : MonoBehaviour
+    public sealed class RoomEnemiesHandler : MonoBehaviour
     {
         private Enemy[] _enemies;
 
@@ -16,15 +15,16 @@ namespace SouthBasement.Generation
         public event Action OnEnemiesDefeated;
 
         private void Awake()
+            => BindEnemies();
+
+        private void BindEnemies()
         {
             _enemies = GetComponentsInChildren<Enemy>();
 
             _enemiesCount = _enemies.Length;
-            
+
             foreach (var enemy in _enemies)
                 enemy.OnDied += OnEnemyDied;
-            
-            GetComponent<PlayerEnterTrigger>().OnEntered += OnEntered;
         }
 
         private void OnEnemyDied()
@@ -38,14 +38,13 @@ namespace SouthBasement.Generation
             }
         }
 
-        private void OnEntered(Character obj)
+        public void EnableEnemies()
         {
             foreach (var enemy in _enemies)
             {
                 if(enemy != null)
                     enemy.Enable();
             }
-            GlobalStateMachine.Push<FightState>();
         }
     }
 }

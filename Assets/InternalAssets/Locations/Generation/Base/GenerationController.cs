@@ -50,13 +50,14 @@ namespace SouthBasement.Generation
             var roomQueue = new Queue<Room>();
             var startRoomPrefab = _roomsContainer.GetRandomRoom(RoomType.StartRoom);
 
-            var startRoom = _diContainer.InstantiatePrefabForComponent<Room>(startRoomPrefab, _startPoint.position, Quaternion.identity, null);
+            var startRoom = _diContainer
+                .InstantiatePrefabForComponent<Room>(startRoomPrefab, _startPoint.position, Quaternion.identity, null);
 
             roomQueue.Enqueue(startRoom);
             
             while (CurrentRoomsCount < _map.Length)
             {
-                if (roomQueue.Peek().TryGetFree(out var passage))
+                if (roomQueue.Peek().PassageHandler.TryGetFree(out var passage))
                 {
                     Room room;
                     
@@ -78,7 +79,7 @@ namespace SouthBasement.Generation
             }
 
             foreach (var room in _spawnedRooms)
-                room.CloseAllFree();
+                room.PassageHandler.CloseAllFree();
         }
 
         public void Initialize()

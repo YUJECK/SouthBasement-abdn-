@@ -10,6 +10,7 @@ namespace SouthBasement
     public sealed class LocationInstaller : MonoInstaller, IInitializable
     {
         [SerializeField] private Transform startPoint;
+        [SerializeField] private RoomsContainer roomsContainer;
         [SerializeField] private ContainersHelper containersHelper;
 
         public override void InstallBindings()
@@ -28,8 +29,6 @@ namespace SouthBasement
 
         private void BindRoomContainer()
         {
-            RoomsContainer roomsContainer = Resources.Load<RoomsContainer>(ResourcesPathHelper.RoomsContainer);
-
             Container
                 .Bind<RoomsContainer>()
                 .FromInstance(roomsContainer)
@@ -55,8 +54,7 @@ namespace SouthBasement
         {
             Container
                 .BindInterfacesAndSelfTo<GenerationController>()
-                .FromInstance(new GenerationController(Resources.Load<RoomsContainer>(ResourcesPathHelper.RoomsContainer),
-                    Container, startPoint))
+                .FromInstance(new GenerationController(roomsContainer, Container, startPoint))
                 .AsSingle();
         }
 
