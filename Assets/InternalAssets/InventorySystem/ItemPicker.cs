@@ -16,7 +16,9 @@ namespace SouthBasement.InventorySystem
         
         private Inventory _inventory;
         private DiContainer _diContainer;
-        
+        private Material _outlineMaterial;
+        private Material _defaultMaterial;
+
         [Inject]
         private void Construct(Inventory inventory, DiContainer diContainer)
         {
@@ -29,6 +31,9 @@ namespace SouthBasement.InventorySystem
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
 
+            _defaultMaterial = _spriteRenderer.material;
+            _outlineMaterial = Resources.Load<Material>("Materials/Outline");
+            
             if(item != null)
                 SetItem(item);
         }
@@ -57,9 +62,12 @@ namespace SouthBasement.InventorySystem
             
             _spriteRenderer.sprite = this.item.ItemSprite;
             _diContainer.Inject(item);
-        } 
+        }
 
-        public void Detect() { /*тут короче надо ставить материал*/ }
+        public void Detect()
+        {
+            _spriteRenderer.material = _outlineMaterial;
+        }
 
         public void Interact()
         {
@@ -69,7 +77,7 @@ namespace SouthBasement.InventorySystem
 
         public void DetectionReleased()
         {
-            /*тут короче надо убирать материал*/
+            _spriteRenderer.material = _defaultMaterial;
         }
     }
 }

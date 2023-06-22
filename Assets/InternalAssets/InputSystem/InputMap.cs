@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace SouthBasement
+namespace TheRat
 {
     public partial class @InputMap: IInputActionCollection2, IDisposable
     {
