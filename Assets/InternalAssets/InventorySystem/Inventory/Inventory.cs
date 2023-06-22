@@ -24,11 +24,8 @@ namespace SouthBasement.InventorySystem
                 .AddContainer<JunkItem>(new StackableInventoryContainer(), 12)
                 .AddContainer<FoodItem>(new InventoryContainer(), 6)
                 .AddContainer<ActiveItem>(new InventoryContainer(), 2)
-                .AddContainer<PassiveItem>(new InventoryContainer(), 24);
-
-            MainContainer.AddContainer<WeaponItem>(new InventoryContainer(), 3)
-                .AddSubContainerTo<WeaponItem>("bone_made")
-                .AddSubContainerTo<WeaponItem>("wooden_made");
+                .AddContainer<PassiveItem>(new InventoryContainer(), 24)
+                .AddContainer<WeaponItem>(new InventoryContainer(), 3);
         }
 
         public bool TryAddItem(Item item)

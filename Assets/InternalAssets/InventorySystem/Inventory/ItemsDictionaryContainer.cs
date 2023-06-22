@@ -26,16 +26,23 @@ namespace SouthBasement.InventorySystem
 
         public ItemsDictionaryContainer AddSubContainerTo<TContainer>(string subcontainer) where TContainer : Item
         {
-            if (_itemsContainers.TryGetValue(typeof(TContainer), out var container))
+            AddSubContainerTo(typeof(TContainer), subcontainer);
+            
+            return this;
+        }
+        public ItemsDictionaryContainer AddSubContainerTo(Type type, string subcontainer)
+        {
+            if (_itemsContainers.TryGetValue(type, out var container))
             {
                 var newContainer = new InventoryContainer();
-                newContainer.Init<TContainer>();
+                newContainer.Init(type);
                 
                 container.TryAdd(subcontainer, newContainer);
             }
             
             return this;
         }
+        
         public bool TryAddItem(Item item, string subcontainerID = "any") 
         {
             if(item == null)
@@ -45,10 +52,10 @@ namespace SouthBasement.InventorySystem
 
             if (subcontainer == null)
             {
-                Debug.LogError($"Cant add {item}");
-                return false;
+                AddSubContainerTo(item.GetItemType(), item.ItemCategory);
+                subcontainer = GetSubContainer(item.GetItemType(), subcontainerID);
             }
-
+                
             if (GetAllInContainerOfItem(item).Length >= _containersLimits[item.GetItemType()])
                 return false;
             

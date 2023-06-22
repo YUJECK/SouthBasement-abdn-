@@ -40,9 +40,9 @@ namespace SouthBasement.Generation
             _playerEnterTrigger.OnEntered += OnPlayerEntered;
         }
 
-        protected abstract void OnAwake();
+        protected virtual void OnAwake() { }
 
-        protected abstract void OnPlayerEntered(Character player);
+        protected virtual void OnPlayerEntered(Character player) { }
 
 #if UNITY_EDITOR
         private void OnValidate()

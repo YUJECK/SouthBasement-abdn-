@@ -2,6 +2,7 @@ using SouthBasement.Infrastucture;
 using SouthBasement;
 using SouthBasement.Characters;
 using SouthBasement.Economy;
+using SouthBasement.Infrastructure;
 using SouthBasement.InputServices;
 using SouthBasement.InventorySystem;
 using Zenject;
@@ -21,6 +22,12 @@ public sealed class BootstrapInstaller : MonoInstaller
         BindCoroutineRunner();
         BindInputMap();
         BindEconomy();
+        BindRunStarter();
+    }
+
+    private void BindRunStarter()
+    {
+        Container.Bind<RunStarter>().FromInstance(new RunStarter(Container, _coroutineRunner)).AsSingle();
     }
 
     private void BindCoroutineRunner()

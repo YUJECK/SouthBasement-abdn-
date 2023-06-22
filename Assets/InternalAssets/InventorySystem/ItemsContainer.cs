@@ -1,32 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using SouthBasement.Helpers;
 using SouthBasement.InventorySystem;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace SouthBasement.Items
 {
     public sealed class ItemsContainer
     {
-        private readonly Dictionary<Rarity, Dictionary<Type, Dictionary<string, InventoryContainer>>> _items;
+        private readonly Dictionary<Rarity, List<Item>> _itemsInRarity = new();
+        private readonly Dictionary<Type, List<Item>> _itemsInType = new();
+        private readonly Dictionary<string, List<Item>> _itemsInCategory = new();
+        private readonly InventoryContainer _itemsInID = new();
+
         private ItemPicker _itemPickerPrefab;
 
         private DiContainer _diContainer;
-        
+
         public ItemsContainer(Item[] items, ItemPicker itemPickerPrefab, DiContainer diContainer)
         {
-            _items = new Dictionary<Rarity, Dictionary<Type, Dictionary<string, InventoryContainer>>>()
-            {
-                {Rarity.D, new()},
-                {Rarity.C, new()},
-                {Rarity.B, new()},
-                {Rarity.A, new()},
-            };
-            
+            _itemsInID.Init<Item>();
+
             Add(items);
 
             _itemPickerPrefab = itemPickerPrefab;
@@ -36,12 +34,14 @@ namespace SouthBasement.Items
         public ItemPicker SpawnItem(string id, Vector3 position)
         {
             var itemSO = ScriptableObject.Instantiate(Get(id));
-            var item = _diContainer.InstantiatePrefabForComponent<ItemPicker>(_itemPickerPrefab, position, quaternion.identity, null);
-            
+            var item = _diContainer.InstantiatePrefabForComponent<ItemPicker>(_itemPickerPrefab, position,
+                quaternion.identity, null);
+
             item.SetItem(itemSO);
-            
+
             return item;
         }
+
         public ItemPicker SpawnItem(Item item, Vector3 position)
         {
             if (item == null)
@@ -49,81 +49,84 @@ namespace SouthBasement.Items
                 Debug.Log("You tried to spawn null item");
                 return null;
             }
-                
-            var picker = _diContainer.InstantiatePrefabForComponent<ItemPicker>(_itemPickerPrefab, position, quaternion.identity, null);
+
+            var picker =
+                _diContainer.InstantiatePrefabForComponent<ItemPicker>(_itemPickerPrefab, position, quaternion.identity,
+                    null);
             picker.SetItem(item);
-            
+
             return picker;
         }
-        
-        public void Add(Item[] toAdd)
+
+        public void Add(IEnumerable<Item> toAdd)
         {
             foreach (var item in toAdd)
-            {
-                _items[item.Rarity].TryAdd(item.GetItemType(), new Dictionary<string, InventoryContainer>());
-                _items[item.Rarity][item.GetItemType()].TryAdd(item.ItemCategory, new InventoryContainer());
-                
-                _items[item.Rarity][item.GetItemType()][item.ItemCategory].TryAddItem(item);
-            }
+                Add(item);
         }
-        
+
+        public void Add(Item item)
+        {
+            _itemsInRarity.TryAdd(item.Rarity, new());
+            _itemsInRarity[item.Rarity].Add(item);
+
+            _itemsInType.TryAdd(item.GetItemType(), new());
+            _itemsInType[item.GetItemType()].Add(item);
+
+            _itemsInCategory.TryAdd(item.ItemCategory, new());
+            _itemsInCategory[item.ItemCategory].Add(item);
+
+            _itemsInID.TryAddItem(item);
+        }
+
         public Item Get(string id)
         {
-            foreach (var container in _items.SelectMany(itemsRarityContainer
-                         => itemsRarityContainer.Value.SelectMany(itemsTypeContainer => itemsTypeContainer.Value)))
-            {
-                if(container.Value.TryGetItem(id, out var item))
-                    return item;
-            }
-
-            return null;
+            return _itemsInID.GetItem(id);
         }
 
         public Item GetRandomInRarity(Rarity rarity)
-        {
-            var rarityContainers = new List<Item>();
+            => _itemsInRarity[rarity][Random.Range(0, _itemsInRarity[rarity].Count)];
 
-            foreach (var container in _items[rarity]
-                         .SelectMany(rarityContainer=> rarityContainer.Value))
-            {
-                rarityContainers.AddRange(container.Value.GetAllInContainer());
-            }
+        public Item GetRandomInType(Type type)
+            => _itemsInType[type][Random.Range(0, _itemsInType[type].Count)];
 
-            return rarityContainers.ElementAt(UnityEngine.Random.Range(0, rarityContainers.Count));
-        }
-        public TItem GetRandomInType<TItem>() where TItem : Item
-        {
-            Rarity rarity = (Rarity)ChanceSystem.GetChance();
-
-            return _items[rarity][typeof(TItem)].ElementAt(UnityEngine.Random.Range(0, _items[rarity][typeof(TItem)].Count)) as TItem;
-        }
         public Item GetRandomInCategory(string category)
+            => _itemsInCategory[category][Random.Range(0, _itemsInCategory[category].Count)];
+
+        public Item GetRandomInRarityAndType(Rarity rarity, Type type)
         {
-            List<Item> items = new List<Item>();
+            Item item = GetRandomInRarity(rarity);
 
-            foreach (var rarityContainerPair in _items)
-            {
-                Dictionary<Type, Dictionary<string, InventoryContainer>> rarityContainer = rarityContainerPair.Value;
-                foreach (KeyValuePair<Type, Dictionary<string, InventoryContainer>> typeContainerPair in rarityContainer)
-                {
-                    if (typeContainerPair.Value.TryGetValue(category, out var container)) items.AddRange(container.GetAllInContainer());
-                }
-            }
+            while(item.GetItemType() != type)
+                item = GetRandomInRarity(rarity);
 
-            return items.ElementAt(UnityEngine.Random.Range(0, items.Count));
+            return item;
         }
-        public Item GetRandomInRarityCategory(Rarity rarity, string category)
+        public Item GetRandomInRarityAndTypeAndCategory(Rarity rarity, Type type, string category)
         {
-            Dictionary<Type, Dictionary<string, InventoryContainer>> rarityContainer = _items[rarity];
-            List<Item> items = new();
+            Item item = GetRandomInRarity(rarity);
 
-            foreach (var typeContainerPair in rarityContainer)
-            {
-                if(typeContainerPair.Value.TryGetValue(category, out var container))
-                    items.AddRange(container.GetAllInContainer());
-            }
+            while(item.GetItemType() != type && item.ItemCategory != category)
+                item = GetRandomInRarity(rarity);
 
-            return items.ElementAt(UnityEngine.Random.Range(0, items.Count));
+            return item;
+        }
+        public Item GetRandomInTypeAndCategory(Type type, string category)
+        {
+            Item item = GetRandomInType(type);
+
+            while(item.ItemCategory != category)
+                item =  GetRandomInType(type);
+
+            return item;
+        }
+        public Item GetRandomInRarityAndCategory(Rarity rarity, string category)
+        {
+            Item item = GetRandomInRarity(rarity);
+
+            while(item.ItemCategory != category)
+                item =  GetRandomInRarity(rarity);
+
+            return item;
         }
     }
 }

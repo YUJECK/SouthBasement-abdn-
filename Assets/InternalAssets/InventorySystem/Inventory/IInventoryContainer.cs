@@ -11,6 +11,8 @@ namespace SouthBasement.InventorySystem
         event Action<Type, Item> OnRemoved;
         
         void Init<TContainerType>() where TContainerType : Item;
+        void Init(Type type);
+        
         Item GetItem(string id);
         bool TryGetItem(string id, out Item item);
         Item[] GetAllInContainer();

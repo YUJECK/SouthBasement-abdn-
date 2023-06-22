@@ -18,6 +18,11 @@ namespace SouthBasement.InventorySystem
         public void Init<TContainerType>() where TContainerType : Item 
             => ContainerType = typeof(TContainerType);
 
+        public void Init(Type type)
+        {
+            ContainerType = type;
+        }
+
         public Item GetItem(string id)
         {
             if (_container.TryGetValue(id, out var item))
