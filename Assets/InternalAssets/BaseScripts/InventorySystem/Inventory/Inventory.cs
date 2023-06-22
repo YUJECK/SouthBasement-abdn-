@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 using Zenject;
 
 namespace SouthBasement.InventorySystem
@@ -22,20 +21,25 @@ namespace SouthBasement.InventorySystem
             MainContainer = new ItemsDictionaryContainer();
 
             MainContainer
-                .AddContainer<JunkItem>(new StackableInventoryContainer())
-                .AddContainer<FoodItem>(new InventoryContainer())
-                .AddContainer<ActiveItem>(new InventoryContainer())
-                .AddContainer<PassiveItem>(new InventoryContainer());
+                .AddContainer<JunkItem>(new StackableInventoryContainer(), 12)
+                .AddContainer<FoodItem>(new InventoryContainer(), 6)
+                .AddContainer<ActiveItem>(new InventoryContainer(), 2)
+                .AddContainer<PassiveItem>(new InventoryContainer(), 24);
 
-            MainContainer.AddContainer<WeaponItem>(new InventoryContainer())
+            MainContainer.AddContainer<WeaponItem>(new InventoryContainer(), 3)
                 .AddSubContainerTo<WeaponItem>("bone_made")
                 .AddSubContainerTo<WeaponItem>("wooden_made");
         }
 
-        public void AddItem(Item item)
+        public bool TryAddItem(Item item)
         {
-            if(MainContainer.TryAddItem(item, item.ItemCategory))
+            if (MainContainer.TryAddItem(item, item.ItemCategory))
+            {
                 OnAdded?.Invoke(item);
+                return true;
+            }
+
+            return false;
         }
 
         public void RemoveItem(string id)

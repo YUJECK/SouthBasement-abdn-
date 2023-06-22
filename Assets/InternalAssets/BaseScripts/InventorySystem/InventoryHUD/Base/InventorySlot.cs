@@ -14,7 +14,7 @@ namespace SouthBasement.InventorySystem
 
         public event Action<TItem> OnSetted;
         
-        protected void DefaultAwake()
+        protected void DefaultStart()
         {
             if(CurrentItem == null)
                 SetItem(null);
@@ -22,12 +22,9 @@ namespace SouthBasement.InventorySystem
 
         public virtual void SetItem(TItem item)
         {
-            Debug.Log("sdf;lk");
-
             if (item == null)
             {
                 ItemImage.color = Color.clear;
-                Debug.Log("NUUL:LLL ITEM");
             }
             else
             {
@@ -43,6 +40,5 @@ namespace SouthBasement.InventorySystem
         {
             OnSetted?.Invoke(item);
         }
-
     }
 }

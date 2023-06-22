@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace SouthBasement.InventorySystem
@@ -8,8 +7,9 @@ namespace SouthBasement.InventorySystem
     public sealed class ItemsDictionaryContainer
     {
         private readonly Dictionary<Type, Dictionary<string, IInventoryContainer>> _itemsContainers = new();
-
-        public ItemsDictionaryContainer AddContainer<TContainer>(IInventoryContainer container, string mainSubContainer = "any")
+        private readonly Dictionary<Type, int> _containersLimits = new();
+        
+        public ItemsDictionaryContainer AddContainer<TContainer>(IInventoryContainer container, int limit, string mainSubContainer = "any")
             where TContainer : Item
         {
             if (_itemsContainers.TryAdd(typeof(TContainer), new Dictionary<string, IInventoryContainer>()))
@@ -18,19 +18,20 @@ namespace SouthBasement.InventorySystem
                 newContainer.Init<TContainer>();
                 
                 _itemsContainers[typeof(TContainer)].TryAdd(mainSubContainer, newContainer);
+                _containersLimits.TryAdd(typeof(TContainer), limit);
             }
             
             return this;
         }
 
-        public ItemsDictionaryContainer AddSubContainerTo<TContainer>(string subcontaienr) where TContainer : Item
+        public ItemsDictionaryContainer AddSubContainerTo<TContainer>(string subcontainer) where TContainer : Item
         {
             if (_itemsContainers.TryGetValue(typeof(TContainer), out var container))
             {
                 var newContainer = new InventoryContainer();
                 newContainer.Init<TContainer>();
                 
-                container.TryAdd(subcontaienr, newContainer);
+                container.TryAdd(subcontainer, newContainer);
             }
             
             return this;
@@ -47,6 +48,9 @@ namespace SouthBasement.InventorySystem
                 Debug.LogError($"Cant add {item}");
                 return false;
             }
+
+            if (GetAllInContainerOfItem(item).Length >= _containersLimits[item.GetItemType()])
+                return false;
             
             return subcontainer.TryAddItem(item);
         }
@@ -71,6 +75,22 @@ namespace SouthBasement.InventorySystem
             var items = new List<Item>();
 
             _itemsContainers.TryGetValue(typeof(TContainer), out var container);
+            {
+                foreach (var subcontainer in container)
+                {
+                    if(subcontainer.Value.ItemsCount > 0)
+                        items.AddRange(subcontainer.Value.GetAllInContainer());
+                }
+            }
+
+            return items.ToArray();
+        }
+
+        public Item[] GetAllInContainerOfItem(Item item)
+        {
+            var items = new List<Item>();
+
+            _itemsContainers.TryGetValue(item.GetItemType(), out var container);
             {
                 foreach (var subcontainer in container)
                 {

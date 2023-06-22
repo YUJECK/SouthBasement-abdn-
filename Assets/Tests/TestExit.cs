@@ -3,7 +3,7 @@ using SouthBasement.Interactions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace TheRat.Tests
+namespace SouthBasement.Tests
 {
     public class TestExit : MonoBehaviour, IInteractive
     {

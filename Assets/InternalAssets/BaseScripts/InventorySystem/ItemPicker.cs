@@ -63,8 +63,8 @@ namespace SouthBasement.InventorySystem
 
         public void Interact()
         {
-            _inventory.AddItem(item);            
-            Destroy(gameObject);
+            if(_inventory.TryAddItem(item))            
+                Destroy(gameObject);
         }
 
         public void DetectionReleased()

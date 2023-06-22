@@ -7,6 +7,7 @@ using Zenject;
 namespace SouthBasement.HUD
 {
     [RequireComponent(typeof(Image))]
+    [AddComponentMenu("HUD/Inventory/PassiveItemsSlot")]
     public sealed class PassiveItemsSlot : InventorySlot<PassiveItem>
     {
         private Character _character;
@@ -19,11 +20,11 @@ namespace SouthBasement.HUD
             _character = character;
         }
         
-        private void Awake()
+        private void Start()
         {
-            DefaultAwake();
-            
             GetComponent<Button>().onClick.AddListener(DropItem);
+
+            DefaultStart();
         }
 
         private void DropItem() 

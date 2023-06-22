@@ -1,8 +1,10 @@
 ﻿using SouthBasement.InventorySystem;
+using UnityEngine;
 using Zenject;
 
 namespace SouthBasement.HUD
 {
+    [AddComponentMenu("HUD/Inventory/JunkItemsHUD")]
     public class JunkItemsHUD : SlotHUD<JunkItemSlot, JunkItem>
     {
         private Inventory _inventory;
@@ -13,7 +15,6 @@ namespace SouthBasement.HUD
         private void Awake()
         {
             SetSlotsInChildren();
-            UpdateInventory(_inventory);
         }
 
         protected override void OnAdded(Item item)

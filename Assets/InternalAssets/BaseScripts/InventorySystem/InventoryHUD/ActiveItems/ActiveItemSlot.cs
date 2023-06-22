@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
@@ -34,10 +35,11 @@ namespace SouthBasement.InventorySystem
         private void Awake()
         {
             GetComponentInParent<Button>().onClick.AddListener(SetCurrent);
-            
             OnSetted += CheckCurrent;
-            SetItem(null);
         }
+
+        private void Start()
+            => DefaultStart();
 
         private void SetCurrent()
         {

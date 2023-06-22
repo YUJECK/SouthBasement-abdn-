@@ -6,14 +6,14 @@ namespace SouthBasement.InventorySystem
     public sealed class StackableInventoryContainer : IInventoryContainer
     {
         public Type ContainerType { get; private set; }
-        public int ItemsCount { get; }
+        public int ItemsCount => _container.Count;
 
         public event Action<Type, Item> OnAdded;
         public event Action<Type, Item> OnRemoved;
 
         private Dictionary<string, List<Item>> _container = new();
 
-        public void Init<TContainerType>() where TContainerType : Item
+        public void Init<TContainerType>() where TContainerType : Item 
             => ContainerType = typeof(TContainerType);
 
         public Item GetItem(string id)

@@ -1,13 +1,15 @@
 ﻿using SouthBasement.InventorySystem;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace SouthBasement.HUD.FoodItems
 {
+    [AddComponentMenu("HUD/Inventory/FoodItemSlot")]
     public sealed class FoodItemSlot : InventorySlot<FoodItem>
     {
-        private void Awake()
+        private void Start()
         {
-            DefaultAwake();
+            DefaultStart();
             GetComponentInParent<Button>().onClick.AddListener(OnClick);
         }
 

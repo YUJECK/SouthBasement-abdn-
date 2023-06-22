@@ -1,8 +1,10 @@
 ﻿using SouthBasement.HUD;
+using UnityEngine;
 using Zenject;
 
 namespace SouthBasement.InventorySystem.Weapons
 {
+    [AddComponentMenu("HUD/Inventory/WeaponItemsInventoryHUD")]
     public class WeaponItemsInventoryHUD : SlotHUD<WeaponSlot, WeaponItem>
     {
         private Inventory _inventory;
@@ -12,10 +14,7 @@ namespace SouthBasement.InventorySystem.Weapons
             => _inventory = inventory;
 
         private void Awake()
-        {
-            _slots = GetComponentsInChildren<WeaponSlot>();
-            UpdateInventory(_inventory);
-        }
+            => SetSlotsInChildren();
 
         private void OnEnable()
         {

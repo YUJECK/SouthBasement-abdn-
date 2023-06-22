@@ -1,8 +1,10 @@
 ﻿using SouthBasement.InventorySystem;
+using UnityEngine;
 using Zenject;
 
 namespace SouthBasement.HUD
 {
+    [AddComponentMenu("HUD/Inventory/PassiveItemsHUD")]
     public sealed class PassiveItemsHUD : SlotHUD<PassiveItemsSlot, PassiveItem>
     {
         private Inventory _inventory;
@@ -11,10 +13,9 @@ namespace SouthBasement.HUD
         private void Construct(Inventory inventory) 
             => _inventory = inventory;
 
-        private void Start()
+        private void Awake()
         {
             SetSlotsInChildren();
-            UpdateInventory(_inventory);
         }
 
         private void OnEnable()

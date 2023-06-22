@@ -1,41 +1,35 @@
-﻿using UnityEngine;
+﻿using TheRat.InventorySystem;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 namespace SouthBasement.InventorySystem.Weapons
 {
+    [AddComponentMenu("HUD/Inventory/WeaponSlot")]
     public sealed class WeaponSlot : InventorySlot<WeaponItem>
     {
+        [SerializeField] private CurrentItemChecker<WeaponSlot, WeaponItem> currentItemChecker = new();
+
         private WeaponsUsage _weaponUsage;
-        [SerializeField] private GameObject isCurrent;
 
         [Inject]
-        private void Construct(WeaponsUsage weapon)
-        {
-            _weaponUsage = weapon;
-            _weaponUsage.OnSelected += CheckCurrent;
-        }
+        private void Construct(WeaponsUsage weapon) 
+            => _weaponUsage = weapon;
 
-        private void CheckCurrent(WeaponItem item)
-        {
-            if (CurrentItem == null || item == null)
-            {
-                isCurrent.SetActive(false);
-                return;
-            }
-
-            if (item.ItemID == CurrentItem.ItemID)
-                isCurrent.SetActive(true);
-            else
-                isCurrent.SetActive(false);
-        }
-
-        private void Awake()
+        private void Start()
         {
             GetComponentInParent<Button>().onClick.AddListener(SetCurrent);
             
-            OnSetted += CheckCurrent;
-            SetItem(null);
+            currentItemChecker.Init(this);
+            _weaponUsage.OnSelected += currentItemChecker.CheckCurrent;
+            
+            DefaultStart();
+        }
+        
+        private void OnDestroy()
+        {
+            _weaponUsage.OnSelected += currentItemChecker.CheckCurrent;
+            currentItemChecker.Dispose();
         }
 
         private void SetCurrent()

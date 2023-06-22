@@ -24,7 +24,7 @@ namespace SouthBasement.Tests
 
         public override Type GetItemType()
         {
-            return typeof(ActiveItem);
+            return typeof(FoodItem);
         }
 
         public override void Eat()

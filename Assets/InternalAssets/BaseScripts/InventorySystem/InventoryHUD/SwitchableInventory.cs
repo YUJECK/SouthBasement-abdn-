@@ -1,10 +1,10 @@
-using System;
 using SouthBasement.InputServices;
 using UnityEngine;
 using Zenject;
 
 namespace SouthBasement.HUD
 {
+    [AddComponentMenu("HUD/Inventory/SwitchableInventory")]
     public sealed class SwitchableInventory : MonoBehaviour
     {
         [SerializeField] private GameObject[] _objects;
@@ -16,8 +16,8 @@ namespace SouthBasement.HUD
             _inputSystem = inputSystem;
         }
 
-        private void Awake()
-            => Disable();
+        // private void Start()
+        //     => Disable();
 
         private void OnEnable() 
             => _inputSystem.InventoryOpen += OnInventoryOpen;

@@ -4,15 +4,14 @@ using UnityEngine;
 
 namespace SouthBasement.HUD
 {
+    [AddComponentMenu("HUD/Inventory/JunkItemSlot")]
     public class JunkItemSlot : InventorySlot<JunkItem>
     {
         [SerializeField] private TMP_Text _itemsCount;
         public int CurrentJunkCount { get; private set; }
 
-        private void Awake()
-        {
-            DefaultAwake();
-        }
+        private void Start()
+            => DefaultStart();
 
         public void AddItem()
         {
@@ -39,6 +38,9 @@ namespace SouthBasement.HUD
             {
                 ItemImage.sprite = item.ItemSprite;
                 ItemImage.color = Color.white;
+                
+                CurrentJunkCount = 1;
+                _itemsCount.text = $"{CurrentJunkCount}";
             }
 
             CurrentItem = item;

@@ -11,17 +11,14 @@ namespace SouthBasement.InventorySystem
 
         [Inject]
         private void Construct(Inventory inventory)
-        {
-            _inventory = inventory;
-            
-            inventory.OnAdded += OnAdded;
-            inventory.OnRemoved += OnRemoved;
-        }
+            => _inventory = inventory;
 
         private void Awake()
         {
             SetSlotsInChildren();
-            UpdateInventory(_inventory);
+
+            _inventory.OnAdded += OnAdded;
+            _inventory.OnRemoved += OnRemoved;
         }
 
         private void OnDestroy()

@@ -1,8 +1,10 @@
 ﻿using SouthBasement.InventorySystem;
+using UnityEngine;
 using Zenject;
 
 namespace SouthBasement.HUD.FoodItems
 {
+    [AddComponentMenu("HUD/Inventory/FoodSlotsHUD")]
     public sealed class FoodSlotsHUD : SlotHUD<FoodItemSlot, FoodItem>
     {
         private Inventory _inventory;
@@ -14,7 +16,6 @@ namespace SouthBasement.HUD.FoodItems
         private void Awake()
         {
             SetSlotsInChildren();
-            UpdateInventory(_inventory);
         }
 
         private void OnEnable()
