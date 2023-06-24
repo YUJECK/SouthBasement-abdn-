@@ -2,6 +2,7 @@
 using SouthBasement.Generation;
 using SouthBasement.Helpers;
 using SouthBasement.HUD;
+using TheRat.CameraHandl;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +14,8 @@ namespace SouthBasement
         [SerializeField] private RoomsContainer roomsContainer;
         [SerializeField] private ContainersHelper containersHelper;
 
+        [SerializeField] private CamerasContainer camerasContainerPrefab;
+
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<LocationInstaller>().FromInstance(this).AsSingle();
@@ -20,10 +23,26 @@ namespace SouthBasement
             BindCharacter();
             BindRoomContainer();
             BindGeneration();
+            BindCameras();
 
             Container
                 .Bind<ContainersHelper>()
                 .FromInstance(containersHelper)
+                .AsSingle();
+        }
+
+        private void BindCameras()
+        {
+            var cameraContainer = Container.InstantiatePrefabForComponent<CamerasContainer>(camerasContainerPrefab, startPoint);
+
+            var cameraHandler = new CameraHandler(
+                cameraContainer.GetCameras(), 
+                cameraContainer.GetPixelPerfectCamera(), 
+                cameraContainer.GetMainCamera());
+
+            Container
+                .Bind<CameraHandler>()
+                .FromInstance(cameraHandler)
                 .AsSingle();
         }
 

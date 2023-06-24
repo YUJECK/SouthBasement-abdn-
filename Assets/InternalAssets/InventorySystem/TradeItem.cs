@@ -2,7 +2,7 @@
 using SouthBasement.InventorySystem;
 using Zenject;
 
-namespace TheRat.Items
+namespace SouthBasement.Items
 {
     public sealed class TradeItem : ItemPicker
     {

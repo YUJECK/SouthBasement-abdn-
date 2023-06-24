@@ -79,11 +79,11 @@ namespace cherrydev
             gameObject.SetActive(isActive);
         }
 
-        private void SetUpAnswerButtonsClickEvent(int index, AnswerNode answerNode)
+        private void SetUpAnswerButtonsClickEvent(int index, Answer answerNode)
         {
             dialogAnswerPanel.GetButtonByIndex(index).onClick.AddListener(() =>
             {
-                dialogBehaviour.SetCurrentNodeAndHandleDialogGraph(answerNode.childSentenceNodes[index]);
+                dialogBehaviour.SetCurrentNodeAndHandleDialogGraph(answerNode.ChildSentences[index]);
             });
         }
 

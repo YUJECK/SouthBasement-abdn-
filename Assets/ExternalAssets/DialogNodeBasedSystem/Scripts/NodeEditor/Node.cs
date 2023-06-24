@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SouthBasement.Dialogues;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace cherrydev
 {
     public class Node : ScriptableObject
     {
+        public virtual DialogueNode DialogueNode() { return null; }
+
         [HideInInspector] public List<Node> connectedNodesList;
         [HideInInspector] public DialogNodeGraph nodeGraph;
         [HideInInspector] public Rect rect = new Rect();

@@ -1,4 +1,6 @@
+using TheRat.CameraHandl;
 using UnityEngine;
+using Zenject;
 
 namespace SouthBasement
 {
@@ -6,12 +8,12 @@ namespace SouthBasement
     {
         private Camera _mainCamera;
 
-        private void Awake()
+        [Inject]
+        private void Construct(CameraHandler cameraHandler)
         {
-            _mainCamera = Camera.main;
-            Cursor.visible = true;
+            _mainCamera = cameraHandler.MainCamera;
         }
-
+        
         private void LateUpdate()
         {
             var newPos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);

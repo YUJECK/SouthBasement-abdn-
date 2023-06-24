@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SouthBasement.Helpers;
 using SouthBasement.InventorySystem;
-using TheRat.Items;
+using SouthBasement.Items;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;

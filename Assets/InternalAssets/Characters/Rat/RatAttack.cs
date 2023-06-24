@@ -1,57 +1,42 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using NaughtyAttributes.Test;
-using SouthBasement.InputServices;
+using SouthBasement.Characters.Components;
 using SouthBasement.InventorySystem;
-using SouthBasement.Characters.Stats;
 
 namespace SouthBasement.Characters.Rat
 {
-    public sealed class RatAttack : IAttackable
+    public sealed class RatAttack : CharacterAttackable<RatCharacter>, IAttackable
     {
-        private readonly CharacterAttackStats _attackStats;
-        private readonly IInputService _inputService;
-        private readonly DefaultAttacker _attacker;
-        private readonly WeaponsUsage _weaponsUsage;
-        private readonly StaminaController _staminaController;
-
-
-        public WeaponItem Weapon => _weaponsUsage.CurrentWeapon;
-        public bool Blocked { get; set; }
+        public WeaponItem Weapon => Owner.WeaponsUsage.CurrentWeapon;
 
         public event Action<float> OnAttacked;
+        
+        public RatAttack(RatCharacter ratCharacter)
+            => Owner = ratCharacter;
 
-        public RatAttack
-            (IInputService inputService, CharacterAttackStats attackStats, DefaultAttacker attacker, WeaponsUsage weaponsUsage, StaminaController staminaController)
-        {
-            _attackStats = attackStats;
-            _inputService = inputService;
-            _attacker = attacker;
-            _weaponsUsage = weaponsUsage;
-            _staminaController = staminaController;
-                
-            _inputService.OnAttack += Attack;
-        }
+        public override void OnStart()
+            => Owner.Inputs.OnAttack += Attack;
 
         public void Dispose()
-        {
-            _inputService.OnAttack -= Attack;
-        }
+            => Owner.Inputs.OnAttack -= Attack;
 
-        public void Attack()
+        public override void Attack()
         {
-            if (Blocked || !_staminaController.TryDo(_attackStats.CurrentStats.StaminaRequire)) 
+            if (Blocked || !Owner.StaminaController.TryDo(Owner.Stats.AttackStats.CurrentStats.StaminaRequire)) 
                 return;
             
-            var hitted = _attacker.Attack(_attackStats.CurrentStats.Damage,_attackStats.CurrentStats.AttackRate, _attackStats.CurrentStats.AttackRange);
+            var hitted = Owner.Attacker
+                .Attack(Owner.Stats.AttackStats.CurrentStats.Damage,
+                    Owner.Stats.AttackStats.CurrentStats.AttackRate, 
+                    Owner.Stats.AttackStats.CurrentStats.AttackRange);
             
             if(Weapon != null)
                 Weapon.OnAttack(hitted);
                 
-            OnAttacked?.Invoke(_attackStats.CurrentStats.AttackRate);
-            Culldown(_attackStats.CurrentStats.AttackRate);
-        } 
-        
+            OnAttacked?.Invoke(Owner.Stats.AttackStats.CurrentStats.AttackRate);
+            Culldown(Owner.Stats.AttackStats.CurrentStats.AttackRate);
+        }
+
         private async void Culldown(float culldown)
         {
             Blocked = true;

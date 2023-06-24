@@ -630,7 +630,7 @@ namespace cherrydev
             {
                 Node nodeTodelete = nodeDeletionQueue.Dequeue();
 
-                currentNodeGraph.nodesList.Remove(nodeTodelete);
+                currentNodeGraph.Remove(nodeTodelete);
 
                 DestroyImmediate(nodeTodelete, true);
                 AssetDatabase.SaveAssets();
@@ -647,7 +647,7 @@ namespace cherrydev
         {
             Vector2 mousePosition = (Vector2)mousePositionObject;
 
-            currentNodeGraph.nodesList.Add(node);
+            currentNodeGraph.Add(node);
 
             node.Initialise(new Rect(mousePosition, new Vector2(nodeWidth, nodeHeight)), nodeName, currentNodeGraph);
 

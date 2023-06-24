@@ -1,7 +1,7 @@
 ﻿using SouthBasement.Helpers;
 using UnityEngine;
 
-namespace TheRat.Helpers
+namespace SouthBasement.Helpers
 {
     public sealed class MaterialHelper
     {

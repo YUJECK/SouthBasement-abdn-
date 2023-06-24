@@ -4,7 +4,7 @@ using SouthBasement.Economy;
 using SouthBasement.Infrastructure;
 using SouthBasement.InputServices;
 using SouthBasement.InventorySystem;
-using TheRat.Helpers;
+using SouthBasement.Helpers;
 using UnityEngine;
 using Zenject;
 

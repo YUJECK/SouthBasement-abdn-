@@ -1,4 +1,4 @@
-﻿using TheRat.InventorySystem;
+﻿using SouthBasement.InventorySystem;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

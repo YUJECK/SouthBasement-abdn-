@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SouthBasement
+namespace SouthBasement.Characters.Components
 {
-    public interface IDashable : IDisposable
+    public interface IDashable
     {
         event Action OnDashed;
 

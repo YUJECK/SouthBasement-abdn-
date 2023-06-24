@@ -1,19 +1,23 @@
+using SouthBasement.Dialogues;
 using UnityEngine;
 
 namespace cherrydev
 {
     [System.Serializable]
-    public struct Sentence
+    public class Sentence : DialogueNode
     {
-        public string characterName;
-        [TextArea(2,12)] public string text;
-        public Sprite characterSprite;
+        public DialogueNode ParentNode;
+        public DialogueNode ChildNode;
+        
+        [field: SerializeField] public string CharacterName { get; set; }
+        [field: SerializeField, TextArea(2, 10)] public string Text { get; set; }
+        [field: SerializeField] public Sprite CharacterSprite { get; set; }
 
         public Sentence(string characterName, string text)
         {
-            characterSprite = null;
-            this.characterName = characterName;
-            this.text = text;
+            CharacterSprite = null;
+            CharacterName = characterName;
+            Text = text;
         }
     }
 }

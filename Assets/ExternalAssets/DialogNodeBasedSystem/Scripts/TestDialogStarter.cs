@@ -1,11 +1,17 @@
+using System;
 using UnityEngine;
 using cherrydev;
 using SouthBasement.Interactions;
 
 public class TestDialogStarter : MonoBehaviour, IInteractive
 {
-    [SerializeField] private DialogBehaviour dialogBehaviour;
+    private DialogBehaviour dialogBehaviour;
     [SerializeField] private DialogNodeGraph dialogGraph;
+
+    private void Awake()
+    {
+        dialogBehaviour = FindObjectOfType<DialogBehaviour>();
+    }
 
     public void Detect()
     {
@@ -14,7 +20,7 @@ public class TestDialogStarter : MonoBehaviour, IInteractive
 
     public void Interact()
     {
-        dialogBehaviour.StartDialog(dialogGraph);        
+        dialogBehaviour.StartDialogue(dialogGraph.DialogueGraph);        
     }
 
     public void DetectionReleased()

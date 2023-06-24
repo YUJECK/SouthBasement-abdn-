@@ -23,17 +23,10 @@ namespace SouthBasement.Characters.Rat.Hole
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _animator = new(GetComponentInChildren<Animator>(), null, _weaponsUsage);
-
-            Movable = new RatMovable(_inputs, _rigidbody, Stats.MoveStats);
-            
-            Movable.OnMoved += (Vector2 _) => _animator.PlayWalk();
-            Movable.OnMoveReleased += () => _animator.PlayIdle();
         }
 
         private void OnDestroy()
         {
-            Movable.Dispose();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SouthBasement.Dialogues;
 using UnityEngine;
 
 namespace cherrydev
@@ -6,7 +7,20 @@ namespace cherrydev
     [CreateAssetMenu(menuName = "Scriptable Objects/Nodes/Node Graph", fileName = "New Node Graph")]
     public class DialogNodeGraph : ScriptableObject
     {
-        public List<Node> nodesList = new List<Node>();
+        public List<Node> nodesList = new();
+        [field: SerializeField] public DialogueGraph DialogueGraph { get; private set; } = new();
+
+        public void Add(Node node)
+        {
+            nodesList.Add(node);
+            DialogueGraph.DialogueNodes.Add(node.DialogueNode());
+        }
+
+        public void Remove(Node node)
+        {
+            nodesList.Remove(node);
+            DialogueGraph.DialogueNodes.Remove(node.DialogueNode());
+        }
 
 #if UNITY_EDITOR
 

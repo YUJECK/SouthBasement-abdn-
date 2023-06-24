@@ -7,7 +7,6 @@ namespace SouthBasement.InventorySystem
     {
         public override Type GetItemType()
         {
-            Debug.Log("sdkfoj;");
             return typeof(FoodItem);
         }
 

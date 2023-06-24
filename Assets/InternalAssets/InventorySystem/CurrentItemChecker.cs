@@ -2,7 +2,7 @@
 using SouthBasement.InventorySystem;
 using UnityEngine;
 
-namespace TheRat.InventorySystem
+namespace SouthBasement.InventorySystem
 {
     [Serializable]
     public sealed class CurrentItemChecker<TSlot, TITem> : IDisposable

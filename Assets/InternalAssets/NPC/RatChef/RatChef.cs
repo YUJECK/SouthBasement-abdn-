@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using cherrydev;
 using SouthBasement.InventorySystem;
 using SouthBasement.Items;
 using UnityEngine;
@@ -6,19 +7,26 @@ using Zenject;
 
 namespace SouthBasement
 {
-    public class RatCooker : MonoBehaviour
+    public class RatChef : MonoBehaviour
     {
         private ItemsContainer _itemsContainer;
 
         [SerializeField] private Transform[] tradePoints;
-        private readonly List<FoodItem> _currentItems = new();
 
+        private readonly List<FoodItem> _currentItems = new();
+        private DialogBehaviour _dialogBehaviour;
+        
         [Inject]
         private void Construct(ItemsContainer itemsContainer)
          => _itemsContainer = itemsContainer;
 
-        private void Awake()
-            => SpawnItems();
+        private void Start()
+        {
+            SpawnItems();
+         
+            _dialogBehaviour = FindObjectOfType<DialogBehaviour>();
+            //_dialogBehaviour.DisplaySentence(new Sentence("RatCooker", _currentItems[0].ItemDescription));
+        }
 
         private void SpawnItems()
         {

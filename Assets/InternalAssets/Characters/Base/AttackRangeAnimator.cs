@@ -1,4 +1,5 @@
 ﻿using SouthBasement.Characters;
+using SouthBasement.Characters.Components;
 using UnityEngine;
 
 namespace SouthBasement.InternalAssets.Scripts.Characters
@@ -17,7 +18,10 @@ namespace SouthBasement.InternalAssets.Scripts.Characters
             _animator = GetComponent<Animator>();
 
             if(asPlayer)
-                FindObjectOfType<Character>().Attackable.OnAttacked += (_) => Play();
+                FindObjectOfType<Character>()
+                    .ComponentContainer
+                    .GetCharacterComponent<IAttackable>()
+                    .OnAttacked += (_) => Play();
         }
 
         public void Play()

@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using SouthBasement.Dialogues;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace cherrydev
 {
-    public class DialogBehaviour : MonoBehaviour
+    public class DialogBehaviour : MonoBehaviour, IDialogueBehaviour
     {
         [SerializeField] private float dialogCharDelay;
         [SerializeField] private KeyCode nextSentenceKeyCode;
@@ -13,8 +14,8 @@ namespace cherrydev
         [SerializeField] private UnityEvent onDialogStart;
         [SerializeField] private UnityEvent onDialogFinished;
 
-        private DialogNodeGraph currentNodeGraph;
-        private Node currentNode;
+        private DialogueGraph currentNodeGraph;
+        private DialogueNode currentNode;
 
         public static event Action OnSentenceNodeActive;
 
@@ -24,17 +25,20 @@ namespace cherrydev
 
         public static event Action OnAnswerNodeActive;
 
-        public static event Action<int, AnswerNode> OnAnswerButtonSetUp;
+        public static event Action<int, Answer> OnAnswerButtonSetUp;
 
         public static event Action<int> OnAnswerNodeActiveWithParameter;
 
         public static event Action<int, string> OnAnswerNodeSetUp;
 
         public static event Action<char> OnDialogTextCharWrote;
-        
-        public void StartDialog(DialogNodeGraph dialogNodeGraph)
+
+        public void AddListenerToOnDialogStarted(UnityAction action) => onDialogStart.AddListener(action);
+        public void AddListenerToOnDialogFinished(UnityAction action) => onDialogFinished.AddListener(action);
+
+        public void StartDialogue(DialogueGraph dialogNodeGraph)
         {
-            if (dialogNodeGraph.nodesList == null)
+            if (dialogNodeGraph == null)
             {
                 Debug.LogWarning("Dialog Graph's node list is empty");
                 return;
@@ -43,68 +47,80 @@ namespace cherrydev
             onDialogStart?.Invoke();
             
             currentNodeGraph = dialogNodeGraph;
-            currentNode = currentNodeGraph.nodesList[0];
+            currentNode = currentNodeGraph.DialogueNodes[0];
 
             HandleDialogGraphCurrentNode(currentNode);
         }
 
-        private void HandleDialogGraphCurrentNode(Node currentNode)
+        public void StopDialogue()
+        {
+            onDialogFinished?.Invoke();
+        }
+
+        private void HandleDialogGraphCurrentNode(DialogueNode currentNode)
         {
             StopAllCoroutines();
 
-            if (currentNode.GetType() == typeof(SentenceNode))
+            if (currentNode is Sentence sentenceNode)
             {
-                SentenceNode sentenceNode = (SentenceNode)currentNode;
-
-                OnSentenceNodeActive?.Invoke();
-                OnSentenceNodeActiveWithParameter?.Invoke(sentenceNode.GetSentenceCharacterName(),
-                    sentenceNode.GetCharacterSprite());
-
-                WriteDialogText(sentenceNode.GetSentenceText());
+                DisplaySentence(sentenceNode);
             }
-            else if (currentNode.GetType() == typeof(AnswerNode))
+            else if (currentNode is Answer answerNode)
             {
-                AnswerNode answerNode = (AnswerNode)currentNode;
-                int amountOfActiveButtons = 0;
-
-                OnAnswerNodeActive?.Invoke();
-
-                for (int i = 0; i < answerNode.childSentenceNodes.Length; i++)
-                {
-                    if (answerNode.childSentenceNodes[i] != null)
-                    {
-                        OnAnswerNodeSetUp?.Invoke(i, answerNode.answers[i]);
-                        OnAnswerButtonSetUp?.Invoke(i, answerNode);
-
-                        amountOfActiveButtons++;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                if (amountOfActiveButtons == 0)
-                {
-                    onDialogFinished?.Invoke();
-                    return;
-                }
-
-                OnAnswerNodeActiveWithParameter?.Invoke(amountOfActiveButtons);
+                DisplayAnswerNode(answerNode);
             }
         }
 
-        public void SetCurrentNodeAndHandleDialogGraph(Node node)
+        private void DisplayAnswerNode(Answer currentNode)
+        {
+            Answer answerNode = currentNode;
+            int amountOfActiveButtons = 0;
+
+            OnAnswerNodeActive?.Invoke();
+
+            for (int i = 0; i < answerNode.ChildSentences.Length; i++)
+            {
+                if (answerNode.ChildSentences[i] != null)
+                {
+                    OnAnswerNodeSetUp?.Invoke(i, answerNode.Answers[i]);
+                    OnAnswerButtonSetUp?.Invoke(i, answerNode);
+
+                    amountOfActiveButtons++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (amountOfActiveButtons == 0)
+            {
+                onDialogFinished?.Invoke();
+                return;
+            }
+
+            OnAnswerNodeActiveWithParameter?.Invoke(amountOfActiveButtons);
+        }
+
+        public void DisplaySentence(Sentence currentNode)
+        {
+            var sentenceNode = currentNode;
+
+            OnSentenceNodeActive?.Invoke();
+            OnSentenceNodeActiveWithParameter?.Invoke(sentenceNode.CharacterName,
+                sentenceNode.CharacterSprite);
+
+            WriteDialogText(sentenceNode.Text);
+        }
+
+        public void SetCurrentNodeAndHandleDialogGraph(DialogueNode node)
         {
             currentNode = node;
             HandleDialogGraphCurrentNode(this.currentNode);
         }
 
-        private void WriteDialogText(string text)
-        {
-            StartCoroutine(WriteDialogTextRoutine(text));
-        }
-        
+        private void WriteDialogText(string text) => StartCoroutine(WriteDialogTextRoutine(text));
+
         private IEnumerator WriteDialogTextRoutine(string text)
         {
             foreach (char textChar in text)
@@ -118,16 +134,22 @@ namespace cherrydev
             OnDialogSentenceEnd?.Invoke();
             CheckForDialogNextNode();
         }
-        
+
         private void CheckForDialogNextNode()
         {
-            if (currentNode.GetType() == typeof(SentenceNode))
+            if (currentNode == null)
             {
-                SentenceNode sentenceNode = (SentenceNode)currentNode;
+                onDialogFinished?.Invoke();
+                return;
+            }
+                
+            if (currentNode.GetType() == typeof(Sentence))
+            {
+                Sentence sentenceNode = (Sentence)currentNode;
 
-                if (sentenceNode.childNode != null)
+                if (sentenceNode.ChildNode != null)
                 {
-                    currentNode = sentenceNode.childNode;
+                    currentNode = sentenceNode.ChildNode;
                     HandleDialogGraphCurrentNode(currentNode);
                 }
                 else
@@ -135,15 +157,6 @@ namespace cherrydev
                     onDialogFinished?.Invoke();
                 }
             }
-        }
-        
-        public void AddListenerToOnDialogStarted(UnityAction action)
-        {
-            onDialogStart.AddListener(action);
-        }
-        public void AddListenerToOnDialogFinished(UnityAction action)
-        {
-            onDialogFinished.AddListener(action);
         }
     }
 }

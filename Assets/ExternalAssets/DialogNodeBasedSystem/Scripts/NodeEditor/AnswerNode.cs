@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using SouthBasement.Dialogues;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,12 +7,16 @@ namespace cherrydev
     [CreateAssetMenu(menuName = "Scriptable Objects/Nodes/Answer Node", fileName = "New Answer Node")]
     public class AnswerNode : Node
     {
-        private const int amountOfAnswers = 4;
+        public override DialogueNode DialogueNode()
+        {
+            return Answers;
+        }
 
-        public List<string> answers = new List<string>();
+        public Answer Answers = new();
 
         public SentenceNode parentSentenceNode;
         public SentenceNode[] childSentenceNodes;
+        private int amountOfAnswers = 4;
 
         private const float lableFieldSpace = 15f;
         private const float textFieldWidth = 120f;
@@ -33,11 +37,6 @@ namespace cherrydev
             base.Initialise(rect, nodeName, nodeGraph);
 
             childSentenceNodes = new SentenceNode[amountOfAnswers];
-
-            for (int i = 0; i < amountOfAnswers; i++)
-            {
-                answers.Add(string.Empty);
-            }
         }
 
         /// <summary>
@@ -66,7 +65,12 @@ namespace cherrydev
         {
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField($"{answerNumber}. ", GUILayout.Width(lableFieldSpace));
-            answers[answerNumber - 1] = EditorGUILayout.TextField(answers[answerNumber - 1], GUILayout.Width(textFieldWidth));
+            
+            string answerText =
+                EditorGUILayout.TextField(Answers.Answers[answerNumber-1], GUILayout.Width(textFieldWidth));
+
+            Answers.Answers[answerNumber-1] = answerText;
+            
             EditorGUILayout.LabelField(EditorGUIUtility.IconContent(iconPathOrName), GUILayout.Width(lableFieldSpace));
             EditorGUILayout.EndHorizontal();
         }
