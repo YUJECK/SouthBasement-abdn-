@@ -2,7 +2,8 @@
 using SouthBasement.Generation;
 using SouthBasement.Helpers;
 using SouthBasement.HUD;
-using TheRat.CameraHandl;
+using SouthBasement.CameraHandl;
+using SouthBasement.Characters.Rat;
 using UnityEngine;
 using Zenject;
 
@@ -15,6 +16,7 @@ namespace SouthBasement
         [SerializeField] private ContainersHelper containersHelper;
 
         [SerializeField] private CamerasContainer camerasContainerPrefab;
+        [SerializeField] private CursorService cursorService;
 
         public override void InstallBindings()
         {
@@ -25,6 +27,10 @@ namespace SouthBasement
             BindGeneration();
             BindCameras();
 
+            Container
+                .Bind<CursorService>()
+                .FromInstance(cursorService)
+                .AsSingle();
             Container
                 .Bind<ContainersHelper>()
                 .FromInstance(containersHelper)
@@ -65,6 +71,11 @@ namespace SouthBasement
 
             Container
                 .Bind<Character>()
+                .FromInstance(character)
+                .AsSingle();
+            
+            Container
+                .BindInterfacesTo<RatCharacter>()
                 .FromInstance(character)
                 .AsSingle();
         }

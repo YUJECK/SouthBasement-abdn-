@@ -16,7 +16,7 @@ namespace SouthBasement.Characters.Rat
         {
             Owner = ratCharacter;
             
-            _movable = Owner.ComponentContainer.GetCharacterComponent<IMovable>();
+            _movable = Owner.ComponentContainer.GetComponent<IMovable>();
             _moveStats = ratCharacter.Stats.MoveStats;
         }
 
@@ -36,7 +36,7 @@ namespace SouthBasement.Characters.Rat
         {
             StartDash();
             {
-                var dashMove = GetPositionInVector2() + Owner.ComponentContainer.GetCharacterComponent<IMovable>().CurrentMovement;
+                var dashMove = GetPositionInVector2() + Owner.ComponentContainer.GetComponent<IMovable>().CurrentMovement;
                 
                 var dashStopTime = Time.time + 0.135;
                 

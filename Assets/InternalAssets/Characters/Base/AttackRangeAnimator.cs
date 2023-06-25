@@ -20,7 +20,7 @@ namespace SouthBasement.InternalAssets.Scripts.Characters
             if(asPlayer)
                 FindObjectOfType<Character>()
                     .ComponentContainer
-                    .GetCharacterComponent<IAttackable>()
+                    .GetComponent<IAttackable>()
                     .OnAttacked += (_) => Play();
         }
 

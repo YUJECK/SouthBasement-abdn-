@@ -1,4 +1,4 @@
-﻿namespace TheRat.CameraHandl
+﻿namespace SouthBasement.CameraHandl
 {
     public enum CameraTags
     {

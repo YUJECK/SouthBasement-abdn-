@@ -5,7 +5,7 @@ using SouthBasement.Extensions.DataStructures;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
-namespace TheRat.CameraHandl
+namespace SouthBasement.CameraHandl
 {
     public sealed class CamerasContainer : MonoBehaviour
     {

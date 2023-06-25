@@ -1,8 +1,9 @@
 ﻿using Cinemachine;
 using NTC.GlobalStateMachine;
 using SouthBasement.Characters;
+using SouthBasement.Characters.Components;
 using SouthBasement.Characters.Stats;
-using TheRat.CameraHandl;
+using SouthBasement.CameraHandl;
 using UnityEngine;
 using Zenject;
 
@@ -24,6 +25,9 @@ namespace SouthBasement
         protected override void OnDied()
         {
             _cameraHandler.SwitchTo(CameraTags.Death);
+            _character.ComponentContainer.RemoveComponent<IAttackable>();
+            _character.ComponentContainer.RemoveComponent<IMovable>();
+            _character.ComponentContainer.RemoveComponent<IDashable>();
         }
     }
 }

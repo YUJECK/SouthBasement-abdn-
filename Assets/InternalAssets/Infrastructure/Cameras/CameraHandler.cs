@@ -3,7 +3,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
-namespace TheRat.CameraHandl
+namespace SouthBasement.CameraHandl
 {
     public sealed class CameraHandler
     {

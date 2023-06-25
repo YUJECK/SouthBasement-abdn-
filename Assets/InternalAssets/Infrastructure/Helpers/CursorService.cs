@@ -1,4 +1,4 @@
-using TheRat.CameraHandl;
+using SouthBasement.CameraHandl;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +8,8 @@ namespace SouthBasement
     {
         private Camera _mainCamera;
 
+        public Vector2 CursorPosition => transform.position;
+        
         [Inject]
         private void Construct(CameraHandler cameraHandler)
         {
