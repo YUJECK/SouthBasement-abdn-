@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b3fd9154634ebdb8c8a48960b9a16a, type: 3}
+  m_Name: TestDialogue
+  m_EditorClassIdentifier: 
+  NodeLinks:
+  - BaseNodeGUID: 69dd8a4c-4657-4f26-bf95-fe0a53925df3
+    PortName: Next
+    TargetNodeGUID: faaa2ef4-0b20-4583-a41b-5fc501e4860f
+  - BaseNodeGUID: faaa2ef4-0b20-4583-a41b-5fc501e4860f
+    PortName: "\u0425\u043E\u0440\u043E\u0448\u043E"
+    TargetNodeGUID: d14b0906-93d2-48be-b05e-003e7b1bc9e6
+  - BaseNodeGUID: faaa2ef4-0b20-4583-a41b-5fc501e4860f
+    PortName: "\u041F\u043B\u043E\u0445\u043E"
+    TargetNodeGUID: 69074d91-c7ca-493e-9f28-f4d41e63eaa2
+  - BaseNodeGUID: faaa2ef4-0b20-4583-a41b-5fc501e4860f
+    PortName: "\u0422\u044B \u043A\u0442\u043E"
+    TargetNodeGUID: 940af73b-ee79-4e26-8afe-3cfb57efc01b
+  - BaseNodeGUID: d14b0906-93d2-48be-b05e-003e7b1bc9e6
+    PortName: "\u0414\u0430\u043B\u0435\u0435"
+    TargetNodeGUID: e96855f0-7c51-4681-97d1-d9055097d055
+  DialogueNodeData:
+  - NodeGUID: 69074d91-c7ca-493e-9f28-f4d41e63eaa2
+    DialogueText: "\u041F\u0435\u0447\u0430\u043B\u044C\u043D\u043E"
+    Position: {x: 731, y: 277}
+  - NodeGUID: 940af73b-ee79-4e26-8afe-3cfb57efc01b
+    DialogueText: "\u0425\u0437"
+    Position: {x: 705, y: 399}
+  - NodeGUID: d14b0906-93d2-48be-b05e-003e7b1bc9e6
+    DialogueText: "\u042D\u0442\u043E \u0445\u043E\u0440\u043E\u0448\u043E"
+    Position: {x: 731, y: 180}
+  - NodeGUID: e96855f0-7c51-4681-97d1-d9055097d055
+    DialogueText: "\u0410 \u043A\u0430\u043A \u043D\u043E\u0440\u043A\u0430"
+    Position: {x: 989, y: 180}
+  - NodeGUID: faaa2ef4-0b20-4583-a41b-5fc501e4860f
+    DialogueText: "\u041A\u0430\u043A \u0443 \u0442\u0435\u0431\u044F \u0434\u0435\u043B\u0430?"
+    Position: {x: 243, y: 254}
+  ExposedProperties: []
+  CommentBlockData: []

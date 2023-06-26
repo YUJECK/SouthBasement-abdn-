@@ -9,6 +9,7 @@
         public const string ItemPickerPrefab = "Items/ItemPicker";
         
         public const string RoomsContainer = "Generation/RoomsContainer";
-        public const string HUD = "HUD";
+        public const string HUD = "HUD/HUD";
+        public const string DialogueHUD = "HUD/DialogueWindow";
     }
 }
