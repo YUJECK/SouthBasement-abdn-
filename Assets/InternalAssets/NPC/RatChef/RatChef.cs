@@ -11,24 +11,16 @@ namespace SouthBasement
     public class RatChef : MonoBehaviour
     {
         [SerializeField] private Transform[] tradePoints;
-        public DialogueContainer DialogueContainer;
 
         private readonly List<FoodItem> _currentItems = new();
         private ItemsContainer _itemsContainer;
-        private IDialogueService _dialogueService;
 
         [Inject]
-        private void Construct(ItemsContainer itemsContainer, IDialogueService dialogueService)
-        {
-            _itemsContainer = itemsContainer;
-            _dialogueService = dialogueService;
-        }
+        private void Construct(ItemsContainer itemsContainer)
+            => _itemsContainer = itemsContainer;
 
         private void Start()
-        {
-            SpawnItems();
-            _dialogueService.StartDialogue(DialogueContainer);
-        }
+            => SpawnItems();
 
         private void SpawnItems()
         {

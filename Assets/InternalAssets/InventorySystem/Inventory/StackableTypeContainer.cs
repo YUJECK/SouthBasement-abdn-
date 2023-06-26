@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using SouthBasement.Extensions.DataStructures;
-using UnityEditor.Build;
 
 namespace SouthBasement.InventorySystem
 {

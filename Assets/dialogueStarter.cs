@@ -1,3 +1,5 @@
+using SouthBasement.Characters;
+using SouthBasement.Characters.Components;
 using SouthBasement.Dialogues;
 using SouthBasement.Interactions;
 using Subtegral.DialogueSystem.DataContainers;
@@ -11,11 +13,13 @@ namespace TheRat
         [SerializeField] private DialogueContainer DialogueContainer;
         
         private IDialogueService _dialogueService;
+        private Character _character;
 
         [Inject]
-        private void Construct(IDialogueService dialogueService)
+        private void Construct(IDialogueService dialogueService, Character character)
         {
             _dialogueService = dialogueService;
+            _character = character;
         }
 
         public void Detect()
@@ -25,8 +29,8 @@ namespace TheRat
 
         public void Interact()
         {
-            Debug.Log("sdkl;f");
-            _dialogueService.StartDialogue(DialogueContainer);
+            _dialogueService.StartDialogue(DialogueContainer, () => _character.Components.Get<IMovable>().CanMove = true);
+            _character.Components.Get<IMovable>().CanMove = false;
         }
 
         public void DetectionReleased()

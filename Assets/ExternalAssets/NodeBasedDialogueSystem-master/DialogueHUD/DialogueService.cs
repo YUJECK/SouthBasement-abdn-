@@ -24,16 +24,20 @@ namespace SouthBasement.Dialogues
 
         [SerializeField] private DialogueContainer _currentDialogue;
 
+        private Action onStopped;
+        
         private void Awake()
         {
             if(!CurrentlyTalk)
                 StopDialogue();
         }
 
-        public void StartDialogue(DialogueContainer dialogueContainer)
+        public void StartDialogue(DialogueContainer dialogueContainer, Action onStopped)
         {
             if(dialogueContainer == null || CurrentlyTalk)
                 return;
+
+            this.onStopped = onStopped;
             
             _dialoguePanel.DOMove(onEnable.position, 0.7f);
             PrintText(dialogueContainer.NodeLinks.First().TargetNodeGUID);
@@ -76,6 +80,7 @@ namespace SouthBasement.Dialogues
         public void StopDialogue()
         {
             _dialoguePanel.DOMove(onDisable.position, 0.7f);
+            onStopped?.Invoke();
             CurrentlyTalk = false;
         }
     }

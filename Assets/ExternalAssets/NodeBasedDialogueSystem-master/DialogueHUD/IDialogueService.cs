@@ -1,3 +1,4 @@
+using System;
 using Subtegral.DialogueSystem.DataContainers;
 
 namespace SouthBasement.Dialogues
@@ -6,7 +7,7 @@ namespace SouthBasement.Dialogues
     {
         bool CurrentlyTalk { get; }
 
-        void StartDialogue(DialogueContainer dialogueContainer);
+        void StartDialogue(DialogueContainer dialogueContainer, Action onStopped);
         void StopDialogue();
     }
 }
