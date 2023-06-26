@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SouthBasement.InventorySystem
@@ -8,7 +9,7 @@ namespace SouthBasement.InventorySystem
         [field: SerializeField] public string ItemName { get; private set; }
         [field: SerializeField] public string ItemDescription { get; private set; }
         [field: SerializeField] public string ItemID { get; private set; }
-        [field: SerializeField] public string ItemCategory { get; private set; } = "any";
+        [field: SerializeField] public List<string> ItemTags { get; private set; } = new();
         [field: SerializeField] public Rarity Rarity { get; private set; } 
         [field: SerializeField] public Sprite ItemSprite { get; private set; }
 

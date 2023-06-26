@@ -1,39 +1,50 @@
 ﻿using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using SouthBasement.DialogueHUD;
 using Subtegral.DialogueSystem.DataContainers;
 using Subtegral.DialogueSystem.Runtime;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SouthBasement.Dialogues
 {
     public sealed class DialogueService : MonoBehaviour, IDialogueService
     {
+        [SerializeField] private Transform _dialoguePanel;
         [SerializeField] private TMP_Text dialogueText;
         [SerializeField] private ChoiceButtonController _buttonController;
+
+        [SerializeField] private Transform onEnable;
+        [SerializeField] private Transform onDisable;
 
         public bool CurrentlyTalk { get; private set; }
         private readonly DialogueParser _parser = new();
 
         [SerializeField] private DialogueContainer _currentDialogue;
 
-        private void Start()
+        private void Awake()
         {
-            StartDialogue(_currentDialogue);
+            if(!CurrentlyTalk)
+                StopDialogue();
         }
 
         public void StartDialogue(DialogueContainer dialogueContainer)
         {
+            if(dialogueContainer == null || CurrentlyTalk)
+                return;
+            
+            _dialoguePanel.DOMove(onEnable.position, 0.7f);
             PrintText(dialogueContainer.NodeLinks.First().TargetNodeGUID);
+            
+            CurrentlyTalk = true;
         }
         
         private async void PrintText(string target)
         {
             dialogueText.text = "";
-            var newText = _parser.GetNext(_currentDialogue, target);
+            var newText = _parser.Get(_currentDialogue, target);
 
             _buttonController.ClearButtons();
             
@@ -42,7 +53,12 @@ namespace SouthBasement.Dialogues
                 dialogueText.text += letter;
                 await UniTask.Delay(50);
             }
-            
+
+            if (newText.DialogueChoices.Length == 0)
+            {
+                BuildCloseButton();
+                return;
+            }
             BuildButtons(newText.DialogueChoices);
         }
 
@@ -51,9 +67,16 @@ namespace SouthBasement.Dialogues
             _buttonController.Build(choices, (choice) => PrintText(choice.Target));
         }
 
-        public void StopDialogue(DialogueContainer dialogueContainer)
+        private void BuildCloseButton()
         {
-            
+            DialogueChoice[] closeButton = new DialogueChoice[] { new DialogueChoice("Уйти", "") };
+            _buttonController.Build(closeButton, (choice) => StopDialogue());
+        }
+
+        public void StopDialogue()
+        {
+            _dialoguePanel.DOMove(onDisable.position, 0.7f);
+            CurrentlyTalk = false;
         }
     }
 } 

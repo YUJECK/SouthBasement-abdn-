@@ -6,7 +6,7 @@ namespace Subtegral.DialogueSystem.Runtime
 {
     public sealed class DialogueParser 
     {
-        public DialoguePhrase GetNext(DialogueContainer dialogue, string narrativeDataGUID)
+        public DialoguePhrase Get(DialogueContainer dialogue, string narrativeDataGUID)
         {
             var text = dialogue.DialogueNodeData.Find(x => x.NodeGUID == narrativeDataGUID).DialogueText;
             text = ProcessProperties(dialogue, text);

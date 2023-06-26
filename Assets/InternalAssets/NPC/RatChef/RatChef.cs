@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SouthBasement.Dialogues;
 using SouthBasement.InventorySystem;
 using SouthBasement.Items;
 using Subtegral.DialogueSystem.DataContainers;
@@ -9,21 +10,24 @@ namespace SouthBasement
 {
     public class RatChef : MonoBehaviour
     {
-        private ItemsContainer _itemsContainer;
+        [SerializeField] private Transform[] tradePoints;
         public DialogueContainer DialogueContainer;
 
-        [SerializeField] private Transform[] tradePoints;
-
         private readonly List<FoodItem> _currentItems = new();
-        
+        private ItemsContainer _itemsContainer;
+        private IDialogueService _dialogueService;
+
         [Inject]
-        private void Construct(ItemsContainer itemsContainer)
-         => _itemsContainer = itemsContainer;
+        private void Construct(ItemsContainer itemsContainer, IDialogueService dialogueService)
+        {
+            _itemsContainer = itemsContainer;
+            _dialogueService = dialogueService;
+        }
 
         private void Start()
         {
             SpawnItems();
-                     
+            _dialogueService.StartDialogue(DialogueContainer);
         }
 
         private void SpawnItems()

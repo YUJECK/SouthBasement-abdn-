@@ -6,60 +6,29 @@ namespace SouthBasement.InventorySystem
 {
     public sealed class ItemsDictionaryContainer
     {
-        private readonly Dictionary<Type, Dictionary<string, IInventoryContainer>> _itemsContainers = new();
+        private readonly Dictionary<Type, ITypeContainer> _itemsContainers = new();
         private readonly Dictionary<Type, int> _containersLimits = new();
         
-        public ItemsDictionaryContainer AddContainer<TContainer>(IInventoryContainer container, int limit, string mainSubContainer = "any")
+        public ItemsDictionaryContainer AddContainer<TContainer>(ITypeContainer container, int limit)
             where TContainer : Item
         {
-            if (_itemsContainers.TryAdd(typeof(TContainer), new Dictionary<string, IInventoryContainer>()))
+            if (_itemsContainers.TryAdd(typeof(TContainer), container))
             {
-                var newContainer = container;
+                var newContainer = _itemsContainers[typeof(TContainer)];
                 newContainer.Init<TContainer>();
                 
-                _itemsContainers[typeof(TContainer)].TryAdd(mainSubContainer, newContainer);
                 _containersLimits.TryAdd(typeof(TContainer), limit);
             }
             
             return this;
         }
 
-        public ItemsDictionaryContainer AddSubContainerTo<TContainer>(string subcontainer) where TContainer : Item
-        {
-            AddSubContainerTo(typeof(TContainer), subcontainer);
-            
-            return this;
-        }
-        public ItemsDictionaryContainer AddSubContainerTo(Type type, string subcontainer)
-        {
-            if (_itemsContainers.TryGetValue(type, out var container))
-            {
-                var newContainer = new InventoryContainer();
-                newContainer.Init(type);
-                
-                container.TryAdd(subcontainer, newContainer);
-            }
-            
-            return this;
-        }
-        
-        public bool TryAddItem(Item item, string subcontainerID = "any") 
+        public bool TryAddItem(Item item) 
         {
             if(item == null)
-                Debug.LogError($"You tried to add null item to {item.GetItemType()} in subcontainer {subcontainerID}");
-            
-            var subcontainer = GetSubContainer(item.GetItemType(), subcontainerID);
+                Debug.LogError($"You tried to add null item");
 
-            if (subcontainer == null)
-            {
-                AddSubContainerTo(item.GetItemType(), item.ItemCategory);
-                subcontainer = GetSubContainer(item.GetItemType(), subcontainerID);
-            }
-                
-            if (GetAllInContainerOfItem(item).Length >= _containersLimits[item.GetItemType()])
-                return false;
-            
-            return subcontainer.TryAddItem(item);
+            return _itemsContainers[item.GetItemType()].TryAddItem(item);
         }
         public bool Remove(string itemID) 
         {
@@ -71,68 +40,31 @@ namespace SouthBasement.InventorySystem
                 return false;
             }
             
-            if(subcontainer.RemoveItem(itemID))
-                return true;
-
-            return false;
+            return subcontainer.RemoveItem(itemID);
         }
 
         public Item[] GetAllInContainer<TContainer>() where TContainer : Item
         {
-            var items = new List<Item>();
+            if(_itemsContainers.TryGetValue(typeof(TContainer), out var container))
+                return container.GetAllInContainer();
 
-            _itemsContainers.TryGetValue(typeof(TContainer), out var container);
-            {
-                foreach (var subcontainer in container)
-                {
-                    if(subcontainer.Value.ItemsCount > 0)
-                        items.AddRange(subcontainer.Value.GetAllInContainer());
-                }
-            }
-
-            return items.ToArray();
-        }
-
-        public Item[] GetAllInContainerOfItem(Item item)
-        {
-            var items = new List<Item>();
-
-            _itemsContainers.TryGetValue(item.GetItemType(), out var container);
-            {
-                foreach (var subcontainer in container)
-                {
-                    if(subcontainer.Value.ItemsCount > 0)
-                        items.AddRange(subcontainer.Value.GetAllInContainer());
-                }
-            }
-
-            return items.ToArray();
-        }
-
-        public Item[] GetAllInSubContainerOfContainer<TContainer>(string subContainerID) 
-            => GetSubContainer(typeof(TContainer), subContainerID).GetAllInContainer();
-
-        private IInventoryContainer GetSubContainer(Type type, string subcontainerID)
-        {
-            if (_itemsContainers.TryGetValue(type, out var container))
-            {
-                container.TryGetValue(subcontainerID, out var subcontainer);
-                return subcontainer;
-            }
-            
-            Debug.LogError($"Cannot find subcontainer {subcontainerID} in {type}");
             return null;
         }
 
-        private IInventoryContainer FindWithItem(string id)
+        public Item[] GetAllInContainerOfItemType(Item item)
         {
-            foreach (var container in _itemsContainers)
+            if (_itemsContainers.TryGetValue(item.GetItemType(), out var container))
+                return container.GetAllInContainer();
+
+            return new List<Item>().ToArray();
+        }
+
+        private ITypeContainer FindWithItem(string id)
+        {
+            foreach (var typeContainerPair in _itemsContainers)
             {
-                foreach (var subcontainer in container.Value)
-                {
-                    if (subcontainer.Value.TryGetItem(id, out var item))
-                        return subcontainer.Value;
-                }
+                if (typeContainerPair.Value.TryGetItem(id, out var item))
+                    return typeContainerPair.Value;
             }
 
             return null;

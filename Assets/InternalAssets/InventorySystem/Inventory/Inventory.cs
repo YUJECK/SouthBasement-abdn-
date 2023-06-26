@@ -5,11 +5,8 @@ namespace SouthBasement.InventorySystem
 {
     public sealed class Inventory
     {
-        public int ActiveItemsSlots { get; private set; } = 2;
-        public int WeaponItemsSlots { get; private set; } = 3;
-
         private DiContainer _diContainer;
-        public ItemsDictionaryContainer MainContainer;
+        public ItemsDictionaryContainer ItemsContainer;
         
         public event Action<Item> OnAdded;
         public event Action<string> OnRemoved;
@@ -18,19 +15,19 @@ namespace SouthBasement.InventorySystem
         {
             _diContainer = diContainer;
 
-            MainContainer = new ItemsDictionaryContainer();
+            ItemsContainer = new ItemsDictionaryContainer();
 
-            MainContainer
-                .AddContainer<JunkItem>(new StackableInventoryContainer(), 12)
-                .AddContainer<FoodItem>(new InventoryContainer(), 6)
-                .AddContainer<ActiveItem>(new InventoryContainer(), 2)
-                .AddContainer<PassiveItem>(new InventoryContainer(), 24)
-                .AddContainer<WeaponItem>(new InventoryContainer(), 3);
+            ItemsContainer
+                .AddContainer<JunkItem>(new StackableTypeContainer(), 12)
+                .AddContainer<FoodItem>(new TypeContainer(), 6)
+                .AddContainer<ActiveItem>(new TypeContainer(), 2)
+                .AddContainer<PassiveItem>(new TypeContainer(), 24)
+                .AddContainer<WeaponItem>(new TypeContainer(), 3);
         }
 
         public bool TryAddItem(Item item)
         {
-            if (MainContainer.TryAddItem(item, item.ItemCategory))
+            if (ItemsContainer.TryAddItem(item))
             {
                 OnAdded?.Invoke(item);
                 return true;
@@ -41,7 +38,7 @@ namespace SouthBasement.InventorySystem
 
         public void RemoveItem(string id)
         {
-            if(MainContainer.Remove(id))
+            if(ItemsContainer.Remove(id))
                 OnRemoved?.Invoke(id);
         }
     }

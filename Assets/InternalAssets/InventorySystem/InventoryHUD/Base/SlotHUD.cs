@@ -20,7 +20,7 @@ namespace SouthBasement.HUD
 
         public void UpdateInventory(Inventory inventory)
         {
-            var items = inventory.MainContainer.GetAllInContainer<TItem>();
+            var items = inventory.ItemsContainer.GetAllInContainer<TItem>();
 
             foreach (var item in items)
             {

@@ -7,6 +7,6 @@ namespace SouthBasement.Dialogues
         bool CurrentlyTalk { get; }
 
         void StartDialogue(DialogueContainer dialogueContainer);
-        void StopDialogue(DialogueContainer dialogueContainer);
+        void StopDialogue();
     }
 }

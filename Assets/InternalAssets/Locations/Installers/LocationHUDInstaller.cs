@@ -1,4 +1,5 @@
-﻿using SouthBasement.Helpers;
+﻿using SouthBasement.Dialogues;
+using SouthBasement.Helpers;
 using UnityEngine;
 using Zenject;
 
@@ -10,17 +11,17 @@ namespace SouthBasement.Locations
         
         public override void InstallBindings()
         {
-            // Container.BindInterfacesAndSelfTo<LocationHUDInstaller>().FromInstance(this).AsSingle();
-            //
-            // var DialogueWindowPrefab = GetDialogueWindowPrefab();
-            //
-            // var dialogueBehaviour = Container.InstantiatePrefabForComponent<IDialogueBehaviour>(DialogueWindowPrefab, startPoint.position,
-            //     startPoint.rotation, null);
-            //
-            // Container
-            //     .Bind<IDialogueBehaviour>()
-            //     .FromInstance(dialogueBehaviour)
-            //     .AsSingle();
+            Container.BindInterfacesAndSelfTo<LocationHUDInstaller>().FromInstance(this).AsSingle();
+            
+            var DialogueWindowPrefab = GetDialogueWindowPrefab();
+            
+            var dialogueBehaviour = Container.InstantiatePrefabForComponent<IDialogueService>(DialogueWindowPrefab, startPoint.position,
+                startPoint.rotation, null);
+            
+            Container
+                .Bind<IDialogueService>()
+                .FromInstance(dialogueBehaviour)
+                .AsSingle();
         }
 
         private GameObject GetHUDPrefab()

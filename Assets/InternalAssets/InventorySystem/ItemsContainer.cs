@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SouthBasement.Helpers;
 using SouthBasement.InventorySystem;
-using SouthBasement.Items;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
@@ -15,7 +15,7 @@ namespace SouthBasement.Items
         private readonly Dictionary<Rarity, List<Item>> _itemsInRarity = new();
         private readonly Dictionary<Type, List<Item>> _itemsInType = new();
         private readonly Dictionary<string, List<Item>> _itemsInCategory = new();
-        private readonly InventoryContainer _itemsInID = new();
+        private readonly Dictionary<string, Item> _itemsInID = new();
 
         private ItemPicker _itemPickerPrefab;
         private TradeItem _tradeItemPrefab;
@@ -27,8 +27,6 @@ namespace SouthBasement.Items
             _itemPickerPrefab = Resources.Load<ItemPicker>(ResourcesPathHelper.ItemPickerPrefab);
             _tradeItemPrefab = Resources.Load<TradeItem>(ResourcesPathHelper.TradeItemPrefab);
             
-            _itemsInID.Init<Item>();
-
             Add(items);
 
             _diContainer = diContainer;
@@ -91,16 +89,16 @@ namespace SouthBasement.Items
             _itemsInType.TryAdd(item.GetItemType(), new());
             _itemsInType[item.GetItemType()].Add(item);
 
-            _itemsInCategory.TryAdd(item.ItemCategory, new());
-            _itemsInCategory[item.ItemCategory].Add(item);
+            foreach (var tag in item.ItemTags)
+            {
+                _itemsInCategory.TryAdd(tag, new());
+                _itemsInCategory[tag].Add(item);
+            }
 
-            _itemsInID.TryAddItem(item);
+            _itemsInID.TryAdd(item.ItemID, item);
         }
 
-        public Item Get(string id)
-        {
-            return _itemsInID.GetItem(id);
-        }
+        public Item Get(string id) => _itemsInID[id];
 
         public Item GetRandomInRarity(Rarity rarity)
             => _itemsInRarity[rarity][Random.Range(0, _itemsInRarity[rarity].Count)];
@@ -124,7 +122,7 @@ namespace SouthBasement.Items
         {
             Item item = GetRandomInRarity(rarity);
 
-            while(item.GetItemType() != type && item.ItemCategory != category)
+            while(item.GetItemType() != type && item.ItemTags.Contains(category))
                 item = GetRandomInRarity(rarity);
 
             return item;
@@ -133,7 +131,7 @@ namespace SouthBasement.Items
         {
             Item item = GetRandomInType(type);
 
-            while(item.ItemCategory != category)
+            while(!item.ItemTags.Contains(category))
                 item =  GetRandomInType(type);
 
             return item;
@@ -142,7 +140,7 @@ namespace SouthBasement.Items
         {
             Item item = GetRandomInRarity(rarity);
 
-            while(item.ItemCategory != category)
+            while(!item.ItemTags.Contains(category))
                 item =  GetRandomInRarity(rarity);
 
             return item;

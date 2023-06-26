@@ -1,6 +1,4 @@
-﻿using SouthBasement.Characters;
-using SouthBasement.Characters.Components;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SouthBasement.InternalAssets.Scripts.Characters
 {
@@ -8,25 +6,10 @@ namespace SouthBasement.InternalAssets.Scripts.Characters
     public sealed class AttackRangeAnimator : MonoBehaviour
     {
         private Animator _animator;
-
         private readonly int _rangeAnimation = Animator.StringToHash("AttackRange");
-
-        [SerializeField] private bool asPlayer;
         
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
+        private void Start() => _animator = GetComponent<Animator>();
 
-            if(asPlayer)
-                FindObjectOfType<Character>()
-                    .Components
-                    .Get<IAttackable>()
-                    .OnAttacked += (_) => Play();
-        }
-
-        public void Play()
-        {
-            _animator.Play(_rangeAnimation);
-        } 
+        public void Play() => _animator.Play(_rangeAnimation);
     }
 }

@@ -24,9 +24,10 @@ namespace SouthBasement.Characters.Rat
         
         public override void Dash()
         {
-            if (Blocked || _blocked || !Owner.StaminaController.TryDo(_moveStats.DashStaminaRequire))
-                return;
             if (Owner.Components.Get<IMovable>().CurrentMovement == Vector2.zero)
+                return;
+            
+            if (Blocked || _blocked || !Owner.StaminaController.TryDo(_moveStats.DashStaminaRequire))
                 return;
 
             Owner.StartCoroutine(DashCoroutine());
@@ -77,6 +78,9 @@ namespace SouthBasement.Characters.Rat
 
         private FacingDirections GetFacingDirection()
         {
+            if (Owner.Components.Get<IMovable>().CurrentMovement.x == 0)
+                return Owner.Components.Get<IFlipper>().FacingDirection;
+            
             if (Owner.Components.Get<IMovable>().CurrentMovement.x > 0)
                 return FacingDirections.Right;
 
