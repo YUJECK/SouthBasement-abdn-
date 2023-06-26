@@ -1,10 +1,8 @@
-﻿using Cinemachine;
-using NTC.GlobalStateMachine;
+﻿using NTC.GlobalStateMachine;
 using SouthBasement.Characters;
 using SouthBasement.Characters.Components;
 using SouthBasement.Characters.Stats;
 using SouthBasement.CameraHandl;
-using UnityEngine;
 using Zenject;
 
 namespace SouthBasement
@@ -25,9 +23,14 @@ namespace SouthBasement
         protected override void OnDied()
         {
             _cameraHandler.SwitchTo(CameraTags.Death);
-            _character.ComponentContainer.RemoveComponent<IAttackable>();
-            _character.ComponentContainer.RemoveComponent<IMovable>();
-            _character.ComponentContainer.RemoveComponent<IDashable>();
+
+            _character.Components.Get<PlayerAnimator>().PlayDead();
+            
+            _character.Components
+                .Remove<IAttackable>()
+                .Remove<IMovable>()
+                .Remove<IDashable>()
+                .Remove<IFlipper>();
         }
     }
 }

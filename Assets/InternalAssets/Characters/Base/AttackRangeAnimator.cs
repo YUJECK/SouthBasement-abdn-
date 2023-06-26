@@ -19,8 +19,8 @@ namespace SouthBasement.InternalAssets.Scripts.Characters
 
             if(asPlayer)
                 FindObjectOfType<Character>()
-                    .ComponentContainer
-                    .GetComponent<IAttackable>()
+                    .Components
+                    .Get<IAttackable>()
                     .OnAttacked += (_) => Play();
         }
 

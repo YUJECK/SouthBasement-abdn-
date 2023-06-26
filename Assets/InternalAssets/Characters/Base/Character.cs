@@ -7,6 +7,6 @@ namespace SouthBasement.Characters
     {
         [field: SerializeField] public CharacterConfig CharacterConfig { get; private set; }
         public CharacterStats Stats { get; protected set; }
-        public ComponentContainer ComponentContainer { get; private set; } = new();
+        public ComponentContainer Components { get; private set; } = new();
     }
 }

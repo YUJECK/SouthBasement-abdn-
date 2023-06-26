@@ -34,14 +34,10 @@ namespace SouthBasement.Characters.Rat
             StaminaController = staminaController;
         }
 
-        private void Update() => ComponentContainer.UpdateALl();
-        private void OnDestroy() => ComponentContainer.DisposeAll();
+        private void Update() => Components.UpdateALl();
+        private void OnDestroy() => Components.DisposeAll();
 
-        public void Initialize()
-        {
-            CreateComponents();
-            ComponentContainer.StartAll();
-        }
+        public void Initialize() => CreateComponents();
 
         private void CreateComponents()
         {
@@ -50,22 +46,23 @@ namespace SouthBasement.Characters.Rat
 
             var playerAnimator = new PlayerAnimator(this);
 
-            ComponentContainer.AddComponent<PlayerAnimator>(playerAnimator);
-            ComponentContainer.AddComponent<IAttackable>(new RatAttack(this));
-            ComponentContainer.AddComponent<IMovable>(new RatMovement(this));
-            ComponentContainer.AddComponent<IDashable>(new RatCharacterDashable(this));
+            Components
+                .Add<PlayerAnimator>(playerAnimator)
+                .Add<IAttackable>(new RatAttack(this))
+                .Add<IMovable>(new RatMovement(this))
+                .Add<IDashable>(new RatCharacterDashable(this));
             
             var flipper = new CharacterMouseFlipper(this, FacingDirections.Left);
+            
             _componentFactory.InitializeComponent(flipper);
-            
-            ComponentContainer.AddComponent<IFlipper>(flipper);
+            Components.Add<IFlipper>(flipper);
 
-            ComponentContainer.GetComponent<IAttackable>().OnAttacked += _ => playerAnimator.PlayAttack();
+            Components.Get<IAttackable>().OnAttacked += _ => playerAnimator.PlayAttack();
             
-            ComponentContainer.GetComponent<IMovable>().OnMoved += _ => playerAnimator.PlayWalk();
-            ComponentContainer.GetComponent<IMovable>().OnMoveReleased += () => playerAnimator.PlayIdle();
+            Components.Get<IMovable>().OnMoved += _ => playerAnimator.PlayWalk();
+            Components.Get<IMovable>().OnMoveReleased += () => playerAnimator.PlayIdle();
             
-            ComponentContainer.GetComponent<IDashable>().OnDashed += () => playerAnimator.PlayDash();
+            Components.Get<IDashable>().OnDashed += () => playerAnimator.PlayDash();
         }
     }
 }

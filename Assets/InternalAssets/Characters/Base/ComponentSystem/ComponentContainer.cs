@@ -30,7 +30,7 @@ namespace SouthBasement.Characters.Components
             where TComponent : class
             => Components.ContainsKey(typeof(TComponent));
         
-        public TComponent GetComponent<TComponent>()
+        public TComponent Get<TComponent>()
             where TComponent : class
         {
             if (Components.TryGetValue(typeof(TComponent), out var component))
@@ -39,7 +39,7 @@ namespace SouthBasement.Characters.Components
             return null;
         }
 
-        public bool TryGetComponent<TComponent>(out TComponent component)
+        public bool TryGet<TComponent>(out TComponent component)
             where TComponent : class
         {
             if (Components.TryGetValue(typeof(TComponent), out var result))
@@ -52,19 +52,22 @@ namespace SouthBasement.Characters.Components
             return false;
         }
         
-        public void AddComponent<TComponent>(ICharacterComponent component)
+        public ComponentContainer Add<TComponent>(ICharacterComponent component)
             where TComponent : class
         {
             if (Components.ContainsKey(typeof(TComponent)))
             {
                 Debug.LogWarning("Components Container already contains component of type " + typeof(TComponent).Name);
-                return;
+                return this;
             }
             
             Components.Add(typeof(TComponent), component);
+            component.OnStart();
+
+            return this;
         }
         
-        public void ReplaceComponent<TComponent>(ICharacterComponent newComponent)
+        public ComponentContainer Replace<TComponent>(ICharacterComponent newComponent)
             where TComponent : class
         {
             if (Components.ContainsKey(typeof(TComponent)))
@@ -76,13 +79,20 @@ namespace SouthBasement.Characters.Components
             {
                 Debug.LogWarning("There is no component of type " + typeof(TComponent).Name);
             }
+
+            return this;
         }
 
-        public void RemoveComponent<TComponent>()
+        public ComponentContainer Remove<TComponent>()
             where TComponent : class
         {
             if (Components.ContainsKey(typeof(TComponent)))
+            {
+                Components[typeof(TComponent)].Dispose();
                 Components.Remove(typeof(TComponent));
+            }
+            
+            return this;
         }
     }
 }

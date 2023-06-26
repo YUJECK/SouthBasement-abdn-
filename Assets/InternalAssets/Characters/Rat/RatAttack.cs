@@ -17,7 +17,7 @@ namespace SouthBasement.Characters.Rat
         public override void OnStart()
             => Owner.Inputs.OnAttack += Attack;
 
-        public void Dispose()
+        public override void Dispose()
             => Owner.Inputs.OnAttack -= Attack;
 
         public override void Attack()
