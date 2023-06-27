@@ -51,7 +51,8 @@ namespace SouthBasement.AI
         
         private void FixedUpdate()
         {
-            _stateMachine.Run();
+            if(Enabled)
+                _stateMachine.Run();
         }
     }
 }

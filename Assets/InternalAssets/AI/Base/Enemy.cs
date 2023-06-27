@@ -1,10 +1,12 @@
 ﻿using System;
+using TheRat.InternalAssets.Infrastructure;
 using UnityEngine;
 
 namespace SouthBasement.AI
 {
-    public abstract class Enemy : MonoBehaviour
+    public abstract class Enemy : MonoBehaviour, IWithChance
     {
+        [field: SerializeField] public int SpawnChance { get; private set; } = 100;
         public bool Enabled { get; private set; } = false;
 
         public event Action OnDied;

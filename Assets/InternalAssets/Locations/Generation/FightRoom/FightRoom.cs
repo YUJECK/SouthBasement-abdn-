@@ -5,12 +5,12 @@ namespace SouthBasement.Generation
 {
     public sealed class FightRoom : Room
     {
-        private RoomEnemiesHandler _enemiesHandler;
+        private RoomEnemiesFactory _enemiesFactory;
 
         protected override void OnAwake()
         {
-            _enemiesHandler = GetComponentInChildren<RoomEnemiesHandler>();
-            _enemiesHandler.OnEnemiesDefeated += OnEnemiesDefeated;
+            _enemiesFactory = GetComponentInChildren<RoomEnemiesFactory>();
+            _enemiesFactory.OnEnemiesDefeated += OnEnemiesDefeated;
         }
 
         private void OnEnemiesDefeated()
@@ -21,7 +21,7 @@ namespace SouthBasement.Generation
 
         protected override void OnPlayerEntered(Character player)
         {
-            _enemiesHandler.EnableEnemies();
+            _enemiesFactory.EnableEnemies();
             PassageHandler.CloseAllDoors();
             
             GlobalStateMachine.Push<FightState>();
