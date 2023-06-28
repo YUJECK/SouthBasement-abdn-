@@ -29,8 +29,8 @@ namespace TheRat
 
         public void Interact()
         {
-            _dialogueService.StartDialogue(DialogueContainer, () => _character.Components.Get<IMovable>().CanMove = true);
-            _character.Components.Get<IMovable>().CanMove = false;
+            _dialogueService.StartDialogue(DialogueContainer, () => _character.Components.Get<ICharacterMovable>().CanMove = true);
+            _character.Components.Get<ICharacterMovable>().CanMove = false;
         }
 
         public void DetectionReleased()

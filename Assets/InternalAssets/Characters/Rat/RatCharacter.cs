@@ -49,7 +49,7 @@ namespace SouthBasement.Characters.Rat
             Components
                 .Add<PlayerAnimator>(playerAnimator)
                 .Add<IAttackable>(new RatAttack(this))
-                .Add<IMovable>(new RatMovement(this))
+                .Add<ICharacterMovable>(new RatMovement(this))
                 .Add<IDashable>(new RatCharacterDashable(this));
             
             var flipper = new CharacterMouseFlipper(this, FacingDirections.Left);
@@ -59,8 +59,8 @@ namespace SouthBasement.Characters.Rat
 
             Components.Get<IAttackable>().OnAttacked += _ => playerAnimator.PlayAttack();
             
-            Components.Get<IMovable>().OnMoved += _ => playerAnimator.PlayWalk();
-            Components.Get<IMovable>().OnMoveReleased += () => playerAnimator.PlayIdle();
+            Components.Get<ICharacterMovable>().OnMoved += _ => playerAnimator.PlayWalk();
+            Components.Get<ICharacterMovable>().OnMoveReleased += () => playerAnimator.PlayIdle();
             
             Components.Get<IDashable>().OnDashed += () => playerAnimator.PlayDash();
         }

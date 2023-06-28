@@ -34,8 +34,8 @@ namespace SouthBasement.AI
 
             foreach (var hit in hits)
             {
-                if(!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
-                    damagable.Damage(damage);
+                if (!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
+                    damagable.Damage(damage, new[] {""});
             }
 
             yield return new WaitForSeconds(AttackDuration);

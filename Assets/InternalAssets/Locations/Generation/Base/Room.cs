@@ -38,11 +38,13 @@ namespace SouthBasement.Generation
                 _playerEnterTrigger = GetComponentInChildren<PlayerEnterTrigger>();
 
             _playerEnterTrigger.OnEntered += OnPlayerEntered;
+            _playerEnterTrigger.OnExit += OnPlayerExit;
         }
 
         protected virtual void OnAwake() { }
 
         protected virtual void OnPlayerEntered(Character player) { }
+        protected virtual void OnPlayerExit(Character player) { }
 
 #if UNITY_EDITOR
         private void OnValidate()

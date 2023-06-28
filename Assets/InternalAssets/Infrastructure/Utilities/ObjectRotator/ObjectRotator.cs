@@ -4,7 +4,7 @@ using UnityEngine;
 namespace SouthBasement.Helpers.Rotator
 {
     public sealed class ObjectRotator : MonoBehaviour
-    {
+    {       
         private bool _stopped;
         [field: SerializeField] public Transform Target { get; set; }
 

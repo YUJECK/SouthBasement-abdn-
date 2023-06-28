@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+﻿using System.Collections.Generic;
 using SouthBasement.Helpers.Rotator;
+using SouthBasement.InventorySystem;
 using UnityEngine;
-using Zenject;
 
 namespace SouthBasement.Characters
 {
@@ -11,7 +9,7 @@ namespace SouthBasement.Characters
     {
         [SerializeField] private ObjectRotator _attackPoint;
 
-        public IDamagable[] Attack(int damage, float culldown, float range)
+        public IDamagable[] Attack(int damage, float culldown, float range, WeaponItem weaponItem)
         {
             List<IDamagable> hitted = new(); 
             _attackPoint.Stop(culldown - 0.05f);
@@ -24,7 +22,14 @@ namespace SouthBasement.Characters
             {
                 if (!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
                 {
-                    damagable.Damage(damage);
+                    string[] args;
+
+                    if (weaponItem != null)
+                        args = weaponItem.ItemTags.ToArray();
+                    
+                    else args = new[] {""};
+
+                    damagable.Damage(damage, args);
                     hitted.Add(damagable);
                 }
             }

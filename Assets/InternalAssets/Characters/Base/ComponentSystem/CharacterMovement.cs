@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SouthBasement.Characters.Components
 {
-    public abstract class CharacterMovement<TOwner> : CharacterComponent<TOwner>, IMovable
+    public abstract class CharacterMovement<TOwner> : CharacterComponent<TOwner>, ICharacterMovable
     {
         public event Action<Vector2> OnMoved;
         public event Action OnMoveReleased;

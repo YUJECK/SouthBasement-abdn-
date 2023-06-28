@@ -8,9 +8,12 @@ namespace SouthBasement.Generation
     [RequireComponent(typeof(Collider2D))]
     public sealed class PlayerEnterTrigger : MonoBehaviour
     {
+        [field: SerializeField] public bool MultiEntering { get; private set; } = false;
+        
         public event Action<Character> OnEntered;
+        public event Action<Character> OnExit;
 
-        public bool Enabled { get; set; } = true;
+        public bool Entered { get; private set; } = false;
 
         private void Awake()
         {
@@ -22,10 +25,18 @@ namespace SouthBasement.Generation
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (Enabled && other.CompareTag(TagHelper.Player))
+            if (!Entered && other.CompareTag(TagHelper.Player))
             {
                OnEntered?.Invoke(other.GetComponent<Character>());
-               Enabled = false;
+               
+               if(!MultiEntering) Entered = true;
+            }
+        }
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.CompareTag(TagHelper.Player))
+            {
+                OnExit?.Invoke(other.GetComponent<Character>());
             }
         }
     }

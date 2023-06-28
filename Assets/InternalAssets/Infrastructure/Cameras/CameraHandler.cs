@@ -9,19 +9,19 @@ namespace SouthBasement.CameraHandl
     {
         public Camera MainCamera { get; private set; }
         
-        private Dictionary<CameraTags, CinemachineVirtualCamera> _cameras;
+        private Dictionary<CameraNames, CinemachineVirtualCamera> _cameras;
         private PixelPerfectCamera _pixelPerfectCamera;
 
-        public CameraTags CurrentCamera { get; private set; }
+        public CameraNames CurrentCamera { get; private set; }
 
-        public CameraHandler(Dictionary<CameraTags, CinemachineVirtualCamera> cameras, PixelPerfectCamera pixelPerfectCamera, Camera mainCamera)
+        public CameraHandler(Dictionary<CameraNames, CinemachineVirtualCamera> cameras, PixelPerfectCamera pixelPerfectCamera, Camera mainCamera)
         {
             _cameras = cameras;
             _pixelPerfectCamera = pixelPerfectCamera;
             MainCamera = mainCamera;
 
             DisableAll();
-            SwitchTo(CameraTags.Main);
+            SwitchTo(CameraNames.Main);
         }
 
         private void DisableAll()
@@ -30,12 +30,12 @@ namespace SouthBasement.CameraHandl
                 cameraPair.Value.gameObject.SetActive(false);
         }
 
-        public void SwitchTo(CameraTags tag)
+        public void SwitchTo(CameraNames name)
         {
             _cameras[CurrentCamera].gameObject.SetActive(false);
-            _cameras[tag].gameObject.SetActive(true);
+            _cameras[name].gameObject.SetActive(true);
             
-            CurrentCamera = tag;
+            CurrentCamera = name;
         }
     }
 }

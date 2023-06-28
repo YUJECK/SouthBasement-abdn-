@@ -24,7 +24,7 @@ namespace SouthBasement.Characters.Rat
         
         public override void Dash()
         {
-            if (Owner.Components.Get<IMovable>().CurrentMovement == Vector2.zero)
+            if (Owner.Components.Get<ICharacterMovable>().CurrentMovement == Vector2.zero)
                 return;
             
             if (Blocked || _blocked || !Owner.StaminaController.TryDo(_moveStats.DashStaminaRequire))
@@ -37,7 +37,7 @@ namespace SouthBasement.Characters.Rat
         {
             StartDash();
             {
-                var dashMove = GetPositionInVector2() + Owner.Components.Get<IMovable>().CurrentMovement;
+                var dashMove = GetPositionInVector2() + Owner.Components.Get<ICharacterMovable>().CurrentMovement;
                 
                 var dashStopTime = Time.time + 0.135;
                 
@@ -57,7 +57,7 @@ namespace SouthBasement.Characters.Rat
 
         private void StartDash()
         {
-            Owner.Components.Get<IMovable>().CanMove = false;
+            Owner.Components.Get<ICharacterMovable>().CanMove = false;
             _blocked = true;
             Owner.gameObject.layer = 11;
 
@@ -70,7 +70,7 @@ namespace SouthBasement.Characters.Rat
         private void ReleaseDash()
         {
             Owner.gameObject.layer = 7;
-            Owner.Components.Get<IMovable>().CanMove = true;
+            Owner.Components.Get<ICharacterMovable>().CanMove = true;
             Owner.Components.Get<IFlipper>().Blocked = false;
         }
 
@@ -78,10 +78,10 @@ namespace SouthBasement.Characters.Rat
 
         private FacingDirections GetFacingDirection()
         {
-            if (Owner.Components.Get<IMovable>().CurrentMovement.x == 0)
+            if (Owner.Components.Get<ICharacterMovable>().CurrentMovement.x == 0)
                 return Owner.Components.Get<IFlipper>().FacingDirection;
             
-            if (Owner.Components.Get<IMovable>().CurrentMovement.x > 0)
+            if (Owner.Components.Get<ICharacterMovable>().CurrentMovement.x > 0)
                 return FacingDirections.Right;
 
             return FacingDirections.Left;

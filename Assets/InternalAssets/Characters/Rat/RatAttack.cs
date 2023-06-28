@@ -28,7 +28,7 @@ namespace SouthBasement.Characters.Rat
             var hitted = Owner.Attacker
                 .Attack(Owner.Stats.AttackStats.CurrentStats.Damage,
                     Owner.Stats.AttackStats.CurrentStats.AttackRate, 
-                    Owner.Stats.AttackStats.CurrentStats.AttackRange);
+                    Owner.Stats.AttackStats.CurrentStats.AttackRange, Weapon);
             
             if(Weapon != null)
                 Weapon.OnAttack(hitted);

@@ -2,33 +2,33 @@
 
 namespace SouthBasement.AI
 {
-    public sealed class EnemyAnimator
+    public class EnemyAnimator
     {
-        private readonly Animator _animator;
+        protected readonly Animator Animator;
 
         public EnemyAnimator(Animator animator)
         {
-            _animator = animator;
+            Animator = animator;
         }
 
-        public void PlayIdle()
+        public virtual void PlayIdle()
         {
-            _animator.Play("Idle");
+            Animator.Play("Idle");
         }
 
-        public void PlayWalk()
+        public virtual void PlayWalk()
         {
-            _animator.Play("Walk");
+            Animator.Play("Walk");
         }
 
-        public void PlayAttack()
+        public virtual void PlayAttack()
         {
-            _animator.Play("Attack");
+            Animator.Play("Attack");
         }
 
-        public void PlayAFK()
+        public virtual void PlayAFK()
         {
-            _animator.Play("AFK");
+            Animator.Play("AFK");
         }
     }
 }

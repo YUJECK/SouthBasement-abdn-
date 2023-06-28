@@ -18,7 +18,7 @@ namespace SouthBasement.Characters
             _healthStats = characterStats;
         }
         
-        public void Damage(int damage)
+        public void Damage(int damage, string[] args)
         {
             _healthStats.SetHealth(_healthStats.CurrentHealth - damage);
             OnDamaged?.Invoke(CurrentHealth);

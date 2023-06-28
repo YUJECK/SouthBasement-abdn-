@@ -22,13 +22,11 @@ namespace SouthBasement
 
         protected override void OnDied()
         {
-            _cameraHandler.SwitchTo(CameraTags.Death);
-
             _character.Components.Get<PlayerAnimator>().PlayDead();
             
             _character.Components
                 .Remove<IAttackable>()
-                .Remove<IMovable>()
+                .Remove<ICharacterMovable>()
                 .Remove<IDashable>()
                 .Remove<IFlipper>();
         }

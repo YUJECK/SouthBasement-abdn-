@@ -14,7 +14,6 @@ namespace SouthBasement.Locations
         [SerializeField] private RoomsContainer roomsContainer;
         [SerializeField] private ContainersHelper containersHelper;
 
-        [SerializeField] private CamerasContainer camerasContainerPrefab;
         [SerializeField] private CursorService cursorService;
 
         public override void InstallBindings()
@@ -36,6 +35,9 @@ namespace SouthBasement.Locations
 
         private void BindCameras()
         {
+            var camerasContainerPrefab = Resources.Load<CamerasContainer>(ResourcesPathHelper.CamerasContainer);
+            var camerasReactingPrefab = Resources.Load<CameraGameStatesReacting>(ResourcesPathHelper.CamerasReacting);
+            
             var cameraContainer = Container.InstantiatePrefabForComponent<CamerasContainer>(camerasContainerPrefab, startPoint);
 
             var cameraHandler = new CameraHandler(
@@ -47,6 +49,8 @@ namespace SouthBasement.Locations
                 .Bind<CameraHandler>()
                 .FromInstance(cameraHandler)
                 .AsSingle();
+            
+            Container.InstantiatePrefabForComponent<CameraGameStatesReacting>(camerasReactingPrefab, startPoint);
         }
 
         private void BindRoomContainer()
