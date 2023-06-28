@@ -4,7 +4,7 @@ namespace SouthBasement.Helpers
 {
     public static class EnumHelper
     {
-        public static TEnum[] GetAllDirections<TEnum>()
+        public static TEnum[] GetAllValues<TEnum>()
             where TEnum : Enum
             => (TEnum[])Enum.GetValues(typeof(TEnum));
     }
