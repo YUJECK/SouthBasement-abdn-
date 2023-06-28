@@ -1,4 +1,4 @@
-﻿namespace TheRat.InternalAssets.Infrastructure
+﻿namespace SouthBasement.InternalAssets.Infrastructure
 {
     public interface IWithChance
     {

@@ -1,7 +1,7 @@
 ﻿using SouthBasement.AI;
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     public sealed class SpiderAnimator : EnemyAnimator 
     {

@@ -6,7 +6,7 @@ using Subtegral.DialogueSystem.DataContainers;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat
+namespace SouthBasement
 {
     public class dialogueStarter : MonoBehaviour, IInteractive
     {

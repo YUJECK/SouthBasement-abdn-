@@ -2,28 +2,23 @@ using NTC.ContextStateMachine;
 using SouthBasement.AI;
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     [RequireComponent(typeof(SpiderMovement))]
     public class SpiderAI : Enemy
     {
         [field: SerializeField] public Transform[] MovePoints { get; private set; }
-        [field: SerializeField] public SpiderMovement SpiderMovement { get; private set; }
-        [field: SerializeField] public SpiderAttacker SpiderAttacker { get; private set; }
-        [field: SerializeField] public TargetSelector TargetSelector { get; private set; }
-        
-        [field: SerializeField] public bool CurrentlyHiding { get; set; }
-        [field: SerializeField] public bool CurrentlyAttacking { get; set; }
+        public SpiderComponentContainer Components { get; private set; }
 
-        public SpiderAnimator SpiderAnimator { get; private set; }
+        public bool CurrentlyHiding { get; set; }
+        public bool CurrentlyAttacking { get; set; }
+        public int AttackStrike { get; set; }
+
         private readonly StateMachine<SpiderAI> _spiderStateMachine = new();
-        private Animator _animator;
 
         private void Awake()
         {
-            SpiderMovement = GetComponent<SpiderMovement>();
-            TargetSelector = GetComponentInChildren<TargetSelector>();
-            SpiderAnimator = new SpiderAnimator(GetComponentInChildren<Animator>());
+            Components = new SpiderComponentContainer(gameObject);
             
             InitStates();
             Enable();
@@ -33,15 +28,40 @@ namespace TheRat
         {
             _spiderStateMachine.AddStates(new SpiderMoveState(this), new SpiderAttackState(this));
             
-            _spiderStateMachine.AddAnyTransition<SpiderMoveState>(() => Enabled && TargetSelector.Target == null && !CurrentlyAttacking);
-            _spiderStateMachine.AddAnyTransition<SpiderAttackState>(() => TargetSelector.Target != null && !CurrentlyHiding);
+            _spiderStateMachine.AddTransition<SpiderAttackState, SpiderMoveState>(CanEnterMoveState);
+            _spiderStateMachine.AddTransition<SpiderMoveState, SpiderAttackState>(CanEnterWeaveState);
             
             _spiderStateMachine.TransitionsEnabled = true;
         }
 
-        private void Update()
+        private bool CanEnterWeaveState()
+            => Enabled
+               && Components.TargetSelector.Target != null 
+               && !CurrentlyHiding 
+               && AttackStrike < 3;
+        
+        private bool CanEnterMoveState() 
+            => Enabled 
+               && Components.TargetSelector.Target == null 
+               && !CurrentlyAttacking 
+               || AttackStrike >=3;
+
+        private void Update() => _spiderStateMachine.Run();
+
+        public sealed class SpiderComponentContainer
         {
-            _spiderStateMachine.Run();
+            public SpiderMovement SpiderMovement { get; private set; }
+            public SpiderWeaver SpiderWeaver { get; private set; }
+            public TargetSelector TargetSelector { get; private set; }
+            public SpiderAnimator SpiderAnimator { get; private set; }
+
+            public SpiderComponentContainer(GameObject masterObject)
+            {
+                SpiderMovement = masterObject.GetComponent<SpiderMovement>();
+                TargetSelector = masterObject.GetComponentInChildren<TargetSelector>();
+                SpiderWeaver = masterObject.GetComponentInChildren<SpiderWeaver>();
+                SpiderAnimator = new SpiderAnimator(masterObject.GetComponentInChildren<Animator>());
+            }
         }
     }
 }

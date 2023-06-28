@@ -1,5 +1,5 @@
 ﻿using System;
-using TheRat.InternalAssets.Infrastructure;
+using SouthBasement.InternalAssets.Infrastructure;
 using UnityEngine;
 
 namespace SouthBasement.AI

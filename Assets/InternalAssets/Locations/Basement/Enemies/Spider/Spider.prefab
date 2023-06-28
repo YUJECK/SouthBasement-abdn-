@@ -168,7 +168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4202982170877310832}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.9375, z: 0}
+  m_LocalPosition: {x: 0, y: -1.25, z: 0}
   m_LocalScale: {x: 1.45, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -319,7 +319,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 6
 --- !u!1 &5225955112855518830
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,11 +371,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SpawnChance>k__BackingField: 100
   <MovePoints>k__BackingField: []
-  <SpiderMovement>k__BackingField: {fileID: 0}
-  <SpiderAttacker>k__BackingField: {fileID: 2346037691573157684}
-  <TargetSelector>k__BackingField: {fileID: 0}
-  <CurrentlyHiding>k__BackingField: 0
-  <CurrentlyAttacking>k__BackingField: 0
 --- !u!114 &4436878440680942212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,7 +419,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5225955112855518830}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -615,4 +610,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00323573a0d04997a1890c4fc3431867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <BulletPrefab>k__BackingField: {fileID: -6798040338038956002, guid: ce7c255842b94d743a23e2fc5fdfbbd7, type: 3}
+  <BulletPrefab>k__BackingField: {fileID: 7146022161888274858, guid: ce7c255842b94d743a23e2fc5fdfbbd7, type: 3}

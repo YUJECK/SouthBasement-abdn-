@@ -2,7 +2,7 @@ using System.Collections;
 using NTC.ContextStateMachine;
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     public class SpiderMoveState : State<SpiderAI>
     {
@@ -20,22 +20,22 @@ namespace TheRat
         {
             while (Initializer.Enabled)
             {
-                { // Висит, отдыхает
-                    Initializer.SpiderAnimator.PlayIdle();
-                    Initializer.CurrentlyHiding = false;
-                }
-                yield return new WaitForSeconds(MoveRate); 
                 { //Поднимается
                     Initializer.CurrentlyHiding = true;
-                    Initializer.SpiderAnimator.PlayGoUp();
+                    Initializer.Components.SpiderAnimator.PlayGoUp();
                 }
                 yield return new WaitForSeconds(0.45f);
                 {//Опускается
                     _currentPoint = GetNewPoint();
-                    Initializer.SpiderMovement.Move(_currentPoint.position);
-                    Initializer.SpiderAnimator.PlayGoDown();
+                    Initializer.Components.SpiderMovement.Move(_currentPoint.position);
+                    Initializer.Components.SpiderAnimator.PlayGoDown();
                 }
                 yield return new WaitForSeconds(0.45f);
+                { // Висит, отдыхает
+                    Initializer.Components.SpiderAnimator.PlayIdle();
+                    Initializer.CurrentlyHiding = false;
+                }
+                yield return new WaitForSeconds(MoveRate);
             }
         }
 
