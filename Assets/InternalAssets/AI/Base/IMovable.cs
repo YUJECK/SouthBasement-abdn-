@@ -4,6 +4,6 @@ namespace SouthBasement.AI
 {
     public interface IMovable
     {
-        public void Move(Vector2 to);
+        public void MoveUp(Vector2 to);
     }
 }

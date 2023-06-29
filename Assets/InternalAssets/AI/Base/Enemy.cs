@@ -9,11 +9,11 @@ namespace SouthBasement.AI
         [field: SerializeField] public int SpawnChance { get; private set; } = 100;
         public bool Enabled { get; private set; } = false;
 
-        public event Action OnDied;
+        public event Action<Enemy> OnDied;
 
         public virtual void Die()
         {
-            OnDied?.Invoke();
+            OnDied?.Invoke(this);
         }
         
         public virtual void Enable()

@@ -1,5 +1,4 @@
 ﻿using SouthBasement.Economy;
-using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
@@ -23,7 +22,7 @@ namespace SouthBasement.AI
             Enemy.OnDied += DropItems;
         }
 
-        private void DropItems()
+        private void DropItems(Enemy enemy)
         {
             _cheeseService.SpawnCheese(transform.position, 4);
             

@@ -8,12 +8,12 @@ namespace SouthBasement
 
         public override void OnEnter()
         {
-            Initializer.Components.SpiderAnimator.PlayGoUp();
+            Initializer.Components.Animator.PlayGoUp();
         }
 
         public override void OnExit()
         {
-            Initializer.Components.SpiderAnimator.PlayGoDown();
+            Initializer.Components.Animator.PlayGoDown();
         }
     }
 }

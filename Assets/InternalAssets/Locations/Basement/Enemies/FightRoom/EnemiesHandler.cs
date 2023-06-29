@@ -13,7 +13,7 @@ namespace SouthBasement.Generation
         [SerializeField] private MovePoint[] _movePoint;
         
         private int _enemiesCount;
-        private readonly List<Enemy> _currentEnemies = new();
+        private List<Enemy> _currentEnemies = new();
         
         public event Action OnEnemiesDefeated;
         public event Action OnEnemyDied;
@@ -23,7 +23,7 @@ namespace SouthBasement.Generation
         public bool IsEnemyCategoryAlone<TEnemy>() 
             where TEnemy : Enemy
         {
-            return _currentEnemies.Exists(enemy => enemy is not TEnemy);
+            return !_currentEnemies.Exists(enemy => enemy is not TEnemy);
         }
         public bool Contains<TEnemy>() 
             where TEnemy : Enemy
@@ -70,7 +70,7 @@ namespace SouthBasement.Generation
             }
         }
 
-        private void HandlEnemyDeath()
+        private void HandlEnemyDeath(Enemy enemy)
         {
             _enemiesCount--;
             OnEnemyDied?.Invoke();
@@ -81,7 +81,7 @@ namespace SouthBasement.Generation
                 GlobalStateMachine.Push<IdleState>();
             }
 
-            _currentEnemies.Remove(null);
+            _currentEnemies.Remove(enemy);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace SouthBasement.AI
 {
     public abstract class EnemyHealth : MonoBehaviour, IDamagable
     {
-        public int CurrentHealth { get; private set; } = 70;
+        [field: SerializeField] public int CurrentHealth { get; private set; } = 70;
         public event Action<int> OnDamaged;
 
         protected Enemy Enemy;

@@ -24,7 +24,7 @@ namespace SouthBasement
             {
                 { //Поднимается
                     Initializer.CurrentlyHiding = true;
-                    Initializer.Components.SpiderAnimator.PlayGoUp();
+                    Initializer.Components.Animator.PlayGoUp();
                 }
                 yield return new WaitForSeconds(0.45f);
                 {//Опускается
@@ -35,12 +35,12 @@ namespace SouthBasement
                     _currentPoint = GetNewPoint();
                     _currentPoint.CurrentEnemy = Initializer;
                     
-                    Initializer.Components.SpiderMovement.Move(_currentPoint.transform.position);
-                    Initializer.Components.SpiderAnimator.PlayGoDown();
+                    Initializer.Components.SpiderMovement.MoveUp(_currentPoint.transform.position);
+                    Initializer.Components.Animator.PlayGoDown();
                 }
                 yield return new WaitForSeconds(0.45f);
                 { // Висит, отдыхает
-                    Initializer.Components.SpiderAnimator.PlayIdle();
+                    Initializer.Components.Animator.PlayIdle();
                     Initializer.CurrentlyHiding = false;
                 }
                 yield return new WaitForSeconds(MoveRate + Random.Range(-0.5f, 0.5f));
