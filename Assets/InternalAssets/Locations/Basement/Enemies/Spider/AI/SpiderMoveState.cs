@@ -1,5 +1,7 @@
 using System.Collections;
+using NaughtyAttributes.Test;
 using NTC.ContextStateMachine;
+using SouthBasement.AI;
 using UnityEngine;
 
 namespace SouthBasement
@@ -8,7 +10,7 @@ namespace SouthBasement
     {
         private const float MoveRate = 5f;
 
-        private Transform _currentPoint;
+        private MovePoint _currentPoint;
         private Coroutine _moveCoroutine;
         
         public SpiderMoveState(SpiderAI stateInitializer) : base(stateInitializer) { }
@@ -26,8 +28,14 @@ namespace SouthBasement
                 }
                 yield return new WaitForSeconds(0.45f);
                 {//Опускается
+                    
+                    if(_currentPoint != null)
+                        _currentPoint.CurrentEnemy = null;
+                    
                     _currentPoint = GetNewPoint();
-                    Initializer.Components.SpiderMovement.Move(_currentPoint.position);
+                    _currentPoint.CurrentEnemy = Initializer;
+                    
+                    Initializer.Components.SpiderMovement.Move(_currentPoint.transform.position);
                     Initializer.Components.SpiderAnimator.PlayGoDown();
                 }
                 yield return new WaitForSeconds(0.45f);
@@ -35,16 +43,18 @@ namespace SouthBasement
                     Initializer.Components.SpiderAnimator.PlayIdle();
                     Initializer.CurrentlyHiding = false;
                 }
-                yield return new WaitForSeconds(MoveRate);
+                yield return new WaitForSeconds(MoveRate + Random.Range(-0.5f, 0.5f));
             }
         }
 
-        private Transform GetNewPoint()
+        private MovePoint GetNewPoint()
         {
             var newPoint = _currentPoint;
-            
-            while (_currentPoint == newPoint)
+
+            while (_currentPoint == newPoint || newPoint.CurrentEnemy != null)
+            {
                 newPoint = Initializer.MovePoints[Random.Range(0, Initializer.MovePoints.Length)];
+            }
 
             return newPoint;
         }

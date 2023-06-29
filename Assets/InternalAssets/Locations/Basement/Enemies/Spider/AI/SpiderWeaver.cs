@@ -37,7 +37,7 @@ namespace SouthBasement
         private Projectile InstatiateProjectile()
         {
             Projectile projectile 
-                = Instantiate(BulletPrefab, transform.position, transform.rotation, transform.parent);
+                = Instantiate(BulletPrefab, transform.position, transform.rotation);
             
             return projectile;
         }

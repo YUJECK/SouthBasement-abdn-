@@ -5,11 +5,11 @@ namespace SouthBasement.Generation
 {
     public sealed class FightRoom : Room
     {
-        private RoomEnemiesFactory _enemiesFactory;
+        private EnemiesHandler _enemiesFactory;
 
         protected override void OnAwake()
         {
-            _enemiesFactory = GetComponentInChildren<RoomEnemiesFactory>();
+            _enemiesFactory = GetComponentInChildren<EnemiesHandler>();
             _enemiesFactory.OnEnemiesDefeated += OnEnemiesDefeated;
         }
 

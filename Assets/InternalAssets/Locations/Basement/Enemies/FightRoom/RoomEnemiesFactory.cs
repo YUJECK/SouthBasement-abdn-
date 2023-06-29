@@ -15,11 +15,10 @@ namespace SouthBasement.Generation
         [SerializeField] private Enemy[] enemiesPrefabs;
         private List<Transform> _spawnPoints;
 
-        private int _enemiesCount;
         private readonly List<Enemy> _spawnedEnemies = new();
         private DiContainer _diContainer;
-        
-        public event Action OnEnemiesDefeated;
+
+        public event Action<Enemy[]> OnEnemiesSpawned;
 
         [Inject]
         private void Construct(DiContainer diContainer) 
@@ -30,13 +29,14 @@ namespace SouthBasement.Generation
             GetSpawnPoints();
             ProcessEnemiesPrefabs();
             SpawnEnemies();
-            BindEnemies();
         }
 
         private void SpawnEnemies()
         {
             foreach (var point in _spawnPoints)
                 _spawnedEnemies.Add(_diContainer.InstantiatePrefabForComponent<Enemy>(GetRandomEnemy(), point));
+            
+            OnEnemiesSpawned?.Invoke(_spawnedEnemies.ToArray());
         }
 
         private void ProcessEnemiesPrefabs()
@@ -49,34 +49,6 @@ namespace SouthBasement.Generation
         {
             _spawnPoints = new List<Transform>(GetComponentsInChildren<Transform>());
             _spawnPoints.Remove(transform);
-        }
-
-        private void BindEnemies()
-        {
-            _enemiesCount = _spawnedEnemies.Count;
-
-            foreach (var enemy in _spawnedEnemies)
-                enemy.OnDied += OnEnemyDied;
-        }
-
-        private void OnEnemyDied()
-        {
-            _enemiesCount--;
-
-            if (_enemiesCount <= 0)
-            {
-                OnEnemiesDefeated?.Invoke();
-                GlobalStateMachine.Push<IdleState>();
-            }
-        }
-
-        public void EnableEnemies()
-        {
-            foreach (var enemy in _spawnedEnemies)
-            {
-                if(enemy != null)
-                    enemy.Enable();
-            }
         }
     }
 }
