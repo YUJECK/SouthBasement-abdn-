@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace SouthBasement.InternalAssets.HUD
+namespace SouthBasement.HUD
 {
     [RequireComponent(typeof(Button))]
     public sealed class RestartButton : MonoBehaviour

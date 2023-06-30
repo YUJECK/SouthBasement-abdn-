@@ -2,7 +2,7 @@
 using SouthBasement.InventorySystem;
 using UnityEngine;
 
-namespace SouthBasement.InternalAssets.BaseScripts.Tests
+namespace SouthBasement.BaseScripts.Tests
 {
     [CreateAssetMenu]
     public sealed class TestPassiveItem : PassiveItem

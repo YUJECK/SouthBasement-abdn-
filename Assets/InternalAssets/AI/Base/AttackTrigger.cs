@@ -1,4 +1,4 @@
-﻿using SouthBasement.InternalAssets.Scripts.Helpers;
+﻿using SouthBasement.Scripts.Helpers;
 using UnityEngine;
 
 namespace SouthBasement.AI

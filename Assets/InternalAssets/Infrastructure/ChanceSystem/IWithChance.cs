@@ -1,4 +1,4 @@
-﻿namespace SouthBasement.InternalAssets.Infrastructure
+﻿namespace SouthBasement.Infrastructure
 {
     public interface IWithChance
     {

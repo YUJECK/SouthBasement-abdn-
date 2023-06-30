@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SouthBasement.InternalAssets.Scripts.Helpers
+namespace SouthBasement.Scripts.Helpers
 {
     public sealed class TriggerCallback : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SouthBasement.InternalAssets.Scripts.Characters
+namespace SouthBasement.Scripts.Characters
 {
     [RequireComponent(typeof(Animator))]
     public sealed class AttackRangeAnimator : MonoBehaviour

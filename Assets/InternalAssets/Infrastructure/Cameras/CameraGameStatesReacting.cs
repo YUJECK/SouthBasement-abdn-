@@ -23,7 +23,7 @@ namespace SouthBasement.CameraHandl
             _cameraHandler.SwitchTo(CameraNames.NPC);
         }
 
-        protected override void OnGameIdle()
+        protected override void OnIdle()
         {
             _cameraHandler.SwitchTo(CameraNames.Main);
         }

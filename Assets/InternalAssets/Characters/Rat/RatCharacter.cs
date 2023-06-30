@@ -1,7 +1,7 @@
 ﻿using SouthBasement.Characters.Components;
 using SouthBasement.Enums;
 using SouthBasement.InputServices;
-using SouthBasement.InternalAssets.Scripts.Characters;
+using SouthBasement.Scripts.Characters;
 using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;

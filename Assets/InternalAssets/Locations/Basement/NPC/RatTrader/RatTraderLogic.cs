@@ -3,7 +3,7 @@ using SouthBasement.Items;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat
+namespace SouthBasement
 {
     public class RatTraderLogic : MonoBehaviour
     {

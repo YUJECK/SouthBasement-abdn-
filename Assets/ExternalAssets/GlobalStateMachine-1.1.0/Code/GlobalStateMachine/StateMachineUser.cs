@@ -19,7 +19,7 @@ namespace NTC.GlobalStateMachine
 
         private void BindCallbacks()
         {
-            this.On<IdleState>(OnGameIdle);
+            this.On<IdleState>(OnIdle);
             this.On<NPCState>(OnNPC);
             this.On<FightState>(OnFight);
             this.On<DiedState>(OnDied);
@@ -29,7 +29,7 @@ namespace NTC.GlobalStateMachine
         protected virtual void OnAwake() { }
         protected virtual void OnDestroyOverridable() { }
         
-        protected virtual void OnGameIdle() { }
+        protected virtual void OnIdle() { }
         protected virtual void OnNPC() { }
         protected virtual void OnFight() { }
         protected virtual void OnDied() { }

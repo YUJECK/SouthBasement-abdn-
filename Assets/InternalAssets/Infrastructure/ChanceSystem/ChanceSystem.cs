@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SouthBasement.InternalAssets.Infrastructure;
+using SouthBasement.Infrastructure;
 using UnityEngine;
 
 namespace SouthBasement.Helpers

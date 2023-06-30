@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using SouthBasement.InternalAssets.Scripts.Characters;
+using SouthBasement.Scripts.Characters;
 using UnityEditor;
 using UnityEngine;
 

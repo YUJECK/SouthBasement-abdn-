@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace SouthBasement.InternalAssets.Scripts
+namespace SouthBasement.Scripts
 {
     [RequireComponent(typeof(IDamagable))]
     public sealed class DamagableVisualization : MonoBehaviour
