@@ -1,19 +1,22 @@
 ﻿using NavMeshPlus.Extensions;
 using NTC.ContextStateMachine;
+using SouthBasement.Characters.Components;
+using SouthBasement.PlayerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace SouthBasement.AI
 {
-    [RequireComponent(typeof(NavMeshAgent))]
-    [RequireComponent(typeof(AgentOverride2d))]
+    [RequireComponent(typeof(IEnemyMovable))]
+    [RequireComponent(typeof(IFlipper))]
     public sealed class DefaultRatStateMachine : Enemy
     {
         public EnemyAttacker EnemyAttacker { get; private set; }
+        public IFlipper Flipper { get; private set; }
         public EnemyAnimator EnemyAnimator { get; private set; }
         public TargetSelector TargetSelector { get; private set; }
         public AttackTrigger AttackTrigger { get; private set; }
-        public NavMeshAgent Agent { get; private set; }
+        public IEnemyMovable Movement { get; private set; }
 
         public bool CurrentAttacking = false;
 
@@ -23,7 +26,8 @@ namespace SouthBasement.AI
         {
             EnemyAnimator = new EnemyAnimator(GetComponentInChildren<Animator>());
             
-            Agent = GetComponent<NavMeshAgent>();
+            Movement = GetComponent<IEnemyMovable>();
+            Flipper = GetComponent<IFlipper>();
             
             TargetSelector = GetComponentInChildren<TargetSelector>();
             AttackTrigger = GetComponentInChildren<AttackTrigger>();

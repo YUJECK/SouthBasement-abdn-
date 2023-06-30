@@ -12,23 +12,20 @@ namespace SouthBasement.AI
         public override void OnEnter()
         {
             Initializer.EnemyAnimator.PlayWalk();
-            Initializer.Agent.isStopped = false;
+            Initializer.Movement.Blocked = false;
         }
 
         public override void OnRun()
         {
-            Initializer.Agent.SetDestination(GetDestination());
+            Initializer.Movement.Move(GetDestination());
         }
 
         public override void OnExit()
         {
-            Initializer.Agent.isStopped = true;
+            Initializer.Movement.Blocked = true;
             Initializer.EnemyAnimator.PlayIdle();
         }
 
-        private Vector3 GetDestination()
-        {
-            return Initializer.TargetSelector.Target.transform.position;
-        }
+        private Vector3 GetDestination() => Initializer.TargetSelector.Target.transform.position;
     }
 }

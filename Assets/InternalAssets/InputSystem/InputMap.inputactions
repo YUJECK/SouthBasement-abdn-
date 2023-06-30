@@ -40,33 +40,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "ActiveItemUsage",
-                    "type": "Button",
-                    "id": "47ab8a3b-87d0-4a66-9b94-f0b7d50350e1",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "InventoryOpen",
-                    "type": "Button",
-                    "id": "01c0aefb-54dc-4973-9dc9-e7f34309b935",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "MapOpen",
-                    "type": "Button",
-                    "id": "ae628402-1f7e-465f-b85e-62724335428c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -157,10 +130,45 @@
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "HUDController",
+            "id": "0a9a0500-5f35-4fec-8f06-449ea6a936c0",
+            "actions": [
+                {
+                    "name": "ActiveItemUsage",
+                    "type": "Button",
+                    "id": "a6f7db25-ec1d-4bb9-817c-9f249e362a86",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
+                    "name": "InventoryOpen",
+                    "type": "Button",
+                    "id": "dd22fa73-7f0f-4c1b-941a-3ea00ad158b8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MapOpen",
+                    "type": "Button",
+                    "id": "25d16263-0320-4463-8ac1-e4f44e541fad",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
                     "name": "",
-                    "id": "c0abe0f8-6e30-4059-b498-f2b155292625",
+                    "id": "192b6980-b496-46b6-82e3-6bfcd940d815",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
@@ -171,7 +179,7 @@
                 },
                 {
                     "name": "",
-                    "id": "59a5723d-6406-4c46-a9b4-d7664c53f63e",
+                    "id": "eaa34776-ec4a-401c-92bc-d9243ed49982",
                     "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
@@ -182,7 +190,7 @@
                 },
                 {
                     "name": "",
-                    "id": "0c576a4b-5f32-4833-a6b2-a286d340927a",
+                    "id": "760588e3-a208-48d6-8b35-0561b86a1773",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",

@@ -8,17 +8,19 @@ namespace SouthBasement.CameraHandl
     public sealed class CameraHandler
     {
         public Camera MainCamera { get; private set; }
+        public Camera MapCamera { get; private set; }
         
         private Dictionary<CameraNames, CinemachineVirtualCamera> _cameras;
         private PixelPerfectCamera _pixelPerfectCamera;
 
         public CameraNames CurrentCamera { get; private set; }
 
-        public CameraHandler(Dictionary<CameraNames, CinemachineVirtualCamera> cameras, PixelPerfectCamera pixelPerfectCamera, Camera mainCamera)
+        public CameraHandler(CamerasContainer camerasContainer)
         {
-            _cameras = cameras;
-            _pixelPerfectCamera = pixelPerfectCamera;
-            MainCamera = mainCamera;
+            _cameras = camerasContainer.GetCameras();
+            _pixelPerfectCamera = camerasContainer.GetPixelPerfectCamera();
+            MainCamera = camerasContainer.GetMainCamera();
+            MapCamera = camerasContainer.GetMapCamera();
 
             DisableAll();
             SwitchTo(CameraNames.Main);
@@ -32,6 +34,9 @@ namespace SouthBasement.CameraHandl
 
         public void SwitchTo(CameraNames name)
         {
+            if(_cameras[name].isActiveAndEnabled)
+                return;
+                
             _cameras[CurrentCamera].gameObject.SetActive(false);
             _cameras[name].gameObject.SetActive(true);
             

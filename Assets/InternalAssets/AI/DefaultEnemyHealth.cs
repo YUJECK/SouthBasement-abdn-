@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using SouthBasement.Economy;
+﻿using SouthBasement.Economy;
 using UnityEngine;
 using Zenject;
 
@@ -16,10 +15,8 @@ namespace SouthBasement.AI
 
         [Inject]
         private void Construct(CheeseService cheeseService)
-        {
-            _cheeseService = cheeseService;
-        }
-        
+            => _cheeseService = cheeseService;
+
         private void Awake()
         {
             Enemy = GetComponent<Enemy>();

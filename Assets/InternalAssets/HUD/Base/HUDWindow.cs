@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SouthBasement.HUD.Base
 {
-    public abstract class HUDWindow : StateMachineUser
+    public abstract class HUDWindow : StateMachineUser, IWindow
     {
         public bool CurrentlyOpened { get; protected set; } = true;
 

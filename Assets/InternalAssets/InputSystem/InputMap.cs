@@ -64,33 +64,6 @@ namespace SouthBasement
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ActiveItemUsage"",
-                    ""type"": ""Button"",
-                    ""id"": ""47ab8a3b-87d0-4a66-9b94-f0b7d50350e1"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""InventoryOpen"",
-                    ""type"": ""Button"",
-                    ""id"": ""01c0aefb-54dc-4973-9dc9-e7f34309b935"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MapOpen"",
-                    ""type"": ""Button"",
-                    ""id"": ""ae628402-1f7e-465f-b85e-62724335428c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -181,10 +154,45 @@ namespace SouthBasement
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""HUDController"",
+            ""id"": ""0a9a0500-5f35-4fec-8f06-449ea6a936c0"",
+            ""actions"": [
+                {
+                    ""name"": ""ActiveItemUsage"",
+                    ""type"": ""Button"",
+                    ""id"": ""a6f7db25-ec1d-4bb9-817c-9f249e362a86"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""InventoryOpen"",
+                    ""type"": ""Button"",
+                    ""id"": ""dd22fa73-7f0f-4c1b-941a-3ea00ad158b8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MapOpen"",
+                    ""type"": ""Button"",
+                    ""id"": ""25d16263-0320-4463-8ac1-e4f44e541fad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
                     ""name"": """",
-                    ""id"": ""c0abe0f8-6e30-4059-b498-f2b155292625"",
+                    ""id"": ""192b6980-b496-46b6-82e3-6bfcd940d815"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -195,7 +203,7 @@ namespace SouthBasement
                 },
                 {
                     ""name"": """",
-                    ""id"": ""59a5723d-6406-4c46-a9b4-d7664c53f63e"",
+                    ""id"": ""eaa34776-ec4a-401c-92bc-d9243ed49982"",
                     ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -206,7 +214,7 @@ namespace SouthBasement
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0c576a4b-5f32-4833-a6b2-a286d340927a"",
+                    ""id"": ""760588e3-a208-48d6-8b35-0561b86a1773"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -226,9 +234,11 @@ namespace SouthBasement
             m_CharacterContoller_Attack = m_CharacterContoller.FindAction("Attack", throwIfNotFound: true);
             m_CharacterContoller_Interaction = m_CharacterContoller.FindAction("Interaction", throwIfNotFound: true);
             m_CharacterContoller_Dash = m_CharacterContoller.FindAction("Dash", throwIfNotFound: true);
-            m_CharacterContoller_ActiveItemUsage = m_CharacterContoller.FindAction("ActiveItemUsage", throwIfNotFound: true);
-            m_CharacterContoller_InventoryOpen = m_CharacterContoller.FindAction("InventoryOpen", throwIfNotFound: true);
-            m_CharacterContoller_MapOpen = m_CharacterContoller.FindAction("MapOpen", throwIfNotFound: true);
+            // HUDController
+            m_HUDController = asset.FindActionMap("HUDController", throwIfNotFound: true);
+            m_HUDController_ActiveItemUsage = m_HUDController.FindAction("ActiveItemUsage", throwIfNotFound: true);
+            m_HUDController_InventoryOpen = m_HUDController.FindAction("InventoryOpen", throwIfNotFound: true);
+            m_HUDController_MapOpen = m_HUDController.FindAction("MapOpen", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -294,9 +304,6 @@ namespace SouthBasement
         private readonly InputAction m_CharacterContoller_Attack;
         private readonly InputAction m_CharacterContoller_Interaction;
         private readonly InputAction m_CharacterContoller_Dash;
-        private readonly InputAction m_CharacterContoller_ActiveItemUsage;
-        private readonly InputAction m_CharacterContoller_InventoryOpen;
-        private readonly InputAction m_CharacterContoller_MapOpen;
         public struct CharacterContollerActions
         {
             private @InputMap m_Wrapper;
@@ -305,9 +312,6 @@ namespace SouthBasement
             public InputAction @Attack => m_Wrapper.m_CharacterContoller_Attack;
             public InputAction @Interaction => m_Wrapper.m_CharacterContoller_Interaction;
             public InputAction @Dash => m_Wrapper.m_CharacterContoller_Dash;
-            public InputAction @ActiveItemUsage => m_Wrapper.m_CharacterContoller_ActiveItemUsage;
-            public InputAction @InventoryOpen => m_Wrapper.m_CharacterContoller_InventoryOpen;
-            public InputAction @MapOpen => m_Wrapper.m_CharacterContoller_MapOpen;
             public InputActionMap Get() { return m_Wrapper.m_CharacterContoller; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -329,15 +333,6 @@ namespace SouthBasement
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
-                @ActiveItemUsage.started += instance.OnActiveItemUsage;
-                @ActiveItemUsage.performed += instance.OnActiveItemUsage;
-                @ActiveItemUsage.canceled += instance.OnActiveItemUsage;
-                @InventoryOpen.started += instance.OnInventoryOpen;
-                @InventoryOpen.performed += instance.OnInventoryOpen;
-                @InventoryOpen.canceled += instance.OnInventoryOpen;
-                @MapOpen.started += instance.OnMapOpen;
-                @MapOpen.performed += instance.OnMapOpen;
-                @MapOpen.canceled += instance.OnMapOpen;
             }
 
             private void UnregisterCallbacks(ICharacterContollerActions instance)
@@ -354,15 +349,6 @@ namespace SouthBasement
                 @Dash.started -= instance.OnDash;
                 @Dash.performed -= instance.OnDash;
                 @Dash.canceled -= instance.OnDash;
-                @ActiveItemUsage.started -= instance.OnActiveItemUsage;
-                @ActiveItemUsage.performed -= instance.OnActiveItemUsage;
-                @ActiveItemUsage.canceled -= instance.OnActiveItemUsage;
-                @InventoryOpen.started -= instance.OnInventoryOpen;
-                @InventoryOpen.performed -= instance.OnInventoryOpen;
-                @InventoryOpen.canceled -= instance.OnInventoryOpen;
-                @MapOpen.started -= instance.OnMapOpen;
-                @MapOpen.performed -= instance.OnMapOpen;
-                @MapOpen.canceled -= instance.OnMapOpen;
             }
 
             public void RemoveCallbacks(ICharacterContollerActions instance)
@@ -380,12 +366,77 @@ namespace SouthBasement
             }
         }
         public CharacterContollerActions @CharacterContoller => new CharacterContollerActions(this);
+
+        // HUDController
+        private readonly InputActionMap m_HUDController;
+        private List<IHUDControllerActions> m_HUDControllerActionsCallbackInterfaces = new List<IHUDControllerActions>();
+        private readonly InputAction m_HUDController_ActiveItemUsage;
+        private readonly InputAction m_HUDController_InventoryOpen;
+        private readonly InputAction m_HUDController_MapOpen;
+        public struct HUDControllerActions
+        {
+            private @InputMap m_Wrapper;
+            public HUDControllerActions(@InputMap wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ActiveItemUsage => m_Wrapper.m_HUDController_ActiveItemUsage;
+            public InputAction @InventoryOpen => m_Wrapper.m_HUDController_InventoryOpen;
+            public InputAction @MapOpen => m_Wrapper.m_HUDController_MapOpen;
+            public InputActionMap Get() { return m_Wrapper.m_HUDController; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(HUDControllerActions set) { return set.Get(); }
+            public void AddCallbacks(IHUDControllerActions instance)
+            {
+                if (instance == null || m_Wrapper.m_HUDControllerActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_HUDControllerActionsCallbackInterfaces.Add(instance);
+                @ActiveItemUsage.started += instance.OnActiveItemUsage;
+                @ActiveItemUsage.performed += instance.OnActiveItemUsage;
+                @ActiveItemUsage.canceled += instance.OnActiveItemUsage;
+                @InventoryOpen.started += instance.OnInventoryOpen;
+                @InventoryOpen.performed += instance.OnInventoryOpen;
+                @InventoryOpen.canceled += instance.OnInventoryOpen;
+                @MapOpen.started += instance.OnMapOpen;
+                @MapOpen.performed += instance.OnMapOpen;
+                @MapOpen.canceled += instance.OnMapOpen;
+            }
+
+            private void UnregisterCallbacks(IHUDControllerActions instance)
+            {
+                @ActiveItemUsage.started -= instance.OnActiveItemUsage;
+                @ActiveItemUsage.performed -= instance.OnActiveItemUsage;
+                @ActiveItemUsage.canceled -= instance.OnActiveItemUsage;
+                @InventoryOpen.started -= instance.OnInventoryOpen;
+                @InventoryOpen.performed -= instance.OnInventoryOpen;
+                @InventoryOpen.canceled -= instance.OnInventoryOpen;
+                @MapOpen.started -= instance.OnMapOpen;
+                @MapOpen.performed -= instance.OnMapOpen;
+                @MapOpen.canceled -= instance.OnMapOpen;
+            }
+
+            public void RemoveCallbacks(IHUDControllerActions instance)
+            {
+                if (m_Wrapper.m_HUDControllerActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IHUDControllerActions instance)
+            {
+                foreach (var item in m_Wrapper.m_HUDControllerActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_HUDControllerActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public HUDControllerActions @HUDController => new HUDControllerActions(this);
         public interface ICharacterContollerActions
         {
             void OnMove(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
             void OnInteraction(InputAction.CallbackContext context);
             void OnDash(InputAction.CallbackContext context);
+        }
+        public interface IHUDControllerActions
+        {
             void OnActiveItemUsage(InputAction.CallbackContext context);
             void OnInventoryOpen(InputAction.CallbackContext context);
             void OnMapOpen(InputAction.CallbackContext context);

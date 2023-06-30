@@ -41,10 +41,7 @@ namespace SouthBasement.Locations
             
             var cameraContainer = Container.InstantiatePrefabForComponent<CamerasContainer>(camerasContainerPrefab, startPoint);
 
-            var cameraHandler = new CameraHandler(
-                cameraContainer.GetCameras(), 
-                cameraContainer.GetPixelPerfectCamera(), 
-                cameraContainer.GetMainCamera());
+            var cameraHandler = new CameraHandler(cameraContainer);
 
             Container
                 .Bind<CameraHandler>()

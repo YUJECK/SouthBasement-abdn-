@@ -1,23 +1,20 @@
 ﻿using SouthBasement.AI;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 namespace SouthBasement
 {
-    public sealed class SpiderMovement : MonoBehaviour, IMovable
+    public sealed class SpiderMovement : MonoBehaviour, IEnemyMovable
     {
         [SerializeField] private Behaviour[] _navMeshcomponents;
         [SerializeField] private NavMeshAgent _navMeshAgent;
+
+        public bool Blocked { get; set; }
+        public Vector2 CurrentMovement { get; }
         
-        public void MoveUp(Vector2 to)
-        {
-            transform.position = to;
-        }
-        public void Walk(Vector2 to)
-        {
-            _navMeshAgent.SetDestination(to);
-        }
+        public void Move(Vector2 to) => transform.position = to;
+
+        public void Walk(Vector2 to) => _navMeshAgent.SetDestination(to);
 
         public void ActivateNavMesh()
         {

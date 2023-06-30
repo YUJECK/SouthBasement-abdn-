@@ -1,4 +1,6 @@
 ﻿using NTC.ContextStateMachine;
+using SouthBasement.Enums;
+using UnityEngine;
 
 namespace SouthBasement.AI
 {
@@ -17,13 +19,28 @@ namespace SouthBasement.AI
                 return;
             
             Initializer.EnemyAnimator.PlayAttack();
+            
+            Initializer.Flipper.Blocked = true;
+            Initializer.Flipper.Flip(GetDirectionToTarget());
+            
             Initializer.CurrentAttacking = true;
             
             Initializer.EnemyAttacker.StartAttack(7, () =>
             {
                 Initializer.CurrentAttacking = false;
+                Initializer.Flipper.Blocked = false;
                 Attack();
             });
+        }
+
+        private FacingDirections GetDirectionToTarget()
+        {
+            Debug.Log(Initializer.transform.position.x < Initializer.TargetSelector.Target.transform.position.x);
+            
+            if (Initializer.transform.position.x < Initializer.TargetSelector.Target.transform.position.x)
+                return FacingDirections.Right;
+
+            return FacingDirections.Left;
         }
     }
 }

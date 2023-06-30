@@ -35,7 +35,7 @@ namespace SouthBasement
                     _currentPoint = GetNewPoint();
                     _currentPoint.CurrentEnemy = Initializer;
                     
-                    Initializer.Components.SpiderMovement.MoveUp(_currentPoint.transform.position);
+                    Initializer.Components.SpiderMovement.Move(_currentPoint.transform.position);
                     Initializer.Components.Animator.PlayGoDown();
                 }
                 yield return new WaitForSeconds(0.45f);

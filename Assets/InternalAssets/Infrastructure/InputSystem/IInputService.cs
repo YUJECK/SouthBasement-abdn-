@@ -11,6 +11,7 @@ namespace SouthBasement.InputServices
         event Action OnAttack;
         event Action ActiveItemUsage;
         event Action InventoryOpen;
-        event Action MapOpen;
+        event Action OnMapOpen;
+        event Action OnMapClosed;
     }
 }   
