@@ -40,7 +40,7 @@ namespace SouthBasement.Generation
         }
 
         private void ProcessEnemiesPrefabs()
-            => enemiesPrefabs = ChanceSystem.GetInChance(enemiesPrefabs, ChanceSystem.GetChance());
+            => enemiesPrefabs = ChanceSystem.GetInChance(enemiesPrefabs, ChanceSystem.GetRandomChance());
 
         private Enemy GetRandomEnemy()
             => enemiesPrefabs[Random.Range(0, enemiesPrefabs.Length)];

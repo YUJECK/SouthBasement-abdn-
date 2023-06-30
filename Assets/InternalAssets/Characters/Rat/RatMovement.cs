@@ -35,9 +35,11 @@ namespace SouthBasement.Characters.Rat
             if (movement != Vector2.zero)
             {
                 InvokeOnMoved(movement);
+                Owner.AudioPlayer.PlayWalk();
             }
             else
             {
+                Owner.AudioPlayer.StopWalk();
                 InvokeOnMovedReleased();
             }
         }

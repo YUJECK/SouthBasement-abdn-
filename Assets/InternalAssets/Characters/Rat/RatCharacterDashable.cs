@@ -63,6 +63,7 @@ namespace SouthBasement.Characters.Rat
 
             Owner.Components.Get<IFlipper>().Blocked = true;
             Owner.Components.Get<IFlipper>().Flip(GetFacingDirection());
+            Owner.AudioPlayer.PlayDash();
             
             InvokeOnDash();
         }

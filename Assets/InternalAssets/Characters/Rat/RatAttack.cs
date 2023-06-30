@@ -30,6 +30,8 @@ namespace SouthBasement.Characters.Rat
                     Owner.Stats.AttackStats.CurrentStats.AttackRate, 
                     Owner.Stats.AttackStats.CurrentStats.AttackRange, Weapon);
             
+            Owner.AudioPlayer.PlayAttack();
+            
             if(Weapon != null)
                 Weapon.OnAttack(hitted);
                 

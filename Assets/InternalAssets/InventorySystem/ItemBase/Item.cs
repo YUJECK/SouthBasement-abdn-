@@ -12,6 +12,7 @@ namespace SouthBasement.InventorySystem
         [field: SerializeField] public List<string> ItemTags { get; private set; } = new();
         [field: SerializeField] public Rarity Rarity { get; private set; } 
         [field: SerializeField] public Sprite ItemSprite { get; private set; }
+        [field: SerializeField] public int ItemPrice { get; private set; }
 
         public abstract Type GetItemType();
     }

@@ -77,6 +77,8 @@ namespace SouthBasement.Items
 
         public void Add(IEnumerable<Item> toAdd)
         {
+            Debug.Log(toAdd.Count());
+            
             foreach (var item in toAdd)
                 Add(item);
         }

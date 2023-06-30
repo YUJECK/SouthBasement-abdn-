@@ -6,8 +6,23 @@ namespace SouthBasement.Helpers
 {
     public static class ChanceSystem
     {
-        public static int GetChance()
-            => UnityEngine.Random.Range(0, 101);
+        public static int GetRandomChance()
+            => Random.Range(0, 101);
+        public static Rarity GetRandomRarity()
+        {
+            int chance = Random.Range(0, 101);
+
+            if (chance >= (int)Rarity.B)
+                return Rarity.A;
+            
+            if (chance >= (int)Rarity.C)
+                return Rarity.B;
+
+            if (chance >= (int) Rarity.D)
+                return Rarity.C;
+
+            return Rarity.D;
+        }
 
         public static bool FitsInChance(int chance, int requireChance)
             => chance >= requireChance;

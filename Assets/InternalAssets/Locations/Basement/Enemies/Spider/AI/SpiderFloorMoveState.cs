@@ -42,7 +42,7 @@ namespace SouthBasement
                 while (Initializer.transform.position.x != _currentPoint.transform.position.x && Initializer.transform.position.y != _currentPoint.transform.position.y)
                     yield return null;                    
                 
-                Initializer.Components.AudioPlayer.StopWalk();
+                Initializer.Components.AudioPlayer.StopWalk(); 
                 Initializer.Components.Animator.PlayAfraid();
                 yield return new WaitForSeconds(2f);
             }

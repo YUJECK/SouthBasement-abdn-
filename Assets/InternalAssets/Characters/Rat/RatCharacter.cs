@@ -12,6 +12,7 @@ namespace SouthBasement.Characters.Rat
     public sealed class RatCharacter : Character, IInitializable
     {
         [field: SerializeField] public DefaultAttacker Attacker { get; private set; }
+        [field: SerializeField] public CharacterAudioPlayer AudioPlayer { get; private set; }
         [field: SerializeField] public AttackRangeAnimator AttackRangeAnimator { get; private set; }
         
         public Rigidbody2D Rigidbody { get; private set; }

@@ -31,13 +31,13 @@ namespace SouthBasement.Generation
             _map[0] = RoomType.StartRoom;
             _map[^1] = RoomType.ExitRoom;
 
-            _map[Random.Range(1, _map.Length - 2)] = RoomType.TraderRoom;
+            //_map[Random.Range(1, _map.Length - 2)] = RoomType.TraderRoom;
 
             for (int i = 0; i < 4; i++)
             {
                 int roomID = Random.Range(1, _map.Length - 2);
 
-                if (_map[roomID] != RoomType.FightRoom)
+                if (_map[roomID] == RoomType.FightRoom)
                     _map[roomID] = RoomType.NPCRoom;
                 else
                     i--;

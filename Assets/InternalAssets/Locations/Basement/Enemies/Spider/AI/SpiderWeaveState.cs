@@ -34,6 +34,7 @@ namespace SouthBasement
                 yield return Initializer.Components.SpiderWeaver.Weave();
                 
                 Initializer.Components.AudioPlayer.StopWeave();
+                Initializer.Components.AudioPlayer.PlayShoot();
 
                 Initializer.AttackStrike++;
                 Initializer.CurrentlyAttacking = false;

@@ -6,7 +6,10 @@ namespace SouthBasement
     {
         [SerializeField] private AudioSource weaveSound;
         [SerializeField] private AudioSource walkSound;
+        [SerializeField] private AudioSource shootSound;
 
+        public void PlayShoot() => shootSound.Play();
+        
         public void PlayWeave() => weaveSound.Play();
         public void StopWeave() => weaveSound.Stop();
         

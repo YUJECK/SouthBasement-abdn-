@@ -70,6 +70,7 @@ namespace SouthBasement
 
         private bool CanEnterFallDownState()
             => Enabled
+               && !CurrentlyAttacking
                && _enemiesHandler.IsEnemyCategoryAlone<SpiderAI>();
 
         private void Update()

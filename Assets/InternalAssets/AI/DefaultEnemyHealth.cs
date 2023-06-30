@@ -1,4 +1,5 @@
-﻿using SouthBasement.Economy;
+﻿using System.Linq;
+using SouthBasement.Economy;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,9 @@ namespace SouthBasement.AI
     public sealed class DefaultEnemyHealth : EnemyHealth
     {
         [SerializeField] private GameObject[] objectsToDrop;
+        [SerializeField] private AudioSource hitSound;
+        [SerializeField] private int cheeseAmount;
+        
         private CheeseService _cheeseService;
 
         [Inject]
@@ -19,12 +23,20 @@ namespace SouthBasement.AI
         private void Awake()
         {
             Enemy = GetComponent<Enemy>();
+            
             Enemy.OnDied += DropItems;
+            OnDamaged += PlayHitSound;
+        }
+
+        private void PlayHitSound(int obj)
+        {
+            if (hitSound != null) 
+                hitSound.Play();
         }
 
         private void DropItems(Enemy enemy)
         {
-            _cheeseService.SpawnCheese(transform.position, 4);
+            _cheeseService.SpawnCheese(transform.position, cheeseAmount);
             
             foreach (var objectToDrop in objectsToDrop)
                 Instantiate(objectToDrop, transform.position, transform.rotation);
