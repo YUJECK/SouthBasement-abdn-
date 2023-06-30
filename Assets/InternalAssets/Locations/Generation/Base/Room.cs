@@ -7,7 +7,7 @@ namespace SouthBasement.Generation
     public abstract class Room : MonoBehaviour
     {
         [field: SerializeField] public Vector2 RoomSize { get; private set; }
-        [SerializeField] private PlayerEnterTrigger _playerEnterTrigger;
+        [field: SerializeField] public PlayerEnterTrigger PlayerEnterTrigger { get; private set; }
 
         public PassageHandler PassageHandler { get; private set; }
 
@@ -34,16 +34,16 @@ namespace SouthBasement.Generation
 
         private void BindPlayerEnterTrigger()
         {
-            if (_playerEnterTrigger == null)
-                _playerEnterTrigger = GetComponentInChildren<PlayerEnterTrigger>();
+            if (PlayerEnterTrigger == null)
+                PlayerEnterTrigger = GetComponentInChildren<PlayerEnterTrigger>();
 
-            _playerEnterTrigger.OnEntered += OnPlayerEntered;
-            _playerEnterTrigger.OnExit += OnPlayerExit;
+            PlayerEnterTrigger.OnEntered += OnPlayerEntered;
+            PlayerEnterTrigger.OnExit += OnPlayerExit;
         }
 
         protected virtual void OnAwake() { }
 
-        protected virtual void OnPlayerEntered(Character player) { }
+        protected virtual void OnPlayerEntered(Character player) { Debug.Log("Enter"); }
         protected virtual void OnPlayerExit(Character player) { }
 
 #if UNITY_EDITOR

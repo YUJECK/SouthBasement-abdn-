@@ -4,6 +4,7 @@ using SouthBasement.Helpers;
 using SouthBasement.CameraHandl;
 using SouthBasement.Characters.Rat;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace SouthBasement.Locations
@@ -11,7 +12,7 @@ namespace SouthBasement.Locations
     public sealed class LocationInstaller : MonoInstaller
     {
         [SerializeField] private Transform startPoint;
-        [SerializeField] private RoomsContainer roomsContainer;
+        [FormerlySerializedAs("roomsContainer")] [SerializeField] private LevelConfig levelConfig;
         [SerializeField] private ContainersHelper containersHelper;
 
         [SerializeField] private CursorService cursorService;
@@ -56,8 +57,8 @@ namespace SouthBasement.Locations
         private void BindRoomContainer()
         {
             Container
-                .Bind<RoomsContainer>()
-                .FromInstance(roomsContainer)
+                .Bind<LevelConfig>()
+                .FromInstance(levelConfig)
                 .AsSingle();
         }
 
@@ -85,7 +86,7 @@ namespace SouthBasement.Locations
         {
             Container
                 .BindInterfacesAndSelfTo<GenerationController>()
-                .FromInstance(new GenerationController(roomsContainer, Container, startPoint))
+                .FromInstance(new GenerationController(levelConfig, Container, startPoint))
                 .AsSingle();
         }
     }

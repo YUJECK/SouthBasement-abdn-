@@ -10,18 +10,15 @@ namespace SouthBasement.Helpers
             => Random.Range(0, 101);
         public static Rarity GetRandomRarity()
         {
-            int chance = Random.Range(0, 101);
+            var chance = Random.Range(0, 101);
 
-            if (chance >= (int)Rarity.B)
-                return Rarity.A;
-            
-            if (chance >= (int)Rarity.C)
-                return Rarity.B;
-
-            if (chance >= (int) Rarity.D)
-                return Rarity.C;
-
-            return Rarity.D;
+            return chance switch
+            {
+                >= (int) Rarity.B => Rarity.A,
+                >= (int) Rarity.C => Rarity.B,
+                >= (int) Rarity.D => Rarity.C,
+                _ => Rarity.D
+            };
         }
 
         public static bool FitsInChance(int chance, int requireChance)

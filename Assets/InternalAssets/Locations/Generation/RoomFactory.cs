@@ -9,7 +9,7 @@ namespace SouthBasement.Generation
     public sealed class RoomFactory : MonoBehaviour, IRoomFactory
     {
         private DiContainer _diContainer;
-        private RoomsContainer _roomsContainer;
+        private LevelConfig _levelConfig;
 
         private Room _owner;
         private Direction _direction;
@@ -17,10 +17,10 @@ namespace SouthBasement.Generation
         private ContainersHelper _containersHelper;
 
         [Inject]
-        private void Construct(RoomsContainer roomsContainer, DiContainer diContainer, GenerationController generationController, ContainersHelper containersHelper)
+        private void Construct(LevelConfig levelConfig, DiContainer diContainer, GenerationController generationController, ContainersHelper containersHelper)
         {
             _diContainer = diContainer;
-            _roomsContainer = roomsContainer;
+            _levelConfig = levelConfig;
             _generationController = generationController;
             _containersHelper = containersHelper;
         }
@@ -36,7 +36,7 @@ namespace SouthBasement.Generation
 
         public Room CreateByType(RoomType roomType)
         {
-            var roomToSpawn = _roomsContainer.GetRandomRoom(roomType);
+            var roomToSpawn = _levelConfig.GetRandomRoom(roomType);
             return CreateByPrefab(roomToSpawn);
         }
 

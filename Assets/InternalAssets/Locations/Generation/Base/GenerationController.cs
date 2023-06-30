@@ -6,7 +6,7 @@ namespace SouthBasement.Generation
 {
     public sealed class GenerationController : IInitializable
     {
-        private readonly RoomsContainer _roomsContainer;
+        private readonly LevelConfig _levelConfig;
         private readonly Transform _startPoint;
         private readonly DiContainer _diContainer;
 
@@ -14,11 +14,17 @@ namespace SouthBasement.Generation
         private RoomType[] _map;
         private int CurrentRoomsCount => _spawnedRooms.Count;
 
-        public GenerationController(RoomsContainer roomsContainer, DiContainer diContainer, Transform startPoint)
+        public GenerationController(LevelConfig levelConfig, DiContainer diContainer, Transform startPoint)
         {
-            _roomsContainer = roomsContainer;
+            _levelConfig = levelConfig;
             _diContainer = diContainer;
             _startPoint = startPoint;
+        }
+
+        public void Initialize()
+        {
+            GenerateMap();
+            Generate();
         }
 
         public void AddSpawnedRoom(Room room) 
@@ -26,14 +32,21 @@ namespace SouthBasement.Generation
 
         private void GenerateMap()
         {
-            _map = new RoomType[_roomsContainer.RoomsCount];
+            _map = new RoomType[_levelConfig.TotalRoomsCount + 2];
 
             _map[0] = RoomType.StartRoom;
             _map[^1] = RoomType.ExitRoom;
 
-            //_map[Random.Range(1, _map.Length - 2)] = RoomType.TraderRoom;
+            for (int i = 0; i < _levelConfig.TraderRoomsCount; i++)
+            {
+                int roomID = Random.Range(1, _map.Length - 2);
 
-            for (int i = 0; i < 4; i++)
+                if (_map[roomID] == RoomType.FightRoom)
+                    _map[roomID] = RoomType.TraderRoom;
+                else
+                    i--;
+            }
+            for (int i = 0; i < _levelConfig.NPCRoomsCount; i++)
             {
                 int roomID = Random.Range(1, _map.Length - 2);
 
@@ -43,12 +56,13 @@ namespace SouthBasement.Generation
                     i--;
             }
         }
+
         private void Generate()
         {
             var mustSpawnQueue = new Queue<Room>();
             
             var roomQueue = new Queue<Room>();
-            var startRoomPrefab = _roomsContainer.GetRandomRoom(RoomType.StartRoom);
+            var startRoomPrefab = _levelConfig.GetRandomRoom(RoomType.StartRoom);
 
             var startRoom = _diContainer
                 .InstantiatePrefabForComponent<Room>(startRoomPrefab, _startPoint.position, Quaternion.identity, null);
@@ -72,20 +86,16 @@ namespace SouthBasement.Generation
                         roomQueue.Dequeue();
                 }
                 else
+                {
                     roomQueue.Dequeue();
-                
+                }
+
                 if (roomQueue.Count == 0)
                     break;
             }
 
             foreach (var room in _spawnedRooms)
                 room.PassageHandler.CloseAllFree();
-        }
-
-        public void Initialize()
-        {
-            GenerateMap();
-            Generate();
         }
     }
 }
