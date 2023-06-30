@@ -13,7 +13,6 @@ namespace SouthBasement
         public Vector2 CurrentMovement { get; }
         
         public void Move(Vector2 to) => transform.position = to;
-
         public void Walk(Vector2 to) => _navMeshAgent.SetDestination(to);
 
         public void ActivateNavMesh()
