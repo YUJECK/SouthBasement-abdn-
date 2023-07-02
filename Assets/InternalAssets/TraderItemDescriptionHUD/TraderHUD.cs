@@ -37,7 +37,7 @@ namespace SouthBasement.TraderItemDescriptionHUD
             if(_disableTween != null && _disableTween.active)
                 _disableTween.Kill();
             
-            _enableTween = panel.DOMoveY(enablePosition.position.y, 0.15f);
+            _enableTween = panel.DOMoveY(enablePosition.position.y, 0.2f);
         }
 
         public void Disable()
@@ -45,7 +45,7 @@ namespace SouthBasement.TraderItemDescriptionHUD
             if(_enableTween != null && _enableTween.active)
                 _enableTween.Kill();
             
-            _disableTween = panel.DOMoveY(disablePosition.position.y, 0.15f);
+            _disableTween = panel.DOMoveY(disablePosition.position.y, 0.2f);
         }
 
         private IEnumerator PrintText(string newText)
@@ -55,7 +55,7 @@ namespace SouthBasement.TraderItemDescriptionHUD
             foreach (var letter in newText)
             {
                 text.text += letter;
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(0.05f);
             }
         }
     }
