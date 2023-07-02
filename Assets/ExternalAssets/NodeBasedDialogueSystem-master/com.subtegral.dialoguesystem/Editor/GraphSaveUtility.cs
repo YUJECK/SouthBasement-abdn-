@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Codice.Client.Common;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -34,14 +35,14 @@ namespace Subtegral.DialogueSystem.Editor
             SaveExposedProperties(dialogueContainerObject);
             SaveCommentBlocks(dialogueContainerObject);
 
-            if (!AssetDatabase.IsValidFolder("Assets/Resources"))
-                AssetDatabase.CreateFolder("Assets", "Resources");
+//            if (!AssetDatabase.IsValidFolder("Assets/InternalAssets/Resources/Dialogues"))
+//                AssetDatabase.CreateFolder("Assets", "Resources");
 
-            UnityEngine.Object loadedAsset = AssetDatabase.LoadAssetAtPath($"Assets/Resources/{fileName}.asset", typeof(DialogueContainer));
+            UnityEngine.Object loadedAsset = AssetDatabase.LoadAssetAtPath($"Assets/InternalAssets/Resources/Dialogues/{fileName}.asset", typeof(DialogueContainer));
 
             if (loadedAsset == null || !AssetDatabase.Contains(loadedAsset)) 
 			{
-                AssetDatabase.CreateAsset(dialogueContainerObject, $"Assets/Resources/{fileName}.asset");
+                AssetDatabase.CreateAsset(dialogueContainerObject, $"Assets/InternalAssets/Resources/Dialogues/{fileName}.asset");
             }
             else 
 			{
@@ -109,7 +110,7 @@ namespace Subtegral.DialogueSystem.Editor
 
         public void LoadNarrative(string fileName)
         {
-            _dialogueContainer = Resources.Load<DialogueContainer>(fileName);
+            _dialogueContainer = Resources.Load<DialogueContainer>($"Dialogues/{fileName}");
             if (_dialogueContainer == null)
             {
                 EditorUtility.DisplayDialog("File Not Found", "Target Narrative Data does not exist!", "OK");
