@@ -1,6 +1,7 @@
 using SouthBasement.Basement.NPC.Traders;
 using SouthBasement.InventorySystem;
 using SouthBasement.Items;
+using SouthBasement.Scripts.Helpers;
 using SouthBasement.TraderItemDescriptionHUD;
 using Zenject;
 
@@ -19,7 +20,10 @@ namespace SouthBasement
         }
 
         private void Start()
-            => SpawnItems();
+        {
+            SpawnItems();
+            GetComponentInChildren<TriggerCallback>().OnTriggerExit += (_) => _traderHUD.Disable();
+        }
 
         protected override ItemsContainer GetItemsContainer() => _itemsContainer;
         protected override string TraderName() => "Rat Chef";

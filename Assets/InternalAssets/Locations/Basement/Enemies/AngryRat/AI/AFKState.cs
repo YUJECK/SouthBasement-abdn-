@@ -2,10 +2,10 @@
 
 namespace SouthBasement.AI
 {
-    public sealed class AFKState : State<DefaultRatStateMachine>
+    public sealed class AFKState : State<AngryRatStateMachine>
     {
-        public AFKState(DefaultRatStateMachine stateInitializer) : base(stateInitializer) { }
+        public AFKState(AngryRatStateMachine stateInitializer) : base(stateInitializer) { }
 
-        public override void OnEnter() => Initializer.EnemyAnimator.PlayAFK();
+        protected override void OnEnter() => Initializer.EnemyAnimator.PlayAFK();
     }
 }

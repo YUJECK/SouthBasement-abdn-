@@ -1,6 +1,6 @@
 ﻿using SouthBasement.Generation;
 
-namespace SouthBasement.Infrastructure.Basement
+namespace SouthBasement.Basement
 {
     public sealed class StartRoom : Room
     {

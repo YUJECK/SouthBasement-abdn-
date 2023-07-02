@@ -15,8 +15,8 @@ namespace SouthBasement
         
         public SpiderMoveState(SpiderAI stateInitializer) : base(stateInitializer) { }
 
-        public override void OnEnter() => _moveCoroutine = Initializer.StartCoroutine(Move());
-        public override void OnExit() => Initializer.StopCoroutine(_moveCoroutine);
+        protected override void OnEnter() => _moveCoroutine = Initializer.StartCoroutine(Move());
+        protected override void OnExit() => Initializer.StopCoroutine(_moveCoroutine);
 
         private IEnumerator Move()
         {

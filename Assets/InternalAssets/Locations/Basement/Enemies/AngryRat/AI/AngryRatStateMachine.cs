@@ -9,7 +9,7 @@ namespace SouthBasement.AI
 {
     [RequireComponent(typeof(IEnemyMovable))]
     [RequireComponent(typeof(IFlipper))]
-    public sealed class DefaultRatStateMachine : Enemy
+    public class AngryRatStateMachine : Enemy
     {
         public EnemyAttacker EnemyAttacker { get; private set; }
         public IFlipper Flipper { get; private set; }
@@ -20,7 +20,7 @@ namespace SouthBasement.AI
 
         public bool CurrentAttacking = false;
 
-        private readonly StateMachine<DefaultRatStateMachine> _stateMachine = new();
+        protected readonly StateMachine<AngryRatStateMachine> StateMachine = new();
 
         private void Start()
         {
@@ -36,27 +36,27 @@ namespace SouthBasement.AI
             CreateStates();
         }
 
-        private void CreateStates()
+        protected virtual void CreateStates()
         {
-            _stateMachine.AddStates(new IdleState(this), new WalkState(this), new AttackState(this), new AFKState(this));
+            StateMachine.AddStates(new IdleState(this), new WalkState(this), new AngryRatAttackState(this), new AFKState(this));
 
-            _stateMachine.AddAnyTransition<AFKState>(CanEnterAFK);
-            _stateMachine.AddAnyTransition<AttackState>(CanEnterAttackState);
-            _stateMachine.AddAnyTransition<WalkState>(CanEnterWalkState);
-            _stateMachine.AddAnyTransition<IdleState>(CanEnterIdleState);
+            StateMachine.AddAnyTransition<AFKState>(CanEnterAFK);
+            StateMachine.AddAnyTransition<AngryRatAttackState>(CanEnterAttackState);
+            StateMachine.AddAnyTransition<WalkState>(CanEnterWalkState);
+            StateMachine.AddAnyTransition<IdleState>(CanEnterIdleState);
 
-            _stateMachine.TransitionsEnabled = true;
+            StateMachine.TransitionsEnabled = true;
         }
 
-        public bool CanEnterAttackState() => AttackTrigger.CanAttack && Enabled;
-        public bool CanEnterWalkState() => TargetSelector.Target != null && !AttackTrigger.CanAttack && Enabled && !CurrentAttacking;
-        public bool CanEnterIdleState() => TargetSelector.Target == null && !AttackTrigger.CanAttack && !CurrentAttacking;
-        public bool CanEnterAFK() => !Enabled;
+        public virtual bool CanEnterAttackState() => AttackTrigger.CanAttack && Enabled;
+        public virtual bool CanEnterWalkState() => TargetSelector.Target != null && !AttackTrigger.CanAttack && Enabled && !CurrentAttacking;
+        public virtual bool CanEnterIdleState() => TargetSelector.Target == null && !AttackTrigger.CanAttack && !CurrentAttacking;
+        public virtual bool CanEnterAFK() => !Enabled;
         
         private void FixedUpdate()
         {
             if(Enabled)
-                _stateMachine.Run();
+                StateMachine.Run();
         }
     }
 }

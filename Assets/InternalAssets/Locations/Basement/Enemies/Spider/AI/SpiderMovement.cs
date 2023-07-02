@@ -1,4 +1,5 @@
-﻿using SouthBasement.AI;
+﻿using System;
+using SouthBasement.AI;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,7 +13,12 @@ namespace SouthBasement
         public bool Blocked { get; set; }
         public Vector2 CurrentMovement { get; }
         
-        public void Move(Vector2 to) => transform.position = to;
+        public void Move(Vector2 to, Action onCompleted = null)
+        {
+            transform.position = to;
+            onCompleted?.Invoke();
+        }
+
         public void Walk(Vector2 to) => _navMeshAgent.SetDestination(to);
 
         public void ActivateNavMesh()

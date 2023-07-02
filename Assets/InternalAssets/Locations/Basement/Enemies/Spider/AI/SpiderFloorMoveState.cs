@@ -12,7 +12,7 @@ namespace SouthBasement
         
         public SpiderFloorMoveState(SpiderAI stateInitializer) : base(stateInitializer) { }
 
-        public override void OnEnter()
+        protected override void OnEnter()
         {
             if(!Initializer.FallenDown)
                 Initializer.Fall();
@@ -20,7 +20,7 @@ namespace SouthBasement
             _movingCoroutine = Initializer.StartCoroutine(Moving());
         }
 
-        public override void OnExit()
+        protected override void OnExit()
         {
             Initializer.StopCoroutine(_movingCoroutine);
         }

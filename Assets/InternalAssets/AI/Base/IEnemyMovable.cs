@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace SouthBasement.AI
 {
@@ -7,6 +8,6 @@ namespace SouthBasement.AI
         bool Blocked { get; set; }
         Vector2 CurrentMovement { get; }
 
-        public void Move(Vector2 to);
+        public void Move(Vector2 to, Action onCompleted = null);
     }
 }

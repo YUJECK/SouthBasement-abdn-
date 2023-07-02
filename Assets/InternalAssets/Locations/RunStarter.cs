@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace SouthBasement.Infrastructure
+namespace SouthBasement
 {
     public sealed class RunStarter
     {

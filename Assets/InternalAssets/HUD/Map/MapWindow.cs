@@ -1,4 +1,5 @@
-﻿using SouthBasement.CameraHandl;
+﻿using System;
+using SouthBasement.CameraHandl;
 using SouthBasement.HUD.Base;
 using SouthBasement.InputServices;
 using UnityEngine;
@@ -46,6 +47,12 @@ namespace SouthBasement.HUD.Map
         {
             _inputService.OnMapOpen += Open;
             _inputService.OnMapClosed += Close;
+        }
+
+        private void OnDestroy()
+        {
+            _inputService.OnMapOpen -= Open;
+            _inputService.OnMapClosed -= Close;
         }
 
         public void Open()

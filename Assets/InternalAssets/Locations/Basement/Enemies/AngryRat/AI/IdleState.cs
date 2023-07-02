@@ -2,11 +2,11 @@
 
 namespace SouthBasement.AI
 {
-    public class IdleState : State<DefaultRatStateMachine>
+    public class IdleState : State<AngryRatStateMachine>
     {
-        public IdleState(DefaultRatStateMachine stateInitializer) : base(stateInitializer) { }
+        public IdleState(AngryRatStateMachine stateInitializer) : base(stateInitializer) { }
 
-        public override void OnEnter()
+        protected override void OnEnter()
         {
             Initializer.EnemyAnimator.PlayIdle();
         }

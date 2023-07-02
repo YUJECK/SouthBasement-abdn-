@@ -11,8 +11,9 @@ namespace SouthBasement
 
         public SpiderWeaveState(SpiderAI stateInitializer) : base(stateInitializer) { }
 
-        public override void OnEnter() => _attackCoroutine = Initializer.StartCoroutine(Attack());
-        public override void OnExit()
+        protected override void OnEnter() => _attackCoroutine = Initializer.StartCoroutine(Attack());
+
+        protected override void OnExit()
         {
             Initializer.StopCoroutine(_attackCoroutine);
             Initializer.Components.AudioPlayer.StopWeave();

@@ -1,7 +1,7 @@
 using SouthBasement.Infrastucture;
 using SouthBasement.Characters;
 using SouthBasement.Economy;
-using SouthBasement.Infrastructure;
+using SouthBasement;
 using SouthBasement.InputServices;
 using SouthBasement.InventorySystem;
 using SouthBasement.Helpers;

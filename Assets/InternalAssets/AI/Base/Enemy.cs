@@ -1,5 +1,5 @@
 ﻿using System;
-using SouthBasement.Infrastructure;
+using SouthBasement;
 using UnityEngine;
 
 namespace SouthBasement.AI

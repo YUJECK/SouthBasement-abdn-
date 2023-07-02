@@ -6,12 +6,12 @@ namespace SouthBasement
     {
         public SpiderAFKState(SpiderAI stateInitializer) : base(stateInitializer) { }
 
-        public override void OnEnter()
+        protected override void OnEnter()
         {
             Initializer.Components.Animator.PlayGoUp();
         }
 
-        public override void OnExit()
+        protected override void OnExit()
         {
             Initializer.Components.Animator.PlayGoDown();
         }

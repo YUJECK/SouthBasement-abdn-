@@ -77,7 +77,7 @@ namespace NTC.ContextStateMachine
 
             if (HasCurrentState)
             {
-                CurrentState.OnRun();
+                CurrentState.Run();
             }
         }
 
@@ -128,13 +128,13 @@ namespace NTC.ContextStateMachine
         private void EnterCurrentState()
         {
             CurrentState.IsActive = true;
-            CurrentState.OnEnter();
+            CurrentState.Enter();
         }
 
         private void ExitCurrentState()
         {
             CurrentState.IsActive = false;
-            CurrentState.OnExit();
+            CurrentState.Exit();
         }
 
         private Transition<TInitializer> GetTransition()
