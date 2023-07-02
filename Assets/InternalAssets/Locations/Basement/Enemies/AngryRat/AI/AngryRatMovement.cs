@@ -7,6 +7,7 @@ namespace SouthBasement.AI
     public sealed class AngryRatMovement : MonoBehaviour, IEnemyMovable
     {
         [SerializeField] private NavMeshAgent agent;
+        
         public bool Blocked { get; set; }
         public Vector2 CurrentMovement => agent.velocity;
 

@@ -2,7 +2,6 @@
 using SouthBasement.InventorySystem;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace SouthBasement.Items
@@ -24,6 +23,14 @@ namespace SouthBasement.Items
             base.SetItem(item);
             
             Price = item.ItemPrice;
+            text.text = Price.ToString();
+        }
+
+        public void SetItem(Item item, int price)
+        {
+            base.SetItem(item);
+                
+            Price = price;
             text.text = Price.ToString();
         }
 

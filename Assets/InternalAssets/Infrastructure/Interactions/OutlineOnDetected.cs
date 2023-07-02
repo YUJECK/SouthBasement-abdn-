@@ -1,4 +1,5 @@
-﻿using SouthBasement.Helpers;
+﻿using System;
+using SouthBasement.Helpers;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +9,11 @@ namespace SouthBasement.Interactions
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         private MaterialHelper _materialHelper;
-        
+
+        public event Action<IInteractive> OnDetected;
+        public event Action<IInteractive> OnInteracted;
+        public event Action<IInteractive> OnDetectionReleased;
+
         [Inject]
         private void Construct(MaterialHelper materialHelper) 
             => _materialHelper = materialHelper;

@@ -2,6 +2,7 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using NaughtyAttributes;
 using SouthBasement.DialogueHUD;
 using Subtegral.DialogueSystem.DataContainers;
 using Subtegral.DialogueSystem.Runtime;
@@ -22,7 +23,7 @@ namespace SouthBasement.Dialogues
         public bool CurrentlyTalk { get; private set; }
         private readonly DialogueParser _parser = new();
 
-        [SerializeField] private DialogueContainer _currentDialogue;
+        [ReadOnly,SerializeField] private DialogueContainer _currentDialogue;
 
         private Action onStopped;
         
@@ -39,24 +40,21 @@ namespace SouthBasement.Dialogues
 
             this.onStopped = onStopped;
             
-            _dialoguePanel.DOMove(onEnable.position, 0.7f);
-            PrintText(dialogueContainer.NodeLinks.First().TargetNodeGUID);
+            OpenWindow();
+            BuildPhrase(dialogueContainer.NodeLinks.First().TargetNodeGUID);
             
             CurrentlyTalk = true;
         }
-        
-        private async void PrintText(string target)
+
+        private void OpenWindow() => _dialoguePanel.DOMove(onEnable.position, 0.7f);
+
+        private async void BuildPhrase(string target)
         {
-            dialogueText.text = "";
             var newText = _parser.Get(_currentDialogue, target);
 
             _buttonController.ClearButtons();
-            
-            foreach (var letter in newText.Text)
-            {
-                dialogueText.text += letter;
-                await UniTask.Delay(50);
-            }
+
+            await PrintText(newText.Text);
 
             if (newText.DialogueChoices.Length == 0)
             {
@@ -66,10 +64,17 @@ namespace SouthBasement.Dialogues
             BuildButtons(newText.DialogueChoices);
         }
 
-        private void BuildButtons(DialogueChoice[] choices)
+        private async UniTask PrintText(string newText)
         {
-            _buttonController.Build(choices, (choice) => PrintText(choice.Target));
+            dialogueText.text = "";
+            foreach (var letter in newText)
+            {
+                dialogueText.text += letter;
+                await UniTask.Delay(TimeSpan.FromSeconds(0.25f));
+            }
         }
+
+        private void BuildButtons(DialogueChoice[] choices) => _buttonController.Build(choices, (choice) => BuildPhrase(choice.Target));
 
         private void BuildCloseButton()
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using SouthBasement.Interactions;
 using SouthBasement.Helpers;
@@ -10,7 +11,7 @@ namespace SouthBasement.InventorySystem
     [RequireComponent(typeof(Rigidbody2D))]
     public class ItemPicker : MonoBehaviour, IInteractive
     {
-        [SerializeField] private Item item;
+        [SerializeField] public Item Item { get; private set; }
 
         private SpriteRenderer _spriteRenderer;
         private Rigidbody2D _rigidbody2D;
@@ -18,6 +19,10 @@ namespace SouthBasement.InventorySystem
         private Inventory _inventory;
         private DiContainer _diContainer;
         private MaterialHelper _materialHelper;
+
+        public event Action<IInteractive> OnDetected;
+        public event Action<IInteractive> OnInteracted;
+        public event Action<IInteractive> OnDetectionReleased;
 
         [Inject]
         private void Construct(Inventory inventory, MaterialHelper materialHelper, DiContainer diContainer)
@@ -32,8 +37,8 @@ namespace SouthBasement.InventorySystem
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
 
-            if(item != null)
-                SetItem(item);
+            if(Item != null)
+                SetItem(Item);
         }
 
         public void PlayMove(Vector2 move, float speed)
@@ -56,26 +61,30 @@ namespace SouthBasement.InventorySystem
 
         public virtual void SetItem(Item item)
         {
-            this.item = item;
+            this.Item = item;
             
             gameObject.name = item.ItemID;
-            _spriteRenderer.sprite = this.item.ItemSprite;
+            _spriteRenderer.sprite = this.Item.ItemSprite;
             _diContainer.Inject(item);
         }
 
         public void Detect()
         {
+            OnDetected?.Invoke(this);
             _spriteRenderer.material = _materialHelper.OutlineMaterial;
         }
 
         public virtual void Interact()
         {
-            if(_inventory.TryAddItem(item))            
+            OnInteracted?.Invoke(this);
+            
+            if(_inventory.TryAddItem(Item))            
                 Destroy(gameObject);
         }
 
         public virtual void DetectionReleased()
         {
+            OnDetectionReleased?.Invoke(this);
             _spriteRenderer.material = _materialHelper.DefaultMaterial;
         }
     }

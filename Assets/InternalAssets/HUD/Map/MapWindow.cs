@@ -10,6 +10,8 @@ namespace SouthBasement.HUD.Map
     public sealed class MapWindow : MonoBehaviour, IWindow
     {
         [SerializeField] private GameObject map;
+
+        public bool CurrentlyOpened { get; private set; }
         
         private IInputService _inputService;
         private RenderTexture renderTexture;
@@ -49,11 +51,13 @@ namespace SouthBasement.HUD.Map
         public void Open()
         {
             map.SetActive(true);
+            CurrentlyOpened = true;
         }
 
         public void Close()
         {
             map.SetActive(false);
+            CurrentlyOpened = false;
         }
 
         public void UpdateWindow()

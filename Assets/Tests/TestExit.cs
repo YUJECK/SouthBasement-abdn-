@@ -7,6 +7,10 @@ namespace SouthBasement.Tests
 {
     public class TestExit : MonoBehaviour, IInteractive
     {
+        public event Action<IInteractive> OnDetected;
+        public event Action<IInteractive> OnInteracted;
+        public event Action<IInteractive> OnDetectionReleased;
+
         public void Detect()
         {
             

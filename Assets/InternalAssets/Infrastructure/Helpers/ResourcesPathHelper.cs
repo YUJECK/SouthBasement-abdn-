@@ -10,6 +10,7 @@
         
         public const string HUD = "HUD/HUD";
         public const string DialogueHUD = "HUD/DialogueWindow";
+        public const string TraderHUD = "HUD/TraderHUD";
         public const string CamerasContainer = "Camera/Cameras";
         public const string CamerasReacting = "Camera/CamerasReacting";
     }

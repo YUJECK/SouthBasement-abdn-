@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using SouthBasement.HUD.Base;
+﻿using SouthBasement.HUD.Base;
 using UnityEngine;
 
 namespace SouthBasement.HUD.Minimap

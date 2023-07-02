@@ -1,5 +1,6 @@
 ﻿using SouthBasement.Dialogues;
 using SouthBasement.Helpers;
+using SouthBasement.TraderItemDescriptionHUD;
 using UnityEngine;
 using Zenject;
 
@@ -14,29 +15,26 @@ namespace SouthBasement.Locations
             Container.BindInterfacesAndSelfTo<LocationHUDInstaller>().FromInstance(this).AsSingle();
             
             var DialogueWindowPrefab = GetDialogueWindowPrefab();
-            
+
             var dialogueBehaviour = Container.InstantiatePrefabForComponent<IDialogueService>(DialogueWindowPrefab, startPoint.position,
                 startPoint.rotation, null);
             
+            var traderHUD = Container.InstantiatePrefabForComponent<TraderHUD>(GetTraderHUDPrefab(), startPoint.position, startPoint.rotation, null);
+
             Container
                 .Bind<IDialogueService>()
                 .FromInstance(dialogueBehaviour)
                 .AsSingle();
+
+            Container
+                .Bind<TraderHUD>()
+                .FromInstance(traderHUD)
+                .AsSingle();
         }
 
-        private GameObject GetHUDPrefab()
-        {
-            return Resources.Load<GameObject>(ResourcesPathHelper.HUD);
-        }
-
-        private GameObject GetDialogueWindowPrefab()
-        {
-            return Resources.Load<GameObject>(ResourcesPathHelper.DialogueHUD); 
-        }
-        
-        public void Initialize()
-        {
-            Container.InstantiatePrefab(GetHUDPrefab());
-        }
+        private GameObject GetHUDPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.HUD);
+        private GameObject GetDialogueWindowPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.DialogueHUD);
+        private GameObject GetTraderHUDPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.TraderHUD);
+        public void Initialize() => Container.InstantiatePrefab(GetHUDPrefab());
     }
 }

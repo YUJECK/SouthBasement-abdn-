@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SouthBasement.InputServices;
 using UnityEngine;
-using Zenject;
+using Zenject;  
 
 namespace SouthBasement.Interactions
 {
@@ -15,15 +14,8 @@ namespace SouthBasement.Interactions
         private void Construct(IInputService inputService) 
             => _inputService = inputService;
 
-        private void OnEnable()
-        {
-            _inputService.OnInteracted += Interact;
-        }
-
-        private void OnDisable()
-        {
-            _inputService.OnInteracted -= Interact;
-        }
+        private void OnEnable() => _inputService.OnInteracted += Interact;
+        private void OnDisable() => _inputService.OnInteracted -= Interact;
 
         private void Interact()
         {

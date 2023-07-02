@@ -42,5 +42,11 @@ namespace SouthBasement.CameraHandl
             
             CurrentCamera = name;
         }
+
+        public void SwitchToNPCCamera(Transform target)
+        {
+            SwitchTo(CameraNames.NPC);
+            _cameras[CurrentCamera].Follow = target;
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace SouthBasement
     public class SpiderAI : Enemy, IEnemiesHandlerRequire, IMovePointsRequire
     {
         [field: SerializeField] public MovePoint[] MovePoints { get; private set; }
+        
         public SpiderComponentContainer Components { get; private set; }
 
         public bool CurrentlyHiding { get; set; }

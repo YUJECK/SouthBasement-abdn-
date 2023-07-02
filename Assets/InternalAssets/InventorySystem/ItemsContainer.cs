@@ -68,9 +68,8 @@ namespace SouthBasement.Items
 
             var picker =
                 _diContainer.InstantiatePrefabForComponent<TradeItem>(_tradeItemPrefab, position, quaternion.identity, null);
-            
-            picker.SetItem(item);
-            picker.Price = price;
+
+            picker.SetItem(item, price);
 
             return picker;
         }
