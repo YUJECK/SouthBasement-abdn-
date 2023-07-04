@@ -1,12 +1,16 @@
 ﻿using SouthBasement.AI;
+using SouthBasement.AI.MovePoints;
 
 namespace SouthBasement.Basement.Enemies.LittleRat
 {
     public sealed class LittleRatAI : AngryRatStateMachine, IMovePointsRequire
     {
-        public MovePoint[] MovePoints;
+        public MovePointsHandler MovePointsHandler;
 
         public bool CanRunAway;
+
+        public void Initialize(MovePointsHandler movePoints)
+            => MovePointsHandler = movePoints;
 
         protected override void CreateStates()
         {
@@ -23,14 +27,15 @@ namespace SouthBasement.Basement.Enemies.LittleRat
 
         public override bool CanEnterAttackState()
             => base.CanEnterAttackState() && !CanRunAway;
-        
+
         public override bool CanEnterWalkState()
             => base.CanEnterWalkState() && !CanRunAway;
-        
+
+        public override bool CanEnterIdleState()
+            => base.CanEnterIdleState() && !CanRunAway;
+
+
         public bool CanEnterRunAwayState()
             => Enabled && CanRunAway;
-
-        public void Initialize(MovePoint[] movePoints)
-            => MovePoints = movePoints;
     }
 }

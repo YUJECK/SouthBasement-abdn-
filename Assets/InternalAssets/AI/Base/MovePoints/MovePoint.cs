@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SouthBasement.AI
+namespace SouthBasement.AI.MovePoints
 {
     public sealed class MovePoint : MonoBehaviour
     {

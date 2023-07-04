@@ -1,9 +1,6 @@
-﻿using NavMeshPlus.Extensions;
-using NTC.ContextStateMachine;
+﻿using NTC.ContextStateMachine;
 using SouthBasement.Characters.Components;
-using SouthBasement.PlayerServices;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace SouthBasement.AI
 {

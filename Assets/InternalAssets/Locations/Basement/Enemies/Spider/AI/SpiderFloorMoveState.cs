@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using NTC.ContextStateMachine;
 using SouthBasement.AI;
+using SouthBasement.AI.MovePoints;
 using UnityEngine;
 
 namespace SouthBasement
@@ -33,7 +34,7 @@ namespace SouthBasement
                     _currentPoint.CurrentEnemy = null;
                 
                 Initializer.Components.AudioPlayer.PlayWalk();
-                _currentPoint = GetNewPoint();
+                _currentPoint = Initializer.MovePoints.GetRandom(_currentPoint);
                 _currentPoint.CurrentEnemy = Initializer;
                 
                 Initializer.Components.SpiderMovement.Walk(_currentPoint.transform.position);
@@ -46,18 +47,6 @@ namespace SouthBasement
                 Initializer.Components.Animator.PlayAfraid();
                 yield return new WaitForSeconds(2f);
             }
-        }
-        
-        private MovePoint GetNewPoint()
-        {
-            var newPoint = _currentPoint;
-
-            while (_currentPoint == newPoint || newPoint.CurrentEnemy != null)
-            {
-                newPoint = Initializer.MovePoints[Random.Range(0, Initializer.MovePoints.Length)];
-            }
-
-            return newPoint;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace SouthBasement.AI
         {
             Initializer.EnemyAnimator.PlayWalk();
             Initializer.Movement.Blocked = false;
+            Debug.Log("Run"); 
         }
 
         protected override void OnRun()

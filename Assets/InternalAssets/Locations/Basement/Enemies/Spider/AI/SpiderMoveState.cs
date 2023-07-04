@@ -1,7 +1,6 @@
 using System.Collections;
-using NaughtyAttributes.Test;
 using NTC.ContextStateMachine;
-using SouthBasement.AI;
+using SouthBasement.AI.MovePoints;
 using UnityEngine;
 
 namespace SouthBasement
@@ -32,7 +31,7 @@ namespace SouthBasement
                     if(_currentPoint != null)
                         _currentPoint.CurrentEnemy = null;
                     
-                    _currentPoint = GetNewPoint();
+                    _currentPoint = Initializer.MovePoints.GetRandom(_currentPoint);
                     _currentPoint.CurrentEnemy = Initializer;
                     
                     Initializer.Components.SpiderMovement.Move(_currentPoint.transform.position);
@@ -45,18 +44,6 @@ namespace SouthBasement
                 }
                 yield return new WaitForSeconds(MoveRate + Random.Range(-0.5f, 0.5f));
             }
-        }
-
-        private MovePoint GetNewPoint()
-        {
-            var newPoint = _currentPoint;
-
-            while (_currentPoint == newPoint || newPoint.CurrentEnemy != null)
-            {
-                newPoint = Initializer.MovePoints[Random.Range(0, Initializer.MovePoints.Length)];
-            }
-
-            return newPoint;
         }
     }
 }

@@ -9,7 +9,9 @@ namespace SouthBasement.AI
     public sealed class AngryRatMovement : MonoBehaviour, IEnemyMovable
     {
         [SerializeField] private NavMeshAgent agent;
+        
         private IEnemyMovable _enemyMovableImplementation;
+        private Coroutine _waitCoroutine;
 
         public bool Blocked { get; set; }
         public Vector2 CurrentMovement => agent.velocity;
@@ -18,18 +20,23 @@ namespace SouthBasement.AI
 
         public void Move(Vector2 to, Action onCompleted = null)
         {
-            if (!Blocked)
-                agent.SetDestination(to);
+            if (!Blocked) agent.SetDestination(to);
 
             if (onCompleted != null)
-                StartCoroutine(WaitForComplete(onCompleted));
+            {
+                if (_waitCoroutine != null)
+                {
+                    StopCoroutine(_waitCoroutine);
+                    Debug.Log("Stop");
+                }
+                
+                _waitCoroutine = StartCoroutine(WaitForComplete(onCompleted));
+            }
         }
 
         private IEnumerator WaitForComplete(Action onCompleted)
         {
-            while (agent.pathStatus != NavMeshPathStatus.PathComplete)
-                yield return null;
-            
+            yield return new WaitUntil(() => agent.remainingDistance <= agent.stoppingDistance);
             onCompleted?.Invoke();
         }
     }

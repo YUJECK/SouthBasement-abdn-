@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NTC.GlobalStateMachine;
 using SouthBasement.AI;
+using SouthBasement.AI.MovePoints;
 using UnityEngine;
 using IdleState = NTC.GlobalStateMachine.IdleState;
 
@@ -64,7 +65,7 @@ namespace SouthBasement.Generation
                 enemy.OnDied += HandlEnemyDeath;
                 
                 if(enemy is IEnemiesHandlerRequire enemiesHandlerRequire) enemiesHandlerRequire.Initialize(this);
-                if(enemy is IMovePointsRequire movePointsRequire) movePointsRequire.Initialize(_movePoint);
+                if(enemy is IMovePointsRequire movePointsRequire) movePointsRequire.Initialize(new(_movePoint));
                 
                 enemy.Disable();
             }

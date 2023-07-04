@@ -1,5 +1,6 @@
 using NTC.ContextStateMachine;
 using SouthBasement.AI;
+using SouthBasement.AI.MovePoints;
 using SouthBasement.Generation;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace SouthBasement
     [RequireComponent(typeof(SpiderMovement))]
     public class SpiderAI : Enemy, IEnemiesHandlerRequire, IMovePointsRequire
     {
-        [field: SerializeField] public MovePoint[] MovePoints { get; private set; }
+        [field: SerializeField] public MovePointsHandler MovePoints { get; private set; }
         
         public SpiderComponentContainer Components { get; private set; }
 
@@ -21,7 +22,7 @@ namespace SouthBasement
         private EnemiesHandler _enemiesHandler;
 
         public void Initialize(EnemiesHandler handler) => _enemiesHandler = handler;
-        public void Initialize(MovePoint[] movePoints) => MovePoints = movePoints;
+        public void Initialize(MovePointsHandler movePoints) => MovePoints = movePoints;
 
         public void Fall()
         {
