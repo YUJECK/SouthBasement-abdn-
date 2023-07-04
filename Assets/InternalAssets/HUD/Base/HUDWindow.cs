@@ -8,16 +8,20 @@ namespace SouthBasement.HUD.Base
     {
         public bool CurrentlyOpened { get; protected set; } = true;
 
-        public virtual Vector2 GetOpenedPosition() => transform.position; 
-        public virtual float GetMoveSpeed() => 0.27f; 
-        public virtual Vector2 GetClosedPosition() => transform.position;
+        public virtual Vector2 GetClosedPosition() => Vector2.zero;
         
+        public virtual float GetMoveSpeed() => 0.27f;
+
+        protected Vector2 StartPosition;
+
+        protected override void OnAwake() => StartPosition = transform.position;
+
         public virtual void Open()
         {
             if(CurrentlyOpened)
                 return;
 
-            transform.DOMove(GetOpenedPosition(), GetMoveSpeed());
+            transform.DOMove(StartPosition, GetMoveSpeed());
             CurrentlyOpened = true;
         }
 
@@ -26,7 +30,7 @@ namespace SouthBasement.HUD.Base
             if(!CurrentlyOpened)
                 return;
 
-            transform.DOMove(GetClosedPosition(), GetMoveSpeed());
+            transform.DOMove(StartPosition + GetClosedPosition(), GetMoveSpeed());
             CurrentlyOpened = false;
         }
 

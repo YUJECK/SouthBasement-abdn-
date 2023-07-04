@@ -13,8 +13,7 @@ namespace SouthBasement.HUD
         private CheeseService _cheeseService;
         private TMP_Text _cheeseScore;
 
-        public override Vector2 GetOpenedPosition() => new(transform.position.x + 300, transform.position.y);
-        public override Vector2 GetClosedPosition() => new(transform.position.x - 300, transform.position.y);
+        public override Vector2 GetClosedPosition() => new(-300, 0f);
 
         [Inject]
         private void Construct(CheeseService cheeseService)
@@ -25,6 +24,8 @@ namespace SouthBasement.HUD
 
         protected override void OnAwake()
         {
+            base.OnAwake();
+            
             _cheeseScore = GetComponentInChildren<TMP_Text>();
             
             Open();
