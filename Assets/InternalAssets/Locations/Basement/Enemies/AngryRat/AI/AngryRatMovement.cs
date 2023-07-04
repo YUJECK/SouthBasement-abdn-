@@ -20,18 +20,19 @@ namespace SouthBasement.AI
 
         public void Move(Vector2 to, Action onCompleted = null)
         {
-            if (!Blocked) agent.SetDestination(to);
-
-            if (onCompleted != null)
+            if (!Blocked)
             {
-                if (_waitCoroutine != null)
-                {
-                    StopCoroutine(_waitCoroutine);
-                    Debug.Log("Stop");
-                }
+                agent.SetDestination(to);
                 
-                _waitCoroutine = StartCoroutine(WaitForComplete(onCompleted));
+                if (onCompleted != null)
+                {
+                    if (_waitCoroutine != null)
+                        StopCoroutine(_waitCoroutine);
+                    
+                    _waitCoroutine = StartCoroutine(WaitForComplete(onCompleted));
+                }
             }
+
         }
 
         private IEnumerator WaitForComplete(Action onCompleted)

@@ -1,6 +1,7 @@
 ﻿using NTC.ContextStateMachine;
 using SouthBasement.Basement.Enemies.LittleRat;
 using SouthBasement.Enums;
+using UnityEngine;
 
 namespace SouthBasement.AI
 {
@@ -17,10 +18,10 @@ namespace SouthBasement.AI
                 return;
             
             Initializer.EnemyAnimator.PlayAttack();
-            
+
             Initializer.Flipper.Blocked = true;
             Initializer.Flipper.Flip(GetDirectionToTarget());
-            
+
             Initializer.CurrentAttacking = true;
             
             Initializer.EnemyAttacker.StartAttack(7, () =>
@@ -29,8 +30,11 @@ namespace SouthBasement.AI
                 Initializer.Flipper.Blocked = false;
 
                 if (Initializer is LittleRatAI littleRatAI)
+                {
                     littleRatAI.CanRunAway = true;
-                
+                    return;
+                }
+
                 Attack();
             });
         }

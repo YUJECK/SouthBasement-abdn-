@@ -17,9 +17,10 @@ namespace SouthBasement.Basement.Enemies.LittleRat
             StateMachine.AddStates(new IdleState(this), new WalkState(this), new AngryRatAttackState(this), new AFKState(this), new LittleRunAwayState(this));
 
             StateMachine.AddAnyTransition<AFKState>(CanEnterAFK);
-            StateMachine.AddAnyTransition<AngryRatAttackState>(CanEnterAttackState);
-            StateMachine.AddAnyTransition<WalkState>(CanEnterWalkState);
             StateMachine.AddAnyTransition<IdleState>(CanEnterIdleState);
+            StateMachine.AddTransition<IdleState, WalkState>(CanEnterWalkState);
+            StateMachine.AddTransition<IdleState, AngryRatAttackState>(CanEnterAttackState);
+            StateMachine.AddTransition<WalkState, AngryRatAttackState>(CanEnterAttackState);
             StateMachine.AddTransition<AngryRatAttackState, LittleRunAwayState>(CanEnterRunAwayState);
 
             StateMachine.TransitionsEnabled = true;
@@ -33,7 +34,6 @@ namespace SouthBasement.Basement.Enemies.LittleRat
 
         public override bool CanEnterIdleState()
             => base.CanEnterIdleState() && !CanRunAway;
-
 
         public bool CanEnterRunAwayState()
             => Enabled && CanRunAway;
