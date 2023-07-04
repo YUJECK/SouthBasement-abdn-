@@ -8,6 +8,7 @@ namespace SouthBasement.AI
 {
     public class EnemyAttacker : MonoBehaviour
     {
+        [field: SerializeField] public float AttackRadius { get; private set; } = 3;
         [field: SerializeField] public float AttackDelay { get; private set; } = 0.5f;
         [field: SerializeField] public float AttackDuration { get; private set; } = 1f;
 
@@ -30,18 +31,21 @@ namespace SouthBasement.AI
             attackRangeAnimator.Play();
             
             var playerLayer = LayerMask.GetMask("PlayerMarker");
-            var hits = Physics2D.OverlapCircleAll(attackPoint.transform.position, 0.6f, playerLayer);
-
-            foreach (var hit in hits)
-            {
-                if (!hit.isTrigger && hit.TryGetComponent<IDamagable>(out var damagable))
-                    damagable.Damage(damage, new[] {""});
-            }
+            
+            OverlapDecorator
+                .DoFor<IDamagable>(attackPoint.position, AttackRadius, playerLayer, 
+                (result) => result.ForEach( 
+                       (hit) => hit.Damage(damage, new[] {""})) );
 
             yield return new WaitForSeconds(AttackDuration);
             
             callback?.Invoke();
             OnAttackReleased?.Invoke();
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireSphere(attackPoint.position, AttackRadius);
         }
     }
 }

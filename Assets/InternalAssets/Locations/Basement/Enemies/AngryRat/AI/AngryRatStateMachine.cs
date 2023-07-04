@@ -14,8 +14,7 @@ namespace SouthBasement.AI
         public TargetSelector TargetSelector { get; private set; }
         public AttackTrigger AttackTrigger { get; private set; }
         public IEnemyMovable Movement { get; private set; }
-
-        public bool CurrentAttacking = false;
+        public bool CurrentAttacking { get; set; }
 
         protected readonly StateMachine<AngryRatStateMachine> StateMachine = new();
 
@@ -35,14 +34,12 @@ namespace SouthBasement.AI
 
         protected virtual void CreateStates()
         {
-            StateMachine.AddStates(new IdleState(this), new WalkState(this), new AngryRatAttackState(this), new AFKState(this));
+            StateMachine.AddStates(new AngryRatIdleState(this), new AngryRatWalkState(this), new AngryRatAttackState(this), new AngryRatAFKState(this));
 
-            StateMachine.AddAnyTransition<AFKState>(CanEnterAFK);
+            StateMachine.AddAnyTransition<AngryRatAFKState>(CanEnterAFK);
             StateMachine.AddAnyTransition<AngryRatAttackState>(CanEnterAttackState);
-            StateMachine.AddAnyTransition<WalkState>(CanEnterWalkState);
-            StateMachine.AddAnyTransition<IdleState>(CanEnterIdleState);
-
-            StateMachine.TransitionsEnabled = true;
+            StateMachine.AddAnyTransition<AngryRatWalkState>(CanEnterWalkState);
+            StateMachine.AddAnyTransition<AngryRatIdleState>(CanEnterIdleState);
         }
 
         public virtual bool CanEnterAttackState() => AttackTrigger.CanAttack && Enabled;

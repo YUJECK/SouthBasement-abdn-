@@ -5,7 +5,7 @@ using Zenject;
 namespace SouthBasement.AI
 {
     [RequireComponent(typeof(Enemy))]
-    public sealed class DefaultEnemyHealth : EnemyHealth
+    public class DefaultEnemyHealth : EnemyHealth
     {
         [SerializeField] private GameObject[] objectsToDrop;
         [SerializeField] private AudioSource hitSound;

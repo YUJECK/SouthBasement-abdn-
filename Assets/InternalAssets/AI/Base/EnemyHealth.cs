@@ -10,7 +10,7 @@ namespace SouthBasement.AI
 
         protected Enemy Enemy;
         
-        public virtual void Damage(int damage, string[] atgs)
+        public virtual void Damage(int damage, string[] args)
         {
             CurrentHealth -= damage;
 

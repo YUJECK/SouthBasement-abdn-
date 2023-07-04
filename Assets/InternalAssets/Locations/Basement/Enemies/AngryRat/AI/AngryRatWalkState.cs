@@ -3,23 +3,19 @@ using UnityEngine;
 
 namespace SouthBasement.AI
 {
-    public sealed class WalkState : State<AngryRatStateMachine>
+    public sealed class AngryRatWalkState : State<AngryRatStateMachine>
     {
         private int _currentPoint = 0;
         
-        public WalkState(AngryRatStateMachine stateInitializer) : base(stateInitializer) { }
+        public AngryRatWalkState(AngryRatStateMachine stateInitializer) : base(stateInitializer) { }
 
         protected override void OnEnter()
         {
             Initializer.EnemyAnimator.PlayWalk();
             Initializer.Movement.Blocked = false;
-            Debug.Log("Run"); 
         }
 
-        protected override void OnRun()
-        {
-            Initializer.Movement.Move(GetDestination());
-        }
+        protected override void OnRun() => Initializer.Movement.Move(GetDestination());
 
         protected override void OnExit()
         {

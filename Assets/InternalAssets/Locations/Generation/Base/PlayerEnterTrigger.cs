@@ -9,7 +9,9 @@ namespace SouthBasement.Generation
     public sealed class PlayerEnterTrigger : MonoBehaviour
     {
         [field: SerializeField] public bool MultiEntering { get; private set; } = false;
-        
+
+        public bool CurrentOnTrigger { get; private set; }
+
         public event Action<Character> OnEntered;
         public event Action<Character> OnExit;
 
@@ -25,17 +27,20 @@ namespace SouthBasement.Generation
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!Entered && other.CompareTag(TagHelper.Player))
+            if ((!Entered || MultiEntering) && other.CompareTag(TagHelper.Player))
             {
-               OnEntered?.Invoke(other.GetComponent<Character>());
-               
-               if(!MultiEntering) Entered = true;
+                CurrentOnTrigger = true;
+                Entered = true;
+                
+                OnEntered?.Invoke(other.GetComponent<Character>());
             }
         }
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.CompareTag(TagHelper.Player))
+            if (other.CompareTag(TagHelper.Player) && CurrentOnTrigger)
             {
+                CurrentOnTrigger = false;
+
                 OnExit?.Invoke(other.GetComponent<Character>());
             }
         }

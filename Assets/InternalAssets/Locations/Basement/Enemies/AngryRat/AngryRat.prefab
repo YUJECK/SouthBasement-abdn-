@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112f346fbe01418cb1ccea40327285e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AttackRadius>k__BackingField: 0.6
   <AttackDelay>k__BackingField: 0.5
   <AttackDuration>k__BackingField: 0.45
   attackPoint: {fileID: 4247723299384042740}
@@ -226,15 +227,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4247723299269583122}
-  - component: {fileID: 4247723299269583124}
   - component: {fileID: 4247723299269583127}
+  - component: {fileID: 7466196910809152982}
+  - component: {fileID: 1736737462260679793}
+  - component: {fileID: 4247723299269583124}
   - component: {fileID: 2712749220113354948}
   - component: {fileID: 4247723299269583129}
   - component: {fileID: 4247723299269583128}
   - component: {fileID: 4247723299269583130}
   - component: {fileID: 4247723299269583133}
-  - component: {fileID: 7466196910809152982}
-  - component: {fileID: 1736737462260679793}
   m_Layer: 8
   m_Name: AngryRat
   m_TagString: Untagged
@@ -263,23 +264,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4247723299269583124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4247723299269583120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0539d025d6e7460aaacdc5a91cd678fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 56
-  objectsToDrop:
-  - {fileID: 3758946650892545498, guid: 57d56c523ba318e43979eaed1efd88a2, type: 3}
-  hitSound: {fileID: 0}
-  cheeseAmount: 4
 --- !u!114 &4247723299269583127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,7 +277,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <SpawnChance>k__BackingField: 100
-  CurrentAttacking: 0
+--- !u!114 &7466196910809152982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247723299269583120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa5307483db41c79f4466d156ec9faa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1736737462260679793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247723299269583120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f36ac4f9074041bdd73f582cabd0a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4247723299269583124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247723299269583120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0539d025d6e7460aaacdc5a91cd678fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurrentHealth>k__BackingField: 42
+  objectsToDrop:
+  - {fileID: 3758946650892545498, guid: 57d56c523ba318e43979eaed1efd88a2, type: 3}
+  hitSound: {fileID: 0}
+  cheeseAmount: 4
 --- !u!114 &2712749220113354948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +334,7 @@ MonoBehaviour:
   damageColor: {r: 0.9622642, g: 0.20425421, b: 0.20425421, a: 1}
   playTrigger: 
   animator: {fileID: 0}
+  hurtSound: {fileID: 0}
 --- !u!114 &4247723299269583129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,32 +411,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.62430555, y: 1.109832}
   m_EdgeRadius: 0
---- !u!114 &7466196910809152982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4247723299269583120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa5307483db41c79f4466d156ec9faa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 4247723299269583128}
---- !u!114 &1736737462260679793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4247723299269583120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f36ac4f9074041bdd73f582cabd0a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <FacingDirection>k__BackingField: 1
 --- !u!1 &4247723299384042741
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
 ﻿using NTC.ContextStateMachine;
 using SouthBasement.Basement.Enemies.LittleRat;
-using SouthBasement.Enums;
-using UnityEngine;
+using SouthBasement.Helpers;
 
 namespace SouthBasement.AI
 {
@@ -20,7 +19,8 @@ namespace SouthBasement.AI
             Initializer.EnemyAnimator.PlayAttack();
 
             Initializer.Flipper.Blocked = true;
-            Initializer.Flipper.Flip(GetDirectionToTarget());
+            Initializer.Flipper.Flip(FacingDirectionsHelper
+                .GetFacingDirectionTo(Initializer.transform, Initializer.TargetSelector.Target.transform));
 
             Initializer.CurrentAttacking = true;
             
@@ -37,14 +37,6 @@ namespace SouthBasement.AI
 
                 Attack();
             });
-        }
-
-        private FacingDirections GetDirectionToTarget()
-        {
-            if (Initializer.transform.position.x < Initializer.TargetSelector.Target.transform.position.x)
-                return FacingDirections.Right;
-
-            return FacingDirections.Left;
         }
     }
 }

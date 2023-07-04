@@ -2,9 +2,9 @@
 
 namespace SouthBasement.AI
 {
-    public class IdleState : State<AngryRatStateMachine>
+    public class AngryRatIdleState : State<AngryRatStateMachine>
     {
-        public IdleState(AngryRatStateMachine stateInitializer) : base(stateInitializer) { }
+        public AngryRatIdleState(AngryRatStateMachine stateInitializer) : base(stateInitializer) { }
 
         protected override void OnEnter()
         {

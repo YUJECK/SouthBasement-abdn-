@@ -6,14 +6,18 @@ using UnityEngine.AI;
 namespace SouthBasement.AI
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public sealed class AngryRatMovement : MonoBehaviour, IEnemyMovable
+    public sealed class StandartEnemyMovement : MonoBehaviour, IEnemyMovable
     {
-        [SerializeField] private NavMeshAgent agent;
-        
-        private IEnemyMovable _enemyMovableImplementation;
+        private NavMeshAgent agent;
+        private IEnemyMovable _enemyMovable;
         private Coroutine _waitCoroutine;
 
-        public bool Blocked { get; set; }
+        public bool Blocked
+        {
+            get => agent.isStopped;
+            set => agent.isStopped = value;
+        }
+
         public Vector2 CurrentMovement => agent.velocity;
 
         private void Awake() => agent = GetComponent<NavMeshAgent>();

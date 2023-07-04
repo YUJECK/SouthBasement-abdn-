@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112f346fbe01418cb1ccea40327285e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AttackRadius>k__BackingField: 0.35
   <AttackDelay>k__BackingField: 0.4
   <AttackDuration>k__BackingField: 0.25
   attackPoint: {fileID: 4247723299384042740}
@@ -452,7 +453,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -514,7 +515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa5307483db41c79f4466d156ec9faa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 4247723299269583128}
 --- !u!114 &1736737462260679793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,7 +540,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <SpawnChance>k__BackingField: 60
-  CurrentAttacking: 0
   CanRunAway: 0
 --- !u!1 &4247723299384042741
 GameObject:
