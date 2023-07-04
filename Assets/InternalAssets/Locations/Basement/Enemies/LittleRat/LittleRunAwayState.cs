@@ -11,6 +11,7 @@ namespace SouthBasement.Basement.Enemies.LittleRat
         protected override void OnEnter()
         {
             Initializer.Movement.Blocked = false;
+            Initializer.EnemyAnimator.PlayWalk();
             Initializer.GetComponent<NavMeshAgent>().speed += 1.5f;
 
             var point = (Initializer as LittleRatAI)?.MovePointsHandler.GetFurthest(Initializer.transform);
@@ -22,6 +23,7 @@ namespace SouthBasement.Basement.Enemies.LittleRat
             var littleRatAI = (Initializer as LittleRatAI);
             littleRatAI.CanRunAway = false;
             Initializer.GetComponent<NavMeshAgent>().speed -= 1.5f;
+            Initializer.EnemyAnimator.PlayIdle();
             Initializer.Movement.Blocked = true;
         }
     }

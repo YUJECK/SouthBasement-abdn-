@@ -109,7 +109,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 72
+        y: 96
         width: 24
         height: 24
       alignment: 9
@@ -130,7 +130,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
+        y: 72
         width: 24
         height: 24
       alignment: 9
@@ -151,7 +151,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 24
-        y: 48
+        y: 72
         width: 24
         height: 24
       alignment: 9
@@ -172,7 +172,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 48
-        y: 48
+        y: 72
         width: 24
         height: 24
       alignment: 9
@@ -193,7 +193,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 9
@@ -214,7 +214,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 24
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 9
@@ -235,7 +235,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 48
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 9
@@ -256,7 +256,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 9
@@ -277,7 +277,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 24
+        y: 48
         width: 24
         height: 24
       alignment: 9
@@ -298,7 +298,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 24
         width: 24
         height: 24
       alignment: 9
@@ -319,7 +319,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 24
-        y: 0
+        y: 24
         width: 24
         height: 24
       alignment: 9
@@ -336,11 +336,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spider_Stay_1
+      name: Spider_Run_3
       rect:
         serializedVersion: 2
         x: 48
-        y: 0
+        y: 24
         width: 24
         height: 24
       alignment: 9
@@ -357,11 +357,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spider_Stay_2
+      name: Spider_Run_4
       rect:
         serializedVersion: 2
         x: 72
-        y: 0
+        y: 24
         width: 24
         height: 24
       alignment: 9
@@ -382,7 +382,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 24
-        y: 72
+        y: 96
         width: 24
         height: 24
       alignment: 9
@@ -394,6 +394,69 @@ TextureImporter:
       bones: []
       spriteID: 2bbaa9b894b1ae24ba858be17daf8925
       internalID: -1573967349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spider_Run_5
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 24
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.48, y: 0.6666}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d95f65ca66a3c574ca69b21419ba6459
+      internalID: -641522782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spider_Afraid_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.48, y: 0.6666}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb4710e4bbc538348a60da7195e20598
+      internalID: -677595196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spider_Afraid_2
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 24
+      alignment: 9
+      pivot: {x: 0.48, y: 0.6666}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efecd58138d57ce4d8c2086f48a0e016
+      internalID: 2042559672
       vertices: []
       indices: 
       edges: []
@@ -410,6 +473,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Spider: 521376932
+      Spider_Afraid_1: -677595196
+      Spider_Afraid_2: 2042559672
       Spider_Attack_1: -745084492
       Spider_Attack_2: 459107137
       Spider_Attack_3: -302140114
@@ -421,8 +486,9 @@ TextureImporter:
       Spider_Idle_3: -918132135
       Spider_Run_1: -145549503
       Spider_Run_2: 476977199
-      Spider_Stay_1: -1345699155
-      Spider_Stay_2: 1955514761
+      Spider_Run_3: -1345699155
+      Spider_Run_4: 1955514761
+      Spider_Run_5: -641522782
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

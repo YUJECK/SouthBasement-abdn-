@@ -24,7 +24,6 @@ namespace SouthBasement.HUD.Base
             transform.DOMove(StartPosition, GetMoveSpeed());
             CurrentlyOpened = true;
         }
-
         public virtual void Close()
         {
             if(!CurrentlyOpened)

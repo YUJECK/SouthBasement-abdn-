@@ -1,4 +1,5 @@
-﻿using SouthBasement.Characters;
+﻿using System;
+using SouthBasement.Characters;
 using UnityEngine;
 
 namespace SouthBasement.Generation
@@ -7,9 +8,9 @@ namespace SouthBasement.Generation
     public abstract class Room : MonoBehaviour
     {
         [field: SerializeField] public Vector2 RoomSize { get; private set; }
-        [field: SerializeField] public PlayerEnterTrigger PlayerEnterTrigger { get; private set; }
+        [field: SerializeField] public PassageHandler PassageHandler { get; private set; }
 
-        public PassageHandler PassageHandler { get; private set; }
+        public PlayerEnterTrigger PlayerEnterTrigger { get; private set; }
 
         public Vector2 GetOffCenter(Direction direction)
         {
@@ -19,16 +20,13 @@ namespace SouthBasement.Generation
             return PassageHandler.GetPassage(direction).Factory.transform.localPosition;
         }
 
-        private void InitPassageHandler()
-        {
-            PassageHandler = GetComponent<PassageHandler>();
-        }
+        private void InitPassageHandler() => PassageHandler = GetComponent<PassageHandler>();
+
+        private void Reset() => InitPassageHandler();
 
         private void Awake()
         {
-            InitPassageHandler();
             BindPlayerEnterTrigger();
-
             OnAwake();
         }
 

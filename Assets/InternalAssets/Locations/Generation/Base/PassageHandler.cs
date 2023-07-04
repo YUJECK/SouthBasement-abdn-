@@ -19,6 +19,8 @@ namespace SouthBasement.Generation
             
             OpenAllDoors();
         }
+
+        public bool Contains(Direction direction) => passages.ContainsKey(direction);
         
         public void OpenAllDoors()
         {
@@ -55,13 +57,13 @@ namespace SouthBasement.Generation
             int firstToDelete = Random.Range(0, 4);            
             int second = Random.Range(0, 4);
 
-            if (!directions.Contains((Direction)firstToDelete))
+            if (!directions.Contains((Direction)firstToDelete) && passages.ContainsKey((Direction)firstToDelete))
             {
                 passages[(Direction)firstToDelete].DisablePassage();
                 passages.Remove((Direction)firstToDelete);
             }
 
-            if (firstToDelete != second && !directions.Contains((Direction)second))
+            if (firstToDelete != second && !directions.Contains((Direction)second) && passages.ContainsKey((Direction)second))
             {
                 passages[(Direction)second].DisablePassage();
                 passages.Remove((Direction) second);

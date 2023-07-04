@@ -10,6 +10,7 @@ namespace SouthBasement.Scripts
         [SerializeField] private Color damageColor;
         [SerializeField] private string playTrigger;
         [SerializeField] private Animator animator;
+        [SerializeField] private AudioSource hurtSound;
 
         private Coroutine _coroutine;
         
@@ -25,7 +26,9 @@ namespace SouthBasement.Scripts
             
             if(playTrigger != "" && animator != null)
                 animator.SetTrigger(playTrigger);
-                
+
+            if(hurtSound != null)
+                hurtSound.Play();
             _coroutine = StartCoroutine(GetRed());
         }
 
