@@ -68,6 +68,7 @@ namespace SouthBasement.Generation
                 .InstantiatePrefabForComponent<Room>(startRoomPrefab, _startPoint.position, Quaternion.identity, null);
 
             roomQueue.Enqueue(startRoom);
+            AddSpawnedRoom(startRoom);
             
             while (CurrentRoomsCount < _map.Length)
             {

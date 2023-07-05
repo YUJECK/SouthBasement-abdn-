@@ -25,6 +25,8 @@ namespace SouthBasement.Characters.Rat
             if (Blocked || !Owner.StaminaController.TryDo(Owner.Stats.AttackStats.CurrentStats.StaminaRequire)) 
                 return;
             
+            Owner.Components.Get<ICharacterMovable>().CanMove = false;
+            
             var hitted = Owner.Attacker
                 .Attack(Owner.Stats.AttackStats.CurrentStats.Damage,
                     Owner.Stats.AttackStats.CurrentStats.AttackRate, 
@@ -42,7 +44,9 @@ namespace SouthBasement.Characters.Rat
         private async void Culldown(float culldown)
         {
             Blocked = true;
-            await UniTask.Delay(TimeSpan.FromSeconds(culldown));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
+            Owner.Components.Get<ICharacterMovable>().CanMove = true;
+            await UniTask.Delay(TimeSpan.FromSeconds(culldown - 0.3f));
             Blocked = false;
         }
     }

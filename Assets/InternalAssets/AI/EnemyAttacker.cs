@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections;
 using SouthBasement.Scripts.Characters;
-using UnityEditor;
 using UnityEngine;
 
 namespace SouthBasement.AI
 {
     public class EnemyAttacker : MonoBehaviour
     {
+        [SerializeField] private AudioSource slashSound;
         [field: SerializeField] public float AttackRadius { get; private set; } = 3;
         [field: SerializeField] public float AttackDelay { get; private set; } = 0.5f;
         [field: SerializeField] public float AttackDuration { get; private set; } = 1f;
@@ -24,18 +24,21 @@ namespace SouthBasement.AI
         private IEnumerator Attack(int damage, Action callback)
         {
             OnAttackStarted?.Invoke();
-            warningPoint.Play();
             
+            if(warningPoint != null) warningPoint.Play();
+
             yield return new WaitForSeconds(AttackDelay);
             
+            if(slashSound != null) slashSound.Play();
+
             attackRangeAnimator.Play();
             
             var playerLayer = LayerMask.GetMask("PlayerMarker");
             
             OverlapDecorator
                 .DoFor<IDamagable>(attackPoint.position, AttackRadius, playerLayer, 
-                (result) => result.ForEach( 
-                       (hit) => hit.Damage(damage, new[] {""})) );
+                    result => result.ForEach( 
+                           hit => hit.Damage(damage, new[] {""})));
 
             yield return new WaitForSeconds(AttackDuration);
             
@@ -44,8 +47,6 @@ namespace SouthBasement.AI
         }
 
         private void OnDrawGizmosSelected()
-        {
-            Gizmos.DrawWireSphere(attackPoint.position, AttackRadius);
-        }
+            => Gizmos.DrawWireSphere(attackPoint.position, AttackRadius);
     }
 }

@@ -26,7 +26,7 @@ namespace SouthBasement.Basement.NPC.Traders
             {
                 var item = GetItem();
                 
-                while (CanRepeat() && SpawnedItems.Contains(item))
+                while (!CanRepeat() && SpawnedItems.Contains(item))
                     item = GetItem();
                 
                 var spawnedItem = GetItemsContainer().SpawnForTradeItem(item, tradePoint.position, item.ItemPrice + markup);
