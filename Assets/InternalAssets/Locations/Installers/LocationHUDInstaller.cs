@@ -19,7 +19,11 @@ namespace SouthBasement.Locations
             var dialogueBehaviour = Container.InstantiatePrefabForComponent<IDialogueService>(DialogueWindowPrefab, startPoint.position,
                 startPoint.rotation, null);
             
-            var traderHUD = Container.InstantiatePrefabForComponent<TraderHUD>(GetTraderHUDPrefab(), startPoint.position, startPoint.rotation, null);
+            var traderHUD = Container.InstantiatePrefabForComponent<TraderHUD>(GetTraderHUDPrefab(), startPoint.position, 
+                startPoint.rotation, null);
+
+            var itemInfoHUD = Container.InstantiatePrefabForComponent<ItemInfoHUD>(GetItemInfoPrefab(),
+                startPoint.position, startPoint.rotation, null);
 
             Container
                 .Bind<IDialogueService>()
@@ -30,9 +34,15 @@ namespace SouthBasement.Locations
                 .Bind<TraderHUD>()
                 .FromInstance(traderHUD)
                 .AsSingle();
+            
+            Container
+                .Bind<ItemInfoHUD>()
+                .FromInstance(itemInfoHUD)
+                .AsSingle();
         }
 
         private GameObject GetHUDPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.HUD);
+        private GameObject GetItemInfoPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.ItemInfoHUD);
         private GameObject GetDialogueWindowPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.DialogueHUD);
         private GameObject GetTraderHUDPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.TraderHUD);
         public void Initialize() => Container.InstantiatePrefab(GetHUDPrefab());

@@ -24,8 +24,6 @@ namespace SouthBasement
         private void Start()
         {
             SpawnItems();
-            
-            GetComponentInChildren<TriggerCallback>().OnTriggerExit += (_) => _traderHUD.Disable();
         }
 
         protected override ItemsContainer GetItemsContainer() => _itemsContainer;

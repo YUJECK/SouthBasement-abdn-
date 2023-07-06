@@ -42,8 +42,8 @@ namespace SouthBasement.TraderItemDescriptionHUD
 
         public void Disable()
         {
-            if(_enableTween != null && _enableTween.active)
-                _enableTween.Kill();
+            if (_enableTween != null && _enableTween.active)
+                return;
             
             _disableTween = panel.DOMoveY(disablePosition.position.y, 0.2f);
         }

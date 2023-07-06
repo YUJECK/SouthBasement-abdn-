@@ -33,6 +33,7 @@ namespace SouthBasement.Basement.NPC.Traders
                 
                 SpawnedItems.Add(spawnedItem.Item);
                 spawnedItem.OnDetected += ShowItemInfo;
+                spawnedItem.OnDetectionReleased += (_) => GetTraderHUD().Disable();
             }
         }
         

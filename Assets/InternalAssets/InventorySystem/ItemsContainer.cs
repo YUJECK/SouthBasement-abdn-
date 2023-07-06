@@ -17,19 +17,18 @@ namespace SouthBasement.Items
         private readonly Dictionary<string, List<Item>> _itemsInCategory = new();
         private readonly Dictionary<string, Item> _itemsInID = new();
 
-        private ItemPicker _itemPickerPrefab;
-        private TradeItem _tradeItemPrefab;
+        private readonly ItemPicker _itemPickerPrefab;
+        private readonly TradeItem _tradeItemPrefab;
 
-        private DiContainer _diContainer;
+        private readonly DiContainer _diContainer;
 
         public ItemsContainer(Item[] items, DiContainer diContainer)
         {
             _itemPickerPrefab = Resources.Load<ItemPicker>(ResourcesPathHelper.ItemPickerPrefab);
             _tradeItemPrefab = Resources.Load<TradeItem>(ResourcesPathHelper.TradeItemPrefab);
-            
-            Add(items);
-
             _diContainer = diContainer;
+
+            Add(items);
         }
 
         public ItemPicker SpawnItem(string id, Vector3 position)
@@ -52,8 +51,8 @@ namespace SouthBasement.Items
             }
 
             var picker =
-                _diContainer.InstantiatePrefabForComponent<ItemPicker>(_itemPickerPrefab, position, quaternion.identity,
-                    parent);
+                _diContainer.InstantiatePrefabForComponent<ItemPicker>(_itemPickerPrefab, position, quaternion.identity, parent);
+            
             picker.SetItem(item);
 
             return picker;

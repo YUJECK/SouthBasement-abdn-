@@ -21,8 +21,6 @@ namespace SouthBasement.Basement.Enemies.LittleRat
         {
             var littleRatAI = (Initializer as LittleRatAI);
             
-            Debug.Log("sd;lkfk");
-            
             littleRatAI.CanRunAway = false;
             Initializer.Movement.Speed -= 1.5f;
             Initializer.EnemyAnimator.PlayIdle();

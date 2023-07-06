@@ -28,6 +28,7 @@ namespace SouthBasement.Locations
                 .Bind<CursorService>()
                 .FromInstance(cursorService)
                 .AsSingle();
+            
             Container
                 .Bind<ContainersHelper>()
                 .FromInstance(containersHelper)
@@ -61,10 +62,9 @@ namespace SouthBasement.Locations
 
         private void BindCharacter()
         {
-            Character characterPrefab = Resources.Load<Character>(ResourcesPathHelper.RatPrefab);
+            var characterPrefab = Resources.Load<Character>(ResourcesPathHelper.RatPrefab);
 
-            Character character =
-                Container
+            var character = Container
                     .InstantiatePrefab(characterPrefab, startPoint.position, startPoint.rotation, null)
                     .GetComponent<Character>();
 

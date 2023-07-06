@@ -40,7 +40,7 @@ namespace SouthBasement
             Container
                 .Bind<ActiveItemUsage>()
                 .FromInstance(new ActiveItemUsage(_inputService, _inventory))
-                .AsSingle();
+                .AsSingle();    
         }
         private void BindWeaponsItemUsager()
         {

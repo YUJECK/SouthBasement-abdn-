@@ -14,6 +14,10 @@ namespace SouthBasement.InventorySystem
         [field: SerializeField] public Sprite ItemSprite { get; private set; }
         [field: SerializeField] public int ItemPrice { get; private set; }
 
+        public abstract string GetStatsDescription();
+
+        public virtual void Init() {}
+        
         public abstract Type GetItemType();
     }
 }

@@ -7,8 +7,8 @@ namespace SouthBasement.InventorySystem
 {
     public sealed class PassiveItemsUsage : IInitializable, ITickable, IDisposable 
     {
-        private Dictionary<string, PassiveItem> _passiveItems = new();
-        private Inventory _inventory;
+        private readonly Dictionary<string, PassiveItem> _passiveItems = new();
+        private readonly Inventory _inventory;
 
         public PassiveItemsUsage(Inventory inventory) 
             => _inventory = inventory;
@@ -23,12 +23,8 @@ namespace SouthBasement.InventorySystem
 
         private void OnAddedItem(Item item)
         {
-            Debug.Log("skdjflksdjfk");
-            
             if (item is PassiveItem passiveItem)
             {
-                Debug.Log("skdjflk76sdjfk");
-                
                 _passiveItems.Add(passiveItem.ItemID, passiveItem);
                 passiveItem.OnPutOn();
             }

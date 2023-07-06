@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using SouthBasement.Characters;
+using SouthBasement.Characters.Components;
 using UnityEngine;
 using Zenject;
 
@@ -23,6 +25,8 @@ namespace SouthBasement.Generation
 
         public void Initialize()
         {
+            Debug.Log(_diContainer.Resolve<Character>());            
+
             GenerateMap();
             Generate();
         }
@@ -35,7 +39,7 @@ namespace SouthBasement.Generation
             _map = new RoomType[_levelConfig.TotalRoomsCount + 2];
 
             _map[0] = RoomType.StartRoom;
-            _map[_map.Length-1] = RoomType.ExitRoom;
+            _map[_map.Length - 1] = RoomType.ExitRoom;
 
             for (int i = 0; i < _levelConfig.TraderRoomsCount; i++)
             {

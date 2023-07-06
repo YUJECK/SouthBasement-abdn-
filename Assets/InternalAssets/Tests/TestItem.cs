@@ -22,6 +22,11 @@ namespace SouthBasement.Tests
         
         public event Action OnUsed;
 
+        public override string GetStatsDescription()
+        {
+            return "Heals 10 hp";
+        }
+
         public override Type GetItemType()
         {
             return typeof(FoodItem);

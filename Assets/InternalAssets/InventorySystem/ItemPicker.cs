@@ -11,7 +11,7 @@ namespace SouthBasement.InventorySystem
     [RequireComponent(typeof(Rigidbody2D))]
     public class ItemPicker : MonoBehaviour, IInteractive
     {
-        [SerializeField] public Item Item { get; private set; }
+        [field: SerializeField] public Item Item { get; private set; }
 
         private SpriteRenderer _spriteRenderer;
         private Rigidbody2D _rigidbody2D;
@@ -19,6 +19,7 @@ namespace SouthBasement.InventorySystem
         private Inventory _inventory;
         private DiContainer _diContainer;
         private MaterialHelper _materialHelper;
+        private ItemInfoHUD _itemInfoHUD;
 
         public event Action<IInteractive> OnDetected;
         public event Action<IInteractive> OnInteracted;
@@ -39,11 +40,23 @@ namespace SouthBasement.InventorySystem
 
             if(Item != null)
                 SetItem(Item);
+
+            _itemInfoHUD = FindObjectOfType<ItemInfoHUD>();
         }
 
         public void PlayMove(Vector2 move, float speed)
         {
             StartCoroutine(Move(move, speed));
+        }
+
+        public virtual void SetItem(Item item)
+        {
+            Item = item;
+            
+            gameObject.name = item.ItemID;
+            _spriteRenderer.sprite = Item.ItemSprite;
+            _diContainer.Inject(item);
+            item.Init();
         }
 
         private IEnumerator Move(Vector2 move, float speed)
@@ -59,19 +72,13 @@ namespace SouthBasement.InventorySystem
             }
         }
 
-        public virtual void SetItem(Item item)
-        {
-            Item = item;
-            
-            gameObject.name = item.ItemID;
-            _spriteRenderer.sprite = Item.ItemSprite;
-            _diContainer.Inject(item);
-        }
-
         public void Detect()
         {
             OnDetected?.Invoke(this);
             _spriteRenderer.material = _materialHelper.OutlineMaterial;
+            
+            _itemInfoHUD.Open();
+            _itemInfoHUD.SetItem(Item);
         }
 
         public virtual void Interact()
@@ -86,6 +93,8 @@ namespace SouthBasement.InventorySystem
         {
             OnDetectionReleased?.Invoke(this);
             _spriteRenderer.material = _materialHelper.DefaultMaterial;
+            
+            _itemInfoHUD.Close();
         }
     }
 }
