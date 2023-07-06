@@ -11,6 +11,7 @@ namespace SouthBasement
         [SerializeField] private NavMeshAgent _navMeshAgent;
 
         public bool Blocked { get; set; }
+        public float Speed { get; set; }
         public Vector2 CurrentMovement { get; }
         
         public void Move(Vector2 to, Action onCompleted = null)

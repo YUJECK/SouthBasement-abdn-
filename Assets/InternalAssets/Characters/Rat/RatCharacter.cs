@@ -49,7 +49,7 @@ namespace SouthBasement.Characters.Rat
 
             Components
                 .Add<PlayerAnimator>(playerAnimator)
-                .Add<IAttackable>(new RatAttack(this))
+                .Add<IAttacker>(new RatAttack(this))
                 .Add<ICharacterMovable>(new RatMovement(this))
                 .Add<IDashable>(new RatCharacterDashable(this));
             
@@ -58,7 +58,7 @@ namespace SouthBasement.Characters.Rat
             _componentFactory.InitializeComponent(flipper);
             Components.Add<IFlipper>(flipper);
 
-            Components.Get<IAttackable>().OnAttacked += _ => playerAnimator.PlayAttack();
+            Components.Get<IAttacker>().OnAttacked += _ => playerAnimator.PlayAttack();
             
             Components.Get<ICharacterMovable>().OnMoved += _ => playerAnimator.PlayWalk();
             Components.Get<ICharacterMovable>().OnMoveReleased += () => playerAnimator.PlayIdle();

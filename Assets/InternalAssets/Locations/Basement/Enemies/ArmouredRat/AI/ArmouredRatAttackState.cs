@@ -24,7 +24,7 @@ namespace SouthBasement.Basement.Enemies.ArmouredRat.AI
             Initializer.Flipper.Flip(FacingDirectionsHelper
                 .GetFacingDirectionTo(Initializer.transform, Initializer.TargetSelector.Target.transform));
 
-            Initializer.EnemyAttacker.StartAttack(10, () =>
+            Initializer.EnemyAttacker.StartAttack(() =>
             {
                 Initializer.CurrentlyAttacking = false;
                 Initializer.Flipper.Blocked = false;

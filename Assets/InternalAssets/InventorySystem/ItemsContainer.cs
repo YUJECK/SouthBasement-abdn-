@@ -43,7 +43,7 @@ namespace SouthBasement.Items
             return item;
         }
 
-        public ItemPicker SpawnItem(Item item, Vector3 position)
+        public ItemPicker SpawnItem(Item item, Vector3 position, Transform parent = null)
         {
             if (item == null)
             {
@@ -53,12 +53,12 @@ namespace SouthBasement.Items
 
             var picker =
                 _diContainer.InstantiatePrefabForComponent<ItemPicker>(_itemPickerPrefab, position, quaternion.identity,
-                    null);
+                    parent);
             picker.SetItem(item);
 
             return picker;
         }
-        public ItemPicker SpawnForTradeItem(Item item, Vector3 position, int price)
+        public ItemPicker SpawnForTradeItem(Item item, Vector3 position, int price, Transform parent = null)
         {
             if (item == null)
             {
@@ -67,7 +67,7 @@ namespace SouthBasement.Items
             }
 
             var picker =
-                _diContainer.InstantiatePrefabForComponent<TradeItem>(_tradeItemPrefab, position, quaternion.identity, null);
+                _diContainer.InstantiatePrefabForComponent<TradeItem>(_tradeItemPrefab, position, quaternion.identity, parent);
 
             picker.SetItem(item, price);
 
@@ -76,8 +76,6 @@ namespace SouthBasement.Items
 
         public void Add(IEnumerable<Item> toAdd)
         {
-            Debug.Log(toAdd.Count());
-            
             foreach (var item in toAdd)
                 Add(item);
         }

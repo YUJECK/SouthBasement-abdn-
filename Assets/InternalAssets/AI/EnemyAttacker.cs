@@ -9,6 +9,7 @@ namespace SouthBasement.AI
     {
         [SerializeField] private AudioSource slashSound;
         [field: SerializeField] public float AttackRadius { get; private set; } = 3;
+        [field: SerializeField] public int Damage { get; private set; } = 5;
         [field: SerializeField] public float AttackDelay { get; private set; } = 0.5f;
         [field: SerializeField] public float AttackDuration { get; private set; } = 1f;
 
@@ -19,9 +20,9 @@ namespace SouthBasement.AI
         public event Action OnAttackStarted;
         public event Action OnAttackReleased;
 
-        public void StartAttack(int damage, Action callback = null) => StartCoroutine(Attack(damage, callback));
+        public void StartAttack(Action callback = null) => StartCoroutine(Attack(callback));
         
-        private IEnumerator Attack(int damage, Action callback)
+        private IEnumerator Attack(Action callback)
         {
             OnAttackStarted?.Invoke();
             
@@ -38,7 +39,7 @@ namespace SouthBasement.AI
             OverlapDecorator
                 .DoFor<IDamagable>(attackPoint.position, AttackRadius, playerLayer, 
                     result => result.ForEach( 
-                           hit => hit.Damage(damage, new[] {""})));
+                           hit => hit.Damage(Damage, new[] {""})));
 
             yield return new WaitForSeconds(AttackDuration);
             

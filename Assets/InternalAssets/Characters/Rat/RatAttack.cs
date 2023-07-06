@@ -5,11 +5,9 @@ using SouthBasement.InventorySystem;
 
 namespace SouthBasement.Characters.Rat
 {
-    public sealed class RatAttack : CharacterAttackable<RatCharacter>, IAttackable
+    public sealed class RatAttack : CharacterAttacker<RatCharacter>
     {
-        public WeaponItem Weapon => Owner.WeaponsUsage.CurrentWeapon;
-
-        public event Action<float> OnAttacked;
+        public override WeaponItem Weapon => Owner.WeaponsUsage.CurrentWeapon;
         
         public RatAttack(RatCharacter ratCharacter)
             => Owner = ratCharacter;
@@ -33,11 +31,10 @@ namespace SouthBasement.Characters.Rat
                     Owner.Stats.AttackStats.CurrentStats.AttackRange, Weapon);
             
             Owner.AudioPlayer.PlayAttack();
-            
-            if(Weapon != null)
-                Weapon.OnAttack(hitted);
+
+            if(Weapon != null) Weapon.OnAttack(hitted);
                 
-            OnAttacked?.Invoke(Owner.Stats.AttackStats.CurrentStats.AttackRate);
+            InvokeAttack(hitted);
             Culldown(Owner.Stats.AttackStats.CurrentStats.AttackRate);
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 namespace SouthBasement.InventorySystem
@@ -9,10 +10,8 @@ namespace SouthBasement.InventorySystem
         private Dictionary<string, PassiveItem> _passiveItems = new();
         private Inventory _inventory;
 
-        public PassiveItemsUsage(Inventory inventory)
-        {
-            _inventory = inventory;
-        }
+        public PassiveItemsUsage(Inventory inventory) 
+            => _inventory = inventory;
 
         private void OnRemoved(string itemID)
         {
@@ -24,8 +23,12 @@ namespace SouthBasement.InventorySystem
 
         private void OnAddedItem(Item item)
         {
+            Debug.Log("skdjflksdjfk");
+            
             if (item is PassiveItem passiveItem)
             {
+                Debug.Log("skdjflk76sdjfk");
+                
                 _passiveItems.Add(passiveItem.ItemID, passiveItem);
                 passiveItem.OnPutOn();
             }

@@ -1,5 +1,4 @@
-﻿using System;
-using SouthBasement.Characters;
+﻿using SouthBasement.Characters;
 using UnityEngine;
 
 namespace SouthBasement.Generation
@@ -41,7 +40,7 @@ namespace SouthBasement.Generation
 
         protected virtual void OnAwake() { }
 
-        protected virtual void OnPlayerEntered(Character player) { Debug.Log("Enter"); }
+        protected virtual void OnPlayerEntered(Character player) { }
         protected virtual void OnPlayerExit(Character player) { }
 
 #if UNITY_EDITOR

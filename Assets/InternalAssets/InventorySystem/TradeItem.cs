@@ -12,7 +12,7 @@ namespace SouthBasement.Items
         
         private CheeseService _cheeseService;
 
-        public int Price { get; set; } = default;
+        public int Price { get; set; }
 
         [Inject]
         private void Construct(CheeseService cheeseService) 

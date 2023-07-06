@@ -24,7 +24,7 @@ namespace SouthBasement.AI
 
             Initializer.CurrentAttacking = true;
             
-            Initializer.EnemyAttacker.StartAttack(7, () =>
+            Initializer.EnemyAttacker.StartAttack(() =>
             {
                 Initializer.CurrentAttacking = false;
                 Initializer.Flipper.Blocked = false;

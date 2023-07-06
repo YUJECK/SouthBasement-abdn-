@@ -48,11 +48,11 @@ namespace SouthBasement.InventorySystem
 
         private IEnumerator Move(Vector2 move, float speed)
         {
-            Vector3 endPosition = transform.position + new Vector3(move.x, move.y, 0f);
+            var endPosition = transform.position + new Vector3(move.x, move.y, 0f);
             
             while (transform.position != endPosition)
             {
-                Vector2 currentMove = Vector2.MoveTowards(transform.position, endPosition, Time.deltaTime * speed); 
+                var currentMove = Vector2.MoveTowards(transform.position, endPosition, Time.deltaTime * speed); 
                 _rigidbody2D.MovePosition(currentMove);
                 
                 yield return new WaitForFixedUpdate();
@@ -61,10 +61,10 @@ namespace SouthBasement.InventorySystem
 
         public virtual void SetItem(Item item)
         {
-            this.Item = item;
+            Item = item;
             
             gameObject.name = item.ItemID;
-            _spriteRenderer.sprite = this.Item.ItemSprite;
+            _spriteRenderer.sprite = Item.ItemSprite;
             _diContainer.Inject(item);
         }
 

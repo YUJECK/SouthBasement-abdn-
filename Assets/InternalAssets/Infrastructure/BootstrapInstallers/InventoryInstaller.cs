@@ -52,7 +52,7 @@ namespace SouthBasement
         private void BindPassiveItemUsager()
         {
             Container
-                .Bind<PassiveItemsUsage>()
+                .BindInterfacesTo<PassiveItemsUsage>()
                 .FromInstance(new PassiveItemsUsage(_inventory))
                 .AsSingle();
         }

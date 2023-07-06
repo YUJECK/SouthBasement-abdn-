@@ -1,4 +1,5 @@
 using SouthBasement.Basement.NPC.Traders;
+using SouthBasement.Characters;
 using SouthBasement.Helpers;
 using SouthBasement.InventorySystem;
 using SouthBasement.Items;

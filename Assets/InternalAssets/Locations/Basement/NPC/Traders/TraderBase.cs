@@ -29,7 +29,7 @@ namespace SouthBasement.Basement.NPC.Traders
                 while (!CanRepeat() && SpawnedItems.Contains(item))
                     item = GetItem();
                 
-                var spawnedItem = GetItemsContainer().SpawnForTradeItem(item, tradePoint.position, item.ItemPrice + markup);
+                var spawnedItem = GetItemsContainer().SpawnForTradeItem(item, tradePoint.position, item.ItemPrice + markup, tradePoint);
                 
                 SpawnedItems.Add(spawnedItem.Item);
                 spawnedItem.OnDetected += ShowItemInfo;

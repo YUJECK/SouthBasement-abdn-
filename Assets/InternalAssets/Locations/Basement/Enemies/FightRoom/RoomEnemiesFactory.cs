@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using NTC.GlobalStateMachine;
 using SouthBasement.AI;
 using SouthBasement.Helpers;
 using UnityEngine;
 using Zenject;
-using IdleState = NTC.GlobalStateMachine.IdleState;
 using Random = UnityEngine.Random;
 
 namespace SouthBasement.Generation

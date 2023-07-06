@@ -6,6 +6,7 @@ namespace SouthBasement.AI
     public interface IEnemyMovable
     {
         bool Blocked { get; set; }
+        float Speed { get; set; }
         Vector2 CurrentMovement { get; }
 
         public void Move(Vector2 to, Action onCompleted = null);

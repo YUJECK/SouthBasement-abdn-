@@ -5,6 +5,7 @@ namespace SouthBasement.Basement.Enemies.LittleRat
 {
     public sealed class LittleRatAI : AngryRatStateMachine, IMovePointsRequire
     {
+        public int Damage = 4;
         public MovePointsHandler MovePointsHandler;
 
         public bool CanRunAway;

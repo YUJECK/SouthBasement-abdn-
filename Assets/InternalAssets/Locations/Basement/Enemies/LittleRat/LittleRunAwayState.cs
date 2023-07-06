@@ -1,6 +1,6 @@
 ﻿using NTC.ContextStateMachine;
 using SouthBasement.AI;
-using UnityEngine.AI;
+using UnityEngine;
 
 namespace SouthBasement.Basement.Enemies.LittleRat
 {
@@ -10,21 +10,22 @@ namespace SouthBasement.Basement.Enemies.LittleRat
 
         protected override void OnEnter()
         {
-            Initializer.Movement.Blocked = false;
             Initializer.EnemyAnimator.PlayWalk();
-            Initializer.GetComponent<NavMeshAgent>().speed += 1.5f;
+            Initializer.Movement.Speed += 1.5f;
 
             var point = (Initializer as LittleRatAI)?.MovePointsHandler.GetFurthest(Initializer.transform);
             Initializer.Movement.Move(point.transform.position, OnPathCompleted);
         }
 
-        private void OnPathCompleted()       
+        private void OnPathCompleted()
         {
             var littleRatAI = (Initializer as LittleRatAI);
+            
+            Debug.Log("sd;lkfk");
+            
             littleRatAI.CanRunAway = false;
-            Initializer.GetComponent<NavMeshAgent>().speed -= 1.5f;
+            Initializer.Movement.Speed -= 1.5f;
             Initializer.EnemyAnimator.PlayIdle();
-            Initializer.Movement.Blocked = true;
         }
     }
 }

@@ -9,28 +9,33 @@ namespace SouthBasement.AI
     public sealed class StandartEnemyMovement : MonoBehaviour, IEnemyMovable
     {
         [SerializeField] private AudioSource walkSound;
-        
-        private NavMeshAgent agent;
+
+        private NavMeshAgent _agent;
         private IEnemyMovable _enemyMovable;
         private Coroutine _waitCoroutine;
 
-        public bool Blocked
+        public float Speed
         {
-            get => agent.isStopped;
-            set => agent.isStopped = value;
+            get => _agent.speed;
+            set => _agent.speed = value;
         }
 
-        public Vector2 CurrentMovement => agent.velocity;
+        public bool Blocked
+        {
+            get => _agent.isStopped;
+            set => _agent.isStopped = value;
+        }
 
-        private void Awake() => agent = GetComponent<NavMeshAgent>();
+        public Vector2 CurrentMovement => _agent.velocity;
+
+        private void Awake() => _agent = GetComponent<NavMeshAgent>();
 
         private void Update()
         {
             if(walkSound == null)
                 return;
 
-            if(CurrentMovement != Vector2.zero && !walkSound.isPlaying)
-                walkSound.Play();
+            if(CurrentMovement != Vector2.zero && !walkSound.isPlaying) walkSound.Play();
             else walkSound.Stop();
         }
 
@@ -38,21 +43,18 @@ namespace SouthBasement.AI
         {
             if (!Blocked)
             {
-                agent.SetDestination(to);
+                _agent.SetDestination(to);
+                
+                if (_waitCoroutine != null) StopCoroutine(_waitCoroutine);
                 
                 if (onCompleted != null)
-                {
-                    if (_waitCoroutine != null)
-                        StopCoroutine(_waitCoroutine);
-                    
                     _waitCoroutine = StartCoroutine(WaitForComplete(onCompleted));
-                }
             }
         }
 
         private IEnumerator WaitForComplete(Action onCompleted)
         {
-            yield return new WaitUntil(() => agent.remainingDistance <= agent.stoppingDistance);
+            yield return new WaitUntil(() => Vector2.Distance(_agent.transform.transform.position, _agent.destination) <= _agent.stoppingDistance);
             onCompleted?.Invoke();
         }
     }
