@@ -38,6 +38,7 @@ namespace SouthBasement.InventorySystem
         ~WeaponsUsage()
         {
             _inventory.OnAdded -= SetCurrent;
+            _inventory.OnRemoved -= CheckCurrent;
         }
 
         public void SetCurrent(Item item)

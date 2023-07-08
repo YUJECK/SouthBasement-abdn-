@@ -1,6 +1,7 @@
 ﻿using SouthBasement.Characters;
 using SouthBasement.UI;
 using SouthBasement.InventoryHUD.Base;
+using TheRat.InternalAssets.Characters.Base;
 using UnityEngine;
 using Zenject;
 
@@ -16,10 +17,10 @@ namespace SouthBasement.InventorySystem
         private Character _character;
 
         [Inject]
-        private void Construct(ItemDropper itemDropper, Character character)
+        private void Construct(ItemDropper itemDropper, CharacterFactory characterFactory)
         {
             _itemDropper = itemDropper;
-            _character = character;
+            _character = characterFactory.Instance;
         }
         
         private void Awake()

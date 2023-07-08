@@ -5,12 +5,12 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 namespace SouthBasement.CameraHandl
 {
-    public sealed class CameraHandler
+    public sealed class CameraHandler : IMainCameraContainer
     {
         public Camera MainCamera { get; private set; }
         public Camera MapCamera { get; private set; }
         
-        private Dictionary<CameraNames, CinemachineVirtualCamera> _cameras;
+        private readonly Dictionary<CameraNames, CinemachineVirtualCamera> _cameras;
         private PixelPerfectCamera _pixelPerfectCamera;
 
         public CameraNames CurrentCamera { get; private set; }

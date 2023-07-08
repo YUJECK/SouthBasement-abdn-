@@ -28,7 +28,7 @@ namespace SouthBasement
 
         private void BindInventory()
         {
-            _inventory = new Inventory(Container);
+            _inventory = new Inventory();
         
             Container
                 .BindInterfacesAndSelfTo<Inventory>()
@@ -56,6 +56,5 @@ namespace SouthBasement
                 .FromInstance(new PassiveItemsUsage(_inventory))
                 .AsSingle();
         }
-
     }
 }

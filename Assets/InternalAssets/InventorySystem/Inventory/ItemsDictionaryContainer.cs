@@ -23,6 +23,12 @@ namespace SouthBasement.InventorySystem
             return this;
         }
 
+        public void Clear()
+        {
+            _itemsContainers.Clear();
+            _containersLimits.Clear();
+        }
+        
         public bool TryAddItem(Item item) 
         {
             if(item == null)

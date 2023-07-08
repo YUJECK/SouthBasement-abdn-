@@ -35,6 +35,11 @@ namespace SouthBasement.BaseScripts.Tests
             }
         }
 
+        public override string GetStatsDescription()
+        {
+            return "Increases bone weapons damage on 3 units";
+        }
+
         public override Type GetItemType()
             => typeof(PassiveItem);
     }

@@ -9,15 +9,8 @@ namespace SouthBasement.Characters.Rat
         public RatMovement(RatCharacter ratCharacter)
             => Owner = ratCharacter;
 
-        public override void OnStart()
-        { 
-            Owner.Inputs.OnMoved += Move;
-        }
-
-        public override void Dispose()
-        {
-            Owner.Inputs.OnMoved -= Move;
-        }
+        public override void OnStart() => Owner.Inputs.OnMoved += Move;
+        public override void Dispose() => Owner.Inputs.OnMoved -= Move;
 
         public override void Move(Vector2 movement)
         {

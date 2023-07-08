@@ -1,6 +1,5 @@
 ﻿using NTC.ContextStateMachine;
 using SouthBasement.AI;
-using UnityEngine;
 
 namespace SouthBasement.Basement.Enemies.LittleRat
 {

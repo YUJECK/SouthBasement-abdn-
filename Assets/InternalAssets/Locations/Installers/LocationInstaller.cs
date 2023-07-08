@@ -1,8 +1,8 @@
 ﻿using SouthBasement.Characters;
 using SouthBasement.Generation;
 using SouthBasement.Helpers;
-using SouthBasement.CameraHandl;
 using SouthBasement.Characters.Rat;
+using TheRat.InternalAssets.Characters.Base;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
@@ -15,43 +15,18 @@ namespace SouthBasement.Locations
         [FormerlySerializedAs("roomsContainer")] [SerializeField] private LevelConfig levelConfig;
         [SerializeField] private ContainersHelper containersHelper;
 
-        [SerializeField] private CursorService cursorService;
-
         public override void InstallBindings()
         {
             BindCharacter();
             BindRoomContainer();
             BindGeneration();
-            BindCameras();
 
-            Container
-                .Bind<CursorService>()
-                .FromInstance(cursorService)
-                .AsSingle();
-            
             Container
                 .Bind<ContainersHelper>()
                 .FromInstance(containersHelper)
                 .AsSingle();
         }
-
-        private void BindCameras()
-        {
-            var camerasContainerPrefab = Resources.Load<CamerasContainer>(ResourcesPathHelper.CamerasContainer);
-            var camerasReactingPrefab = Resources.Load<CameraGameStatesReacting>(ResourcesPathHelper.CamerasReacting);
-            
-            var cameraContainer = Container.InstantiatePrefabForComponent<CamerasContainer>(camerasContainerPrefab, startPoint);
-
-            var cameraHandler = new CameraHandler(cameraContainer);
-
-            Container
-                .Bind<CameraHandler>()
-                .FromInstance(cameraHandler)
-                .AsSingle();
-            
-            Container.InstantiatePrefabForComponent<CameraGameStatesReacting>(camerasReactingPrefab, startPoint);
-        }
-
+        
         private void BindRoomContainer()
         {
             Container
@@ -62,20 +37,9 @@ namespace SouthBasement.Locations
 
         private void BindCharacter()
         {
-            var characterPrefab = Resources.Load<Character>(ResourcesPathHelper.RatPrefab);
-
-            var character = Container
-                    .InstantiatePrefab(characterPrefab, startPoint.position, startPoint.rotation, null)
-                    .GetComponent<Character>();
-
             Container
-                .Bind<Character>()
-                .FromInstance(character)
-                .AsSingle();
-            
-            Container
-                .BindInterfacesTo<RatCharacter>()
-                .FromInstance(character)
+                .BindInterfacesTo<CharacterFactory>()
+                .FromInstance(new CharacterFactory(Container, startPoint))
                 .AsSingle();
         }
 

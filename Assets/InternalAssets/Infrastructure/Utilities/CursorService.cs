@@ -4,22 +4,20 @@ using Zenject;
 
 namespace SouthBasement
 {
-    public class CursorService : MonoBehaviour
+    public sealed class CursorService : ITickable 
     {
         private Camera _mainCamera;
 
-        public Vector2 CursorPosition => transform.position;
-        
+        public Vector2 CursorPosition { get; private set; }
+
         [Inject]
-        private void Construct(CameraHandler cameraHandler)
-        {
-            _mainCamera = cameraHandler.MainCamera;
-        }
+        private void Construct(IMainCameraContainer cameraHandler) 
+            => _mainCamera = cameraHandler.MainCamera;
         
-        private void LateUpdate()
+        public void Tick()
         {
             var newPos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector3(newPos.x, newPos.y, -100f);
+            CursorPosition = new Vector3(newPos.x, newPos.y, -100f);
         }
 
         public void SetCursor(Texture2D cursorTexture) => Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);

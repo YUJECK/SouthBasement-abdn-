@@ -3,6 +3,7 @@ using SouthBasement.Characters;
 using SouthBasement.Characters.Components;
 using SouthBasement.Characters.Stats;
 using SouthBasement.CameraHandl;
+using TheRat.InternalAssets.Characters.Base;
 using Zenject;
 
 namespace SouthBasement
@@ -13,9 +14,9 @@ namespace SouthBasement
         private CameraHandler _cameraHandler;
 
         [Inject]
-        private void Construct(Character character, CharacterHealthStats characterHealthStats, CameraHandler cameraHandler)
+        private void Construct(CharacterFactory characterFactory, CharacterHealthStats characterHealthStats, CameraHandler cameraHandler)
         {
-            _character = character;
+            _character = characterFactory.Instance;
             _cameraHandler = cameraHandler;
         }
 

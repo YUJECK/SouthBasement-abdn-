@@ -10,7 +10,6 @@ using Zenject;
 
 public sealed class BootstrapInstaller : MonoInstaller
 {
-    public CheeseServiceConfig CheeseServiceConfig;
     public CoroutineRunner CoroutineRunnerPrefab;
     public Material DefaultMaterial;
     
@@ -24,8 +23,8 @@ public sealed class BootstrapInstaller : MonoInstaller
         BindCoroutineRunner();
         BindInputMap();
         BindEconomy();
-        BindRunStarter();
         BindMaterialHelper();
+        BindRunStarter();
     }
 
     private void BindMaterialHelper()
@@ -34,7 +33,10 @@ public sealed class BootstrapInstaller : MonoInstaller
     }
     private void BindRunStarter()
     {
-        Container.Bind<RunStarter>().FromInstance(new RunStarter(Container, _coroutineRunner)).AsSingle();
+        var RunDatabase = new RunDatabase(Container.Resolve<DiContainer>(), _inputService);
+        
+        Container.Bind<RunDatabase>().FromInstance(RunDatabase).AsSingle();
+        Container.Bind<RunStarter>().FromNew().AsSingle();
     }
 
     private void BindCoroutineRunner()
@@ -47,7 +49,7 @@ public sealed class BootstrapInstaller : MonoInstaller
     {
         Container
             .Bind<CheeseService>()
-            .FromInstance(new CheeseService(CheeseServiceConfig, Container))
+            .FromInstance(new CheeseService(Container))
             .AsSingle();
     }
 

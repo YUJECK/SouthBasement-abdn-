@@ -15,6 +15,7 @@ namespace SouthBasement.Dialogues
     {
         [SerializeField] private Transform _dialoguePanel;
         [SerializeField] private TMP_Text dialogueText;
+        [SerializeField] private TMP_Text dialogueName;
         [SerializeField] private ChoiceButtonController _buttonController;
 
         [SerializeField] private Transform onEnable;
@@ -23,7 +24,7 @@ namespace SouthBasement.Dialogues
         public bool CurrentlyTalk { get; private set; }
         private readonly DialogueParser _parser = new();
 
-        [ReadOnly,SerializeField] private DialogueContainer _currentDialogue;
+        [ReadOnly, SerializeField] private DialogueContainer _currentDialogue;
 
         private Action onStopped;
         
@@ -39,6 +40,9 @@ namespace SouthBasement.Dialogues
                 return;
 
             this.onStopped = onStopped;
+
+            dialogueName.text = dialogueContainer.Name;
+            _currentDialogue = dialogueContainer;
             
             OpenWindow();
             BuildPhrase(dialogueContainer.NodeLinks.First().TargetNodeGUID);
@@ -70,7 +74,7 @@ namespace SouthBasement.Dialogues
             foreach (var letter in newText)
             {
                 dialogueText.text += letter;
-                await UniTask.Delay(TimeSpan.FromSeconds(0.25f));
+                await UniTask.Delay(TimeSpan.FromSeconds(0.05f));
             }
         }
 

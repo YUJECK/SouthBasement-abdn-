@@ -1,4 +1,5 @@
 ﻿using System;
+using SouthBasement.Helpers;
 using UnityEngine;
 using Zenject;
 
@@ -7,16 +8,18 @@ namespace SouthBasement.Economy
     public sealed class CheeseService
     {
         public int CheeseAmount { get; private set; }
-        private CheeseObject _cheesePrefab;
 
-        private DiContainer _container;
+        private readonly CheeseObject _cheesePrefab;
+        private readonly DiContainer _container;
         
         public event Action<int> OnCheeseAmountChanged;
 
-        public CheeseService(CheeseServiceConfig config, DiContainer container)
+        public CheeseService(DiContainer container)
         {
-            _cheesePrefab = config.CheesePrefab;
+            var config = Resources.Load<CheeseServiceConfig>(ResourcesPathHelper.CheeseServiceConfig);
             CheeseAmount = config.StartCheeseAmount;
+            
+            _cheesePrefab = config.CheesePrefab;
             _container = container;
         }
 

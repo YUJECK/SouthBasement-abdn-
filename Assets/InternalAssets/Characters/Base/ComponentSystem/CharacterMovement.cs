@@ -14,7 +14,7 @@ namespace SouthBasement.Characters.Components
         protected void InvokeOnMovedReleased()
             => OnMoveReleased?.Invoke();
 
-        public bool CanMove { get; set; }
+        public bool CanMove { get; set; } = true;
 
         public Vector2 CurrentMovement { get; protected set; }
 
