@@ -16,6 +16,11 @@ namespace SouthBasement.HUD.Base
 
         protected override void OnAwake() => StartPosition = transform.position;
 
+        public void SetOpened(bool opened)
+        {
+            if(opened) Open();
+            else Close();
+        }
         public virtual void Open()
         {
             if(CurrentlyOpened)

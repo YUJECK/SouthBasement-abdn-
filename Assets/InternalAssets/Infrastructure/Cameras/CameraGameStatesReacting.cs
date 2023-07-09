@@ -8,11 +8,9 @@ namespace SouthBasement.CameraHandl
         private CameraHandler _cameraHandler;
 
         [Inject]
-        private void Construct(CameraHandler cameraHandler)
-        {
-            _cameraHandler = cameraHandler;
-        }
-        
+        private void Construct(CameraHandler cameraHandler) 
+            => _cameraHandler = cameraHandler;
+
         protected override void OnDied()
         {
             _cameraHandler.SwitchTo(CameraNames.Death);

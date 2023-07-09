@@ -3,7 +3,6 @@ using SouthBasement.Characters;
 using SouthBasement.Characters.Components;
 using SouthBasement.Characters.Stats;
 using SouthBasement.CameraHandl;
-using TheRat.InternalAssets.Characters.Base;
 using Zenject;
 
 namespace SouthBasement
@@ -14,22 +13,22 @@ namespace SouthBasement
         private CameraHandler _cameraHandler;
 
         [Inject]
-        private void Construct(CharacterFactory characterFactory, CharacterHealthStats characterHealthStats, CameraHandler cameraHandler)
+        private void Construct(Character characterFactory, CharacterHealthStats characterHealthStats, CameraHandler cameraHandler)
         {
-            _character = characterFactory.Instance;
+            _character = characterFactory;
             _cameraHandler = cameraHandler;
         }
-
-
+        
         protected override void OnDied()
         {
             _character.Components.Get<PlayerAnimator>().PlayDead();
             
             _character.Components
                 .Remove<IAttacker>()
-                .Remove<ICharacterMovable>()
                 .Remove<IDashable>()
                 .Remove<IFlipper>();
+            
+            _character.Components.Get<ICharacterMovable>().CanMove = false;
         }
     }
 }

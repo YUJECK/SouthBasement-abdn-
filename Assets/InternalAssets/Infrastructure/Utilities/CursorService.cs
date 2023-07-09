@@ -10,13 +10,13 @@ namespace SouthBasement
 
         public Vector2 CursorPosition { get; private set; }
 
-        [Inject]
-        private void Construct(IMainCameraContainer cameraHandler) 
-            => _mainCamera = cameraHandler.MainCamera;
+        // [Inject]
+        // private void Construct(IMainCameraContainer cameraHandler) 
+        //     => _mainCamera = cameraHandler.MainCamera;
         
         public void Tick()
         {
-            var newPos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            var newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             CursorPosition = new Vector3(newPos.x, newPos.y, -100f);
         }
 

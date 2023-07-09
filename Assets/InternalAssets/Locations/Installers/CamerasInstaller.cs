@@ -19,7 +19,7 @@ namespace SouthBasement.Locations
             var cameraHandler = new CameraHandler(cameraContainer);
 
             Container
-                .Bind<CameraHandler>()
+                .BindInterfacesAndSelfTo<CameraHandler>()
                 .FromInstance(cameraHandler)
                 .AsSingle();
             

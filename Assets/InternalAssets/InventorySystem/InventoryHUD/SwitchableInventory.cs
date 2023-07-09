@@ -1,3 +1,4 @@
+using SouthBasement.HUD.Base;
 using SouthBasement.InputServices;
 using UnityEngine;
 using Zenject;
@@ -7,7 +8,8 @@ namespace SouthBasement.HUD
     [AddComponentMenu("HUD/Inventory/SwitchableInventory")]
     public sealed class SwitchableInventory : MonoBehaviour
     {
-        [SerializeField] private GameObject[] _objects;
+        [SerializeField] private GameObject passiveItems;
+        [SerializeField] private HUDWindow inventoryPanel;
         private IInputService _inputSystem;
 
         [Inject]
@@ -24,14 +26,14 @@ namespace SouthBasement.HUD
 
         private void Disable()
         {
-            foreach (var gameObject in _objects)
-                gameObject.SetActive(false);
+            passiveItems.SetActive(false);
+            inventoryPanel.Close();
         }
 
         private void OnInventoryOpen()
         {
-            foreach (var gameObject in _objects)
-                gameObject.SetActive(!gameObject.activeSelf);
+            passiveItems.SetActive(!passiveItems.activeSelf);
+            inventoryPanel.SetOpened(!inventoryPanel.CurrentlyOpened);
         }
     }
 }

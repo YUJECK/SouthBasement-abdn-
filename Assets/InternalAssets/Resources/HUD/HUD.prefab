@@ -683,9 +683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91eb278046c9f4846a618d0934c398bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objects:
-  - {fileID: 7116276023596925530}
-  - {fileID: 4870054104815248619}
+  passiveItems: {fileID: 1167278213915239270}
+  inventoryPanel: {fileID: 6099413539991155918}
 --- !u!1 &3594958918531531605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2227,6 +2226,7 @@ GameObject:
   - component: {fileID: 7323407509602311753}
   - component: {fileID: 5728182908015344730}
   - component: {fileID: 4267082108964155767}
+  - component: {fileID: 6099413539991155918}
   m_Layer: 5
   m_Name: InventoryPanel
   m_TagString: Untagged
@@ -2294,6 +2294,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6099413539991155918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116276023596925530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4cfac89048441fb8b8499e60c49fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7498068280344824774
 GameObject:
   m_ObjectHideFlags: 0

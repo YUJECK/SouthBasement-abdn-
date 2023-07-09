@@ -1,8 +1,7 @@
 ﻿using SouthBasement.Characters;
+using SouthBasement.Characters.Rat;
 using SouthBasement.Generation;
 using SouthBasement.Helpers;
-using SouthBasement.Characters.Rat;
-using TheRat.InternalAssets.Characters.Base;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
@@ -37,9 +36,20 @@ namespace SouthBasement.Locations
 
         private void BindCharacter()
         {
+            var characterPrefab = Resources.Load<Character>(ResourcesPathHelper.RatPrefab);
+
+            var character = Container
+                .InstantiatePrefab(characterPrefab, startPoint.position, Quaternion.identity, startPoint)
+                .GetComponent<Character>();
+
             Container
-                .BindInterfacesTo<CharacterFactory>()
-                .FromInstance(new CharacterFactory(Container, startPoint))
+                .Bind<Character>()
+                .FromInstance(character)
+                .AsSingle();
+            
+            Container
+                .BindInterfacesTo<RatCharacter>()
+                .FromInstance(character)
                 .AsSingle();
         }
 

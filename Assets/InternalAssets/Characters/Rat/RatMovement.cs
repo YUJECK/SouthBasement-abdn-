@@ -22,7 +22,7 @@ namespace SouthBasement.Characters.Rat
             }
             else
             {
-                Owner.Rigidbody.velocity = Vector2.zero;
+                Owner.Rigidbody.velocity = Vector2.zero;    
             }
 
             if (movement != Vector2.zero)

@@ -1,7 +1,6 @@
 ﻿using System;
 using SouthBasement.Characters;
 using SouthBasement.Characters.Components;
-using TheRat.InternalAssets.Characters.Base;
 using UnityEngine;
 using Zenject;
 
@@ -16,8 +15,8 @@ namespace SouthBasement.Interactions
         private Character _character;
 
         [Inject]
-        private void Construct(CharacterFactory character) 
-            => _character = character.Instance;
+        private void Construct(Character character) 
+            => _character = character;
 
         public void Detect()
             => OnDetected?.Invoke(this);
