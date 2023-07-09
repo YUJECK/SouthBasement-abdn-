@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Subtegral.DialogueSystem.DataContainers
 {
@@ -7,7 +8,7 @@ namespace Subtegral.DialogueSystem.DataContainers
     public class DialogueNodeData
     {
         public string NodeGUID;
-        public string DialogueText;
+        [FormerlySerializedAs("DialogueText")] public string TableStringReference;
         public Vector2 Position;
     }
 }

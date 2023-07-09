@@ -78,7 +78,7 @@ namespace Subtegral.DialogueSystem.Editor
                 dialogueContainerObject.DialogueNodeData.Add(new DialogueNodeData
                 {
                     NodeGUID = node.GUID,
-                    DialogueText = node.DialogueText,
+                    TableStringReference = node.DialogueText,
                     Position = node.GetPosition().position
                 });
             }
@@ -146,7 +146,7 @@ namespace Subtegral.DialogueSystem.Editor
         {
             foreach (var perNode in _dialogueContainer.DialogueNodeData)
             {
-                var tempNode = _graphView.CreateNode(perNode.DialogueText, Vector2.zero);
+                var tempNode = _graphView.CreateNode(perNode.TableStringReference, Vector2.zero);
                 tempNode.GUID = perNode.NodeGUID;
                 _graphView.AddElement(tempNode);
 

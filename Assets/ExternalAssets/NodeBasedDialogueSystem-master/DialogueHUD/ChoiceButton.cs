@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization.Components;
+using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.UI;
 
@@ -24,10 +25,10 @@ namespace SouthBasement.DialogueHUD
         public void SetChoice(DialogueChoice choice, UnityAction<DialogueChoice> onClick)
         {
             _text.text = choice.Text;
+            
+            _text.GetComponent<LocalizeStringEvent>().SetTable(choice.TableName);  
             _text.GetComponent<LocalizeStringEvent>().SetEntry(choice.Text);  
             
-            Debug.Log(choice.Text);
-
             _text.GetComponent<LocalizeStringEvent>().RefreshString();   
             _button.onClick.AddListener(() => onClick?.Invoke(choice));
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using SouthBasement.Characters;
 using SouthBasement.InventorySystem;
 using SouthBasement.Characters.Stats;
 using UnityEngine;

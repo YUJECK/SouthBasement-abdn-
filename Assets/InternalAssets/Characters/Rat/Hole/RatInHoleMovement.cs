@@ -17,7 +17,7 @@ namespace SouthBasement.Characters.Rat.Hole
             
             Owner.Rigidbody.velocity = CanMove ? CurrentMovement : Vector2.zero;
 
-            if (movement != Vector2.zero)
+            if (Owner.Rigidbody.velocity != Vector2.zero)
             {
                 InvokeOnMoved(movement);
                 

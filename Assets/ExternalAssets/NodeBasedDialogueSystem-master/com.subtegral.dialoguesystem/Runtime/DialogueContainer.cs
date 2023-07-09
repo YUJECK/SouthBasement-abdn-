@@ -8,6 +8,7 @@ namespace Subtegral.DialogueSystem.DataContainers
     public class DialogueContainer : ScriptableObject
     {
         public string Name = "";
+        public string TableName = "";
         
         public List<NodeLinkData> NodeLinks = new List<NodeLinkData>();
         public List<DialogueNodeData> DialogueNodeData = new List<DialogueNodeData>();

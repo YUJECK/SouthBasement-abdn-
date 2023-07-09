@@ -8,6 +8,8 @@ using Subtegral.DialogueSystem.DataContainers;
 using Subtegral.DialogueSystem.Runtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Serialization;
 
 namespace SouthBasement.Dialogues
 {
@@ -18,15 +20,18 @@ namespace SouthBasement.Dialogues
         [SerializeField] private TMP_Text dialogueName;
         [SerializeField] private ChoiceButtonController _buttonController;
 
+        [SerializeField] private DialogueChoice leaveButton;
+        
         [SerializeField] private Transform onEnable;
         [SerializeField] private Transform onDisable;
 
-        public bool CurrentlyTalk { get; private set; }
+        [ReadOnly, SerializeField] private DialogueContainer currentDialogue;
+        
         private readonly DialogueParser _parser = new();
+        public bool CurrentlyTalk { get; private set; }
 
-        [ReadOnly, SerializeField] private DialogueContainer _currentDialogue;
 
-        private Action onStopped;
+        private Action _onStopped;
         
         private void Awake()
         {
@@ -39,10 +44,10 @@ namespace SouthBasement.Dialogues
             if(dialogueContainer == null || CurrentlyTalk)
                 return;
 
-            this.onStopped = onStopped;
+            this._onStopped = onStopped;
 
-            dialogueName.text = dialogueContainer.Name;
-            _currentDialogue = dialogueContainer;
+            dialogueName.text = new LocalizedString(dialogueContainer.TableName, dialogueContainer.Name).GetLocalizedString();
+            currentDialogue = dialogueContainer;
             
             OpenWindow();
             BuildPhrase(dialogueContainer.NodeLinks.First().TargetNodeGUID);
@@ -54,7 +59,7 @@ namespace SouthBasement.Dialogues
 
         private async void BuildPhrase(string target)
         {
-            var newText = _parser.Get(_currentDialogue, target);
+            var newText = _parser.Get(currentDialogue, target);
 
             _buttonController.ClearButtons();
 
@@ -82,14 +87,14 @@ namespace SouthBasement.Dialogues
 
         private void BuildCloseButton()
         {
-            DialogueChoice[] closeButton = new DialogueChoice[] { new DialogueChoice("Уйти", "") };
+            DialogueChoice[] closeButton = new DialogueChoice[] { leaveButton };
             _buttonController.Build(closeButton, (choice) => StopDialogue());
         }
 
         public void StopDialogue()
         {
             _dialoguePanel.DOMove(onDisable.position, 0.7f);
-            onStopped?.Invoke();
+            _onStopped?.Invoke();
             CurrentlyTalk = false;
         }
     }

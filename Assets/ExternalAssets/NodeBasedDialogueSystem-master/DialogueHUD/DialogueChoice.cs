@@ -1,14 +1,20 @@
-﻿namespace Subtegral.DialogueSystem.Runtime
+﻿using System;
+using UnityEngine;
+
+namespace Subtegral.DialogueSystem.Runtime
 {
+    [Serializable]
     public sealed class DialogueChoice
     {
-        public string Text;
-        public string Target;
+        [field: SerializeField] public string TableName { get; private set; }
+        [field: SerializeField] public string Text { get; private set; }
+        [field: SerializeField] public string Target { get; private set; }
 
-        public DialogueChoice(string text, string target)
+        public DialogueChoice(string tableName, string text, string target)
         {
             Text = text;
             Target = target;
+            TableName = tableName;
         }
     }
 }

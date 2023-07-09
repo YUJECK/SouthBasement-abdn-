@@ -7,6 +7,6 @@
         public virtual void OnPutOut() { }
 
         public override string GetStatsDescription()
-            => ItemDescription;
+            => ItemDescriptionEntryName;
     }
 }
