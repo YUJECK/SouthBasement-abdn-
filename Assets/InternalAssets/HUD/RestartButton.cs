@@ -9,12 +9,12 @@ namespace SouthBasement.HUD
     [RequireComponent(typeof(Button))]
     public sealed class RestartButton : MonoBehaviour
     {
-        private RunStarter _runStarter;
+        private RunController _runController;
 
         [Inject]
-        private void Construct(RunStarter runStarter)
+        private void Construct(RunController runController)
         {
-            _runStarter = runStarter;
+            _runController = runController;
         }
         
         private void Awake()
@@ -24,7 +24,7 @@ namespace SouthBasement.HUD
 
         public void OnClick()
         {
-            _runStarter.StartRun();
+            _runController.StartRun();
         }
     }
 }

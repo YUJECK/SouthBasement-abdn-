@@ -29,6 +29,7 @@ namespace SouthBasement.InventorySystem
                 
             if(CurrentWeapon.ItemID == itemID)
             {
+                CurrentWeapon.OnRemoved();
                 CurrentWeapon = null;
                 _attackStats.CurrentStats = _attackStats.DefaultAttackStatsConfig;
                 OnSelectedNull?.Invoke();
@@ -43,9 +44,16 @@ namespace SouthBasement.InventorySystem
 
         public void SetCurrent(Item item)
         {
+            if(CurrentWeapon == item)
+                return;
+            
             if (item.GetItemType() == typeof(WeaponItem))
             {
+                if (CurrentWeapon != null) 
+                    CurrentWeapon.OnRemoved();
+                
                 CurrentWeapon = item as WeaponItem;
+                CurrentWeapon.OnEquip();
                 _attackStats.CurrentStats = CurrentWeapon.AttackStatsConfig;
                 
                 OnSelected?.Invoke(CurrentWeapon);

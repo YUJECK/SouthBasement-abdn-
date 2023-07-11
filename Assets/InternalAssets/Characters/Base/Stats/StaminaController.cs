@@ -11,13 +11,15 @@ namespace SouthBasement.Characters
         private Coroutine _increaseCoroutine;
         private ICoroutineRunner _coroutineRunner;
 
+        public float CurrentStamina => _characterStats.Stamina.Value;
+        
         public StaminaController(CharacterStaminaStats staminaStats, ICoroutineRunner coroutineRunner)
         {
             _characterStats = staminaStats;
             _coroutineRunner = coroutineRunner;
         }
         
-        public bool TryDo(int staminaRequire)
+        public bool TryDo(float staminaRequire)
         {
             if (_characterStats.Stamina.Value >= staminaRequire)
             {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SouthBasement.Generation
 {
@@ -11,11 +12,11 @@ namespace SouthBasement.Generation
         public int TraderRoomsCount;
         public int NPCRoomsCount;
         
-        public Room[] StartRooms;
-        public Room[] FightRooms;
-        public Room[] TraderRooms;
-        public Room[] NPCRooms;
-        public Room[] ExitRooms;
+        public List<Room> StartRooms;
+        public List<Room> FightRooms;
+        public List<Room> TraderRooms;
+        public List<Room> NPCRooms;
+        public List<Room> ExitRooms;
         
         public Room GetRandomRoomFor(RoomType roomType, Direction toDirection)
         {
@@ -40,13 +41,39 @@ namespace SouthBasement.Generation
             };
         }
 
-        private Room RoomGetRandom(Room[] rooms) => rooms[Random.Range(0, rooms.Length)];
-        private Room RoomGetRandomIn(Room[] rooms, Direction toDirection)
+        public void Remove(Room room, RoomType roomType)
         {
-            var randomRoom = rooms[Random.Range(0, rooms.Length)];
+            switch(roomType)
+            { 
+                case RoomType.StartRoom:
+                    StartRooms.Remove(room);
+                    break;
+                    
+                case RoomType.FightRoom: 
+                    FightRooms.Remove(room);
+                    break;
+                
+                case RoomType.NPCRoom:
+                    NPCRooms.Remove(room);
+                    break;
+                    
+                case RoomType.ExitRoom:
+                    ExitRooms.Remove(room);
+                    break;
+                
+                case RoomType.TraderRoom:
+                    TraderRooms.Remove(room);
+                    break;
+            };
+        }
+        
+        private Room RoomGetRandom(List<Room> rooms) => rooms[Random.Range(0, rooms.Count)];
+        private Room RoomGetRandomIn(List<Room> rooms, Direction toDirection)
+        {
+            var randomRoom = rooms[Random.Range(0, rooms.Count)];
             
             while (!randomRoom.PassageHandler.Contains(DirectionHelper.GetOpposite(toDirection)))
-                randomRoom = rooms[Random.Range(0, rooms.Length)];
+                randomRoom = rooms[Random.Range(0, rooms.Count)];
             
             return randomRoom;
         }

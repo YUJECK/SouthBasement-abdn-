@@ -3,13 +3,15 @@ using UnityEngine;
 
 namespace SouthBasement.AI
 {
+    [RequireComponent(typeof(EffectsHandler))]
     public abstract class EnemyHealth : MonoBehaviour, IDamagable
     {
         [field: SerializeField] public int CurrentHealth { get; private set; } = 70;
+        public EffectsHandler EffectsHandler { get; protected set; }
         public event Action<int> OnDamaged;
 
         protected Enemy Enemy;
-        
+
         public virtual void Damage(int damage, string[] args)
         {
             CurrentHealth -= damage;

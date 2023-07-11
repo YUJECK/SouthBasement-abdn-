@@ -30,7 +30,7 @@ namespace SouthBasement.Characters.Rat
             if (Blocked || _blocked || !Owner.StaminaController.TryDo(_moveStats.DashStaminaRequire))
                 return;
 
-            Owner.StartCoroutine(DashCoroutine());
+            Owner.GameObject.StartCoroutine(DashCoroutine());
         }
 
         private IEnumerator DashCoroutine()
@@ -44,7 +44,7 @@ namespace SouthBasement.Characters.Rat
                 while (Time.time < dashStopTime)
                 {
                     Owner.Rigidbody
-                        .MovePosition(Vector2.MoveTowards(Owner.transform.position, dashMove, Time.deltaTime * 30));
+                        .MovePosition(Vector2.MoveTowards(Owner.GameObject.transform.position, dashMove, Time.deltaTime * 30));
                     
                     yield return new WaitForFixedUpdate();
                 }
@@ -59,7 +59,7 @@ namespace SouthBasement.Characters.Rat
         {
             Owner.Components.Get<ICharacterMovable>().CanMove = false;
             _blocked = true;
-            Owner.gameObject.layer = 11;
+            Owner.GameObject.gameObject.layer = 11;
 
             Owner.Components.Get<IFlipper>().Blocked = true;
             Owner.Components.Get<IFlipper>().Flip(GetFacingDirection());
@@ -70,12 +70,12 @@ namespace SouthBasement.Characters.Rat
 
         private void ReleaseDash()
         {
-            Owner.gameObject.layer = 7;
+            Owner.GameObject.gameObject.layer = 7;
             Owner.Components.Get<ICharacterMovable>().CanMove = true;
             Owner.Components.Get<IFlipper>().Blocked = false;
         }
 
-        private Vector2 GetPositionInVector2() => new(Owner.transform.position.x, Owner.transform.position.y);
+        private Vector2 GetPositionInVector2() => new(Owner.GameObject.transform.position.x, Owner.GameObject.transform.position.y);
 
         private FacingDirections GetFacingDirection()
         {

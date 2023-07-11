@@ -257,11 +257,12 @@ GameObject:
   m_Component:
   - component: {fileID: 963364319234757031}
   - component: {fileID: 963364319234757028}
-  - component: {fileID: 963364319234757035}
   - component: {fileID: 1654310326677587428}
   - component: {fileID: 7104561799597440741}
   - component: {fileID: 7414461845210851459}
   - component: {fileID: 2265659000774655195}
+  - component: {fileID: 5905806633983881185}
+  - component: {fileID: 6339154654133911296}
   m_Layer: 7
   m_Name: Rat
   m_TagString: Player
@@ -311,22 +312,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &963364319234757035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963364319234757024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0b02c5c3e50c1045ba767a7b502edc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <CharacterConfig>k__BackingField: {fileID: 11400000, guid: c3f3a495cc58d01438e3d51ee5832de9, type: 2}
-  <Attacker>k__BackingField: {fileID: 508266518288486820}
-  <AudioPlayer>k__BackingField: {fileID: 3360996642081324768}
-  <AttackRangeAnimator>k__BackingField: {fileID: 1548920931179930742}
 --- !u!61 &1654310326677587428
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -395,6 +380,30 @@ MonoBehaviour:
   playTrigger: Hurt
   animator: {fileID: 2721387444928838874}
   hurtSound: {fileID: 7884572854529869537}
+--- !u!114 &5905806633983881185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963364319234757024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eedb7bfc4a42d834988b3df6dd08bda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6339154654133911296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963364319234757024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e68be849dd24b0cb76b591c0a503ec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2518779702007783520
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,7 +823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7138420489034647171
 Transform:
   m_ObjectHideFlags: 0
@@ -1355,15 +1364,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2136187558, guid: e865900b1a000ad4db14ddba812dfe29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.625, y: 0.8125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &6647769758974589115

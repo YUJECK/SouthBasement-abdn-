@@ -1,19 +1,19 @@
 ﻿using SouthBasement.Characters.Components;
 using UnityEngine;
 
-namespace SouthBasement.Characters.Rat.Hole
+namespace SouthBasement.Characters.Hole.Rat
 {
-    public sealed class RatInHoleMovement : CharacterMovement<RatInHole>
+    public sealed class RatInHoleMovement : CharacterMovement<RatDummy>
     {
-        public RatInHoleMovement(RatInHole ratInHole) 
-            => Owner = ratInHole;
+        public RatInHoleMovement(RatDummy ratDummy) 
+            => Owner = ratDummy;
 
         public override void OnStart() => Owner.Inputs.OnMoved += Move;
         public override void Dispose() => Owner.Inputs.OnMoved -= Move;
 
         public override void Move(Vector2 movement)
         {
-            CurrentMovement = movement * Owner.Stats.MoveStats.MoveSpeed;
+            CurrentMovement = movement * 5f;
             
             Owner.Rigidbody.velocity = CanMove ? CurrentMovement : Vector2.zero;
 

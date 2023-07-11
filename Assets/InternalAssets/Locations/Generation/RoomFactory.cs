@@ -34,9 +34,13 @@ namespace SouthBasement.Generation
             }
         }
 
-        public Room CreateByType(RoomType roomType)
+        public Room CreateByType(RoomType roomType, bool remove = true)
         {
             var roomToSpawn = _levelConfig.GetRandomRoomFor(roomType, _direction);
+            
+            if(remove)
+                _levelConfig.Remove(roomToSpawn, roomType);
+            
             return CreateByPrefab(roomToSpawn);
         }
 

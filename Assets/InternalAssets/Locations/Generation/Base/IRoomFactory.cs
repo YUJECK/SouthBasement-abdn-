@@ -3,6 +3,6 @@
     public interface IRoomFactory
     {
         void Init(Room owner, Direction direction);
-        Room CreateByType(RoomType roomType);
+        Room CreateByType(RoomType roomType, bool remove = true);
     }
 }

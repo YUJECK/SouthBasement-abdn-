@@ -49,8 +49,8 @@ namespace SouthBasement.Characters.Components
         }
         
         private bool CanFaceRight()
-            => Owner.transform.position.x + 0.5f < _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Left;
+            => Owner.GameObject.transform.position.x + 0.5f < _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Left;
         private bool CanFaceLeft()
-            => Owner.transform.position.x - 0.5f> _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Right;
+            => Owner.GameObject.transform.position.x - 0.5f> _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Right;
     }
 }

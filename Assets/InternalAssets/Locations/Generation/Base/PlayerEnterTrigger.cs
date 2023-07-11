@@ -1,5 +1,6 @@
 using System;
 using SouthBasement.Characters;
+using SouthBasement.Characters.Base;
 using SouthBasement.Helpers;
 using UnityEngine;
 
@@ -12,8 +13,8 @@ namespace SouthBasement.Generation
 
         public bool CurrentOnTrigger { get; private set; }
 
-        public event Action<Character> OnEntered;
-        public event Action<Character> OnExit;
+        public event Action<CharacterGameObject> OnEntered;
+        public event Action<CharacterGameObject> OnExit;
 
         public bool Entered { get; private set; } = false;
 
@@ -32,7 +33,7 @@ namespace SouthBasement.Generation
                 CurrentOnTrigger = true;
                 Entered = true;
                 
-                OnEntered?.Invoke(other.GetComponent<Character>());
+                OnEntered?.Invoke(other.GetComponent<CharacterGameObject>());
             }
         }
         private void OnTriggerExit2D(Collider2D other)
@@ -41,7 +42,7 @@ namespace SouthBasement.Generation
             {
                 CurrentOnTrigger = false;
 
-                OnExit?.Invoke(other.GetComponent<Character>());
+                OnExit?.Invoke(other.GetComponent<CharacterGameObject>());
             }
         }
     }

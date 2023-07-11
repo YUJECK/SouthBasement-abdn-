@@ -13,13 +13,13 @@ namespace SouthBasement.Scripts.Helpers
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if(tagList.Contains(other.tag))
+            if(tagList.Contains(other.tag) || tagList.Count == 0)
                 OnTriggerEnter?.Invoke(other);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if(tagList.Contains(other.tag))
+            if(tagList.Contains(other.tag) || tagList.Count == 0)
                 OnTriggerExit?.Invoke(other);
         }
     }

@@ -18,6 +18,6 @@ namespace SouthBasement.HUD
         private void OnEnable() => _staminaStats.Stamina.OnChanged += UpdateStamina;
         private void OnDisable() => _staminaStats.Stamina.OnChanged -= UpdateStamina;
  
-        private void UpdateStamina(int stamine) => _stamineScale.fillAmount = (float)stamine / _staminaStats.MaximumStamina.Value;
+        private void UpdateStamina(float stamine) => _stamineScale.fillAmount = (float)stamine / _staminaStats.MaximumStamina.Value;
     }
 }

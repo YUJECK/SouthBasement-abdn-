@@ -10,7 +10,7 @@ namespace SouthBasement.Characters
         public readonly CharacterHealthStats HealthStats = new();
         public readonly CharacterStaminaStats StaminaStats = new();
         public readonly CharacterMoveStats MoveStats = new();
-
+        
         public CharacterStats(CharacterStatsConfig config)
         {
             AttackStats = config.AttackStats;

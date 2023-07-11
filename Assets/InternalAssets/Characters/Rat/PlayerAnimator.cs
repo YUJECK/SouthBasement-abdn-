@@ -24,8 +24,7 @@ namespace SouthBasement.Characters
         public void PlayAttack()
         {
             Owner.Animator.SetTrigger(_attackAnimation);
-            Owner.Animator.SetBool(_hasWeapon, Owner.WeaponsUsage.CurrentWeapon != null); 
-            Owner.AttackRangeAnimator.Play();
+            Owner.Animator.SetBool(_hasWeapon, Owner.WeaponsUsage.CurrentWeapon != null);
         }
 
         public void PlayDash()

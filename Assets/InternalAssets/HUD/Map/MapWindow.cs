@@ -10,7 +10,7 @@ namespace SouthBasement.HUD.Map
 {
     public sealed class MapWindow : MonoBehaviour, IWindow
     {
-        [SerializeField] private GameObject map;
+        [SerializeField] private RawImage map;
 
         public bool CurrentlyOpened { get; private set; }
         
@@ -38,9 +38,8 @@ namespace SouthBasement.HUD.Map
             _cameraHandler.MapCamera.targetTexture = renderTexture;
     
             // Устанавливаем размер текстуры в UI RawImage
-            RawImage rawImage = GetComponentInChildren<RawImage>();
-            rawImage.texture = renderTexture;
-            rawImage.rectTransform.sizeDelta = new Vector2(screenWidth, screenHeight);
+            map.texture = renderTexture;
+            map.rectTransform.sizeDelta = new Vector2(screenWidth, screenHeight);
         }
 
         private void Awake()
@@ -57,13 +56,13 @@ namespace SouthBasement.HUD.Map
 
         public void Open()
         {
-            map.SetActive(true);
+            map.gameObject.SetActive(true);
             CurrentlyOpened = true;
         }
 
         public void Close()
         {
-            map.SetActive(false);
+            map.gameObject.SetActive(false);
             CurrentlyOpened = false;
         }
 

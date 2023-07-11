@@ -5,7 +5,7 @@ namespace SouthBasement.HUD.Minimap
 {
     public sealed class MinimapWindow : HUDWindow
     {
-        public override Vector2 GetClosedPosition() => new Vector2(200, 0);
+        public override Vector2 GetClosedPosition() => new Vector2(300, 0);
         
         protected override void OnDied() => Close();
         protected override void OnNPC() => Close();

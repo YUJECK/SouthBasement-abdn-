@@ -31,7 +31,7 @@ namespace SouthBasement.InventorySystem
         private void DropItem()
         {
             if(_inventorySlot.CurrentItemNonGeneric != null)
-                _itemDropper.DropItem(_inventorySlot.CurrentItemNonGeneric, _character.transform.position);
+                _itemDropper.DropItem(_inventorySlot.CurrentItemNonGeneric, _character.GameObject.transform.position);
         }
     }
 }

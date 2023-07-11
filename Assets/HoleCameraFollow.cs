@@ -1,8 +1,9 @@
 using System;
 using SouthBasement.Characters;
+using SouthBasement.Characters.Hole;
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     public class HoleCameraFollow : MonoBehaviour
     {
@@ -13,8 +14,8 @@ namespace TheRat
             FindObjectOfType<CharacterChoosingService>().OnCharacterChosen += EnableFollow;
         }
 
-        private void EnableFollow(Character character)
-            => _followTarget = character.transform;
+        private void EnableFollow(CharacterDummy dummy)
+            => _followTarget = dummy.transform;
 
         private void LateUpdate()
         {

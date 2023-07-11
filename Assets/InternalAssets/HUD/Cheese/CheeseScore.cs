@@ -19,7 +19,6 @@ namespace SouthBasement.HUD
         private void Construct(CheeseService cheeseService)
         {
             _cheeseService = cheeseService;
-            _cheeseService.OnCheeseAmountChanged += UpdateCheeseScore;
         }
 
         protected override void OnAwake()
@@ -27,9 +26,15 @@ namespace SouthBasement.HUD
             base.OnAwake();
             
             _cheeseScore = GetComponentInChildren<TMP_Text>();
+            _cheeseService.OnCheeseAmountChanged += UpdateCheeseScore;
             
             Open();
             UpdateCheeseScore(_cheeseService.CheeseAmount);
+        }
+
+        protected override void OnDestroyOverridable()
+        {
+            _cheeseService.OnCheeseAmountChanged -= UpdateCheeseScore;
         }
 
         private async void UpdateCheeseScore(int cheeseAmount)

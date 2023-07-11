@@ -9,7 +9,7 @@ namespace SouthBasement
     public class CameraBinder : MonoBehaviour
     {
         [Inject]
-        private void Construct(Character character)
-            => GetComponent<CinemachineVirtualCamera>().Follow = character.transform;
+        private void Construct(Character character) 
+            => GetComponent<CinemachineVirtualCamera>().Follow = character.GameObject.transform;
     }
 }

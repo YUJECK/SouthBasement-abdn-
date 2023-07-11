@@ -24,8 +24,11 @@ namespace SouthBasement
 
         public void Create()
         {
-            if (Created) 
+            if (Created)
+            {
+                Reset();                
                 return;
+            }
             
             _coroutineRunner = _diContainer.Resolve<ICoroutineRunner>();
             

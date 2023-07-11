@@ -1,4 +1,4 @@
-﻿using SouthBasement.Characters;
+﻿using SouthBasement.Characters.Base;
 using UnityEngine;
 
 namespace SouthBasement.PlayerServices
@@ -8,7 +8,7 @@ namespace SouthBasement.PlayerServices
     {
         private void Awake()
         {
-            GetComponent<Flipper>().Target = FindObjectOfType<Character>().transform;
+            GetComponent<Flipper>().Target = FindObjectOfType<CharacterGameObject>().transform;
         }
     }
 }

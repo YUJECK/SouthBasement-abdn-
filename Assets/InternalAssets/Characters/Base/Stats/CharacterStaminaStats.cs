@@ -9,6 +9,6 @@ namespace SouthBasement.Characters.Stats
     {
         [field: SerializeField] public ObservableVariable<int> MaximumStamina { get; set; } = new(100);
         [field: SerializeField] public float StaminaIncreaseRate { get; set; } = 0.1f;
-        public ObservableVariable<int> Stamina { get; set; } = new(100);
+        public ObservableVariable<float> Stamina { get; set; } = new(100);
     }
 }

@@ -1,4 +1,4 @@
-using SouthBasement.Characters;
+using SouthBasement.Characters.Base;
 using UnityEngine;
 
 namespace SouthBasement
@@ -8,7 +8,7 @@ namespace SouthBasement
         private Transform _player;
 
         private void Start()
-            => _player = FindObjectOfType<Character>().transform;
+            => _player = FindObjectOfType<CharacterGameObject>().transform;
 
         private void LateUpdate() => transform.position = new Vector3(_player.position.x, _player.position.y, -100f);
     }

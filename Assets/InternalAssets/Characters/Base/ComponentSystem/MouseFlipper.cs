@@ -5,7 +5,7 @@ using Zenject;
 namespace SouthBasement.Characters.Components
 {
     public class MouseFlipper<TCharacter> : CharacterComponent<TCharacter>, IFlipper
-        where TCharacter : Character
+        where TCharacter : MonoBehaviour
     {
         public FacingDirections FacingDirection { get; private set; }
         public bool Blocked { get; set; } = false;
@@ -17,7 +17,7 @@ namespace SouthBasement.Characters.Components
         private void Construct(CursorService cursorService) 
             => _cursorService = cursorService;
 
-        public MouseFlipper(TCharacter owner, GameObject objectToFlip ,FacingDirections startDirection)
+        public MouseFlipper(TCharacter owner, GameObject objectToFlip, FacingDirections startDirection)
         {
             FacingDirection = startDirection;
             _objectToFlip = objectToFlip;

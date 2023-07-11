@@ -1,4 +1,5 @@
 ﻿using SouthBasement.Characters;
+using SouthBasement.Characters.Base;
 using SouthBasement.Characters.Rat;
 using SouthBasement.Generation;
 using SouthBasement.Helpers;
@@ -13,7 +14,15 @@ namespace SouthBasement.Locations
         [SerializeField] private Transform startPoint;
         [FormerlySerializedAs("roomsContainer")] [SerializeField] private LevelConfig levelConfig;
         [SerializeField] private ContainersHelper containersHelper;
+        
+        private RunController _runController;
 
+        [Inject]
+        private void Construct(RunController runController)
+        {
+            _runController = runController;
+        }
+        
         public override void InstallBindings()
         {
             BindCharacter();
@@ -28,6 +37,8 @@ namespace SouthBasement.Locations
         
         private void BindRoomContainer()
         {
+            levelConfig = Instantiate(levelConfig);
+            
             Container
                 .Bind<LevelConfig>()
                 .FromInstance(levelConfig)
@@ -36,21 +47,13 @@ namespace SouthBasement.Locations
 
         private void BindCharacter()
         {
-            var characterPrefab = Resources.Load<Character>(ResourcesPathHelper.RatPrefab);
+            var characterPrefab = Resources.Load<CharacterGameObject>(ResourcesPathHelper.RatPrefab);
 
             var character = Container
                 .InstantiatePrefab(characterPrefab, startPoint.position, Quaternion.identity, startPoint)
-                .GetComponent<Character>();
+                .GetComponent<CharacterGameObject>();
 
-            Container
-                .Bind<Character>()
-                .FromInstance(character)
-                .AsSingle();
-            
-            Container
-                .BindInterfacesTo<RatCharacter>()
-                .FromInstance(character)
-                .AsSingle();
+            _runController.OnCharacterSpawned(character);
         }
 
         private void BindGeneration()

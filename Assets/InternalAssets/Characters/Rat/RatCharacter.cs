@@ -1,5 +1,8 @@
-﻿using SouthBasement.Characters.Components;
+﻿using System;
+using SouthBasement.Characters.Base;
+using SouthBasement.Characters.Components;
 using SouthBasement.Enums;
+using SouthBasement.Extensions;
 using SouthBasement.InputServices;
 using SouthBasement.Scripts.Characters;
 using SouthBasement.InventorySystem;
@@ -8,15 +11,14 @@ using Zenject;
 
 namespace SouthBasement.Characters.Rat
 {
-    [RequireComponent(typeof(Rigidbody2D))]
-    public sealed class RatCharacter : Character, IInitializable
+    public sealed class RatCharacter : Character, ITickable
     {
-        [field: SerializeField] public DefaultAttacker Attacker { get; private set; }
-        [field: SerializeField] public CharacterAudioPlayer AudioPlayer { get; private set; }
-        [field: SerializeField] public AttackRangeAnimator AttackRangeAnimator { get; private set; }
-        
+        public DefaultAttacker Attacker { get; private set; }
+        public CharacterAudioPlayer AudioPlayer { get; private set; }
+        public AttackRangeAnimator AttackRangeAnimator { get; private set; }
         public Rigidbody2D Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
+        
         public IInputService Inputs { get; private set; }
         public WeaponsUsage WeaponsUsage { get; private set; }
         public StaminaController StaminaController { get; private set; }
@@ -29,27 +31,34 @@ namespace SouthBasement.Characters.Rat
             _componentFactory = new ComponentFactory(container);
             
             Stats = characterStats;
-            
             Inputs = inputs;
             WeaponsUsage = weaponsUsage;
             StaminaController = staminaController;
         }
+        ~RatCharacter() => Components.DisposeAll();
 
-        private void Update() => Components.UpdateALl();
-        private void OnDestroy() => Components.DisposeAll();
+        public void Tick() => Components.UpdateALl();
 
-        public void Initialize() => CreateComponents();
+        public override void OnCharacterPrefabSpawned(CharacterGameObject gameObject)
+        {            
+            base.OnCharacterPrefabSpawned(gameObject);
+            
+            Rigidbody = gameObject.gameObject.Get<Rigidbody2D>();
+            Animator = gameObject.gameObject.Get<Animator>();
+            AudioPlayer = gameObject.gameObject.Get<CharacterAudioPlayer>();
+            AttackRangeAnimator = gameObject.gameObject.Get<AttackRangeAnimator>();
+            Attacker = gameObject.gameObject.Get<DefaultAttacker>();
+            
+            CreateComponents();
+        }
 
         private void CreateComponents()
         {
-            Rigidbody = GetComponent<Rigidbody2D>();
-            Animator = GetComponentInChildren<Animator>();
-
             var playerAnimator = new PlayerAnimator(this);
 
             Components
                 .Add<PlayerAnimator>(playerAnimator)
-                .Add<IAttacker>(new RatAttack(this))
+                .Add<ICharacterAttacker>(new RatAttack(this))
                 .Add<ICharacterMovable>(new RatMovement(this))
                 .Add<IDashable>(new RatCharacterDashable(this));
             
@@ -58,7 +67,7 @@ namespace SouthBasement.Characters.Rat
             _componentFactory.InitializeComponent(flipper);
             Components.Add<IFlipper>(flipper);
 
-            Components.Get<IAttacker>().OnAttacked += _ => playerAnimator.PlayAttack();
+            Components.Get<ICharacterAttacker>().OnAttacked += _ => playerAnimator.PlayAttack();
             
             Components.Get<ICharacterMovable>().OnMoved += _ => playerAnimator.PlayWalk();
             Components.Get<ICharacterMovable>().OnMoveReleased += () => playerAnimator.PlayIdle();

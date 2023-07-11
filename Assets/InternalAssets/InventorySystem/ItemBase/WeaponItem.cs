@@ -7,7 +7,7 @@ namespace SouthBasement.InventorySystem
     {
         [field: SerializeField] public AttackStatsConfig AttackStatsConfig { get; private set; }
         
-        public abstract void OnAttack(IDamagable[] damagables);
+        public virtual void OnAttack(IDamagable[] damagables) { }
 
         public override string GetStatsDescription()
         {
@@ -16,5 +16,8 @@ namespace SouthBasement.InventorySystem
                    $"AttackRate: {AttackStatsConfig.AttackRate} \n" +
                    $"Stamina Require: {AttackStatsConfig.StaminaRequire}";
         }
+
+        public virtual void OnEquip() {}
+        public virtual void OnRemoved() {}
     }
 }

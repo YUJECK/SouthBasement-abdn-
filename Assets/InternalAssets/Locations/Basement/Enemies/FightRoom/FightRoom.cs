@@ -1,5 +1,6 @@
 ﻿using NTC.GlobalStateMachine;
 using SouthBasement.Characters;
+using SouthBasement.Characters.Base;
 
 namespace SouthBasement.Generation
 {
@@ -19,7 +20,7 @@ namespace SouthBasement.Generation
             GlobalStateMachine.Push<IdleState>();
         }
 
-        protected override void OnPlayerEntered(Character player)
+        protected override void OnPlayerEntered(CharacterGameObject player)
         {
             _enemiesFactory.EnableEnemies();
             PassageHandler.CloseAllDoors();

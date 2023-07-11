@@ -25,8 +25,6 @@ namespace SouthBasement.Generation
 
         public void Initialize()
         {
-            Debug.Log(_diContainer.Resolve<Character>());            
-
             GenerateMap();
             Generate();
         }

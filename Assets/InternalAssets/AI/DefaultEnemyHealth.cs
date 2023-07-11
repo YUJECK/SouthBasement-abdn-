@@ -20,6 +20,7 @@ namespace SouthBasement.AI
         private void Awake()
         {
             Enemy = GetComponent<Enemy>();
+            EffectsHandler = GetComponent<EffectsHandler>();
             
             Enemy.OnDied += DropItems;
             OnDamaged += PlayHitSound;

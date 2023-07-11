@@ -5,7 +5,7 @@ using SouthBasement.InventorySystem;
 
 namespace SouthBasement.Characters.Rat
 {
-    public sealed class RatAttack : CharacterAttacker<RatCharacter>
+    public sealed class RatAttack : CharacterCharacterAttacker<RatCharacter>
     {
         public override WeaponItem Weapon => Owner.WeaponsUsage.CurrentWeapon;
         
@@ -13,32 +13,53 @@ namespace SouthBasement.Characters.Rat
             => Owner = ratCharacter;
 
         public override void OnStart()
-            => Owner.Inputs.OnAttack += Attack;
+            => Owner.Inputs.OnAttack += StartAttack;
 
         public override void Dispose()
-            => Owner.Inputs.OnAttack -= Attack;
+            => Owner.Inputs.OnAttack -= StartAttack;
 
-        public override void Attack()
+        private void StartAttack()
         {
-            if (Blocked || !Owner.StaminaController.TryDo(Owner.Stats.AttackStats.CurrentStats.StaminaRequire)) 
-                return;
-            
-            Owner.Components.Get<ICharacterMovable>().CanMove = false;
-            
-            var hitted = Owner.Attacker
-                .Attack(Owner.Stats.AttackStats.CurrentStats.Damage,
-                    Owner.Stats.AttackStats.CurrentStats.AttackRate, 
-                    Owner.Stats.AttackStats.CurrentStats.AttackRange, Weapon);
-            
-            Owner.AudioPlayer.PlayAttack();
-
-            if(Weapon != null) Weapon.OnAttack(hitted);
-                
-            InvokeAttack(hitted);
-            Culldown(Owner.Stats.AttackStats.CurrentStats.AttackRate);
+            Attack();
         }
 
-        private async void Culldown(float culldown)
+        public override IDamagable[] Attack()
+        {
+            if (Blocked || !Owner.StaminaController.TryDo(Owner.Stats.AttackStats.CurrentStats.StaminaRequire)) 
+                return null;
+
+            IDamagable[] hitted;
+            
+            if (Weapon != null && Weapon is IAttackOverridable attackOverridable)
+            {
+                hitted = attackOverridable.Attack();
+            }
+            else
+            {
+                hitted = DefaultAttack();
+                if(Weapon!=null)Weapon.OnAttack(hitted);
+            }
+
+            InvokeAttack(hitted);
+            return hitted;
+        }
+
+        public override IDamagable[] DefaultAttack()
+        {
+            Owner.Components.Get<ICharacterMovable>().CanMove = false;
+
+            var hitted = Owner.Attacker
+                .Attack(Owner.Stats.AttackStats.CurrentStats.Damage,
+                    Owner.Stats.AttackStats.CurrentStats.AttackRate,
+                    Owner.Stats.AttackStats.CurrentStats.AttackRange, Weapon);
+            
+            Owner.AttackRangeAnimator.Play();
+            Owner.AudioPlayer.PlayAttack();
+            Culldown(Owner.Stats.AttackStats.CurrentStats.AttackRate);
+            return hitted;
+        }
+
+        public async void Culldown(float culldown)
         {
             Blocked = true;
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f));

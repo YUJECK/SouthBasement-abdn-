@@ -24,19 +24,19 @@ public sealed class BootstrapInstaller : MonoInstaller
         BindInputMap();
         BindEconomy();
         BindMaterialHelper();
-        BindRunStarter();
+        BindRunController();
     }
 
     private void BindMaterialHelper()
     {
         Container.Bind<MaterialHelper>().FromInstance(new MaterialHelper(DefaultMaterial));
     }
-    private void BindRunStarter()
+    private void BindRunController()
     {
         var RunDatabase = new RunDatabase(Container.Resolve<DiContainer>(), _inputService);
         
         Container.Bind<RunDatabase>().FromInstance(RunDatabase).AsSingle();
-        Container.Bind<RunStarter>().FromNew().AsSingle();
+        Container.Bind<RunController>().FromNew().AsSingle();
     }
 
     private void BindCoroutineRunner()

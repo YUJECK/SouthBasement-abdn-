@@ -28,6 +28,6 @@ namespace SouthBasement.HUD
         }
 
         private void DropItem() 
-            => _itemDropper.DropItem(CurrentItem, _character.transform.position, Vector2.down);
+            => _itemDropper.DropItem(CurrentItem, _character.GameObject.transform.position, Vector2.down);
     }
 }

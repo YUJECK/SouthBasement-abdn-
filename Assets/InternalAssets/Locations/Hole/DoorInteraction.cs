@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using SouthBasement.Helpers;
 using SouthBasement.Interactions;
-using TheRat;
+using SouthBasement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -18,11 +18,13 @@ namespace SouthBasement.Characters
         
         private MaterialHelper _materialHelper;
         private SpriteRenderer _spriteRenderer;
+        private RunController _runController;
 
         [Inject]
-        private void Construct(MaterialHelper materialHelper)
+        private void Construct(MaterialHelper materialHelper, RunController runController)
         {
             _materialHelper = materialHelper;
+            _runController = runController;
         }
 
         private void Awake()
@@ -37,7 +39,7 @@ namespace SouthBasement.Characters
         {
             FindObjectOfType<BlackoutTransition>().PlayBlackout();
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
-            SceneManager.LoadScene("FirstLevel");
+            _runController.StartRun();
         }
 
         public void DetectionReleased()

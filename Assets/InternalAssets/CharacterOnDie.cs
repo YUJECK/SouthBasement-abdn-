@@ -24,7 +24,7 @@ namespace SouthBasement
             _character.Components.Get<PlayerAnimator>().PlayDead();
             
             _character.Components
-                .Remove<IAttacker>()
+                .Remove<ICharacterAttacker>()
                 .Remove<IDashable>()
                 .Remove<IFlipper>();
             

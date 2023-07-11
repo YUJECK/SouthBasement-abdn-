@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using SouthBasement.Characters;
+using SouthBasement.Characters.Base;
 using SouthBasement.Generation;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace SouthBasement.Tools
         private void Start() => room.PlayerEnterTrigger.OnEntered += OnEntered;
         private void OnDestroy() => room.PlayerEnterTrigger.OnEntered -= OnEntered;
 
-        private void OnEntered(Character character) => EnableMinimapRoom();
+        private void OnEntered(CharacterGameObject character) => EnableMinimapRoom();
 
         [NaughtyAttributes.Button]
         private void Bind()

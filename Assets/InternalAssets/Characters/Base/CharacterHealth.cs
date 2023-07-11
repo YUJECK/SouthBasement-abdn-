@@ -5,11 +5,13 @@ using Zenject;
 
 namespace SouthBasement.Characters
 {
+    [RequireComponent(typeof(EffectsHandler))]
     public sealed class CharacterHealth : MonoBehaviour, IDamagable
     {
         private CharacterHealthStats _healthStats;
 
         public int CurrentHealth => _healthStats.CurrentHealth;
+        public EffectsHandler EffectsHandler { get; private set; }
         public event Action<int> OnDamaged;
 
         [Inject]
@@ -17,7 +19,12 @@ namespace SouthBasement.Characters
         {
             _healthStats = characterStats;
         }
-        
+
+        private void Awake()
+        {
+            EffectsHandler = GetComponent<EffectsHandler>();
+        }
+
         public void Damage(int damage, string[] args)
         {
             _healthStats.SetHealth(_healthStats.CurrentHealth - damage);

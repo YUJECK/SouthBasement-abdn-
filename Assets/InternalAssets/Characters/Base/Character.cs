@@ -1,12 +1,15 @@
 ﻿using SouthBasement.Characters.Components;
-using UnityEngine;
+using SouthBasement.Characters.Base;
 
 namespace SouthBasement.Characters
 {
-    public abstract class Character : MonoBehaviour 
+    public abstract class Character
     {
-        [field: SerializeField] public CharacterConfig CharacterConfig { get; private set; }
         public CharacterStats Stats { get; protected set; }
-        public ComponentContainer Components { get; private set; } = new();
+        public ComponentContainer Components { get; protected set; } = new();
+        public CharacterGameObject GameObject { get; private set; }
+
+        public virtual void OnCharacterPrefabSpawned(CharacterGameObject gameObject) 
+            => GameObject = gameObject;
     }
 }

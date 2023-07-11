@@ -6,6 +6,9 @@ using SouthBasement.Items;
 using UnityEngine;
 using Zenject;
 using System;
+using SouthBasement.Characters.Base;
+using SouthBasement.Characters.Hole;
+using SouthBasement.Characters.Hole.Rat;
 
 namespace SouthBasement.Characters
 {
@@ -15,7 +18,7 @@ namespace SouthBasement.Characters
         private IInputService _inputService;
         private MaterialHelper _materialHelper;
         
-        public event Action<Character> OnCharacterChosen;
+        public event Action<CharacterDummy> OnCharacterChosen;
 
         private GameObject _current;
         private bool _chosen;
@@ -42,7 +45,7 @@ namespace SouthBasement.Characters
 
             foreach (var hit in hits)
             {
-                if(hit.collider.gameObject.TryGetComponent<Character>(out var character))
+                if(hit.collider.gameObject.TryGetComponent<CharacterDummy>(out var character))
                     Choose(character);
             }
         }
@@ -61,7 +64,7 @@ namespace SouthBasement.Characters
             
             foreach (var hit in hits)
             {
-                if (hit.collider.gameObject.TryGetComponent<Character>(out var character))
+                if (hit.collider.gameObject.TryGetComponent<CharacterDummy>(out var character))
                 {
                     character.GetComponentInChildren<SpriteRenderer>().material = _materialHelper.OutlineMaterial;
                     _current = hit.transform.gameObject;
@@ -71,9 +74,9 @@ namespace SouthBasement.Characters
                 _current.transform.GetComponentInChildren<SpriteRenderer>().material = _materialHelper.DefaultMaterial;
         }
 
-        private void Choose(Character character)
+        private void Choose(CharacterDummy character)
         {
-            _itemsContainer.Add(character.CharacterConfig.CharacterItems);   
+            _itemsContainer.Add(character.GetConfig().CharacterItems);   
             OnCharacterChosen?.Invoke(character);
             
             character.Components.Get<ICharacterMovable>().CanMove = true;
