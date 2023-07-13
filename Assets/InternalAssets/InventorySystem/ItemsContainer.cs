@@ -29,6 +29,10 @@ namespace SouthBasement.Items
             _diContainer = diContainer;
 
             Add(items);
+            // foreach (var da in _itemsInRarity[Rarity.C])
+            // {
+            //     Debug.Log(da.ItemID);
+            // }
         }
 
         public ItemPicker SpawnItem(string id, Vector3 position)
@@ -81,6 +85,8 @@ namespace SouthBasement.Items
 
         public void Add(Item item)
         {
+            Debug.Log(item.ItemID);
+            
             _itemsInRarity.TryAdd(item.Rarity, new());
             _itemsInRarity[item.Rarity].Add(item);
 

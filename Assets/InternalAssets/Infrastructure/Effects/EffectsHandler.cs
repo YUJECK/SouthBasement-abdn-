@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ namespace SouthBasement
     public class EffectsHandler : MonoBehaviour
     {
         private readonly List<Effect> _effects = new();
+        public bool Blocked { get; set; }
 
         private void OnDestroy()
         {
@@ -16,6 +16,8 @@ namespace SouthBasement
 
         public void Add(Effect effect)
         {
+            if (Blocked) return;
+            
             _effects.Add(effect);
             effect.OnAdded();
             StartCoroutine(effect.DieCoroutine((effect) => Remove(effect)));

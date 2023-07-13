@@ -25,7 +25,7 @@ namespace SouthBasement.BaseScripts.Tests
         
         private void ExtraDamage(IDamagable[] hitted)
         {
-            if (_character.Components.Get<ICharacterAttacker>().Weapon != null && !_character.Components.Get<ICharacterAttacker>().Weapon.ItemTags.Contains("bone"))
+            if (_character.Components.Get<ICharacterAttacker>().Weapon == null || !_character.Components.Get<ICharacterAttacker>().Weapon.ItemTags.Contains("bone"))
                 return;
             
             foreach (var hit in hitted)

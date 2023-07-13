@@ -19,8 +19,11 @@ namespace SouthBasement
         private StaminaController _staminaController;
 
         [Inject]
-        private void Construct(StaminaController staminaController) 
-            => _staminaController = staminaController;
+        private void Construct(StaminaController staminaController, Character character)
+        {
+            _staminaController = staminaController;
+            _character = character;
+        }
 
         public override Type GetItemType()
             => typeof(WeaponItem);
