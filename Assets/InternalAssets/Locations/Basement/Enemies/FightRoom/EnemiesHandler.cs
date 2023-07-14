@@ -11,15 +11,20 @@ namespace SouthBasement.Generation
     [RequireComponent(typeof(RoomEnemiesFactory))]
     public sealed class EnemiesHandler : MonoBehaviour
     {
-        [SerializeField] private MovePoint[] _movePoint;
+        [SerializeField] private Transform movePointsContainer;
         
         private int _enemiesCount;
-        private List<Enemy> _currentEnemies = new();
+        private readonly List<Enemy> _currentEnemies = new();
+        private List<MovePoint> _movePoints = new();
         
         public event Action OnEnemiesDefeated;
         public event Action OnEnemyDied;
 
-        private void Awake() => GetComponent<RoomEnemiesFactory>().OnEnemiesSpawned += BindEnemies;
+        private void Awake()
+        {
+            GetComponent<RoomEnemiesFactory>().OnEnemiesSpawned += BindEnemies;
+            _movePoints = new(movePointsContainer.GetComponentsInChildren<MovePoint>());
+        }
 
         public bool IsEnemyCategoryAlone<TEnemy>() 
             where TEnemy : Enemy
@@ -65,7 +70,7 @@ namespace SouthBasement.Generation
                 enemy.OnDied += HandlEnemyDeath;
                 
                 if(enemy is IEnemiesHandlerRequire enemiesHandlerRequire) enemiesHandlerRequire.Initialize(this);
-                if(enemy is IMovePointsRequire movePointsRequire) movePointsRequire.Initialize(new(_movePoint));
+                if(enemy is IMovePointsRequire movePointsRequire) movePointsRequire.Initialize(new MovePointsHandler(_movePoints.ToArray()));
                 
                 enemy.Disable();
             }

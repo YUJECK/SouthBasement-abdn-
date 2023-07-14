@@ -4,7 +4,7 @@ namespace SouthBasement.AI.MovePoints
 {
     public sealed class MovePointsHandler
     {
-        private MovePoint[] _movePoints;
+        private readonly MovePoint[] _movePoints;
 
         public MovePointsHandler(MovePoint[] movePoints)
             => _movePoints = movePoints;
