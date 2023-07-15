@@ -23,7 +23,7 @@ namespace SouthBasement.Generation
         private void Awake()
         {
             GetComponent<RoomEnemiesFactory>().OnEnemiesSpawned += BindEnemies;
-            _movePoints = new(movePointsContainer.GetComponentsInChildren<MovePoint>());
+            _movePoints = new List<MovePoint>(movePointsContainer.GetComponentsInChildren<MovePoint>());
         }
 
         public bool IsEnemyCategoryAlone<TEnemy>() 
