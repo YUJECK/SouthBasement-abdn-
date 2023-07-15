@@ -85,8 +85,6 @@ namespace SouthBasement.Items
 
         public void Add(Item item)
         {
-            Debug.Log(item.ItemID);
-            
             _itemsInRarity.TryAdd(item.Rarity, new());
             _itemsInRarity[item.Rarity].Add(item);
 

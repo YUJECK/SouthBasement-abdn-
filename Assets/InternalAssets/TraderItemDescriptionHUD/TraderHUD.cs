@@ -4,7 +4,6 @@ using SouthBasement.InventorySystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
-using UnityEngine.Localization.Tables;
 
 namespace SouthBasement.TraderItemDescriptionHUD
 {
@@ -23,6 +22,7 @@ namespace SouthBasement.TraderItemDescriptionHUD
         private Tween _enableTween;
 
         private const string ItemsTable = "Items";
+        private const float MoveDuration = 0.2f;
 
         private void Start() => Disable();
 
@@ -43,7 +43,8 @@ namespace SouthBasement.TraderItemDescriptionHUD
             if(_disableTween != null && _disableTween.active)
                 _disableTween.Kill();
             
-            _enableTween = panel.DOMoveY(enablePosition.position.y, 0.2f);
+            panel.gameObject.SetActive(true);
+            _enableTween = panel.DOMoveY(enablePosition.position.y, MoveDuration);
         }
 
         public void Disable()
@@ -51,7 +52,7 @@ namespace SouthBasement.TraderItemDescriptionHUD
             if (_enableTween != null && _enableTween.active)
                 return;
             
-            _disableTween = panel.DOMoveY(disablePosition.position.y, 0.2f);
+            _disableTween = panel.DOMoveY(disablePosition.position.y, MoveDuration).OnComplete(() => panel.gameObject.SetActive(false));
         }
 
         private IEnumerator PrintText(string newText)

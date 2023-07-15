@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Collections;
+using DG.Tweening;
 using NTC.GlobalStateMachine;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ namespace SouthBasement.HUD.Base
             if(CurrentlyOpened)
                 return;
 
+            gameObject.SetActive(true);
             transform.DOMove(StartPosition, GetMoveSpeed());
             CurrentlyOpened = true;
         }
@@ -34,7 +36,7 @@ namespace SouthBasement.HUD.Base
             if(!CurrentlyOpened)
                 return;
 
-            transform.DOMove(StartPosition + GetClosedPosition(), GetMoveSpeed());
+            transform.DOMove(StartPosition + GetClosedPosition(), GetMoveSpeed()).OnComplete(() => gameObject.SetActive(false));
             CurrentlyOpened = false;
         }
 

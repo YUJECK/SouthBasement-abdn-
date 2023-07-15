@@ -63,7 +63,6 @@ namespace SouthBasement.Characters.Components
             
             _components.Add(typeof(TComponent), component);
             component.OnStart();
-            Debug.Log(_components.Count);
             return this;
         }
         

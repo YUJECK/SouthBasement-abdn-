@@ -9,7 +9,6 @@ using Subtegral.DialogueSystem.Runtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
-using UnityEngine.Serialization;
 
 namespace SouthBasement.Dialogues
 {
@@ -55,7 +54,11 @@ namespace SouthBasement.Dialogues
             CurrentlyTalk = true;
         }
 
-        private void OpenWindow() => _dialoguePanel.DOMove(onEnable.position, 0.7f);
+        private void OpenWindow()
+        {
+            _dialoguePanel.gameObject.SetActive(true);
+            _dialoguePanel.DOMove(onEnable.position, 0.7f);
+        }
 
         private async void BuildPhrase(string target)
         {
@@ -87,13 +90,13 @@ namespace SouthBasement.Dialogues
 
         private void BuildCloseButton()
         {
-            DialogueChoice[] closeButton = new DialogueChoice[] { leaveButton };
+            DialogueChoice[] closeButton = { leaveButton };
             _buttonController.Build(closeButton, (choice) => StopDialogue());
         }
 
         public void StopDialogue()
         {
-            _dialoguePanel.DOMove(onDisable.position, 0.7f);
+            _dialoguePanel.DOMove(onDisable.position, 0.7f).OnComplete(() => _dialoguePanel.gameObject.SetActive(false));
             _onStopped?.Invoke();
             CurrentlyTalk = false;
         }

@@ -33,6 +33,7 @@ namespace SouthBasement
         {
             if(_closeTween != null && _closeTween.active) _closeTween.Kill();
             
+            panel.gameObject.SetActive(true);
             _openTween = panel.DOMoveX(_startPosition.x, 0.2f);
         }
 
@@ -41,7 +42,7 @@ namespace SouthBasement
             if(_openTween != null && _openTween.active)
                  return;
             
-            _closeTween = panel.DOMoveX(_startPosition.x - 500f, 0.2f);
+            _closeTween = panel.DOMoveX(_startPosition.x - 500f, 0.2f).OnComplete(() => panel.gameObject.SetActive(false));
         }
 
         public void UpdateWindow() { }
