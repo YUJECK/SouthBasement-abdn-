@@ -159,6 +159,9 @@ namespace NTC.GlobalStateMachine
         {
             if (LastGameState == null)
                 return true;
+            
+            if (LastGameState is DiedState)
+                return false;
 
             if (gameState.CanRepeat == false && WasPushed<TState>())
                 return false;
