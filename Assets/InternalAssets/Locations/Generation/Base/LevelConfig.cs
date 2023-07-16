@@ -8,15 +8,15 @@ namespace SouthBasement.Generation
     {
         public int TotalRoomsCount => FightRoomsCount + TraderRoomsCount + NPCRoomsCount;
         
-        public int FightRoomsCount;
-        public int TraderRoomsCount;
-        public int NPCRoomsCount;
+        [field: SerializeField] public int FightRoomsCount { get; private set; }
+        [field: SerializeField] public int TraderRoomsCount { get; private set; }
+        [field: SerializeField] public int NPCRoomsCount { get; private set; }
         
-        public List<Room> StartRooms;
-        public List<Room> FightRooms;
-        public List<Room> TraderRooms;
-        public List<Room> NPCRooms;
-        public List<Room> ExitRooms;
+        [field: SerializeField] public List<Room> StartRooms { get; private set; }
+        [field: SerializeField] public List<Room> FightRooms { get; private set; }
+        [field: SerializeField] public List<Room> TraderRooms { get; private set; }
+        [field: SerializeField] public List<Room> NPCRooms { get; private set; }
+        [field: SerializeField] public List<Room> ExitRooms { get; private set; }
         
         public Room GetRandomRoomFor(RoomType roomType, Direction toDirection)
         {
@@ -71,9 +71,21 @@ namespace SouthBasement.Generation
         private Room RoomGetRandomIn(List<Room> rooms, Direction toDirection)
         {
             var randomRoom = rooms[Random.Range(0, rooms.Count)];
+
+            int iterations = 0;
             
             while (!randomRoom.PassageHandler.Contains(DirectionHelper.GetOpposite(toDirection)))
+            {
                 randomRoom = rooms[Random.Range(0, rooms.Count)];
+                
+                iterations++;
+                
+                if (iterations > 500)
+                {
+                    Debug.LogWarning($"Cannot find room for {toDirection} direction");
+                    break;
+                }
+            }
             
             return randomRoom;
         }

@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using SouthBasement.Characters;
-using SouthBasement.Characters.Components;
 using UnityEngine;
 using Zenject;
 
@@ -52,10 +50,8 @@ namespace SouthBasement.Generation
             {
                 int roomID = Random.Range(1, _map.Length - 2);
 
-                if (_map[roomID] == RoomType.FightRoom)
-                    _map[roomID] = RoomType.NPCRoom;
-                else
-                    i--;
+                if (_map[roomID] == RoomType.FightRoom) _map[roomID] = RoomType.NPCRoom;
+                else i--;
             }
         }
 
@@ -71,22 +67,21 @@ namespace SouthBasement.Generation
 
             roomQueue.Enqueue(startRoom);
             AddSpawnedRoom(startRoom);
-            
-            while (CurrentRoomsCount < _map.Length)
+
+            int i = 0;
+            while (CurrentRoomsCount < _map.Length && i < _map.Length * 4)
             {
+                i++;
+                
                 if (roomQueue.Peek().PassageHandler.TryGetFree(out var passage))
                 {
                     Room room;
                     
-                    if(mustSpawnQueue.TryPeek(out var roomPrefab))
-                        room = passage.Factory.CreateByPrefab(roomPrefab);    
-                    else
-                        room = passage.Factory.CreateByType(_map[CurrentRoomsCount]);
+                    if (mustSpawnQueue.TryPeek(out var roomPrefab)) room = passage.Factory.CreateByPrefab(roomPrefab);    
+                    else room = passage.Factory.CreateByType(_map[CurrentRoomsCount]);
 
-                    if (room != null)
-                        roomQueue.Enqueue(room);
-                    else
-                        roomQueue.Dequeue();
+                    if (room != null) roomQueue.Enqueue(room);
+                    else roomQueue.Dequeue();
                 }
                 else
                 {

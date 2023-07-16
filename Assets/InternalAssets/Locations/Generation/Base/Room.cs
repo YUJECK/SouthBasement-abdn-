@@ -1,5 +1,4 @@
-﻿using SouthBasement.Characters;
-using SouthBasement.Characters.Base;
+﻿using SouthBasement.Characters.Base;
 using UnityEngine;
 
 namespace SouthBasement.Generation

@@ -1,5 +1,4 @@
 ﻿using NTC.GlobalStateMachine;
-using SouthBasement.Characters;
 using SouthBasement.Characters.Base;
 
 namespace SouthBasement.Generation
