@@ -10,8 +10,8 @@ namespace SouthBasement.HUD.Base
         public bool CurrentlyOpened { get; protected set; } = true;
 
         public virtual Vector2 GetClosedPosition() => Vector2.zero;
-        
         public virtual float GetMoveSpeed() => 0.27f;
+        public virtual GameObject Window => gameObject;
 
         protected Vector2 StartPosition;
 
@@ -27,8 +27,8 @@ namespace SouthBasement.HUD.Base
             if(CurrentlyOpened)
                 return;
 
-            gameObject.SetActive(true);
-            transform.DOMove(StartPosition, GetMoveSpeed());
+            Window.SetActive(true);
+            Window.transform.DOMove(StartPosition, GetMoveSpeed());
             CurrentlyOpened = true;
         }
         public virtual void Close()
@@ -36,7 +36,7 @@ namespace SouthBasement.HUD.Base
             if(!CurrentlyOpened)
                 return;
 
-            transform.DOMove(StartPosition + GetClosedPosition(), GetMoveSpeed()).OnComplete(() => gameObject.SetActive(false));
+            Window.transform.DOMove(StartPosition + GetClosedPosition(), GetMoveSpeed()).OnComplete(() => Window.SetActive(false));
             CurrentlyOpened = false;
         }
 

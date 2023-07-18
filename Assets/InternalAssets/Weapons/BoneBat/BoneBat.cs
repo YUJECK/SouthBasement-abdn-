@@ -2,7 +2,7 @@ using System;
 using SouthBasement.InventorySystem;
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     [CreateAssetMenu]
     public sealed class BoneBat : WeaponItem

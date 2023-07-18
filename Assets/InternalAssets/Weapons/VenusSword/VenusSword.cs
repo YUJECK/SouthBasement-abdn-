@@ -1,7 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
 using SouthBasement.Characters;
-using SouthBasement.Characters.Base;
 using SouthBasement.Characters.Components;
 using SouthBasement.InventorySystem;
 using UnityEngine;
@@ -12,6 +11,7 @@ namespace SouthBasement
     [CreateAssetMenu]
     public sealed class VenusSword : WeaponItem, IAttackOverridable
     {
+        private const float RotateSpeed = 3f;
         [SerializeField] private VenusSwordObject venusSwordPrefab;
         
         private VenusSwordObject _currentVenusSword;
@@ -31,7 +31,7 @@ namespace SouthBasement
         public IDamagable[] Attack()
         {
             if(_currentVenusSword.rotateSpeed < 10)
-                _currentVenusSword.rotateSpeed += 3f;
+                _currentVenusSword.rotateSpeed += RotateSpeed;
             
             Culldown(AttackStatsConfig.AttackRate);
         

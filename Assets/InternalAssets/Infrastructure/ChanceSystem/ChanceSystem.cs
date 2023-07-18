@@ -17,9 +17,9 @@ namespace SouthBasement.Helpers
             
             return chance switch
             {
-                >= (int) Rarity.B => Rarity.C,
-                >= (int) Rarity.C => Rarity.C,
-                >= (int) Rarity.D => Rarity.C,
+                > (int) Rarity.B => Rarity.C,
+                > (int) Rarity.C => Rarity.C,
+                > (int) Rarity.D => Rarity.C,
                 _ => Rarity.D
             };
         }

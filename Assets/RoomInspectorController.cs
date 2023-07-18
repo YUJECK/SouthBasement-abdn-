@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using SouthBasement.Generation;
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     [RequireComponent(typeof(PassageHandler))]
     public class RoomInspectorController : MonoBehaviour

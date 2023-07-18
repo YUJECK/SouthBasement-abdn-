@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TheRat
+namespace SouthBasement
 {
     public sealed class Thorn : MonoBehaviour
     {

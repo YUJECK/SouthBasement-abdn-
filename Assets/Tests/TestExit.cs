@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using SouthBasement.Helpers;
 using SouthBasement.Interactions;
 using UnityEngine;
@@ -32,9 +33,10 @@ namespace SouthBasement.Tests
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        public void Interact()
+        public async void Interact()
         {
             FindObjectOfType<BlackoutTransition>().PlayBlackout();
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f));            
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 

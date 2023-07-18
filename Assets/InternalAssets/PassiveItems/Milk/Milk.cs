@@ -4,7 +4,7 @@ using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat
+namespace SouthBasement
 {
     [CreateAssetMenu]
     public class Milk : PassiveItem
