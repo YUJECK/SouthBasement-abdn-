@@ -4,7 +4,7 @@ namespace SouthBasement
 {
     public class CharacterAudioPlayer : MonoBehaviour
     {
-        [SerializeField] private AudioSource walkSound;
+        public AudioSource walkSound;
         [SerializeField] private AudioSource dashSound;
         [SerializeField] private AudioSource attackSound;
         [SerializeField] private AudioSource hittedSound;
