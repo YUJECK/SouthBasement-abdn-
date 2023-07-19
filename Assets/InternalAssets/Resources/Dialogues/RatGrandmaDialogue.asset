@@ -12,18 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b3fd9154634ebdb8c8a48960b9a16a, type: 3}
   m_Name: RatGrandmaDialogue
   m_EditorClassIdentifier: 
-  Name: 
-  TableName: 
+  Name: rat_grandma_name
+  TableName: RatGrandma
   NodeLinks:
   - BaseNodeGUID: 6db7ccd9-81ba-483f-a263-fb4c1216cef1
     PortName: Next
     TargetNodeGUID: 34440c47-e3de-44cd-b727-5fdc637ac0fb
+  - BaseNodeGUID: 34440c47-e3de-44cd-b727-5fdc637ac0fb
+    PortName: player_question_1
+    TargetNodeGUID: e41f8b0a-3445-4bb7-9093-06168a953231
+  - BaseNodeGUID: e41f8b0a-3445-4bb7-9093-06168a953231
+    PortName: player_question_2
+    TargetNodeGUID: cc367f13-f98b-41af-b30e-ad0459050311
   DialogueNodeData:
-  - NodeGUID: e41f8b0a-3445-4bb7-9093-06168a953231
-    TableStringReference: Dialogue Node
-    Position: {x: 585, y: 325}
   - NodeGUID: 34440c47-e3de-44cd-b727-5fdc637ac0fb
     TableStringReference: grandma_phrase_...
-    Position: {x: 266, y: 254}
+    Position: {x: 271, y: 104}
+  - NodeGUID: cc367f13-f98b-41af-b30e-ad0459050311
+    TableStringReference: grandma_phrase_2
+    Position: {x: 845, y: 369}
+  - NodeGUID: e41f8b0a-3445-4bb7-9093-06168a953231
+    TableStringReference: grandma_phrase_1
+    Position: {x: 700, y: 135}
   ExposedProperties: []
   CommentBlockData: []
