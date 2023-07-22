@@ -55,6 +55,9 @@ namespace SouthBasement
         }
 
         public override void OnRemoved()
-            => Destroy(_currentVenusSword.gameObject);
+        {
+            if(_currentVenusSword != null)
+                Destroy(_currentVenusSword.gameObject);
+        }
     }
 }

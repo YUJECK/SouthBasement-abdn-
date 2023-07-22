@@ -6,5 +6,6 @@
         
         void Create();
         void Reset();
+        virtual void OnCharacterSpawned() { }
     }
 }

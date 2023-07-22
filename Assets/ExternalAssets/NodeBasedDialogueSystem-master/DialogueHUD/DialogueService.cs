@@ -17,6 +17,7 @@ namespace SouthBasement.Dialogues
         [SerializeField] private Transform _dialoguePanel;
         [SerializeField] private TMP_Text dialogueText;
         [SerializeField] private TMP_Text dialogueName;
+        [SerializeField] private AudioSource textSound;
         [SerializeField] private ChoiceButtonController _buttonController;
 
         [SerializeField] private DialogueChoice leaveButton;
@@ -82,6 +83,7 @@ namespace SouthBasement.Dialogues
             foreach (var letter in newText)
             {
                 dialogueText.text += letter;
+                textSound.Play();
                 await UniTask.Delay(TimeSpan.FromSeconds(0.05f));
             }
         }

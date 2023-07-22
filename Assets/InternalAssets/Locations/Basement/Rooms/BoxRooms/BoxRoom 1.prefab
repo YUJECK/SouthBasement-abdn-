@@ -834,7 +834,6 @@ GameObject:
   - component: {fileID: 817448561893249260}
   - component: {fileID: 1459499151103339883}
   - component: {fileID: 3094092472312180446}
-  - component: {fileID: 4172322635765410168}
   m_Layer: 3
   m_Name: BoxRoom 1
   m_TagString: Untagged
@@ -996,23 +995,8 @@ MonoBehaviour:
   - {fileID: 6711496863983177494}
   - {fileID: 6830786698817971981}
   - {fileID: 5628879305970972745}
+  - {fileID: 3745217191112246369}
   room: {fileID: 6111200766247106633}
---- !u!114 &4172322635765410168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4679259873109566746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 705d541f8ac290f4e9f5f443adaecf7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upPassage: 1
-  downPassage: 1
-  leftPassage: 1
-  rightPassage: 1
 --- !u!1 &4903508330361878457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,8 +1104,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.98405004, y: 1.3025, z: 0}
-    m_Extent: {x: 4.21795, y: 3.2734, z: 0}
+    m_Center: {x: -0.98469996, y: 1.2989501, z: 0}
+    m_Extent: {x: 4.2061996, y: 3.26925, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2151,7 +2135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: f79ff370dd041834083459e590e2493e, type: 3}
       propertyPath: m_Size.x
-      value: 9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1980971759023807472, guid: f79ff370dd041834083459e590e2493e, type: 3}
       propertyPath: m_Name
@@ -2740,7 +2724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: a82037bdda1d82d4d82857e8ac412e54, type: 3}
       propertyPath: m_Size.x
-      value: 6
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: a82037bdda1d82d4d82857e8ac412e54, type: 3}
       propertyPath: m_Size.y
@@ -2838,6 +2822,11 @@ PrefabInstance:
 --- !u!4 &3727877867067879311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1980971759023807474, guid: a82037bdda1d82d4d82857e8ac412e54, type: 3}
+  m_PrefabInstance: {fileID: 2936846663440856189}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3745217191112246369 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1961433411998478364, guid: a82037bdda1d82d4d82857e8ac412e54, type: 3}
   m_PrefabInstance: {fileID: 2936846663440856189}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2991181883018755524
@@ -3379,11 +3368,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: 6835581eb5b04b046ae59e84b746319c, type: 3}
       propertyPath: m_Size.x
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: 6835581eb5b04b046ae59e84b746319c, type: 3}
       propertyPath: m_Size.y
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: 6835581eb5b04b046ae59e84b746319c, type: 3}
       propertyPath: m_DrawMode
@@ -3646,7 +3635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: 5d36d9b1de6584248a5ba7750f74396a, type: 3}
       propertyPath: m_Size.y
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: 5d36d9b1de6584248a5ba7750f74396a, type: 3}
       propertyPath: m_DrawMode
@@ -3757,7 +3746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: 5d36d9b1de6584248a5ba7750f74396a, type: 3}
       propertyPath: m_Size.y
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: 5d36d9b1de6584248a5ba7750f74396a, type: 3}
       propertyPath: m_DrawMode
@@ -4304,7 +4293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: a82037bdda1d82d4d82857e8ac412e54, type: 3}
       propertyPath: m_Size.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: a82037bdda1d82d4d82857e8ac412e54, type: 3}
       propertyPath: m_Size.y
@@ -4432,7 +4421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1961433411998478364, guid: f79ff370dd041834083459e590e2493e, type: 3}
       propertyPath: m_Size.x
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1980971759023807472, guid: f79ff370dd041834083459e590e2493e, type: 3}
       propertyPath: m_Name

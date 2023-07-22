@@ -51,6 +51,11 @@ namespace SouthBasement
         public void OnCharacterSpawned(CharacterGameObject characterGameObject)
         {
             _characterRunDatabase.Character.OnCharacterPrefabSpawned(characterGameObject);
+
+            foreach (var runDatabase in _runDatabases)
+            {
+                runDatabase.OnCharacterSpawned();
+            }
         }
     }
 }

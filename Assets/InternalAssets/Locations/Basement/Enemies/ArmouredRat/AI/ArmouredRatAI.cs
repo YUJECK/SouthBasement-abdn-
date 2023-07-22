@@ -1,9 +1,6 @@
-﻿using System;
-using NTC.ContextStateMachine;
+﻿using NTC.ContextStateMachine;
 using SouthBasement.AI;
-using SouthBasement.Helpers.Rotator;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SouthBasement.Basement.Enemies.ArmouredRat.AI
 {

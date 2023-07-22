@@ -18,6 +18,7 @@ namespace SouthBasement
         private Inventory _inventory;
         private ICoroutineRunner _coroutineRunner;
         private InventoryDatabase _inventoryDatabase;
+        private WeaponsUsage _weaponsUsage;
 
         public bool Created { get; private set; }
 
@@ -84,10 +85,12 @@ namespace SouthBasement
             _container
                 .Rebind<ActiveItemUsage>()
                 .FromInstance(new ActiveItemUsage(_inputService, _inventory));
-            _container
 
+            _weaponsUsage = new WeaponsUsage(_inventory, _attackStats);
+            
+            _container
                 .Rebind<WeaponsUsage>()
-                .FromInstance(new WeaponsUsage(_inventory, _attackStats));
+                .FromInstance(_weaponsUsage);
 
             _container
                 .Rebind<PassiveItemsUsage>()
@@ -115,9 +118,11 @@ namespace SouthBasement
         }
         private void BindWeaponsItemUsager()
         {
+            _weaponsUsage = new WeaponsUsage(_inventory, _attackStats);
+            
             _container
                 .Bind<WeaponsUsage>()
-                .FromInstance(new WeaponsUsage(_inventory, _attackStats))
+                .FromInstance(_weaponsUsage)
                 .AsSingle();
         }
         private void BindPassiveItemUsager()
@@ -126,6 +131,12 @@ namespace SouthBasement
                 .BindInterfacesTo<PassiveItemsUsage>()
                 .FromInstance(new PassiveItemsUsage(_inventory))
                 .AsSingle();
+        }
+
+        public void OnCharacterSpawned()
+        {
+            if(_weaponsUsage.CurrentWeapon != null)
+                _weaponsUsage.CurrentWeapon.OnEquip();
         }
     }
 }

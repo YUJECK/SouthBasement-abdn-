@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using NTC.GlobalStateMachine;
 using SouthBasement.InventorySystem;
 using TMPro;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.Localization;
 
 namespace SouthBasement.TraderItemDescriptionHUD
 {
-    public sealed class TraderHUD : MonoBehaviour
+    public sealed class TraderHUD : StateMachineUser
     {
         [SerializeField] private Transform panel;
         [SerializeField] private TMP_Text traderName;
@@ -53,6 +54,16 @@ namespace SouthBasement.TraderItemDescriptionHUD
                 return;
             
             _disableTween = panel.DOMoveY(disablePosition.position.y, MoveDuration).OnComplete(() => panel.gameObject.SetActive(false));
+        }
+
+        protected override void OnFight()
+        {
+            Disable();
+        }
+
+        protected override void OnIdle()
+        {
+            Disable();
         }
 
         private IEnumerator PrintText(string newText)

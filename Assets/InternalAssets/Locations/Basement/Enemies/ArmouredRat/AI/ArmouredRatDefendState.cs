@@ -20,7 +20,7 @@ namespace SouthBasement.Basement.Enemies.ArmouredRat.AI
         {
             while (Initializer.CanEnterDefendState())
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.2f);
                 Initializer.ArmouredRatDefender.Defend();
 
                 yield return new WaitForSeconds(2.7f);
