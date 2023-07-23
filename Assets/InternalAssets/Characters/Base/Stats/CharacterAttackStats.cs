@@ -8,6 +8,7 @@ namespace SouthBasement.Characters.Stats
     public sealed class CharacterAttackStats
     {
         public AttackStatsConfig CurrentStats { get; set; } = new();
+        public float DamageMultiplier { get; set; } 
         [field: SerializeField] public AttackStatsConfig DefaultAttackStatsConfig { get; private set; } = new();
     }
 }

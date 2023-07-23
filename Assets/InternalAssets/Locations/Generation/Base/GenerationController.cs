@@ -69,26 +69,38 @@ namespace SouthBasement.Generation
             AddSpawnedRoom(startRoom);
 
             int i = 0;
-            while (CurrentRoomsCount < _map.Length && i < _map.Length * 4)
+            while (CurrentRoomsCount < _map.Length && i < _map.Length * 4 && roomQueue.Count > 0)
             {
                 i++;
                 
                 if (roomQueue.Peek().PassageHandler.TryGetFree(out var passage))
                 {
                     Room room;
-                    
-                    if (mustSpawnQueue.TryPeek(out var roomPrefab)) room = passage.Factory.CreateByPrefab(roomPrefab);    
-                    else room = passage.Factory.CreateByType(_map[CurrentRoomsCount]);
 
-                    if (room != null) roomQueue.Enqueue(room);
-                    else roomQueue.Dequeue();
+                    if (mustSpawnQueue.TryPeek(out var roomPrefab))
+                    {
+                        room = passage.Factory.CreateByPrefab(roomPrefab);
+                    }
+                    else
+                    {
+                        room = passage.Factory.CreateByType(_map[CurrentRoomsCount]);
+                    }
+
+                    if (room != null)
+                    {
+                        roomQueue.Enqueue(room);
+                    }
+                    else
+                    {
+                        roomQueue.Dequeue();
+                    }
                 }
                 else
                 {
                     roomQueue.Dequeue();
                 }
 
-                if (roomQueue.Count == 0)
+                if (roomQueue.Count == 0) 
                     break;
             }
 
