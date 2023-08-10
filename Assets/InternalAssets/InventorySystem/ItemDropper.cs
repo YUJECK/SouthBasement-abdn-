@@ -5,8 +5,8 @@ namespace SouthBasement.InventorySystem
 {
     public sealed class ItemDropper
     {
-        private Inventory _inventory;
-        private ItemsContainer _itemsContainer;
+        private readonly Inventory _inventory;
+        private readonly ItemsContainer _itemsContainer;
 
         public ItemDropper(Inventory inventory, ItemsContainer itemsContainer)
         {
@@ -21,9 +21,8 @@ namespace SouthBasement.InventorySystem
                 .PlayMove(direction, speed);
             _inventory.RemoveItem(itemToDrop.ItemID);
         }
+        
         public void DropItem(Item itemToDrop, Vector3 spawnPosition)
-        {
-            DropItem(itemToDrop, spawnPosition, Vector2.down);
-        }
+            => DropItem(itemToDrop, spawnPosition, Vector2.down);
     }
 }
