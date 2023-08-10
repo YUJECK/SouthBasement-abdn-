@@ -1,28 +1,25 @@
-using UnityEngine;
 using UnityEngine.Audio;
 
-namespace TheRat
+namespace SouthBasement
 {
     public sealed class AudioMixersService
     {
         public AudioMixer SoundsMixer { get; private set; }
         public AudioMixer MusicMixer { get; private set; }
 
-
-        public AudioMixersService(AudioMixer soundsMixer, AudioMixer musicMixer)
+        private readonly AudioServiceConfig _audioServiceConfig;
+        
+        public AudioMixersService(AudioServiceConfig audioServiceConfig)
         {
-            SoundsMixer = soundsMixer;
-            MusicMixer = musicMixer;
-            
-            SoundsMixer.updateMode = AudioMixerUpdateMode.Normal;
-            MusicMixer.updateMode = AudioMixerUpdateMode.Normal;
-        }
-    }
+            SoundsMixer = audioServiceConfig.SoundsMixer;
+            MusicMixer = audioServiceConfig.MusicMixer;
 
-    [CreateAssetMenu]
-    public sealed class AudioMixersServiceConfig : ScriptableObject
-    {
-        public AudioMixer SoundsMixer;
-        public AudioMixer MusicMixer;
+            _audioServiceConfig = audioServiceConfig;
+        }
+
+        public void PauseAllSounds()
+        {
+            _audioServiceConfig.PauseSoundsSnapshot    
+        }
     }
 }
