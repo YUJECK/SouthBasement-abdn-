@@ -24,6 +24,9 @@ namespace SouthBasement.Locations
 
             var itemInfoHUD = Container.InstantiatePrefabForComponent<ItemInfoHUD>(GetItemInfoPrefab(),
                 startPoint.position, startPoint.rotation, null);
+            
+            Container.InstantiatePrefab(GetPauseMenuPrefab(),
+                startPoint.position, startPoint.rotation, null);
 
             Container
                 .Bind<IDialogueService>()
@@ -42,6 +45,7 @@ namespace SouthBasement.Locations
         }
 
         private GameObject GetHUDPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.HUD);
+        private GameObject GetPauseMenuPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.PauseMenu);
         private GameObject GetItemInfoPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.ItemInfoHUD);
         private GameObject GetDialogueWindowPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.DialogueHUD);
         private GameObject GetTraderHUDPrefab() => Resources.Load<GameObject>(ResourcesPathHelper.TraderHUD);

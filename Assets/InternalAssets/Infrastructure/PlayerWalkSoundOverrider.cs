@@ -4,7 +4,7 @@ using SouthBasement.Extensions;
 using UnityEngine;
 using Zenject;
 
-namespace TheRat
+namespace SouthBasement
 {
     public class PlayerWalkSoundOverrider : MonoBehaviour
     {

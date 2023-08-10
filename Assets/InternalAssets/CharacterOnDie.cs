@@ -26,9 +26,10 @@ namespace SouthBasement
             _character.Components
                 .Remove<ICharacterAttacker>()
                 .Remove<IDashable>()
-                .Remove<IFlipper>();
+                .Remove<IFlipper>()
+                .Remove<ICharacterMovable>();
             
-            _character.Components.Get<ICharacterMovable>().CanMove = false;
+            //_character.Components.Get<ICharacterMovable>().CanMove = false;
         }
     }
 }

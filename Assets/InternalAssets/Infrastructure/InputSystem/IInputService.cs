@@ -13,5 +13,6 @@ namespace SouthBasement.InputServices
         event Action InventoryOpen;
         event Action OnMapOpen;
         event Action OnMapClosed;
+        event Action OnPaused;
     }
 }   

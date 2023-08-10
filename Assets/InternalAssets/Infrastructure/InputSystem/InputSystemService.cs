@@ -1,6 +1,5 @@
 ﻿using System;
 using SouthBasement;
-using TheRat;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +15,7 @@ namespace SouthBasement.InputServices
         public event Action InventoryOpen;
         public event Action OnMapOpen;
         public event Action OnMapClosed;
+        public event Action OnPaused;
 
         private readonly InputMap _inputActions;
 
@@ -23,11 +23,12 @@ namespace SouthBasement.InputServices
         {
             _inputActions = new InputMap();
 
-            _inputActions.CharacterContoller.Attack.performed += (context) => OnAttack?.Invoke();
-            _inputActions.CharacterContoller.Interaction.performed += (context) => OnInteracted?.Invoke();
-            _inputActions.CharacterContoller.Dash.performed += (context) => OnDashed?.Invoke();
-            _inputActions.HUDController.ActiveItemUsage.performed += (context) => ActiveItemUsage?.Invoke();
-            _inputActions.HUDController.InventoryOpen.performed += (context) => InventoryOpen?.Invoke();
+            _inputActions.CharacterContoller.Attack.performed += _ => OnAttack?.Invoke();
+            _inputActions.CharacterContoller.Interaction.performed += _ => OnInteracted?.Invoke();
+            _inputActions.CharacterContoller.Dash.performed += _ => OnDashed?.Invoke();
+            _inputActions.HUDController.ActiveItemUsage.performed += _ => ActiveItemUsage?.Invoke();
+            _inputActions.HUDController.InventoryOpen.performed += _ => InventoryOpen?.Invoke();
+            _inputActions.HUDController.Paused.performed += _ => OnPaused?.Invoke();
             
             _inputActions.Enable();
         }

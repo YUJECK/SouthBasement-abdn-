@@ -10,6 +10,7 @@
         public const string ItemPickerPrefab = "Items/ItemPicker";
         
         public const string HUD = "HUD/HUD";
+        public const string PauseMenu = "HUD/PauseMenu";
         public const string ItemInfoHUD = "HUD/ItemInfo";
         public const string DialogueHUD = "HUD/DialogueWindow";
         public const string TraderHUD = "HUD/TraderHUD";
