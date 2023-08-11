@@ -19,6 +19,12 @@ namespace SouthBasement
             Created = true;
         }
 
+        public void Remove()
+        {
+            Created = false;
+            CheeseService = null;
+        }
+
         public void Reset() => CheeseService = new(_diContainer);
     }
 }

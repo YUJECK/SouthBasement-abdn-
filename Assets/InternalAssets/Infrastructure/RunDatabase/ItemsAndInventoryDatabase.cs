@@ -41,6 +41,17 @@ namespace SouthBasement
             
             Created = true;
         }
+
+        public void Remove()
+        {
+            Created = false;
+            
+            _container.Unbind<Inventory>();
+            _container.Unbind<ActiveItemUsage>();
+            _container.Unbind<WeaponsUsage>();
+            _container.Unbind<PassiveItemsUsage>();
+        }
+
         public void Reset()
         {
             if (!Created) Create();
@@ -48,35 +59,6 @@ namespace SouthBasement
             _coroutineRunner = _container.Resolve<ICoroutineRunner>();
             
             _inventoryDatabase.Reset();
-
-            var configPrefab = Resources.Load<CharacterConfig>(ResourcesPathHelper.RatConfig);
-            var config = ScriptableObject.Instantiate(configPrefab);
-            
-            CharacterStats stats = new(config.DefaultStats);
-
-            _container
-                .Rebind<CharacterStats>()
-                .FromInstance(stats);
-
-            _container
-                .Rebind<CharacterAttackStats>()
-                .FromInstance(stats.AttackStats);
-
-            _container
-                .Rebind<CharacterHealthStats>()
-                .FromInstance(stats.HealthStats);
-
-            _container
-                .Rebind<CharacterMoveStats>()
-                .FromInstance(stats.MoveStats);
-
-            _container
-                .Rebind<CharacterStaminaStats>()
-                .FromInstance(stats.StaminaStats);
-
-            _container
-                .Rebind<StaminaController>()
-                .FromInstance(new StaminaController(stats.StaminaStats, _coroutineRunner));
 
             _container
                 .Rebind<Inventory>()
@@ -103,34 +85,31 @@ namespace SouthBasement
             
             _inventoryDatabase.Create();
             _inventory = _inventoryDatabase.Inventory;
-        
+
             _container
                 .BindInterfacesAndSelfTo<Inventory>()
-                .FromInstance(_inventory)
-                .AsSingle();
+                .FromInstance(_inventory);
+
         }
         private void BindActiveItemUsager()
         {
             _container
                 .Bind<ActiveItemUsage>()
-                .FromInstance(new ActiveItemUsage(_inputService, _inventory))
-                .AsSingle();    
+                .FromInstance(new ActiveItemUsage(_inputService, _inventory));
         }
         private void BindWeaponsItemUsager()
         {
             _weaponsUsage = new WeaponsUsage(_inventory, _attackStats);
-            
+
             _container
                 .Bind<WeaponsUsage>()
-                .FromInstance(_weaponsUsage)
-                .AsSingle();
+                .FromInstance(_weaponsUsage);
         }
         private void BindPassiveItemUsager()
         {
             _container
                 .BindInterfacesTo<PassiveItemsUsage>()
-                .FromInstance(new PassiveItemsUsage(_inventory))
-                .AsSingle();
+                .FromInstance(new PassiveItemsUsage(_inventory));
         }
 
         public void OnCharacterSpawned()

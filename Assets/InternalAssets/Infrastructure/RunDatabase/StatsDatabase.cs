@@ -2,7 +2,6 @@
 using SouthBasement.Characters.Stats;
 using SouthBasement.Helpers;
 using SouthBasement.Infrastucture;
-using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
 
@@ -62,6 +61,18 @@ namespace SouthBasement
                 .FromInstance(new StaminaController(Stats.StaminaStats, _coroutineRunner));
 
             Created = true;
+        }
+
+        public void Remove()
+        {
+            Created = false;
+
+            _diContainer.Unbind<CharacterStats>();
+            _diContainer.Unbind<CharacterAttackStats>();
+            _diContainer.Unbind<CharacterHealthStats>();
+            _diContainer.Unbind<CharacterMoveStats>();
+            _diContainer.Unbind<CharacterStaminaStats>();
+            _diContainer.Unbind<StaminaController>();
         }
 
         public void Reset()

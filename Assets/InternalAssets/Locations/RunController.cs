@@ -1,5 +1,4 @@
-﻿using System;
-using SouthBasement.Characters.Base;
+﻿using SouthBasement.Characters.Base;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -19,6 +18,11 @@ namespace SouthBasement
         {
             _runDatabase.Reset();
             SceneManager.LoadScene("FirstLevel");
+        }
+
+        public void EndRun()
+        {
+            _runDatabase.Remove();
         }
 
         public void SwitchToNextLevel()

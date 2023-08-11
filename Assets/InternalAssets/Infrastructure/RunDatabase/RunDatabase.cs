@@ -42,6 +42,13 @@ namespace SouthBasement
             foreach (var runDatabase in _runDatabases)
                 runDatabase.Create();
         }
+
+        public void Remove()
+        {
+            foreach (var database in _runDatabases)
+                database.Remove();    
+        }
+        
         public void Reset()
         {
             foreach (var database in _runDatabases)

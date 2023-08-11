@@ -20,6 +20,12 @@ namespace SouthBasement
             Created = true;
         }
 
+        public void Remove()
+        {
+            Created = false;
+            Inventory = null;
+        }
+
         private void CreateInventoryContainers()
         {
             Inventory.ItemsContainer

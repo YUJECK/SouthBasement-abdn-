@@ -1,11 +1,11 @@
 using SouthBasement.InputServices;
 using UnityEngine;
-using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace SouthBasement
 {
-    public class PauseMenu : MonoBehaviour
+    public class PauseMenuLogic : MonoBehaviour
     {
         [SerializeField] private GameObject pauseMenu;
         
@@ -42,13 +42,15 @@ namespace SouthBasement
             pauseMenu.SetActive(true);
             Time.timeScale = 0f;
             
-            
+            _audioMixersService.PauseAllAudio();
         }
 
         public void Unpause()
         {
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
+            
+            _audioMixersService.UppauseAllAudio();
         }
     }
 }

@@ -19,13 +19,19 @@ namespace SouthBasement
             if(Created) return;
             
             CreateNewCharacterInstance();
-            
+
             _diContainer
                 .Bind<Character>()
-                .FromInstance(Character)
-                .AsSingle();
+                .FromInstance(Character);
 
             Created = true;
+        }
+
+        public void Remove()
+        {
+            Created = false;
+            Character.Components.DisposeAll();
+            _diContainer.Unbind<Character>();
         }
 
         private void CreateNewCharacterInstance()

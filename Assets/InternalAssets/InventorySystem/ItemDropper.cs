@@ -16,9 +16,16 @@ namespace SouthBasement.InventorySystem
 
         public void DropItem(Item itemToDrop, Vector3 spawnPosition, Vector2 direction, float speed = 15)
         {
+            if (itemToDrop == null)
+            {
+                Debug.LogWarning("You tried to drop item");
+                return;
+            }
+            
             _itemsContainer
                 .SpawnItem(itemToDrop, spawnPosition)
                 .PlayMove(direction, speed);
+            
             _inventory.RemoveItem(itemToDrop.ItemID);
         }
         
