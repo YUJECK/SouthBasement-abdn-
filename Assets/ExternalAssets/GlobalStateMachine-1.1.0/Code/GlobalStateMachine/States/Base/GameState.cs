@@ -10,6 +10,7 @@ namespace NTC.GlobalStateMachine
         private readonly List<int> _blockedNextStateIndexes = new List<int>(8);
         private bool _isBlockedStatesSetup;
 
+        public abstract GameStates State();
         public virtual bool IsNextStatePossible<TState>() where TState : GameState
         {
             SetupBlockingNextStates();

@@ -9,11 +9,14 @@ namespace SouthBasement
         [SerializeField] private AudioSource fightTheme; 
         [SerializeField] private AudioSource npcTheme; 
         [SerializeField] private AudioSource deathTheme;
+        [SerializeField] private AudioSource pauseTheme;
 
         private AudioSource _currentTheme;
 
         protected override void OnIdle()
         {
+            Debug.Log("sdlkfskldflsdfkljds");
+            
             if(_currentTheme != null)
                 _currentTheme.Pause();
             mainTheme.Play();
@@ -42,6 +45,17 @@ namespace SouthBasement
                 _currentTheme.Pause();
             npcTheme.Play();
             _currentTheme = npcTheme;
+        }
+
+        protected override void OnPaused()
+        {
+            Debug.Log("sdlkfskldflsdfkljds");
+            
+            if(_currentTheme != null)
+                _currentTheme.Pause();
+            
+            pauseTheme.Play();
+            _currentTheme = pauseTheme;
         }
     }
 }

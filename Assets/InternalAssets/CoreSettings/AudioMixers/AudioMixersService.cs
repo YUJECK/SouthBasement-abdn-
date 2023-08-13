@@ -17,12 +17,12 @@ namespace SouthBasement
 
         public void PauseAllAudio()
         {
-            _audioServiceConfig.PauseSnapshot.TransitionTo(0f);
+            //_audioServiceConfig.PauseSnapshot.TransitionTo(0f);
         }
 
         public void UppauseAllAudio()
         {
-            _audioServiceConfig.CurrentSnapshot.TransitionTo(0f);
+            //_audioServiceConfig.CurrentSnapshot.TransitionTo(0f);
         }
     }
 }

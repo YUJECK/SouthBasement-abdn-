@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace SouthBasement
 {
     public sealed class PauseMenuButtons : MonoBehaviour
     {
-        [SerializeField] private PauseMenuLogic pauseMenuLogic;
-        [SerializeField] private GameObject pauseMenu;
-        [SerializeField] private GameObject settingsMenu;
+        [SerializeField] private PauseLogic pauseLogic;
+        [SerializeField] private PauseMenusLogic menusLogic;
         
         private RunController _runController;
 
@@ -18,13 +18,14 @@ namespace SouthBasement
 
         public void Resume()
         {
-            pauseMenuLogic.Unpause();
+            menusLogic.ClosePauseMenu();
+            pauseLogic.Unpause();
         }
 
         public void Settings()
         {
-            settingsMenu.SetActive(!settingsMenu.activeSelf);
-            pauseMenu.SetActive(!pauseMenu.activeSelf);
+            if(menusLogic.MainMenuOpened) menusLogic.OpenSettings();
+            else menusLogic.OpenPauseMenu();
         }
 
         public void ReturnToMainMenu()

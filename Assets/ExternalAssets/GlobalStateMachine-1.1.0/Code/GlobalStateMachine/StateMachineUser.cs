@@ -23,7 +23,7 @@ namespace NTC.GlobalStateMachine
             this.On<NPCState>(OnNPC);
             this.On<FightState>(OnFight);
             this.On<DiedState>(OnDied);
-            this.On<PausedState>(OnGamePause);
+            this.On<PausedState>(OnPaused);
         }
 
         protected virtual void OnAwake() { }
@@ -33,6 +33,6 @@ namespace NTC.GlobalStateMachine
         protected virtual void OnNPC() { }
         protected virtual void OnFight() { }
         protected virtual void OnDied() { }
-        protected virtual void OnGamePause() { }
+        protected virtual void OnPaused() { }
     }
 }
