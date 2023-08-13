@@ -35,23 +35,23 @@ namespace SouthBasement.Characters.Base
         }
 
         private void SetNull()
-            => _weaponSprite.color = Color.clear;
+        {
+            _weaponSprite.color = Color.clear;
+            Debug.Log("set null");
+        }
 
         private void SetItem(WeaponItem item)
         {
             if (item == null)
             {
+                Debug.Log("item null");
+                
                 SetNull();
                 return;
             }
                 
             _weaponSprite.sprite = item.ItemSprite;
             _weaponSprite.color = Color.white;
-        }
-
-        private IEnumerator FlashLight()
-        {
-            return null;
         }
     }
 }

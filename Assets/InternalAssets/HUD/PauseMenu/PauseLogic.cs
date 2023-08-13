@@ -58,8 +58,6 @@ namespace SouthBasement
         {
             Time.timeScale = 1f;
 
-            _previousState.State();
-            
             if (_previousState != null)
                 GlobalStateMachine.Push(_previousState.State());
         }
