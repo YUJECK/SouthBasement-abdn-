@@ -34,8 +34,6 @@ namespace SouthBasement.InventorySystem
                 CurrentWeapon = null;
                 _attackStats.CurrentStats = _attackStats.DefaultAttackStatsConfig;
                 OnSelectedNull?.Invoke();
-                
-                Debug.Log("Removed");
             }
         }
 

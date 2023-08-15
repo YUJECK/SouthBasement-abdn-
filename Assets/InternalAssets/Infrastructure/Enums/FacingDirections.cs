@@ -2,7 +2,9 @@
 {
     public enum FacingDirections
     {
+        Up,
         Right,
-        Left
+        Left,
+        Bottom
     }
 }
