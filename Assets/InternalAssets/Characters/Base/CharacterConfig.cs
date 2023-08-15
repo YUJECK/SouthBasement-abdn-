@@ -1,9 +1,9 @@
 using SouthBasement.InventorySystem;
 using UnityEngine;
-
+ 
 namespace SouthBasement
-{
-    [CreateAssetMenu()]
+{ 
+    [CreateAssetMenu()] 
     public class CharacterConfig : ScriptableObject
     {
         [field: SerializeField] public string CharacterName { get; private set; }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SouthBasement.Characters
 {
-    public sealed class PlayerAnimator : CharacterComponent<RatCharacter>
+    public sealed class PlayerAnimator : CharacterComponent<RatCharacter>, ICharacterAnimator
     {
         private readonly int _walkAnimation = Animator.StringToHash("Walk");
         private readonly int _attackAnimation = Animator.StringToHash("Attack");
@@ -12,8 +12,13 @@ namespace SouthBasement.Characters
         private readonly int _hasWeapon = Animator.StringToHash("HasWeapon");
         private readonly int _diedTrigger = Animator.StringToHash("RatDied");
 
+        public CharacterAnimatorConfig CurrentAnimator { get; private set; }
+        
         public PlayerAnimator(RatCharacter ratCharacter)
-            => Owner = ratCharacter;
+        {
+            Owner = ratCharacter;
+            CurrentAnimator = Resources.Load<CharacterAnimatorConfig>("Characters/RatAnimatorConfig");
+        }
 
         public void PlayWalk()
             => Owner.Animator.SetBool(_walkAnimation, true);
@@ -31,5 +36,10 @@ namespace SouthBasement.Characters
             => Owner.Animator.SetTrigger(_dashTrigger);
 
         public void PlayDead() => Owner.Animator.SetBool(_diedTrigger, true);
+
+        public void ReplaceAnimator(CharacterAnimatorConfig newAnimator)
+        {
+            CurrentAnimator = newAnimator;
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using SouthBasement.Characters.Base;
+﻿using SouthBasement.Characters.Base;
 using SouthBasement.Characters.Components;
 using SouthBasement.Enums;
 using SouthBasement.Extensions;

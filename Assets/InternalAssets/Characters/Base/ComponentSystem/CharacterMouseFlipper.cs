@@ -30,27 +30,48 @@ namespace SouthBasement.Characters.Components
 
         public void Flip(FacingDirections facingDirections)
         {
+            FacingDirection = facingDirections;
+            
             if (facingDirections == FacingDirections.Right)
             {
                 Owner.Animator.transform.localScale = new Vector3(-1, 1, 1);
-                FacingDirection = FacingDirections.Right;
             }
             else if (facingDirections == FacingDirections.Left)
             {
                 Owner.Animator.transform.localScale = new Vector3(1, 1, 1);
-                FacingDirection = FacingDirections.Left;
             }
         }
 
         private void FaceToMouse()
         {
-            if (CanFaceRight()) Flip(FacingDirections.Right);
-            else if (CanFaceLeft()) Flip(FacingDirections.Left);
+            if (CanFaceRight())
+            {
+                Flip(FacingDirections.Right); 
+                return;
+            }
+            if (CanFaceLeft())
+            {
+                Flip(FacingDirections.Left);
+                return;                
+            }
+            if (CanFaceUp())
+            {
+                Flip(FacingDirections.Up);
+                return;
+            }
+            if(CanFaceBottom()) 
+                Flip(FacingDirections.Bottom);
         }
         
         private bool CanFaceRight()
             => Owner.GameObject.transform.position.x + 0.5f < _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Left;
+        private bool CanFaceUp()
+            => Owner.GameObject.transform.position.y + 0.5f < _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Left;
+        
+        private bool CanFaceBottom()
+            => Owner.GameObject.transform.position.y + 0.5f > _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Left;
+        
         private bool CanFaceLeft()
-            => Owner.GameObject.transform.position.x - 0.5f> _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Right;
+            => Owner.GameObject.transform.position.x - 0.5f > _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Right;
     }
 }
