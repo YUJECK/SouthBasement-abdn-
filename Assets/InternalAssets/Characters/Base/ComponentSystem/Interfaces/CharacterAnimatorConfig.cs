@@ -5,11 +5,11 @@ using UnityEngine;
 namespace SouthBasement.Characters.Components
 {
     [Serializable]
-    [CreateAssetMenu]
-    public sealed class CharacterAnimatorConfig : ScriptableObject
+    public sealed class CharacterAnimatorConfig
     {
-        [field: SerializeField] public AnimatorController UpAnimator { get; private set; }
-        [field: SerializeField] public AnimatorController SideAnimator { get; private set; }
-        [field: SerializeField] public AnimatorController BottomAnimator { get; private set; }
+        [field: SerializeField] public AnimatorController AnimatorController { get; private set; }
+
+        public CharacterAnimatorConfig(AnimatorController animatorController)
+            => AnimatorController = animatorController;
     }
 }

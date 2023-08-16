@@ -17,7 +17,6 @@ namespace SouthBasement.Characters
         public PlayerAnimator(RatCharacter ratCharacter)
         {
             Owner = ratCharacter;
-            CurrentAnimator = Resources.Load<CharacterAnimatorConfig>("Characters/RatAnimatorConfig");
         }
 
         public void PlayWalk()
