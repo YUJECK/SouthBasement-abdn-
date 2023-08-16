@@ -6,7 +6,7 @@ using Zenject;
 
 namespace SouthBasement
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = AssetMenuHelper.PassiveItem + "Milk")]
     public class Milk : PassiveItem
     {
         private CharacterHealthStats _healthStats;

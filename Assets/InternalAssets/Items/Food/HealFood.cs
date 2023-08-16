@@ -6,7 +6,7 @@ using Zenject;
 
 namespace SouthBasement.Tests
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = AssetMenuHelper.Food + "HealFood")]
     public sealed class HealFood : FoodItem
     {
         private CharacterHealthStats _characterStats;

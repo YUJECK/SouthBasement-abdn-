@@ -7,7 +7,7 @@ using Zenject;
 
 namespace SouthBasement
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = AssetMenuHelper.Weapon + "BoneBloodSword")]
     public sealed class BoneBloodSword : WeaponItem
     {
         private Character _character;

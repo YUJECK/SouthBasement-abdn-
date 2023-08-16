@@ -3,7 +3,7 @@ using UnityEngine;
  
 namespace SouthBasement
 { 
-    [CreateAssetMenu] 
+    [CreateAssetMenu(menuName = AssetMenuHelper.Infrastructure + "Character")] 
     public class CharacterConfig : ScriptableObject
     {
         [field: SerializeField] public string CharacterName { get; private set; }

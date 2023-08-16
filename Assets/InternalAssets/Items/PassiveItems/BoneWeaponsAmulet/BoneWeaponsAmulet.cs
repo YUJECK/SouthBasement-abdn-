@@ -7,7 +7,7 @@ using Zenject;
 
 namespace SouthBasement.BaseScripts.Tests
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = AssetMenuHelper.PassiveItem + "BoneWeaponsAmulet")]
     public sealed class BoneWeaponsAmulet : PassiveItem
     {
         [SerializeField] private int extraDamage = 3;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SouthBasement.Generation
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = AssetMenuHelper.Infrastructure + "LevelConfig")]
     public class LevelConfig : ScriptableObject
     {
         public int TotalRoomsCount => FightRoomsCount + TraderRoomsCount + NPCRoomsCount;

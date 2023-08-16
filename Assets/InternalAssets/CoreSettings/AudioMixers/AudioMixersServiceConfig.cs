@@ -3,7 +3,7 @@ using UnityEngine.Audio;
 
 namespace SouthBasement
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = AssetMenuHelper.Infrastructure + "AudioMixersServiceConfig")]
     public sealed class AudioMixersServiceConfig : ScriptableObject
     {
         public AudioMixer MasterMixer;

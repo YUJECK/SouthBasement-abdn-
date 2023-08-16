@@ -8,7 +8,7 @@ using Zenject;
 
 namespace SouthBasement
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = AssetMenuHelper.Weapon + "VenusSword")]
     public sealed class VenusSword : WeaponItem, IAttackOverridable
     {
         private const float RotateSpeed = 3f;

@@ -2,7 +2,7 @@
 
 namespace SouthBasement.Economy
 {
-    [CreateAssetMenu(menuName = "Create CheeseServiceConfig", fileName = "CheeseServiceConfig", order = 0)]
+    [CreateAssetMenu(menuName = AssetMenuHelper.Infrastructure + "CheeseServiceConfig")]
     public sealed class CheeseServiceConfig : ScriptableObject
     {
         [field: SerializeField] public CheeseObject CheesePrefab { get; private set; }

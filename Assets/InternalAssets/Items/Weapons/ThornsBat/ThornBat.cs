@@ -6,7 +6,7 @@ using Zenject;
 
 namespace SouthBasement
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = AssetMenuHelper.Weapon + "ThornBat")]
     public class ThornBat : WeaponItem
     {
         [SerializeField] private Thorn _thornPrefab;

@@ -7,7 +7,7 @@ using Zenject;
 
 namespace SouthBasement
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = AssetMenuHelper.Weapon + "CaptainRedbellysSaber")]
     public sealed class CaptainRedbellysSaber : WeaponItem
     {
         public int bubbleSpawnChance;
