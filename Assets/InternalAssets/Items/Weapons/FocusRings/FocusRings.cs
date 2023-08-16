@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using SouthBasement.Characters;
 using SouthBasement.InventorySystem;
 using UnityEngine;
@@ -13,13 +14,14 @@ namespace SouthBasement
         private Character _character;
 
         private FocusFireController _prefabInstance;
-        
+        private bool _blocked;
+
         [Inject]
         private void Construct(Character character)
         {
              _character = character;
         }
-        
+
         public override void OnEquip()
         {
             _prefabInstance = Instantiate(prefab, _character.GameObject.transform);
@@ -27,6 +29,8 @@ namespace SouthBasement
 
         public override void OnRemoved()
         {
+            Debug.Log("ksdflkask;flaskdljf");
+            
             Destroy(_prefabInstance);
         }
 
@@ -35,10 +39,20 @@ namespace SouthBasement
 
         public IDamagable[] Attack()
         {
-            _prefabInstance.Create(); 
-                
+            if (_blocked) return Array.Empty<IDamagable>();
+            
+            _prefabInstance.Create();
 
+            Culldown(AttackStatsConfig.AttackRate);
+            
             return Array.Empty<IDamagable>();
+        }
+
+        public async void Culldown(float culldown)
+        {
+            _blocked = true;
+            await UniTask.Delay(TimeSpan.FromSeconds(culldown ));
+            _blocked = false;
         }
     }
 }

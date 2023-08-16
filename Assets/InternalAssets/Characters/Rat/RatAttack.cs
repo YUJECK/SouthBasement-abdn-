@@ -37,7 +37,7 @@ namespace SouthBasement.Characters.Rat
             else
             {
                 hitted = DefaultAttack();
-                if(Weapon!=null)Weapon.OnAttack(hitted);
+                if(Weapon!=null) Weapon.OnAttack(hitted);
             }
 
             InvokeAttack(hitted);
@@ -55,7 +55,9 @@ namespace SouthBasement.Characters.Rat
             
             Owner.AttackRangeAnimator.Play();
             Owner.AudioPlayer.PlayAttack();
+            
             Culldown(Owner.Stats.AttackStats.CurrentStats.AttackRate);
+            
             return hitted;
         }
 
