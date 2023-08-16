@@ -6,13 +6,30 @@ namespace SouthBasement
     [RequireComponent(typeof(FocusedFireTargetChecker))]
     public sealed class FocusedFireMovement : MonoBehaviour
     {
+        [SerializeField] private AudioSource flySound;
         [SerializeField] private float moveSpeed;
-
+        
+        private Transform _startingPoint;
         private Transform _target;
 
-        private void Awake()
-            => GetComponent<FocusedFireTargetChecker>().OnTargeted += Move;
+        public void Awake()
+        {
+            GetComponent<FocusedFireTargetChecker>().OnTargeted += Move;
+        }
 
+        private void ReturnToStartingPoint()
+        {
+            Move(_startingPoint);
+        }
+
+        public void SetStartingPoint(Transform startingPoint)
+        {
+            if (startingPoint == null)
+                Debug.LogError("Starting Point null");
+            
+            _startingPoint = startingPoint;
+        }
+        
         private void Move(Transform target)
         {
             _target = target;
@@ -22,13 +39,20 @@ namespace SouthBasement
 
         private IEnumerator Moving()
         {
-            while (enabled && _target != null)
+            flySound.Play();
+            
+            while (enabled && _target != null && transform.position != _target.position)
             {
                 transform.position 
                     = Vector2.MoveTowards(transform.position, _target.position, moveSpeed * Time.deltaTime);
                 
                 yield return new WaitForFixedUpdate();
             }
+            
+            if(_target == null)
+                ReturnToStartingPoint();
+            
+            flySound.Stop();
         }
     }
 }

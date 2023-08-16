@@ -10,7 +10,7 @@ namespace SouthBasement
         private Transform _target;
 
         public event Action<Transform> OnTargeted;
-        
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag(TagHelper.Player) && other.TryGetComponent(out IDamagable damagable))

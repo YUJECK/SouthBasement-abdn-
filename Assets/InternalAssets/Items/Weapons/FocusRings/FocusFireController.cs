@@ -35,6 +35,7 @@ namespace SouthBasement
         {
             var instance = Instantiate(firePrefab, spawnPoint.Transform);
             spawnPoint.SetToThis(instance);
+            instance.SetStartingPoint(spawnPoint.Transform);
 
             return instance;
         }
