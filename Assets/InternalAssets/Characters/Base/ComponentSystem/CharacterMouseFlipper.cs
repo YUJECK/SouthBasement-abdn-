@@ -32,14 +32,10 @@ namespace SouthBasement.Characters.Components
         {
             FacingDirection = facingDirections;
             
-            if (facingDirections == FacingDirections.Right)
-            {
+            if (facingDirections == FacingDirections.Right) 
                 Owner.Animator.transform.localScale = new Vector3(-1, 1, 1);
-            }
             else if (facingDirections == FacingDirections.Left)
-            {
                 Owner.Animator.transform.localScale = new Vector3(1, 1, 1);
-            }
         }
 
         private void FaceToMouse()
@@ -54,23 +50,11 @@ namespace SouthBasement.Characters.Components
                 Flip(FacingDirections.Left);
                 return;                
             }
-            if (CanFaceUp())
-            {
-                Flip(FacingDirections.Up);
-                return;
-            }
-            if(CanFaceBottom()) 
-                Flip(FacingDirections.Bottom);
         }
         
         private bool CanFaceRight()
             => Owner.GameObject.transform.position.x + 0.5f < _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Left;
-        private bool CanFaceUp()
-            => Owner.GameObject.transform.position.y + 0.5f < _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Left;
-        
-        private bool CanFaceBottom()
-            => Owner.GameObject.transform.position.y + 0.5f > _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Left;
-        
+
         private bool CanFaceLeft()
             => Owner.GameObject.transform.position.x - 0.5f > _cursorService.CursorPosition.x && FacingDirection == FacingDirections.Right;
     }
