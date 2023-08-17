@@ -27,6 +27,7 @@ namespace SouthBasement
         public FocusedFireMovement SetStartingPoint(Transform startingPoint)
         {
             if (startingPoint == null)
+                
                 Debug.LogError("Starting Point null");
             
             _startingPoint = startingPoint;

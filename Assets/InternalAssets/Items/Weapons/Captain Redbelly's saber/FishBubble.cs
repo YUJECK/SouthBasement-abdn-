@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace SouthBasement
@@ -8,11 +9,12 @@ namespace SouthBasement
     public sealed class FishBubble : MonoBehaviour
     {
         [SerializeField] private float range;
-        [SerializeField] private AudioSource _popSound;
+        [SerializeField] private AudioSource popSound;
+        [SerializeField] private GameObject fishPrefab;
         
         private int _damage = 3;
-        private string[] args;
-        private readonly int ExplosionAnimation = Animator.StringToHash("FishBubbleExplode");
+        private string[] _args = new []{"water"};
+        private readonly int _explosionAnimation = Animator.StringToHash("FishBubbleExplode");
 
         private Rigidbody2D _rigidbody;
         private Animator _animator;
@@ -56,19 +58,29 @@ namespace SouthBasement
 
         private IEnumerator Exlposion()
         {
-            _animator.Play(ExplosionAnimation);
+            _animator.Play(_explosionAnimation);
             var size = Physics2D.OverlapCircleNonAlloc(transform.position, range, _results);
 
             for (int i = 0; i < size; i++)
             {
                 if(_results[i].gameObject.TryGetComponent(out IDamagable damagable))
-                    damagable.Damage(_damage, args);
+                    damagable.Damage(_damage, _args);
             }
 
-            _popSound.Play();
+            popSound.Play();
             yield return new WaitForSeconds(0.4f);
+
+            DropFish();
+            
             
             Destroy(gameObject);
+        }
+
+        private void DropFish()
+        {
+            int willDrop = UnityEngine.Random.Range(0, 2);
+
+            if (willDrop == 0) Instantiate(fishPrefab, transform.position, Quaternion.identity);
         }
 
         private void OnDrawGizmos()

@@ -4871,10 +4871,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 83d6d5352759c5f42aefd2ddaffbc287, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4966,11 +4966,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3683817064602532159}
   - component: {fileID: 8064220440822844646}
-  - component: {fileID: 3390193555268184469}
+  - component: {fileID: 4281784522092316957}
   - component: {fileID: 3170659042812401128}
   - component: {fileID: 5120106855414957616}
+  - component: {fileID: 3390193555268184469}
   - component: {fileID: 5496456494203075790}
-  - component: {fileID: 4281784522092316957}
   - component: {fileID: 4580296629936641435}
   m_Layer: 16
   m_Name: FocusFire
@@ -5038,7 +5038,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1014729535
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1746198578, guid: 41c28072c8abb2049972ba8a49bdc52a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5050,6 +5050,45 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4281784522092316957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350834117455090678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88250cd368d39ac4da21c6e8d5df852e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explodeSound: {fileID: 1141139317817714161}
+--- !u!114 &3170659042812401128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350834117455090678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb001f2de793a3849afc6b17196f6796, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5120106855414957616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350834117455090678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25de18f7adc4247b63a59c878021027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flySound: {fileID: 8563695482353307488}
+  moveSpeed: 7
 --- !u!58 &3390193555268184469
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5085,32 +5124,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.03}
   serializedVersion: 2
   m_Radius: 0.17
---- !u!114 &3170659042812401128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2350834117455090678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb001f2de793a3849afc6b17196f6796, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5120106855414957616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2350834117455090678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a25de18f7adc4247b63a59c878021027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flySound: {fileID: 8563695482353307488}
-  moveSpeed: 7
 --- !u!58 &5496456494203075790
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5146,18 +5159,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4
---- !u!114 &4281784522092316957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2350834117455090678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88250cd368d39ac4da21c6e8d5df852e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &4580296629936641435
 Animator:
   serializedVersion: 5

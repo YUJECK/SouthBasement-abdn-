@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1258013479491612901}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.046875, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -388,9 +388,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.020482302}
   serializedVersion: 2
-  m_Radius: 0.36167803
+  m_Radius: 0.44426548
 --- !u!114 &6973070689064283500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,7 +404,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 0.5
-  _popSound: {fileID: 6734633783135105044}
+  popSound: {fileID: 6734633783135105044}
+  fishPrefab: {fileID: 6881458649382301883, guid: 2208564599cc09944a59d5b4462c7291, type: 3}
 --- !u!50 &8266415434634025323
 Rigidbody2D:
   serializedVersion: 4
