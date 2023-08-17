@@ -13,21 +13,24 @@ namespace SouthBasement
         private Transform _target;
 
         public void Awake()
-        {
-            GetComponent<FocusedFireTargetChecker>().OnTargeted += Move;
-        }
+            => GetComponent<FocusedFireTargetChecker>().OnTargeted += Move;
 
         private void ReturnToStartingPoint()
+            => Move(_startingPoint);
+
+        public void SetSpeed(float speed)
         {
-            Move(_startingPoint);
+            if(speed > 0)
+                moveSpeed = speed;    
         }
 
-        public void SetStartingPoint(Transform startingPoint)
+        public FocusedFireMovement SetStartingPoint(Transform startingPoint)
         {
             if (startingPoint == null)
                 Debug.LogError("Starting Point null");
             
             _startingPoint = startingPoint;
+            return this;
         }
         
         private void Move(Transform target)
@@ -49,10 +52,13 @@ namespace SouthBasement
                 yield return new WaitForFixedUpdate();
             }
             
-            if(_target == null)
+            if(TargetWasLost())
                 ReturnToStartingPoint();
             
             flySound.Stop();
         }
+
+        private bool TargetWasLost()
+         => _target == null;
     }
 }

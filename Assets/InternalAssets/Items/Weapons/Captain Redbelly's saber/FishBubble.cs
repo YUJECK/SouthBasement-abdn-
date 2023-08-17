@@ -20,7 +20,8 @@ namespace SouthBasement
 
         public void SetDamage(int damage)
         {
-            if(damage < 0) return;
+            if(damage < 0) 
+                return;
             
             _damage = damage;
         }
@@ -46,7 +47,7 @@ namespace SouthBasement
 
             while (Time.time < startTime + duration)
             {
-                _rigidbody.velocity = new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f));
+                _rigidbody.velocity = new Vector2(Random.Range(-4f, 4f), Random.Range(-4f, 4f));
                 yield return new WaitForSeconds(2f);
             }
 

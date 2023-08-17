@@ -11,6 +11,8 @@ namespace SouthBasement
     public sealed class FocusRings : WeaponItem, IAttackOverridable
     {
         public FocusFireController prefab;
+        public float fireSpeed;
+        
         private Character _character;
 
         private FocusFireController _prefabInstance;
@@ -25,13 +27,12 @@ namespace SouthBasement
         public override void OnEquip()
         {
             _prefabInstance = Instantiate(prefab, _character.GameObject.transform);
+            _prefabInstance.InitRingsInstance(this);
         }
 
         public override void OnRemoved()
         {
-            Debug.Log("ksdflkask;flaskdljf");
-            
-            Destroy(_prefabInstance);
+            Destroy(_prefabInstance.gameObject);
         }
 
         public override Type GetItemType()

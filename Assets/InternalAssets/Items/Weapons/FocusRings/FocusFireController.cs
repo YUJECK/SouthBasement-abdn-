@@ -5,8 +5,10 @@ namespace SouthBasement
 {
     public sealed class FocusFireController : MonoBehaviour
     {
-        [SerializeField] private FocusedFireMovement firePrefab;
-        private List<SpawnPoint<FocusedFireMovement>> _spawnPoints = new();
+        [SerializeField] private FocusedFire firePrefab;
+        
+        private readonly List<SpawnPoint<FocusedFire>> _spawnPoints = new();
+        private FocusRings _ringsInstance;
 
         private void Awake()
         {
@@ -16,11 +18,16 @@ namespace SouthBasement
             
             foreach (var point in points)
             {
-                _spawnPoints.Add(new SpawnPoint<FocusedFireMovement>(point));
+                _spawnPoints.Add(new SpawnPoint<FocusedFire>(point));
             }
         }
 
-        public FocusedFireMovement Create()
+        public void InitRingsInstance(FocusRings rings)
+        {
+            _ringsInstance = rings;
+        }
+        
+        public FocusedFire Create()
         {
             foreach (var point in _spawnPoints)
             {
@@ -31,11 +38,17 @@ namespace SouthBasement
             return null;
         }
 
-        private FocusedFireMovement Spawn(SpawnPoint<FocusedFireMovement> spawnPoint)
+        private FocusedFire Spawn(SpawnPoint<FocusedFire> spawnPoint)
         {
             var instance = Instantiate(firePrefab, spawnPoint.Transform);
+            
             spawnPoint.SetToThis(instance);
-            instance.SetStartingPoint(spawnPoint.Transform);
+            
+            instance.Movement
+                .SetStartingPoint(spawnPoint.Transform)
+                .SetSpeed(_ringsInstance.fireSpeed);
+            
+            instance.SetDamage(_ringsInstance.AttackStatsConfig.Damage);
 
             return instance;
         }
