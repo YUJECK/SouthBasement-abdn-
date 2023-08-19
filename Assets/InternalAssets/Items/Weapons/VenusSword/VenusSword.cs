@@ -28,6 +28,11 @@ namespace SouthBasement
         public override Type GetItemType()
             => typeof(WeaponItem);
 
+        public bool UseCulldown()
+        {
+            return false;
+        }
+
         public IDamagable[] Attack()
         {
             if(_currentVenusSword.rotateSpeed < 10)

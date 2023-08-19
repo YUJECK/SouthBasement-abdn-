@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace SouthBasement.Characters.Components
@@ -7,9 +6,9 @@ namespace SouthBasement.Characters.Components
     [Serializable]
     public sealed class CharacterAnimatorConfig
     {
-        [field: SerializeField] public AnimatorController AnimatorController { get; private set; }
+        [field: SerializeField] public RuntimeAnimatorController AnimatorController { get; private set; }
 
-        public CharacterAnimatorConfig(AnimatorController animatorController)
+        public CharacterAnimatorConfig(RuntimeAnimatorController animatorController)
             => AnimatorController = animatorController;
     }
 }

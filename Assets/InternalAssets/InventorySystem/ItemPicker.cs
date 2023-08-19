@@ -56,7 +56,6 @@ namespace SouthBasement.InventorySystem
             gameObject.name = item.ItemID;
             _spriteRenderer.sprite = Item.ItemSprite;
             _diContainer.Inject(item);
-            item.Init();
         }
 
         private IEnumerator Move(Vector2 move, float speed)

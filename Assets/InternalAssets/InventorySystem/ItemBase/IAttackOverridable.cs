@@ -2,6 +2,7 @@
 {
     public interface IAttackOverridable
     {
+        bool UseCulldown();
         IDamagable[] Attack();
     }
 }

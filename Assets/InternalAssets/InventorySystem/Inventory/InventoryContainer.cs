@@ -54,6 +54,7 @@ namespace SouthBasement.InventorySystem
                 callback?.Invoke(ContainerType, _container[id]);
                 OnRemoved?.Invoke(ContainerType, _container[id]);
                 
+                _container[id].OnRemovedFromInventory();
                 _container.Remove(id);
 
                 return true;
@@ -71,6 +72,8 @@ namespace SouthBasement.InventorySystem
             {
                 callback?.Invoke(ContainerType, item);
                 OnAdded?.Invoke(ContainerType, item);
+                
+                item.OnAddedToInventory();
                 
                 return true;
             }

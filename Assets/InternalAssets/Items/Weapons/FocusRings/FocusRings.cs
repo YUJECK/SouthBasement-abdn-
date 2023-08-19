@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using SouthBasement.Characters;
+using SouthBasement.Characters.Stats;
 using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
@@ -17,11 +18,23 @@ namespace SouthBasement
 
         private FocusFireController _prefabInstance;
         private bool _blocked;
+        private CharacterHealthStats _healthStats;
 
         [Inject]
-        private void Construct(Character character)
+        private void Construct(Character character, CharacterHealthStats healthStats)
         {
-             _character = character;
+            _character = character;
+            _healthStats = healthStats;
+        }
+
+        public override void OnAddedToInventory()
+        {
+            _healthStats.SetHealth(_healthStats.CurrentHealth, _healthStats.MaximumHealth - 30);
+        }
+
+        public override void OnRemovedFromInventory()
+        {
+            _healthStats.SetHealth(_healthStats.CurrentHealth + 30, _healthStats.MaximumHealth + 30);
         }
 
         public override void OnEquip()
@@ -37,6 +50,11 @@ namespace SouthBasement
 
         public override Type GetItemType()
             => typeof(WeaponItem);
+
+        public bool UseCulldown()
+        {
+            return true;
+        }
 
         public IDamagable[] Attack()
         {

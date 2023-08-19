@@ -65,7 +65,7 @@ namespace SouthBasement.InventorySystem
             return new List<Item>().ToArray();
         }
 
-        private ITypeContainer FindWithItem(string id)
+        public ITypeContainer FindWithItem(string id)
         {
             foreach (var typeContainerPair in _itemsContainers)
             {

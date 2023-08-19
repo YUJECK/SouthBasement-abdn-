@@ -21,6 +21,7 @@ namespace SouthBasement
         {
             Checker = GetComponent<FocusedFireTargetChecker>();
             Movement = GetComponent<FocusedFireMovement>();
+            
             _animator = GetComponent<Animator>();
         }
 

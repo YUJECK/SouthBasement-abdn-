@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using SouthBasement.Characters.Components;
 using SouthBasement.InventorySystem;
+using UnityEngine.UIElements;
 
 namespace SouthBasement.Characters.Rat
 {
@@ -25,7 +26,7 @@ namespace SouthBasement.Characters.Rat
 
         public override IDamagable[] Attack()
         {
-            if (Blocked || !Owner.StaminaController.TryDo(Owner.Stats.AttackStats.CurrentStats.StaminaRequire)) 
+            if (Blocked) 
                 return null;
 
             IDamagable[] hitted;
@@ -33,11 +34,14 @@ namespace SouthBasement.Characters.Rat
             if (Weapon != null && Weapon is IAttackOverridable attackOverridable)
             {
                 hitted = attackOverridable.Attack();
+                
+                if(attackOverridable.UseCulldown())
+                    Culldown(Owner.Stats.AttackStats.CurrentStats.AttackRate);
             }
             else
             {
                 hitted = DefaultAttack();
-                if(Weapon!=null) Weapon.OnAttack(hitted);
+                if(Weapon != null) Weapon.OnAttack(hitted);
             }
 
             InvokeAttack(hitted);
@@ -46,9 +50,15 @@ namespace SouthBasement.Characters.Rat
 
         public override IDamagable[] DefaultAttack()
         {
+            var hitted = new IDamagable[12];
+            
+            if (!Owner.StaminaController.TryDo(Owner.Stats.AttackStats.CurrentStats.StaminaRequire))
+                return hitted;
+            
             Owner.Components.Get<ICharacterMovable>().CanMove = false;
 
-            var hitted = Owner.Attacker
+            
+            hitted = Owner.Attacker
                 .Attack(Owner.Stats.AttackStats.CurrentStats.Damage,
                     Owner.Stats.AttackStats.CurrentStats.AttackRate,
                     Owner.Stats.AttackStats.CurrentStats.AttackRange, Weapon);
