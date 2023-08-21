@@ -30,7 +30,7 @@ namespace SouthBasement
             if(damage > 0)
                 _damage = damage;
         }
-        
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             if(other.gameObject.TryGetComponent(out IDamagable damagable))

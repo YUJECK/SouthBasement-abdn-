@@ -46,7 +46,8 @@ namespace SouthBasement
             
             instance.Movement
                 .SetStartingPoint(spawnPoint.Transform)
-                .SetSpeed(_ringsInstance.fireSpeed);
+                .SetSpeed(_ringsInstance.fireSpeed)
+                .SetStaminaController(_ringsInstance.StaminaController);
             
             instance.SetDamage(_ringsInstance.AttackStatsConfig.Damage);
 

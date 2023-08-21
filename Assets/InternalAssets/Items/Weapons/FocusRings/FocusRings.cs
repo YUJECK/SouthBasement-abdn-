@@ -19,12 +19,15 @@ namespace SouthBasement
         private FocusFireController _prefabInstance;
         private bool _blocked;
         private CharacterHealthStats _healthStats;
+        
+        public StaminaController StaminaController { get; private set; }
 
         [Inject]
-        private void Construct(Character character, CharacterHealthStats healthStats)
+        private void Construct(Character character, CharacterHealthStats healthStats, StaminaController staminaController)
         {
             _character = character;
             _healthStats = healthStats;
+            StaminaController = staminaController;
         }
 
         public override void OnAddedToInventory()

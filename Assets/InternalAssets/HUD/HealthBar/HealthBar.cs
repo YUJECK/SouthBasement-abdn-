@@ -1,4 +1,6 @@
-﻿using SouthBasement.Characters.Stats;
+﻿using System;
+using System.Collections;
+using SouthBasement.Characters.Stats;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

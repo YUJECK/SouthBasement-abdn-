@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using SouthBasement.Characters;
 using UnityEngine;
+using Zenject;
 
 namespace SouthBasement
 {
@@ -9,31 +11,48 @@ namespace SouthBasement
         [SerializeField] private AudioSource flySound;
         [SerializeField] private float moveSpeed;
         
+        private StaminaController _staminaController;
+        
         private Transform _startingPoint;
         private Transform _target;
-
+        
         public void Awake()
-            => GetComponent<FocusedFireTargetChecker>().OnTargeted += Move;
+            => GetComponent<FocusedFireTargetChecker>().OnTargeted += AttackTarget;
 
-        private void ReturnToStartingPoint()
-            => Move(_startingPoint);
-
-        public void SetSpeed(float speed)
+        public FocusedFireMovement SetSpeed(float speed)
         {
             if(speed > 0)
-                moveSpeed = speed;    
+                moveSpeed = speed;
+            
+            return this;
+        }
+
+        public FocusedFireMovement SetStaminaController(StaminaController staminaController)
+        {
+            _staminaController = staminaController;
+            return this;
         }
 
         public FocusedFireMovement SetStartingPoint(Transform startingPoint)
         {
             if (startingPoint == null)
-                
                 Debug.LogError("Starting Point null");
             
             _startingPoint = startingPoint;
             return this;
         }
-        
+
+        private void AttackTarget(Transform target)
+        {
+            if (_staminaController.TryDo(10))
+            {
+                Move(target);
+            }
+        }
+
+        private void ReturnToStartingPoint()
+            => Move(_startingPoint);
+
         private void Move(Transform target)
         {
             _target = target;
@@ -59,7 +78,7 @@ namespace SouthBasement
             flySound.Stop();
         }
 
-        private bool TargetWasLost()
-         => _target == null;
+        private bool TargetWasLost() 
+            => _target == null;
     }
 }
