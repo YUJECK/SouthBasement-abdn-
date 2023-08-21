@@ -29,9 +29,7 @@ namespace SouthBasement
             => typeof(WeaponItem);
 
         public bool UseCulldown()
-        {
-            return false;
-        }
+            => false;
 
         public IDamagable[] Attack()
         {

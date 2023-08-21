@@ -12,7 +12,7 @@ namespace SouthBasement.Characters.Rat
 {
     public sealed class RatCharacter : Character, ITickable
     {
-        public DefaultAttacker Attacker { get; private set; }
+        public BaseRatAttacker BaseRatAttacker { get; private set; }
         public CharacterAudioPlayer AudioPlayer { get; private set; }
         public AttackRangeAnimator AttackRangeAnimator { get; private set; }
         public Rigidbody2D Rigidbody { get; private set; }
@@ -46,7 +46,14 @@ namespace SouthBasement.Characters.Rat
             Animator = gameObject.gameObject.Get<Animator>();
             AudioPlayer = gameObject.gameObject.Get<CharacterAudioPlayer>();
             AttackRangeAnimator = gameObject.gameObject.Get<AttackRangeAnimator>();
-            Attacker = gameObject.gameObject.Get<DefaultAttacker>();
+
+            if (BaseRatAttacker != null)
+            {
+                BaseRatAttacker = new BaseRatAttacker(gameObject.gameObject.Get<RatAttackerConfig>());
+                Components.Replace<IAttacker>(BaseRatAttacker);
+            }
+            else 
+                BaseRatAttacker = new BaseRatAttacker(gameObject.gameObject.Get<RatAttackerConfig>());
             
             CreateComponents();
         }
@@ -59,7 +66,8 @@ namespace SouthBasement.Characters.Rat
                 .Add<PlayerAnimator>(playerAnimator)
                 .Add<ICharacterAttacker>(new RatAttack(this))
                 .Add<ICharacterMovable>(new RatMovement(this))
-                .Add<IDashable>(new RatCharacterDashable(this));
+                .Add<IDashable>(new RatCharacterDashable(this))
+                .Add<IAttacker>(BaseRatAttacker);
             
             var flipper = new CharacterMouseFlipper(this, FacingDirections.Left);
             
