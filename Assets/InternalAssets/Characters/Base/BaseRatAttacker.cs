@@ -1,14 +1,23 @@
 ﻿using System.Collections.Generic;
 using SouthBasement.Characters.Components;
 using SouthBasement.Characters.Rat;
+using SouthBasement.Effects;
 using UnityEngine;
+using Zenject;
 
 namespace SouthBasement.Characters
 {
     public sealed class BaseRatAttacker : CharacterComponent<RatCharacter>, IAttacker
     {
         private readonly RatAttackerConfig _attackerConfig;
+        private HitEffectSpawner _hitEffectSpawner;
 
+        [Inject]
+        private void Construct(HitEffectSpawner hitEffectSpawner)
+        {
+            _hitEffectSpawner = hitEffectSpawner;
+        }
+        
         public BaseRatAttacker(RatAttackerConfig attackerConfig)
         {
             _attackerConfig = attackerConfig;
@@ -29,9 +38,8 @@ namespace SouthBasement.Characters
                 {
                     var hitPos = (Vector2)hit.transform.position - hit.offset;
 
-                    if(_attackerConfig.HitEffectPrefab != null)
-                        GameObject.Instantiate(_attackerConfig.HitEffectPrefab, hitPos, Quaternion.identity);
-
+                    _hitEffectSpawner.Spawn(hitPos);
+                    
                     damagable.Damage(damage, args);
                     hitted.Add(damagable);
                 }

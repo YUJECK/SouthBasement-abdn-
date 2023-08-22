@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using SouthBasement.Characters;
 using SouthBasement.Characters.Components;
+using SouthBasement.Effects;
 using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
@@ -17,10 +18,12 @@ namespace SouthBasement
         private VenusSwordObject _currentVenusSword;
         private Character _character;
         private StaminaController _staminaController;
+        private HitEffectSpawner _hitEffectSpawner;
 
         [Inject]
-        private void Construct(StaminaController staminaController, Character character)
+        private void Construct(HitEffectSpawner hitEffectSpawner, StaminaController staminaController, Character character)
         {
+            _hitEffectSpawner = hitEffectSpawner;
             _staminaController = staminaController;
             _character = character;
         }
@@ -53,7 +56,7 @@ namespace SouthBasement
             if (_currentVenusSword == null)
             {
                 _currentVenusSword = Instantiate(venusSwordPrefab, _character.GameObject.transform.position, Quaternion.identity, _character.GameObject.transform);
-                _currentVenusSword.Init(_staminaController, this);
+                _currentVenusSword.Init(_hitEffectSpawner, _staminaController, this);
             }
         }
 

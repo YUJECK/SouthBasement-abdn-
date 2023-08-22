@@ -44,7 +44,7 @@ namespace SouthBasement
             Destroy(GetComponent<Collider2D>());
             _animator.Play(_explodeAnimation);
             
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.34f);
            
             explodeSound.Play();
             Destroy(gameObject);

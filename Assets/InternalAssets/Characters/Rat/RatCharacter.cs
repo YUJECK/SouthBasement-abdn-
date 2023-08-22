@@ -50,10 +50,14 @@ namespace SouthBasement.Characters.Rat
             if (BaseRatAttacker != null)
             {
                 BaseRatAttacker = new BaseRatAttacker(gameObject.gameObject.Get<RatAttackerConfig>());
+                _componentFactory.InitializeComponent(BaseRatAttacker);
                 Components.Replace<IAttacker>(BaseRatAttacker);
             }
-            else 
+            else
+            {
                 BaseRatAttacker = new BaseRatAttacker(gameObject.gameObject.Get<RatAttackerConfig>());
+                _componentFactory.InitializeComponent(BaseRatAttacker);
+            }
             
             CreateComponents();
         }
@@ -61,7 +65,7 @@ namespace SouthBasement.Characters.Rat
         private void CreateComponents()
         {
             var playerAnimator = new PlayerAnimator(this);
-
+            
             Components
                 .Add<PlayerAnimator>(playerAnimator)
                 .Add<ICharacterAttacker>(new RatAttack(this))

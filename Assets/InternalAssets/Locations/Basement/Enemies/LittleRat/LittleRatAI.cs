@@ -19,7 +19,7 @@ namespace SouthBasement.Basement.Enemies.LittleRat
 
             StateMachine.AddAnyTransition<AngryRatAFKState>(CanEnterAFK);
             StateMachine.AddAnyTransition<AngryRatIdleState>(CanEnterIdleState);
-            StateMachine.AddTransition<AngryRatIdleState, AngryRatWalkState>(CanEnterWalkState);
+            StateMachine.AddAnyTransition<AngryRatWalkState>(CanEnterWalkState);
             StateMachine.AddTransition<AngryRatIdleState, AngryRatAttackState>(CanEnterAttackState);
             StateMachine.AddTransition<AngryRatWalkState, AngryRatAttackState>(CanEnterAttackState);
             StateMachine.AddTransition<AngryRatAttackState, LittleRunAwayState>(CanEnterRunAwayState);

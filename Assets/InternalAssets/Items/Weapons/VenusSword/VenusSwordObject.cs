@@ -1,4 +1,5 @@
 ﻿using System;
+using SouthBasement.Effects;
 using SouthBasement.Characters;
 using SouthBasement.Scripts.Helpers;
 using UnityEngine;
@@ -10,13 +11,14 @@ namespace SouthBasement
         private TriggerCallback _attackTrigger;
         private StaminaController _staminaController;
         private VenusSword _venusSword;
+        private HitEffectSpawner _hitEffectSpawner;
 
         public float rotateSpeed = 1f;
 
         private void OnDestroy()
             => _attackTrigger.OnTriggerEnter -= Damage;
 
-        public void Init(StaminaController staminaController, VenusSword venusSword)
+        public void Init(HitEffectSpawner hitEffectSpawner, StaminaController staminaController, VenusSword venusSword)
         {
             if (_venusSword != null) 
                 return;
@@ -24,6 +26,7 @@ namespace SouthBasement
             _attackTrigger = GetComponentInChildren<TriggerCallback>();
             _staminaController = staminaController;
             _venusSword = venusSword;
+            _hitEffectSpawner = hitEffectSpawner;
             
             _attackTrigger.transform.localPosition = new Vector3(0, _venusSword.AttackStatsConfig.AttackRange, 0f);
             _attackTrigger.OnTriggerEnter += Damage;
@@ -31,8 +34,11 @@ namespace SouthBasement
 
         private void Damage(Collider2D obj)
         {
-            if(obj.TryGetComponent(out IDamagable damagable) && _staminaController.CurrentStamina > 0)
+            if (obj.TryGetComponent(out IDamagable damagable) && _staminaController.CurrentStamina > 0)
+            {
                 damagable.Damage(_venusSword.AttackStatsConfig.Damage, Array.Empty<string>());
+                _hitEffectSpawner.Spawn(obj.transform.position);
+            }
         }
 
         private void FixedUpdate()
