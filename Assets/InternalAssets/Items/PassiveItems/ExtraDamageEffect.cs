@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using SouthBasement.Items;
 using UnityEngine;
 
 namespace SouthBasement.BaseScripts.Tests
@@ -23,7 +24,7 @@ namespace SouthBasement.BaseScripts.Tests
             while (Time.time <= startTime + Duration)
             {
                 yield return new WaitForSeconds(_damageRate);
-                Owner.Damage(_damage, new [] { "bleed", "effect" });
+                Owner.Damage(_damage, new [] {ItemsTags.Effect});
             }
         }
     }

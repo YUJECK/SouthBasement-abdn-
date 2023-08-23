@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using SouthBasement.Characters.Components;
 using SouthBasement.InventorySystem;
+using SouthBasement.Items;
 
 namespace SouthBasement.Characters.Rat
 {
@@ -56,7 +57,7 @@ namespace SouthBasement.Characters.Rat
             
             Owner.Components.Get<ICharacterMovable>().CanMove = false;
 
-            var args = Array.Empty<string>();
+            ItemsTags[] args = Array.Empty<ItemsTags>();
             
             if (Weapon != null)
                 args = Weapon.ItemTags.ToArray();

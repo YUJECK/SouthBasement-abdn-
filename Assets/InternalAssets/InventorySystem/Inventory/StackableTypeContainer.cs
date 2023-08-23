@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SouthBasement.Extensions.DataStructures;
+using SouthBasement.Items;
 
 namespace SouthBasement.InventorySystem
 {
@@ -13,8 +14,8 @@ namespace SouthBasement.InventorySystem
         public event Action<string> OnRemoved;
 
         //item tag/item ID/item
-        private Dictionary<string, Dictionary<string, List<Item>>> _tagsContainers = new();
-        private const string All = "all";
+        private Dictionary<ItemsTags, Dictionary<string, List<Item>>> _tagsContainers = new();
+        private const ItemsTags All = ItemsTags.All;
 
         public void Init<TContainerType>()
             where TContainerType : Item
@@ -64,7 +65,7 @@ namespace SouthBasement.InventorySystem
             _tagsContainers[All][id].RemoveAt(0);
 
             if (_tagsContainers[All][id].Count == 0)
-                _tagsContainers[All].Remove(All);
+                _tagsContainers[All].Remove(id);
                 
             foreach (var tag in item.ItemTags)
             {

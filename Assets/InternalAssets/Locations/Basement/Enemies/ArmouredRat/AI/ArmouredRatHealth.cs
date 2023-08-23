@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using SouthBasement.AI;
+using SouthBasement.Items;
 using UnityEngine;
 
 namespace SouthBasement.Basement.Enemies.ArmouredRat.AI
@@ -20,9 +21,9 @@ namespace SouthBasement.Basement.Enemies.ArmouredRat.AI
             }
         }
 
-        public override void Damage(int damage, string[] args)
+        public override void Damage(int damage, ItemsTags[] args)
         {
-            if(!CurrentDefends || args.Contains("effect")) base.Damage(damage, args);
+            if(!CurrentDefends || args.Contains(ItemsTags.Effect)) base.Damage(damage, args);
             else _shieldHitSound.Play();
         }
     }

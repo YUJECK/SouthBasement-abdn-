@@ -1,4 +1,5 @@
 using System.Collections;
+using SouthBasement.Items;
 using UnityEngine;
 
 namespace SouthBasement
@@ -34,7 +35,7 @@ namespace SouthBasement
         private void OnCollisionEnter2D(Collision2D other)
         {
             if(other.gameObject.TryGetComponent(out IDamagable damagable))
-                damagable.Damage(_damage, new[]{"magic"});
+                damagable.Damage(_damage, new[] {ItemsTags.Magic});
 
             StartCoroutine(Explode());
         }

@@ -2,6 +2,7 @@
 using SouthBasement.Characters.Components;
 using SouthBasement.Characters.Rat;
 using SouthBasement.Effects;
+using SouthBasement.Items;
 using UnityEngine;
 using Zenject;
 
@@ -23,7 +24,7 @@ namespace SouthBasement.Characters
             _attackerConfig = attackerConfig;
         }
 
-        public IDamagable[] Attack(int damage, float culldown, float range, string[] args)
+        public IDamagable[] Attack(int damage, float culldown, float range, ItemsTags[] args)
         {
             List<IDamagable> hitted = new(); 
             _attackerConfig.AttackPoint.Stop(culldown - 0.05f);
@@ -46,6 +47,11 @@ namespace SouthBasement.Characters
             }
 
             return hitted.ToArray();
+        }
+
+        public IDamagable[] Attack(int damage, float culldown, float range, string[] args)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

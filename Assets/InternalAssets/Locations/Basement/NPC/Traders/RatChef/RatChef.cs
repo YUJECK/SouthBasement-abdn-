@@ -29,7 +29,7 @@ namespace SouthBasement
         protected override string TraderName() => "Rat Chef";
         protected override TraderHUD GetTraderHUD() => _traderHUD;
         protected override Item GetItem()
-            => _itemsContainer.GetRandomInTypeAndCategory(typeof(FoodItem),"cockroach");
+            => _itemsContainer.GetRandomInTypeAndCategory(typeof(FoodItem),ItemsTags.Cockroach);
         protected override bool CanRepeat() => false;
     }
 }

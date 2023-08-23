@@ -30,9 +30,9 @@ namespace SouthBasement.InventorySystem
                 
             if(CurrentWeapon.ItemID == itemID)
             {
-                CurrentWeapon.OnRemoved();
+                CurrentWeapon.OnUnequip();
                 CurrentWeapon = null;
-                _attackStats.CurrentStats = _attackStats.DefaultAttackStatsConfig;
+                _attackStats.CurrentStats = _attackStats.DefaultCombatStats;
                 OnSelectedNull?.Invoke();
             }
         }
@@ -51,11 +51,11 @@ namespace SouthBasement.InventorySystem
             if (item.GetItemType() == typeof(WeaponItem))
             {
                 if (CurrentWeapon != null) 
-                    CurrentWeapon.OnRemoved();
+                    CurrentWeapon.OnUnequip();
                 
                 CurrentWeapon = item as WeaponItem;
                 CurrentWeapon.OnEquip();
-                _attackStats.CurrentStats = CurrentWeapon.AttackStatsConfig;
+                _attackStats.CurrentStats = CurrentWeapon.CombatStats;
                 
                 OnSelected?.Invoke(CurrentWeapon);
             }

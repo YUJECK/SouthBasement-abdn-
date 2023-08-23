@@ -1,5 +1,6 @@
 using System;
 using SouthBasement;
+using SouthBasement.Items;
 
 public interface IDamagable
 {
@@ -8,5 +9,5 @@ public interface IDamagable
 
     event Action<int> OnDamaged;
     
-    void Damage(int damage, string[] args);
+    void Damage(int damage, ItemsTags[] args);
 }

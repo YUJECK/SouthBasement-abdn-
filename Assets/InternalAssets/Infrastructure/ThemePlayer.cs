@@ -15,8 +15,6 @@ namespace SouthBasement
 
         protected override void OnIdle()
         {
-            Debug.Log("sdlkfskldflsdfkljds");
-            
             if(_currentTheme != null)
                 _currentTheme.Pause();
             mainTheme.Play();

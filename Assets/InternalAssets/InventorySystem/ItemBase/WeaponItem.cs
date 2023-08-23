@@ -1,23 +1,26 @@
-﻿using SouthBasement.Weapons;
+﻿using SouthBasement.Items.Weapons;
+using SouthBasement.Weapons;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SouthBasement.InventorySystem
 {
     public abstract class WeaponItem : Item
     {
-        [field: SerializeField] public AttackStatsConfig AttackStatsConfig { get; private set; }
+        [FormerlySerializedAs("CombatStats")] [SerializeField] private CombatStats combatStats;
+        public CombatStats CombatStats => WeaponsStatsMultiplier.GetMultiplied(this);        
         
         public virtual void OnAttack(IDamagable[] damagables) { }
 
         public override string GetStatsDescription()
         {
-            return $"Damage: {AttackStatsConfig.Damage} \n" +
-                   $"AttackRange: {AttackStatsConfig.AttackRange} \n" +
-                   $"AttackRate: {AttackStatsConfig.AttackRate} \n" +
-                   $"Stamina Require: {AttackStatsConfig.StaminaRequire}";
+            return $"Damage: {combatStats.Damage} \n" +
+                   $"AttackRange: {combatStats.AttackRange} \n" +
+                   $"AttackRate: {combatStats.AttackRate} \n" +
+                   $"Stamina Require: {combatStats.StaminaRequire}";
         }
 
         public virtual void OnEquip() {}
-        public virtual void OnRemoved() {}
+        public virtual void OnUnequip() {}
     }
 }

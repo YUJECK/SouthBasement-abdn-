@@ -1,4 +1,5 @@
 ﻿using System;
+using SouthBasement.Items;
 using UnityEngine;
 
 namespace SouthBasement
@@ -21,7 +22,7 @@ namespace SouthBasement
             Debug.Log("sdkl;fj;lsdkfj;alks");
             
             if (other.TryGetComponent(out IDamagable damagable))
-                damagable.Damage(_damage, new []{ "spawnedObject" });
+                damagable.Damage(_damage, new [] {ItemsTags.ExtraObject});
         }
     }
 }

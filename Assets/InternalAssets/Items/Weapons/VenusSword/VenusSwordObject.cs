@@ -1,6 +1,7 @@
 ﻿using System;
 using SouthBasement.Effects;
 using SouthBasement.Characters;
+using SouthBasement.Items;
 using SouthBasement.Scripts.Helpers;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace SouthBasement
             _venusSword = venusSword;
             _hitEffectSpawner = hitEffectSpawner;
             
-            _attackTrigger.transform.localPosition = new Vector3(0, _venusSword.AttackStatsConfig.AttackRange, 0f);
+            _attackTrigger.transform.localPosition = new Vector3(0, _venusSword.CombatStats.AttackRange, 0f);
             _attackTrigger.OnTriggerEnter += Damage;
         }
 
@@ -36,7 +37,7 @@ namespace SouthBasement
         {
             if (obj.TryGetComponent(out IDamagable damagable) && _staminaController.CurrentStamina > 0)
             {
-                damagable.Damage(_venusSword.AttackStatsConfig.Damage, Array.Empty<string>());
+                damagable.Damage(_venusSword.CombatStats.Damage, Array.Empty<ItemsTags>());
                 _hitEffectSpawner.Spawn(obj.transform.position);
             }
         }
@@ -48,7 +49,7 @@ namespace SouthBasement
             if (rotateSpeed > 1f)
             {
                 rotateSpeed -= 0.015f;
-                _staminaController.TryDo(_venusSword.AttackStatsConfig.StaminaRequire * rotateSpeed);
+                _staminaController.TryDo(_venusSword.CombatStats.StaminaRequire * rotateSpeed);
             }
         }
     }

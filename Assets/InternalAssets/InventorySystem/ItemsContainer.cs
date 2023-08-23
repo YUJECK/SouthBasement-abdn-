@@ -14,7 +14,7 @@ namespace SouthBasement.Items
     {
         private readonly Dictionary<Rarity, List<Item>> _itemsInRarity = new();
         private readonly Dictionary<Type, List<Item>> _itemsInType = new();
-        private readonly Dictionary<string, List<Item>> _itemsInCategory = new();
+        private readonly Dictionary<ItemsTags, List<Item>> _itemsInCategory = new();
         private readonly Dictionary<string, Item> _itemsInID = new();
 
         private readonly ItemPicker _itemPickerPrefab;
@@ -108,7 +108,7 @@ namespace SouthBasement.Items
         public Item GetRandomInType(Type type)
             => _itemsInType[type][Random.Range(0, _itemsInType[type].Count)];
 
-        public Item GetRandomInCategory(string category)
+        public Item GetRandomInCategory(ItemsTags category)
             => _itemsInCategory[category][Random.Range(0, _itemsInCategory[category].Count)];
 
         public Item GetRandomInRarityAndType(Rarity rarity, Type type)
@@ -120,7 +120,7 @@ namespace SouthBasement.Items
 
             return item;
         }
-        public Item GetRandomInRarityAndTypeAndCategory(Rarity rarity, Type type, string category)
+        public Item GetRandomInRarityAndTypeAndCategory(Rarity rarity, Type type, ItemsTags category)
         {
             Item item = GetRandomInRarity(rarity);
 
@@ -129,7 +129,7 @@ namespace SouthBasement.Items
 
             return item;
         }
-        public Item GetRandomInTypeAndCategory(Type type, string category)
+        public Item GetRandomInTypeAndCategory(Type type, ItemsTags category)
         {
             Item item = GetRandomInType(type);
 
@@ -138,7 +138,7 @@ namespace SouthBasement.Items
 
             return item;
         }
-        public Item GetRandomInRarityAndCategory(Rarity rarity, string category)
+        public Item GetRandomInRarityAndCategory(Rarity rarity, ItemsTags category)
         {
             Item item = GetRandomInRarity(rarity);
 

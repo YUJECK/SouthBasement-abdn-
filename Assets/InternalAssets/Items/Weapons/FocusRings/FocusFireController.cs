@@ -49,7 +49,7 @@ namespace SouthBasement
                 .SetSpeed(_ringsInstance.fireSpeed)
                 .SetStaminaController(_ringsInstance.StaminaController);
             
-            instance.SetDamage(_ringsInstance.AttackStatsConfig.Damage);
+            instance.SetDamage(_ringsInstance.CombatStats.Damage);
 
             return instance;
         }

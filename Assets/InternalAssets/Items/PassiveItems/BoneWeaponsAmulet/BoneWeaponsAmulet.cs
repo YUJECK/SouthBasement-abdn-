@@ -3,6 +3,7 @@ using SouthBasement.InventorySystem;
 using SouthBasement.Characters;
 using UnityEngine;
 using System;
+using SouthBasement.Items;
 using Zenject;
 
 namespace SouthBasement.BaseScripts.Tests
@@ -25,7 +26,7 @@ namespace SouthBasement.BaseScripts.Tests
         
         private void ExtraDamage(IDamagable[] hitted)
         {
-            if (_character.Components.Get<ICharacterAttacker>().Weapon == null || !_character.Components.Get<ICharacterAttacker>().Weapon.ItemTags.Contains("bone"))
+            if (_character.Components.Get<ICharacterAttacker>().Weapon == null || !_character.Components.Get<ICharacterAttacker>().Weapon.ItemTags.Contains(ItemsTags.Bone))
                 return;
             
             foreach (var hit in hitted)

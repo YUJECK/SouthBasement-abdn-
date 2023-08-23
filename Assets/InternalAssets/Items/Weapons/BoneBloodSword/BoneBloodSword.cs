@@ -30,7 +30,7 @@ namespace SouthBasement
             
         }
 
-        public override void OnRemoved()
+        public override void OnUnequip()
         {
             
         }

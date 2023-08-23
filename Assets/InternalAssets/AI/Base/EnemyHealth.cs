@@ -1,4 +1,5 @@
 ﻿using System;
+using SouthBasement.Items;
 using UnityEngine;
 
 namespace SouthBasement.AI
@@ -12,7 +13,7 @@ namespace SouthBasement.AI
 
         protected Enemy Enemy;
 
-        public virtual void Damage(int damage, string[] args)
+        public virtual void Damage(int damage, ItemsTags[] args)
         {
             CurrentHealth -= damage;
 

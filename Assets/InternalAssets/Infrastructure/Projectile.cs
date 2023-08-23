@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using SouthBasement.Items;
 using UnityEngine;
 
 namespace SouthBasement
@@ -26,7 +27,7 @@ namespace SouthBasement
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.TryGetComponent(out IDamagable damagable))
-                damagable.Damage(Damage, new [] { "" });
+                damagable.Damage(Damage, new [] {ItemsTags.All});
             
             Destroy(gameObject);
         }

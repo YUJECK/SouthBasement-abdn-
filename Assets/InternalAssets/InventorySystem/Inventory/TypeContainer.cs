@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SouthBasement.Extensions.DataStructures;
+using SouthBasement.Items;
 
 namespace SouthBasement.InventorySystem
 {
@@ -13,14 +14,13 @@ namespace SouthBasement.InventorySystem
         public event Action<string> OnRemoved;
 
         //item tag/item ID/item
-        private Dictionary<string, Dictionary<string, Item>> _tagsContainers = new();
-        private const string All = "all";
+        private Dictionary<ItemsTags, Dictionary<string, Item>> _tagsContainers = new();
 
         public void Init<TContainerType>()
             where TContainerType : Item
         {
             ContainerType = typeof(TContainerType);
-            _tagsContainers.Add(All, new Dictionary<string, Item>());
+            _tagsContainers.Add(ItemsTags.All, new Dictionary<string, Item>());
         }
 
         public void Init(Type type)
@@ -28,25 +28,25 @@ namespace SouthBasement.InventorySystem
             if (type.BaseType == typeof(Item))
                 return;
             
-            _tagsContainers.Add(All, new Dictionary<string, Item>());
+            _tagsContainers.Add(ItemsTags.All, new Dictionary<string, Item>());
             ContainerType = type;
         }
 
         public bool TryGetItem(string id, out Item item)
-            => _tagsContainers[All].TryGetValue(id, out item);
+            => _tagsContainers[ItemsTags.All].TryGetValue(id, out item);
 
         public Item[] GetAllInContainer()
         {
-            return _tagsContainers[All].ToValueArray();
+            return _tagsContainers[ItemsTags.All].ToValueArray();
         }
 
         public bool RemoveItem(string id)
         {
-            if (!_tagsContainers[All].ContainsKey(id))
+            if (!_tagsContainers[ItemsTags.All].ContainsKey(id))
                 return false;
 
-            Item item = _tagsContainers[All][id]; 
-            _tagsContainers[All].Remove(id);
+            Item item = _tagsContainers[ItemsTags.All][id]; 
+            _tagsContainers[ItemsTags.All].Remove(id);
 
             foreach (var tag in item.ItemTags)
                 _tagsContainers[tag].Remove(id);
@@ -60,13 +60,13 @@ namespace SouthBasement.InventorySystem
             if (item.GetItemType() != ContainerType)
                 return false;
 
-            if (!_tagsContainers[All].TryAdd(item.ItemID, item))
+            if (!_tagsContainers[ItemsTags.All].TryAdd(item.ItemID, item))
                 return false;
 
             foreach (var tag in item.ItemTags)
             {
                 if(!_tagsContainers.ContainsKey(tag))
-                    _tagsContainers.Add(tag, new());
+                    _tagsContainers.Add(tag, new Dictionary<string, Item>());
                 
                 _tagsContainers[tag].Add(item.ItemID, item);
             }

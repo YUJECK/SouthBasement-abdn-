@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using SouthBasement.Items;
 using UnityEngine;
 
 namespace SouthBasement
@@ -22,7 +23,7 @@ namespace SouthBasement
             while (Time.time <= startTime + Duration)
             {
                 yield return new WaitForSeconds(_damageRate);
-                Owner.Damage(_damage, new [] { "bleed", "effect" });
+                Owner.Damage(_damage, new [] {ItemsTags.Effect});
             }
         }
     }

@@ -1,4 +1,5 @@
 using System.Collections;
+using SouthBasement.Items;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -13,7 +14,7 @@ namespace SouthBasement
         [SerializeField] private GameObject fishPrefab;
         
         private int _damage = 3;
-        private string[] _args = new []{"water"};
+        private ItemsTags[] _args = new [] {ItemsTags.Water};
         private readonly int _explosionAnimation = Animator.StringToHash("FishBubbleExplode");
 
         private Rigidbody2D _rigidbody;

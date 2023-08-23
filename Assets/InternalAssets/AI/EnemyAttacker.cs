@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using SouthBasement.Items;
 using SouthBasement.Scripts.Characters;
 using UnityEngine;
 
@@ -39,7 +40,7 @@ namespace SouthBasement.AI
             OverlapDecorator
                 .DoFor<IDamagable>(attackPoint.position, AttackRadius, playerLayer, 
                     result => result.ForEach( 
-                           hit => hit.Damage(Damage, new[] {""})));
+                           hit => hit.Damage(Damage, new[] {ItemsTags.All})));
 
             yield return new WaitForSeconds(AttackDuration);
             

@@ -1,5 +1,6 @@
 ﻿using System;
 using SouthBasement.Characters.Stats;
+using SouthBasement.Items;
 using UnityEngine;
 using Zenject;
 
@@ -25,7 +26,7 @@ namespace SouthBasement.Characters
             EffectsHandler = GetComponent<EffectsHandler>();
         }
 
-        public void Damage(int damage, string[] args)
+        public void Damage(int damage, ItemsTags[] args)
         {
             _healthStats.SetHealth(_healthStats.CurrentHealth - damage);
             OnDamaged?.Invoke(CurrentHealth);

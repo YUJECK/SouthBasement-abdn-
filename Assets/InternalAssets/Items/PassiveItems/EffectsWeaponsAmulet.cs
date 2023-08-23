@@ -2,6 +2,7 @@
 using SouthBasement.Characters;
 using SouthBasement.Characters.Components;
 using SouthBasement.InventorySystem;
+using SouthBasement.Items;
 using Zenject;
 
 namespace SouthBasement.BaseScripts.Tests
@@ -24,7 +25,7 @@ namespace SouthBasement.BaseScripts.Tests
 
         private void ExtraEffect(IDamagable[] obj)
         {
-            if (!_character.Components.Get<ICharacterAttacker>().Weapon.ItemTags.Contains("effect")) 
+            if (!_character.Components.Get<ICharacterAttacker>().Weapon.ItemTags.Contains(ItemsTags.Effect)) 
                 return;
 
             foreach (var damagable in obj)

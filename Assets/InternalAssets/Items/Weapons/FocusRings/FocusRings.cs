@@ -19,7 +19,9 @@ namespace SouthBasement
         private FocusFireController _prefabInstance;
         private bool _blocked;
         private CharacterHealthStats _healthStats;
-        
+
+        private int _currentHealthToReturn = 0;
+
         public StaminaController StaminaController { get; private set; }
 
         [Inject]
@@ -30,23 +32,13 @@ namespace SouthBasement
             StaminaController = staminaController;
         }
 
-        public override void OnAddedToInventory()
-        {
-            _healthStats.SetHealth(_healthStats.CurrentHealth, _healthStats.MaximumHealth - 30);
-        }
-
-        public override void OnRemovedFromInventory()
-        {
-            _healthStats.SetHealth(_healthStats.CurrentHealth + 30, _healthStats.MaximumHealth + 30);
-        }
-
         public override void OnEquip()
         {
             _prefabInstance = Instantiate(prefab, _character.GameObject.transform);
             _prefabInstance.InitRingsInstance(this);
         }
 
-        public override void OnRemoved()
+        public override void OnUnequip()
         {
             Destroy(_prefabInstance.gameObject);
         }
@@ -65,7 +57,7 @@ namespace SouthBasement
             
             _prefabInstance.Create();
 
-            Culldown(AttackStatsConfig.AttackRate);
+            Culldown(CombatStats.AttackRate);
             
             return Array.Empty<IDamagable>();
         }

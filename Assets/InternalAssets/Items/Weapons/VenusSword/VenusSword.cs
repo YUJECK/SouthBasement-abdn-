@@ -39,7 +39,7 @@ namespace SouthBasement
             if(_currentVenusSword.rotateSpeed < 10)
                 _currentVenusSword.rotateSpeed += RotateSpeed;
             
-            Culldown(AttackStatsConfig.AttackRate);
+            Culldown(CombatStats.AttackRate);
         
             return null;
         }
@@ -60,7 +60,7 @@ namespace SouthBasement
             }
         }
 
-        public override void OnRemoved()
+        public override void OnUnequip()
         {
             if(_currentVenusSword != null)
                 Destroy(_currentVenusSword.gameObject);
