@@ -2,50 +2,90 @@
 using SouthBasement.Helpers;
 using SouthBasement.InventorySystem;
 using SouthBasement.Weapons;
+using UnityEngine;
 
 namespace SouthBasement.Items.Weapons
 {
     public static class WeaponsStatsMultiplier
     {
-        private static readonly Dictionary<ItemsTags, Multiplier> Multipliers = new();
+        private static readonly Dictionary<AttackTags, Multiplier> Multipliers = new();
 
         static WeaponsStatsMultiplier()
         {
-            var tags = EnumHelper.GetAllValues<ItemsTags>();
+            var tags = EnumHelper.GetAllValues<AttackTags>();
 
             foreach (var tag in tags)
                 Multipliers.Add(tag, new Multiplier());
         }
 
-        public static CombatStats GetMultiplied(WeaponItem weaponItem)
+        public static CombatStats GetMultiplied(CombatStats stats)
         {
-            CombatStats multipliedStats = new();
-            List<Multiplier> multipliers = new();
+            CombatStats multipliedStats = new()
+            {
+                Damage = stats.Damage,
+                AttackRate = stats.AttackRate,
+                StaminaRequire = stats.StaminaRequire,
+                AttackRange = stats.AttackRange,
+                AttackTags = stats.AttackTags
+            };
 
-            foreach (var tag in weaponItem.ItemTags)
+            foreach (var tag in stats.AttackTags)
             {
                 var multiplier = GetMultiplier(tag);
                 
-                multipliers.Add(multiplier);
-
-                multipliedStats.Damage = (int)(multipliedStats.Damage * multiplier.Damage);
-                multipliedStats.AttackRate = (int)(multipliedStats.AttackRate * multiplier.AttackRate);
-                multipliedStats.StaminaRequire = (int)(multipliedStats.StaminaRequire * multiplier.StaminaRequire);
+                multipliedStats.Damage = (int)(stats.Damage * multiplier.Damage);
+                multipliedStats.AttackRate = (int)(stats.AttackRate * multiplier.AttackRate);
+                multipliedStats.StaminaRequire = (int)(stats.StaminaRequire * multiplier.StaminaRequire);
             }
 
             return multipliedStats;
         }
-        
-        public static Multiplier GetMultiplier(ItemsTags tag)
+
+        public static CombatStats GetMultiplied(WeaponItem weaponItem)
+            => GetMultiplied(weaponItem.OriginalCombatStats);
+
+        public static Multiplier GetMultiplier(AttackTags tag)
         {
             return Multipliers[tag];
         }
 
         public sealed class Multiplier
         {
-            public float Damage = 1;
-            public float AttackRate = 1;
-            public float StaminaRequire = 1;
+            private float _damage = 1;
+            public float Damage
+            {
+                get => _damage;
+                set
+                {
+                    value = Mathf.Clamp(value, 0.1f, 2f);
+                    
+                    _damage = value;
+                }
+            }
+            
+            private float _attackRate = 1;
+            public float AttackRate
+            {
+                get => _attackRate;
+                set
+                {
+                    value = Mathf.Clamp(value, 0.1f, 2f);
+                    
+                    _attackRate = value;
+                }
+            }
+            
+            private float _staminaRequire = 0;
+            public float StaminaRequire
+            {
+                get => _staminaRequire;
+                set
+                {
+                    value = Mathf.Clamp(value, 0.1f, 2f);
+                    
+                    _staminaRequire = value;
+                }
+            }
         }
     }
 }

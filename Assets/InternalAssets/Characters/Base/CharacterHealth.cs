@@ -26,7 +26,7 @@ namespace SouthBasement.Characters
             EffectsHandler = GetComponent<EffectsHandler>();
         }
 
-        public void Damage(int damage, ItemsTags[] args)
+        public void Damage(int damage, AttackTags[] args)
         {
             _healthStats.SetHealth(_healthStats.CurrentHealth - damage);
             OnDamaged?.Invoke(CurrentHealth);

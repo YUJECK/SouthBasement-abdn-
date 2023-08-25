@@ -4,6 +4,7 @@ using SouthBasement.Characters;
 using UnityEngine;
 using System;
 using SouthBasement.Items;
+using SouthBasement.Items.Weapons;
 using Zenject;
 
 namespace SouthBasement.BaseScripts.Tests
@@ -11,34 +12,17 @@ namespace SouthBasement.BaseScripts.Tests
     [CreateAssetMenu(menuName = AssetMenuHelper.PassiveItem + "BoneWeaponsAmulet")]
     public sealed class BoneWeaponsAmulet : PassiveItem
     {
-        [SerializeField] private int extraDamage = 3;
-        private Character _character;
-
-        [Inject]
-        private void Construct(Character character) 
-            => _character = character;
+        [SerializeField] private float mulptiplier = 0.2f;
 
         public override void OnPutOn()
-            => _character.Components.Get<ICharacterAttacker>().OnAttacked += ExtraDamage;
+            => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Bone).Damage += mulptiplier;
 
         public override void OnPutOut()
-            =>  _character.Components.Get<ICharacterAttacker>().OnAttacked -= ExtraDamage;
+            => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Bone).Damage -= mulptiplier;
         
-        private void ExtraDamage(IDamagable[] hitted)
-        {
-            if (_character.Components.Get<ICharacterAttacker>().Weapon == null || !_character.Components.Get<ICharacterAttacker>().Weapon.ItemTags.Contains(ItemsTags.Bone))
-                return;
-            
-            foreach (var hit in hitted)
-            {
-                extraDamage = 3;
-                hit.Damage(extraDamage, _character.Components.Get<ICharacterAttacker>().Weapon.ItemTags.ToArray());
-            }
-        }
-
         public override string GetStatsDescription()
         {
-            return "Increases bone weapons damage on 3 units";
+            return "Multiply bone weapons damage on 1.2 units";
         }
 
         public override Type GetItemType()

@@ -2,7 +2,7 @@
 using SouthBasement.Characters.Components;
 using SouthBasement.Characters.Rat;
 using SouthBasement.Effects;
-using SouthBasement.Items;
+using SouthBasement.Weapons;
 using UnityEngine;
 using Zenject;
 
@@ -24,14 +24,14 @@ namespace SouthBasement.Characters
             _attackerConfig = attackerConfig;
         }
 
-        public IDamagable[] Attack(int damage, float culldown, float range, ItemsTags[] args)
+        public IDamagable[] Attack(CombatStats combatStats)
         {
             List<IDamagable> hitted = new(); 
-            _attackerConfig.AttackPoint.Stop(culldown - 0.05f);
+            _attackerConfig.AttackPoint.Stop(combatStats.AttackRate - 0.05f);
 
             var mask = LayerMask.GetMask("Enemy"); 
             
-            var hits = Physics2D.OverlapCircleAll(_attackerConfig.AttackPoint.Point.transform.position, range, mask);
+            var hits = Physics2D.OverlapCircleAll(_attackerConfig.AttackPoint.Point.transform.position, combatStats.AttackRange, mask);
 
             foreach (var hit in hits)
             {
@@ -41,7 +41,7 @@ namespace SouthBasement.Characters
 
                     _hitEffectSpawner.Spawn(hitPos);
                     
-                    damagable.Damage(damage, args);
+                    damagable.Damage(combatStats.Damage, combatStats.AttackTags.ToArray());
                     hitted.Add(damagable);
                 }
             }

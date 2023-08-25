@@ -7,17 +7,22 @@ namespace SouthBasement.InventorySystem
 {
     public abstract class WeaponItem : Item
     {
-        [FormerlySerializedAs("CombatStats")] [SerializeField] private CombatStats combatStats;
+        [field: FormerlySerializedAs("CombatStats")] 
+        [field: SerializeField] public CombatStats OriginalCombatStats
+        {
+            get;
+            private set;
+        }
         public CombatStats CombatStats => WeaponsStatsMultiplier.GetMultiplied(this);        
         
         public virtual void OnAttack(IDamagable[] damagables) { }
 
         public override string GetStatsDescription()
         {
-            return $"Damage: {combatStats.Damage} \n" +
-                   $"AttackRange: {combatStats.AttackRange} \n" +
-                   $"AttackRate: {combatStats.AttackRate} \n" +
-                   $"Stamina Require: {combatStats.StaminaRequire}";
+            return $"Damage: {CombatStats.Damage} \n" +
+                   $"AttackRange: {CombatStats.AttackRange} \n" +
+                   $"AttackRate: {CombatStats.AttackRate} \n" +
+                   $"Stamina Require: {CombatStats.StaminaRequire}";
         }
 
         public virtual void OnEquip() {}

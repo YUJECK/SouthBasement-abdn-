@@ -35,7 +35,7 @@ namespace SouthBasement
         private void OnCollisionEnter2D(Collision2D other)
         {
             if(other.gameObject.TryGetComponent(out IDamagable damagable))
-                damagable.Damage(_damage, new[] {ItemsTags.Magic});
+                damagable.Damage(_damage, new[] { AttackTags.Magic });
 
             StartCoroutine(Explode());
         }

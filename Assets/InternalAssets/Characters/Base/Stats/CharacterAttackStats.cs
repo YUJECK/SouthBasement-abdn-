@@ -1,15 +1,27 @@
 ﻿using System;
+using SouthBasement.Items.Weapons;
 using SouthBasement.Weapons;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace SouthBasement.Characters.Stats
 {
     [Serializable]
     public sealed class CharacterAttackStats
     {
-        public int Damage => (int) (CurrentStats.Damage * DamageMultiplier);
-        public CombatStats CurrentStats { get; set; } = new();
-        public float DamageMultiplier { get; set; } = 1f;
         [field: SerializeField] public CombatStats DefaultCombatStats { get; private set; } = new();
+        
+        public CombatStats CurrentStats => _currentStats;
+
+        private CombatStats _currentStats;
+
+        public CharacterAttackStats()
+            => SetStats(DefaultCombatStats);
+
+        public void SetStats(CombatStats combatStats)
+        {
+            if (combatStats != null)
+                _currentStats = combatStats;
+        }
     }
 }

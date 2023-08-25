@@ -40,7 +40,7 @@ namespace SouthBasement.AI
             OverlapDecorator
                 .DoFor<IDamagable>(attackPoint.position, AttackRadius, playerLayer, 
                     result => result.ForEach( 
-                           hit => hit.Damage(Damage, new[] {ItemsTags.All})));
+                           hit => hit.Damage(Damage, new[] {AttackTags.None})));
 
             yield return new WaitForSeconds(AttackDuration);
             

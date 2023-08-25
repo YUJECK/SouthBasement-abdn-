@@ -25,7 +25,7 @@ namespace SouthBasement.BaseScripts.Tests
 
         private void ExtraEffect(IDamagable[] obj)
         {
-            if (!_character.Components.Get<ICharacterAttacker>().Weapon.ItemTags.Contains(ItemsTags.Effect)) 
+            if (!_character.Components.Get<ICharacterAttacker>().Weapon.CombatStats.AttackTags.Contains(AttackTags.Effect)) 
                 return;
 
             foreach (var damagable in obj)

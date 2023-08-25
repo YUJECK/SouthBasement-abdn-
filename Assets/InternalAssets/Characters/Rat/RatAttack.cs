@@ -2,7 +2,6 @@
 using Cysharp.Threading.Tasks;
 using SouthBasement.Characters.Components;
 using SouthBasement.InventorySystem;
-using SouthBasement.Items;
 
 namespace SouthBasement.Characters.Rat
 {
@@ -56,16 +55,8 @@ namespace SouthBasement.Characters.Rat
                 return hitted;
             
             Owner.Components.Get<ICharacterMovable>().CanMove = false;
-
-            ItemsTags[] args = Array.Empty<ItemsTags>();
             
-            if (Weapon != null)
-                args = Weapon.ItemTags.ToArray();
-            
-            hitted = Owner.BaseRatAttacker
-                .Attack(Owner.Stats.AttackStats.CurrentStats.Damage,
-                    Owner.Stats.AttackStats.CurrentStats.AttackRate,
-                    Owner.Stats.AttackStats.CurrentStats.AttackRange, args);
+            hitted = Owner.BaseRatAttacker.Attack(Owner.Stats.AttackStats.CurrentStats);
             
             Owner.AttackRangeAnimator.Play();
             Owner.AudioPlayer.PlayAttack();

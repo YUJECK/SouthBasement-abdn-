@@ -22,7 +22,7 @@ namespace SouthBasement
             Debug.Log("sdkl;fj;lsdkfj;alks");
             
             if (other.TryGetComponent(out IDamagable damagable))
-                damagable.Damage(_damage, new [] {ItemsTags.ExtraObject});
+                damagable.Damage(_damage, new [] {AttackTags.ExtraObject});
         }
     }
 }

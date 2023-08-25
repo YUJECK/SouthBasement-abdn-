@@ -20,10 +20,10 @@ namespace SouthBasement.InventorySystem
             _inventory = inventory;
             
             inventory.OnAdded += SetCurrent;
-            inventory.OnRemoved += CheckCurrent;
+            inventory.OnRemoved += RemoveCheckCurrent;
         }
 
-        private void CheckCurrent(string itemID)
+        private void RemoveCheckCurrent(string itemID)
         {
             if(CurrentWeapon == null)
                 return;
@@ -32,7 +32,7 @@ namespace SouthBasement.InventorySystem
             {
                 CurrentWeapon.OnUnequip();
                 CurrentWeapon = null;
-                _attackStats.CurrentStats = _attackStats.DefaultCombatStats;
+                _attackStats.SetStats(_attackStats.DefaultCombatStats);
                 OnSelectedNull?.Invoke();
             }
         }
@@ -40,7 +40,7 @@ namespace SouthBasement.InventorySystem
         ~WeaponsUsage()
         {
             _inventory.OnAdded -= SetCurrent;
-            _inventory.OnRemoved -= CheckCurrent;
+            _inventory.OnRemoved -= RemoveCheckCurrent;
         }
 
         public void SetCurrent(Item item)
@@ -55,7 +55,8 @@ namespace SouthBasement.InventorySystem
                 
                 CurrentWeapon = item as WeaponItem;
                 CurrentWeapon.OnEquip();
-                _attackStats.CurrentStats = CurrentWeapon.CombatStats;
+                _attackStats.SetStats(CurrentWeapon.CombatStats);
+                Debug.Log(CurrentWeapon.CombatStats.AttackTags.Count);
                 
                 OnSelected?.Invoke(CurrentWeapon);
             }

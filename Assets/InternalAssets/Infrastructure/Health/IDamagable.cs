@@ -8,6 +8,6 @@ public interface IDamagable
     EffectsHandler EffectsHandler { get; }
 
     event Action<int> OnDamaged;
-    
-    void Damage(int damage, ItemsTags[] args);
+    void Damage(int damage, AttackTags[] args);
+
 }

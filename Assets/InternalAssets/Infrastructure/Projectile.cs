@@ -27,7 +27,7 @@ namespace SouthBasement
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.TryGetComponent(out IDamagable damagable))
-                damagable.Damage(Damage, new [] {ItemsTags.All});
+                damagable.Damage(Damage, new [] { AttackTags.None });
             
             Destroy(gameObject);
         }

@@ -1,9 +1,9 @@
-﻿using SouthBasement.Items;
+﻿using SouthBasement.Weapons;
 
 namespace SouthBasement.Characters
 {
     public interface IAttacker
     {
-        IDamagable[] Attack(int damage, float culldown, float range, ItemsTags[] args);
+        IDamagable[] Attack(CombatStats combatStats);
     }
 }

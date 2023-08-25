@@ -24,7 +24,7 @@ namespace SouthBasement.BaseScripts.Tests
             while (Time.time <= startTime + Duration)
             {
                 yield return new WaitForSeconds(_damageRate);
-                Owner.Damage(_damage, new [] {ItemsTags.Effect});
+                Owner.Damage(_damage, new [] {AttackTags.Effect});
             }
         }
     }

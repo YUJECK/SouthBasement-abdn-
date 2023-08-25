@@ -21,9 +21,9 @@ namespace SouthBasement.Basement.Enemies.ArmouredRat.AI
             }
         }
 
-        public override void Damage(int damage, ItemsTags[] args)
+        public override void Damage(int damage, AttackTags[] args)
         {
-            if(!CurrentDefends || args.Contains(ItemsTags.Effect)) base.Damage(damage, args);
+            if(!CurrentDefends || args.Contains(AttackTags.Effect)) base.Damage(damage, args);
             else _shieldHitSound.Play();
         }
     }

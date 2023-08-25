@@ -14,7 +14,7 @@ namespace SouthBasement
         [SerializeField] private GameObject fishPrefab;
         
         private int _damage = 3;
-        private ItemsTags[] _args = new [] {ItemsTags.Water};
+        private readonly AttackTags[] _args = { AttackTags.Water };
         private readonly int _explosionAnimation = Animator.StringToHash("FishBubbleExplode");
 
         private Rigidbody2D _rigidbody;
