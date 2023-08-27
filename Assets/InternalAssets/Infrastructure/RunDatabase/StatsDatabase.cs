@@ -9,7 +9,7 @@ namespace SouthBasement
 {
     public sealed class StatsDatabase : IRunDatabase
     {
-        private DiContainer _diContainer;
+        private readonly DiContainer _diContainer;
         private ICoroutineRunner _coroutineRunner;
 
         public CharacterStats Stats { get; private set; }
@@ -34,31 +34,37 @@ namespace SouthBasement
             var configPrefab = Resources.Load<CharacterConfig>(ResourcesPathHelper.RatConfig);
             var config = ScriptableObject.Instantiate(configPrefab);
             
-            Stats = new(config.DefaultStats);
+            Stats = new CharacterStats(config.DefaultStats);
 
             _diContainer
                 .Bind<CharacterStats>()
-                .FromInstance(Stats);
+                .FromInstance(Stats)
+                .AsSingle();
 
             _diContainer
-                .Bind<CharacterAttackStats>()
-                .FromInstance(Stats.AttackStats);
+                .Bind<CharacterCombatStats>()
+                .FromInstance(Stats.CombatStats)
+                .AsSingle();
 
             _diContainer
                 .Bind<CharacterHealthStats>()
-                .FromInstance(Stats.HealthStats);
+                .FromInstance(Stats.HealthStats)
+                .AsSingle();
 
             _diContainer
                 .Bind<CharacterMoveStats>()
-                .FromInstance(Stats.MoveStats);
+                .FromInstance(Stats.MoveStats)
+                .AsSingle();
 
             _diContainer
                 .Bind<CharacterStaminaStats>()
-                .FromInstance(Stats.StaminaStats);
+                .FromInstance(Stats.StaminaStats)
+                .AsSingle();
 
             _diContainer
                 .Bind<StaminaController>()
-                .FromInstance(new StaminaController(Stats.StaminaStats, _coroutineRunner));
+                .FromInstance(new StaminaController(Stats.StaminaStats, _coroutineRunner))
+                .AsSingle();
 
             Created = true;
         }
@@ -68,7 +74,7 @@ namespace SouthBasement
             Created = false;
 
             _diContainer.Unbind<CharacterStats>();
-            _diContainer.Unbind<CharacterAttackStats>();
+            _diContainer.Unbind<CharacterCombatStats>();
             _diContainer.Unbind<CharacterHealthStats>();
             _diContainer.Unbind<CharacterMoveStats>();
             _diContainer.Unbind<CharacterStaminaStats>();
@@ -84,31 +90,7 @@ namespace SouthBasement
             var configPrefab = Resources.Load<CharacterConfig>(ResourcesPathHelper.RatConfig);
             var config = ScriptableObject.Instantiate(configPrefab);
             
-            Stats = new(config.DefaultStats);
-
-            _diContainer
-                .Rebind<CharacterStats>()
-                .FromInstance(Stats);
-
-            _diContainer
-                .Rebind<CharacterAttackStats>()
-                .FromInstance(Stats.AttackStats);
-
-            _diContainer
-                .Rebind<CharacterHealthStats>()
-                .FromInstance(Stats.HealthStats);
-
-            _diContainer
-                .Rebind<CharacterMoveStats>()
-                .FromInstance(Stats.MoveStats);
-
-            _diContainer
-                .Rebind<CharacterStaminaStats>()
-                .FromInstance(Stats.StaminaStats);
-
-            _diContainer
-                .Rebind<StaminaController>()
-                .FromInstance(new StaminaController(Stats.StaminaStats, _coroutineRunner));
+            Stats.Reset();
         }
     }
 }

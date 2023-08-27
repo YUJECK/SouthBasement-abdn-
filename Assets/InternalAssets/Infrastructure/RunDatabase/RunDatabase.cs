@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 using SouthBasement.Characters.Base;
 using SouthBasement.Economy;
 using SouthBasement.InputServices;
@@ -20,7 +21,7 @@ namespace SouthBasement
         {
             _diContainer = diContainer;
             _inputService = inputService;
-            
+
             Create();
         }
 
@@ -34,7 +35,7 @@ namespace SouthBasement
             _runDatabases = new List<IRunDatabase>
             {
                 stats,
-                new ItemsAndInventoryDatabase(_diContainer, stats.Stats.AttackStats, _inputService),
+                new ItemsAndInventoryDatabase(_diContainer, stats.Stats.CombatStats, _inputService),
                 new CheeseRunDatabase(),
                 _characterRunDatabase, 
             };

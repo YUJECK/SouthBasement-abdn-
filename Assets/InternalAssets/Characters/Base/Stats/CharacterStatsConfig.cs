@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace SouthBasement
 {
-    [Serializable]
-    public sealed class CharacterStatsConfig
+    [CreateAssetMenu(menuName = AssetMenuHelper.Infrastructure+"CharacterStatsConfig")]
+    public sealed class CharacterStatsConfig : ScriptableObject
     {
-        public CharacterAttackStats AttackStats = new();
-        public CharacterHealthStats HealthStats = new();
-        public CharacterStaminaStats StaminaStats = new();
-        public CharacterMoveStats MoveStats = new();
+        public readonly CharacterCombatStats CombatStats = new();
+        public readonly CharacterHealthStats HealthStats = new();
+        public readonly CharacterStaminaStats StaminaStats = new();
+        public readonly CharacterMoveStats MoveStats = new();
     }
 }

@@ -22,7 +22,8 @@ namespace SouthBasement
 
             _diContainer
                 .Bind<Character>()
-                .FromInstance(Character);
+                .FromInstance(Character)
+                .AsCached();
 
             Created = true;
         }
@@ -54,7 +55,8 @@ namespace SouthBasement
 
             _diContainer
                 .Rebind<Character>()
-                .FromInstance(Character);
+                .FromInstance(Character)
+                .AsCached();
         }
     }
 }

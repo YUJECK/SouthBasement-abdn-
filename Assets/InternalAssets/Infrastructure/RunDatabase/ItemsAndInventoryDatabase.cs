@@ -1,10 +1,7 @@
-﻿using SouthBasement.Characters;
-using SouthBasement.Characters.Stats;
-using SouthBasement.Helpers;
+﻿using SouthBasement.Characters.Stats;
 using SouthBasement.Infrastucture;
 using SouthBasement.InputServices;
 using SouthBasement.InventorySystem;
-using UnityEngine;
 using Zenject;
 
 namespace SouthBasement
@@ -13,7 +10,7 @@ namespace SouthBasement
     {
         private readonly DiContainer _container;
         
-        private readonly CharacterAttackStats _attackStats;
+        private readonly CharacterCombatStats _combatStats;
         private readonly IInputService _inputService;
         private Inventory _inventory;
         private ICoroutineRunner _coroutineRunner;
@@ -22,11 +19,11 @@ namespace SouthBasement
 
         public bool Created { get; private set; }
 
-        public ItemsAndInventoryDatabase(DiContainer container, CharacterAttackStats attackStats, IInputService inputService)
+        public ItemsAndInventoryDatabase(DiContainer container, CharacterCombatStats combatStats, IInputService inputService)
         {
             _container = container;
             
-            _attackStats = attackStats;
+            _combatStats = combatStats;
             _inputService = inputService;
         }
 
@@ -62,21 +59,25 @@ namespace SouthBasement
 
             _container
                 .Rebind<Inventory>()
-                .FromInstance(_inventory);
+                .FromInstance(_inventory)
+                .AsCached();
 
             _container
                 .Rebind<ActiveItemUsage>()
-                .FromInstance(new ActiveItemUsage(_inputService, _inventory));
+                .FromInstance(new ActiveItemUsage(_inputService, _inventory))
+                .AsCached();
 
-            _weaponsUsage = new WeaponsUsage(_inventory, _attackStats);
+            _weaponsUsage = new WeaponsUsage(_inventory, _combatStats);
             
             _container
                 .Rebind<WeaponsUsage>()
-                .FromInstance(_weaponsUsage);
+                .FromInstance(_weaponsUsage)
+                .AsCached();
 
             _container
                 .Rebind<PassiveItemsUsage>()
-                .FromInstance(new PassiveItemsUsage(_inventory));
+                .FromInstance(new PassiveItemsUsage(_inventory))
+                .AsCached();
         }
         
         private void BindInventory()
@@ -88,28 +89,32 @@ namespace SouthBasement
 
             _container
                 .BindInterfacesAndSelfTo<Inventory>()
-                .FromInstance(_inventory);
+                .FromInstance(_inventory)
+                .AsCached();
 
         }
         private void BindActiveItemUsager()
         {
             _container
                 .Bind<ActiveItemUsage>()
-                .FromInstance(new ActiveItemUsage(_inputService, _inventory));
+                .FromInstance(new ActiveItemUsage(_inputService, _inventory))
+                .AsCached();
         }
         private void BindWeaponsItemUsager()
         {
-            _weaponsUsage = new WeaponsUsage(_inventory, _attackStats);
+            _weaponsUsage = new WeaponsUsage(_inventory, _combatStats);
 
             _container
                 .Bind<WeaponsUsage>()
-                .FromInstance(_weaponsUsage);
+                .FromInstance(_weaponsUsage)
+                .AsCached();
         }
         private void BindPassiveItemUsager()
         {
             _container
                 .BindInterfacesTo<PassiveItemsUsage>()
-                .FromInstance(new PassiveItemsUsage(_inventory));
+                .FromInstance(new PassiveItemsUsage(_inventory))
+                .AsCached();
         }
 
         public void OnCharacterSpawned()

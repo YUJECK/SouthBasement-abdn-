@@ -9,5 +9,4 @@ public interface IDamagable
 
     event Action<int> OnDamaged;
     void Damage(int damage, AttackTags[] args);
-
 }

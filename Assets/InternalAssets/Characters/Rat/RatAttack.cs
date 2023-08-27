@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using SouthBasement.Characters.Components;
 using SouthBasement.InventorySystem;
+using UnityEngine;
 
 namespace SouthBasement.Characters.Rat
 {
@@ -19,9 +20,7 @@ namespace SouthBasement.Characters.Rat
             => Owner.Inputs.OnAttack -= StartAttack;
 
         private void StartAttack()
-        {
-            Attack();
-        }
+            => Attack();
 
         public override IDamagable[] Attack()
         {
@@ -35,8 +34,8 @@ namespace SouthBasement.Characters.Rat
                 hitted = attackOverridable.Attack();
                 
                 if(attackOverridable.UseCulldown())
-                    Culldown(Owner.Stats.AttackStats.CurrentStats.AttackRate);
-            }
+                    Culldown(Owner.Stats.CombatStats.CurrentStats.Multiplied.AttackRate);
+            }   
             else
             {
                 hitted = DefaultAttack();
@@ -51,17 +50,17 @@ namespace SouthBasement.Characters.Rat
         {
             var hitted = new IDamagable[12];
             
-            if (!Owner.StaminaController.TryDo(Owner.Stats.AttackStats.CurrentStats.StaminaRequire))
+            if (!Owner.StaminaController.TryDo(Owner.Stats.CombatStats.CurrentStats.Multiplied.StaminaRequire))
                 return hitted;
             
             Owner.Components.Get<ICharacterMovable>().CanMove = false;
             
-            hitted = Owner.BaseRatAttacker.Attack(Owner.Stats.AttackStats.CurrentStats);
+            hitted = Owner.BaseRatAttacker.Attack(Owner.Stats.CombatStats.CurrentStats.Multiplied);
             
             Owner.AttackRangeAnimator.Play();
             Owner.AudioPlayer.PlayAttack();
             
-            Culldown(Owner.Stats.AttackStats.CurrentStats.AttackRate);
+            Culldown(Owner.Stats.CombatStats.CurrentStats.Multiplied.AttackRate);
             
             return hitted;
         }
@@ -69,9 +68,13 @@ namespace SouthBasement.Characters.Rat
         public async void Culldown(float culldown)
         {
             Blocked = true;
+            
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
+            
             Owner.Components.Get<ICharacterMovable>().CanMove = true;
+            
             await UniTask.Delay(TimeSpan.FromSeconds(culldown - 0.3f));
+            
             Blocked = false;
         }
     }

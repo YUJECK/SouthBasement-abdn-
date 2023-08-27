@@ -8,19 +8,25 @@ namespace SouthBasement.InventorySystem
     {
         public WeaponItem CurrentWeapon { get; private set; }
         private ActiveItemUsage _activeItemUsage;
-        private readonly CharacterAttackStats _attackStats;
+        
+        private readonly CharacterCombatStats _combatStats;
         private readonly Inventory _inventory;
 
         public event Action<WeaponItem> OnSelected;
         public event Action OnSelectedNull;
         
-        public WeaponsUsage(Inventory inventory, CharacterAttackStats attackStats)
+        public WeaponsUsage(Inventory inventory, CharacterCombatStats combatStats)
         {
-            _attackStats = attackStats;
+            _combatStats = combatStats;
             _inventory = inventory;
             
             inventory.OnAdded += SetCurrent;
             inventory.OnRemoved += RemoveCheckCurrent;
+        }
+        ~WeaponsUsage()
+        {
+            _inventory.OnAdded -= SetCurrent;
+            _inventory.OnRemoved -= RemoveCheckCurrent;
         }
 
         private void RemoveCheckCurrent(string itemID)
@@ -32,16 +38,11 @@ namespace SouthBasement.InventorySystem
             {
                 CurrentWeapon.OnUnequip();
                 CurrentWeapon = null;
-                _attackStats.SetStats(_attackStats.DefaultCombatStats);
+                _combatStats.SetWeapon(_combatStats.DefaultStats);
                 OnSelectedNull?.Invoke();
             }
         }
 
-        ~WeaponsUsage()
-        {
-            _inventory.OnAdded -= SetCurrent;
-            _inventory.OnRemoved -= RemoveCheckCurrent;
-        }
 
         public void SetCurrent(Item item)
         {
@@ -55,8 +56,7 @@ namespace SouthBasement.InventorySystem
                 
                 CurrentWeapon = item as WeaponItem;
                 CurrentWeapon.OnEquip();
-                _attackStats.SetStats(CurrentWeapon.CombatStats);
-                Debug.Log(CurrentWeapon.CombatStats.AttackTags.Count);
+                _combatStats.SetWeapon(CurrentWeapon.CombatStats);
                 
                 OnSelected?.Invoke(CurrentWeapon);
             }
