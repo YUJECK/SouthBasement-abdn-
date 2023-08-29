@@ -1,11 +1,8 @@
-﻿using System;
-using Subtegral.DialogueSystem.Runtime;
+﻿using Subtegral.DialogueSystem.Runtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Localization.Components;
-using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;
 using UnityEngine.UI;
 
 namespace SouthBasement.DialogueHUD

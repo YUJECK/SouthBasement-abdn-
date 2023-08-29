@@ -17,14 +17,5 @@ namespace SouthBasement.Weapons
         [field: SerializeField] public float StaminaRequire { get; set; } = 10;
 
         [field: SerializeField] public List<AttackTags> AttackTags { get; set; } = new();
-
-        public void Copy(CombatStats to)
-        {
-            to.AttackTags = AttackTags;
-            to.AttackRange = AttackRange;
-            to.AttackRate = AttackRate;
-            to.Damage = Damage;
-            to.StaminaRequire = StaminaRequire;
-        }
     }
 }

@@ -12,6 +12,12 @@ namespace SouthBasement.Items.Weapons
 
         static WeaponsStatsMultiplier()
         {
+            ResetAll();
+        }
+
+        public static void ResetAll()
+        {
+            Multipliers.Clear();
             var tags = EnumHelper.GetAllValues<AttackTags>();
 
             foreach (var tag in tags)
@@ -29,15 +35,20 @@ namespace SouthBasement.Items.Weapons
                 AttackTags = stats.AttackTags
             };
 
-            foreach (var tag in stats.AttackTags)
+            Debug.Log($"Start = {multipliedStats.Damage}, Tags count = {multipliedStats.AttackTags.Count}");
+            
+            foreach (var tag in multipliedStats.AttackTags)
             {
                 var multiplier = GetMultiplier(tag);
                 
-                multipliedStats.Damage = (int)(stats.Damage * multiplier.Damage);
-                multipliedStats.AttackRate = (int)(stats.AttackRate * multiplier.AttackRate);
-                multipliedStats.StaminaRequire = (int)(stats.StaminaRequire * multiplier.StaminaRequire);
+                multipliedStats.Damage = (int)(multipliedStats.Damage * multiplier.Damage);
+                multipliedStats.AttackRate = (int)(multipliedStats.AttackRate * multiplier.AttackRate);
+                multipliedStats.StaminaRequire = (int)(multipliedStats.StaminaRequire * multiplier.StaminaRequire);
+                
+                Debug.Log($"With {tag} = {multipliedStats.Damage}");
+                Debug.Log($"Multiplier {tag} = {multiplier.Damage}");
             }
-
+            
             return multipliedStats;
         }
 

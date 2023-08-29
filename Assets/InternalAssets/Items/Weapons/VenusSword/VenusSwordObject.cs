@@ -37,7 +37,7 @@ namespace SouthBasement
         {
             if (obj.TryGetComponent(out IDamagable damagable) && _staminaController.CurrentStamina > 0)
             {
-                damagable.Damage(_venusSword.CombatStats.Damage, Array.Empty<AttackTags>());
+                damagable.Damage(_venusSword.CombatStats.Multiplied.Damage, Array.Empty<AttackTags>());
                 _hitEffectSpawner.Spawn(obj.transform.position);
             }
         }

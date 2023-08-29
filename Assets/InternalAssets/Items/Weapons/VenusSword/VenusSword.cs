@@ -39,7 +39,7 @@ namespace SouthBasement
             if(_currentVenusSword.rotateSpeed < 10)
                 _currentVenusSword.rotateSpeed += RotateSpeed;
             
-            Culldown(CombatStats.AttackRate);
+            Culldown(CombatStats.Multiplied.AttackRate);
         
             return null;
         }

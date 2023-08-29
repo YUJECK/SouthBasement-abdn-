@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SouthBasement.Characters.Base;
 using SouthBasement.InputServices;
+using SouthBasement.Items.Weapons;
 using UnityEngine;
 using Zenject;
 
@@ -46,12 +47,16 @@ namespace SouthBasement
         {
             foreach (var database in _runDatabases)
                 database.Remove();    
+            
+            WeaponsStatsMultiplier.ResetAll();
         }
         
         public void Reset()
         {
             foreach (var database in _runDatabases)
                 database.Reset();
+
+            WeaponsStatsMultiplier.ResetAll();
         }
 
         public void OnCharacterSpawned(CharacterGameObject characterGameObject)

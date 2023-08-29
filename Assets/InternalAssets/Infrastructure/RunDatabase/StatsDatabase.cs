@@ -1,5 +1,4 @@
 ﻿using SouthBasement.Characters;
-using SouthBasement.Characters.Stats;
 using SouthBasement.Helpers;
 using SouthBasement.Infrastucture;
 using UnityEngine;

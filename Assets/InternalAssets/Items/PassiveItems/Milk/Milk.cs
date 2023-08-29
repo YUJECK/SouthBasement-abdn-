@@ -1,4 +1,5 @@
 using System;
+using SouthBasement.Characters;
 using SouthBasement.Characters.Stats;
 using SouthBasement.InventorySystem;
 using UnityEngine;
@@ -9,23 +10,21 @@ namespace SouthBasement
     [CreateAssetMenu(menuName = AssetMenuHelper.PassiveItem + "Milk")]
     public class Milk : PassiveItem
     {
-        private CharacterHealthStats _healthStats;
+        private CharacterStats _healthStats;
         
         public override Type GetItemType() => typeof(PassiveItem);
 
         [Inject]
-        private void Construct(CharacterHealthStats characterHealthStats)
-        {
-            _healthStats = characterHealthStats;
-        }
-        
+        private void Construct(CharacterStats characterStats)
+            => _healthStats = characterStats;
+
         public override void OnPutOn()
         {
-            _healthStats.SetHealth(_healthStats.CurrentHealth, _healthStats.MaximumHealth + 10);    
+            _healthStats.HealthStats.SetHealth(_healthStats.HealthStats.CurrentHealth, _healthStats.HealthStats.MaximumHealth + 10);    
         }
         public override void OnPutOut()
         {
-            _healthStats.SetHealth(_healthStats.CurrentHealth, _healthStats.MaximumHealth - 10);    
+            _healthStats.HealthStats.SetHealth(_healthStats.HealthStats.CurrentHealth, _healthStats.HealthStats.MaximumHealth - 10);    
         }
     }
 }

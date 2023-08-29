@@ -38,12 +38,11 @@ namespace SouthBasement.InventorySystem
             {
                 CurrentWeapon.OnUnequip();
                 CurrentWeapon = null;
-                _combatStats.SetWeapon(_combatStats.DefaultStats);
+                _combatStats.SetStats(_combatStats.DefaultStats);
                 OnSelectedNull?.Invoke();
             }
         }
-
-
+        
         public void SetCurrent(Item item)
         {
             if(CurrentWeapon == item)
@@ -56,7 +55,7 @@ namespace SouthBasement.InventorySystem
                 
                 CurrentWeapon = item as WeaponItem;
                 CurrentWeapon.OnEquip();
-                _combatStats.SetWeapon(CurrentWeapon.CombatStats);
+                _combatStats.SetStats(CurrentWeapon.CombatStats);
                 
                 OnSelected?.Invoke(CurrentWeapon);
             }

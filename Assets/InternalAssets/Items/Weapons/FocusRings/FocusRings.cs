@@ -55,7 +55,7 @@ namespace SouthBasement
             
             _prefabInstance.Create();
 
-            Culldown(CombatStats.AttackRate);
+            Culldown(CombatStats.Multiplied.AttackRate);
             
             return Array.Empty<IDamagable>();
         }

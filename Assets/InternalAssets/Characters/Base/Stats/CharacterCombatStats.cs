@@ -9,12 +9,15 @@ namespace SouthBasement.Characters.Stats
     {
         [field: SerializeField] public CombatStats DefaultStats { get; private set; } = new();
 
-         public CombatStats CurrentStats { get; private set; } = new CombatStats(); 
+         public CombatStats CurrentStats { get; private set; } = new();
 
-         public void SetWeapon(CombatStats weaponItem)
+         public CharacterCombatStats()
+             => SetStats(DefaultStats);
+
+         public void SetStats(CombatStats weaponItem)
          {
              if (weaponItem != null)
                  CurrentStats = weaponItem;
          }
-     }
+    }
 }

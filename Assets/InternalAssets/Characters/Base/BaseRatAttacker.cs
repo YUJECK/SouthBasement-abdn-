@@ -27,11 +27,11 @@ namespace SouthBasement.Characters
         public IDamagable[] Attack(CombatStats combatStats)
         {
             List<IDamagable> hitted = new(); 
-            _attackerConfig.AttackPoint.Stop(combatStats.AttackRate - 0.05f);
+            _attackerConfig.AttackPoint.Stop(combatStats.Multiplied.AttackRate - 0.05f);
 
             var mask = LayerMask.GetMask("Enemy"); 
             
-            var hits = Physics2D.OverlapCircleAll(_attackerConfig.AttackPoint.Point.transform.position, combatStats.AttackRange, mask);
+            var hits = Physics2D.OverlapCircleAll(_attackerConfig.AttackPoint.Point.transform.position, combatStats.Multiplied.AttackRange, mask);
 
             foreach (var hit in hits)
             {
@@ -41,7 +41,7 @@ namespace SouthBasement.Characters
 
                     _hitEffectSpawner.Spawn(hitPos);
                     
-                    damagable.Damage(combatStats.Damage, combatStats.AttackTags.ToArray());
+                    damagable.Damage(combatStats.Multiplied.Damage, combatStats.AttackTags.ToArray());
                     hitted.Add(damagable);
                 }
             }

@@ -13,16 +13,17 @@ namespace SouthBasement.InventorySystem
             get;
             private set;
         }
-        public CombatStats CombatStats => WeaponsStatsMultiplier.GetMultiplied(this);        
+
+        public CombatStats CombatStats => OriginalCombatStats;
         
         public virtual void OnAttack(IDamagable[] damagables) { }
 
         public override string GetStatsDescription()
         {
-            return $"Damage: {CombatStats.Damage} \n" +
-                   $"AttackRange: {CombatStats.AttackRange} \n" +
-                   $"AttackRate: {CombatStats.AttackRate} \n" +
-                   $"Stamina Require: {CombatStats.StaminaRequire}";
+            return $"Damage: {CombatStats.Multiplied.Damage} \n" +
+                   $"AttackRange: {CombatStats.Multiplied.AttackRange} \n" +
+                   $"AttackRate: {CombatStats.Multiplied.AttackRate} \n" +
+                   $"Stamina Require: {CombatStats.Multiplied.StaminaRequire}";
         }
 
         public virtual void OnEquip() {}

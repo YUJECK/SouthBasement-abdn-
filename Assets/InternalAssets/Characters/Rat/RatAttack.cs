@@ -55,7 +55,7 @@ namespace SouthBasement.Characters.Rat
             
             Owner.Components.Get<ICharacterMovable>().CanMove = false;
             
-            hitted = Owner.BaseRatAttacker.Attack(Owner.Stats.CombatStats.CurrentStats.Multiplied);
+            hitted = Owner.BaseRatAttacker.Attack(Owner.Stats.CombatStats.CurrentStats);
             
             Owner.AttackRangeAnimator.Play();
             Owner.AudioPlayer.PlayAttack();
