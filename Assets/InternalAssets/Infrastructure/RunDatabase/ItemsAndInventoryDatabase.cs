@@ -1,5 +1,4 @@
 ﻿using SouthBasement.Characters.Stats;
-using SouthBasement.Infrastucture;
 using SouthBasement.InputServices;
 using SouthBasement.InventorySystem;
 using Zenject;
@@ -13,7 +12,6 @@ namespace SouthBasement
         private readonly CharacterCombatStats _combatStats;
         private readonly IInputService _inputService;
         private Inventory _inventory;
-        private ICoroutineRunner _coroutineRunner;
         private InventoryDatabase _inventoryDatabase;
         private WeaponsUsage _weaponsUsage;
 
@@ -27,9 +25,16 @@ namespace SouthBasement
             _inputService = inputService;
         }
 
+        public void OnCharacterSpawned()
+        {
+            if(_weaponsUsage.CurrentWeapon != null)
+                _weaponsUsage.CurrentWeapon.OnEquip();
+        }
+
         public void Create()
         {
-            if (Created) return;
+            if (Created) 
+                return;
 
             BindInventory();
             BindActiveItemUsager();
@@ -37,6 +42,19 @@ namespace SouthBasement
             BindWeaponsItemUsager();
             
             Created = true;
+        }
+
+        public void Reset()
+        {
+            if (!Created) 
+                Create();
+
+            _inventoryDatabase.Reset();
+            
+            RebindInventory();
+            RebindActiveItemUsage();
+            RebindWeaponsUsager();
+            RebindPassiveItemsUsage();
         }
 
         public void Remove()
@@ -49,37 +67,37 @@ namespace SouthBasement
             _container.Unbind<PassiveItemsUsage>();
         }
 
-        public void Reset()
+        private void RebindPassiveItemsUsage()
         {
-            if (!Created) Create();
-
-            _coroutineRunner = _container.Resolve<ICoroutineRunner>();
-            
-            _inventoryDatabase.Reset();
-
-            _container
-                .Rebind<Inventory>()
-                .FromInstance(_inventory)
-                .AsCached();
-
-            _container
-                .Rebind<ActiveItemUsage>()
-                .FromInstance(new ActiveItemUsage(_inputService, _inventory))
-                .AsCached();
-
-            _weaponsUsage = new WeaponsUsage(_inventory, _combatStats);
-            
-            _container
-                .Rebind<WeaponsUsage>()
-                .FromInstance(_weaponsUsage)
-                .AsCached();
-
             _container
                 .Rebind<PassiveItemsUsage>()
                 .FromInstance(new PassiveItemsUsage(_inventory))
                 .AsCached();
         }
-        
+        private void RebindWeaponsUsager()
+        {
+            _weaponsUsage = new WeaponsUsage(_inventory, _combatStats);
+
+            _container
+                .Rebind<WeaponsUsage>()
+                .FromInstance(_weaponsUsage)
+                .AsCached();
+        }
+        private void RebindActiveItemUsage()
+        {
+            _container
+                .Rebind<ActiveItemUsage>()
+                .FromInstance(new ActiveItemUsage(_inputService, _inventory))
+                .AsCached();
+        }
+        private void RebindInventory()
+        {
+            _container
+                .Rebind<Inventory>()
+                .FromInstance(_inventory)
+                .AsCached();
+        }
+
         private void BindInventory()
         {
             _inventoryDatabase = new InventoryDatabase();
@@ -115,12 +133,6 @@ namespace SouthBasement
                 .BindInterfacesTo<PassiveItemsUsage>()
                 .FromInstance(new PassiveItemsUsage(_inventory))
                 .AsCached();
-        }
-
-        public void OnCharacterSpawned()
-        {
-            if(_weaponsUsage.CurrentWeapon != null)
-                _weaponsUsage.CurrentWeapon.OnEquip();
         }
     }
 }

@@ -46,21 +46,16 @@ namespace SouthBasement
             Created = true;
         }
 
-        public void Remove()
-        {
-            
-        }
-
         public void Reset()
         {
-            if (!Created) Create();
+            if (!Created) 
+                Create();
             
             _coroutineRunner = _diContainer.Resolve<ICoroutineRunner>();
             
-            var configPrefab = Resources.Load<CharacterConfig>(ResourcesPathHelper.RatConfig);
-            var config = ScriptableObject.Instantiate(configPrefab);
-            
             Stats.Reset();
         }
+
+        public void Remove() { }
     }
 }

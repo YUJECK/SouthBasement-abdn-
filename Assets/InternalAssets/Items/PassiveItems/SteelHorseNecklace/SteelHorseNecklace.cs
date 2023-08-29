@@ -12,9 +12,9 @@ namespace SouthBasement.BaseScripts.Tests
         public override Type GetItemType() => typeof(PassiveItem);
         
         public override void OnPutOn()
-            => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Metal).Damage += 0.2f;
+            => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Metal).Damage += 0.35f;
 
         public override void OnPutOut()
-            => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Metal).Damage -= 0.2f;
+            => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Metal).Damage -= 0.35f;
     }
 }
