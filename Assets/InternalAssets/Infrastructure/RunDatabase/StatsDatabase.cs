@@ -17,9 +17,7 @@ namespace SouthBasement
         public bool Created { get; private set; }
 
         public StatsDatabase(DiContainer diContainer)
-        {
-            _diContainer = diContainer;
-        }
+            => _diContainer = diContainer;
 
         public void Create()
         {
@@ -42,28 +40,8 @@ namespace SouthBasement
                 .AsSingle();
 
             _diContainer
-                .Bind<CharacterCombatStats>()
-                .FromInstance(Stats.CombatStats)
-                .AsSingle();
-
-            _diContainer
-                .Bind<CharacterHealthStats>()
-                .FromInstance(Stats.HealthStats)
-                .AsSingle();
-
-            _diContainer
-                .Bind<CharacterMoveStats>()
-                .FromInstance(Stats.MoveStats)
-                .AsSingle();
-
-            _diContainer
-                .Bind<CharacterStaminaStats>()
-                .FromInstance(Stats.StaminaStats)
-                .AsSingle();
-
-            _diContainer
                 .Bind<StaminaController>()
-                .FromInstance(new StaminaController(Stats.StaminaStats, _coroutineRunner))
+                .FromInstance(new StaminaController(Stats, _coroutineRunner))
                 .AsSingle();
 
             Created = true;
@@ -71,14 +49,7 @@ namespace SouthBasement
 
         public void Remove()
         {
-            Created = false;
-
-            _diContainer.Unbind<CharacterStats>();
-            _diContainer.Unbind<CharacterCombatStats>();
-            _diContainer.Unbind<CharacterHealthStats>();
-            _diContainer.Unbind<CharacterMoveStats>();
-            _diContainer.Unbind<CharacterStaminaStats>();
-            _diContainer.Unbind<StaminaController>();
+            
         }
 
         public void Reset()

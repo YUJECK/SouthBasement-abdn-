@@ -1,5 +1,4 @@
 ﻿using System;
-using SouthBasement.Characters.Stats;
 using SouthBasement.Items;
 using UnityEngine;
 using Zenject;
@@ -9,14 +8,14 @@ namespace SouthBasement.Characters
     [RequireComponent(typeof(EffectsHandler))]
     public sealed class CharacterHealth : MonoBehaviour, IDamagable
     {
-        private CharacterHealthStats _healthStats;
+        private CharacterStats _healthStats;
 
-        public int CurrentHealth => _healthStats.CurrentHealth;
+        public int CurrentHealth => _healthStats.HealthStats.CurrentHealth;
         public EffectsHandler EffectsHandler { get; private set; }
         public event Action<int> OnDamaged;
 
         [Inject]
-        private void Construct(CharacterHealthStats characterStats)
+        private void Construct(CharacterStats characterStats)
         {
             _healthStats = characterStats;
         }
@@ -28,7 +27,7 @@ namespace SouthBasement.Characters
 
         public void Damage(int damage, AttackTags[] args)
         {
-            _healthStats.SetHealth(_healthStats.CurrentHealth - damage);
+            _healthStats.HealthStats.SetHealth(_healthStats.HealthStats.CurrentHealth - damage);
             OnDamaged?.Invoke(CurrentHealth);
         }
     }

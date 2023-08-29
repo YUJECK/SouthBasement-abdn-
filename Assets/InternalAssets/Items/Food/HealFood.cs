@@ -1,4 +1,5 @@
 ﻿using System;
+using SouthBasement.Characters;
 using SouthBasement.InventorySystem;
 using SouthBasement.Characters.Stats;
 using UnityEngine;
@@ -9,12 +10,12 @@ namespace SouthBasement.Tests
     [CreateAssetMenu(menuName = AssetMenuHelper.Food + "HealFood")]
     public sealed class HealFood : FoodItem
     {
-        private CharacterHealthStats _characterStats;
+        private CharacterStats _characterStats;
         private Inventory _inventory;
         [SerializeField] private int heal;
 
         [Inject]
-        private void Construct(CharacterHealthStats characterStats, Inventory inventory)
+        private void Construct(CharacterStats characterStats, Inventory inventory)
         {
             _inventory = inventory;
             _characterStats = characterStats;
@@ -34,7 +35,7 @@ namespace SouthBasement.Tests
 
         public override void Eat()
         {
-            _characterStats.SetHealth(_characterStats.CurrentHealth + heal);
+            _characterStats.HealthStats.SetHealth(_characterStats.HealthStats.CurrentHealth + heal);
             _inventory.RemoveItem(ItemID);
         }
     }

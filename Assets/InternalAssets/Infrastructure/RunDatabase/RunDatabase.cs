@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Xml;
 using SouthBasement.Characters.Base;
-using SouthBasement.Economy;
 using SouthBasement.InputServices;
 using UnityEngine;
 using Zenject;
@@ -61,9 +59,7 @@ namespace SouthBasement
             _characterRunDatabase.Character.OnCharacterPrefabSpawned(characterGameObject);
 
             foreach (var runDatabase in _runDatabases)
-            {
                 runDatabase.OnCharacterSpawned();
-            }
         }
     }
 }

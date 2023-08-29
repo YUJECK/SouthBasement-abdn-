@@ -18,17 +18,15 @@ namespace SouthBasement
 
         private FocusFireController _prefabInstance;
         private bool _blocked;
-        private CharacterHealthStats _healthStats;
 
         private int _currentHealthToReturn = 0;
 
         public StaminaController StaminaController { get; private set; }
 
         [Inject]
-        private void Construct(Character character, CharacterHealthStats healthStats, StaminaController staminaController)
+        private void Construct(Character character, StaminaController staminaController)
         {
             _character = character;
-            _healthStats = healthStats;
             StaminaController = staminaController;
         }
 

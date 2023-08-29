@@ -16,14 +16,12 @@ namespace SouthBasement.Characters
         
         public CharacterStats(CharacterStatsConfig config)
         {
-            _resetConfig = ScriptableObject.Instantiate(config);
+            _resetConfig = config;
             
-            CombatStats = config.CombatStats;
-            HealthStats = config.HealthStats;
-            StaminaStats = config.StaminaStats;
-            MoveStats = config.MoveStats;
-            
-            _resetConfig = ScriptableObject.Instantiate(config);
+            CombatStats = _resetConfig.CombatStats;
+            HealthStats = _resetConfig.HealthStats;
+            StaminaStats = _resetConfig.StaminaStats;
+            MoveStats = _resetConfig.MoveStats;
         }
 
         public void Reset()
@@ -32,8 +30,6 @@ namespace SouthBasement.Characters
             HealthStats = _resetConfig.HealthStats;
             StaminaStats = _resetConfig.StaminaStats;
             MoveStats = _resetConfig.MoveStats;
-            
-            _resetConfig = ScriptableObject.Instantiate(_resetConfig);
         }
     }
 }

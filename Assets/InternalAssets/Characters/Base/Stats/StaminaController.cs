@@ -7,13 +7,13 @@ namespace SouthBasement.Characters
 {
     public sealed class StaminaController
     {
-        private CharacterStaminaStats _characterStats;
+        private CharacterStats _characterStats;
         private Coroutine _increaseCoroutine;
         private ICoroutineRunner _coroutineRunner;
 
-        public float CurrentStamina => _characterStats.Stamina.Value;
+        public float CurrentStamina => _characterStats.StaminaStats.Stamina.Value;
         
-        public StaminaController(CharacterStaminaStats staminaStats, ICoroutineRunner coroutineRunner)
+        public StaminaController(CharacterStats staminaStats, ICoroutineRunner coroutineRunner)
         {
             _characterStats = staminaStats;
             _coroutineRunner = coroutineRunner;
@@ -21,9 +21,9 @@ namespace SouthBasement.Characters
         
         public bool TryDo(float staminaRequire)
         {
-            if (_characterStats.Stamina.Value >= staminaRequire)
+            if (_characterStats.StaminaStats.Stamina.Value >= staminaRequire)
             {
-                _characterStats.Stamina.Value -= staminaRequire;
+                _characterStats.StaminaStats.Stamina.Value -= staminaRequire;
                 
                 if(_increaseCoroutine != null)
                     _coroutineRunner.Stop(_increaseCoroutine);
@@ -37,10 +37,10 @@ namespace SouthBasement.Characters
 
         private IEnumerator IncreaseStamina()
         {
-            while (_characterStats.Stamina.Value < _characterStats.MaximumStamina.Value)
+            while (_characterStats.StaminaStats.Stamina.Value < _characterStats.StaminaStats.MaximumStamina.Value)
             {
-                _characterStats.Stamina.Value += 1;
-                yield return new WaitForSeconds(_characterStats.StaminaIncreaseRate);
+                _characterStats.StaminaStats.Stamina.Value += 1;
+                yield return new WaitForSeconds(_characterStats.StaminaStats.StaminaIncreaseRate);
             }
         }
     }

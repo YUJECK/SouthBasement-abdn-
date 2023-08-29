@@ -13,7 +13,7 @@ namespace SouthBasement
         private CameraHandler _cameraHandler;
 
         [Inject]
-        private void Construct(Character characterFactory, CharacterHealthStats characterHealthStats, CameraHandler cameraHandler)
+        private void Construct(Character characterFactory, CameraHandler cameraHandler)
         {
             _character = characterFactory;
             _cameraHandler = cameraHandler;
