@@ -36,7 +36,7 @@ namespace SouthBasement.InventorySystem
                 
             if(CurrentWeapon.ItemID == itemID)
             {
-                CurrentWeapon.OnUnequip();
+                CurrentWeapon.OnTakeOff();
                 CurrentWeapon = null;
                 _combatStats.SetStats(_combatStats.DefaultStats);
                 OnSelectedNull?.Invoke();
@@ -51,7 +51,7 @@ namespace SouthBasement.InventorySystem
             if (item.GetItemType() == typeof(WeaponItem))
             {
                 if (CurrentWeapon != null) 
-                    CurrentWeapon.OnUnequip();
+                    CurrentWeapon.OnTakeOff();
                 
                 CurrentWeapon = item as WeaponItem;
                 CurrentWeapon.OnEquip();

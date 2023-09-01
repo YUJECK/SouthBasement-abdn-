@@ -4,6 +4,6 @@ namespace SouthBasement.Characters
 {
     public interface IAttacker
     {
-        IDamagable[] Attack(CombatStats combatStats);
+        AttackResult Attack(CombatStats combatStats);
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
-using SouthBasement.InventorySystem;
+﻿using SouthBasement.InventorySystem;
 using UnityEngine;
+using System;
 
 namespace SouthBasement.BaseScripts.Tests.Kylysh
 {

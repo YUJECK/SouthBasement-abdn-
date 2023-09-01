@@ -11,7 +11,7 @@ namespace SouthBasement.Characters.Components
         public bool Blocked { get; set; }
 
         protected void InvokeAttack(IDamagable[] hits) => OnAttacked?.Invoke(hits);
-        public abstract IDamagable[] Attack();
-        public abstract IDamagable[] DefaultAttack();
+        public abstract AttackResult Attack();
+        public abstract AttackResult DefaultAttack();
     }
 }

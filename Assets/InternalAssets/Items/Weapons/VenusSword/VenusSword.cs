@@ -34,14 +34,14 @@ namespace SouthBasement
         public bool UseCulldown()
             => false;
 
-        public IDamagable[] Attack()
+        public AttackResult Attack()
         {
             if(_currentVenusSword.rotateSpeed < 10)
                 _currentVenusSword.rotateSpeed += RotateSpeed;
             
             Culldown(CombatStats.Multiplied.AttackRate);
         
-            return null;
+            return new AttackResult(Array.Empty<Collider2D>());
         }
 
         private async void Culldown(float culldown)
@@ -60,7 +60,7 @@ namespace SouthBasement
             }
         }
 
-        public override void OnUnequip()
+        public override void OnTakeOff()
         {
             if(_currentVenusSword != null)
                 Destroy(_currentVenusSword.gameObject);

@@ -11,8 +11,11 @@ namespace SouthBasement.Characters.Stats
 
          public CombatStats CurrentStats { get; private set; } = new();
 
-         public CharacterCombatStats()
-             => SetStats(DefaultStats);
+         public CharacterCombatStats(CombatStats defaultStats)
+         {
+             DefaultStats = defaultStats;
+             SetStats(DefaultStats);
+         }
 
          public void SetStats(CombatStats weaponItem)
          {

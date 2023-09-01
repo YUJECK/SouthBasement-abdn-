@@ -36,7 +36,7 @@ namespace SouthBasement
             _prefabInstance.InitRingsInstance(this);
         }
 
-        public override void OnUnequip()
+        public override void OnTakeOff()
         {
             Destroy(_prefabInstance.gameObject);
         }
@@ -49,18 +49,18 @@ namespace SouthBasement
             return true;
         }
 
-        public IDamagable[] Attack()
+        public AttackResult Attack()
         {
-            if (_blocked) return Array.Empty<IDamagable>();
+            if (_blocked) return new AttackResult(Array.Empty<Collider2D>());
             
             _prefabInstance.Create();
 
             Culldown(CombatStats.Multiplied.AttackRate);
             
-            return Array.Empty<IDamagable>();
+            return new AttackResult(Array.Empty<Collider2D>());
         }
 
-        public async void Culldown(float culldown)
+        private async void Culldown(float culldown)
         {
             _blocked = true;
             await UniTask.Delay(TimeSpan.FromSeconds(culldown ));

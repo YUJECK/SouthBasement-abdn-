@@ -47,8 +47,6 @@ namespace SouthBasement
 
         protected override void OnPaused()
         {
-            Debug.Log("sdlkfskldflsdfkljds");
-            
             if(_currentTheme != null)
                 _currentTheme.Pause();
             

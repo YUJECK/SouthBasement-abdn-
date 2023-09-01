@@ -10,7 +10,7 @@ namespace SouthBasement.Characters.Components
         public WeaponItem Weapon { get; }
         public bool Blocked { get; set; }
         
-        public IDamagable[] Attack();
-        public IDamagable[] DefaultAttack();
+        public AttackResult Attack();
+        public AttackResult DefaultAttack();
     }
 }

@@ -22,47 +22,47 @@ namespace SouthBasement.Characters.Rat
         private void StartAttack()
             => Attack();
 
-        public override IDamagable[] Attack()
+        public override AttackResult Attack()
         {
             if (Blocked) 
                 return null;
 
-            IDamagable[] hitted;
+            AttackResult result;
             
             if (Weapon != null && Weapon is IAttackOverridable attackOverridable)
             {
-                hitted = attackOverridable.Attack();
+                result = attackOverridable.Attack();
                 
                 if(attackOverridable.UseCulldown())
                     Culldown(Owner.Stats.CombatStats.CurrentStats.Multiplied.AttackRate);
             }   
             else
             {
-                hitted = DefaultAttack();
-                if(Weapon != null) Weapon.OnAttack(hitted);
+                result = DefaultAttack();
+                if(Weapon != null) Weapon.OnAttack(result);
             }
 
-            InvokeAttack(hitted);
-            return hitted;
+            InvokeAttack(result.DamagedHits.ToArray());
+            return result;
         }
 
-        public override IDamagable[] DefaultAttack()
+        public override AttackResult DefaultAttack()
         {
-            var hitted = new IDamagable[12];
+            AttackResult result = new(Array.Empty<Collider2D>());
             
             if (!Owner.StaminaController.TryDo(Owner.Stats.CombatStats.CurrentStats.Multiplied.StaminaRequire))
-                return hitted;
+                return result;
             
             Owner.Components.Get<ICharacterMovable>().CanMove = false;
             
-            hitted = Owner.BaseRatAttacker.Attack(Owner.Stats.CombatStats.CurrentStats);
+            result = Owner.BaseRatAttacker.Attack(Owner.Stats.CombatStats.CurrentStats);
             
             Owner.AttackRangeAnimator.Play();
             Owner.AudioPlayer.PlayAttack();
             
             Culldown(Owner.Stats.CombatStats.CurrentStats.Multiplied.AttackRate);
             
-            return hitted;
+            return result;
         }
 
         public async void Culldown(float culldown)

@@ -16,7 +16,7 @@ namespace SouthBasement.InventorySystem
 
         public CombatStats CombatStats => OriginalCombatStats;
         
-        public virtual void OnAttack(IDamagable[] damagables) { }
+        public virtual void OnAttack(AttackResult result) { }
 
         public override string GetStatsDescription()
         {
@@ -27,6 +27,6 @@ namespace SouthBasement.InventorySystem
         }
 
         public virtual void OnEquip() {}
-        public virtual void OnUnequip() {}
+        public virtual void OnTakeOff() {}
     }
 }

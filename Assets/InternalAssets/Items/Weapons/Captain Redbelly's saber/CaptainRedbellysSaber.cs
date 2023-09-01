@@ -25,7 +25,7 @@ namespace SouthBasement
         public override Type GetItemType()
             => typeof(WeaponItem);
 
-        public override void OnAttack(IDamagable[] damagables)
+        public override void OnAttack(AttackResult damaged)
         {
             if (ChanceSystem.FitsInChance(ChanceSystem.GetRandomChance(), bubbleSpawnChance))
             {

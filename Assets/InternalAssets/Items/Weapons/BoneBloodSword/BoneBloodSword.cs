@@ -19,9 +19,9 @@ namespace SouthBasement
         public override Type GetItemType()
             => typeof(WeaponItem);
 
-        public override void OnAttack(IDamagable[] damagables)
+        public override void OnAttack(AttackResult damaged)
         {
-            foreach (var damagable in damagables)
+            foreach (var damagable in damaged.DamagedHits)
                 damagable.EffectsHandler.Add(new BleedEffect(2, 0.75f, 3f, damagable));
         }
 
@@ -30,7 +30,7 @@ namespace SouthBasement
             
         }
 
-        public override void OnUnequip()
+        public override void OnTakeOff()
         {
             
         }
