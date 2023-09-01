@@ -16,10 +16,10 @@ namespace SouthBasement.Characters.Stats
         
         public event Action OnDied;
         
-        public void SetHealth(int currentHealth)
+        public bool SetHealth(int currentHealth)
             => SetHealth(currentHealth, MaximumHealth);
 
-        public void SetHealth(int currentHealth, int maximumHealth)
+        public bool SetHealth(int currentHealth, int maximumHealth)
         {
             CurrentHealth = currentHealth;
 
@@ -35,9 +35,11 @@ namespace SouthBasement.Characters.Stats
             {
                 GlobalStateMachine.Push<DiedState>();
                 OnDied?.Invoke();
+                return true;
             }
                 
             OnHealthChanged?.Invoke(CurrentHealth);
+            return false;
         }
     }
 }

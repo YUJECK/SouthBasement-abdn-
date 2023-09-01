@@ -1,11 +1,10 @@
 ﻿using NTC.ContextStateMachine;
 using SouthBasement.Characters.Components;
+using SouthBasement.Extensions;
 using UnityEngine;
 
 namespace SouthBasement.AI
 {
-    [RequireComponent(typeof(IEnemyMovable))]
-    [RequireComponent(typeof(IFlipper))]
     public class AngryRatStateMachine : Enemy
     {
         public EnemyAttacker EnemyAttacker { get; private set; }
@@ -22,8 +21,8 @@ namespace SouthBasement.AI
         {
             EnemyAnimator = new EnemyAnimator(GetComponentInChildren<Animator>());
             
-            Movement = GetComponent<IEnemyMovable>();
-            Flipper = GetComponent<IFlipper>();
+            Movement = gameObject.Get<IEnemyMovable>();
+            Flipper = gameObject.Get<IFlipper>();
             
             TargetSelector = GetComponentInChildren<TargetSelector>();
             AttackTrigger = GetComponentInChildren<AttackTrigger>();

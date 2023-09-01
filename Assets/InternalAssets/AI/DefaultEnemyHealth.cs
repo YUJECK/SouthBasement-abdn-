@@ -1,10 +1,10 @@
 ﻿using SouthBasement.Economy;
+using SouthBasement.Extensions;
 using UnityEngine;
 using Zenject;
 
 namespace SouthBasement.AI
 {
-    [RequireComponent(typeof(Enemy))]
     public class DefaultEnemyHealth : EnemyHealth
     {
         [SerializeField] private GameObject[] objectsToDrop;
@@ -19,8 +19,8 @@ namespace SouthBasement.AI
 
         private void Awake()
         {
-            Enemy = GetComponent<Enemy>();
-            EffectsHandler = GetComponent<EffectsHandler>();
+            Enemy = gameObject.Get<Enemy>();
+            EffectsHandler = gameObject.Get<EffectsHandler>();
             
             Enemy.OnDied += DropItems;
             OnDamaged += PlayHitSound;

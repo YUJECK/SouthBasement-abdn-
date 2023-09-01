@@ -9,7 +9,12 @@ namespace SouthBasement.Extensions
             if (gameObject.TryGetComponent<TComponent>(out var component))
                 return component;
 
-            return gameObject.GetComponentInChildren<TComponent>();
+            var componentInChildren = gameObject.GetComponentInChildren<TComponent>();
+            
+            if (componentInChildren != null)
+                return componentInChildren;
+            
+            return gameObject.GetComponentInParent<TComponent>();
         }
     }
 }

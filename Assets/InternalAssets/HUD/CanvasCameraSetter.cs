@@ -7,6 +7,5 @@ namespace SouthBasement
     {
         private void Start()
             => GetComponent<Canvas>().worldCamera = Camera.main;
-
     }
 }
