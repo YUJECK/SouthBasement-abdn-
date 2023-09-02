@@ -23,7 +23,7 @@ namespace SouthBasement.InternalAssets.Items.Weapons.BloodthirstyFalchion
         private async void DamageUp()
         {
             CombatStats.Damage += 5;
-            await UniTask.Delay(TimeSpan.FromSeconds(4.5f));
+            await UniTask.Delay(TimeSpan.FromSeconds(5.5f));
             CombatStats.Damage -= 5;
         }
     }
