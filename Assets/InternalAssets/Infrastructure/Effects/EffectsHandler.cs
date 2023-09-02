@@ -14,6 +14,12 @@ namespace SouthBasement
                 effect.OnRemoved();
         }
 
+        private void Update()
+        {
+            foreach (var effect in _effects)
+                effect.OnUpdate();
+        }
+
         public void Add(Effect effect)
         {
             if (Blocked) return;
@@ -22,16 +28,11 @@ namespace SouthBasement
             effect.OnAdded();
             StartCoroutine(effect.DieCoroutine((effect) => Remove(effect)));
         }
+
         public void Remove(Effect effect)
         {
             effect.OnRemoved();
             _effects.Remove(effect);
-        }
-        
-        private void Update()
-        {
-            foreach (var effect in _effects)
-                effect.OnUpdate();
         }
     }
 }

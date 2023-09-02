@@ -11,7 +11,7 @@ namespace SouthBasement
     {
         [SerializeField] private Thorn _thornPrefab;
         private Character _character;
-        
+
         [Inject]
         private void Construct(Character character) 
             => _character = character;
