@@ -1,5 +1,4 @@
-﻿
-using NavMeshPlus.Components;
+﻿using NavMeshPlus.Components;
 using UnityEngine;
 
 namespace SouthBasement.AI.Grid
