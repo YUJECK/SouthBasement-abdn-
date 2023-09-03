@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SouthBasement.InventorySystem
+namespace SouthBasement.InternalAssets.InventorySystem.ItemBase
 {
     public class JunkItem : Item
     {

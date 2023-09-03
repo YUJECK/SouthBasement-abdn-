@@ -1,6 +1,7 @@
 ﻿using SouthBasement.InventorySystem;
 using UnityEngine;
 using System;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 
 namespace SouthBasement.BaseScripts.Tests.Kylysh
 {

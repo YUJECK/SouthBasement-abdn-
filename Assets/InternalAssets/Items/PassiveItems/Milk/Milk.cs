@@ -1,6 +1,7 @@
 using System;
 using SouthBasement.Characters;
 using SouthBasement.Characters.Stats;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
@@ -18,11 +19,11 @@ namespace SouthBasement
         private void Construct(CharacterStats characterStats)
             => _healthStats = characterStats;
 
-        public override void OnPutOn()
+        public override void OnAddedToInventory()
         {
             _healthStats.HealthStats.SetHealth(_healthStats.HealthStats.CurrentHealth, _healthStats.HealthStats.MaximumHealth + 10);    
         }
-        public override void OnPutOut()
+        public override void OnRemovedFromInventory()
         {
             _healthStats.HealthStats.SetHealth(_healthStats.HealthStats.CurrentHealth, _healthStats.HealthStats.MaximumHealth - 10);    
         }

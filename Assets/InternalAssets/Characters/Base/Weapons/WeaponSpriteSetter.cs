@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
@@ -35,7 +36,9 @@ namespace SouthBasement.Characters.Base
         }
 
         private void SetNull()
-            => _weaponSprite.color = Color.clear;
+        {
+            _weaponSprite.color = Color.clear;
+        }
 
         private void SetItem(WeaponItem item)
         {
@@ -45,13 +48,12 @@ namespace SouthBasement.Characters.Base
                 return;
             }
                 
-            _weaponSprite.sprite = item.ItemSprite;
+            UpdateSprite(item.ItemSprite);
             _weaponSprite.color = Color.white;
+            item.OnItemSpriteChanged += UpdateSprite;
         }
 
-        private IEnumerator FlashLight()
-        {
-            return null;
-        }
+        private void UpdateSprite(Sprite itemSprite)
+            => _weaponSprite.sprite = itemSprite;
     }
 }

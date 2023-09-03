@@ -1,4 +1,5 @@
-﻿using SouthBasement.Items;
+﻿using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+using SouthBasement.Items;
 using UnityEngine;
 
 namespace SouthBasement.InventorySystem

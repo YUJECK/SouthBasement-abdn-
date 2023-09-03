@@ -1,6 +1,7 @@
 ﻿using System;
 using SouthBasement.Characters;
 using SouthBasement.Characters.Components;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using SouthBasement.Items;
 using Zenject;
@@ -18,7 +19,7 @@ namespace SouthBasement.BaseScripts.Tests
         public override Type GetItemType()
             => typeof(PassiveItem);
 
-        public override void OnPutOn()
+        public override void OnAddedToInventory()
         {
             _character.Components.Get<ICharacterAttacker>().OnAttacked += ExtraEffect;
         }

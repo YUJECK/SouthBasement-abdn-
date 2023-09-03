@@ -1,4 +1,5 @@
 ﻿using System;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventoryHUD.Base;
 using UnityEngine;
 using UnityEngine.UI;

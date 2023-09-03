@@ -1,4 +1,5 @@
 ﻿using SouthBasement.Economy;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using TMPro;
 using UnityEngine;

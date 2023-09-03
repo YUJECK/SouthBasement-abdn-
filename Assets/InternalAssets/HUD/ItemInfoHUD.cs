@@ -1,5 +1,6 @@
 using DG.Tweening;
 using SouthBasement.HUD.Base;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using TMPro;
 using UnityEngine;

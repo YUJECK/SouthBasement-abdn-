@@ -1,9 +1,8 @@
-﻿using SouthBasement.Items.Weapons;
-using SouthBasement.Weapons;
+﻿using SouthBasement.Weapons;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace SouthBasement.InventorySystem
+namespace SouthBasement.InternalAssets.InventorySystem.ItemBase
 {
     public abstract class WeaponItem : Item
     {

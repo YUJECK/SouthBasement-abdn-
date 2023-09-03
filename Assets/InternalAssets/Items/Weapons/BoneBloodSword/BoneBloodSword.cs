@@ -2,6 +2,7 @@ using SouthBasement.InventorySystem;
 using System;
 using SouthBasement.Characters;
 using SouthBasement.Characters.Components;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using UnityEngine;
 using Zenject;
 

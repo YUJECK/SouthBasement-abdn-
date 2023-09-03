@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SouthBasement.Interactions;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using SouthBasement.Items;
 using SouthBasement.TraderItemDescriptionHUD;

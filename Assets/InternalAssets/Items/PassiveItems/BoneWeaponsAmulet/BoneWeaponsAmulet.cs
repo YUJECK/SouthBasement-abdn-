@@ -3,6 +3,7 @@ using SouthBasement.InventorySystem;
 using SouthBasement.Characters;
 using UnityEngine;
 using System;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.Items;
 using SouthBasement.Items.Weapons;
 using Zenject;
@@ -14,10 +15,10 @@ namespace SouthBasement.BaseScripts.Tests
     {
         [SerializeField] private float mulptiplier = 0.2f;
 
-        public override void OnPutOn()
+        public override void OnAddedToInventory()
             => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Bone).Damage += mulptiplier;
 
-        public override void OnPutOut()
+        public override void OnRemovedFromInventory()
             => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Bone).Damage -= mulptiplier;
         
         public override string GetStatsDescription()

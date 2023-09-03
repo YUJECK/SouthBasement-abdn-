@@ -8,8 +8,6 @@ namespace SouthBasement.AI.Grid
         private NavMeshSurface _surface2D;
 
         private void Start()
-        {
-            GetComponent<NavMeshSurface>().BuildNavMeshAsync();
-        }
+            => GetComponent<NavMeshSurface>().BuildNavMeshAsync();
     }
 }

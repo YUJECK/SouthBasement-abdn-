@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using UnityEngine;
 using Zenject;
 
@@ -17,17 +18,13 @@ namespace SouthBasement.InventorySystem
         {
             if (!_passiveItems.ContainsKey(itemID)) return;
             
-            _passiveItems[itemID].OnPutOut();
             _passiveItems.Remove(itemID);
         }
 
         private void OnAddedItem(Item item)
         {
             if (item is PassiveItem passiveItem)
-            {
                 _passiveItems.Add(passiveItem.ItemID, passiveItem);
-                passiveItem.OnPutOn();
-            }
         }
         
         public void Initialize()

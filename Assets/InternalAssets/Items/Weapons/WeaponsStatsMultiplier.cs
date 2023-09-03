@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SouthBasement.Helpers;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using SouthBasement.Weapons;
 using UnityEngine;

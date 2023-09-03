@@ -1,7 +1,6 @@
 ﻿using System;
-using UnityEngine;
 
-namespace SouthBasement.InventorySystem
+namespace SouthBasement.InternalAssets.InventorySystem.ItemBase
 {
     public abstract class FoodItem : Item
     {

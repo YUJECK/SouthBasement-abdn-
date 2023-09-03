@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NaughtyAttributes;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using SouthBasement.Items;
 using Zenject;

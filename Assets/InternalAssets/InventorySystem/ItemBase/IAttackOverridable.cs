@@ -1,4 +1,4 @@
-﻿namespace SouthBasement.InventorySystem
+﻿namespace SouthBasement.InternalAssets.InventorySystem.ItemBase
 {
     public interface IAttackOverridable
     {

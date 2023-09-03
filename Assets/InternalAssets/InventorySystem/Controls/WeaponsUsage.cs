@@ -1,5 +1,6 @@
 ﻿using System;
 using SouthBasement.Characters.Stats;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using UnityEngine;
 
 namespace SouthBasement.InventorySystem

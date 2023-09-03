@@ -1,4 +1,5 @@
 ﻿using SouthBasement.Characters;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using UnityEngine;
 using UnityEngine.UI;

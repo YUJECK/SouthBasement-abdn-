@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 
 namespace SouthBasement.InventorySystem
 {

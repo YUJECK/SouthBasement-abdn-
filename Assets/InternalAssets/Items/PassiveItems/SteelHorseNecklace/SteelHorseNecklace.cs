@@ -1,4 +1,5 @@
 ﻿using System;
+using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using SouthBasement.Items;
 using SouthBasement.Items.Weapons;
@@ -11,10 +12,10 @@ namespace SouthBasement.BaseScripts.Tests
     {
         public override Type GetItemType() => typeof(PassiveItem);
         
-        public override void OnPutOn()
+        public override void OnAddedToInventory()
             => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Metal).Damage += 0.35f;
 
-        public override void OnPutOut()
+        public override void OnRemovedFromInventory()
             => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Metal).Damage -= 0.35f;
     }
 }
