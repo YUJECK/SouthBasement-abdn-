@@ -1,9 +1,6 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using SouthBasement.InternalAssets.InventorySystem.ItemBase;
-using SouthBasement.InventorySystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SouthBasement.InternalAssets.Items.Weapons.BloodthirstyFalchion
 {
@@ -12,9 +9,17 @@ namespace SouthBasement.InternalAssets.Items.Weapons.BloodthirstyFalchion
     {
         [SerializeField] private int hungryDamage = 5;
         [SerializeField] private Sprite hungrySprite;
+
+        [SerializeField] private int startingDamage;
+        [SerializeField] private int _uppedHits = 0;
         
         public override Type GetItemType()
             => typeof(WeaponItem);
+
+        private void Awake()
+        {
+            startingDamage = CombatStats.Damage;
+        }
 
         public override void OnAttack(AttackResult results)
         {
@@ -23,17 +28,26 @@ namespace SouthBasement.InternalAssets.Items.Weapons.BloodthirstyFalchion
                 if (result.CurrentHealth <= 0)
                     DamageUp();
             }
+
+            if(results.DamagedHits.Count > 0)
+                _uppedHits--;
+            
+            CombatStats.Damage = GetDamage();
         }
 
-        private async void DamageUp()
+        private int GetDamage()
         {
-            CombatStats.Damage += hungryDamage;
-            UpdateSprite(hungrySprite);
+            if (_uppedHits > 0)
+                return startingDamage + hungryDamage * _uppedHits;
 
-            await UniTask.Delay(TimeSpan.FromSeconds(5.5f));
-            
             UpdateSprite(ItemSprite);
-            CombatStats.Damage -= hungryDamage;
+            return startingDamage;
+        }
+
+        private void DamageUp()
+        {
+            _uppedHits += 2;
+            UpdateSprite(hungrySprite);
         }
     }
 }

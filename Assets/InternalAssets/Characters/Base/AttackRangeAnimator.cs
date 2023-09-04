@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+
 namespace SouthBasement.Scripts.Characters
 {
     [RequireComponent(typeof(Animator))]
