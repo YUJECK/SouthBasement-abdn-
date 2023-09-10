@@ -11,7 +11,6 @@ namespace SouthBasement.Characters
     {
         private readonly RatAttackerConfig _attackerConfig;
         private HitEffectSpawner _hitEffectSpawner;
-        private readonly Collider2D[] _results = new Collider2D[8];
 
         [Inject]
         private void Construct(HitEffectSpawner hitEffectSpawner)
@@ -30,9 +29,9 @@ namespace SouthBasement.Characters
 
             var mask = LayerMask.GetMask("Enemy"); 
             
-            Physics2D.OverlapCircleNonAlloc(_attackerConfig.AttackPoint.Point.transform.position, combatStats.Multiplied.AttackRange, _results, mask);
+            var results = Physics2D.OverlapCircleAll(_attackerConfig.AttackPoint.Point.transform.position, combatStats.Multiplied.AttackRange, mask);
 
-            AttackResult attackResult = new(_results);
+            AttackResult attackResult = new(results);
 
             foreach (var hit in attackResult.ColliderHits)
             {

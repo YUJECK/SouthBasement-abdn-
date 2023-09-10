@@ -1,6 +1,6 @@
-﻿using System;
-using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+﻿using SouthBasement.InternalAssets.InventorySystem.ItemBase;
 using UnityEngine;
+using System;
 
 namespace SouthBasement.InternalAssets.Items.Weapons.BloodthirstyFalchion
 {

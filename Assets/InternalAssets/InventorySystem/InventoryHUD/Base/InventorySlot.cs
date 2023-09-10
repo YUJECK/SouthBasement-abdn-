@@ -26,16 +26,23 @@ namespace SouthBasement.InventorySystem
             if (item == null)
             {
                 ItemImage.color = Color.clear;
+                
+                if(CurrentItem != null)
+                    CurrentItem.OnItemSpriteChanged -= UpdateSprite;
             }
             else
             {
-                ItemImage.sprite = item.ItemSprite;
+                UpdateSprite(item.ItemSprite);
                 ItemImage.color = Color.white;
+                item.OnItemSpriteChanged += UpdateSprite;
             }
 
             CurrentItem = item;
             OnSetted?.Invoke(CurrentItem);
         }
+
+        private void UpdateSprite(Sprite sprite)
+            => ItemImage.sprite = sprite;
 
         protected void InvokeOnSetted(TItem item)
         {
