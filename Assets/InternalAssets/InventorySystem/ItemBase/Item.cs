@@ -12,7 +12,7 @@ namespace SouthBasement.InternalAssets.InventorySystem.ItemBase
         [field: SerializeField] public string ItemID { get; private set; }
         [field: SerializeField] public List<ItemsTags> ItemTags { get; private set; } = new();
         [field: SerializeField] public Rarity Rarity { get; private set; } 
-        [field: SerializeField] public Sprite ItemSprite { get; private set; }
+        [field: SerializeField] public Sprite ItemSprite { get; protected set; }
         [field: SerializeField] public int ItemPrice { get; private set; }
 
         public event Action<Sprite> OnItemSpriteChanged;

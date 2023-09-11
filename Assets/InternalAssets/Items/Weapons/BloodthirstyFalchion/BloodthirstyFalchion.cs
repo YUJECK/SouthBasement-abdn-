@@ -12,6 +12,8 @@ namespace SouthBasement.InternalAssets.Items.Weapons.BloodthirstyFalchion
 
         [SerializeField] private int startingDamage;
         [SerializeField] private int _uppedHits = 0;
+
+        private Sprite _defaultSprite;
         
         public override Type GetItemType()
             => typeof(WeaponItem);
@@ -19,18 +21,19 @@ namespace SouthBasement.InternalAssets.Items.Weapons.BloodthirstyFalchion
         private void Awake()
         {
             startingDamage = CombatStats.Damage;
+            _defaultSprite = ItemSprite;
         }
 
         public override void OnAttack(AttackResult results)
         {
+            if(_uppedHits > 0 && results.DamagedHits.Count > 0)
+                _uppedHits--;
+            
             foreach (var result in results.DamagedHits)
             {
                 if (result.CurrentHealth <= 0)
                     DamageUp();
             }
-
-            if(results.DamagedHits.Count > 0)
-                _uppedHits--;
             
             CombatStats.Damage = GetDamage();
         }
@@ -38,15 +41,31 @@ namespace SouthBasement.InternalAssets.Items.Weapons.BloodthirstyFalchion
         private int GetDamage()
         {
             if (_uppedHits > 0)
-                return startingDamage + hungryDamage * _uppedHits;
+            {
+                UpdateSprite(hungrySprite);
+                return startingDamage + GetHungryDamage();
+            }
 
+            ItemSprite = _defaultSprite;
             UpdateSprite(ItemSprite);
+            
             return startingDamage;
+        }
+
+        private int GetHungryDamage()
+        {
+            var damage = hungryDamage * _uppedHits;
+
+            if (damage > 50)
+                damage = 50;
+            
+            return damage;
         }
 
         private void DamageUp()
         {
             _uppedHits += 2;
+            ItemSprite = hungrySprite;
             UpdateSprite(hungrySprite);
         }
     }

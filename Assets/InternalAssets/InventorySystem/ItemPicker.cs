@@ -40,7 +40,10 @@ namespace SouthBasement.InventorySystem
             _rigidbody2D = GetComponent<Rigidbody2D>();
 
             if(Item != null)
+            {
+                Item = ScriptableObject.Instantiate(Item);
                 SetItem(Item);
+            }
 
             _itemInfoHUD = FindObjectOfType<ItemInfoHUD>();
         }
