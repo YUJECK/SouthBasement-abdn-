@@ -1,6 +1,6 @@
 ﻿using System;
 using SouthBasement.InputServices;
-using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+using SouthBasement.InventorySystem.ItemBase;
 
 namespace SouthBasement.InventorySystem
 {

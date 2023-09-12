@@ -2,7 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using SouthBasement.Characters;
 using SouthBasement.Characters.Base;
-using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+using SouthBasement.InventorySystem.ItemBase;
 using SouthBasement.Weapons;
 using UnityEngine;
 using Zenject;

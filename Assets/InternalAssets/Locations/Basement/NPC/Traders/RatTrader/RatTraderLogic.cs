@@ -1,7 +1,7 @@
 using SouthBasement.Basement.NPC.Traders;
 using SouthBasement.Characters;
 using SouthBasement.Helpers;
-using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+using SouthBasement.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using SouthBasement.Items;
 using SouthBasement.Scripts.Helpers;

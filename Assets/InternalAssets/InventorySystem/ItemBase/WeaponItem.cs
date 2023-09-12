@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace SouthBasement.InternalAssets.InventorySystem.ItemBase
+namespace SouthBasement.InventorySystem.ItemBase
 {
     public abstract class WeaponItem : Item
     {

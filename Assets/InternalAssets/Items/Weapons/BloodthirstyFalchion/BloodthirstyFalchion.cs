@@ -1,8 +1,8 @@
-﻿using SouthBasement.InternalAssets.InventorySystem.ItemBase;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
+using SouthBasement.InventorySystem.ItemBase;
 
-namespace SouthBasement.InternalAssets.Items.Weapons.BloodthirstyFalchion
+namespace SouthBasement.Items.Weapons.BloodthirstyFalchion
 {
     [CreateAssetMenu(menuName = AssetMenuHelper.Weapon + "BloodthirstyFalchion")]
     public sealed class BloodthirstyFalchion : WeaponItem

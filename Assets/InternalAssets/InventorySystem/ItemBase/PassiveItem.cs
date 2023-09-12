@@ -1,4 +1,4 @@
-﻿namespace SouthBasement.InternalAssets.InventorySystem.ItemBase
+﻿namespace SouthBasement.InventorySystem.ItemBase
 {
     public abstract class PassiveItem : Item
     {

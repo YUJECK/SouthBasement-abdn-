@@ -1,7 +1,7 @@
 using System;
 using SouthBasement.Characters;
 using SouthBasement.Characters.Stats;
-using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+using SouthBasement.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;

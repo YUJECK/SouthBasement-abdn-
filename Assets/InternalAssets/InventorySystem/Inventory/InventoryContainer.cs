@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SouthBasement.Extensions.DataStructures;
-using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+using SouthBasement.InventorySystem.ItemBase;
 using UnityEngine;
 
 namespace SouthBasement.InventorySystem

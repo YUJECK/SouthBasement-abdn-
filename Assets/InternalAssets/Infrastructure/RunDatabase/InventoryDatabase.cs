@@ -1,4 +1,4 @@
-﻿using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+﻿using SouthBasement.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 
 namespace SouthBasement
@@ -30,7 +30,7 @@ namespace SouthBasement
         private void CreateInventoryContainers()
         {
             Inventory.ItemsContainer
-                .AddContainer<JunkItem>(new StackableTypeContainer(), 12)
+                .AddContainer<RubbishItem>(new StackableTypeContainer(), 12)
                 .AddContainer<FoodItem>(new TypeContainer(), 6)
                 .AddContainer<ActiveItem>(new TypeContainer(), 2)
                 .AddContainer<PassiveItem>(new TypeContainer(), 24)

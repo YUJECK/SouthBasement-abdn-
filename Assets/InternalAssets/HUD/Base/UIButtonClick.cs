@@ -1,4 +1,4 @@
-﻿namespace SouthBasement.InternalAssets.HUD.Base
+﻿namespace SouthBasement.HUD.Base
 {
     public sealed class UIButtonClick
     {

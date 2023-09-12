@@ -1,5 +1,5 @@
 ﻿using System;
-using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+using SouthBasement.InventorySystem.ItemBase;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

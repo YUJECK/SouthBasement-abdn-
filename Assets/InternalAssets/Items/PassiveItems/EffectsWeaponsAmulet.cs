@@ -1,7 +1,7 @@
 ﻿using System;
 using SouthBasement.Characters;
 using SouthBasement.Characters.Components;
-using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+using SouthBasement.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using SouthBasement.Items;
 using Zenject;

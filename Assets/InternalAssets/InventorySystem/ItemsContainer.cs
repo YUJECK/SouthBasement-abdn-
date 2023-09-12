@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SouthBasement.Helpers;
-using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+using SouthBasement.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using Unity.Mathematics;
 using UnityEngine;

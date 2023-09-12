@@ -1,4 +1,4 @@
-﻿using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+﻿using SouthBasement.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
@@ -6,7 +6,7 @@ using Zenject;
 namespace SouthBasement.HUD
 {
     [AddComponentMenu("HUD/Inventory/JunkItemsHUD")]
-    public class JunkItemsHUD : SlotHUD<JunkItemSlot, JunkItem>
+    public class JunkItemsHUD : SlotHUD<JunkItemSlot, RubbishItem>
     {
         private Inventory _inventory;
 
@@ -20,7 +20,7 @@ namespace SouthBasement.HUD
 
         protected override void OnAdded(Item item)
         {
-            if (item is JunkItem itemToAdd)
+            if (item is RubbishItem itemToAdd)
             {
                 var slot = Find(itemToAdd.ItemID);
 

@@ -8,6 +8,7 @@ namespace SouthBasement.Economy
     public sealed class CheeseService
     {
         public int CheeseAmount { get; private set; }
+        public float CheeseCoefficient { get; set; } = 1f;
 
         private readonly CheeseObject _cheesePrefab;
         private readonly DiContainer _container;
@@ -46,7 +47,7 @@ namespace SouthBasement.Economy
         public CheeseObject SpawnCheese(Vector2 postition, int amount)
         {
              var resultCheese = _container.InstantiatePrefabForComponent<CheeseObject>(_cheesePrefab, postition, Quaternion.identity, null);
-             resultCheese.SetCheeseValue(amount);
+             resultCheese.SetCheeseValue((int)(amount * CheeseCoefficient));
 
              return resultCheese;
         }

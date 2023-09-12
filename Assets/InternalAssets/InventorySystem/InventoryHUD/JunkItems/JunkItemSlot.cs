@@ -1,4 +1,4 @@
-﻿using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+﻿using SouthBasement.InventorySystem.ItemBase;
 using SouthBasement.InventorySystem;
 using TMPro;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 namespace SouthBasement.HUD
 {
     [AddComponentMenu("HUD/Inventory/JunkItemSlot")]
-    public class JunkItemSlot : InventorySlot<JunkItem>
+    public class JunkItemSlot : InventorySlot<RubbishItem>
     {
         [SerializeField] private TMP_Text _itemsCount;
         public int CurrentJunkCount { get; private set; }
@@ -28,7 +28,7 @@ namespace SouthBasement.HUD
             if(CurrentJunkCount <= 0)
                 SetItem(null);
         }
-        public override void SetItem(JunkItem item)
+        public override void SetItem(RubbishItem item)
         {
             if (item == null)
             {

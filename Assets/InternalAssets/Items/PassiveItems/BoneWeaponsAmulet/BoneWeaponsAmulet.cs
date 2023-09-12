@@ -3,7 +3,7 @@ using SouthBasement.InventorySystem;
 using SouthBasement.Characters;
 using UnityEngine;
 using System;
-using SouthBasement.InternalAssets.InventorySystem.ItemBase;
+using SouthBasement.InventorySystem.ItemBase;
 using SouthBasement.Items;
 using SouthBasement.Items.Weapons;
 using Zenject;
