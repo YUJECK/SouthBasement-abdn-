@@ -13,6 +13,8 @@ namespace SouthBasement.HUD
         private CheeseService _cheeseService;
         private TMP_Text _cheeseScore;
 
+        private int _currentCheese;
+
         public override Vector2 GetClosedPosition() => new(-300, 0f);
 
         [Inject]
@@ -40,13 +42,15 @@ namespace SouthBasement.HUD
         private async void UpdateCheeseScore(int cheeseAmount)
         {
             _cheeseScore.text = $"{cheeseAmount}";
-
+            
             if (!CurrentlyOpened)
             {
                 Open();
                 await UniTask.Delay(800);
                 Close();
             }
+
+            _currentCheese = cheeseAmount;
         }
 
         protected override void OnNPC() => Open();

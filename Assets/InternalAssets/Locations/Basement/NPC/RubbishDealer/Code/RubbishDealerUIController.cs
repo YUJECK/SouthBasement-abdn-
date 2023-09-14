@@ -6,6 +6,11 @@ namespace SouthBasement
     {
         [SerializeField] private Transform uiMaster;
 
+        private void Awake()
+        {
+            DisableUI();
+        }
+
         public void EnableUI()
         {
             uiMaster.gameObject.SetActive(true);
