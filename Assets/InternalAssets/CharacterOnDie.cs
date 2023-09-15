@@ -1,8 +1,8 @@
 ﻿using NTC.GlobalStateMachine;
 using SouthBasement.Characters;
 using SouthBasement.Characters.Components;
-using SouthBasement.Characters.Stats;
 using SouthBasement.CameraHandl;
+using UnityEngine;
 using Zenject;
 
 namespace SouthBasement
@@ -28,8 +28,8 @@ namespace SouthBasement
                 .Remove<IDashable>()
                 .Remove<IFlipper>()
                 .Remove<ICharacterMovable>();
-            
-            //_character.Components.Get<ICharacterMovable>().CanMove = false;
+
+            _character.GameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         }
     }
 }
