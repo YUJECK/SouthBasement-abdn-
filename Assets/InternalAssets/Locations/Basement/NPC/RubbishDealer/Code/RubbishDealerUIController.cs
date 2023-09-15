@@ -1,24 +1,23 @@
-﻿using UnityEngine;
+﻿using SouthBasement.HUD.Base;
+using UnityEngine;
 
 namespace SouthBasement
 {
-    public sealed class RubbishDealerUIController : MonoBehaviour
+    public sealed class RubbishDealerUIController : HUDWindow
     {
         [SerializeField] private Transform uiMaster;
 
-        private void Awake()
-        {
-            DisableUI();
-        }
+        public override GameObject Window => uiMaster.gameObject;
 
-        public void EnableUI()
-        {
-            uiMaster.gameObject.SetActive(true);
-        }
+        public override Vector2 GetClosedPosition()
+            => new(0, -200);
 
-        public void DisableUI()
-        {
-            uiMaster.gameObject.SetActive(false);
-        }
+        protected override void OnNPC() { }
+        protected override void OnDied()
+            => uiMaster.gameObject.SetActive(false);
+        protected override void OnFight()
+            => uiMaster.gameObject.SetActive(false);
+        protected override void OnIdle()
+            => uiMaster.gameObject.SetActive(false);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using SouthBasement.Economy;
 using SouthBasement.InventorySystem;
 using SouthBasement.InventorySystem.ItemBase;
@@ -10,6 +11,8 @@ namespace SouthBasement
     {
         private Inventory _inventory;
         private CheeseService _cheeseService;
+
+        public event Action OnSold;
 
         [Inject]
         private void Construct(Inventory inventory, CheeseService cheeseService)
@@ -27,6 +30,8 @@ namespace SouthBasement
                 _inventory.RemoveItem(item.ItemID);
                 _cheeseService.AddCheese(item.ItemPrice);
             }
+            
+            OnSold?.Invoke();
         }
     }
 }

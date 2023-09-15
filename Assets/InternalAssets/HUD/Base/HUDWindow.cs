@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using DG.Tweening;
+﻿using DG.Tweening;
 using NTC.GlobalStateMachine;
 using UnityEngine;
 
@@ -10,12 +9,13 @@ namespace SouthBasement.HUD.Base
         public bool CurrentlyOpened { get; protected set; } = true;
 
         public virtual Vector2 GetClosedPosition() => Vector2.zero;
-        public virtual float GetMoveSpeed() => 0.27f;
+        public virtual float GetMoveSpeed() => 0.2f;
         public virtual GameObject Window => gameObject;
 
         protected Vector2 StartPosition;
 
-        protected override void OnAwake() => StartPosition = transform.position;
+        protected override void OnAwake() 
+            => StartPosition = Window.transform.position;
 
         public void SetOpened(bool opened)
         {
@@ -36,7 +36,10 @@ namespace SouthBasement.HUD.Base
             if(!CurrentlyOpened)
                 return;
 
-            Window.transform.DOMove(StartPosition + GetClosedPosition(), GetMoveSpeed()).OnComplete(() => Window.SetActive(false));
+            Window.transform
+                .DOMove(StartPosition + GetClosedPosition(), GetMoveSpeed())
+                .OnComplete(() => Window.SetActive(false));
+            
             CurrentlyOpened = false;
         }
 

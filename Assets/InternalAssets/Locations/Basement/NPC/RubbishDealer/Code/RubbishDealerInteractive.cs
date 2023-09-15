@@ -14,14 +14,14 @@ namespace SouthBasement
 
         public void Detect()
         {
-            UIController.EnableUI();
+            UIController.Open();
         }
 
         public void Interact() { }
 
         public void DetectionReleased()
         {
-            UIController.DisableUI();
+            UIController.Close();
         }
     }
 }
