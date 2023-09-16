@@ -16,7 +16,10 @@ namespace SouthBasement
         private TMP_Text _text;
 
         protected override void OnAwake()
-            => _text = GetComponent<TMP_Text>();
+        {
+            _text = GetComponent<TMP_Text>();
+            _text.text = "";
+        }
 
         protected override void OnDied()
         {
