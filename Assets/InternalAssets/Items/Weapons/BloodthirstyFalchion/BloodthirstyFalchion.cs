@@ -11,8 +11,8 @@ namespace SouthBasement.Items.Weapons.BloodthirstyFalchion
         [SerializeField] private Sprite hungrySprite;
 
         [SerializeField] private int startingDamage;
-        [SerializeField] private int _uppedHits = 0;
-
+        
+        private bool _boosted = false;
         private Sprite _defaultSprite;
         
         public override Type GetItemType()
@@ -26,13 +26,13 @@ namespace SouthBasement.Items.Weapons.BloodthirstyFalchion
 
         public override void OnAttack(AttackResult results)
         {
-            if(_uppedHits > 0 && results.DamagedHits.Count > 0)
-                _uppedHits--;
+            if(results.DamagedHits.Count > 0)
+                DamageUpDisable();
             
             foreach (var result in results.DamagedHits)
             {
                 if (result.CurrentHealth <= 0)
-                    DamageUp();
+                    DamageUpEnable();
             }
             
             CombatStats.Damage = GetDamage();
@@ -40,7 +40,7 @@ namespace SouthBasement.Items.Weapons.BloodthirstyFalchion
 
         private int GetDamage()
         {
-            if (_uppedHits > 0)
+            if (_boosted)
             {
                 UpdateSprite(hungrySprite);
                 return startingDamage + GetHungryDamage();
@@ -53,19 +53,19 @@ namespace SouthBasement.Items.Weapons.BloodthirstyFalchion
         }
 
         private int GetHungryDamage()
-        {
-            var damage = hungryDamage * _uppedHits;
+            => hungryDamage;
 
-            if (damage > 50)
-                damage = 50;
-            
-            return damage;
-        }
-
-        private void DamageUp()
+        private void DamageUpEnable()
         {
-            _uppedHits += 2;
+            _boosted = true;
             ItemSprite = hungrySprite;
+            UpdateSprite(hungrySprite);
+        }
+        
+        private void DamageUpDisable()
+        {
+            _boosted = false;
+            ItemSprite = _defaultSprite;
             UpdateSprite(hungrySprite);
         }
     }
