@@ -6,7 +6,7 @@ namespace SouthBasement.Scripts.Helpers
 {
     public sealed class TriggerCallback : MonoBehaviour
     {
-        [SerializeField] private List<string> tagList;
+        [SerializeField] private List<string> tagList = new();
 
         public event Action<Collider2D> OnTriggerEnter;
         public event Action<Collider2D> OnTriggerExit;
