@@ -9,8 +9,6 @@ namespace SouthBasement.BaseScripts.Tests
     [CreateAssetMenu(menuName = AssetMenuHelper.PassiveItem + "SteelHorseNecklace")]
     public sealed class SteelHorseNecklace : PassiveItem
     {
-        public override Type GetItemType() => typeof(PassiveItem);
-        
         public override void OnAddedToInventory()
             => WeaponsStatsMultiplier.GetMultiplier(AttackTags.Metal).Damage += 0.35f;
 

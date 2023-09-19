@@ -25,8 +25,5 @@ namespace SouthBasement.BaseScripts.Tests
         {
             return "Multiply bone weapons damage on 1.2 units";
         }
-
-        public override Type GetItemType()
-            => typeof(PassiveItem);
     }
 }

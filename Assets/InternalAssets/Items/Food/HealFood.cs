@@ -29,11 +29,6 @@ namespace SouthBasement.Tests
             return $"Heals { heal } hp";
         }
 
-        public override Type GetItemType()
-        {
-            return typeof(FoodItem);
-        }
-
         public override void Eat()
         {
             _characterStats.HealthStats.SetHealth(_characterStats.HealthStats.CurrentHealth + heal);

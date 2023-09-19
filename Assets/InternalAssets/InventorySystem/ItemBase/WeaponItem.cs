@@ -1,4 +1,5 @@
-﻿using SouthBasement.Weapons;
+﻿using System;
+using SouthBasement.Weapons;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,6 +15,9 @@ namespace SouthBasement.InventorySystem.ItemBase
         }
 
         public CombatStats CombatStats => OriginalCombatStats;
+        
+        public override Type GetItemType()
+            => typeof(WeaponItem);
         
         public virtual void OnAttack(AttackResult result) { }
 

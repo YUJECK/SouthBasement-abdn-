@@ -1,5 +1,4 @@
-﻿using System;
-using SouthBasement.Characters;
+﻿using SouthBasement.Characters;
 using SouthBasement.Economy;
 using SouthBasement.InventorySystem.ItemBase;
 using UnityEngine;
@@ -19,9 +18,6 @@ namespace SouthBasement.BaseScripts.Tests.StingyHeart
             _cheeseService = cheeseService;
             _characterStats = characterStats;
         }
-
-        public override Type GetItemType()
-            => typeof(PassiveItem);
 
         public override void OnAddedToInventory()
         {

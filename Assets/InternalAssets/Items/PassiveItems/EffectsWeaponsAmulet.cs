@@ -15,10 +15,7 @@ namespace SouthBasement.BaseScripts.Tests
         [Inject]
         private void Construct(Character character) 
             => _character = character;
-
-        public override Type GetItemType()
-            => typeof(PassiveItem);
-
+        
         public override void OnAddedToInventory()
         {
             _character.Components.Get<ICharacterAttacker>().OnAttacked += ExtraEffect;

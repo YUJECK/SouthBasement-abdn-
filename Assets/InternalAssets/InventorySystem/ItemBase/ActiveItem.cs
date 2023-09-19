@@ -6,6 +6,9 @@ namespace SouthBasement.InventorySystem.ItemBase
     {
         public event Action OnUsed;
 
+        public override Type GetItemType()
+            => typeof(ActiveItem);
+
         public abstract void Use();
     }
 }

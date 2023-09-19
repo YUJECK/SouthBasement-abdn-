@@ -41,10 +41,6 @@ namespace SouthBasement
         {
             Destroy(_prefabInstance.gameObject);
         }
-
-        public override Type GetItemType()
-            => typeof(WeaponItem);
-
         public bool UseCulldown()
         {
             return true;

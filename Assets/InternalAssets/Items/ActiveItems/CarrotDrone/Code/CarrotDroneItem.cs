@@ -3,7 +3,6 @@ using SouthBasement.Characters;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
-using System;
 using NTC.GlobalStateMachine;
 
 namespace SouthBasement
@@ -25,10 +24,7 @@ namespace SouthBasement
         
         public override string GetStatsDescription()
             => "Spawn a carrot";
-
-        public override Type GetItemType()
-            => typeof(ActiveItem);
-
+        
         public override void Use()
         {
             if (GlobalStateMachine.LastGameState.State() == GameStates.Fight)

@@ -28,10 +28,7 @@ namespace SouthBasement
             _staminaController = staminaController;
             _character = character;
         }
-
-        public override Type GetItemType()
-            => typeof(WeaponItem);
-
+        
         public bool UseCulldown()
             => false;
 

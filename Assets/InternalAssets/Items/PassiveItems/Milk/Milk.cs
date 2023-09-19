@@ -12,8 +12,6 @@ namespace SouthBasement
     public class Milk : PassiveItem
     {
         private CharacterStats _healthStats;
-        
-        public override Type GetItemType() => typeof(PassiveItem);
 
         [Inject]
         private void Construct(CharacterStats characterStats)

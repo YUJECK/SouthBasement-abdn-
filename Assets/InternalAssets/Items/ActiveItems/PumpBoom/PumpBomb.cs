@@ -34,11 +34,6 @@ namespace SouthBasement
             return $"Spawn a bomb than deal {stats.Damage}";
         }
 
-        public override Type GetItemType()
-        {
-            return typeof(ActiveItem);
-        }
-
         public override void Use()
         {
             if(_blocked)

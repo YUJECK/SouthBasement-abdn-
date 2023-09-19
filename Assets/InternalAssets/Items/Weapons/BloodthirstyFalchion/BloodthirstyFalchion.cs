@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using SouthBasement.InventorySystem.ItemBase;
 
 namespace SouthBasement.Items.Weapons.BloodthirstyFalchion
@@ -14,9 +13,6 @@ namespace SouthBasement.Items.Weapons.BloodthirstyFalchion
         
         private bool _boosted = false;
         private Sprite _defaultSprite;
-        
-        public override Type GetItemType()
-            => typeof(WeaponItem);
 
         private void Awake()
         {

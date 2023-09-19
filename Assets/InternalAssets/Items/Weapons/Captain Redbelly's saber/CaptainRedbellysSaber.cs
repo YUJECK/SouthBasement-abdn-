@@ -1,8 +1,6 @@
-﻿using System;
-using SouthBasement.Characters;
+﻿using SouthBasement.Characters;
 using SouthBasement.Helpers;
 using SouthBasement.InventorySystem.ItemBase;
-using SouthBasement.InventorySystem;
 using UnityEngine;
 using Zenject;
 
@@ -22,9 +20,6 @@ namespace SouthBasement
         {
             _character = character;
         }
-        
-        public override Type GetItemType()
-            => typeof(WeaponItem);
 
         public override void OnAttack(AttackResult damaged)
         {
