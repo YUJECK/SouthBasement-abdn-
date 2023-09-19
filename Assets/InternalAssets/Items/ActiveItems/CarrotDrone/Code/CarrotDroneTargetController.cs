@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using SouthBasement.AI;
+using SouthBasement.Helpers.Rotator;
 using SouthBasement.Scripts.Helpers;
 using UnityEngine;
 
 namespace SouthBasement
 {
-    public sealed class CarrotDroneObject : MonoBehaviour
+    public sealed class CarrotDroneTargetController : CarrotDroneComponent 
     {
-        private CarrotDroneConfig _config;
         private TriggerCallback _triggerCallback;
 
         private readonly List<Transform> _currentTargets = new();
@@ -33,7 +33,8 @@ namespace SouthBasement
                 return;
             
             transform.position 
-                = Vector3.MoveTowards(transform.position, _currentTarget.position, Time.deltaTime * _config.moveSpeed);
+                = Vector3.MoveTowards(transform.position, _currentTarget.position, 
+                    Time.deltaTime * CarrotDroneConfig.moveSpeed);
         }
 
         private void OnEnter(Collider2D targetToCheck)
@@ -62,6 +63,7 @@ namespace SouthBasement
             }
 
             _currentTarget = bestTarget;
+            GetComponent<ObjectRotator>().Target = _currentTarget;
         }
 
         private bool CheckDistance(Transform bestTarget, Transform target)
@@ -79,10 +81,5 @@ namespace SouthBasement
             
             UpdateTarget();
         }
-
-        public void SetConfig(CarrotDroneConfig carrotDroneObject)
-            => _config = carrotDroneObject;
-        
-        
     }
 }

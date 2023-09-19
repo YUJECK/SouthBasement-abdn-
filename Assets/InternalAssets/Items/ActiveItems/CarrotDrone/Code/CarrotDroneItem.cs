@@ -4,16 +4,17 @@ using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 using System;
+using NTC.GlobalStateMachine;
 
 namespace SouthBasement
 {
-    [CreateAssetMenu(menuName = AssetMenuHelper.ActiveItem + nameof(CarrotDrone))]
-    public sealed class CarrotDrone : ActiveItem
+    [CreateAssetMenu(menuName = AssetMenuHelper.ActiveItem + nameof(CarrotDroneItem))]
+    public sealed class CarrotDroneItem : ActiveItem
     {
         [SerializeField] private CarrotDroneConfig carrotDroneConfig;
-        [SerializeField] private CarrotDroneObject carrotPrefab;
+        [SerializeField] private CarrotDrone carrotPrefab;
 
-        private CarrotDroneObject _instance;
+        private CarrotDrone _instance;
         private Character _character;
 
         [Inject]
@@ -30,9 +31,12 @@ namespace SouthBasement
 
         public override void Use()
         {
-            _instance 
-                = Instantiate(carrotPrefab, _character.GameObject.transform.position, quaternion.identity);
-            _instance.SetConfig(carrotDroneConfig);
+            if (GlobalStateMachine.LastGameState.State() == GameStates.Fight)
+            {
+                _instance 
+                    = Instantiate(carrotPrefab, _character.GameObject.transform.position, quaternion.identity);
+                _instance.SetConfig(carrotDroneConfig);
+            }
         }
     }
 }
