@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace SouthBasement
 {
-    public sealed class CarrotDroneTargetController : CarrotDroneComponent 
+    public sealed class CarrotDroneTargetController : MonoBehaviour 
     {
-        private TriggerCallback _triggerCallback;
+        public Transform CurrentTarget { get; private set; }
 
+        private TriggerCallback _triggerCallback;
         private readonly List<Transform> _currentTargets = new();
-        private Transform _currentTarget;
         
         private void Awake()
         {
@@ -27,16 +27,6 @@ namespace SouthBasement
             _triggerCallback.OnTriggerExit -= OnExit;
         }
 
-        private void Update()
-        {
-            if(_currentTarget == null)
-                return;
-            
-            transform.position 
-                = Vector3.MoveTowards(transform.position, _currentTarget.position, 
-                    Time.deltaTime * CarrotDroneConfig.moveSpeed);
-        }
-
         private void OnEnter(Collider2D targetToCheck)
         {
             if (targetToCheck.TryGetComponent(out EnemyHealth enemyHealth))
@@ -50,7 +40,7 @@ namespace SouthBasement
         {
             if (_currentTargets.Count == 0)
             {
-                _currentTarget = null;
+                CurrentTarget = null;
                 return;    
             }
             
@@ -62,8 +52,8 @@ namespace SouthBasement
                     bestTarget = target;
             }
 
-            _currentTarget = bestTarget;
-            GetComponent<ObjectRotator>().Target = _currentTarget;
+            CurrentTarget = bestTarget;
+            GetComponent<ObjectRotator>().Target = CurrentTarget;
         }
 
         private bool CheckDistance(Transform bestTarget, Transform target)

@@ -42,6 +42,11 @@ namespace SouthBasement.InventorySystem
         private void Start()
             => DefaultStart();
 
+        private void OnDestroy()
+        {
+            _activeItemUsage.OnSelected -= CheckCurrent;
+        }
+
         private void SetCurrent()
         {
             if(CurrentItem == null)

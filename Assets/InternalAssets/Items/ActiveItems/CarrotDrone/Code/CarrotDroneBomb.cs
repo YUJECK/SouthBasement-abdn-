@@ -7,6 +7,8 @@ namespace SouthBasement
 {
     public sealed class CarrotDroneBomb : CarrotDroneComponent
     {
+        public GameObject boomEffect;
+
         public void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.TryGetComponent(out IDamagable damagable))
@@ -22,8 +24,9 @@ namespace SouthBasement
             }
         }
 
-        private void Explode()
+        public void Explode()
         {
+            Instantiate(boomEffect, transform.position, transform.rotation);
             Destroy(transform.parent.gameObject);
         }
     }

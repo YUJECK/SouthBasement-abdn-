@@ -34,6 +34,7 @@ namespace SouthBasement.InventorySystem
         ~ActiveItemUsage()
         {
             _inventory.OnAdded -= SetCurrent;
+            _inventory.OnRemoved += OnRemoved;
         }
 
         public void SetCurrent(Item item)

@@ -3,21 +3,22 @@ using UnityEngine;
 
 namespace SouthBasement.Helpers.Rotator
 {
-    public sealed class ObjectRotator : MonoBehaviour
-    {       
-        private bool _stopped;
+    public class ObjectRotator : MonoBehaviour
+    {
         [field: SerializeField] public Transform Target { get; set; }
 
         [field: SerializeField] public Transform Point { get; private set; } 
         [field: SerializeField] public float Coefficient { get; set; } = 1f;
+        
+        protected bool Stopped;
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
-            if(!_stopped)
+            if(!Stopped)
                 transform.rotation = Quaternion.Euler(0, 0, GetAngle());
         }
         
-        private float GetAngle()
+        protected virtual float GetAngle()
         {
             if (Target == null) return 0f;
             
@@ -27,13 +28,13 @@ namespace SouthBasement.Helpers.Rotator
             return Coefficient * angle;
         }
 
-        public void Stop(float time) => StartCoroutine(StopRoutine(time));
+        public virtual void Stop(float time) => StartCoroutine(StopRoutine(time));
 
-        private IEnumerator StopRoutine(float time)
+        protected virtual IEnumerator StopRoutine(float time)
         {
-            _stopped = true;
+            Stopped = true;
             yield return new WaitForSeconds(time);
-            _stopped = false;
+            Stopped = false;
         }
     }
 }
