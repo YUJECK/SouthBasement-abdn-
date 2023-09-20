@@ -16,5 +16,6 @@
         public const string TraderHUD = "HUD/TraderHUD";
         public const string CamerasContainer = "Camera/Cameras";
         public const string CamerasReacting = "Camera/CamerasReacting";
+        public const string BleedIcon = "Icons/Bleed";
     }
 }

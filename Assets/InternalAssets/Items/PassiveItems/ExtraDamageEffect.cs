@@ -26,6 +26,8 @@ namespace SouthBasement.BaseScripts.Tests
                 yield return new WaitForSeconds(_damageRate);
                 Owner.Damage(_damage, new [] {AttackTags.Effect});
             }
+            
+            onDied?.Invoke(this);
         }
     }
 }

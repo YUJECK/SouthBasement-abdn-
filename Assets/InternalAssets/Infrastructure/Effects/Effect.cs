@@ -7,6 +7,7 @@ namespace SouthBasement
     public abstract class Effect
     {
         public float Duration { get; set; }
+        public Sprite Icon { get; set; }
         protected readonly IDamagable Owner;
 
         protected Effect(IDamagable owner, float duration)

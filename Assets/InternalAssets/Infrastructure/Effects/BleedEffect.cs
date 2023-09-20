@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using SouthBasement.Helpers;
 using SouthBasement.Items;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace SouthBasement
         {
             _damageRate = damageRate;
             _damage = damage;
+
+            Icon = Resources.Load<Sprite>(ResourcesPathHelper.BleedIcon);
         }
 
         public override IEnumerator DieCoroutine(Action<Effect> onDied)
@@ -25,6 +28,8 @@ namespace SouthBasement
                 yield return new WaitForSeconds(_damageRate);
                 Owner.Damage(_damage, new [] { AttackTags.Effect});
             }
+            
+            onDied?.Invoke(this);
         }
     }
 }

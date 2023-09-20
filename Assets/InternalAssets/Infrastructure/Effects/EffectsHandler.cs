@@ -5,8 +5,16 @@ namespace SouthBasement
 {
     public class EffectsHandler : MonoBehaviour
     {
-        private readonly List<Effect> _effects = new();
         public bool Blocked { get; set; }
+        
+        private readonly List<Effect> _effects = new();
+        private SpriteRenderer _effectIcon;
+
+        private void Awake()
+        {
+            _effectIcon = transform.Find("EffectsHandlerIcon").GetComponent<SpriteRenderer>();
+            DisableEffectIcon();
+        }
 
         private void OnDestroy()
         {
@@ -26,13 +34,29 @@ namespace SouthBasement
             
             _effects.Add(effect);
             effect.OnAdded();
-            StartCoroutine(effect.DieCoroutine((effect) => Remove(effect)));
+            StartCoroutine(effect.DieCoroutine(Remove));
+
+            EnableEffectIcon(effect);
         }
 
         public void Remove(Effect effect)
         {
             effect.OnRemoved();
             _effects.Remove(effect);
+
+            DisableEffectIcon();
         }
+
+        private void EnableEffectIcon(Effect effect)
+        {
+            if (effect.Icon != null)
+            {
+                _effectIcon.color = Color.white;
+                _effectIcon.sprite = effect.Icon;
+            }
+        }
+
+        private void DisableEffectIcon()
+            => _effectIcon.color = Color.clear;
     }
 }
