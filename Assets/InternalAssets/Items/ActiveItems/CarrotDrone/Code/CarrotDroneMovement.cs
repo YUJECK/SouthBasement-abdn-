@@ -28,7 +28,12 @@ namespace SouthBasement
             }
 
             if (CanMove())
+            {
                 Move();
+                
+                if(_explodeCoroutine != null)
+                    StopCoroutine(_explodeCoroutine);
+            }
         }
 
         private bool CanMove() => CurrentTarget != null;
