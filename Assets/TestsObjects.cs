@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SouthBasement
 {
-    public class TestsObjects : MonoBehaviour
+    public sealed class TestsObjects : MonoBehaviour
     {
 #if DEBUG
         private void Start()
