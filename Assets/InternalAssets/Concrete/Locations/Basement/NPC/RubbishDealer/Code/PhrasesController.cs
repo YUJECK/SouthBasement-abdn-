@@ -1,9 +1,9 @@
 using SouthBasement.InternalAssets.Upper.Infrastructure.Extensions;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Localization;
 using SouthBasement.InventorySystem;
 using SouthBasement.InventorySystem.ItemBase;
+using SouthBasement.Localization;
 using Zenject;
 
 namespace SouthBasement.NPC
@@ -11,38 +11,32 @@ namespace SouthBasement.NPC
     [RequireComponent(typeof(TMP_Text))]
     public sealed class PhrasesController : MonoBehaviour
     {
-        public const string TableReference = "RubbishDealerPhrases";
-        
-        public const string WithoutRubbishPhrase = "rubbish_has_not";
-        public const string WithRubbishPhrase = "rubbish_has";
+        private const string DealerTable = "RubbishDealerPhrases";
 
-        private TMP_Text _text;
+        [SerializeField] private LocalizatedString withRubbishPhrase;
+        [SerializeField] private LocalizatedString withoutRubbishPhrase;
+
+        private TMP_Text _text; 
         private Inventory _inventory;
 
         [Inject]
         private void Construct(Inventory inventory)
-        {
-            _inventory = inventory;
-        }
+            => _inventory = inventory;
 
         private void Awake()
-        {
-            _text = GetComponent<TMP_Text>();
-        }
+            => _text = GetComponent<TMP_Text>();
 
         private void OnEnable()
         {
-            string phrase = "";
+            string phrase;
 
             if (_inventory.ItemsContainer.GetAllInContainer<RubbishItem>().Length > 0)
             {
-                var localize = new LocalizedString(TableReference, WithRubbishPhrase);
-                phrase = localize.GetLocalizedString();
+                phrase = withRubbishPhrase.GetLocalized();
             }
             else
             {
-                var localize = new LocalizedString(TableReference, WithoutRubbishPhrase);
-                phrase = localize.GetLocalizedString();
+                phrase = withoutRubbishPhrase.GetLocalized();
             }
 
             _text.text = phrase;

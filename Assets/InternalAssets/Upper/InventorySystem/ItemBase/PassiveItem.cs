@@ -10,6 +10,6 @@ namespace SouthBasement.InventorySystem.ItemBase
         public virtual void OnRun() { }
 
         public override string GetStatsDescription()
-            => ItemDescriptionEntryName;
+            => ItemDescription.GetLocalized();
     }
 }

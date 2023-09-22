@@ -36,8 +36,7 @@ namespace SouthBasement.TraderItemDescriptionHUD
                 StopCoroutine(_textPrintingCoroutine);
             
             this.traderName.text = traderName;
-            var textResult = new LocalizedString(ItemsTable, item.ItemDescriptionEntryName);
-            _textPrintingCoroutine = StartCoroutine(PrintText(textResult.GetLocalizedString()));
+            _textPrintingCoroutine = StartCoroutine(PrintText(item.ItemDescription.GetLocalized()));
         }
 
         private void Enable()
