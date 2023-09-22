@@ -97,7 +97,7 @@ namespace SouthBasement.InventorySystem
             OnDetectionReleased?.Invoke(this);
             _spriteRenderer.material = _materialHelper.DefaultMaterial;
             
-            _itemInfoHUD.Close();
+            _itemInfoHUD.ResetItem(Item);
         }
     }
 }

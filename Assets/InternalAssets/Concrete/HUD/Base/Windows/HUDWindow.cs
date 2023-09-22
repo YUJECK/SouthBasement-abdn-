@@ -9,7 +9,7 @@ namespace SouthBasement.HUD.Base
         public bool CurrentlyOpened { get; protected set; } = false;
 
         public virtual Vector2 GetClosedPosition() => Vector2.zero;
-        public virtual float GetMoveSpeed() => 0.2f;
+        public virtual float GetMoveSpeed() => 0.1f;
         public virtual GameObject Window => gameObject;
 
         protected Vector2 StartPosition;
