@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 5720725814996466644}
   - component: {fileID: 3807749285740700684}
   - component: {fileID: 9013775461604065963}
-  - component: {fileID: 5991777948075079191}
+  - component: {fileID: 2886866757718119414}
   m_Layer: 5
   m_Name: FoodLabel
   m_TagString: Untagged
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Food
+  m_text: "\u0415\u0434\u0430"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7eb7c9cae58da5046945df547bb639ab, type: 2}
   m_sharedMaterial: {fileID: 8158196260901712107, guid: 7eb7c9cae58da5046945df547bb639ab, type: 2}
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5991777948075079191
+--- !u!114 &2886866757718119414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -629,37 +629,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2420442503650307805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Script: {fileID: 11500000, guid: c059b5ae4ee9494780e790f30c47a3cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:9a538ddb3f16e4b459837fc5296eacb6
-    m_TableEntryReference:
-      m_KeyId: 27312366065299456
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9013775461604065963}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  references:
-    version: 2
-    RefIds: []
+  text:
+    rus: "\u0415\u0434\u0430"
+    eng: Food
 --- !u!1 &3580917458054091099
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,7 +854,7 @@ GameObject:
   - component: {fileID: 1427268543251092249}
   - component: {fileID: 6961879417611151162}
   - component: {fileID: 3571810974545234136}
-  - component: {fileID: 6346503974395574452}
+  - component: {fileID: 5068236032496450604}
   m_Layer: 5
   m_Name: RubbishLabel
   m_TagString: Untagged
@@ -934,7 +909,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Rubbish
+  m_text: "\u0425\u043B\u0430\u043C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7eb7c9cae58da5046945df547bb639ab, type: 2}
   m_sharedMaterial: {fileID: 8158196260901712107, guid: 7eb7c9cae58da5046945df547bb639ab, type: 2}
@@ -1003,7 +978,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6346503974395574452
+--- !u!114 &5068236032496450604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1012,37 +987,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5221908319302863321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Script: {fileID: 11500000, guid: c059b5ae4ee9494780e790f30c47a3cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:9a538ddb3f16e4b459837fc5296eacb6
-    m_TableEntryReference:
-      m_KeyId: 27312508495474688
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3571810974545234136}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  references:
-    version: 2
-    RefIds: []
+  text:
+    rus: "\u0425\u043B\u0430\u043C"
+    eng: Rubbish
 --- !u!1 &5676204591416216604
 GameObject:
   m_ObjectHideFlags: 0

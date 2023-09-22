@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace SouthBasement.Localization
@@ -18,7 +17,12 @@ namespace SouthBasement.Localization
         }
 
         private void OnValidate()
-            => _text.text = text.rus;
+        {
+            if (_text == null)
+                _text = GetComponent<TMP_Text>();
+            
+            _text.text = text.rus;
+        }
 
         private void OnLocalized(Languages language)
             => _text.text = text.GetLocalized();
