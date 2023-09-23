@@ -8,8 +8,8 @@ namespace SouthBasement.InventorySystem.ItemBase
 {
     public abstract class Item : ScriptableObject
     {
-        [field: SerializeField] public LocalizatedString ItemName { get; private set; }
-        [field: SerializeField] public LocalizatedString ItemDescription { get; private set; }
+        [field: SerializeField] public LocalizedString ItemName { get; private set; }
+        [field: SerializeField] public LocalizedString ItemDescription { get; private set; }
         [field: SerializeField] public string ItemID { get; private set; }
         [field: SerializeField] public List<ItemsTags> ItemTags { get; private set; } = new();
         [field: SerializeField] public Rarity Rarity { get; private set; } 

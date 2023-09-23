@@ -6,7 +6,7 @@ namespace SouthBasement.Localization
     [RequireComponent(typeof(TMP_Text))]
     public class LocalizatedText : MonoBehaviour
     {
-        public LocalizatedString text;
+        public LocalizedString text;
         
         private TMP_Text _text;
         

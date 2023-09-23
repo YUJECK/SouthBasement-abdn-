@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using NTC.GlobalStateMachine;
+using SouthBasement.Localization;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Localization;
 
 namespace SouthBasement
 {
     [RequireComponent(typeof(TMP_Text))]
     public sealed class RandomText : StateMachineUser
     {
-        [SerializeField] private List<string> entryReferences;
-
-        private const string TableName = "DeathPanelRandomText";
+        [SerializeField] private List<LocalizedString> texts;
         private TMP_Text _text;
 
         protected override void OnAwake()
@@ -23,10 +21,7 @@ namespace SouthBasement
 
         protected override void OnDied()
         {
-            var textToPrint 
-                = new LocalizedString(TableName, GetEntryReference()).GetLocalizedString();
-
-            StartCoroutine(PrintText(textToPrint));
+            StartCoroutine(PrintText(GetRandomText()));
         }
 
         private IEnumerator PrintText(string textToPrint)
@@ -41,7 +36,7 @@ namespace SouthBasement
             }
         }
 
-        private string GetEntryReference()
-            => entryReferences[Random.Range(0, entryReferences.Count)];
+        private string GetRandomText()
+            => texts[Random.Range(0, texts.Count)].GetLocalized();
     }
 }

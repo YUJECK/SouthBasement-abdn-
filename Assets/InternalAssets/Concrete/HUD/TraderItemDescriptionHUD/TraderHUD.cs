@@ -2,10 +2,8 @@
 using DG.Tweening;
 using NTC.GlobalStateMachine;
 using SouthBasement.InventorySystem.ItemBase;
-using SouthBasement.InventorySystem;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Localization;
 
 namespace SouthBasement.TraderItemDescriptionHUD
 {

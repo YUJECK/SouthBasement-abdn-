@@ -13,8 +13,8 @@ namespace SouthBasement.NPC
     {
         private const string DealerTable = "RubbishDealerPhrases";
 
-        [SerializeField] private LocalizatedString withRubbishPhrase;
-        [SerializeField] private LocalizatedString withoutRubbishPhrase;
+        [SerializeField] private LocalizedString withRubbishPhrase;
+        [SerializeField] private LocalizedString withoutRubbishPhrase;
 
         private TMP_Text _text; 
         private Inventory _inventory;

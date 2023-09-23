@@ -12,7 +12,7 @@
         public const string HUD = "HUD/HUD";
         public const string PauseMenu = "HUD/PauseMenu";
         public const string ItemInfoHUD = "HUD/ItemInfo";
-        public const string DialogueHUD = "HUD/DialogueWindow";
+        public const string MonologueWindow = "HUD/MonologueWindow";
         public const string TraderHUD = "HUD/TraderHUD";
         public const string CamerasContainer = "Camera/Cameras";
         public const string CamerasReacting = "Camera/CamerasReacting";

@@ -8,5 +8,6 @@
         public const string ActiveItem = "Items/ActiveItem/";
         public const string PassiveItem = "Items/PassiveItem/";
         public const string Infrastructure = "Infrastructure/";
+        public const string MonologueSystem = "MonologueSystem/";
     }
 }
