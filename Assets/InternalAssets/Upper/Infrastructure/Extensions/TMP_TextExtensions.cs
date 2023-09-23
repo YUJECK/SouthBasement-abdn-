@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace SouthBasement.InternalAssets.Upper.Infrastructure.Extensions
+namespace SouthBasement.Extensions
 {
     public static class TMP_TextExtensions 
     {

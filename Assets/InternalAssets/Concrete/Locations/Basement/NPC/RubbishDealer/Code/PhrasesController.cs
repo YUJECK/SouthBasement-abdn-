@@ -1,4 +1,4 @@
-using SouthBasement.InternalAssets.Upper.Infrastructure.Extensions;
+using SouthBasement.Extensions;
 using TMPro;
 using UnityEngine;
 using SouthBasement.InventorySystem;

@@ -12,8 +12,13 @@ namespace SouthBasement.Localization
         
         private void Awake()
         {
-            _text.text = text.GetLocalized();
+            if (_text == null)
+            {
+                _text = GetComponent<TMP_Text>();
+            }
+            
             LocalizationManager.OnLocalized += OnLocalized;
+            _text.text = text.GetLocalized();
         }
 
         private void OnValidate()
