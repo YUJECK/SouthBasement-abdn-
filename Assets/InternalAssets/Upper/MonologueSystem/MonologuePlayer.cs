@@ -24,5 +24,10 @@ namespace SouthBasement.MonologueSystem
         {
             _monologueManager.Start(monologue);
         }
+
+        public override void OnInteractionDetectedReleased()
+        {
+            _monologueManager.StopCurrent();
+        }
     }
 }

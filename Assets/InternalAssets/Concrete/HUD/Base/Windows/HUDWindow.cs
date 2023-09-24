@@ -6,7 +6,7 @@ namespace SouthBasement.HUD.Base
 {
     public abstract class HUDWindow : StateMachineUser, IWindow
     {
-        public bool CurrentlyOpened { get; protected set; } = false;
+        public virtual bool CurrentlyOpened { get; protected set; } = false;
 
         public virtual Vector2 GetClosedPosition() => Vector2.zero;
         public virtual float GetMoveSpeed() => 0.1f;

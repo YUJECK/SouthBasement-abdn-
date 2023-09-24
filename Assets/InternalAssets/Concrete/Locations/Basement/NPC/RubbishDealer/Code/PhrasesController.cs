@@ -40,7 +40,7 @@ namespace SouthBasement.NPC
             }
 
             _text.text = phrase;
-            _text.Show(phrase, 0.05f);
+            _text.TypeText(phrase, 0.05f);
         }
     }
 }

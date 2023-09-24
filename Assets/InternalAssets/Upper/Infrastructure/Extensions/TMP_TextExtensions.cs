@@ -6,11 +6,16 @@ namespace SouthBasement.Extensions
 {
     public static class TMP_TextExtensions 
     {
-        public static void Show(this TMP_Text text, string textToShow, float showRate)
+        public static TextTypingCoroutine TypeText(this TMP_Text text, string textToShow, float showRate)
         {
-            text.StartCoroutine(TextShow(text, textToShow, showRate));
+            return new TextTypingCoroutine(text.StartCoroutine(TextShow(text, textToShow, showRate)));
         }
-
+        
+        public static void StopTypingText(this TMP_Text text, TextTypingCoroutine coroutine)
+        { 
+            text.StopCoroutine(coroutine.TypingCoroutine);
+        }
+        
         private static IEnumerator TextShow(TMP_Text text, string textToShow, float showRate)
         {
             text.text = "";
@@ -20,6 +25,16 @@ namespace SouthBasement.Extensions
                 text.text += letter;
                 yield return new WaitForSeconds(showRate);
             }
+        }
+    }
+    
+    public sealed class TextTypingCoroutine
+    {
+        public readonly Coroutine TypingCoroutine;
+
+        public TextTypingCoroutine(Coroutine typingCoroutine)
+        {
+            TypingCoroutine = typingCoroutine;
         }
     }
 }

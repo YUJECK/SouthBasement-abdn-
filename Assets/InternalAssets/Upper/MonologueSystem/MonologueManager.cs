@@ -6,7 +6,7 @@ namespace SouthBasement.MonologueSystem
     {
         public event Action<Monologue> OnStarted;
         public event Action<Monologue> OnStopped;
-        public event Action<string> OnNext;
+        public event Action<string> OnSentence;
 
         public Monologue Current { get; private set; }
         public int Stage { get; private set; }
@@ -15,22 +15,30 @@ namespace SouthBasement.MonologueSystem
         {
             OnStarted?.Invoke(monologue);
             Current = monologue;
+            Stage = Monologue.MinimumStage;
+            OnSentence?.Invoke(Current.GetPhrase(Stage));
         }
 
-        public void Stop(Monologue monologue)
+        public void StopCurrent()
         {
-            OnStopped?.Invoke(monologue);  
+            OnStopped?.Invoke(Current);  
             Current = null;
         }
 
         public void MoveNext()
         {
-            if (Current != null)
-                Stage++;
-            if(Current.phrases.Length <= Stage)
-                Stop(Current);
+            if (Current == null)
+                return;
             
-            OnNext?.Invoke(Current.phrases[Stage]);
+            Stage++;
+
+            if (Current.IsCompleted(Stage))
+            {
+                StopCurrent();
+                return;
+            }
+            
+            OnSentence?.Invoke(Current.GetPhrase(Stage));
         }
     }
 }
