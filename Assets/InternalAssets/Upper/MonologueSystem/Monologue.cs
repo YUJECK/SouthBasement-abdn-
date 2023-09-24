@@ -1,3 +1,4 @@
+using SouthBasement.Localization;
 using UnityEngine;
 
 namespace SouthBasement.MonologueSystem
@@ -5,7 +6,7 @@ namespace SouthBasement.MonologueSystem
     [CreateAssetMenu(menuName = AssetMenuHelper.MonologueSystem + nameof(Monologue))]
     public sealed class Monologue : ScriptableObject
     {
-        [field: SerializeField, TextArea(0, 30)] public string[] Phrases { get; private set; }
+        [field: SerializeField] public LocalizedString[] Phrases { get; private set; }
 
         public static int MinimumStage => 0;
         public int MaximumStage => Phrases.Length - 1;
@@ -20,7 +21,7 @@ namespace SouthBasement.MonologueSystem
             if (stage > MaximumStage)
                 stage = MaximumStage;
             
-            return Phrases[stage];
+            return Phrases[stage].GetLocalized();
         }
     }
 }
