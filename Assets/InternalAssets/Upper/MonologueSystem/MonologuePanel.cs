@@ -8,6 +8,7 @@ namespace SouthBasement.MonologueSystem
     public sealed class MonologuePanel : MonoBehaviour
     {
         [SerializeField] private TMP_Text text;
+        [SerializeField] private AudioSource typeSound;
         
         private MonologuePanelConfig _monologuePanelConfig;
         private TextTypingCoroutine _textTypingCoroutine;
@@ -17,12 +18,12 @@ namespace SouthBasement.MonologueSystem
             => _monologuePanelConfig = monologuePanelConfig;
 
 
-        public void UpdateText(string text)
+        public void UpdateText(string textToPrint)
         {
             if(_textTypingCoroutine != null)
-                this.text.StopTypingText(_textTypingCoroutine);
+                text.StopTypingText(_textTypingCoroutine);
             
-            _textTypingCoroutine = this.text.TypeText(text, _monologuePanelConfig.textSpeed);
+            _textTypingCoroutine = text.TypeText(textToPrint, _monologuePanelConfig.TextTypingSpeed, () => typeSound.Play());
         }
     }
 }

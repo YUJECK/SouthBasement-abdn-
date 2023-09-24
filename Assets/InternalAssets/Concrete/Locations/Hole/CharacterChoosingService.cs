@@ -6,9 +6,7 @@ using SouthBasement.Items;
 using UnityEngine;
 using Zenject;
 using System;
-using SouthBasement.Characters.Base;
 using SouthBasement.Characters.Hole;
-using SouthBasement.Characters.Hole.Rat;
 
 namespace SouthBasement.Characters
 {

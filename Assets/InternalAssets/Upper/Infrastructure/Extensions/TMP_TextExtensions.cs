@@ -1,14 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 namespace SouthBasement.Extensions
 {
-    public static class TMP_TextExtensions 
+    public static class TMPTextExtensions 
     {
-        public static TextTypingCoroutine TypeText(this TMP_Text text, string textToShow, float showRate)
+        public static TextTypingCoroutine TypeText(this TMP_Text text, string textToShow, float showRate, Action onTyped = null)
         {
-            return new TextTypingCoroutine(text.StartCoroutine(TextShow(text, textToShow, showRate)));
+            return new TextTypingCoroutine(text.StartCoroutine(TextShow(text, textToShow, showRate, onTyped)));
         }
         
         public static void StopTypingText(this TMP_Text text, TextTypingCoroutine coroutine)
@@ -16,13 +17,15 @@ namespace SouthBasement.Extensions
             text.StopCoroutine(coroutine.TypingCoroutine);
         }
         
-        private static IEnumerator TextShow(TMP_Text text, string textToShow, float showRate)
+        private static IEnumerator TextShow(TMP_Text text, string textToShow, float showRate, Action onTyped)
         {
             text.text = "";
             
             foreach (var letter in textToShow)
             {
                 text.text += letter;
+                onTyped?.Invoke();
+                
                 yield return new WaitForSeconds(showRate);
             }
         }

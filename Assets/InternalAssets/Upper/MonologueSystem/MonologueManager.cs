@@ -13,9 +13,10 @@ namespace SouthBasement.MonologueSystem
         
         public void Start(Monologue monologue)
         {
-            OnStarted?.Invoke(monologue);
             Current = monologue;
             Stage = Monologue.MinimumStage;
+
+            OnStarted?.Invoke(monologue);
             OnSentence?.Invoke(Current.GetPhrase(Stage));
         }
 

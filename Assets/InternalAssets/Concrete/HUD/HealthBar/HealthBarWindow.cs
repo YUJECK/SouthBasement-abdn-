@@ -5,7 +5,7 @@ namespace SouthBasement.HUD
 {
     public sealed class HealthBarWindow : HUDWindow
     {
-        public override Vector2 GetClosedPosition()=> new(0, 200);
+        protected override Vector2 GetClosedPosition()=> new(0, 200);
 
         protected override void OnNPC() => Open();
         protected override void OnDied() => Close();

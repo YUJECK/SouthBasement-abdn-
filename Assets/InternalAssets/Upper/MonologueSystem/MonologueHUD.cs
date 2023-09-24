@@ -7,35 +7,46 @@ namespace SouthBasement.MonologueSystem
     public sealed class MonologueHUD : HUDWindow
     {
         [SerializeField] private MonologuePanel panel;
+        
         private MonologueManager _monologueManager;
+        private MonologuePanelConfig _monologuePanelConfig;
 
-        public override GameObject Window => panel.gameObject;
         public override bool CurrentlyOpened { get; protected set; } = true;
-        public override Vector2 GetClosedPosition() => new(0, -400);
+        protected override GameObject Window => panel.gameObject;
+        protected override Vector2 GetClosedPosition() => new(0, -400);
+        protected override float GetMoveSpeed() => _monologuePanelConfig.PanelMoveSpeed;
 
         [Inject]
-        private void Construct(MonologueManager monologueManager)
-            => _monologueManager = monologueManager;
+        private void Construct(MonologueManager monologueManager, MonologuePanelConfig config)
+        {
+            _monologueManager = monologueManager;
+            _monologuePanelConfig = config;
+        }
 
         private void Start()
+            => Close();
+
+        private void OnEnable()
+            => SubscribeOnEvents();
+
+        private void OnDisable()
+            => UnsubscribeOnEvents();
+
+        private void SubscribeOnEvents()
         {
             _monologueManager.OnStarted += OnMonologueStarted;
             _monologueManager.OnSentence += UpdateText;
-            _monologueManager.OnStopped += OnMonologueStopped ;
-            
-            Close();
+            _monologueManager.OnStopped += OnMonologueStopped;
+        }
+        private void UnsubscribeOnEvents()
+        {
+            _monologueManager.OnStarted += OnMonologueStarted;
+            _monologueManager.OnSentence += UpdateText;
+            _monologueManager.OnStopped += OnMonologueStopped;
         }
 
-        private void OnMonologueStopped(Monologue obj)
-        {
-            Close();
-        }
-
-        protected override void OnDestroyOverridable()
-        {
-            _monologueManager.OnStarted -= OnMonologueStarted;
-            _monologueManager.OnSentence -= UpdateText;
-        }
+        private void OnMonologueStopped(Monologue monologue)
+            => Close();
 
         private void OnMonologueStarted(Monologue monologue)
             => Open();

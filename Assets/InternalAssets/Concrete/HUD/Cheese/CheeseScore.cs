@@ -15,7 +15,7 @@ namespace SouthBasement.HUD
 
         private int _currentCheese;
 
-        public override Vector2 GetClosedPosition() => new(-300, 0f);
+        protected override Vector2 GetClosedPosition() => new(-300, 0f);
 
         [Inject]
         private void Construct(CheeseService cheeseService)

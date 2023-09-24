@@ -7,9 +7,9 @@ namespace SouthBasement
     {
         [SerializeField] private Transform uiMaster;
 
-        public override GameObject Window => uiMaster.gameObject;
+        protected override GameObject Window => uiMaster.gameObject;
 
-        public override Vector2 GetClosedPosition()
+        protected override Vector2 GetClosedPosition()
             => new(0, -200);
 
         protected override void OnNPC() { }
