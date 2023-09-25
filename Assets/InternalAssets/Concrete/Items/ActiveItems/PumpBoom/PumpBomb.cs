@@ -17,14 +17,14 @@ namespace SouthBasement
         public Sprite defaultSprite;
         public Sprite disabledSprite;
         
-        private CharacterGameObject _characterGameObject;
+        private Character _character;
 
         private bool _blocked = false;
 
         [Inject]
         private void Construct(Character character)
         {
-            _characterGameObject = character.GameObject;
+            _character = character;
 
             _blocked = false;
         }
@@ -39,7 +39,7 @@ namespace SouthBasement
             if(_blocked)
                 return;
             
-            var pump = Instantiate(prefab, _characterGameObject.transform.position, Quaternion.identity);
+            var pump = Instantiate(prefab, _character.GameObject.transform.position, Quaternion.identity);
             pump.Set(stats);
             
             Culldown();

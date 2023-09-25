@@ -40,9 +40,9 @@ namespace SouthBasement.MonologueSystem
         }
         private void UnsubscribeOnEvents()
         {
-            _monologueManager.OnStarted += OnMonologueStarted;
-            _monologueManager.OnSentence += UpdateText;
-            _monologueManager.OnStopped += OnMonologueStopped;
+            _monologueManager.OnStarted -= OnMonologueStarted;
+            _monologueManager.OnSentence -= UpdateText;
+            _monologueManager.OnStopped -= OnMonologueStopped;
         }
 
         private void OnMonologueStopped(Monologue monologue)
