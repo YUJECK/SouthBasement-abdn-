@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using SouthBasement.Interactions;
 using SouthBasement.Helpers;
 using SouthBasement.InventorySystem.ItemBase;
@@ -39,6 +40,9 @@ namespace SouthBasement.InventorySystem
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
 
+            transform.localScale = Vector3.zero;
+            transform.DOScale(Vector3.one, 0.3f);
+            
             if(Item != null)
             {
                 Item = ScriptableObject.Instantiate(Item);
