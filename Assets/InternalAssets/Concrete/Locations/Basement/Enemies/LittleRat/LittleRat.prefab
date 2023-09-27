@@ -496,6 +496,7 @@ GameObject:
   - component: {fileID: 1736737462260679793}
   - component: {fileID: 8397481913394092725}
   - component: {fileID: 2833783897902796021}
+  - component: {fileID: 6197261623529511343}
   m_Layer: 8
   m_Name: LittleRat
   m_TagString: Untagged
@@ -708,6 +709,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eedb7bfc4a42d834988b3df6dd08bda7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6197261623529511343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247723299269583120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b2c22aa18c7cb4a9cff0f637d3e5a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rubbish:
+  - SpawnChance: 40
+    Prefab: {fileID: 11400000, guid: c6e7ead739e9d6849a867b61608dea24, type: 2}
+  - SpawnChance: 30
+    Prefab: {fileID: 11400000, guid: 5332714672d72ca4da1f7eb0bc2eb833, type: 2}
 --- !u!1 &4247723299384042741
 GameObject:
   m_ObjectHideFlags: 0
