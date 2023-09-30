@@ -11,9 +11,12 @@ namespace SouthBasement.Tests
     [CreateAssetMenu(menuName = AssetMenuHelper.Food + "HealFood")]
     public sealed class HealFood : FoodItem
     {
+        [SerializeField] private int heal;
+
         private CharacterStats _characterStats;
         private Inventory _inventory;
-        [SerializeField] private int heal;
+
+        public event Action OnUsed;
 
         [Inject]
         private void Construct(CharacterStats characterStats, Inventory inventory)
@@ -21,8 +24,6 @@ namespace SouthBasement.Tests
             _inventory = inventory;
             _characterStats = characterStats;
         }
-        
-        public event Action OnUsed;
 
         public override string GetStatsDescription()
         {

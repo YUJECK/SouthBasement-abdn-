@@ -21,6 +21,11 @@ namespace SouthBasement.InventorySystem
                 SetItem(null);
         }
 
+        private void OnDisable()
+        {
+            CurrentItem.OnItemSpriteChanged -= UpdateSprite;
+        }
+
         public virtual void SetItem(TItem item)
         {
             if (item == null)
