@@ -1,5 +1,4 @@
 ﻿using System;
-using SouthBasement;
 using UnityEngine;
 
 namespace SouthBasement.AI
@@ -10,6 +9,8 @@ namespace SouthBasement.AI
         public bool Enabled { get; private set; } = false;
 
         public event Action<Enemy> OnDied;
+        public event Action<Enemy> OnEnable;
+        public event Action<Enemy> OnDisable;
 
         public virtual void Die()
         {
@@ -19,11 +20,13 @@ namespace SouthBasement.AI
         public virtual void Enable()
         {
             Enabled = true;
+            OnEnable?.Invoke(this);
         }
 
         public virtual void Disable()
         {
             Enabled = false;
+            OnDisable?.Invoke(this);
         }
     }
 }

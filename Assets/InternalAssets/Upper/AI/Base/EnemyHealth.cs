@@ -12,10 +12,13 @@ namespace SouthBasement.AI
         public event Action<int> OnDamaged;
 
         protected Enemy Enemy;
+        public virtual bool DefendedFromHits { get; set; }
 
         public virtual void Damage(int damage, AttackTags[] args)
         {
-            CurrentHealth -= damage;
+            if (DefendedFromHits) return;
+
+                CurrentHealth -= damage;
 
             if (CurrentHealth <= 0)
             {

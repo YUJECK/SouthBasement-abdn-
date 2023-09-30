@@ -23,7 +23,21 @@ namespace SouthBasement.AI
             EffectsHandler = gameObject.Get<EffectsHandler>();
             
             Enemy.OnDied += DropItems;
+            
+            Enemy.OnEnable += OnEnemyEnable;
+            Enemy.OnDisable += OnEnemyDisable;
+            
             OnDamaged += PlayHitSound;
+        }
+
+        private void OnEnemyDisable(Enemy obj)
+        {
+            DefendedFromHits = true;
+        }
+
+        private void OnEnemyEnable(Enemy obj)
+        {
+            DefendedFromHits = false;
         }
 
         private void PlayHitSound(int obj)

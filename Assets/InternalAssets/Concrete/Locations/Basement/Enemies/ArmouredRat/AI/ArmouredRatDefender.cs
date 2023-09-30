@@ -10,7 +10,7 @@ namespace SouthBasement.Basement.Enemies.ArmouredRat.AI
         private ArmouredRatAnimator _armouredRatAnimator;
         private PlayerEnterTrigger _playerEnterTrigger;
 
-        public bool CurrentDefending => _armouredRatHealth.CurrentDefends;
+        public bool CurrentDefending => _armouredRatHealth.DefendedFromHits;
 
         private void Start()
         {   
@@ -24,12 +24,12 @@ namespace SouthBasement.Basement.Enemies.ArmouredRat.AI
 
         public void Defend()
         {
-            _armouredRatHealth.CurrentDefends = true;
+            _armouredRatHealth.DefendedFromHits = true;
             _armouredRatAnimator.PlayDefends();
         }
         public void UnDefend()
         {
-            _armouredRatHealth.CurrentDefends = false;
+            _armouredRatHealth.DefendedFromHits = false;
             _armouredRatAnimator.PlayIdle();
         }
     }
