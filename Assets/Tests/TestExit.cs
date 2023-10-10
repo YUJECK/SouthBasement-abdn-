@@ -21,6 +21,8 @@ namespace SouthBasement.Tests
         private void Construct(MaterialHelper materialHelper)
         {
             _materialHelper = materialHelper;
+
+            RectTransform transform;
         }
         
         public void Detect()
